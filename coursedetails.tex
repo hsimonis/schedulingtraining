@@ -1,0 +1,160 @@
+\documentclass[a4paper]{article}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\title{ENTIRE EDIH Training Course AI Based Scheduling}
+\author{Helmut Simonis\\School of Computer Science and Information Technology\\University College Cork\\Cork, Ireland\\email:helmut.simonis@insight-centre.org}
+\begin{document}
+\maketitle
+\begin{abstract}
+This document describes the detailed structure of a training course on AI based scheduling for the ENTIRE EDIH project. The training course provides an overview of current Constraint-based techniques to model and scheduling problems arising in project scheduling and manufacturing industries. It provides some hands-on experience with available open-source tools, and also describes key features of commercial solutions.
+\end{abstract}
+\section{Introduction}
+\label{sec:introduction}
+
+\section{Intended Audience}
+\label{sec:audience}
+
+The course is intended for decision makers and persons facing scheduling problems in their professional work. IT personnel or consultants charged with choice of tools, development of models, or integration into the existing infrastructure will also be interested.
+
+\section{Learning Outcomes}
+\label{sec:outcomes}
+
+After attending the course, the students should be able to
+
+\begin{itemize}
+\item Understand the need and potential for automated scheduling
+\item Understand the basic ideas behind Constraint-Based Scheduling
+\begin{itemize}
+\item Declarative modeling
+\item Abstraction of complex solving methods
+\item Explainable reasoning
+\end{itemize}
+\item Identify and apply the basic constraint types occurring in scheduling
+\item Understand the strength and weaknesses of available tools
+\item Be aware of basic visualization methods for scheduling
+\end{itemize}
+
+
+\section{Timetable}
+\label{sec:timetable}
+
+Table~\ref{tab:timetable} shows the format of the course delivered in a two-day event. The course consists of seven modules, which will be described in more detail in Section~\ref{sec:modules}.  
+
+\begin{table}[htbp]
+\caption{\label{tab:timetable}Proposed Two Day Course Structure}
+\begin{tabular}{lp{4cm}p{4cm}}\toprule
+Time & Day 1 & Day 2\\\midrule
+09:00-10:30 & Introduction \& Motivation & Costs \& Objective Functions\\
+10:30-11:00 & Coffee & Coffee \\
+11:00-12:30 & Scheduling Concepts& Advanced Concepts\\
+12:30-14:00 & Lunch & Lunch \\
+14:00-15:30 & Machine Constraints & Case Studies\\
+15:30-16:00 & Coffee & Coffee \& Close\\
+16:00-17:00 & Experiments & -\\
+\bottomrule
+\end{tabular}
+\end{table} 
+
+\section{Modules}
+\label{sec:modules}
+
+This section gives a brief bullet-point list of the key elements of each of the modules of the course. The course will be delivered as a mix of overview slides, some example problems and solutions using different solvers, and a hands-on session to explore programs and demonstrators. 
+
+\subsection{Introduction \& Motivation}
+
+\begin{itemize}
+\item What is scheduling?
+\item What is constraint-based Scheduling?
+\item Solution approaches
+\item Some industrial examples
+\item Benefits of automated scheduling
+\item Why not just use a package?
+\item A short history of Constraint-Based Scheduling
+\end{itemize}
+
+\subsection{Scheduling Concepts}
+\begin{itemize}
+\item Core Concepts: Products, orders, jobs, tasks
+\item Temporal relations
+\item Release date and due date 
+\item Processes, bill of material (BoM)
+\item Problem classification
+\begin{itemize}
+\item RCPSP
+\item Job-Shop, Flow-shop, Open-shop
+\item $\alpha,\beta,\gamma$ Notation
+\end{itemize}
+\item Visualization methods
+\begin{itemize}
+\item Gantt chart (Job/Machine view)
+\item Precedence graphs
+\item Resource profiles
+\end{itemize}
+\end{itemize}
+
+\subsection{Machine Constraints}
+\begin{itemize}
+\item Disjunctive resources
+\item Cumulative Resources
+\item Machine Choice
+\item Work in progress
+\item Calendars
+\begin{itemize}
+\item Factory-wide calendar
+\item Machine specific calendars
+\item Changing work pattern
+\end{itemize}
+\end{itemize}
+
+\subsection{Experiments}
+\begin{itemize}
+\item Hands-on experience with some open-source tools
+\item Based on provided examples
+\item Impact of different solvers
+\item Visualization of results
+\end{itemize}
+
+\subsection{Costs and Objective Functions}
+\begin{itemize}
+\item Different types of objectives
+\item Cost vs. profit based objectives
+\item Makespan
+\item Lateness
+\item Just-in-time
+\item Interactive Scheduling
+\end{itemize}
+
+\subsection{Advanced Concepts}
+\begin{itemize}
+\item Sequence dependent setup
+\item Human resource constraints
+\begin{itemize}
+\item Cumulative limits
+\item Assigned operators
+\item Skill levels
+\item Operator speed
+\end{itemize}
+\item Preemption
+\item Producer/Consumer constraints
+\item Alternative process paths
+\item Outsourcing decisions
+\end{itemize}
+
+\subsection{Case Studies}
+
+\begin{itemize}
+\item Present some industrial success stories
+\item Show how they fit into the framework provided
+\item Blades and Vanes Production for Gas Turbines (Siemens Energy)
+\item Oven Scheduling: Short-term and Long-term Objectives (Atlas-Copco)
+\item Factory Design Analysis (Johnson \& Johnson)
+\item A guide to the literature
+\item Teaser: Try before you buy Scheduling
+\end{itemize}
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+\end{document}
