@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<!--Generated at 14:32:41 on 2024-09-23-->
+
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
+   <top>
+      <MenuBar>
+         <menus>
+            <Menu text="_File">
+               <items>
+                  <MenuItem id="File New" accelerator="Shortcut+N" onAction="#handle" text="New" />
+                  <SeparatorMenuItem />
+                  <MenuItem id="Open" accelerator="Shortcut+O" onAction="#handle" text="Open..." />
+                  <MenuItem id="Save" accelerator="Shortcut+S" onAction="#handle" text="Save" />
+                  <MenuItem id="Save As" accelerator="Shortcut+A" onAction="#handle" text="Save As..." />
+                  <MenuItem id="Save As XML" accelerator="Shortcut+L" onAction="#handle" text="Save As XML..." />
+                  <MenuItem id="Load From XML" accelerator="Shortcut+F" onAction="#handle" text="Load From XML..." />
+                  <SeparatorMenuItem />
+                  <MenuItem id="LoadDataFileAction" accelerator="Shortcut+g" onAction="#handle" text="Load DataFile..." />
+                  <MenuItem id="SaveSpreadsheetAction" onAction="#handle" text="Save Result..." />
+                  <MenuItem id="GenerateReportAction" onAction="#handle" text="Generate Report..." />
+                  <SeparatorMenuItem />
+                  <MenuItem id="Print" accelerator="Shortcut+P" onAction="#handle" text="Print..." />
+                  <SeparatorMenuItem />
+                  <MenuItem id="Exit" accelerator="Shortcut+X" onAction="#handle" text="Exit" />
+               </items>
+            </Menu>
+            <Menu text="_Edit">
+               <items>
+                  <MenuItem id="New" onAction="#handle" text="New" />
+                  <MenuItem id="Copy" accelerator="Shortcut+C" onAction="#handle" text="Copy" />
+                  <MenuItem id="Paste" onAction="#handle" text="Paste" />
+                  <MenuItem id="Cut" accelerator="Shortcut+D" onAction="#handle" text="Delete" />
+               </items>
+            </Menu>
+            <Menu text="_Scenario">
+               <items>
+                  <MenuItem id="scheduleJobsSolverRun" onAction="#handle" text="ScheduleJobs Solver..." />
+                  <MenuItem id="Check Data" onAction="#handle" text="Check Data" />
+                  <SeparatorMenuItem />
+                  <MenuItem id="Compare" onAction="#handle" text="Compare..." />
+               </items>
+            </Menu>
+            <Menu text="_View">
+               <items>
+                  <MenuItem id="Normal Size" onAction="#handle" text="Normal Size" />
+                  <Menu text="_Zoom">
+                     <items>
+                        <MenuItem id="ZoomSmallest" accelerator="Shortcut+T" onAction="#handle" text="Smallest" />
+                        <MenuItem id="ZoomSmall" onAction="#handle" text="Small" />
+                        <MenuItem id="ZoomSmaller" accelerator="Shortcut+M" onAction="#handle" text="Smaller" />
+                        <MenuItem id="ZoomNormal" onAction="#handle" text="Normal" />
+                        <MenuItem id="ZoomLarger" onAction="#handle" text="Larger" />
+                        <MenuItem id="ZoomLarge" onAction="#handle" text="Large" />
+                        <MenuItem id="ZoomLargest" accelerator="Shortcut+G" onAction="#handle" text="Largest" />
+                     </items>
+                  </Menu>
+                  <MenuItem id="Zoom In" accelerator="Shortcut+I" onAction="#handle" text="Zoom In" />
+                  <MenuItem id="Zoom Out" onAction="#handle" text="Zoom Out" />
+               </items>
+            </Menu>
+            <Menu text="_Window">
+               <items>
+                  <Menu text="_Problem">
+                     <items>
+                        <MenuItem id="problemPage" onAction="#handle" text="Problem" />
+                     </items>
+                  </Menu>
+                  <Menu text="_Product">
+                     <items>
+                        <MenuItem id="productPage" onAction="#handle" text="Product" />
+                        <MenuItem id="processPage" onAction="#handle" text="Process" />
+                        <MenuItem id="processStepPage" onAction="#handle" text="ProcessStep" />
+                        <MenuItem id="processSequencePage" onAction="#handle" text="ProcessSequence" />
+                        <MenuItem id="resourceNeedPage" accelerator="Shortcut+R" onAction="#handle" text="ResourceNeed" />
+                     </items>
+                  </Menu>
+                  <Menu text="_Resource">
+                     <items>
+                        <MenuItem id="disjunctiveResourcePage" onAction="#handle" text="DisjunctiveResource" />
+                        <MenuItem id="cumulativeResourcePage" onAction="#handle" text="CumulativeResource" />
+                     </items>
+                  </Menu>
+                  <Menu text="_Order">
+                     <items />
+                  </Menu>
+                  <SeparatorMenuItem />
+                  <Menu text="_Schedule">
+                     <items />
+                  </Menu>
+                  <SeparatorMenuItem />
+                  <Menu text="_Solution">
+                     <items>
+                        <MenuItem id="solutionPage" onAction="#handle" text="Solution" />
+                        <MenuItem id="jobAssignmentPage" accelerator="Shortcut+J" onAction="#handle" text="JobAssignment" />
+                        <MenuItem id="taskAssignmentPage" onAction="#handle" text="TaskAssignment" />
+                     </items>
+                  </Menu>
+                  <SeparatorMenuItem />
+                  <MenuItem id="scenarioPage" onAction="#handle" text="Scenario" />
+                  <MenuItem id="GenericPieChart" onAction="#handle" text="Generic Pie Chart" />
+                  <MenuItem id="GenericBarChart" accelerator="Shortcut+B" onAction="#handle" text="Generic Bar Chart" />
+                  <MenuItem id="GenericScatterChart" onAction="#handle" text="Generic Scatter Chart" />
+                  <Menu text="_System">
+                     <items>
+                        <MenuItem id="applicationDifferencePage" onAction="#handle" text="Scenario Differences" />
+                        <MenuItem id="applicationWarningPage" accelerator="Shortcut+W" onAction="#handle" text="Warnings" />
+                     </items>
+                  </Menu>
+               </items>
+            </Menu>
+            <Menu text="_Help">
+               <items>
+                  <SeparatorMenuItem />
+                  <MenuItem id="About" onAction="#handle" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </top>
+   <bottom>
+      <HBox styleClass="chart-legend">
+         <Label fx:id="statusBar" />
+      </HBox>
+   </bottom>
+</BorderPane>

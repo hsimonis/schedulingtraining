@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="body">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applicationDifference" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="applicationWarning" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="cumulativeResource" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="disjunctiveResource" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="job" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="jobAssignment" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="order" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="problem" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="process" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="processSequence" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="processStep" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="product" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="resourceNeed" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="scenario" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="solution" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="task" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="taskAssignment" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="applicationDifference">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="item" use="required" type="xs:string"/>
+			<xs:attribute name="type" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="applicationWarning">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="attrString" use="required" type="xs:string"/>
+			<xs:attribute name="classString" use="required" type="xs:string"/>
+			<xs:attribute name="item" use="required" type="xs:string"/>
+			<xs:attribute name="limit" use="required" type="xs:string"/>
+			<xs:attribute name="type" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cumulativeResource">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="disjunctiveResource">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="job">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="order" use="required" type="xs:IDREF"/>
+			<xs:attribute name="process" use="required" type="xs:IDREF"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="jobAssignment">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="duration" use="required" type="xs:integer"/>
+			<xs:attribute name="end" use="required" type="xs:integer"/>
+			<xs:attribute name="endDate" use="required" type="xs:dateTime"/>
+			<xs:attribute name="job" use="required" type="xs:IDREF"/>
+			<xs:attribute name="solution" use="required" type="xs:IDREF"/>
+			<xs:attribute name="start" use="required" type="xs:integer"/>
+			<xs:attribute name="startDate" use="required" type="xs:dateTime"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="order">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="due" use="required" type="xs:integer"/>
+			<xs:attribute name="dueDate" use="required" type="xs:integer"/>
+			<xs:attribute name="product" use="required" type="xs:IDREF"/>
+			<xs:attribute name="qty" use="required" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="problem">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="timePointsAsDate" use="required" type="xs:boolean"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="process">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="processSequence">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="after" use="required" type="xs:IDREF"/>
+			<xs:attribute name="before" use="required" type="xs:IDREF"/>
+			<xs:attribute name="offset" use="required" type="xs:integer"/>
+			<xs:attribute name="sequenceType" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="processStep">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="durationFixed" use="required" type="xs:integer"/>
+			<xs:attribute name="durationPerUnit" use="required" type="xs:integer"/>
+			<xs:attribute name="process" use="required" type="xs:IDREF"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="product">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="process" use="required" type="xs:IDREF"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="resourceNeed">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="disjunctiveResource" use="required" type="xs:IDREF"/>
+			<xs:attribute name="processStep" use="required" type="xs:IDREF"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="scenario">
+		<xs:complexType>
+			<xs:attribute name="dirty" use="required" type="xs:boolean"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="valid" use="required" type="xs:boolean"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="solution">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="objectiveValue" use="required" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="task">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="job" use="required" type="xs:IDREF"/>
+			<xs:attribute name="processStep" use="required" type="xs:IDREF"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="taskAssignment">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="duration" use="required" type="xs:integer"/>
+			<xs:attribute name="end" use="required" type="xs:integer"/>
+			<xs:attribute name="endDate" use="required" type="xs:dateTime"/>
+			<xs:attribute name="jobAssignment" use="required" type="xs:IDREF"/>
+			<xs:attribute name="resource" use="required" type="xs:integer"/>
+			<xs:attribute name="start" use="required" type="xs:integer"/>
+			<xs:attribute name="startDate" use="required" type="xs:dateTime"/>
+			<xs:attribute name="task" use="required" type="xs:IDREF"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
