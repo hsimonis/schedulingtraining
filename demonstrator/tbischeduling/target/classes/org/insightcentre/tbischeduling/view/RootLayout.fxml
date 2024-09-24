@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 14:27:51 on 2024-09-23-->
+<!--Generated at 14:32:41 on 2024-09-23-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -70,10 +70,14 @@
             </Menu>
             <Menu text="_Window">
                <items>
-                  <MenuItem id="problemPage" onAction="#handle" text="Problem" />
-                  <MenuItem id="productPage" onAction="#handle" text="Product" />
-                  <Menu text="_Process">
+                  <Menu text="_Problem">
                      <items>
+                        <MenuItem id="problemPage" onAction="#handle" text="Problem" />
+                     </items>
+                  </Menu>
+                  <Menu text="_Product">
+                     <items>
+                        <MenuItem id="productPage" onAction="#handle" text="Product" />
                         <MenuItem id="processPage" onAction="#handle" text="Process" />
                         <MenuItem id="processStepPage" onAction="#handle" text="ProcessStep" />
                         <MenuItem id="processSequencePage" onAction="#handle" text="ProcessSequence" />
@@ -101,6 +105,7 @@
                         <MenuItem id="taskAssignmentPage" onAction="#handle" text="TaskAssignment" />
                      </items>
                   </Menu>
+                  <SeparatorMenuItem />
                   <MenuItem id="scenarioPage" onAction="#handle" text="Scenario" />
                   <MenuItem id="GenericPieChart" onAction="#handle" text="Generic Pie Chart" />
                   <MenuItem id="GenericBarChart" accelerator="Shortcut+B" onAction="#handle" text="Generic Bar Chart" />

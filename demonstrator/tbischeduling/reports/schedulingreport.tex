@@ -1,0 +1,81 @@
+\documentclass[a4paper]{article}
+\usepackage[a4paper,margin=1in,landscape]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{longtable}
+\usepackage[table,svgnames]{xcolor}
+\usepackage{colortbl}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.14}
+\usepgfplotslibrary{dateplot}
+\usetikzlibrary{plotmarks}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{eurosym}
+\usepackage{forest}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lfoot{Section \leftmark}
+\cfoot{}
+\rfoot{\thepage}
+\rhead{Generated: \today}
+\chead{}
+\lhead{Scheduling Report}
+\usepackage{hyperref}
+\title{Scheduling Report}
+\author{L. O'Toole and H. Simonis}
+\date{Report Generated on \today}
+
+\begin{document}
+\maketitle
+\section{Introduction}
+
+\begin{table}[htbp]
+\caption{Problem}
+\centering
+\begin{tabular}{lr} \toprule
+Name &\shortstack{Timepoint\\as\\Date} \\ \midrule
+P1&true\\ 
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Orders}
+
+\begin{longtable}{lllrr}
+\caption{Orders (Total 20)}
+\\ \toprule
+Name &Product &Process &Qty &Due \\ \midrule
+\endfirsthead
+\toprule
+Name &Product &Process &Qty &Due \\ \midrule
+\endhead
+\bottomrule
+\endfoot
+Order0&Prod1&Process 1&3&2,409\\ 
+Order1&Prod0&Process 0&3&459\\ 
+Order2&Prod2&Process 2&1&2,845\\ 
+Order3&Prod1&Process 1&1&1,925\\ 
+Order4&Prod2&Process 2&4&2,591\\ 
+Order5&Prod4&Process 4&9&2,873\\ 
+Order6&Prod3&Process 3&3&318\\ 
+Order7&Prod3&Process 3&1&1,399\\ 
+Order8&Prod2&Process 2&6&2,203\\ 
+Order9&Prod1&Process 1&8&1,634\\ 
+Order10&Prod4&Process 4&4&208\\ 
+Order11&Prod1&Process 1&4&2,728\\ 
+Order12&Prod3&Process 3&3&1,917\\ 
+Order13&Prod0&Process 0&4&2,331\\ 
+Order14&Prod4&Process 4&5&2,800\\ 
+Order15&Prod1&Process 1&4&2,673\\ 
+Order16&Prod1&Process 1&6&1,968\\ 
+Order17&Prod2&Process 2&2&405\\ 
+Order18&Prod4&Process 4&3&2,791\\ 
+Order19&Prod3&Process 3&3&1,383\\ 
+\end{longtable}
+
+\section{No Solutions}
+
+\end{document}
