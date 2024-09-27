@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 18:08:58 on 2024-09-26 */
+ * Generated at 07:28:35 on 2024-09-27 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -162,11 +162,13 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
 		filterNames.add("name");
+		filterNames.add("shortName");
 		filterNames.add("job");
 		filterNames.add("processStep");
 		attributeNames.add("duration");
 		filterNames.add("duration");
 		filterNames.add("machines");
+		filterNames.add("precedes");
 		filterNames.add("job.order");
 		filterNames.add("job.order.product");
 		attributeNames.add("job.order.qty");
@@ -218,10 +220,14 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("flowtime");
 		attributeNames.add("totalLateness");
 		filterNames.add("totalLateness");
+		attributeNames.add("maxLateness");
+		filterNames.add("maxLateness");
 		attributeNames.add("weightedLateness");
 		filterNames.add("weightedLateness");
 		attributeNames.add("totalEarliness");
 		filterNames.add("totalEarliness");
+		attributeNames.add("maxEarliness");
+		filterNames.add("maxEarliness");
 		attributeNames.add("weightedEarliness");
 		filterNames.add("weightedEarliness");
 		filterNames.add("solverRun.modelType");

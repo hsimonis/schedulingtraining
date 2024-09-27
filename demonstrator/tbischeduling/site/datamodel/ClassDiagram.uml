@@ -71,6 +71,7 @@ Process  *-- Job
 Job  *-- Task 
 ProcessStep  *-- Task 
 DisjunctiveResource "1..*" *-- Task : machines
+Task "0..*" *-- Task : precedes
 SolverRun  *-- Solution 
 Solution  *-- JobAssignment 
 Job  *-- JobAssignment 

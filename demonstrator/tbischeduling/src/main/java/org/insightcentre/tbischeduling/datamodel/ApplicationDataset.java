@@ -1543,6 +1543,24 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Removing object item of class Task; remove all dependent objects of class Task which refer to item through their attribute precedes
+ *
+*/
+
+    public void cascadeTaskPrecedes(Task item){
+        assert item != null;
+        List<Task> toRemove = new ArrayList<Task>();
+        for(Task a:getListTask()) {
+         if (a.getPrecedes().contains(item)) {
+            a.getPrecedes().remove(item);
+         }
+        }
+        for(Task b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
  *  Removing object item of class SolverRun; remove all dependent objects of class Solution which refer to item through their attribute solverRun
  *
 */

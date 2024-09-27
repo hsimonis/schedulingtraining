@@ -15,39 +15,39 @@ public class GenerateDataSolver extends DefaultSolver{
     protected int nrProducts=5;
     protected int nrStages=3;
     protected int nrDisjunctiveResources=6;
-    protected int nrCumulativeResources=1;
     protected double resourceProbability=0.3;
+    protected int nrCumulativeResources=1;
     protected int minCumulDemand=1;
     protected int maxCumulDemand=5;
     protected int cumulCapacity=10;
     protected int nrOrders=20;
+    protected int minQty=1;
+    protected int maxQty=10;
     protected int earliestDue=20;
     protected int horizonDays=10;
     protected int timeResolution=5;
-    protected int minQty=1;
-    protected int maxQty=10;
     protected int seed=42;
 
     public GenerateDataSolver(Scenario base){
         super(base,new String[] {});
     }
-    public GenerateDataSolver(Scenario base,String name,int nrProducts,int nrStages,int nrDisjunctiveResources,int nrCumulativeResources,double resourceProbability,int minCumulDemand,int maxCumulDemand,int cumulCapacity,int nrOrders,int earliestDue,int horizonDays,int timeResolution,int minQty,int maxQty,int seed){
+    public GenerateDataSolver(Scenario base,String name,int nrProducts,int nrStages,int nrDisjunctiveResources,double resourceProbability,int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,int cumulCapacity,int nrOrders,int minQty,int maxQty,int earliestDue,int horizonDays,int timeResolution,int seed){
         super(base,new String[] {});
         this.name=name;
         this.nrProducts=nrProducts;
         this.nrStages=nrStages;
         this.nrDisjunctiveResources=nrDisjunctiveResources;
-        this.nrCumulativeResources=nrCumulativeResources;
         this.resourceProbability=resourceProbability;
+        this.nrCumulativeResources=nrCumulativeResources;
         this.minCumulDemand=minCumulDemand;
         this.maxCumulDemand=maxCumulDemand;
         this.cumulCapacity=cumulCapacity;
         this.nrOrders=nrOrders;
+        this.minQty=minQty;
+        this.maxQty=maxQty;
         this.earliestDue=earliestDue;
         this.horizonDays=horizonDays;
         this.timeResolution=timeResolution;
-        this.minQty=minQty;
-        this.maxQty=maxQty;
         this.seed=seed;
     }
 
@@ -67,12 +67,12 @@ public int getNrDisjunctiveResources(){
  return nrDisjunctiveResources;
 }
 
-public int getNrCumulativeResources(){
- return nrCumulativeResources;
-}
-
 public double getResourceProbability(){
  return resourceProbability;
+}
+
+public int getNrCumulativeResources(){
+ return nrCumulativeResources;
 }
 
 public int getMinCumulDemand(){
@@ -91,6 +91,14 @@ public int getNrOrders(){
  return nrOrders;
 }
 
+public int getMinQty(){
+ return minQty;
+}
+
+public int getMaxQty(){
+ return maxQty;
+}
+
 public int getEarliestDue(){
  return earliestDue;
 }
@@ -101,14 +109,6 @@ public int getHorizonDays(){
 
 public int getTimeResolution(){
  return timeResolution;
-}
-
-public int getMinQty(){
- return minQty;
-}
-
-public int getMaxQty(){
- return maxQty;
 }
 
 public int getSeed(){
@@ -135,13 +135,13 @@ public GenerateDataSolver setNrDisjunctiveResources(int v){
  return this;
 }
 
-public GenerateDataSolver setNrCumulativeResources(int v){
- nrCumulativeResources = v;
+public GenerateDataSolver setResourceProbability(double v){
+ resourceProbability = v;
  return this;
 }
 
-public GenerateDataSolver setResourceProbability(double v){
- resourceProbability = v;
+public GenerateDataSolver setNrCumulativeResources(int v){
+ nrCumulativeResources = v;
  return this;
 }
 
@@ -165,6 +165,16 @@ public GenerateDataSolver setNrOrders(int v){
  return this;
 }
 
+public GenerateDataSolver setMinQty(int v){
+ minQty = v;
+ return this;
+}
+
+public GenerateDataSolver setMaxQty(int v){
+ maxQty = v;
+ return this;
+}
+
 public GenerateDataSolver setEarliestDue(int v){
  earliestDue = v;
  return this;
@@ -177,16 +187,6 @@ public GenerateDataSolver setHorizonDays(int v){
 
 public GenerateDataSolver setTimeResolution(int v){
  timeResolution = v;
- return this;
-}
-
-public GenerateDataSolver setMinQty(int v){
- minQty = v;
- return this;
-}
-
-public GenerateDataSolver setMaxQty(int v){
- maxQty = v;
  return this;
 }
 

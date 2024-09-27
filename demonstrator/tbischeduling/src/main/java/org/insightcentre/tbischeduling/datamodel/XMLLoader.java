@@ -761,6 +761,8 @@ public ObjectiveType getObjectiveType(String attributeName,
                         getInteger("flowtime",attributes,0),
                         getDouble("gap",attributes,0.0),
                         getInteger("makespan",attributes,0),
+                        getInteger("maxEarliness",attributes,0),
+                        getInteger("maxLateness",attributes,0),
                         getInteger("objectiveValue",attributes,0),
                         null,
                         null,
@@ -798,7 +800,9 @@ public ObjectiveType getObjectiveType(String attributeName,
                         getInteger("duration",attributes,0),
                         null,
                         null,
-                        null
+                        null,
+                        null,
+                        getString("shortName",attributes,"")
                         ));
             } else if (qname.equals("taskAssignment")) {
                 assert (base != null);
@@ -948,6 +952,7 @@ public ObjectiveType getObjectiveType(String attributeName,
                 Task item = (Task) find(id);
                  item.setJob(getJob("job",attributes));
                  item.setMachines(getDisjunctiveResourceCollectionFromIds("machines",attributes));
+                 item.setPrecedes(getTaskCollectionFromIds("precedes",attributes));
                  item.setProcessStep(getProcessStep("processStep",attributes));
             } else if (qname.equals("taskAssignment")) {
                 assert (base != null);

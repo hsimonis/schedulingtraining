@@ -27,7 +27,7 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
 
 /**
- * Generated at 18:08:58 on 2024-09-26 */
+ * Generated at 07:28:35 on 2024-09-27 */
 public class ScenarioController extends Table3Controller {
 	@FXML
 	private TableView<Scenario> table;

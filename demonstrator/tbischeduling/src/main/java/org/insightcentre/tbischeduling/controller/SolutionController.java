@@ -32,7 +32,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 18:08:58 on 2024-09-26 */
+ * Generated at 07:28:35 on 2024-09-27 */
 public class SolutionController extends Table3Controller {
 	@FXML
 	private TableView<Solution> table;
@@ -65,10 +65,16 @@ public class SolutionController extends Table3Controller {
 	private TableColumn<Solution, Integer> totalLateness;
 
 	@FXML
+	private TableColumn<Solution, Integer> maxLateness;
+
+	@FXML
 	private TableColumn<Solution, Double> weightedLateness;
 
 	@FXML
 	private TableColumn<Solution, Integer> totalEarliness;
+
+	@FXML
+	private TableColumn<Solution, Integer> maxEarliness;
 
 	@FXML
 	private TableColumn<Solution, Double> weightedEarliness;
@@ -158,6 +164,10 @@ public class SolutionController extends Table3Controller {
 		totalLateness.setCellValueFactory(new PropertyValueFactory<>("totalLateness"));
 		totalLateness.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		totalLateness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalLateness(event.getNewValue()); mainApp.reset();});
+		choices.add("maxLateness");
+		maxLateness.setCellValueFactory(new PropertyValueFactory<>("maxLateness"));
+		maxLateness.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		maxLateness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setMaxLateness(event.getNewValue()); mainApp.reset();});
 		choices.add("weightedLateness");
 		weightedLateness.setCellValueFactory(new PropertyValueFactory<>("weightedLateness"));
 		weightedLateness.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
@@ -166,6 +176,10 @@ public class SolutionController extends Table3Controller {
 		totalEarliness.setCellValueFactory(new PropertyValueFactory<>("totalEarliness"));
 		totalEarliness.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		totalEarliness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalEarliness(event.getNewValue()); mainApp.reset();});
+		choices.add("maxEarliness");
+		maxEarliness.setCellValueFactory(new PropertyValueFactory<>("maxEarliness"));
+		maxEarliness.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		maxEarliness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setMaxEarliness(event.getNewValue()); mainApp.reset();});
 		choices.add("weightedEarliness");
 		weightedEarliness.setCellValueFactory(new PropertyValueFactory<>("weightedEarliness"));
 		weightedEarliness.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));

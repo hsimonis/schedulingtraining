@@ -217,6 +217,8 @@
 			<xs:attribute name="flowtime" use="required" type="xs:integer"/>
 			<xs:attribute name="gap" use="required" type="xs:double"/>
 			<xs:attribute name="makespan" use="required" type="xs:integer"/>
+			<xs:attribute name="maxEarliness" use="required" type="xs:integer"/>
+			<xs:attribute name="maxLateness" use="required" type="xs:integer"/>
 			<xs:attribute name="objectiveValue" use="required" type="xs:integer"/>
 			<xs:attribute name="solverRun" use="required" type="xs:IDREF"/>
 			<xs:attribute name="solverStatus" use="required" type="xs:string"/>
@@ -254,7 +256,9 @@
 			<xs:attribute name="duration" use="required" type="xs:integer"/>
 			<xs:attribute name="job" use="required" type="xs:IDREF"/>
 			<xs:attribute name="machines" use="required" type="xs:IDREFS"/>
+			<xs:attribute name="precedes" use="required" type="xs:IDREFS"/>
 			<xs:attribute name="processStep" use="required" type="xs:IDREF"/>
+			<xs:attribute name="shortName" use="required" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="taskAssignment">

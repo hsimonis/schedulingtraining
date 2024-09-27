@@ -46,7 +46,7 @@ import framework.AppearInCollection;
  * @author generated
 */
 
-public  class Task extends ApplicationObject{
+public  class Task extends ApplicationObject implements AppearInCollection{
 /**
  *  
  *
@@ -73,7 +73,21 @@ public  class Task extends ApplicationObject{
  *
 */
 
+    public List<Task> precedes;
+
+/**
+ *  
+ *
+*/
+
     public ProcessStep processStep;
+
+/**
+ *  
+ *
+*/
+
+    public String shortName;
 
 /**
  *  No-arg constructor for use in TableView
@@ -97,7 +111,9 @@ public  class Task extends ApplicationObject{
         setDuration(0);
         setJob(null);
         setMachines(new ArrayList<DisjunctiveResource>());
+        setPrecedes(new ArrayList<Task>());
         setProcessStep(null);
+        setShortName("");
         applicationDataset.addTask(this);
     }
 
@@ -114,14 +130,18 @@ public  class Task extends ApplicationObject{
             Integer duration,
             Job job,
             List<DisjunctiveResource> machines,
-            ProcessStep processStep){
+            List<Task> precedes,
+            ProcessStep processStep,
+            String shortName){
         super(applicationDataset,
             id,
             name);
         setDuration(duration);
         setJob(job);
         setMachines(machines);
+        setPrecedes(precedes);
         setProcessStep(processStep);
+        setShortName(shortName);
         applicationDataset.addTask(this);
     }
 
@@ -132,7 +152,9 @@ public  class Task extends ApplicationObject{
             other.duration,
             other.job,
             other.machines,
-            other.processStep);
+            other.precedes,
+            other.processStep,
+            other.shortName);
     }
 
 /**
@@ -143,8 +165,22 @@ public  class Task extends ApplicationObject{
 */
 
     public Boolean remove(){
+        getApplicationDataset().cascadeTaskPrecedes(this);
         getApplicationDataset().cascadeTaskAssignmentTask(this);
         return getApplicationDataset().removeTask(this) && getApplicationDataset().removeApplicationObject(this);
+    }
+
+/**
+ *  (varargs) build list of items of type Task
+ *
+ * @param pList multiple items of type Task
+ * @return List<Task>
+*/
+
+    static public List<Task> buildList(Task... pList){
+        List<Task> l = new ArrayList<Task>();
+        l.addAll(Arrays.asList(pList));
+        return l;
     }
 
 /**
@@ -178,6 +214,16 @@ public  class Task extends ApplicationObject{
     }
 
 /**
+ *  get attribute precedes
+ *
+ * @return List<Task>
+*/
+
+    public List<Task> getPrecedes(){
+        return this.precedes;
+    }
+
+/**
  *  get attribute processStep
  *
  * @return ProcessStep
@@ -185,6 +231,16 @@ public  class Task extends ApplicationObject{
 
     public ProcessStep getProcessStep(){
         return this.processStep;
+    }
+
+/**
+ *  get attribute shortName
+ *
+ * @return String
+*/
+
+    public String getShortName(){
+        return this.shortName;
     }
 
 /**
@@ -224,6 +280,18 @@ public  class Task extends ApplicationObject{
     }
 
 /**
+ *  set attribute precedes, mark dataset as dirty, mark dataset as not valid
+@param precedes List<Task>
+ *
+*/
+
+    public void setPrecedes(List<Task> precedes){
+        this.precedes = precedes;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute processStep, mark dataset as dirty, mark dataset as not valid
 @param processStep ProcessStep
  *
@@ -231,6 +299,18 @@ public  class Task extends ApplicationObject{
 
     public void setProcessStep(ProcessStep processStep){
         this.processStep = processStep;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute shortName, mark dataset as dirty, mark dataset as not valid
+@param shortName String
+ *
+*/
+
+    public void setShortName(String shortName){
+        this.shortName = shortName;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -263,7 +343,7 @@ public  class Task extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDuration()+ " " +getJob().toColumnString()+ " " +getMachines()+ " " +getProcessStep().toColumnString();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDuration()+ " " +getJob().toColumnString()+ " " +getMachines()+ " " +getPrecedes()+ " " +getProcessStep().toColumnString()+ " " +getShortName();
     }
 
 /**
@@ -290,7 +370,9 @@ public  class Task extends ApplicationObject{
             " duration=\""+toXMLDuration()+"\""+
             " job=\""+toXMLJob()+"\""+
             " machines=\""+toXMLMachines()+"\""+
-            " processStep=\""+toXMLProcessStep()+"\""+" />");
+            " precedes=\""+toXMLPrecedes()+"\""+
+            " processStep=\""+toXMLProcessStep()+"\""+
+            " shortName=\""+toXMLShortName()+"\""+" />");
      }
 
 /**
@@ -333,8 +415,32 @@ public  class Task extends ApplicationObject{
  * @return String
 */
 
+    String toXMLPrecedes(){
+        String str="";
+        for(Task x:getPrecedes()){
+            str=str+" "+"ID_"+x.getId();
+        }
+        return str;
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLProcessStep(){
         return "ID_"+this.getProcessStep().getId().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLShortName(){
+        return this.safeXML(getShortName());
     }
 
 /**
@@ -344,11 +450,11 @@ public  class Task extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Task</th>"+"<th>Name</th>"+"<th>Job</th>"+"<th>ProcessStep</th>"+"<th>Duration</th>"+"<th>Machines</th>"+"</tr>";
+        return "<tr><th>Task</th>"+"<th>Name</th>"+"<th>ShortName</th>"+"<th>Job</th>"+"<th>ProcessStep</th>"+"<th>Duration</th>"+"<th>Machines</th>"+"<th>Precedes</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getJob().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getMachines()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getShortName()+"</td>"+ " " +"<td>"+getJob().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getMachines()+"</td>"+ " " +"<td>"+getPrecedes()+"</td>"+"</tr>";
     }
 
 /**
@@ -476,14 +582,21 @@ public  class Task extends ApplicationObject{
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
+      if (true) {         System.out.println("Precedes");
+        }
       if(!this.getProcessStep().applicationSame(b.getProcessStep())){
          System.out.println("ProcessStep");
+        }
+      if(!this.getShortName().equals(b.getShortName())){
+         System.out.println("ShortName");
         }
         return  this.getDuration().equals(b.getDuration()) &&
           this.getJob().applicationSame(b.getJob()) &&
           true &&
           this.getName().equals(b.getName()) &&
-          this.getProcessStep().applicationSame(b.getProcessStep());
+          true &&
+          this.getProcessStep().applicationSame(b.getProcessStep()) &&
+          this.getShortName().equals(b.getShortName());
     }
 
 /**
@@ -503,6 +616,9 @@ public  class Task extends ApplicationObject{
         }
         if (getMachines().size() == 0){
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"machines","Task",(getMachines()==null?"null":getMachines().toString()),"",WarningType.NOTEMPTY);
+        }
+        if (getPrecedes() == null){
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"precedes","Task",(getPrecedes()==null?"null":getPrecedes().toString()),"",WarningType.NOTNULL);
         }
         if (getProcessStep() == null){
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"processStep","Task",(getProcessStep()==null?"null":getProcessStep().toString()),"",WarningType.NOTNULL);
@@ -528,6 +644,9 @@ public  class Task extends ApplicationObject{
       }
       if (attrName.equals("machines")){
          return (List) ((Scenario)base).getListDisjunctiveResource();
+      }
+      if (attrName.equals("precedes")){
+         return (List) ((Scenario)base).getListTask();
       }
       if (attrName.equals("processStep")){
          return (List) ((Scenario)base).getListProcessStep();

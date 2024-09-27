@@ -25,17 +25,17 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
    private IntegerTextField nrProductsItem = new IntegerTextField();
    private IntegerTextField nrStagesItem = new IntegerTextField();
    private IntegerTextField nrDisjunctiveResourcesItem = new IntegerTextField();
-   private IntegerTextField nrCumulativeResourcesItem = new IntegerTextField();
    private DoubleTextField resourceProbabilityItem = new DoubleTextField();
+   private IntegerTextField nrCumulativeResourcesItem = new IntegerTextField();
    private IntegerTextField minCumulDemandItem = new IntegerTextField();
    private IntegerTextField maxCumulDemandItem = new IntegerTextField();
    private IntegerTextField cumulCapacityItem = new IntegerTextField();
    private IntegerTextField nrOrdersItem = new IntegerTextField();
+   private IntegerTextField minQtyItem = new IntegerTextField();
+   private IntegerTextField maxQtyItem = new IntegerTextField();
    private IntegerTextField earliestDueItem = new IntegerTextField();
    private IntegerTextField horizonDaysItem = new IntegerTextField();
    private IntegerTextField timeResolutionItem = new IntegerTextField();
-   private IntegerTextField minQtyItem = new IntegerTextField();
-   private IntegerTextField maxQtyItem = new IntegerTextField();
    private IntegerTextField seedItem = new IntegerTextField();
 
     public GenerateDataDialogBox(GeneratedJfxApp app, Scenario base,AbstractSolver solver){
@@ -56,12 +56,12 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
         pane.add(new Label("Nr Disjunctive Resources:"), 0, row);
         pane.add(nrDisjunctiveResourcesItem, 1, row++);
         nrDisjunctiveResourcesItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrDisjunctiveResources()));
-        pane.add(new Label("Nr Cumulative Resources:"), 0, row);
-        pane.add(nrCumulativeResourcesItem, 1, row++);
-        nrCumulativeResourcesItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrCumulativeResources()));
         pane.add(new Label("Resource Probability:"), 0, row);
         pane.add(resourceProbabilityItem, 1, row++);
         resourceProbabilityItem.setText(String.format("%f",((GenerateDataSolver)solver).getResourceProbability()));
+        pane.add(new Label("Nr Cumulative Resources:"), 0, row);
+        pane.add(nrCumulativeResourcesItem, 1, row++);
+        nrCumulativeResourcesItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrCumulativeResources()));
         pane.add(new Label("Min Cumulative Demand:"), 0, row);
         pane.add(minCumulDemandItem, 1, row++);
         minCumulDemandItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinCumulDemand()));
@@ -74,6 +74,12 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
         pane.add(new Label("nr Orders:"), 0, row);
         pane.add(nrOrdersItem, 1, row++);
         nrOrdersItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrOrders()));
+        pane.add(new Label("Min Qty:"), 0, row);
+        pane.add(minQtyItem, 1, row++);
+        minQtyItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinQty()));
+        pane.add(new Label("Max Qty:"), 0, row);
+        pane.add(maxQtyItem, 1, row++);
+        maxQtyItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxQty()));
         pane.add(new Label("Earliest DueDate (int):"), 0, row);
         pane.add(earliestDueItem, 1, row++);
         earliestDueItem.setText(String.format("%d",((GenerateDataSolver)solver).getEarliestDue()));
@@ -83,12 +89,6 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
         pane.add(new Label("Time Resolution (min):"), 0, row);
         pane.add(timeResolutionItem, 1, row++);
         timeResolutionItem.setText(String.format("%d",((GenerateDataSolver)solver).getTimeResolution()));
-        pane.add(new Label("Min Qty:"), 0, row);
-        pane.add(minQtyItem, 1, row++);
-        minQtyItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinQty()));
-        pane.add(new Label("Max Qty:"), 0, row);
-        pane.add(maxQtyItem, 1, row++);
-        maxQtyItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxQty()));
         pane.add(new Label("Random Seed:"), 0, row);
         pane.add(seedItem, 1, row++);
         seedItem.setText(String.format("%d",((GenerateDataSolver)solver).getSeed()));
@@ -105,34 +105,34 @@ public void handle(InputEvent event) {
         int nrProductsValue = Integer.parseInt(nrProductsItem.getText());
         int nrStagesValue = Integer.parseInt(nrStagesItem.getText());
         int nrDisjunctiveResourcesValue = Integer.parseInt(nrDisjunctiveResourcesItem.getText());
-        int nrCumulativeResourcesValue = Integer.parseInt(nrCumulativeResourcesItem.getText());
         double resourceProbabilityValue = Double.parseDouble(resourceProbabilityItem.getText());
+        int nrCumulativeResourcesValue = Integer.parseInt(nrCumulativeResourcesItem.getText());
         int minCumulDemandValue = Integer.parseInt(minCumulDemandItem.getText());
         int maxCumulDemandValue = Integer.parseInt(maxCumulDemandItem.getText());
         int cumulCapacityValue = Integer.parseInt(cumulCapacityItem.getText());
         int nrOrdersValue = Integer.parseInt(nrOrdersItem.getText());
+        int minQtyValue = Integer.parseInt(minQtyItem.getText());
+        int maxQtyValue = Integer.parseInt(maxQtyItem.getText());
         int earliestDueValue = Integer.parseInt(earliestDueItem.getText());
         int horizonDaysValue = Integer.parseInt(horizonDaysItem.getText());
         int timeResolutionValue = Integer.parseInt(timeResolutionItem.getText());
-        int minQtyValue = Integer.parseInt(minQtyItem.getText());
-        int maxQtyValue = Integer.parseInt(maxQtyItem.getText());
         int seedValue = Integer.parseInt(seedItem.getText());
         ((GenerateDataSolver)getSolver())
             .setName(nameValue)
             .setNrProducts(nrProductsValue)
             .setNrStages(nrStagesValue)
             .setNrDisjunctiveResources(nrDisjunctiveResourcesValue)
-            .setNrCumulativeResources(nrCumulativeResourcesValue)
             .setResourceProbability(resourceProbabilityValue)
+            .setNrCumulativeResources(nrCumulativeResourcesValue)
             .setMinCumulDemand(minCumulDemandValue)
             .setMaxCumulDemand(maxCumulDemandValue)
             .setCumulCapacity(cumulCapacityValue)
             .setNrOrders(nrOrdersValue)
+            .setMinQty(minQtyValue)
+            .setMaxQty(maxQtyValue)
             .setEarliestDue(earliestDueValue)
             .setHorizonDays(horizonDaysValue)
             .setTimeResolution(timeResolutionValue)
-            .setMinQty(minQtyValue)
-            .setMaxQty(maxQtyValue)
             .setSeed(seedValue)
             ;
         super.handle(event);

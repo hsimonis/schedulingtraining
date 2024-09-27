@@ -80,6 +80,20 @@ public  class Solution extends ApplicationObject{
  *
 */
 
+    public Integer maxEarliness;
+
+/**
+ *  
+ *
+*/
+
+    public Integer maxLateness;
+
+/**
+ *  
+ *
+*/
+
     public Integer objectiveValue;
 
 /**
@@ -147,6 +161,8 @@ public  class Solution extends ApplicationObject{
         setFlowtime(0);
         setGap(0.0);
         setMakespan(0);
+        setMaxEarliness(0);
+        setMaxLateness(0);
         setObjectiveValue(0);
         setSolverRun(null);
         setSolverStatus(null);
@@ -171,6 +187,8 @@ public  class Solution extends ApplicationObject{
             Integer flowtime,
             Double gap,
             Integer makespan,
+            Integer maxEarliness,
+            Integer maxLateness,
             Integer objectiveValue,
             SolverRun solverRun,
             SolverStatus solverStatus,
@@ -185,6 +203,8 @@ public  class Solution extends ApplicationObject{
         setFlowtime(flowtime);
         setGap(gap);
         setMakespan(makespan);
+        setMaxEarliness(maxEarliness);
+        setMaxLateness(maxLateness);
         setObjectiveValue(objectiveValue);
         setSolverRun(solverRun);
         setSolverStatus(solverStatus);
@@ -203,6 +223,8 @@ public  class Solution extends ApplicationObject{
             other.flowtime,
             other.gap,
             other.makespan,
+            other.maxEarliness,
+            other.maxLateness,
             other.objectiveValue,
             other.solverRun,
             other.solverStatus,
@@ -262,6 +284,26 @@ public  class Solution extends ApplicationObject{
 
     public Integer getMakespan(){
         return this.makespan;
+    }
+
+/**
+ *  get attribute maxEarliness
+ *
+ * @return Integer
+*/
+
+    public Integer getMaxEarliness(){
+        return this.maxEarliness;
+    }
+
+/**
+ *  get attribute maxLateness
+ *
+ * @return Integer
+*/
+
+    public Integer getMaxLateness(){
+        return this.maxLateness;
     }
 
 /**
@@ -383,6 +425,30 @@ public  class Solution extends ApplicationObject{
     }
 
 /**
+ *  set attribute maxEarliness, mark dataset as dirty, mark dataset as not valid
+@param maxEarliness Integer
+ *
+*/
+
+    public void setMaxEarliness(Integer maxEarliness){
+        this.maxEarliness = maxEarliness;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute maxLateness, mark dataset as dirty, mark dataset as not valid
+@param maxLateness Integer
+ *
+*/
+
+    public void setMaxLateness(Integer maxLateness){
+        this.maxLateness = maxLateness;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute objectiveValue, mark dataset as dirty, mark dataset as not valid
 @param objectiveValue Integer
  *
@@ -489,6 +555,28 @@ public  class Solution extends ApplicationObject{
     }
 
 /**
+ *  inc attribute maxEarliness, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incMaxEarliness(){
+        this.maxEarliness++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute maxLateness, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incMaxLateness(){
+        this.maxLateness++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute objectiveValue, mark dataset as dirty, mark dataset as not valid
  *
 */
@@ -538,7 +626,7 @@ public  class Solution extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getFlowtime()+ " " +getGap()+ " " +getMakespan()+ " " +getObjectiveValue()+ " " +getSolverRun().toColumnString()+ " " +getSolverStatus()+ " " +getTotalEarliness()+ " " +getTotalLateness()+ " " +getWeightedEarliness()+ " " +getWeightedLateness();
+        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getFlowtime()+ " " +getGap()+ " " +getMakespan()+ " " +getMaxEarliness()+ " " +getMaxLateness()+ " " +getObjectiveValue()+ " " +getSolverRun().toColumnString()+ " " +getSolverStatus()+ " " +getTotalEarliness()+ " " +getTotalLateness()+ " " +getWeightedEarliness()+ " " +getWeightedLateness();
     }
 
 /**
@@ -566,6 +654,8 @@ public  class Solution extends ApplicationObject{
             " flowtime=\""+toXMLFlowtime()+"\""+
             " gap=\""+toXMLGap()+"\""+
             " makespan=\""+toXMLMakespan()+"\""+
+            " maxEarliness=\""+toXMLMaxEarliness()+"\""+
+            " maxLateness=\""+toXMLMaxLateness()+"\""+
             " objectiveValue=\""+toXMLObjectiveValue()+"\""+
             " solverRun=\""+toXMLSolverRun()+"\""+
             " solverStatus=\""+toXMLSolverStatus()+"\""+
@@ -613,6 +703,26 @@ public  class Solution extends ApplicationObject{
 
     String toXMLMakespan(){
         return this.getMakespan().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLMaxEarliness(){
+        return this.getMaxEarliness().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLMaxLateness(){
+        return this.getMaxLateness().toString();
     }
 
 /**
@@ -692,11 +802,11 @@ public  class Solution extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Solution</th>"+"<th>Name</th>"+"<th>SolverRun</th>"+"<th>ObjectiveValue</th>"+"<th>SolverStatus</th>"+"<th>Bound</th>"+"<th>Gap</th>"+"<th>Makespan</th>"+"<th>Flowtime</th>"+"<th>TotalLateness</th>"+"<th>WeightedLateness</th>"+"<th>TotalEarliness</th>"+"<th>WeightedEarliness</th>"+"</tr>";
+        return "<tr><th>Solution</th>"+"<th>Name</th>"+"<th>SolverRun</th>"+"<th>ObjectiveValue</th>"+"<th>SolverStatus</th>"+"<th>Bound</th>"+"<th>Gap</th>"+"<th>Makespan</th>"+"<th>Flowtime</th>"+"<th>TotalLateness</th>"+"<th>MaxLateness</th>"+"<th>WeightedLateness</th>"+"<th>TotalEarliness</th>"+"<th>MaxEarliness</th>"+"<th>WeightedEarliness</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolverRun().toColumnString()+"</td>"+ " " +"<td>"+getObjectiveValue()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGap()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getFlowtime()+"</td>"+ " " +"<td>"+getTotalLateness()+"</td>"+ " " +"<td>"+getWeightedLateness()+"</td>"+ " " +"<td>"+getTotalEarliness()+"</td>"+ " " +"<td>"+getWeightedEarliness()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolverRun().toColumnString()+"</td>"+ " " +"<td>"+getObjectiveValue()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGap()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getFlowtime()+"</td>"+ " " +"<td>"+getTotalLateness()+"</td>"+ " " +"<td>"+getMaxLateness()+"</td>"+ " " +"<td>"+getWeightedLateness()+"</td>"+ " " +"<td>"+getTotalEarliness()+"</td>"+ " " +"<td>"+getMaxEarliness()+"</td>"+ " " +"<td>"+getWeightedEarliness()+"</td>"+"</tr>";
     }
 
 /**
@@ -825,6 +935,12 @@ public  class Solution extends ApplicationObject{
       if(!this.getMakespan().equals(b.getMakespan())){
          System.out.println("Makespan");
         }
+      if(!this.getMaxEarliness().equals(b.getMaxEarliness())){
+         System.out.println("MaxEarliness");
+        }
+      if(!this.getMaxLateness().equals(b.getMaxLateness())){
+         System.out.println("MaxLateness");
+        }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
@@ -853,6 +969,8 @@ public  class Solution extends ApplicationObject{
           this.getFlowtime().equals(b.getFlowtime()) &&
           this.getGap().equals(b.getGap()) &&
           this.getMakespan().equals(b.getMakespan()) &&
+          this.getMaxEarliness().equals(b.getMaxEarliness()) &&
+          this.getMaxLateness().equals(b.getMaxLateness()) &&
           this.getName().equals(b.getName()) &&
           this.getObjectiveValue().equals(b.getObjectiveValue()) &&
           this.getSolverRun().applicationSame(b.getSolverRun()) &&

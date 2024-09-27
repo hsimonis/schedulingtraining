@@ -29,13 +29,16 @@ import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Task;
 
 /**
- * Generated at 18:08:58 on 2024-09-26 */
+ * Generated at 07:28:35 on 2024-09-27 */
 public class TaskController extends Table3Controller {
 	@FXML
 	private TableView<Task> table;
 
 	@FXML
 	private TableColumn<Task, String> name;
+
+	@FXML
+	private TableColumn<Task, String> shortName;
 
 	@FXML
 	private TableColumn<Task, Job> job;
@@ -48,6 +51,9 @@ public class TaskController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Task, String> machines;
+
+	@FXML
+	private TableColumn<Task, String> precedes;
 
 	@FXML
 	private TableColumn<Task, Order> order;
@@ -90,6 +96,10 @@ public class TaskController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
+		choices.add("shortName");
+		shortName.setCellValueFactory(new PropertyValueFactory<>("shortName"));
+		shortName.setCellFactory(TextFieldTableCell.forTableColumn());
+		shortName.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setShortName(event.getNewValue()); mainApp.reset();});
 		choices.add("job");
 		job.setCellValueFactory(new PropertyValueFactory<>("job"));
 		choices.add("processStep");
@@ -100,6 +110,8 @@ public class TaskController extends Table3Controller {
 		duration.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDuration(event.getNewValue()); mainApp.reset();});
 		choices.add("machines");
 		machines.setCellValueFactory(cellData -> new SimpleStringProperty(convert(cellData.getValue().getMachines())));
+		choices.add("precedes");
+		precedes.setCellValueFactory(cellData -> new SimpleStringProperty(convert(cellData.getValue().getPrecedes())));
 		choices.add("job.order");
 		try {
 			order.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJob().getOrder()));

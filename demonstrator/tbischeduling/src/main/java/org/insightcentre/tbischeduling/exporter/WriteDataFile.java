@@ -41,13 +41,14 @@ public class WriteDataFile {
         root.put("processStep",processSteps());
         root.put("processSequence",processSequences());
         root.put("resourceNeed",resourceNeeds());
+        root.put("cumulativeNeed",cumulativeNeeds());
+        root.put("cumulativeProfile",cumulativeProfiles());
 
         root.put("order",orders());
         root.put("job",jobs());
         root.put("task",tasks());
 
-
-
+        root.put("solverRun",solverRuns());
         root.put("solution",sols());
         root.put("jobAssignment",jobAssignments());
         root.put("taskAssignment",taskAssignments());
@@ -170,6 +171,30 @@ public class WriteDataFile {
         }
         return res;
     }
+    private JSONArray cumulativeNeeds(){
+        JSONArray res = new JSONArray();
+        for(CumulativeNeed p:base.getListCumulativeNeed()){
+            JSONObject obj = new JSONObject();
+            obj.put("name",p.getName());
+            obj.put("processStep",p.getProcessStep().getName());
+            obj.put("cumulativeResource",p.getCumulativeResource().getName());
+            obj.put("demand",p.getDemand());
+            res.put(obj);
+        }
+        return res;
+    }
+    private JSONArray cumulativeProfiles(){
+        JSONArray res = new JSONArray();
+        for(CumulativeProfile p:base.getListCumulativeProfile()){
+            JSONObject obj = new JSONObject();
+            obj.put("name",p.getName());
+            obj.put("from",p.getFrom());
+            obj.put("cumulativeResource",p.getCumulativeResource().getName());
+            obj.put("capacity",p.getCapacity());
+            res.put(obj);
+        }
+        return res;
+    }
 
     /*
     schedule elements
@@ -182,7 +207,11 @@ public class WriteDataFile {
             obj.put("product",p.getProduct().getName());
             obj.put("qty",p.getQty());
             obj.put("due",p.getDue());
-//            obj.put("dueDate",p.getDueDate().toString());
+            obj.put("dueDate",p.getDueDate().toString());
+            obj.put("release",p.getRelease());
+            obj.put("releaseDate",p.getReleaseDate().toString());
+            obj.put("latenessWeight",p.getLatenessWeight());
+            obj.put("earlinessWeight",p.getEarlinessWeight());
             res.put(obj);
         }
         return res;
@@ -205,6 +234,7 @@ public class WriteDataFile {
             obj.put("name",p.getName());
             obj.put("job",p.getJob().getName());
             obj.put("processStep",p.getProcessStep().getName());
+            obj.put("duration",p.getDuration());
             res.put(obj);
         }
         return res;
@@ -215,12 +245,47 @@ public class WriteDataFile {
     solution elements
      */
 
+    private JSONArray solverRuns(){
+        JSONArray res = new JSONArray();
+        for(SolverRun run:base.getListSolverRun()){
+            JSONObject obj = new JSONObject();
+            obj.put("name",run.getName());
+            obj.put("label",run.getLabel());
+            obj.put("description",run.getDescription());
+            obj.put("modelType",run.getModelType().toString());
+            obj.put("solverBackend",run.getSolverBackend().toString());
+            obj.put("objectiveType",run.getObjectiveType().toString());
+            obj.put("enforceReleaseDate",run.getEnforceReleaseDate());
+            obj.put("enforceDueDate",run.getEnforceDueDate());
+            obj.put("timeout",run.getTimeout());
+            obj.put("nrThreads",run.getNrThreads());
+            obj.put("seed",run.getSeed());
+            obj.put("removeSolution",run.getRemoveSolution());
+            obj.put("solverStatus",run.getSolverStatus().toString());
+            obj.put("time",run.getTime());
+            res.put(obj);
+        }
+        return res;
+    }
+
     private JSONArray sols(){
         JSONArray res = new JSONArray();
         for(Solution sol:base.getListSolution()){
             JSONObject obj = new JSONObject();
             obj.put("name",sol.getName());
+            obj.put("solverRun",sol.getSolverRun().getName());
             obj.put("objectiveValue",sol.getObjectiveValue());
+            obj.put("solverStatus",sol.getSolverStatus().toString());
+            obj.put("bound",sol.getBound());
+            obj.put("gap",sol.getGap());
+            obj.put("makespan",sol.getMakespan());
+            obj.put("flowtime",sol.getFlowtime());
+            obj.put("totalEarliness",sol.getTotalEarliness());
+            obj.put("maxEarliness",sol.getMaxEarliness());
+            obj.put("weightedEarliness",sol.getWeightedEarliness());
+            obj.put("totalLateness",sol.getTotalLateness());
+            obj.put("maxLateness",sol.getMaxLateness());
+            obj.put("weightedLateness",sol.getWeightedLateness());
             res.put(obj);
         }
         return res;
@@ -233,6 +298,8 @@ public class WriteDataFile {
             jObj.put("name",ja.getName());
             jObj.put("solution",ja.getSolution().getName());
             jObj.put("job",ja.getJob().getName());
+            jObj.put("late",ja.getLate());
+            jObj.put("early",ja.getEarly());
             jObj.put("start",ja.getStart());
             jObj.put("end",ja.getEnd());
             jObj.put("duration",ja.getDuration());
@@ -250,8 +317,8 @@ public class WriteDataFile {
             JSONObject tObj = new JSONObject();
             tObj.put("name",ta.getName());
             tObj.put("jobAssignment",ta.getJobAssignment().getName());
+            tObj.put("disjunctiveResource",ta.getDisjunctiveResource().getName());
             tObj.put("task",ta.getTask().getName());
-//            tObj.put("resource",ta.getResource().getName());
             tObj.put("start",ta.getStart());
             tObj.put("end",ta.getEnd());
             tObj.put("duration",ta.getDuration());

@@ -11,7 +11,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Hashtable;
 
+import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
+import static org.insightcentre.tbischeduling.datamodel.ObjectiveType.*;
 import static org.insightcentre.tbischeduling.datamodel.Severity.*;
+import static org.insightcentre.tbischeduling.datamodel.SolverBackend.*;
+import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
 import static org.insightcentre.tbischeduling.importer.CreateData.summarizeProblem;
 import static org.insightcentre.tbischeduling.importer.Reset.resetAll;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
@@ -44,12 +48,15 @@ public class ReadDataFile {
             Hashtable<String, ProcessStep> processStepHash = readProcessSteps(root,processHash);
             Hashtable<String, ProcessSequence> processSequenceHash = readProcessSequences(root,processStepHash);
             Hashtable<String, ResourceNeed> resourceNeedHash = readResourceNeeds(root,processStepHash,disjunctiveResourceHash);
+            Hashtable<String, CumulativeNeed> cumulativeNeedHash = readCumulativeNeeds(root,processStepHash,cumulativeResourceHash);
+            Hashtable<String, CumulativeProfile> cumulativeProfileHash = readCumulativeProfiles(root,cumulativeResourceHash);
 
             Hashtable<String, Order> orderHash = readOrders(root,productHash);
             Hashtable<String, Job> jobHash = readJobs(root,orderHash,processHash);
             Hashtable<String, Task> taskHash = readTasks(root,jobHash,processStepHash);
 
-            Hashtable<String, Solution> solutionHash = readSolutions(root);
+            Hashtable<String, SolverRun> solverRunHash = readSolverRuns(root);
+            Hashtable<String, Solution> solutionHash = readSolutions(root,solverRunHash);
             Hashtable<String, JobAssignment> jobAssignmentHash = readJobAssignments(root,jobHash,solutionHash);
             Hashtable<String, TaskAssignment> taskAssignmentHash = readTaskAssignments(root,jobAssignmentHash,taskHash);
 
@@ -313,6 +320,71 @@ public class ReadDataFile {
         }
         return res;
     }
+    private Hashtable<String,CumulativeNeed> readCumulativeNeeds(JSONObject root,
+                                                                 Hashtable<String,ProcessStep> processStepHash,
+                                                                 Hashtable<String,CumulativeResource> cumulativeResourceHash){
+        String key = "cumulativeNeed";
+        Hashtable<String,CumulativeNeed> res = new Hashtable<>();
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
+            for(int i=0;i<arr.length();i++){
+                JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","processStep","cumulativeResource","demand"});
+                String name = item.getString("name");
+                String psName = item.getString("processStep");
+                String rName = item.getString("cumulativeResource");
+                int demand = item.getInt("demand");
+                ProcessStep ps = processStepHash.get(psName);
+                CumulativeResource r = cumulativeResourceHash.get(rName);
+                if (ps == null){
+                    inputError(key,name,"processStep",psName,"The required object does not exist",Fatal);
+                }
+                if (r == null){
+                    inputError(key,name,"cumulativeResource",rName,"The required object does not exist",Fatal);
+                }
+                CumulativeNeed cn  = new CumulativeNeed(base);
+                cn.setName(name);
+                cn.setProcessStep(ps);
+                cn.setCumulativeResource(r);
+                cn.setDemand(demand);
+                res.put(name,cn);
+
+            }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
+        }
+        return res;
+    }
+    private Hashtable<String,CumulativeProfile> readCumulativeProfiles(JSONObject root,
+                                                                 Hashtable<String,CumulativeResource> cumulativeResourceHash){
+        String key = "cumulativeProfile";
+        Hashtable<String,CumulativeProfile> res = new Hashtable<>();
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
+            for(int i=0;i<arr.length();i++){
+                JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","from","cumulativeResource","capacity"});
+                String name = item.getString("name");
+                int from = item.getInt("from");
+                String rName = item.getString("cumulativeResource");
+                int capacity = item.getInt("capacity");
+                CumulativeResource r = cumulativeResourceHash.get(rName);
+                if (r == null){
+                    inputError(key,name,"cumulativeResource",rName,"The required object does not exist",Fatal);
+                }
+                CumulativeProfile cn  = new CumulativeProfile(base);
+                cn.setName(name);
+                cn.setFrom(from);
+                cn.setCumulativeResource(r);
+                cn.setCapacity(capacity);
+                res.put(name,cn);
+
+            }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
+        }
+        return res;
+    }
 
     private Hashtable<String,Order> readOrders(JSONObject root,Hashtable<String,Product> productHash){
         String key = "order";
@@ -408,19 +480,99 @@ public class ReadDataFile {
         return res;
     }
 
-    private Hashtable<String,Solution> readSolutions(JSONObject root){
+    private Hashtable<String,SolverRun> readSolverRuns(JSONObject root){
+        String key="solverRun";
+        Hashtable<String,SolverRun> res = new Hashtable<>();
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
+            for(int i=0;i<arr.length();i++){
+                JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","label","description","modelType","solverBackend",
+                        "objectiveType","enforceReleaseDate","enforceDueDate","timeout","nrThreads","seed",
+                        "removeSolution","solverStatus","time"});
+                String name = item.getString("name");
+                String label = item.getString("label");
+                String description = item.getString("description");
+                String modelType = item.getString("modelType");
+                String solverBackend = item.getString("solverBackend");
+                String objectiveType = item.getString("objectiveType");
+                boolean enforceReleaseDate = item.getBoolean("enforceReleaseDate");
+                boolean enforceDueDate = item.getBoolean("enforceDueDate");
+                int timeout = item.getInt("timeout");
+                int nrThreads = item.getInt("nrThreads");
+                int seed = item.getInt("seed");
+                boolean removeSolution = item.getBoolean("removeSolution");
+                String solverStatus = item.getString("solverStatus");
+                double time = item.getDouble("time");
+                SolverRun s  = new SolverRun(base);
+                s.setName(name);
+                s.setLabel(label);
+                s.setDescription(description);
+                s.setModelType(toModelType(modelType));
+                s.setSolverBackend(toSolverBackend(solverBackend));
+                s.setObjectiveType(toObjectiveType(objectiveType));
+                s.setEnforceReleaseDate(enforceReleaseDate);
+                s.setEnforceDueDate(enforceDueDate);
+                s.setTimeout(timeout);
+                s.setNrThreads(nrThreads);
+                s.setSeed(seed);
+                s.setRemoveSolution(removeSolution);
+                s.setSolverStatus(toSolverStatus(solverStatus));
+                s.setTime(time);
+                res.put(name,s);
+
+            }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
+        }
+        return res;
+    }
+
+    private Hashtable<String,Solution> readSolutions(JSONObject root,Hashtable<String,SolverRun> solverRunHash){
         String key="solution";
         Hashtable<String,Solution> res = new Hashtable<>();
         if (root.has(key)){
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","objectiveValue"});
+                requireFields(key,i,item,new String[]{"name","solverRun","objectiveValue","solverStatus","bound","gap",
+                        "makespan","flowtime",
+                        "totalLateness","maxLateness","weightedLateness",
+                        "totalEarliness","maxEarliness","weightedEarliness"});
                 String name = item.getString("name");
+                String solverRun = item.getString("solverRun");
                 int objectiveValue = item.getInt("objectiveValue");
+                String solverStatus = item.getString("solverStatus");
+                double bound = item.getDouble("bound");
+                double gap = item.getDouble("gap");
+                int makespan= item.getInt("makespan");
+                int flowtime= item.getInt("flowtime");
+                int totalLateness= item.getInt("totalLateness");
+                int maxLateness= item.getInt("maxLateness");
+                double weightedLateness= item.getDouble("weightedLateness");
+                int totalEarliness = item.getInt("totalEarliness");
+                int maxEarliness = item.getInt("maxEarliness");
+                double weightedEarliness= item.getDouble("weightedEarliness");
+                SolverRun sr = solverRunHash.get(solverRun);
+                if (sr ==null){
+                    inputError(key,name,"solverRun",solverRun,"The required object does not exist",Fatal);
+
+                }
                 Solution s  = new Solution(base);
                 s.setName(name);
+                s.setSolverRun(sr);
                 s.setObjectiveValue(objectiveValue);
+                s.setSolverStatus(toSolverStatus(solverStatus));
+                s.setBound(bound);
+                s.setGap(gap);
+                s.setMakespan(makespan);
+                s.setFlowtime(flowtime);
+                s.setTotalLateness(totalLateness);
+                s.setMaxLateness(maxLateness);
+                s.setWeightedLateness(weightedLateness);
+                s.setTotalEarliness(totalEarliness);
+                s.setMaxEarliness(maxEarliness);
+                s.setWeightedEarliness(weightedEarliness);
                 res.put(name,s);
 
             }
@@ -523,6 +675,47 @@ public class ReadDataFile {
             case "Major" -> Major;
             case "Minor" -> Minor;
             default -> Minor;
+        };
+    }
+    private ModelType toModelType(String name){
+        return switch (name) {
+            case "CPO" -> CPO;
+            case "MiniZincDiffn" -> MiniZincDiffn;
+            case "MiniZincTask" -> MiniZincTask;
+            default -> null;
+        };
+    }
+    private SolverBackend toSolverBackend(String name){
+        return switch (name) {
+            case "Chuffed" -> Chuffed;
+            case "Gecode" -> Gecode;
+            case "CPSat" -> CPSat;
+            case "Cplex" -> Cplex;
+            default -> null;
+        };
+    }
+    private SolverStatus toSolverStatus(String name){
+        return switch (name) {
+            case "Optimal" -> Optimal;
+            case "Solution" -> Solution;
+            case "Infeasible" -> Infeasible;
+            case "Unknown" -> Unknown;
+            case "Error" -> Error;
+            default -> null;
+        };
+    }
+    private ObjectiveType toObjectiveType(String name){
+        return switch (name) {
+            case "Makespan" -> Makespan;
+            case "Flowtime" -> Flowtime;
+            case "TotalEarliness" -> TotalEarliness;
+            case "MaxEarliness" -> MaxEarliness;
+            case "WeightedEarliness" -> WeightedEarliness;
+            case "TotalLateness" -> TotalLateness;
+            case "MaxLateness" -> MaxLateness;
+            case "WeightedLateness" -> WeightedLateness;
+            case "Hybrid" -> Hybrid;
+            default -> null;
         };
     }
 

@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 18:08:58 on 2024-09-26-->
+<!--Generated at 07:28:35 on 2024-09-27-->
 
 
 <Tab text="Task" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.TaskController">
@@ -19,10 +19,12 @@
          <TableView fx:id="table" editable="true">
             <columns>
                <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
+               <TableColumn fx:id="shortName" styleClass="right-aligned" text="ShortName" />
                <TableColumn fx:id="job" styleClass="right-aligned" text="Job" />
                <TableColumn fx:id="processStep" styleClass="right-aligned" text="ProcessStep" />
                <TableColumn fx:id="duration" styleClass="right-aligned" text="Duration" />
                <TableColumn fx:id="machines" styleClass="right-aligned" text="Machines" />
+               <TableColumn fx:id="precedes" styleClass="right-aligned" text="Precedes" />
                <TableColumn fx:id="order" styleClass="right-aligned,disabled-column" text="Order" />
                <TableColumn fx:id="product" styleClass="right-aligned,disabled-column" text="Product" />
                <TableColumn fx:id="qty" styleClass="right-aligned,disabled-column" text="Qty" />

@@ -123,6 +123,7 @@ public class CreateData {
             for(ProcessStep ps:processSteps(j.getProcess())){
                 Task t = new Task(base);
                 t.setName("T"+i+ps.getName());
+                t.setShortName("T"+i+ps.getName());
                 t.setJob(j);
                 t.setProcessStep(ps);
                 t.setDuration(duration(t));
@@ -172,6 +173,7 @@ public class CreateData {
 
         for(Task t:base.getListTask()){
             t.setMachines(disjunctiveResources(base,t));
+            t.setPrecedes(precedences(base,t));
         }
     }
 
@@ -183,4 +185,15 @@ public class CreateData {
                 sorted().
                 toList();
     }
+
+    public static List<Task> precedences(Scenario base,Task t){
+        List<ProcessStep> seqList = base.getListProcessSequence().stream().
+                filter(x->x.getBefore()==t.getProcessStep()).
+                map(ProcessSequence::getAfter).toList();
+        return base.getListTask().stream().
+                filter(x->x.getJob()==t.getJob()).
+                filter(x->seqList.contains(x.getProcessStep())).
+                toList();
+    }
+
 }
