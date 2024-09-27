@@ -4,6 +4,7 @@ import framework.gui.AbstractJfxMainWindow;
 import framework.gui.Table3Controller;
 import java.lang.Boolean;
 import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -25,7 +26,7 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 
 /**
- * Generated at 14:32:41 on 2024-09-23 */
+ * Generated at 18:08:58 on 2024-09-26 */
 public class ProblemController extends Table3Controller {
 	@FXML
 	private TableView<Problem> table;
@@ -35,6 +36,27 @@ public class ProblemController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Problem, Boolean> timePointsAsDate;
+
+	@FXML
+	private TableColumn<Problem, Integer> nrProducts;
+
+	@FXML
+	private TableColumn<Problem, Integer> nrProcesses;
+
+	@FXML
+	private TableColumn<Problem, Integer> nrDisjunctiveResources;
+
+	@FXML
+	private TableColumn<Problem, Integer> nrCumulativeResources;
+
+	@FXML
+	private TableColumn<Problem, Integer> nrOrders;
+
+	@FXML
+	private TableColumn<Problem, Integer> nrJobs;
+
+	@FXML
+	private TableColumn<Problem, Integer> nrTasks;
 
 	private GeneratedJfxApp mainApp;
 
@@ -60,6 +82,34 @@ public class ProblemController extends Table3Controller {
 		choices.add("timePointsAsDate");
 		timePointsAsDate.setCellValueFactory(new TimePointsAsDateCallback());
 		timePointsAsDate.setCellFactory(CheckBoxTableCell.forTableColumn(timePointsAsDate));
+		choices.add("nrProducts");
+		nrProducts.setCellValueFactory(new PropertyValueFactory<>("nrProducts"));
+		nrProducts.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		nrProducts.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setNrProducts(event.getNewValue()); mainApp.reset();});
+		choices.add("nrProcesses");
+		nrProcesses.setCellValueFactory(new PropertyValueFactory<>("nrProcesses"));
+		nrProcesses.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		nrProcesses.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setNrProcesses(event.getNewValue()); mainApp.reset();});
+		choices.add("nrDisjunctiveResources");
+		nrDisjunctiveResources.setCellValueFactory(new PropertyValueFactory<>("nrDisjunctiveResources"));
+		nrDisjunctiveResources.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		nrDisjunctiveResources.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setNrDisjunctiveResources(event.getNewValue()); mainApp.reset();});
+		choices.add("nrCumulativeResources");
+		nrCumulativeResources.setCellValueFactory(new PropertyValueFactory<>("nrCumulativeResources"));
+		nrCumulativeResources.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		nrCumulativeResources.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setNrCumulativeResources(event.getNewValue()); mainApp.reset();});
+		choices.add("nrOrders");
+		nrOrders.setCellValueFactory(new PropertyValueFactory<>("nrOrders"));
+		nrOrders.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		nrOrders.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setNrOrders(event.getNewValue()); mainApp.reset();});
+		choices.add("nrJobs");
+		nrJobs.setCellValueFactory(new PropertyValueFactory<>("nrJobs"));
+		nrJobs.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		nrJobs.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setNrJobs(event.getNewValue()); mainApp.reset();});
+		choices.add("nrTasks");
+		nrTasks.setCellValueFactory(new PropertyValueFactory<>("nrTasks"));
+		nrTasks.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		nrTasks.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setNrTasks(event.getNewValue()); mainApp.reset();});
 		initialize(choices);
 	}
 

@@ -1,6 +1,10 @@
  class Order {
 Integer due
-Integer dueDate
+DateTime dueDate
+Double earlinessWeight
+Double latenessWeight
 Product product
 Integer qty
+Integer release
+DateTime releaseDate
 }

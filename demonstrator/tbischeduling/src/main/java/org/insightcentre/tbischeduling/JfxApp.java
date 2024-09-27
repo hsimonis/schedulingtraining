@@ -11,12 +11,19 @@ import framework.ApplicationDatasetInterface;
 import framework.ApplicationObjectInterface;
 import framework.types.IrishCalendar;
 import org.insightcentre.tbischeduling.exporter.WriteDataFile;
+import org.insightcentre.tbischeduling.generatedsolver.GenerateDataDialogBox;
+import org.insightcentre.tbischeduling.generatedsolver.GenerateDataSolver;
+import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
+import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
+import org.insightcentre.tbischeduling.implementedsolver.GenerateDataSolverImpl;
+import org.insightcentre.tbischeduling.implementedsolver.ScheduleJobsSolverImpl;
 import org.insightcentre.tbischeduling.importer.CreateData;
 import org.insightcentre.tbischeduling.importer.ReadDataFile;
 import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
@@ -34,14 +41,18 @@ public class JfxApp extends GeneratedJfxApp {
         public ApplicationDatasetInterface minimalDataset() {
                 Scenario base = new Scenario();
                 IrishCalendar.buildCalendar();
-                new CreateData(base,42,5,3,6,1,
-                        0.3,
+                // define the format version of the datafiles
+                base.setDataFileVersionNumber(2.0);
+                base.setDataFile("");
+                base.setHorizon(2000);
+                new CreateData(base,"P1",42,5,3,6,1,
+                        0.3,1,5,10,
                         20,20,horizon(10,5),1,10);
                 base.setDirty(false);
                 return base;
         }
 
-        private int horizon(int days,int timeResolution){
+        public static int horizon(int days,int timeResolution){
                 return days*1440/timeResolution;
         }
 
@@ -50,6 +61,7 @@ public class JfxApp extends GeneratedJfxApp {
                 launch(args);
         }
 
+        @Override
         public void LoadDataFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Load Datafile");
@@ -62,7 +74,7 @@ public class JfxApp extends GeneratedJfxApp {
                 if (selected != null){
                         try {
                                 info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
-//                                base.setDataFile(selected.getName());
+                                base.setDataFile(selected.getName());
                                 new ReadDataFile(base,selected);
                         } catch(IOException e){
                                 severe("IOException "+e.getMessage());
@@ -72,15 +84,17 @@ public class JfxApp extends GeneratedJfxApp {
                 }
                 // re-adjust the user interface to reflect the modified data
                 reset();
-//                if (base.getListInputErrors().size() > 0){
-//                        showView("RawIssue");
-//                }
+                // if any errors were found, show them in the GUI
+                if (base.getListInputError().size() > 0){
+                        showView("InputError");
+                }
         }
 
-        public void SaveSpreadsheetAction(Scenario base) {
+        @Override
+        public void SaveDataFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Save Result");
-                fileChooser.setInitialDirectory(new File("exports/"));
+                fileChooser.setTitle("Save Datafile");
+                fileChooser.setInitialDirectory(new File("imports/"));
                 fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("JSON Files", "*.json"));
                 fileChooser.setInitialFileName("result.json");
@@ -100,9 +114,25 @@ public class JfxApp extends GeneratedJfxApp {
                 reset();
         }
 
+        @Override
         public void GenerateReportAction(Scenario base) {
                 new SchedulingReport(base,"reports/").produce("schedulingreport","Scheduling Report","L. O'Toole and H. Simonis");
+                reset();
 
         }
+
+        @Override
+        public void generateDataSolverRun(Scenario base) {
+                Optional<Boolean> result = new GenerateDataDialogBox(this,base,new GenerateDataSolverImpl(base)).showAndWait();
+                reset();
+        }
+
+        @Override
+        public void scheduleJobsSolverRun(Scenario base) {
+                Optional<Boolean> result = new ScheduleJobsDialogBox(this,base,new ScheduleJobsSolverImpl(base)).showAndWait();
+                reset();
+                showView("Solution");
+        }
+
 
 }

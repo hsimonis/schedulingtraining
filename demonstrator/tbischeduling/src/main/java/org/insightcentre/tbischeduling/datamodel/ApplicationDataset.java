@@ -5,23 +5,32 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
+import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
+import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
-import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
-import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
-import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
+import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
+import org.insightcentre.tbischeduling.datamodel.Severity;
+import org.insightcentre.tbischeduling.datamodel.ModelType;
+import org.insightcentre.tbischeduling.datamodel.SolverBackend;
+import org.insightcentre.tbischeduling.datamodel.SolverStatus;
+import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;
@@ -106,11 +115,25 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<Scenario> listScenario = new ArrayList<Scenario>();
 
 /**
+ *  This lists holds all items of class InputError and its subclasses
+ *
+*/
+
+    List<InputError> listInputError = new ArrayList<InputError>();
+
+/**
  *  This lists holds all items of class Problem and its subclasses
  *
 */
 
     List<Problem> listProblem = new ArrayList<Problem>();
+
+/**
+ *  This lists holds all items of class Product and its subclasses
+ *
+*/
+
+    List<Product> listProduct = new ArrayList<Product>();
 
 /**
  *  This lists holds all items of class Process and its subclasses
@@ -134,6 +157,27 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<ProcessSequence> listProcessSequence = new ArrayList<ProcessSequence>();
 
 /**
+ *  This lists holds all items of class ResourceNeed and its subclasses
+ *
+*/
+
+    List<ResourceNeed> listResourceNeed = new ArrayList<ResourceNeed>();
+
+/**
+ *  This lists holds all items of class CumulativeNeed and its subclasses
+ *
+*/
+
+    List<CumulativeNeed> listCumulativeNeed = new ArrayList<CumulativeNeed>();
+
+/**
+ *  This lists holds all items of class CumulativeProfile and its subclasses
+ *
+*/
+
+    List<CumulativeProfile> listCumulativeProfile = new ArrayList<CumulativeProfile>();
+
+/**
  *  This lists holds all items of class DisjunctiveResource and its subclasses
  *
 */
@@ -146,20 +190,6 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
 */
 
     List<CumulativeResource> listCumulativeResource = new ArrayList<CumulativeResource>();
-
-/**
- *  This lists holds all items of class ResourceNeed and its subclasses
- *
-*/
-
-    List<ResourceNeed> listResourceNeed = new ArrayList<ResourceNeed>();
-
-/**
- *  This lists holds all items of class Product and its subclasses
- *
-*/
-
-    List<Product> listProduct = new ArrayList<Product>();
 
 /**
  *  This lists holds all items of class Order and its subclasses
@@ -183,6 +213,13 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<Task> listTask = new ArrayList<Task>();
 
 /**
+ *  This lists holds all items of class SolverRun and its subclasses
+ *
+*/
+
+    List<SolverRun> listSolverRun = new ArrayList<SolverRun>();
+
+/**
  *  This lists holds all items of class Solution and its subclasses
  *
 */
@@ -190,18 +227,18 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<Solution> listSolution = new ArrayList<Solution>();
 
 /**
- *  This lists holds all items of class TaskAssignment and its subclasses
- *
-*/
-
-    List<TaskAssignment> listTaskAssignment = new ArrayList<TaskAssignment>();
-
-/**
  *  This lists holds all items of class JobAssignment and its subclasses
  *
 */
 
     List<JobAssignment> listJobAssignment = new ArrayList<JobAssignment>();
+
+/**
+ *  This lists holds all items of class TaskAssignment and its subclasses
+ *
+*/
+
+    List<TaskAssignment> listTaskAssignment = new ArrayList<TaskAssignment>();
 
 /**
  *  This is the static counter from which all id numbers are generated.It is used by all classes, so that ids are unique over all objects.
@@ -328,8 +365,11 @@ public int compareTo(ApplicationDataset ds2){
     public List<String> getListOfClassNames(){
         return Arrays.asList("ApplicationDifference",
                              "ApplicationWarning",
+                             "CumulativeNeed",
+                             "CumulativeProfile",
                              "CumulativeResource",
                              "DisjunctiveResource",
+                             "InputError",
                              "Job",
                              "JobAssignment",
                              "Order",
@@ -341,6 +381,7 @@ public int compareTo(ApplicationDataset ds2){
                              "ResourceNeed",
                              "Scenario",
                              "Solution",
+                             "SolverRun",
                              "Task",
                              "TaskAssignment");
     }
@@ -400,20 +441,24 @@ public int compareTo(ApplicationDataset ds2){
         listApplicationObject = new ArrayList<ApplicationObject>();
         resetListApplicationWarning();
         resetListApplicationDifference();
+        resetListInputError();
         resetListProblem();
+        resetListProduct();
         resetListProcess();
         resetListProcessStep();
         resetListProcessSequence();
+        resetListResourceNeed();
+        resetListCumulativeNeed();
+        resetListCumulativeProfile();
         resetListDisjunctiveResource();
         resetListCumulativeResource();
-        resetListResourceNeed();
-        resetListProduct();
         resetListOrder();
         resetListJob();
         resetListTask();
+        resetListSolverRun();
         resetListSolution();
-        resetListTaskAssignment();
         resetListJobAssignment();
+        resetListTaskAssignment();
     }
 
 /**
@@ -519,6 +564,40 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Iterator for list of class InputError
+ *
+*/
+
+    public Iterator<InputError> getIteratorInputError(){
+        return listInputError.iterator();
+    }
+
+/**
+ *  Getter for list of class InputError
+ *
+*/
+
+    public List<InputError> getListInputError(){
+        return listInputError;
+    }
+
+/**
+ *  reset the list of class InputError; use with care, does not call cascades
+ *
+*/
+
+    public void resetListInputError(){
+        listInputError = new ArrayList<InputError>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof InputError)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
  *  Iterator for list of class Problem
  *
 */
@@ -546,6 +625,40 @@ public int compareTo(ApplicationDataset ds2){
         List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
         for(ApplicationObject a:listApplicationObject){
             if (!(a instanceof Problem)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class Product
+ *
+*/
+
+    public Iterator<Product> getIteratorProduct(){
+        return listProduct.iterator();
+    }
+
+/**
+ *  Getter for list of class Product
+ *
+*/
+
+    public List<Product> getListProduct(){
+        return listProduct;
+    }
+
+/**
+ *  reset the list of class Product; use with care, does not call cascades
+ *
+*/
+
+    public void resetListProduct(){
+        listProduct = new ArrayList<Product>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof Product)){
                 newListApplicationObject.add(a);
             }
         }
@@ -655,6 +768,108 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Iterator for list of class ResourceNeed
+ *
+*/
+
+    public Iterator<ResourceNeed> getIteratorResourceNeed(){
+        return listResourceNeed.iterator();
+    }
+
+/**
+ *  Getter for list of class ResourceNeed
+ *
+*/
+
+    public List<ResourceNeed> getListResourceNeed(){
+        return listResourceNeed;
+    }
+
+/**
+ *  reset the list of class ResourceNeed; use with care, does not call cascades
+ *
+*/
+
+    public void resetListResourceNeed(){
+        listResourceNeed = new ArrayList<ResourceNeed>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof ResourceNeed)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class CumulativeNeed
+ *
+*/
+
+    public Iterator<CumulativeNeed> getIteratorCumulativeNeed(){
+        return listCumulativeNeed.iterator();
+    }
+
+/**
+ *  Getter for list of class CumulativeNeed
+ *
+*/
+
+    public List<CumulativeNeed> getListCumulativeNeed(){
+        return listCumulativeNeed;
+    }
+
+/**
+ *  reset the list of class CumulativeNeed; use with care, does not call cascades
+ *
+*/
+
+    public void resetListCumulativeNeed(){
+        listCumulativeNeed = new ArrayList<CumulativeNeed>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof CumulativeNeed)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class CumulativeProfile
+ *
+*/
+
+    public Iterator<CumulativeProfile> getIteratorCumulativeProfile(){
+        return listCumulativeProfile.iterator();
+    }
+
+/**
+ *  Getter for list of class CumulativeProfile
+ *
+*/
+
+    public List<CumulativeProfile> getListCumulativeProfile(){
+        return listCumulativeProfile;
+    }
+
+/**
+ *  reset the list of class CumulativeProfile; use with care, does not call cascades
+ *
+*/
+
+    public void resetListCumulativeProfile(){
+        listCumulativeProfile = new ArrayList<CumulativeProfile>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof CumulativeProfile)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
  *  Iterator for list of class DisjunctiveResource
  *
 */
@@ -716,74 +931,6 @@ public int compareTo(ApplicationDataset ds2){
         List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
         for(ApplicationObject a:listApplicationObject){
             if (!(a instanceof CumulativeResource)){
-                newListApplicationObject.add(a);
-            }
-        }
-       listApplicationObject = newListApplicationObject;
-    }
-
-/**
- *  Iterator for list of class ResourceNeed
- *
-*/
-
-    public Iterator<ResourceNeed> getIteratorResourceNeed(){
-        return listResourceNeed.iterator();
-    }
-
-/**
- *  Getter for list of class ResourceNeed
- *
-*/
-
-    public List<ResourceNeed> getListResourceNeed(){
-        return listResourceNeed;
-    }
-
-/**
- *  reset the list of class ResourceNeed; use with care, does not call cascades
- *
-*/
-
-    public void resetListResourceNeed(){
-        listResourceNeed = new ArrayList<ResourceNeed>();
-        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
-        for(ApplicationObject a:listApplicationObject){
-            if (!(a instanceof ResourceNeed)){
-                newListApplicationObject.add(a);
-            }
-        }
-       listApplicationObject = newListApplicationObject;
-    }
-
-/**
- *  Iterator for list of class Product
- *
-*/
-
-    public Iterator<Product> getIteratorProduct(){
-        return listProduct.iterator();
-    }
-
-/**
- *  Getter for list of class Product
- *
-*/
-
-    public List<Product> getListProduct(){
-        return listProduct;
-    }
-
-/**
- *  reset the list of class Product; use with care, does not call cascades
- *
-*/
-
-    public void resetListProduct(){
-        listProduct = new ArrayList<Product>();
-        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
-        for(ApplicationObject a:listApplicationObject){
-            if (!(a instanceof Product)){
                 newListApplicationObject.add(a);
             }
         }
@@ -893,6 +1040,40 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Iterator for list of class SolverRun
+ *
+*/
+
+    public Iterator<SolverRun> getIteratorSolverRun(){
+        return listSolverRun.iterator();
+    }
+
+/**
+ *  Getter for list of class SolverRun
+ *
+*/
+
+    public List<SolverRun> getListSolverRun(){
+        return listSolverRun;
+    }
+
+/**
+ *  reset the list of class SolverRun; use with care, does not call cascades
+ *
+*/
+
+    public void resetListSolverRun(){
+        listSolverRun = new ArrayList<SolverRun>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof SolverRun)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
  *  Iterator for list of class Solution
  *
 */
@@ -927,40 +1108,6 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
- *  Iterator for list of class TaskAssignment
- *
-*/
-
-    public Iterator<TaskAssignment> getIteratorTaskAssignment(){
-        return listTaskAssignment.iterator();
-    }
-
-/**
- *  Getter for list of class TaskAssignment
- *
-*/
-
-    public List<TaskAssignment> getListTaskAssignment(){
-        return listTaskAssignment;
-    }
-
-/**
- *  reset the list of class TaskAssignment; use with care, does not call cascades
- *
-*/
-
-    public void resetListTaskAssignment(){
-        listTaskAssignment = new ArrayList<TaskAssignment>();
-        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
-        for(ApplicationObject a:listApplicationObject){
-            if (!(a instanceof TaskAssignment)){
-                newListApplicationObject.add(a);
-            }
-        }
-       listApplicationObject = newListApplicationObject;
-    }
-
-/**
  *  Iterator for list of class JobAssignment
  *
 */
@@ -988,6 +1135,40 @@ public int compareTo(ApplicationDataset ds2){
         List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
         for(ApplicationObject a:listApplicationObject){
             if (!(a instanceof JobAssignment)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class TaskAssignment
+ *
+*/
+
+    public Iterator<TaskAssignment> getIteratorTaskAssignment(){
+        return listTaskAssignment.iterator();
+    }
+
+/**
+ *  Getter for list of class TaskAssignment
+ *
+*/
+
+    public List<TaskAssignment> getListTaskAssignment(){
+        return listTaskAssignment;
+    }
+
+/**
+ *  reset the list of class TaskAssignment; use with care, does not call cascades
+ *
+*/
+
+    public void resetListTaskAssignment(){
+        listTaskAssignment = new ArrayList<TaskAssignment>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof TaskAssignment)){
                 newListApplicationObject.add(a);
             }
         }
@@ -1089,6 +1270,24 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Removing object item of class Process; remove all dependent objects of class Product which refer to item through their attribute process
+ *
+*/
+
+    public void cascadeProductProcess(Process item){
+        assert item != null;
+        List<Product> toRemove = new ArrayList<Product>();
+        for(Product a:getListProduct()) {
+         if (a.getProcess() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(Product b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
  *  Removing object item of class Process; remove all dependent objects of class ProcessStep which refer to item through their attribute process
  *
 */
@@ -1143,24 +1342,6 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
- *  Removing object item of class ProcessStep; remove all dependent objects of class ResourceNeed which refer to item through their attribute processStep
- *
-*/
-
-    public void cascadeResourceNeedProcessStep(ProcessStep item){
-        assert item != null;
-        List<ResourceNeed> toRemove = new ArrayList<ResourceNeed>();
-        for(ResourceNeed a:getListResourceNeed()) {
-         if (a.getProcessStep() == item) {
-            toRemove.add(a);
-         }
-        }
-        for(ResourceNeed b:toRemove) {
-            b.remove();
-        }
-    }
-
-/**
  *  Removing object item of class DisjunctiveResource; remove all dependent objects of class ResourceNeed which refer to item through their attribute disjunctiveResource
  *
 */
@@ -1179,19 +1360,73 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
- *  Removing object item of class Process; remove all dependent objects of class Product which refer to item through their attribute process
+ *  Removing object item of class ProcessStep; remove all dependent objects of class ResourceNeed which refer to item through their attribute processStep
  *
 */
 
-    public void cascadeProductProcess(Process item){
+    public void cascadeResourceNeedProcessStep(ProcessStep item){
         assert item != null;
-        List<Product> toRemove = new ArrayList<Product>();
-        for(Product a:getListProduct()) {
-         if (a.getProcess() == item) {
+        List<ResourceNeed> toRemove = new ArrayList<ResourceNeed>();
+        for(ResourceNeed a:getListResourceNeed()) {
+         if (a.getProcessStep() == item) {
             toRemove.add(a);
          }
         }
-        for(Product b:toRemove) {
+        for(ResourceNeed b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class CumulativeResource; remove all dependent objects of class CumulativeNeed which refer to item through their attribute cumulativeResource
+ *
+*/
+
+    public void cascadeCumulativeNeedCumulativeResource(CumulativeResource item){
+        assert item != null;
+        List<CumulativeNeed> toRemove = new ArrayList<CumulativeNeed>();
+        for(CumulativeNeed a:getListCumulativeNeed()) {
+         if (a.getCumulativeResource() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(CumulativeNeed b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class ProcessStep; remove all dependent objects of class CumulativeNeed which refer to item through their attribute processStep
+ *
+*/
+
+    public void cascadeCumulativeNeedProcessStep(ProcessStep item){
+        assert item != null;
+        List<CumulativeNeed> toRemove = new ArrayList<CumulativeNeed>();
+        for(CumulativeNeed a:getListCumulativeNeed()) {
+         if (a.getProcessStep() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(CumulativeNeed b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class CumulativeResource; remove all dependent objects of class CumulativeProfile which refer to item through their attribute cumulativeResource
+ *
+*/
+
+    public void cascadeCumulativeProfileCumulativeResource(CumulativeResource item){
+        assert item != null;
+        List<CumulativeProfile> toRemove = new ArrayList<CumulativeProfile>();
+        for(CumulativeProfile a:getListCumulativeProfile()) {
+         if (a.getCumulativeResource() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(CumulativeProfile b:toRemove) {
             b.remove();
         }
     }
@@ -1287,6 +1522,45 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Removing object item of class DisjunctiveResource; remove all dependent objects of class Task which refer to item through their attribute machines
+ *
+*/
+
+    public void cascadeTaskMachines(DisjunctiveResource item){
+        assert item != null;
+        List<Task> toRemove = new ArrayList<Task>();
+        for(Task a:getListTask()) {
+         if (a.getMachines().contains(item)) {
+            a.getMachines().remove(item);
+            if (a.getMachines().isEmpty()) {
+               toRemove.add(a);
+            }
+         }
+        }
+        for(Task b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class SolverRun; remove all dependent objects of class Solution which refer to item through their attribute solverRun
+ *
+*/
+
+    public void cascadeSolutionSolverRun(SolverRun item){
+        assert item != null;
+        List<Solution> toRemove = new ArrayList<Solution>();
+        for(Solution a:getListSolution()) {
+         if (a.getSolverRun() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(Solution b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
  *  Removing object item of class Solution; remove all dependent objects of class JobAssignment which refer to item through their attribute solution
  *
 */
@@ -1323,6 +1597,24 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Removing object item of class Task; remove all dependent objects of class TaskAssignment which refer to item through their attribute task
+ *
+*/
+
+    public void cascadeTaskAssignmentTask(Task item){
+        assert item != null;
+        List<TaskAssignment> toRemove = new ArrayList<TaskAssignment>();
+        for(TaskAssignment a:getListTaskAssignment()) {
+         if (a.getTask() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(TaskAssignment b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
  *  Removing object item of class JobAssignment; remove all dependent objects of class TaskAssignment which refer to item through their attribute jobAssignment
  *
 */
@@ -1341,15 +1633,15 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
- *  Removing object item of class Task; remove all dependent objects of class TaskAssignment which refer to item through their attribute task
+ *  Removing object item of class DisjunctiveResource; remove all dependent objects of class TaskAssignment which refer to item through their attribute disjunctiveResource
  *
 */
 
-    public void cascadeTaskAssignmentTask(Task item){
+    public void cascadeTaskAssignmentDisjunctiveResource(DisjunctiveResource item){
         assert item != null;
         List<TaskAssignment> toRemove = new ArrayList<TaskAssignment>();
         for(TaskAssignment a:getListTaskAssignment()) {
-         if (a.getTask() == item) {
+         if (a.getDisjunctiveResource() == item) {
             toRemove.add(a);
          }
         }
@@ -1459,6 +1751,26 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class InputError
+ *
+*/
+
+    public void addInputError(InputError inputError){
+        assert inputError != null;
+        this.listInputError.add(inputError);
+    }
+
+/**
+ *  remove an item from the list for class InputError
+ *
+*/
+
+    public Boolean removeInputError(InputError inputError){
+        assert inputError != null;
+        return this.listInputError.remove(inputError);
+    }
+
+/**
  *  add an item to the list for class Problem
  *
 */
@@ -1476,6 +1788,26 @@ public int compareTo(ApplicationDataset ds2){
     public Boolean removeProblem(Problem problem){
         assert problem != null;
         return this.listProblem.remove(problem);
+    }
+
+/**
+ *  add an item to the list for class Product
+ *
+*/
+
+    public void addProduct(Product product){
+        assert product != null;
+        this.listProduct.add(product);
+    }
+
+/**
+ *  remove an item from the list for class Product
+ *
+*/
+
+    public Boolean removeProduct(Product product){
+        assert product != null;
+        return this.listProduct.remove(product);
     }
 
 /**
@@ -1539,6 +1871,66 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class ResourceNeed
+ *
+*/
+
+    public void addResourceNeed(ResourceNeed resourceNeed){
+        assert resourceNeed != null;
+        this.listResourceNeed.add(resourceNeed);
+    }
+
+/**
+ *  remove an item from the list for class ResourceNeed
+ *
+*/
+
+    public Boolean removeResourceNeed(ResourceNeed resourceNeed){
+        assert resourceNeed != null;
+        return this.listResourceNeed.remove(resourceNeed);
+    }
+
+/**
+ *  add an item to the list for class CumulativeNeed
+ *
+*/
+
+    public void addCumulativeNeed(CumulativeNeed cumulativeNeed){
+        assert cumulativeNeed != null;
+        this.listCumulativeNeed.add(cumulativeNeed);
+    }
+
+/**
+ *  remove an item from the list for class CumulativeNeed
+ *
+*/
+
+    public Boolean removeCumulativeNeed(CumulativeNeed cumulativeNeed){
+        assert cumulativeNeed != null;
+        return this.listCumulativeNeed.remove(cumulativeNeed);
+    }
+
+/**
+ *  add an item to the list for class CumulativeProfile
+ *
+*/
+
+    public void addCumulativeProfile(CumulativeProfile cumulativeProfile){
+        assert cumulativeProfile != null;
+        this.listCumulativeProfile.add(cumulativeProfile);
+    }
+
+/**
+ *  remove an item from the list for class CumulativeProfile
+ *
+*/
+
+    public Boolean removeCumulativeProfile(CumulativeProfile cumulativeProfile){
+        assert cumulativeProfile != null;
+        return this.listCumulativeProfile.remove(cumulativeProfile);
+    }
+
+/**
  *  add an item to the list for class DisjunctiveResource
  *
 */
@@ -1576,46 +1968,6 @@ public int compareTo(ApplicationDataset ds2){
     public Boolean removeCumulativeResource(CumulativeResource cumulativeResource){
         assert cumulativeResource != null;
         return this.listCumulativeResource.remove(cumulativeResource);
-    }
-
-/**
- *  add an item to the list for class ResourceNeed
- *
-*/
-
-    public void addResourceNeed(ResourceNeed resourceNeed){
-        assert resourceNeed != null;
-        this.listResourceNeed.add(resourceNeed);
-    }
-
-/**
- *  remove an item from the list for class ResourceNeed
- *
-*/
-
-    public Boolean removeResourceNeed(ResourceNeed resourceNeed){
-        assert resourceNeed != null;
-        return this.listResourceNeed.remove(resourceNeed);
-    }
-
-/**
- *  add an item to the list for class Product
- *
-*/
-
-    public void addProduct(Product product){
-        assert product != null;
-        this.listProduct.add(product);
-    }
-
-/**
- *  remove an item from the list for class Product
- *
-*/
-
-    public Boolean removeProduct(Product product){
-        assert product != null;
-        return this.listProduct.remove(product);
     }
 
 /**
@@ -1679,6 +2031,26 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class SolverRun
+ *
+*/
+
+    public void addSolverRun(SolverRun solverRun){
+        assert solverRun != null;
+        this.listSolverRun.add(solverRun);
+    }
+
+/**
+ *  remove an item from the list for class SolverRun
+ *
+*/
+
+    public Boolean removeSolverRun(SolverRun solverRun){
+        assert solverRun != null;
+        return this.listSolverRun.remove(solverRun);
+    }
+
+/**
  *  add an item to the list for class Solution
  *
 */
@@ -1696,26 +2068,6 @@ public int compareTo(ApplicationDataset ds2){
     public Boolean removeSolution(Solution solution){
         assert solution != null;
         return this.listSolution.remove(solution);
-    }
-
-/**
- *  add an item to the list for class TaskAssignment
- *
-*/
-
-    public void addTaskAssignment(TaskAssignment taskAssignment){
-        assert taskAssignment != null;
-        this.listTaskAssignment.add(taskAssignment);
-    }
-
-/**
- *  remove an item from the list for class TaskAssignment
- *
-*/
-
-    public Boolean removeTaskAssignment(TaskAssignment taskAssignment){
-        assert taskAssignment != null;
-        return this.listTaskAssignment.remove(taskAssignment);
     }
 
 /**
@@ -1739,6 +2091,26 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class TaskAssignment
+ *
+*/
+
+    public void addTaskAssignment(TaskAssignment taskAssignment){
+        assert taskAssignment != null;
+        this.listTaskAssignment.add(taskAssignment);
+    }
+
+/**
+ *  remove an item from the list for class TaskAssignment
+ *
+*/
+
+    public Boolean removeTaskAssignment(TaskAssignment taskAssignment){
+        assert taskAssignment != null;
+        return this.listTaskAssignment.remove(taskAssignment);
+    }
+
+/**
  *  dump all items on the console for debugging
  *
 */
@@ -1750,10 +2122,19 @@ public int compareTo(ApplicationDataset ds2){
         for(ApplicationWarning x:getListApplicationWarning()){
             System.out.println(x);
         }
+        for(CumulativeNeed x:getListCumulativeNeed()){
+            System.out.println(x);
+        }
+        for(CumulativeProfile x:getListCumulativeProfile()){
+            System.out.println(x);
+        }
         for(CumulativeResource x:getListCumulativeResource()){
             System.out.println(x);
         }
         for(DisjunctiveResource x:getListDisjunctiveResource()){
+            System.out.println(x);
+        }
+        for(InputError x:getListInputError()){
             System.out.println(x);
         }
         for(Job x:getListJob()){
@@ -1787,6 +2168,9 @@ public int compareTo(ApplicationDataset ds2){
             System.out.println(x);
         }
         for(Solution x:getListSolution()){
+            System.out.println(x);
+        }
+        for(SolverRun x:getListSolverRun()){
             System.out.println(x);
         }
         for(Task x:getListTask()){
@@ -1837,11 +2221,20 @@ public int compareTo(ApplicationDataset ds2){
         for(ApplicationWarning x:getListApplicationWarning()){
             if (x.getClass().equals(ApplicationWarning.class)) x.toXML(out);
         }
+        for(CumulativeNeed x:getListCumulativeNeed()){
+            if (x.getClass().equals(CumulativeNeed.class)) x.toXML(out);
+        }
+        for(CumulativeProfile x:getListCumulativeProfile()){
+            if (x.getClass().equals(CumulativeProfile.class)) x.toXML(out);
+        }
         for(CumulativeResource x:getListCumulativeResource()){
             if (x.getClass().equals(CumulativeResource.class)) x.toXML(out);
         }
         for(DisjunctiveResource x:getListDisjunctiveResource()){
             if (x.getClass().equals(DisjunctiveResource.class)) x.toXML(out);
+        }
+        for(InputError x:getListInputError()){
+            if (x.getClass().equals(InputError.class)) x.toXML(out);
         }
         for(Job x:getListJob()){
             if (x.getClass().equals(Job.class)) x.toXML(out);
@@ -1872,6 +2265,9 @@ public int compareTo(ApplicationDataset ds2){
         }
         for(Solution x:getListSolution()){
             if (x.getClass().equals(Solution.class)) x.toXML(out);
+        }
+        for(SolverRun x:getListSolverRun()){
+            if (x.getClass().equals(SolverRun.class)) x.toXML(out);
         }
         for(Task x:getListTask()){
             if (x.getClass().equals(Task.class)) x.toXML(out);
@@ -1975,8 +2371,11 @@ public int compareTo(ApplicationDataset ds2){
         ApplicationDataset compare = (ApplicationDataset) c;
         System.out.println("Comparing ApplicationDataset");
         compareApplicationWarning(this.getListApplicationWarning(),compare.getListApplicationWarning());
+        compareCumulativeNeed(this.getListCumulativeNeed(),compare.getListCumulativeNeed());
+        compareCumulativeProfile(this.getListCumulativeProfile(),compare.getListCumulativeProfile());
         compareCumulativeResource(this.getListCumulativeResource(),compare.getListCumulativeResource());
         compareDisjunctiveResource(this.getListDisjunctiveResource(),compare.getListDisjunctiveResource());
+        compareInputError(this.getListInputError(),compare.getListInputError());
         compareJob(this.getListJob(),compare.getListJob());
         compareJobAssignment(this.getListJobAssignment(),compare.getListJobAssignment());
         compareOrder(this.getListOrder(),compare.getListOrder());
@@ -1987,6 +2386,7 @@ public int compareTo(ApplicationDataset ds2){
         compareProduct(this.getListProduct(),compare.getListProduct());
         compareResourceNeed(this.getListResourceNeed(),compare.getListResourceNeed());
         compareSolution(this.getListSolution(),compare.getListSolution());
+        compareSolverRun(this.getListSolverRun(),compare.getListSolverRun());
         compareTask(this.getListTask(),compare.getListTask());
         compareTaskAssignment(this.getListTaskAssignment(),compare.getListTaskAssignment());
         System.out.println("Done Comparing ApplicationDataset");
@@ -2012,6 +2412,54 @@ public int compareTo(ApplicationDataset ds2){
             ApplicationWarning a = ApplicationWarning.find(b,aList);
             if (a == null) {
                 new ApplicationDifference(this,ApplicationDataset.getIdNr(),"ApplicationWarning B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types CumulativeNeed, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareCumulativeNeed(List<CumulativeNeed> aList,List<CumulativeNeed> bList){
+        System.out.println("Comparing CumulativeNeed");
+        for(CumulativeNeed a:aList){
+            CumulativeNeed b= CumulativeNeed.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeNeed A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeNeed A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeNeed B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(CumulativeNeed b: bList){
+            CumulativeNeed a = CumulativeNeed.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeNeed B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types CumulativeProfile, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareCumulativeProfile(List<CumulativeProfile> aList,List<CumulativeProfile> bList){
+        System.out.println("Comparing CumulativeProfile");
+        for(CumulativeProfile a:aList){
+            CumulativeProfile b= CumulativeProfile.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeProfile A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeProfile A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeProfile B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(CumulativeProfile b: bList){
+            CumulativeProfile a = CumulativeProfile.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeProfile B",b.toString(),DifferenceType.ONLYB);
             }
         }
     }
@@ -2060,6 +2508,30 @@ public int compareTo(ApplicationDataset ds2){
             DisjunctiveResource a = DisjunctiveResource.find(b,aList);
             if (a == null) {
                 new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DisjunctiveResource B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types InputError, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareInputError(List<InputError> aList,List<InputError> bList){
+        System.out.println("Comparing InputError");
+        for(InputError a:aList){
+            InputError b= InputError.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"InputError A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"InputError A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"InputError B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(InputError b: bList){
+            InputError a = InputError.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"InputError B",b.toString(),DifferenceType.ONLYB);
             }
         }
     }
@@ -2305,6 +2777,30 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ * compare two lists of types SolverRun, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareSolverRun(List<SolverRun> aList,List<SolverRun> bList){
+        System.out.println("Comparing SolverRun");
+        for(SolverRun a:aList){
+            SolverRun b= SolverRun.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolverRun A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolverRun A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolverRun B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(SolverRun b: bList){
+            SolverRun a = SolverRun.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolverRun B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
  * compare two lists of types Task, create AppplicationWarnings for items which are in only one of the lists
  * or for items which are applicationSame(), but not applicationEqual()
 */
@@ -2359,8 +2855,11 @@ public int compareTo(ApplicationDataset ds2){
 
     public void checkAll(){
         checkApplicationWarning(this.getListApplicationWarning());
+        checkCumulativeNeed(this.getListCumulativeNeed());
+        checkCumulativeProfile(this.getListCumulativeProfile());
         checkCumulativeResource(this.getListCumulativeResource());
         checkDisjunctiveResource(this.getListDisjunctiveResource());
+        checkInputError(this.getListInputError());
         checkJob(this.getListJob());
         checkJobAssignment(this.getListJobAssignment());
         checkOrder(this.getListOrder());
@@ -2372,6 +2871,7 @@ public int compareTo(ApplicationDataset ds2){
         checkResourceNeed(this.getListResourceNeed());
         checkScenario(this.getListScenario());
         checkSolution(this.getListSolution());
+        checkSolverRun(this.getListSolverRun());
         checkTask(this.getListTask());
         checkTaskAssignment(this.getListTaskAssignment());
     }
@@ -2383,6 +2883,28 @@ public int compareTo(ApplicationDataset ds2){
 
     public void checkApplicationWarning(List<ApplicationWarning> list){
         for(ApplicationWarning a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<CumulativeNeed> dataset list of all items of type CumulativeNeed
+*/
+
+    public void checkCumulativeNeed(List<CumulativeNeed> list){
+        for(CumulativeNeed a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<CumulativeProfile> dataset list of all items of type CumulativeProfile
+*/
+
+    public void checkCumulativeProfile(List<CumulativeProfile> list){
+        for(CumulativeProfile a:list){
             a.check();
         }
     }
@@ -2405,6 +2927,17 @@ public int compareTo(ApplicationDataset ds2){
 
     public void checkDisjunctiveResource(List<DisjunctiveResource> list){
         for(DisjunctiveResource a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<InputError> dataset list of all items of type InputError
+*/
+
+    public void checkInputError(List<InputError> list){
+        for(InputError a:list){
             a.check();
         }
     }
@@ -2532,6 +3065,17 @@ public int compareTo(ApplicationDataset ds2){
 
 /**
  * helper method for checkAll()
+ * @param list List<SolverRun> dataset list of all items of type SolverRun
+*/
+
+    public void checkSolverRun(List<SolverRun> list){
+        for(SolverRun a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
  * @param list List<Task> dataset list of all items of type Task
 */
 
@@ -2555,8 +3099,11 @@ public int compareTo(ApplicationDataset ds2){
    public void generateDummies(){
         ApplicationDifference.dummy(this);
         ApplicationWarning.dummy(this);
+        CumulativeNeed.dummy(this);
+        CumulativeProfile.dummy(this);
         CumulativeResource.dummy(this);
         DisjunctiveResource.dummy(this);
+        InputError.dummy(this);
         Job.dummy(this);
         JobAssignment.dummy(this);
         Order.dummy(this);
@@ -2568,6 +3115,7 @@ public int compareTo(ApplicationDataset ds2){
         ResourceNeed.dummy(this);
         Scenario.dummy(this);
         Solution.dummy(this);
+        SolverRun.dummy(this);
         Task.dummy(this);
         TaskAssignment.dummy(this);
    }

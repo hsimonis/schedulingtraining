@@ -2,24 +2,37 @@ package org.insightcentre.tbischeduling.controller;
 
 import framework.gui.AbstractJfxMainWindow;
 import framework.gui.Table3Controller;
+import java.lang.Boolean;
+import java.lang.Double;
 import java.lang.Exception;
 import java.lang.Integer;
+import java.lang.NullPointerException;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.lang.reflect.Field;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
+import org.insightcentre.tbischeduling.datamodel.ModelType;
+import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.Solution;
+import org.insightcentre.tbischeduling.datamodel.SolverBackend;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 14:32:41 on 2024-09-23 */
+ * Generated at 18:08:58 on 2024-09-26 */
 public class SolutionController extends Table3Controller {
 	@FXML
 	private TableView<Solution> table;
@@ -28,7 +41,67 @@ public class SolutionController extends Table3Controller {
 	private TableColumn<Solution, String> name;
 
 	@FXML
+	private TableColumn<Solution, SolverRun> solverRun;
+
+	@FXML
 	private TableColumn<Solution, Integer> objectiveValue;
+
+	@FXML
+	private TableColumn<Solution, SolverStatus> solverStatus;
+
+	@FXML
+	private TableColumn<Solution, Double> bound;
+
+	@FXML
+	private TableColumn<Solution, Double> gap;
+
+	@FXML
+	private TableColumn<Solution, Integer> makespan;
+
+	@FXML
+	private TableColumn<Solution, Integer> flowtime;
+
+	@FXML
+	private TableColumn<Solution, Integer> totalLateness;
+
+	@FXML
+	private TableColumn<Solution, Double> weightedLateness;
+
+	@FXML
+	private TableColumn<Solution, Integer> totalEarliness;
+
+	@FXML
+	private TableColumn<Solution, Double> weightedEarliness;
+
+	@FXML
+	private TableColumn<Solution, ModelType> modelType;
+
+	@FXML
+	private TableColumn<Solution, SolverBackend> solverBackend;
+
+	@FXML
+	private TableColumn<Solution, ObjectiveType> objectiveType;
+
+	@FXML
+	private TableColumn<Solution, Boolean> enforceReleaseDate;
+
+	@FXML
+	private TableColumn<Solution, Boolean> enforceDueDate;
+
+	@FXML
+	private TableColumn<Solution, Integer> timeout;
+
+	@FXML
+	private TableColumn<Solution, Integer> nrThreads;
+
+	@FXML
+	private TableColumn<Solution, Integer> seed;
+
+	@FXML
+	private TableColumn<Solution, Boolean> removeSolution;
+
+	@FXML
+	private TableColumn<Solution, Double> time;
 
 	private GeneratedJfxApp mainApp;
 
@@ -36,6 +109,11 @@ public class SolutionController extends Table3Controller {
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
 		table.setItems(mainApp.getSolutionData());
+		solverRun.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getSolverRunData()));
+		solverRun.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSolverRun(event.getNewValue()); mainApp.reset();});
+		ObservableList<SolverStatus> solverStatusValues = FXCollections.observableArrayList(SolverStatus.values());
+		solverStatus.setCellFactory(ComboBoxTableCell.forTableColumn(solverStatusValues));
+		solverStatus.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSolverStatus(event.getNewValue()); mainApp.reset();});
 	}
 
 	public TableView<Solution> getTable() {
@@ -43,6 +121,7 @@ public class SolutionController extends Table3Controller {
 	}
 
 	@FXML
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
 		table.setTableMenuButtonVisible(true);
 		table.setOnMouseClicked(event -> {if (event.isControlDown()) {mainApp.showObject(table.getFocusModel().getFocusedItem());}});
@@ -51,10 +130,117 @@ public class SolutionController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
+		choices.add("solverRun");
+		solverRun.setCellValueFactory(new PropertyValueFactory<>("solverRun"));
 		choices.add("objectiveValue");
 		objectiveValue.setCellValueFactory(new PropertyValueFactory<>("objectiveValue"));
 		objectiveValue.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		objectiveValue.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setObjectiveValue(event.getNewValue()); mainApp.reset();});
+		choices.add("solverStatus");
+		solverStatus.setCellValueFactory(new PropertyValueFactory<>("solverStatus"));
+		choices.add("bound");
+		bound.setCellValueFactory(new PropertyValueFactory<>("bound"));
+		bound.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		bound.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setBound(event.getNewValue()); mainApp.reset();});
+		choices.add("gap");
+		gap.setCellValueFactory(new PropertyValueFactory<>("gap"));
+		gap.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		gap.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setGap(event.getNewValue()); mainApp.reset();});
+		choices.add("makespan");
+		makespan.setCellValueFactory(new PropertyValueFactory<>("makespan"));
+		makespan.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		makespan.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setMakespan(event.getNewValue()); mainApp.reset();});
+		choices.add("flowtime");
+		flowtime.setCellValueFactory(new PropertyValueFactory<>("flowtime"));
+		flowtime.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		flowtime.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setFlowtime(event.getNewValue()); mainApp.reset();});
+		choices.add("totalLateness");
+		totalLateness.setCellValueFactory(new PropertyValueFactory<>("totalLateness"));
+		totalLateness.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		totalLateness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalLateness(event.getNewValue()); mainApp.reset();});
+		choices.add("weightedLateness");
+		weightedLateness.setCellValueFactory(new PropertyValueFactory<>("weightedLateness"));
+		weightedLateness.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		weightedLateness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWeightedLateness(event.getNewValue()); mainApp.reset();});
+		choices.add("totalEarliness");
+		totalEarliness.setCellValueFactory(new PropertyValueFactory<>("totalEarliness"));
+		totalEarliness.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		totalEarliness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalEarliness(event.getNewValue()); mainApp.reset();});
+		choices.add("weightedEarliness");
+		weightedEarliness.setCellValueFactory(new PropertyValueFactory<>("weightedEarliness"));
+		weightedEarliness.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		weightedEarliness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWeightedEarliness(event.getNewValue()); mainApp.reset();});
+		choices.add("solverRun.modelType");
+		try {
+			modelType.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getModelType()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.solverBackend");
+		try {
+			solverBackend.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getSolverBackend()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.objectiveType");
+		try {
+			objectiveType.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getObjectiveType()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.enforceReleaseDate");
+		try {
+			enforceReleaseDate.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getEnforceReleaseDate()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.enforceDueDate");
+		try {
+			enforceDueDate.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getEnforceDueDate()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.timeout");
+		try {
+			timeout.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSolverRun().getTimeout()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.nrThreads");
+		try {
+			nrThreads.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSolverRun().getNrThreads()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.seed");
+		try {
+			seed.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSolverRun().getSeed()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.removeSolution");
+		try {
+			removeSolution.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getRemoveSolution()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.time");
+		try {
+			time.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getSolverRun().getTime()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		time.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
 		initialize(choices);
 	}
 

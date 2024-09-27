@@ -64,6 +64,56 @@ public SequenceType getSequenceType(String attributeName,
             return SequenceType.valueOf(e);
         }
     }
+public Severity getSeverity(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("Severity"+": "+attributeName);
+            return null;
+        } else {
+            return Severity.valueOf(e);
+        }
+    }
+public ModelType getModelType(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("ModelType"+": "+attributeName);
+            return null;
+        } else {
+            return ModelType.valueOf(e);
+        }
+    }
+public SolverBackend getSolverBackend(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("SolverBackend"+": "+attributeName);
+            return null;
+        } else {
+            return SolverBackend.valueOf(e);
+        }
+    }
+public SolverStatus getSolverStatus(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("SolverStatus"+": "+attributeName);
+            return null;
+        } else {
+            return SolverStatus.valueOf(e);
+        }
+    }
+public ObjectiveType getObjectiveType(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("ObjectiveType"+": "+attributeName);
+            return null;
+        } else {
+            return ObjectiveType.valueOf(e);
+        }
+    }
     public ApplicationDataset getApplicationDataset(String attributeName,
                                Attributes attributes) {
         return (ApplicationDataset) find(getId(attributeName,attributes));
@@ -140,6 +190,44 @@ public SequenceType getSequenceType(String attributeName,
         return res;
     }
 
+    public CumulativeNeed getCumulativeNeed(String attributeName,
+                               Attributes attributes) {
+        return (CumulativeNeed) find(getId(attributeName,attributes));
+    }
+
+    public List<CumulativeNeed> getCumulativeNeedCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<CumulativeNeed> res = new ArrayList<CumulativeNeed>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((CumulativeNeed) find(id));
+            }
+        }
+        return res;
+    }
+
+    public CumulativeProfile getCumulativeProfile(String attributeName,
+                               Attributes attributes) {
+        return (CumulativeProfile) find(getId(attributeName,attributes));
+    }
+
+    public List<CumulativeProfile> getCumulativeProfileCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<CumulativeProfile> res = new ArrayList<CumulativeProfile>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((CumulativeProfile) find(id));
+            }
+        }
+        return res;
+    }
+
     public CumulativeResource getCumulativeResource(String attributeName,
                                Attributes attributes) {
         return (CumulativeResource) find(getId(attributeName,attributes));
@@ -173,6 +261,25 @@ public SequenceType getSequenceType(String attributeName,
             if (words[i].length() > 0) {
                 int id = Integer.parseInt(words[i].substring(3));
                 res.add((DisjunctiveResource) find(id));
+            }
+        }
+        return res;
+    }
+
+    public InputError getInputError(String attributeName,
+                               Attributes attributes) {
+        return (InputError) find(getId(attributeName,attributes));
+    }
+
+    public List<InputError> getInputErrorCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<InputError> res = new ArrayList<InputError>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((InputError) find(id));
             }
         }
         return res;
@@ -387,6 +494,25 @@ public SequenceType getSequenceType(String attributeName,
         return res;
     }
 
+    public SolverRun getSolverRun(String attributeName,
+                               Attributes attributes) {
+        return (SolverRun) find(getId(attributeName,attributes));
+    }
+
+    public List<SolverRun> getSolverRunCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<SolverRun> res = new ArrayList<SolverRun>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((SolverRun) find(id));
+            }
+        }
+        return res;
+    }
+
     public Task getTask(String attributeName,
                                Attributes attributes) {
         return (Task) find(getId(attributeName,attributes));
@@ -450,7 +576,11 @@ public SequenceType getSequenceType(String attributeName,
                 base = new Scenario(false,
                         getId("id", attributes),
                         getString("name", attributes, "dummy"),
-                        getBoolean("valid",attributes,false)
+                        getBoolean("valid",attributes,false),
+                        getString("dataFile",attributes,""),
+                        getDouble("dataFileVersionNumber",attributes,0.0),
+                        getInteger("horizon",attributes,0),
+                        getInteger("timeResolution",attributes,0)
                               );
             } else if (qname.equals("applicationDifference")) {
                 assert (base != null);
@@ -473,6 +603,26 @@ public SequenceType getSequenceType(String attributeName,
                         getString("limit",attributes,""),
                         null
                         ));
+            } else if (qname.equals("cumulativeNeed")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new CumulativeNeed(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        null,
+                        getInteger("demand",attributes,0),
+                        null
+                        ));
+            } else if (qname.equals("cumulativeProfile")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new CumulativeProfile(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getInteger("capacity",attributes,0),
+                        null,
+                        getInteger("from",attributes,0)
+                        ));
             } else if (qname.equals("cumulativeResource")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -485,7 +635,21 @@ public SequenceType getSequenceType(String attributeName,
                 int id = getId("id", attributes);
                 store(id, new DisjunctiveResource(base,
                         id,
-                        getString("name", attributes, "dummy")
+                        getString("name", attributes, "dummy"),
+                        getString("shortName",attributes,"")
+                        ));
+            } else if (qname.equals("inputError")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new InputError(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getString("classDesc",attributes,""),
+                        getString("description",attributes,""),
+                        getString("field",attributes,""),
+                        getString("item",attributes,""),
+                        null,
+                        getString("value",attributes,"")
                         ));
             } else if (qname.equals("job")) {
                 assert (base != null);
@@ -503,9 +667,11 @@ public SequenceType getSequenceType(String attributeName,
                         id,
                         getString("name", attributes, "dummy"),
                         getInteger("duration",attributes,0),
+                        getInteger("early",attributes,0),
                         getInteger("end",attributes,0),
                         getDateTime("endDate",attributes,"2011-01-01"),
                         null,
+                        getInteger("late",attributes,0),
                         null,
                         getInteger("start",attributes,0),
                         getDateTime("startDate",attributes,"2011-01-01")
@@ -517,9 +683,13 @@ public SequenceType getSequenceType(String attributeName,
                         id,
                         getString("name", attributes, "dummy"),
                         getInteger("due",attributes,0),
-                        getInteger("dueDate",attributes,0),
+                        getDateTime("dueDate",attributes,"2011-01-01"),
+                        getDouble("earlinessWeight",attributes,0.0),
+                        getDouble("latenessWeight",attributes,0.0),
                         null,
-                        getInteger("qty",attributes,0)
+                        getInteger("qty",attributes,0),
+                        getInteger("release",attributes,0),
+                        getDateTime("releaseDate",attributes,"2011-01-01")
                         ));
             } else if (qname.equals("problem")) {
                 assert (base != null);
@@ -527,6 +697,13 @@ public SequenceType getSequenceType(String attributeName,
                 store(id, new Problem(base,
                         id,
                         getString("name", attributes, "dummy"),
+                        getInteger("nrCumulativeResources",attributes,0),
+                        getInteger("nrDisjunctiveResources",attributes,0),
+                        getInteger("nrJobs",attributes,0),
+                        getInteger("nrOrders",attributes,0),
+                        getInteger("nrProcesses",attributes,0),
+                        getInteger("nrProducts",attributes,0),
+                        getInteger("nrTasks",attributes,0),
                         getBoolean("timePointsAsDate",attributes,false)
                         ));
             } else if (qname.equals("process")) {
@@ -580,7 +757,37 @@ public SequenceType getSequenceType(String attributeName,
                 store(id, new Solution(base,
                         id,
                         getString("name", attributes, "dummy"),
-                        getInteger("objectiveValue",attributes,0)
+                        getDouble("bound",attributes,0.0),
+                        getInteger("flowtime",attributes,0),
+                        getDouble("gap",attributes,0.0),
+                        getInteger("makespan",attributes,0),
+                        getInteger("objectiveValue",attributes,0),
+                        null,
+                        null,
+                        getInteger("totalEarliness",attributes,0),
+                        getInteger("totalLateness",attributes,0),
+                        getDouble("weightedEarliness",attributes,0.0),
+                        getDouble("weightedLateness",attributes,0.0)
+                        ));
+            } else if (qname.equals("solverRun")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new SolverRun(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getString("description",attributes,""),
+                        getBoolean("enforceDueDate",attributes,false),
+                        getBoolean("enforceReleaseDate",attributes,false),
+                        getString("label",attributes,""),
+                        null,
+                        getInteger("nrThreads",attributes,0),
+                        null,
+                        getBoolean("removeSolution",attributes,false),
+                        getInteger("seed",attributes,0),
+                        null,
+                        null,
+                        getDouble("time",attributes,0.0),
+                        getInteger("timeout",attributes,0)
                         ));
             } else if (qname.equals("task")) {
                 assert (base != null);
@@ -588,6 +795,8 @@ public SequenceType getSequenceType(String attributeName,
                 store(id, new Task(base,
                         id,
                         getString("name", attributes, "dummy"),
+                        getInteger("duration",attributes,0),
+                        null,
                         null,
                         null
                         ));
@@ -597,11 +806,11 @@ public SequenceType getSequenceType(String attributeName,
                 store(id, new TaskAssignment(base,
                         id,
                         getString("name", attributes, "dummy"),
+                        null,
                         getInteger("duration",attributes,0),
                         getInteger("end",attributes,0),
                         getDateTime("endDate",attributes,"2011-01-01"),
                         null,
-                        getInteger("resource",attributes,0),
                         getInteger("start",attributes,0),
                         getDateTime("startDate",attributes,"2011-01-01"),
                         null
@@ -647,6 +856,17 @@ public SequenceType getSequenceType(String attributeName,
                 int id = getId("id", attributes);
                 ApplicationWarning item = (ApplicationWarning) find(id);
                  item.setType(getWarningType("type",attributes));
+            } else if (qname.equals("cumulativeNeed")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                CumulativeNeed item = (CumulativeNeed) find(id);
+                 item.setCumulativeResource(getCumulativeResource("cumulativeResource",attributes));
+                 item.setProcessStep(getProcessStep("processStep",attributes));
+            } else if (qname.equals("cumulativeProfile")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                CumulativeProfile item = (CumulativeProfile) find(id);
+                 item.setCumulativeResource(getCumulativeResource("cumulativeResource",attributes));
             } else if (qname.equals("cumulativeResource")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -655,6 +875,11 @@ public SequenceType getSequenceType(String attributeName,
                 assert (base != null);
                 int id = getId("id", attributes);
                 DisjunctiveResource item = (DisjunctiveResource) find(id);
+            } else if (qname.equals("inputError")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                InputError item = (InputError) find(id);
+                 item.setSeverity(getSeverity("severity",attributes));
             } else if (qname.equals("job")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -707,16 +932,28 @@ public SequenceType getSequenceType(String attributeName,
                 assert (base != null);
                 int id = getId("id", attributes);
                 Solution item = (Solution) find(id);
+                 item.setSolverRun(getSolverRun("solverRun",attributes));
+                 item.setSolverStatus(getSolverStatus("solverStatus",attributes));
+            } else if (qname.equals("solverRun")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                SolverRun item = (SolverRun) find(id);
+                 item.setModelType(getModelType("modelType",attributes));
+                 item.setObjectiveType(getObjectiveType("objectiveType",attributes));
+                 item.setSolverBackend(getSolverBackend("solverBackend",attributes));
+                 item.setSolverStatus(getSolverStatus("solverStatus",attributes));
             } else if (qname.equals("task")) {
                 assert (base != null);
                 int id = getId("id", attributes);
                 Task item = (Task) find(id);
                  item.setJob(getJob("job",attributes));
+                 item.setMachines(getDisjunctiveResourceCollectionFromIds("machines",attributes));
                  item.setProcessStep(getProcessStep("processStep",attributes));
             } else if (qname.equals("taskAssignment")) {
                 assert (base != null);
                 int id = getId("id", attributes);
                 TaskAssignment item = (TaskAssignment) find(id);
+                 item.setDisjunctiveResource(getDisjunctiveResource("disjunctiveResource",attributes));
                  item.setJobAssignment(getJobAssignment("jobAssignment",attributes));
                  item.setTask(getTask("task",attributes));
             } else {

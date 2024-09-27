@@ -11,9 +11,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Hashtable;
 
+import static org.insightcentre.tbischeduling.datamodel.Severity.*;
+import static org.insightcentre.tbischeduling.importer.CreateData.summarizeProblem;
 import static org.insightcentre.tbischeduling.importer.Reset.resetAll;
-import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
-import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
+import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
 public class ReadDataFile {
     Scenario base;
@@ -24,7 +25,17 @@ public class ReadDataFile {
             String contents = new String(Files.readAllBytes(selected.toPath()));
             JSONObject root = new JSONObject(contents);
 
+            if (!root.has("version")){
+                inputError("root","root","version","n/a","File does not have version field",Fatal);
+            }
+            double version = root.getDouble("version");
+            // compare to version number defined in minimalData()
+            if (version < base.getDataFileVersionNumber()){
+                inputError("root","root","version",String.format("%f",version),"File version outdated",Fatal);
+            }
+
             // read the different fields of data, create a hashtable from name to Object
+            Hashtable<String, InputError> inputErrorHash = readInputErrors(root);
             Hashtable<String, Problem> problemHash = readProblems(root);
             Hashtable<String, DisjunctiveResource> disjunctiveResourceHash = readDisjunctiveResources(root);
             Hashtable<String, CumulativeResource> cumulativeResourceHash = readCumulativeResources(root);
@@ -42,84 +53,151 @@ public class ReadDataFile {
             Hashtable<String, JobAssignment> jobAssignmentHash = readJobAssignments(root,jobHash,solutionHash);
             Hashtable<String, TaskAssignment> taskAssignmentHash = readTaskAssignments(root,jobAssignmentHash,taskHash);
 
+            summarizeProblem(base);
+
 
         } catch(IOException e){
             severe("Cannot read file "+selected+", exception "+e.getMessage());
         }
     }
 
-    private Hashtable<String,Problem> readProblems(JSONObject root){
-        Hashtable<String,Problem> res = new Hashtable<>();
-        if (root.has("problem")){
-            JSONArray arr = root.getJSONArray("problem");
+    private Hashtable<String,InputError> readInputErrors(JSONObject root){
+        Hashtable<String,InputError> res = new Hashtable<>();
+        String key = "inputError";
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","classDesc","item","field","value","description","severity"});
                 String name = item.getString("name");
-                Boolean flag = item.getBoolean("timePointsAsDate");
+                String classDesc = item.getString("classDesc");
+                String iName= item.getString("item");
+                String field = item.getString("field");
+                String value = item.getString("value");
+                String description = item.getString("description");
+                String severity = item.getString("severity");
+                InputError e  = new InputError(base);
+                e.setName(name);
+                e.setClassDesc(classDesc);
+                e.setItem(iName);
+                e.setField(field);
+                e.setValue(value);
+                e.setDescription(description);
+                e.setSeverity(toSeverity(severity));
+                res.put(name,e);
+
+            }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
+        }
+        return res;
+    }
+    private Hashtable<String,Problem> readProblems(JSONObject root){
+        String key = "problem";
+        Hashtable<String,Problem> res = new Hashtable<>();
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
+            for(int i=0;i<arr.length();i++){
+                JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","timePointsAsDate","nrProducts","nrProcesses",
+                        "nrDisjunctiveResources","nrCumulativeResources","nrOrders","nrJobs","nrTasks"});
+                String name = item.getString("name");
+                Boolean timePointsAsDate = item.getBoolean("timePointsAsDate");
+                int nrProducts = item.getInt("nrProducts");
+                int nrProcesses = item.getInt("nrProcesses");
+                int nrDisjunctiveResources = item.getInt("nrDisjunctiveResources");
+                int nrCumulativeResources = item.getInt("nrCumulativeResources");
+                int nrOrders = item.getInt("nrOrders");
+                int nrJobs = item.getInt("nrJobs");
+                int nrTasks = item.getInt("nrTasks");
                 Problem p  = new Problem(base);
                 p.setName(name);
+                p.setTimePointsAsDate(timePointsAsDate);
+                p.setNrProducts(nrProducts);
+                p.setNrProcesses(nrProcesses);
+                p.setNrDisjunctiveResources(nrDisjunctiveResources);
+                p.setNrCumulativeResources(nrCumulativeResources);
+                p.setNrOrders(nrOrders);
+                p.setNrJobs(nrJobs);
+                p.setNrTasks(nrTasks);
                 res.put(name,p);
 
             }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
     private Hashtable<String,DisjunctiveResource> readDisjunctiveResources(JSONObject root){
+        String key = "disjunctiveResource";
         Hashtable<String,DisjunctiveResource> res = new Hashtable<>();
-        if (root.has("disjunctiveResource")){
-            JSONArray arr = root.getJSONArray("disjunctiveResource");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name"});
                 String name = item.getString("name");
                 DisjunctiveResource p  = new DisjunctiveResource(base);
                 p.setName(name);
                 res.put(name,p);
 
             }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
     private Hashtable<String,CumulativeResource> readCumulativeResources(JSONObject root){
+        String key = "cumulativeResource";
         Hashtable<String,CumulativeResource> res = new Hashtable<>();
-        if (root.has("cumulativeResource")){
-            JSONArray arr = root.getJSONArray("cumulativeResource");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name"});
                 String name = item.getString("name");
                 CumulativeResource p  = new CumulativeResource(base);
                 p.setName(name);
                 res.put(name,p);
 
             }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
     private Hashtable<String,Process> readProcesses(JSONObject root){
+        String key = "process";
         Hashtable<String,Process> res = new Hashtable<>();
-        if (root.has("process")){
-            JSONArray arr = root.getJSONArray("process");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name"});
                 String name = item.getString("name");
                 Process p  = new Process(base);
                 p.setName(name);
                 res.put(name,p);
 
             }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
     private Hashtable<String,Product> readProducts(JSONObject root,Hashtable<String,Process> processHash){
+        String key = "product";
         Hashtable<String,Product> res = new Hashtable<>();
-        if (root.has("product")){
-            JSONArray arr = root.getJSONArray("product");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","process"});
                 String name = item.getString("name");
                 String pName = item.getString("process");
                 Process process = processHash.get(pName);
                 if (process == null){
-                    severe("No such process "+pName+" for product "+name);
+                    inputError(key,name,"process",pName,"The required object does not exist",Fatal);
                 }
                 Product p  = new Product(base);
                 p.setName(name);
@@ -127,23 +205,27 @@ public class ReadDataFile {
                 res.put(name,p);
 
             }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
 
     private Hashtable<String,ProcessStep> readProcessSteps(JSONObject root,Hashtable<String,Process> processHash){
+        String key = "processStep";
         Hashtable<String,ProcessStep> res = new Hashtable<>();
-        if (root.has("processStep")){
-            JSONArray arr = root.getJSONArray("processStep");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","process","durationFixed","durationPerUnit"});
                 String name = item.getString("name");
                 String pName = item.getString("process");
                 int durationFixed = item.getInt("durationFixed");
                 int durationPerUnit = item.getInt("durationPerUnit");
                 Process process = processHash.get(pName);
                 if (process == null){
-                    severe("No such process "+pName+" for processStep "+name);
+                    inputError(key,name,"process",pName,"The required object does not exist",Fatal);
                 }
                 ProcessStep ps  = new ProcessStep(base);
                 ps.setName(name);
@@ -153,15 +235,19 @@ public class ReadDataFile {
                 res.put(name,ps);
 
             }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
     private Hashtable<String,ProcessSequence> readProcessSequences(JSONObject root,Hashtable<String,ProcessStep> processStepHash){
+        String key = "processSequence";
         Hashtable<String,ProcessSequence> res = new Hashtable<>();
-        if (root.has("processSequence")){
-            JSONArray arr = root.getJSONArray("processSequence");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","before","after","sequenceType","offset"});
                 String name = item.getString("name");
                 String beforeName = item.getString("before");
                 String afterName = item.getString("after");
@@ -169,15 +255,15 @@ public class ReadDataFile {
                 int offset = item.getInt("offset");
                 ProcessStep before = processStepHash.get(beforeName);
                 ProcessStep after = processStepHash.get(afterName);
-                SequenceType type = findSequenceType(sequenceType);
+                SequenceType type = toSequenceType(sequenceType);
                 if (before == null){
-                    severe("No such process step"+beforeName+" for processSequence "+name);
+                    inputError(key,name,"before",beforeName,"The required object does not exist",Fatal);
                 }
                 if (after == null){
-                    severe("No such process step"+afterName+" for processSequence "+name);
+                    inputError(key,name,"after",afterName,"The required object does not exist",Fatal);
                 }
                 if (type == null){
-                    severe("No such sequence type"+sequenceType+" for processSequence "+name);
+                    inputError(key,name,"sequenceType",sequenceType,"This is not a valid SequenceType",Fatal);
                 }
                 ProcessSequence ps  = new ProcessSequence(base);
                 ps.setName(name);
@@ -188,6 +274,8 @@ public class ReadDataFile {
                 res.put(name,ps);
 
             }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
@@ -195,21 +283,23 @@ public class ReadDataFile {
     private Hashtable<String,ResourceNeed> readResourceNeeds(JSONObject root,
                                                              Hashtable<String,ProcessStep> processStepHash,
                                                              Hashtable<String,DisjunctiveResource> disjunctiveResourceHash){
+        String key = "resourceNeed";
         Hashtable<String,ResourceNeed> res = new Hashtable<>();
-        if (root.has("resourceNeed")){
-            JSONArray arr = root.getJSONArray("resourceNeed");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","processStep","disjunctiveResource"});
                 String name = item.getString("name");
                 String psName = item.getString("processStep");
                 String rName = item.getString("disjunctiveResource");
                 ProcessStep ps = processStepHash.get(psName);
                 DisjunctiveResource r = disjunctiveResourceHash.get(rName);
                 if (ps == null){
-                    severe("No such process step"+psName+" for resourceNeed "+name);
+                    inputError(key,name,"processStep",psName,"The required object does not exist",Fatal);
                 }
                 if (r == null){
-                    severe("No such disjunctiveResource"+rName+" for processSequence "+name);
+                    inputError(key,name,"disjunctiveResource",rName,"The required object does not exist",Fatal);
                 }
                 ResourceNeed rn  = new ResourceNeed(base);
                 rn.setName(name);
@@ -218,23 +308,27 @@ public class ReadDataFile {
                 res.put(name,rn);
 
             }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
 
     private Hashtable<String,Order> readOrders(JSONObject root,Hashtable<String,Product> productHash){
+        String key = "order";
         Hashtable<String,Order> res = new Hashtable<>();
-        if (root.has("order")){
-            JSONArray arr = root.getJSONArray("order");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","product","qty","due"});
                 String name = item.getString("name");
                 String pName = item.getString("product");
                 int qty = item.getInt("qty");
                 int due = item.getInt("due");
                 Product product = productHash.get(pName);
                 if (product == null){
-                    severe("No such product "+pName+" for order "+name);
+                    inputError(key,name,"product",pName,"The required object does not exist",Fatal);
                 }
                 Order ord  = new Order(base);
                 ord.setName(name);
@@ -245,27 +339,29 @@ public class ReadDataFile {
 
             }
         } else {
-            severe("No orders");
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
 
     private Hashtable<String,Job> readJobs(JSONObject root,Hashtable<String,Order> orderHash,Hashtable<String,Process> processHash){
+        String key = "job";
         Hashtable<String,Job> res = new Hashtable<>();
-        if (root.has("job")){
-            JSONArray arr = root.getJSONArray("job");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","order","process"});
                 String name = item.getString("name");
                 String oName = item.getString("order");
                 String pName = item.getString("process");
                 Order order = orderHash.get(oName);
                 Process process = processHash.get(pName);
                 if (order == null){
-                    severe("No such order "+oName+" for job "+name);
+                    inputError(key,name,"order",oName,"The required object does not exist",Fatal);
                 }
                 if (process == null){
-                    severe("No such process "+pName+" for job "+name);
+                    inputError(key,name,"process",pName,"The required object does not exist",Fatal);
                 }
                 Job j  = new Job(base);
                 j.setName(name);
@@ -275,27 +371,29 @@ public class ReadDataFile {
 
             }
         } else {
-            severe("No jobs");
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
 
     private Hashtable<String,Task> readTasks(JSONObject root,Hashtable<String,Job> jobHash,Hashtable<String,ProcessStep> processStepHash){
+        String key = "task";
         Hashtable<String,Task> res = new Hashtable<>();
-        if (root.has("task")){
-            JSONArray arr = root.getJSONArray("task");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","job","processStep"});
                 String name = item.getString("name");
                 String jName = item.getString("job");
                 String pName = item.getString("processStep");
                 Job j = jobHash.get(jName);
                 ProcessStep processStep = processStepHash.get(pName);
                 if (j == null){
-                    severe("No such order "+jName+" for task "+name);
+                    inputError(key,name,"job",jName,"The required object does not exist",Fatal);
                 }
                 if (processStep == null){
-                    severe("No such processStep "+pName+" for task "+name);
+                    inputError(key,name,"processStep",pName,"The required object does not exist",Fatal);
                 }
                 Task t = new Task(base);
                 t.setName(name);
@@ -305,17 +403,19 @@ public class ReadDataFile {
 
             }
         } else {
-            severe("No tasks");
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
 
     private Hashtable<String,Solution> readSolutions(JSONObject root){
+        String key="solution";
         Hashtable<String,Solution> res = new Hashtable<>();
-        if (root.has("solution") && root.getJSONArray("solution").length() >0){
-            JSONArray arr = root.getJSONArray("solution");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","objectiveValue"});
                 String name = item.getString("name");
                 int objectiveValue = item.getInt("objectiveValue");
                 Solution s  = new Solution(base);
@@ -325,17 +425,19 @@ public class ReadDataFile {
 
             }
         } else {
-            info("No solutions");
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
 
     private Hashtable<String,JobAssignment> readJobAssignments(JSONObject root,Hashtable<String,Job> jobHash,Hashtable<String,Solution> solutionHash){
+        String key = "jobAssignment";
         Hashtable<String,JobAssignment> res = new Hashtable<>();
-        if (root.has("jobAssignment") && root.getJSONArray("jobAssignment").length()>0){
-            JSONArray arr = root.getJSONArray("jobAssignment");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","job","solution","start","end","duration"});
                 String name = item.getString("name");
                 String jName = item.getString("job");
                 String sName = item.getString("solution");
@@ -345,10 +447,10 @@ public class ReadDataFile {
                 Job j = jobHash.get(jName);
                 Solution s = solutionHash.get(sName);
                 if (j == null){
-                    severe("No such job "+jName+" for jobAssignment "+name);
+                    inputError(key,name,"job",jName,"The required object does not exist",Fatal);
                 }
                 if (s == null){
-                    severe("No such solution "+sName+" for jobAssignment "+name);
+                    inputError(key,name,"solution",sName,"The required object does not exist",Fatal);
                 }
                 JobAssignment ja  = new JobAssignment(base);
                 ja.setName(name);
@@ -361,7 +463,7 @@ public class ReadDataFile {
 
             }
         } else {
-            info("No jobAssignments");
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
@@ -369,11 +471,13 @@ public class ReadDataFile {
     private Hashtable<String,TaskAssignment> readTaskAssignments(JSONObject root,
                                                                  Hashtable<String,JobAssignment> jobAssignmentHash,
                                                                  Hashtable<String,Task> taskHash){
+        String key = "taskAssignment";
         Hashtable<String,TaskAssignment> res = new Hashtable<>();
-        if (root.has("taskAssignment") && root.getJSONArray("taskAssignment").length()>0){
-            JSONArray arr = root.getJSONArray("taskAssignment");
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
+                requireFields(key,i,item,new String[]{"name","jobAssignment","task","start","end","duration"});
                 String name = item.getString("name");
                 String jName = item.getString("jobAssignment");
                 String tName = item.getString("task");
@@ -383,10 +487,10 @@ public class ReadDataFile {
                 JobAssignment ja = jobAssignmentHash.get(jName);
                 Task t = taskHash.get(tName);
                 if (ja == null){
-                    severe("No such jobAssignment "+jName+" for taskAssignment "+name);
+                    inputError(key,name,"jobAssignment",jName,"The required object does not exist",Fatal);
                 }
                 if (t == null){
-                    severe("No such task "+tName+" for taskAssignment "+name);
+                    inputError(key,name,"task",tName,"The required object does not exist",Fatal);
                 }
                 TaskAssignment ta  = new TaskAssignment(base);
                 ta.setName(name);
@@ -399,17 +503,56 @@ public class ReadDataFile {
 
             }
         } else {
-            info("No taskAssignments");
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
     }
 
 
-    private SequenceType findSequenceType(String name){
+    private SequenceType toSequenceType(String name){
         if ("EndBeforeStart".equals(name)) {
             return SequenceType.EndBeforeStart;
         }
         return null;
+    }
+
+    private Severity toSeverity(String name){
+        return switch (name) {
+            case "Fatal" -> Fatal;
+            case "Critical" -> Critical;
+            case "Major" -> Major;
+            case "Minor" -> Minor;
+            default -> Minor;
+        };
+    }
+
+    int errNr=1;
+    private InputError inputError(String classDesc,String item,String field,String value,String description,Severity severity){
+        InputError res = new InputError(base);
+        res.setName("Err"+errNr++);
+        res.setClassDesc(classDesc);
+        res.setItem(item);
+        res.setField(field);
+        res.setValue(value);
+        res.setDescription(description);
+        res.setSeverity(severity);
+        if (res.getSeverity()==Fatal || res.getSeverity()==Critical){
+            severe("Class "+classDesc+" item "+item+" field "+field+" value "+value+": "+description);
+        } else if (res.getSeverity()==Major){
+            warning("Class "+classDesc+" item "+item+" field "+field+" value "+value+": "+description);
+        } else {
+            info("Class "+classDesc+" item "+item+" field "+field+" value "+value+": "+description);
+
+        }
+        return res;
+    }
+
+    private void requireFields(String classDesc,int i,JSONObject obj,String[] keys){
+        for(String key:keys){
+            if (!obj.has(key)){
+                inputError(classDesc,"entry nr "+i,key,"n/a","Class requires field "+key,Fatal);
+            }
+        }
     }
 
 }

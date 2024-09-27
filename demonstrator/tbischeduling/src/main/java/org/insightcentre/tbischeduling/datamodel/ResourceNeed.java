@@ -5,23 +5,32 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
+import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
+import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
-import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
-import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
-import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
+import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
+import org.insightcentre.tbischeduling.datamodel.Severity;
+import org.insightcentre.tbischeduling.datamodel.ModelType;
+import org.insightcentre.tbischeduling.datamodel.SolverBackend;
+import org.insightcentre.tbischeduling.datamodel.SolverStatus;
+import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;
@@ -231,11 +240,11 @@ public  class ResourceNeed extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>ResourceNeed</th>"+"<th>Name</th>"+"<th>ProcessStep</th>"+"<th>DisjunctiveResource</th>"+"</tr>";
+        return "<tr><th>ResourceNeed</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>ProcessStep</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+"</tr>";
     }
 
 /**

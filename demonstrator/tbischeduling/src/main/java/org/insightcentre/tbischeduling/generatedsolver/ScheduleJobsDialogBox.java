@@ -22,11 +22,20 @@ import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 
 public class ScheduleJobsDialogBox extends GeneralDialogBox{
    private TextField labelItem = new TextField();
-   private TextField solverTypeItem = new TextField();
+   private TextField descriptionItem = new TextField();
+   private TextField startDateItem = new TextField();
+   private TextField startTimeItem = new TextField();
+   private CheckBox enforceReleaseDateItem = new CheckBox();
+   private CheckBox enforceDueDateItem = new CheckBox();
+   private IntegerTextField weightLatenessItem = new IntegerTextField();
+   private IntegerTextField weightEarlynessItem = new IntegerTextField();
+   private TextField modelTypeItem = new TextField();
+   private TextField solverBackendItem = new TextField();
+   private TextField objectiveTypeItem = new TextField();
    private IntegerTextField timeoutItem = new IntegerTextField();
    private IntegerTextField nrThreadsItem = new IntegerTextField();
-   private IntegerTextField timeResolutionItem = new IntegerTextField();
    private IntegerTextField seedItem = new IntegerTextField();
+   private CheckBox removeSolutionItem = new CheckBox();
 
     public ScheduleJobsDialogBox(GeneratedJfxApp app, Scenario base,AbstractSolver solver){
         super(app, base, solver);
@@ -37,21 +46,48 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
         pane.add(new Label("Label:"), 0, row);
         pane.add(labelItem, 1, row++);
         labelItem.setText(((ScheduleJobsSolver)solver).getLabel());
-        pane.add(new Label("Solver Type:"), 0, row);
-        pane.add(solverTypeItem, 1, row++);
-        solverTypeItem.setText(((ScheduleJobsSolver)solver).getSolverType());
+        pane.add(new Label("Description:"), 0, row);
+        pane.add(descriptionItem, 1, row++);
+        descriptionItem.setText(((ScheduleJobsSolver)solver).getDescription());
+        pane.add(new Label("StartDate:"), 0, row);
+        pane.add(startDateItem, 1, row++);
+        startDateItem.setText(((ScheduleJobsSolver)solver).getStartDate());
+        pane.add(new Label("StartTime:"), 0, row);
+        pane.add(startTimeItem, 1, row++);
+        startTimeItem.setText(((ScheduleJobsSolver)solver).getStartTime());
+        pane.add(new Label("Enforce ReleaseDate:"), 0, row);
+        pane.add(enforceReleaseDateItem, 1, row++);
+        enforceReleaseDateItem.setSelected(((ScheduleJobsSolver)solver).getEnforceReleaseDate());
+        pane.add(new Label("Enforce DueDate:"), 0, row);
+        pane.add(enforceDueDateItem, 1, row++);
+        enforceDueDateItem.setSelected(((ScheduleJobsSolver)solver).getEnforceDueDate());
+        pane.add(new Label("Weight Lateness:"), 0, row);
+        pane.add(weightLatenessItem, 1, row++);
+        weightLatenessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightLateness()));
+        pane.add(new Label("Weight Earlyness:"), 0, row);
+        pane.add(weightEarlynessItem, 1, row++);
+        weightEarlynessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightEarlyness()));
+        pane.add(new Label("Model Type:"), 0, row);
+        pane.add(modelTypeItem, 1, row++);
+        modelTypeItem.setText(((ScheduleJobsSolver)solver).getModelType());
+        pane.add(new Label("Solver Backend:"), 0, row);
+        pane.add(solverBackendItem, 1, row++);
+        solverBackendItem.setText(((ScheduleJobsSolver)solver).getSolverBackend());
+        pane.add(new Label("Objective Type:"), 0, row);
+        pane.add(objectiveTypeItem, 1, row++);
+        objectiveTypeItem.setText(((ScheduleJobsSolver)solver).getObjectiveType());
         pane.add(new Label("Timeout (s):"), 0, row);
         pane.add(timeoutItem, 1, row++);
         timeoutItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getTimeout()));
         pane.add(new Label("Nr Threads:"), 0, row);
         pane.add(nrThreadsItem, 1, row++);
         nrThreadsItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getNrThreads()));
-        pane.add(new Label("Time Resolution (min):"), 0, row);
-        pane.add(timeResolutionItem, 1, row++);
-        timeResolutionItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getTimeResolution()));
         pane.add(new Label("Random Seed:"), 0, row);
         pane.add(seedItem, 1, row++);
         seedItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getSeed()));
+        pane.add(new Label("Remove Previous Solution:"), 0, row);
+        pane.add(removeSolutionItem, 1, row++);
+        removeSolutionItem.setSelected(((ScheduleJobsSolver)solver).getRemoveSolution());
         getDialogPane().setContent(pane);
         setTitle("ScheduleJobs Solver Parameters");
     }
@@ -62,18 +98,36 @@ public void handle(InputEvent event) {
       ((KeyEvent) event).getCode() == KeyCode.ENTER)) {
         info("Get ScheduleJobs parameters");
         String labelValue = labelItem.getText();
-        String solverTypeValue = solverTypeItem.getText();
+        String descriptionValue = descriptionItem.getText();
+        String startDateValue = startDateItem.getText();
+        String startTimeValue = startTimeItem.getText();
+        boolean enforceReleaseDateValue = enforceReleaseDateItem.isSelected();
+        boolean enforceDueDateValue = enforceDueDateItem.isSelected();
+        int weightLatenessValue = Integer.parseInt(weightLatenessItem.getText());
+        int weightEarlynessValue = Integer.parseInt(weightEarlynessItem.getText());
+        String modelTypeValue = modelTypeItem.getText();
+        String solverBackendValue = solverBackendItem.getText();
+        String objectiveTypeValue = objectiveTypeItem.getText();
         int timeoutValue = Integer.parseInt(timeoutItem.getText());
         int nrThreadsValue = Integer.parseInt(nrThreadsItem.getText());
-        int timeResolutionValue = Integer.parseInt(timeResolutionItem.getText());
         int seedValue = Integer.parseInt(seedItem.getText());
+        boolean removeSolutionValue = removeSolutionItem.isSelected();
         ((ScheduleJobsSolver)getSolver())
             .setLabel(labelValue)
-            .setSolverType(solverTypeValue)
+            .setDescription(descriptionValue)
+            .setStartDate(startDateValue)
+            .setStartTime(startTimeValue)
+            .setEnforceReleaseDate(enforceReleaseDateValue)
+            .setEnforceDueDate(enforceDueDateValue)
+            .setWeightLateness(weightLatenessValue)
+            .setWeightEarlyness(weightEarlynessValue)
+            .setModelType(modelTypeValue)
+            .setSolverBackend(solverBackendValue)
+            .setObjectiveType(objectiveTypeValue)
             .setTimeout(timeoutValue)
             .setNrThreads(nrThreadsValue)
-            .setTimeResolution(timeResolutionValue)
             .setSeed(seedValue)
+            .setRemoveSolution(removeSolutionValue)
             ;
         super.handle(event);
     }

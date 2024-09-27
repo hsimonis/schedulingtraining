@@ -1,7 +1,10 @@
 package org.insightcentre.tbischeduling.controller;
 
 import framework.gui.AbstractJfxMainWindow;
+import framework.gui.DateTimePickerTableCell;
 import framework.gui.Table3Controller;
+import framework.types.DateTime;
+import java.lang.Double;
 import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Object;
@@ -21,7 +24,7 @@ import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Product;
 
 /**
- * Generated at 14:32:41 on 2024-09-23 */
+ * Generated at 18:08:58 on 2024-09-26 */
 public class OrderController extends Table3Controller {
 	@FXML
 	private TableView<Order> table;
@@ -39,7 +42,19 @@ public class OrderController extends Table3Controller {
 	private TableColumn<Order, Integer> due;
 
 	@FXML
-	private TableColumn<Order, Integer> dueDate;
+	private TableColumn<Order, DateTime> dueDate;
+
+	@FXML
+	private TableColumn<Order, Integer> release;
+
+	@FXML
+	private TableColumn<Order, DateTime> releaseDate;
+
+	@FXML
+	private TableColumn<Order, Double> latenessWeight;
+
+	@FXML
+	private TableColumn<Order, Double> earlinessWeight;
 
 	private GeneratedJfxApp mainApp;
 
@@ -76,8 +91,24 @@ public class OrderController extends Table3Controller {
 		due.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDue(event.getNewValue()); mainApp.reset();});
 		choices.add("dueDate");
 		dueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
-		dueDate.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		dueDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
 		dueDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDueDate(event.getNewValue()); mainApp.reset();});
+		choices.add("release");
+		release.setCellValueFactory(new PropertyValueFactory<>("release"));
+		release.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		release.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setRelease(event.getNewValue()); mainApp.reset();});
+		choices.add("releaseDate");
+		releaseDate.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
+		releaseDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
+		releaseDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setReleaseDate(event.getNewValue()); mainApp.reset();});
+		choices.add("latenessWeight");
+		latenessWeight.setCellValueFactory(new PropertyValueFactory<>("latenessWeight"));
+		latenessWeight.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("")));
+		latenessWeight.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setLatenessWeight(event.getNewValue()); mainApp.reset();});
+		choices.add("earlinessWeight");
+		earlinessWeight.setCellValueFactory(new PropertyValueFactory<>("earlinessWeight"));
+		earlinessWeight.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("")));
+		earlinessWeight.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEarlinessWeight(event.getNewValue()); mainApp.reset();});
 		initialize(choices);
 	}
 

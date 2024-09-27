@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 14:32:41 on 2024-09-23 */
+ * Generated at 18:08:58 on 2024-09-26 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -22,6 +22,20 @@ public class BarChartController extends ChartController {
 	@SuppressWarnings("unchecked")
 	private void initialize() {
 		ObservableList<String> attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("dataFileVersionNumber");
+		attributeNames.add("horizon");
+		attributeNames.add("timeResolution");
+		choicesMap.put("Scenario", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("nrProducts");
+		attributeNames.add("nrProcesses");
+		attributeNames.add("nrDisjunctiveResources");
+		attributeNames.add("nrCumulativeResources");
+		attributeNames.add("nrOrders");
+		attributeNames.add("nrJobs");
+		attributeNames.add("nrTasks");
+		choicesMap.put("Problem", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("durationFixed");
 		attributeNames.add("durationPerUnit");
 		choicesMap.put("ProcessStep", attributeNames);
@@ -29,24 +43,71 @@ public class BarChartController extends ChartController {
 		attributeNames.add("offset");
 		choicesMap.put("ProcessSequence", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("demand");
+		choicesMap.put("CumulativeNeed", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("from");
+		attributeNames.add("capacity");
+		choicesMap.put("CumulativeProfile", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("qty");
 		attributeNames.add("due");
-		attributeNames.add("dueDate");
+		attributeNames.add("release");
+		attributeNames.add("latenessWeight");
+		attributeNames.add("earlinessWeight");
 		choicesMap.put("Order", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("order.release");
+		attributeNames.add("order.due");
+		attributeNames.add("order.qty");
+		choicesMap.put("Job", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("duration");
+		attributeNames.add("job.order.qty");
+		attributeNames.add("processStep.durationFixed");
+		attributeNames.add("processStep.durationPerUnit");
+		choicesMap.put("Task", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("timeout");
+		attributeNames.add("nrThreads");
+		attributeNames.add("seed");
+		attributeNames.add("time");
+		choicesMap.put("SolverRun", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("objectiveValue");
+		attributeNames.add("bound");
+		attributeNames.add("gap");
+		attributeNames.add("makespan");
+		attributeNames.add("flowtime");
+		attributeNames.add("totalLateness");
+		attributeNames.add("weightedLateness");
+		attributeNames.add("totalEarliness");
+		attributeNames.add("weightedEarliness");
+		attributeNames.add("solverRun.timeout");
+		attributeNames.add("solverRun.nrThreads");
+		attributeNames.add("solverRun.seed");
+		attributeNames.add("solverRun.time");
 		choicesMap.put("Solution", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
-		attributeNames.add("resource");
+		attributeNames.add("late");
+		attributeNames.add("early");
+		attributeNames.add("duration");
 		attributeNames.add("start");
 		attributeNames.add("end");
-		attributeNames.add("duration");
-		choicesMap.put("TaskAssignment", attributeNames);
-		attributeNames = FXCollections.observableArrayList();
-		attributeNames.add("start");
-		attributeNames.add("end");
-		attributeNames.add("duration");
+		attributeNames.add("job.order.release");
+		attributeNames.add("job.order.due");
+		attributeNames.add("job.order.qty");
 		choicesMap.put("JobAssignment", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("duration");
+		attributeNames.add("start");
+		attributeNames.add("end");
+		attributeNames.add("task.job.order.release");
+		attributeNames.add("task.job.order.due");
+		attributeNames.add("task.job.order.qty");
+		attributeNames.add("task.processStep.durationFixed");
+		attributeNames.add("task.processStep.durationPerUnit");
+		choicesMap.put("TaskAssignment", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
@@ -72,8 +133,14 @@ public class BarChartController extends ChartController {
 			else if (className.equals("ApplicationWarning")) {
 				objectList = mainApp.getApplicationWarningData();
 			}
+			else if (className.equals("InputError")) {
+				objectList = mainApp.getInputErrorData();
+			}
 			else if (className.equals("Problem")) {
 				objectList = mainApp.getProblemData();
+			}
+			else if (className.equals("Product")) {
+				objectList = mainApp.getProductData();
 			}
 			else if (className.equals("Process")) {
 				objectList = mainApp.getProcessData();
@@ -84,17 +151,20 @@ public class BarChartController extends ChartController {
 			else if (className.equals("ProcessSequence")) {
 				objectList = mainApp.getProcessSequenceData();
 			}
+			else if (className.equals("ResourceNeed")) {
+				objectList = mainApp.getResourceNeedData();
+			}
+			else if (className.equals("CumulativeNeed")) {
+				objectList = mainApp.getCumulativeNeedData();
+			}
+			else if (className.equals("CumulativeProfile")) {
+				objectList = mainApp.getCumulativeProfileData();
+			}
 			else if (className.equals("DisjunctiveResource")) {
 				objectList = mainApp.getDisjunctiveResourceData();
 			}
 			else if (className.equals("CumulativeResource")) {
 				objectList = mainApp.getCumulativeResourceData();
-			}
-			else if (className.equals("ResourceNeed")) {
-				objectList = mainApp.getResourceNeedData();
-			}
-			else if (className.equals("Product")) {
-				objectList = mainApp.getProductData();
 			}
 			else if (className.equals("Order")) {
 				objectList = mainApp.getOrderData();
@@ -105,14 +175,17 @@ public class BarChartController extends ChartController {
 			else if (className.equals("Task")) {
 				objectList = mainApp.getTaskData();
 			}
+			else if (className.equals("SolverRun")) {
+				objectList = mainApp.getSolverRunData();
+			}
 			else if (className.equals("Solution")) {
 				objectList = mainApp.getSolutionData();
 			}
-			else if (className.equals("TaskAssignment")) {
-				objectList = mainApp.getTaskAssignmentData();
-			}
 			else if (className.equals("JobAssignment")) {
 				objectList = mainApp.getJobAssignmentData();
+			}
+			else if (className.equals("TaskAssignment")) {
+				objectList = mainApp.getTaskAssignmentData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

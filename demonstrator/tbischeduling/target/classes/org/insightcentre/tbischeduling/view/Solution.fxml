@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 14:32:41 on 2024-09-23-->
+<!--Generated at 18:08:58 on 2024-09-26-->
 
 
 <Tab text="Solution" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.SolutionController">
@@ -19,7 +19,27 @@
          <TableView fx:id="table" editable="true">
             <columns>
                <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
+               <TableColumn fx:id="solverRun" styleClass="right-aligned" text="SolverRun" />
                <TableColumn fx:id="objectiveValue" styleClass="right-aligned" text="ObjectiveValue" />
+               <TableColumn fx:id="solverStatus" styleClass="right-aligned" text="SolverStatus" />
+               <TableColumn fx:id="bound" styleClass="right-aligned" text="Bound" />
+               <TableColumn fx:id="gap" styleClass="right-aligned" text="Gap" />
+               <TableColumn fx:id="makespan" styleClass="right-aligned" text="Makespan" />
+               <TableColumn fx:id="flowtime" styleClass="right-aligned" text="Flowtime" />
+               <TableColumn fx:id="totalLateness" styleClass="right-aligned" text="TotalLateness" />
+               <TableColumn fx:id="weightedLateness" styleClass="right-aligned" text="WeightedLateness" />
+               <TableColumn fx:id="totalEarliness" styleClass="right-aligned" text="TotalEarliness" />
+               <TableColumn fx:id="weightedEarliness" styleClass="right-aligned" text="WeightedEarliness" />
+               <TableColumn fx:id="modelType" styleClass="right-aligned,disabled-column" text="ModelType" />
+               <TableColumn fx:id="solverBackend" styleClass="right-aligned,disabled-column" text="SolverBackend" />
+               <TableColumn fx:id="objectiveType" styleClass="right-aligned,disabled-column" text="ObjectiveType" />
+               <TableColumn fx:id="enforceReleaseDate" styleClass="right-aligned,disabled-column" text="EnforceReleaseDate" />
+               <TableColumn fx:id="enforceDueDate" styleClass="right-aligned,disabled-column" text="EnforceDueDate" />
+               <TableColumn fx:id="timeout" styleClass="right-aligned,disabled-column" text="Timeout" />
+               <TableColumn fx:id="nrThreads" styleClass="right-aligned,disabled-column" text="NrThreads" />
+               <TableColumn fx:id="seed" styleClass="right-aligned,disabled-column" text="Seed" />
+               <TableColumn fx:id="removeSolution" styleClass="right-aligned,disabled-column" text="RemoveSolution" />
+               <TableColumn fx:id="time" styleClass="right-aligned,disabled-column" text="Time" />
             </columns>
          </TableView>
       </center>

@@ -6,10 +6,14 @@ import framework.gui.Table3Controller;
 import framework.types.DateTime;
 import java.lang.Exception;
 import java.lang.Integer;
+import java.lang.NullPointerException;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.lang.reflect.Field;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,10 +25,13 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
+import org.insightcentre.tbischeduling.datamodel.Order;
+import org.insightcentre.tbischeduling.datamodel.Process;
+import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 
 /**
- * Generated at 14:32:41 on 2024-09-23 */
+ * Generated at 18:08:58 on 2024-09-26 */
 public class JobAssignmentController extends Table3Controller {
 	@FXML
 	private TableView<JobAssignment> table;
@@ -39,19 +46,43 @@ public class JobAssignmentController extends Table3Controller {
 	private TableColumn<JobAssignment, Job> job;
 
 	@FXML
+	private TableColumn<JobAssignment, Integer> late;
+
+	@FXML
+	private TableColumn<JobAssignment, Integer> early;
+
+	@FXML
+	private TableColumn<JobAssignment, Integer> duration;
+
+	@FXML
 	private TableColumn<JobAssignment, Integer> start;
 
 	@FXML
 	private TableColumn<JobAssignment, Integer> end;
 
 	@FXML
-	private TableColumn<JobAssignment, Integer> duration;
-
-	@FXML
 	private TableColumn<JobAssignment, DateTime> startDate;
 
 	@FXML
 	private TableColumn<JobAssignment, DateTime> endDate;
+
+	@FXML
+	private TableColumn<JobAssignment, Order> order;
+
+	@FXML
+	private TableColumn<JobAssignment, Product> product;
+
+	@FXML
+	private TableColumn<JobAssignment, Process> process;
+
+	@FXML
+	private TableColumn<JobAssignment, Integer> release;
+
+	@FXML
+	private TableColumn<JobAssignment, Integer> due;
+
+	@FXML
+	private TableColumn<JobAssignment, Integer> qty;
 
 	private GeneratedJfxApp mainApp;
 
@@ -70,6 +101,7 @@ public class JobAssignmentController extends Table3Controller {
 	}
 
 	@FXML
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
 		table.setTableMenuButtonVisible(true);
 		table.setOnMouseClicked(event -> {if (event.isControlDown()) {mainApp.showObject(table.getFocusModel().getFocusedItem());}});
@@ -82,6 +114,18 @@ public class JobAssignmentController extends Table3Controller {
 		solution.setCellValueFactory(new PropertyValueFactory<>("solution"));
 		choices.add("job");
 		job.setCellValueFactory(new PropertyValueFactory<>("job"));
+		choices.add("late");
+		late.setCellValueFactory(new PropertyValueFactory<>("late"));
+		late.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		late.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setLate(event.getNewValue()); mainApp.reset();});
+		choices.add("early");
+		early.setCellValueFactory(new PropertyValueFactory<>("early"));
+		early.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		early.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEarly(event.getNewValue()); mainApp.reset();});
+		choices.add("duration");
+		duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+		duration.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		duration.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDuration(event.getNewValue()); mainApp.reset();});
 		choices.add("start");
 		start.setCellValueFactory(new PropertyValueFactory<>("start"));
 		start.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
@@ -90,10 +134,6 @@ public class JobAssignmentController extends Table3Controller {
 		end.setCellValueFactory(new PropertyValueFactory<>("end"));
 		end.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		end.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEnd(event.getNewValue()); mainApp.reset();});
-		choices.add("duration");
-		duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
-		duration.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
-		duration.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDuration(event.getNewValue()); mainApp.reset();});
 		choices.add("startDate");
 		startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
 		startDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
@@ -102,6 +142,48 @@ public class JobAssignmentController extends Table3Controller {
 		endDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
 		endDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
 		endDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEndDate(event.getNewValue()); mainApp.reset();});
+		choices.add("job.order");
+		try {
+			order.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJob().getOrder()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("job.order.product");
+		try {
+			product.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJob().getOrder().getProduct()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("job.process");
+		try {
+			process.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJob().getProcess()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("job.order.release");
+		try {
+			release.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getJob().getOrder().getRelease()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("job.order.due");
+		try {
+			due.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getJob().getOrder().getDue()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("job.order.qty");
+		try {
+			qty.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getJob().getOrder().getQty()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
 		initialize(choices);
 	}
 

@@ -3,7 +3,9 @@ package org.insightcentre.tbischeduling.controller;
 import framework.gui.AbstractJfxMainWindow;
 import framework.gui.Table3Controller;
 import java.lang.Boolean;
+import java.lang.Double;
 import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -25,7 +27,7 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
 
 /**
- * Generated at 14:32:41 on 2024-09-23 */
+ * Generated at 18:08:58 on 2024-09-26 */
 public class ScenarioController extends Table3Controller {
 	@FXML
 	private TableView<Scenario> table;
@@ -38,6 +40,18 @@ public class ScenarioController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Scenario, Boolean> valid;
+
+	@FXML
+	private TableColumn<Scenario, Double> dataFileVersionNumber;
+
+	@FXML
+	private TableColumn<Scenario, String> dataFile;
+
+	@FXML
+	private TableColumn<Scenario, Integer> horizon;
+
+	@FXML
+	private TableColumn<Scenario, Integer> timeResolution;
 
 	private GeneratedJfxApp mainApp;
 
@@ -66,6 +80,22 @@ public class ScenarioController extends Table3Controller {
 		choices.add("valid");
 		valid.setCellValueFactory(new ValidCallback());
 		valid.setCellFactory(CheckBoxTableCell.forTableColumn(valid));
+		choices.add("dataFileVersionNumber");
+		dataFileVersionNumber.setCellValueFactory(new PropertyValueFactory<>("dataFileVersionNumber"));
+		dataFileVersionNumber.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		dataFileVersionNumber.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDataFileVersionNumber(event.getNewValue()); mainApp.reset();});
+		choices.add("dataFile");
+		dataFile.setCellValueFactory(new PropertyValueFactory<>("dataFile"));
+		dataFile.setCellFactory(TextFieldTableCell.forTableColumn());
+		dataFile.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDataFile(event.getNewValue()); mainApp.reset();});
+		choices.add("horizon");
+		horizon.setCellValueFactory(new PropertyValueFactory<>("horizon"));
+		horizon.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		horizon.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setHorizon(event.getNewValue()); mainApp.reset();});
+		choices.add("timeResolution");
+		timeResolution.setCellValueFactory(new PropertyValueFactory<>("timeResolution"));
+		timeResolution.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		timeResolution.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTimeResolution(event.getNewValue()); mainApp.reset();});
 		initialize(choices);
 	}
 

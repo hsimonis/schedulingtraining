@@ -5,23 +5,32 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
+import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
+import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
-import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
-import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
-import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
+import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
+import org.insightcentre.tbischeduling.datamodel.Severity;
+import org.insightcentre.tbischeduling.datamodel.ModelType;
+import org.insightcentre.tbischeduling.datamodel.SolverBackend;
+import org.insightcentre.tbischeduling.datamodel.SolverStatus;
+import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;
@@ -38,6 +47,34 @@ import framework.AppearInCollection;
 */
 
 public  class Scenario extends ApplicationDataset{
+/**
+ *  
+ *
+*/
+
+    public String dataFile;
+
+/**
+ *  
+ *
+*/
+
+    public Double dataFileVersionNumber;
+
+/**
+ *  
+ *
+*/
+
+    public Integer horizon;
+
+/**
+ *  
+ *
+*/
+
+    public Integer timeResolution;
+
 /**
  *  No-arg constructor for use in TableView
  *
@@ -57,6 +94,10 @@ public  class Scenario extends ApplicationDataset{
 
     public Scenario(ApplicationDataset applicationDataset){
         super(applicationDataset);
+        setDataFile("");
+        setDataFileVersionNumber(0.0);
+        setHorizon(0);
+        setTimeResolution(0);
         addScenario(this);
     }
 
@@ -70,11 +111,19 @@ public  class Scenario extends ApplicationDataset{
     public Scenario(Boolean dirty,
             Integer id,
             String name,
-            Boolean valid){
+            Boolean valid,
+            String dataFile,
+            Double dataFileVersionNumber,
+            Integer horizon,
+            Integer timeResolution){
         super(dirty,
             id,
             name,
             valid);
+        setDataFile(dataFile);
+        setDataFileVersionNumber(dataFileVersionNumber);
+        setHorizon(horizon);
+        setTimeResolution(timeResolution);
         addScenario(this);
     }
 
@@ -82,12 +131,126 @@ public  class Scenario extends ApplicationDataset{
         this(other.dirty,
             other.id,
             other.name,
-            other.valid);
+            other.valid,
+            other.dataFile,
+            other.dataFileVersionNumber,
+            other.horizon,
+            other.timeResolution);
     }
 
     public Boolean remove(){
         // ignored, you can not remove a dataset like this
         return true;
+    }
+
+/**
+ *  get attribute dataFile
+ *
+ * @return String
+*/
+
+    public String getDataFile(){
+        return this.dataFile;
+    }
+
+/**
+ *  get attribute dataFileVersionNumber
+ *
+ * @return Double
+*/
+
+    public Double getDataFileVersionNumber(){
+        return this.dataFileVersionNumber;
+    }
+
+/**
+ *  get attribute horizon
+ *
+ * @return Integer
+*/
+
+    public Integer getHorizon(){
+        return this.horizon;
+    }
+
+/**
+ *  get attribute timeResolution
+ *
+ * @return Integer
+*/
+
+    public Integer getTimeResolution(){
+        return this.timeResolution;
+    }
+
+/**
+ *  set attribute dataFile, mark dataset as dirty, mark dataset as not valid
+@param dataFile String
+ *
+*/
+
+    public void setDataFile(String dataFile){
+        this.dataFile = dataFile;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute dataFileVersionNumber, mark dataset as dirty, mark dataset as not valid
+@param dataFileVersionNumber Double
+ *
+*/
+
+    public void setDataFileVersionNumber(Double dataFileVersionNumber){
+        this.dataFileVersionNumber = dataFileVersionNumber;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute horizon, mark dataset as dirty, mark dataset as not valid
+@param horizon Integer
+ *
+*/
+
+    public void setHorizon(Integer horizon){
+        this.horizon = horizon;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute timeResolution, mark dataset as dirty, mark dataset as not valid
+@param timeResolution Integer
+ *
+*/
+
+    public void setTimeResolution(Integer timeResolution){
+        this.timeResolution = timeResolution;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute horizon, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incHorizon(){
+        this.horizon++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute timeResolution, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incTimeResolution(){
+        this.timeResolution++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -107,7 +270,7 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public String prettyString(){
-        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid();
+        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getHorizon()+ " " +getTimeResolution();
     }
 
 /**
@@ -131,8 +294,52 @@ public  class Scenario extends ApplicationDataset{
          out.println("<scenario "+ " dirty=\""+toXMLDirty()+"\""+
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
-            " valid=\""+toXMLValid()+"\""+" />");
+            " valid=\""+toXMLValid()+"\""+
+            " dataFile=\""+toXMLDataFile()+"\""+
+            " dataFileVersionNumber=\""+toXMLDataFileVersionNumber()+"\""+
+            " horizon=\""+toXMLHorizon()+"\""+
+            " timeResolution=\""+toXMLTimeResolution()+"\""+" />");
      }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLDataFile(){
+        return this.safeXML(getDataFile());
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLDataFileVersionNumber(){
+        return this.getDataFileVersionNumber().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLHorizon(){
+        return this.getHorizon().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLTimeResolution(){
+        return this.getTimeResolution().toString();
+    }
 
 /**
  * show object as one row in an HTML table
@@ -141,11 +348,11 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"</tr>";
+        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+"</tr>";
     }
 
 /**
@@ -184,10 +391,26 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public Boolean applicationEqual(Scenario b){
+      if(!this.getDataFile().equals(b.getDataFile())){
+         System.out.println("DataFile");
+        }
+      if(!this.getDataFileVersionNumber().equals(b.getDataFileVersionNumber())){
+         System.out.println("DataFileVersionNumber");
+        }
+      if(!this.getHorizon().equals(b.getHorizon())){
+         System.out.println("Horizon");
+        }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
-        return  this.getName().equals(b.getName());
+      if(!this.getTimeResolution().equals(b.getTimeResolution())){
+         System.out.println("TimeResolution");
+        }
+        return  this.getDataFile().equals(b.getDataFile()) &&
+          this.getDataFileVersionNumber().equals(b.getDataFileVersionNumber()) &&
+          this.getHorizon().equals(b.getHorizon()) &&
+          this.getName().equals(b.getName()) &&
+          this.getTimeResolution().equals(b.getTimeResolution());
     }
 
 /**

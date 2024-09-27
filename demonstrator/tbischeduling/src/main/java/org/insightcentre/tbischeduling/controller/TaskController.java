@@ -3,10 +3,16 @@ package org.insightcentre.tbischeduling.controller;
 import framework.gui.AbstractJfxMainWindow;
 import framework.gui.Table3Controller;
 import java.lang.Exception;
+import java.lang.Integer;
+import java.lang.NullPointerException;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.lang.reflect.Field;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,11 +23,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Job;
+import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
+import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Task;
 
 /**
- * Generated at 14:32:41 on 2024-09-23 */
+ * Generated at 18:08:58 on 2024-09-26 */
 public class TaskController extends Table3Controller {
 	@FXML
 	private TableView<Task> table;
@@ -34,6 +42,27 @@ public class TaskController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Task, ProcessStep> processStep;
+
+	@FXML
+	private TableColumn<Task, Integer> duration;
+
+	@FXML
+	private TableColumn<Task, String> machines;
+
+	@FXML
+	private TableColumn<Task, Order> order;
+
+	@FXML
+	private TableColumn<Task, Product> product;
+
+	@FXML
+	private TableColumn<Task, Integer> qty;
+
+	@FXML
+	private TableColumn<Task, Integer> durationFixed;
+
+	@FXML
+	private TableColumn<Task, Integer> durationPerUnit;
 
 	private GeneratedJfxApp mainApp;
 
@@ -52,6 +81,7 @@ public class TaskController extends Table3Controller {
 	}
 
 	@FXML
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
 		table.setTableMenuButtonVisible(true);
 		table.setOnMouseClicked(event -> {if (event.isControlDown()) {mainApp.showObject(table.getFocusModel().getFocusedItem());}});
@@ -64,6 +94,47 @@ public class TaskController extends Table3Controller {
 		job.setCellValueFactory(new PropertyValueFactory<>("job"));
 		choices.add("processStep");
 		processStep.setCellValueFactory(new PropertyValueFactory<>("processStep"));
+		choices.add("duration");
+		duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+		duration.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		duration.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDuration(event.getNewValue()); mainApp.reset();});
+		choices.add("machines");
+		machines.setCellValueFactory(cellData -> new SimpleStringProperty(convert(cellData.getValue().getMachines())));
+		choices.add("job.order");
+		try {
+			order.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJob().getOrder()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("job.order.product");
+		try {
+			product.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJob().getOrder().getProduct()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("job.order.qty");
+		try {
+			qty.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getJob().getOrder().getQty()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("processStep.durationFixed");
+		try {
+			durationFixed.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getProcessStep().getDurationFixed()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("processStep.durationPerUnit");
+		try {
+			durationPerUnit.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getProcessStep().getDurationPerUnit()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
 		initialize(choices);
 	}
 

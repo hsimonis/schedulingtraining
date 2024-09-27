@@ -20,6 +20,7 @@ public class WriteDataFile {
             JSONObject root = createJSON();
             out.println(root.toString(2));
             out.close();
+            base.setDirty(false);
         } catch(IOException e){
             severe("Cannot write file "+selected.toString()+", exception "+e.getMessage());
         }
@@ -27,9 +28,11 @@ public class WriteDataFile {
 
     private JSONObject createJSON(){
         JSONObject root = new JSONObject();
-        root.put("version",1.0);
+        // this is the current version number of the data, as defined in minimalData
+        root.put("version",base.getDataFileVersionNumber());
         root.put("label","TbIScheduling data file");
 
+        root.put("inputError",inputErrors());
         root.put("problem",problems());
         root.put("product",products());
         root.put("process",processes());
@@ -47,7 +50,7 @@ public class WriteDataFile {
 
         root.put("solution",sols());
         root.put("jobAssignment",jobAssignments());
-        root.put("taskAsignment",taskAssignments());
+        root.put("taskAssignment",taskAssignments());
 
 
 
@@ -58,12 +61,34 @@ public class WriteDataFile {
     data elements
      */
 
+    private JSONArray inputErrors(){
+        JSONArray res = new JSONArray();
+        for(InputError e:base.getListInputError()){
+            JSONObject obj = new JSONObject();
+            obj.put("name",e.getName());
+            obj.put("classDesc",e.getClassDesc());
+            obj.put("item",e.getItem());
+            obj.put("field",e.getField());
+            obj.put("value",e.getValue());
+            obj.put("description",e.getDescription());
+            obj.put("severity",e.getSeverity().toString());
+            res.put(obj);
+        }
+        return res;
+    }
     private JSONArray problems(){
         JSONArray res = new JSONArray();
         for(Problem p:base.getListProblem()){
             JSONObject obj = new JSONObject();
             obj.put("name",p.getName());
             obj.put("timePointsAsDate",p.getTimePointsAsDate());
+            obj.put("nrProducts",p.getNrProducts());
+            obj.put("nrProcesses",p.getNrProcesses());
+            obj.put("nrDisjunctiveResources",p.getNrDisjunctiveResources());
+            obj.put("nrCumulativeResources",p.getNrCumulativeResources());
+            obj.put("nrOrders",p.getNrOrders());
+            obj.put("nrJobs",p.getNrJobs());
+            obj.put("nrTasks",p.getNrTasks());
             res.put(obj);
         }
         return res;

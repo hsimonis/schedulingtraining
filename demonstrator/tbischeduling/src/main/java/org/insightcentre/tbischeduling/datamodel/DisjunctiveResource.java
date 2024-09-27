@@ -5,23 +5,32 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
+import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
+import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
-import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
-import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
-import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
+import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
+import org.insightcentre.tbischeduling.datamodel.Severity;
+import org.insightcentre.tbischeduling.datamodel.ModelType;
+import org.insightcentre.tbischeduling.datamodel.SolverBackend;
+import org.insightcentre.tbischeduling.datamodel.SolverStatus;
+import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;
@@ -37,7 +46,14 @@ import framework.AppearInCollection;
  * @author generated
 */
 
-public  class DisjunctiveResource extends ApplicationObject{
+public  class DisjunctiveResource extends ApplicationObject implements AppearInCollection{
+/**
+ *  
+ *
+*/
+
+    public String shortName;
+
 /**
  *  No-arg constructor for use in TableView
  *
@@ -57,6 +73,7 @@ public  class DisjunctiveResource extends ApplicationObject{
 
     public DisjunctiveResource(ApplicationDataset applicationDataset){
         super(applicationDataset);
+        setShortName("");
         applicationDataset.addDisjunctiveResource(this);
     }
 
@@ -69,17 +86,20 @@ public  class DisjunctiveResource extends ApplicationObject{
 
     public DisjunctiveResource(ApplicationDataset applicationDataset,
             Integer id,
-            String name){
+            String name,
+            String shortName){
         super(applicationDataset,
             id,
             name);
+        setShortName(shortName);
         applicationDataset.addDisjunctiveResource(this);
     }
 
     public DisjunctiveResource(DisjunctiveResource other){
         this(other.applicationDataset,
             other.id,
-            other.name);
+            other.name,
+            other.shortName);
     }
 
 /**
@@ -91,7 +111,44 @@ public  class DisjunctiveResource extends ApplicationObject{
 
     public Boolean remove(){
         getApplicationDataset().cascadeResourceNeedDisjunctiveResource(this);
+        getApplicationDataset().cascadeTaskMachines(this);
+        getApplicationDataset().cascadeTaskAssignmentDisjunctiveResource(this);
         return getApplicationDataset().removeDisjunctiveResource(this) && getApplicationDataset().removeApplicationObject(this);
+    }
+
+/**
+ *  (varargs) build list of items of type DisjunctiveResource
+ *
+ * @param pList multiple items of type DisjunctiveResource
+ * @return List<DisjunctiveResource>
+*/
+
+    static public List<DisjunctiveResource> buildList(DisjunctiveResource... pList){
+        List<DisjunctiveResource> l = new ArrayList<DisjunctiveResource>();
+        l.addAll(Arrays.asList(pList));
+        return l;
+    }
+
+/**
+ *  get attribute shortName
+ *
+ * @return String
+*/
+
+    public String getShortName(){
+        return this.shortName;
+    }
+
+/**
+ *  set attribute shortName, mark dataset as dirty, mark dataset as not valid
+@param shortName String
+ *
+*/
+
+    public void setShortName(String shortName){
+        this.shortName = shortName;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -111,7 +168,7 @@ public  class DisjunctiveResource extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName();
+        return ""+ " " +getId()+ " " +getName()+ " " +getShortName();
     }
 
 /**
@@ -134,8 +191,19 @@ public  class DisjunctiveResource extends ApplicationObject{
      public void toXML(PrintWriter out){
          out.println("<disjunctiveResource "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
-            " name=\""+toXMLName()+"\""+" />");
+            " name=\""+toXMLName()+"\""+
+            " shortName=\""+toXMLShortName()+"\""+" />");
      }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLShortName(){
+        return this.safeXML(getShortName());
+    }
 
 /**
  * show object as one row in an HTML table
@@ -144,11 +212,11 @@ public  class DisjunctiveResource extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>DisjunctiveResource</th>"+"<th>Name</th>"+"</tr>";
+        return "<tr><th>DisjunctiveResource</th>"+"<th>Name</th>"+"<th>ShortName</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getShortName()+"</td>"+"</tr>";
     }
 
 /**
@@ -268,7 +336,11 @@ public  class DisjunctiveResource extends ApplicationObject{
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
-        return  this.getName().equals(b.getName());
+      if(!this.getShortName().equals(b.getShortName())){
+         System.out.println("ShortName");
+        }
+        return  this.getName().equals(b.getName()) &&
+          this.getShortName().equals(b.getShortName());
     }
 
 /**

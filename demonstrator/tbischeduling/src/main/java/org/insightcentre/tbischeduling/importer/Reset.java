@@ -22,6 +22,7 @@ public class Reset {
         base.resetListTaskAssignment();
         base.resetListJobAssignment();
         base.resetListSolution();
+        base.resetListSolverRun();
     }
 
 
@@ -40,8 +41,11 @@ public class Reset {
      */
     public static void resetData(Scenario base){
         resetSchedule(base);
+        base.resetListInputError();
         base.resetListProblem();
         base.resetListResourceNeed();
+        base.resetListCumulativeNeed();
+        base.resetListCumulativeProfile();
         base.resetListProcessSequence();
         base.resetListProcessStep();
         base.resetListProcess();

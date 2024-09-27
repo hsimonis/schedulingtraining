@@ -5,23 +5,32 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
+import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
+import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
-import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
-import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
-import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
+import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
+import org.insightcentre.tbischeduling.datamodel.Severity;
+import org.insightcentre.tbischeduling.datamodel.ModelType;
+import org.insightcentre.tbischeduling.datamodel.SolverBackend;
+import org.insightcentre.tbischeduling.datamodel.SolverStatus;
+import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;
@@ -50,6 +59,13 @@ public  class JobAssignment extends ApplicationObject{
  *
 */
 
+    public Integer early;
+
+/**
+ *  
+ *
+*/
+
     public Integer end;
 
 /**
@@ -65,6 +81,13 @@ public  class JobAssignment extends ApplicationObject{
 */
 
     public Job job;
+
+/**
+ *  
+ *
+*/
+
+    public Integer late;
 
 /**
  *  
@@ -107,9 +130,11 @@ public  class JobAssignment extends ApplicationObject{
     public JobAssignment(ApplicationDataset applicationDataset){
         super(applicationDataset);
         setDuration(0);
+        setEarly(0);
         setEnd(0);
         setEndDate(new DateTime());
         setJob(null);
+        setLate(0);
         setSolution(null);
         setStart(0);
         setStartDate(new DateTime());
@@ -127,9 +152,11 @@ public  class JobAssignment extends ApplicationObject{
             Integer id,
             String name,
             Integer duration,
+            Integer early,
             Integer end,
             DateTime endDate,
             Job job,
+            Integer late,
             Solution solution,
             Integer start,
             DateTime startDate){
@@ -137,9 +164,11 @@ public  class JobAssignment extends ApplicationObject{
             id,
             name);
         setDuration(duration);
+        setEarly(early);
         setEnd(end);
         setEndDate(endDate);
         setJob(job);
+        setLate(late);
         setSolution(solution);
         setStart(start);
         setStartDate(startDate);
@@ -151,9 +180,11 @@ public  class JobAssignment extends ApplicationObject{
             other.id,
             other.name,
             other.duration,
+            other.early,
             other.end,
             other.endDate,
             other.job,
+            other.late,
             other.solution,
             other.start,
             other.startDate);
@@ -179,6 +210,16 @@ public  class JobAssignment extends ApplicationObject{
 
     public Integer getDuration(){
         return this.duration;
+    }
+
+/**
+ *  get attribute early
+ *
+ * @return Integer
+*/
+
+    public Integer getEarly(){
+        return this.early;
     }
 
 /**
@@ -209,6 +250,16 @@ public  class JobAssignment extends ApplicationObject{
 
     public Job getJob(){
         return this.job;
+    }
+
+/**
+ *  get attribute late
+ *
+ * @return Integer
+*/
+
+    public Integer getLate(){
+        return this.late;
     }
 
 /**
@@ -254,6 +305,18 @@ public  class JobAssignment extends ApplicationObject{
     }
 
 /**
+ *  set attribute early, mark dataset as dirty, mark dataset as not valid
+@param early Integer
+ *
+*/
+
+    public void setEarly(Integer early){
+        this.early = early;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute end, mark dataset as dirty, mark dataset as not valid
 @param end Integer
  *
@@ -285,6 +348,18 @@ public  class JobAssignment extends ApplicationObject{
 
     public void setJob(Job job){
         this.job = job;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute late, mark dataset as dirty, mark dataset as not valid
+@param late Integer
+ *
+*/
+
+    public void setLate(Integer late){
+        this.late = late;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -337,12 +412,34 @@ public  class JobAssignment extends ApplicationObject{
     }
 
 /**
+ *  inc attribute early, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incEarly(){
+        this.early++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute end, mark dataset as dirty, mark dataset as not valid
  *
 */
 
     public void incEnd(){
         this.end++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute late, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incLate(){
+        this.late++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -375,7 +472,7 @@ public  class JobAssignment extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getJob().toColumnString()+ " " +getSolution().toColumnString()+ " " +getStart()+ " " +getStartDate();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDuration()+ " " +getEarly()+ " " +getEnd()+ " " +getEndDate()+ " " +getJob().toColumnString()+ " " +getLate()+ " " +getSolution().toColumnString()+ " " +getStart()+ " " +getStartDate();
     }
 
 /**
@@ -400,9 +497,11 @@ public  class JobAssignment extends ApplicationObject{
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
             " duration=\""+toXMLDuration()+"\""+
+            " early=\""+toXMLEarly()+"\""+
             " end=\""+toXMLEnd()+"\""+
             " endDate=\""+toXMLEndDate()+"\""+
             " job=\""+toXMLJob()+"\""+
+            " late=\""+toXMLLate()+"\""+
             " solution=\""+toXMLSolution()+"\""+
             " start=\""+toXMLStart()+"\""+
             " startDate=\""+toXMLStartDate()+"\""+" />");
@@ -416,6 +515,16 @@ public  class JobAssignment extends ApplicationObject{
 
     String toXMLDuration(){
         return this.getDuration().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLEarly(){
+        return this.getEarly().toString();
     }
 
 /**
@@ -446,6 +555,16 @@ public  class JobAssignment extends ApplicationObject{
 
     String toXMLJob(){
         return "ID_"+this.getJob().getId().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLLate(){
+        return this.getLate().toString();
     }
 
 /**
@@ -485,11 +604,11 @@ public  class JobAssignment extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>JobAssignment</th>"+"<th>Name</th>"+"<th>Solution</th>"+"<th>Job</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>Duration</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"</tr>";
+        return "<tr><th>JobAssignment</th>"+"<th>Name</th>"+"<th>Solution</th>"+"<th>Job</th>"+"<th>Late</th>"+"<th>Early</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolution().toColumnString()+"</td>"+ " " +"<td>"+getJob().toColumnString()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolution().toColumnString()+"</td>"+ " " +"<td>"+getJob().toColumnString()+"</td>"+ " " +"<td>"+getLate()+"</td>"+ " " +"<td>"+getEarly()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+"</tr>";
     }
 
 /**
@@ -609,6 +728,9 @@ public  class JobAssignment extends ApplicationObject{
       if(!this.getDuration().equals(b.getDuration())){
          System.out.println("Duration");
         }
+      if(!this.getEarly().equals(b.getEarly())){
+         System.out.println("Early");
+        }
       if(!this.getEnd().equals(b.getEnd())){
          System.out.println("End");
         }
@@ -617,6 +739,9 @@ public  class JobAssignment extends ApplicationObject{
         }
       if(!this.getJob().applicationSame(b.getJob())){
          System.out.println("Job");
+        }
+      if(!this.getLate().equals(b.getLate())){
+         System.out.println("Late");
         }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
@@ -631,9 +756,11 @@ public  class JobAssignment extends ApplicationObject{
          System.out.println("StartDate");
         }
         return  this.getDuration().equals(b.getDuration()) &&
+          this.getEarly().equals(b.getEarly()) &&
           this.getEnd().equals(b.getEnd()) &&
           this.getEndDate().applicationEqual(b.getEndDate()) &&
           this.getJob().applicationSame(b.getJob()) &&
+          this.getLate().equals(b.getLate()) &&
           this.getName().equals(b.getName()) &&
           this.getSolution().applicationSame(b.getSolution()) &&
           this.getStart().equals(b.getStart()) &&

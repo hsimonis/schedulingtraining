@@ -5,8 +5,11 @@
 			<xs:sequence>
 				<xs:element ref="applicationDifference" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="applicationWarning" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="cumulativeNeed" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="cumulativeProfile" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="cumulativeResource" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="disjunctiveResource" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="inputError" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="job" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="jobAssignment" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="order" minOccurs="0" maxOccurs="unbounded"/>
@@ -18,6 +21,7 @@
 				<xs:element ref="resourceNeed" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="scenario" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="solution" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="solverRun" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="task" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="taskAssignment" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
@@ -44,6 +48,26 @@
 			<xs:attribute name="type" use="required" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="cumulativeNeed">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="cumulativeResource" use="required" type="xs:IDREF"/>
+			<xs:attribute name="demand" use="required" type="xs:integer"/>
+			<xs:attribute name="processStep" use="required" type="xs:IDREF"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cumulativeProfile">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="capacity" use="required" type="xs:integer"/>
+			<xs:attribute name="cumulativeResource" use="required" type="xs:IDREF"/>
+			<xs:attribute name="from" use="required" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="cumulativeResource">
 		<xs:complexType>
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
@@ -56,6 +80,20 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="shortName" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="inputError">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="classDesc" use="required" type="xs:string"/>
+			<xs:attribute name="description" use="required" type="xs:string"/>
+			<xs:attribute name="field" use="required" type="xs:string"/>
+			<xs:attribute name="item" use="required" type="xs:string"/>
+			<xs:attribute name="severity" use="required" type="xs:string"/>
+			<xs:attribute name="value" use="required" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="job">
@@ -73,9 +111,11 @@
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
 			<xs:attribute name="duration" use="required" type="xs:integer"/>
+			<xs:attribute name="early" use="required" type="xs:integer"/>
 			<xs:attribute name="end" use="required" type="xs:integer"/>
 			<xs:attribute name="endDate" use="required" type="xs:dateTime"/>
 			<xs:attribute name="job" use="required" type="xs:IDREF"/>
+			<xs:attribute name="late" use="required" type="xs:integer"/>
 			<xs:attribute name="solution" use="required" type="xs:IDREF"/>
 			<xs:attribute name="start" use="required" type="xs:integer"/>
 			<xs:attribute name="startDate" use="required" type="xs:dateTime"/>
@@ -87,9 +127,13 @@
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
 			<xs:attribute name="due" use="required" type="xs:integer"/>
-			<xs:attribute name="dueDate" use="required" type="xs:integer"/>
+			<xs:attribute name="dueDate" use="required" type="xs:dateTime"/>
+			<xs:attribute name="earlinessWeight" use="required" type="xs:double"/>
+			<xs:attribute name="latenessWeight" use="required" type="xs:double"/>
 			<xs:attribute name="product" use="required" type="xs:IDREF"/>
 			<xs:attribute name="qty" use="required" type="xs:integer"/>
+			<xs:attribute name="release" use="required" type="xs:integer"/>
+			<xs:attribute name="releaseDate" use="required" type="xs:dateTime"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="problem">
@@ -97,6 +141,13 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="nrCumulativeResources" use="required" type="xs:integer"/>
+			<xs:attribute name="nrDisjunctiveResources" use="required" type="xs:integer"/>
+			<xs:attribute name="nrJobs" use="required" type="xs:integer"/>
+			<xs:attribute name="nrOrders" use="required" type="xs:integer"/>
+			<xs:attribute name="nrProcesses" use="required" type="xs:integer"/>
+			<xs:attribute name="nrProducts" use="required" type="xs:integer"/>
+			<xs:attribute name="nrTasks" use="required" type="xs:integer"/>
 			<xs:attribute name="timePointsAsDate" use="required" type="xs:boolean"/>
 		</xs:complexType>
 	</xs:element>
@@ -151,6 +202,10 @@
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
 			<xs:attribute name="valid" use="required" type="xs:boolean"/>
+			<xs:attribute name="dataFile" use="required" type="xs:string"/>
+			<xs:attribute name="dataFileVersionNumber" use="required" type="xs:double"/>
+			<xs:attribute name="horizon" use="required" type="xs:integer"/>
+			<xs:attribute name="timeResolution" use="required" type="xs:integer"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="solution">
@@ -158,7 +213,37 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="bound" use="required" type="xs:double"/>
+			<xs:attribute name="flowtime" use="required" type="xs:integer"/>
+			<xs:attribute name="gap" use="required" type="xs:double"/>
+			<xs:attribute name="makespan" use="required" type="xs:integer"/>
 			<xs:attribute name="objectiveValue" use="required" type="xs:integer"/>
+			<xs:attribute name="solverRun" use="required" type="xs:IDREF"/>
+			<xs:attribute name="solverStatus" use="required" type="xs:string"/>
+			<xs:attribute name="totalEarliness" use="required" type="xs:integer"/>
+			<xs:attribute name="totalLateness" use="required" type="xs:integer"/>
+			<xs:attribute name="weightedEarliness" use="required" type="xs:double"/>
+			<xs:attribute name="weightedLateness" use="required" type="xs:double"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="solverRun">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="description" use="required" type="xs:string"/>
+			<xs:attribute name="enforceDueDate" use="required" type="xs:boolean"/>
+			<xs:attribute name="enforceReleaseDate" use="required" type="xs:boolean"/>
+			<xs:attribute name="label" use="required" type="xs:string"/>
+			<xs:attribute name="modelType" use="required" type="xs:string"/>
+			<xs:attribute name="nrThreads" use="required" type="xs:integer"/>
+			<xs:attribute name="objectiveType" use="required" type="xs:string"/>
+			<xs:attribute name="removeSolution" use="required" type="xs:boolean"/>
+			<xs:attribute name="seed" use="required" type="xs:integer"/>
+			<xs:attribute name="solverBackend" use="required" type="xs:string"/>
+			<xs:attribute name="solverStatus" use="required" type="xs:string"/>
+			<xs:attribute name="time" use="required" type="xs:double"/>
+			<xs:attribute name="timeout" use="required" type="xs:integer"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="task">
@@ -166,7 +251,9 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="duration" use="required" type="xs:integer"/>
 			<xs:attribute name="job" use="required" type="xs:IDREF"/>
+			<xs:attribute name="machines" use="required" type="xs:IDREFS"/>
 			<xs:attribute name="processStep" use="required" type="xs:IDREF"/>
 		</xs:complexType>
 	</xs:element>
@@ -175,11 +262,11 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="disjunctiveResource" use="required" type="xs:IDREF"/>
 			<xs:attribute name="duration" use="required" type="xs:integer"/>
 			<xs:attribute name="end" use="required" type="xs:integer"/>
 			<xs:attribute name="endDate" use="required" type="xs:dateTime"/>
 			<xs:attribute name="jobAssignment" use="required" type="xs:IDREF"/>
-			<xs:attribute name="resource" use="required" type="xs:integer"/>
 			<xs:attribute name="start" use="required" type="xs:integer"/>
 			<xs:attribute name="startDate" use="required" type="xs:dateTime"/>
 			<xs:attribute name="task" use="required" type="xs:IDREF"/>

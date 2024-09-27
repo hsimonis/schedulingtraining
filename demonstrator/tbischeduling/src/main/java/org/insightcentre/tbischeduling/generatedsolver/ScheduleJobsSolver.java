@@ -12,31 +12,85 @@ public class ScheduleJobsSolver extends DefaultSolver{
     protected long startSystem = 0;
 // solver parameters
     protected String label="test";
-    protected String solverType="CPO";
-    protected int timeout=300;
-    protected int nrThreads=25;
-    protected int timeResolution=1;
+    protected String description="";
+    protected String startDate="1-3-2023";
+    protected String startTime="08:00";
+    protected boolean enforceReleaseDate=true;
+    protected boolean enforceDueDate=false;
+    protected int weightLateness=100;
+    protected int weightEarlyness=1;
+    protected String modelType="CPO";
+    protected String solverBackend="CP-SAT";
+    protected String objectiveType="Makespan";
+    protected int timeout=60;
+    protected int nrThreads=2;
     protected int seed=1;
+    protected boolean removeSolution=false;
 
     public ScheduleJobsSolver(Scenario base){
         super(base,new String[] {});
     }
-    public ScheduleJobsSolver(Scenario base,String label,String solverType,int timeout,int nrThreads,int timeResolution,int seed){
+    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,int weightLateness,int weightEarlyness,String modelType,String solverBackend,String objectiveType,int timeout,int nrThreads,int seed,boolean removeSolution){
         super(base,new String[] {});
         this.label=label;
-        this.solverType=solverType;
+        this.description=description;
+        this.startDate=startDate;
+        this.startTime=startTime;
+        this.enforceReleaseDate=enforceReleaseDate;
+        this.enforceDueDate=enforceDueDate;
+        this.weightLateness=weightLateness;
+        this.weightEarlyness=weightEarlyness;
+        this.modelType=modelType;
+        this.solverBackend=solverBackend;
+        this.objectiveType=objectiveType;
         this.timeout=timeout;
         this.nrThreads=nrThreads;
-        this.timeResolution=timeResolution;
         this.seed=seed;
+        this.removeSolution=removeSolution;
     }
 
 public String getLabel(){
  return label;
 }
 
-public String getSolverType(){
- return solverType;
+public String getDescription(){
+ return description;
+}
+
+public String getStartDate(){
+ return startDate;
+}
+
+public String getStartTime(){
+ return startTime;
+}
+
+public boolean getEnforceReleaseDate(){
+ return enforceReleaseDate;
+}
+
+public boolean getEnforceDueDate(){
+ return enforceDueDate;
+}
+
+public int getWeightLateness(){
+ return weightLateness;
+}
+
+public int getWeightEarlyness(){
+ return weightEarlyness;
+}
+
+public String getModelType(){
+ return modelType;
+}
+
+public String getSolverBackend(){
+ return solverBackend;
+}
+
+public String getObjectiveType(){
+ return objectiveType;
 }
 
 public int getTimeout(){
@@ -47,12 +101,12 @@ public int getNrThreads(){
  return nrThreads;
 }
 
-public int getTimeResolution(){
- return timeResolution;
-}
-
 public int getSeed(){
  return seed;
+}
+
+public boolean getRemoveSolution(){
+ return removeSolution;
 }
 
 public ScheduleJobsSolver setLabel(String v){
@@ -60,8 +114,53 @@ public ScheduleJobsSolver setLabel(String v){
  return this;
 }
 
-public ScheduleJobsSolver setSolverType(String v){
- solverType = v;
+public ScheduleJobsSolver setDescription(String v){
+ description = v;
+ return this;
+}
+
+public ScheduleJobsSolver setStartDate(String v){
+ startDate = v;
+ return this;
+}
+
+public ScheduleJobsSolver setStartTime(String v){
+ startTime = v;
+ return this;
+}
+
+public ScheduleJobsSolver setEnforceReleaseDate(boolean v){
+ enforceReleaseDate = v;
+ return this;
+}
+
+public ScheduleJobsSolver setEnforceDueDate(boolean v){
+ enforceDueDate = v;
+ return this;
+}
+
+public ScheduleJobsSolver setWeightLateness(int v){
+ weightLateness = v;
+ return this;
+}
+
+public ScheduleJobsSolver setWeightEarlyness(int v){
+ weightEarlyness = v;
+ return this;
+}
+
+public ScheduleJobsSolver setModelType(String v){
+ modelType = v;
+ return this;
+}
+
+public ScheduleJobsSolver setSolverBackend(String v){
+ solverBackend = v;
+ return this;
+}
+
+public ScheduleJobsSolver setObjectiveType(String v){
+ objectiveType = v;
  return this;
 }
 
@@ -75,13 +174,13 @@ public ScheduleJobsSolver setNrThreads(int v){
  return this;
 }
 
-public ScheduleJobsSolver setTimeResolution(int v){
- timeResolution = v;
+public ScheduleJobsSolver setSeed(int v){
+ seed = v;
  return this;
 }
 
-public ScheduleJobsSolver setSeed(int v){
- seed = v;
+public ScheduleJobsSolver setRemoveSolution(boolean v){
+ removeSolution = v;
  return this;
 }
 

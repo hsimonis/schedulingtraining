@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 14:32:41 on 2024-09-23-->
+<!--Generated at 18:08:58 on 2024-09-26-->
 
 
 <Tab text="ResourceNeed" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.ResourceNeedController">
@@ -19,8 +19,8 @@
          <TableView fx:id="table" editable="true">
             <columns>
                <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
-               <TableColumn fx:id="processStep" styleClass="right-aligned" text="ProcessStep" />
                <TableColumn fx:id="disjunctiveResource" styleClass="right-aligned" text="DisjunctiveResource" />
+               <TableColumn fx:id="processStep" styleClass="right-aligned" text="ProcessStep" />
             </columns>
          </TableView>
       </center>

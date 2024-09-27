@@ -5,23 +5,32 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
+import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
+import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
-import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
-import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
-import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
+import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
+import org.insightcentre.tbischeduling.datamodel.Severity;
+import org.insightcentre.tbischeduling.datamodel.ModelType;
+import org.insightcentre.tbischeduling.datamodel.SolverBackend;
+import org.insightcentre.tbischeduling.datamodel.SolverStatus;
+import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;
@@ -50,7 +59,21 @@ public  class Order extends ApplicationObject{
  *
 */
 
-    public Integer dueDate;
+    public DateTime dueDate;
+
+/**
+ *  
+ *
+*/
+
+    public Double earlinessWeight;
+
+/**
+ *  
+ *
+*/
+
+    public Double latenessWeight;
 
 /**
  *  
@@ -65,6 +88,20 @@ public  class Order extends ApplicationObject{
 */
 
     public Integer qty;
+
+/**
+ *  
+ *
+*/
+
+    public Integer release;
+
+/**
+ *  
+ *
+*/
+
+    public DateTime releaseDate;
 
 /**
  *  No-arg constructor for use in TableView
@@ -86,9 +123,13 @@ public  class Order extends ApplicationObject{
     public Order(ApplicationDataset applicationDataset){
         super(applicationDataset);
         setDue(0);
-        setDueDate(0);
+        setDueDate(new DateTime());
+        setEarlinessWeight(1.0);
+        setLatenessWeight(1.0);
         setProduct(null);
         setQty(0);
+        setRelease(0);
+        setReleaseDate(new DateTime());
         applicationDataset.addOrder(this);
     }
 
@@ -103,16 +144,24 @@ public  class Order extends ApplicationObject{
             Integer id,
             String name,
             Integer due,
-            Integer dueDate,
+            DateTime dueDate,
+            Double earlinessWeight,
+            Double latenessWeight,
             Product product,
-            Integer qty){
+            Integer qty,
+            Integer release,
+            DateTime releaseDate){
         super(applicationDataset,
             id,
             name);
         setDue(due);
         setDueDate(dueDate);
+        setEarlinessWeight(earlinessWeight);
+        setLatenessWeight(latenessWeight);
         setProduct(product);
         setQty(qty);
+        setRelease(release);
+        setReleaseDate(releaseDate);
         applicationDataset.addOrder(this);
     }
 
@@ -122,8 +171,12 @@ public  class Order extends ApplicationObject{
             other.name,
             other.due,
             other.dueDate,
+            other.earlinessWeight,
+            other.latenessWeight,
             other.product,
-            other.qty);
+            other.qty,
+            other.release,
+            other.releaseDate);
     }
 
 /**
@@ -151,11 +204,31 @@ public  class Order extends ApplicationObject{
 /**
  *  get attribute dueDate
  *
- * @return Integer
+ * @return DateTime
 */
 
-    public Integer getDueDate(){
+    public DateTime getDueDate(){
         return this.dueDate;
+    }
+
+/**
+ *  get attribute earlinessWeight
+ *
+ * @return Double
+*/
+
+    public Double getEarlinessWeight(){
+        return this.earlinessWeight;
+    }
+
+/**
+ *  get attribute latenessWeight
+ *
+ * @return Double
+*/
+
+    public Double getLatenessWeight(){
+        return this.latenessWeight;
     }
 
 /**
@@ -179,6 +252,26 @@ public  class Order extends ApplicationObject{
     }
 
 /**
+ *  get attribute release
+ *
+ * @return Integer
+*/
+
+    public Integer getRelease(){
+        return this.release;
+    }
+
+/**
+ *  get attribute releaseDate
+ *
+ * @return DateTime
+*/
+
+    public DateTime getReleaseDate(){
+        return this.releaseDate;
+    }
+
+/**
  *  set attribute due, mark dataset as dirty, mark dataset as not valid
 @param due Integer
  *
@@ -192,12 +285,36 @@ public  class Order extends ApplicationObject{
 
 /**
  *  set attribute dueDate, mark dataset as dirty, mark dataset as not valid
-@param dueDate Integer
+@param dueDate DateTime
  *
 */
 
-    public void setDueDate(Integer dueDate){
+    public void setDueDate(DateTime dueDate){
         this.dueDate = dueDate;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute earlinessWeight, mark dataset as dirty, mark dataset as not valid
+@param earlinessWeight Double
+ *
+*/
+
+    public void setEarlinessWeight(Double earlinessWeight){
+        this.earlinessWeight = earlinessWeight;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute latenessWeight, mark dataset as dirty, mark dataset as not valid
+@param latenessWeight Double
+ *
+*/
+
+    public void setLatenessWeight(Double latenessWeight){
+        this.latenessWeight = latenessWeight;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -227,6 +344,30 @@ public  class Order extends ApplicationObject{
     }
 
 /**
+ *  set attribute release, mark dataset as dirty, mark dataset as not valid
+@param release Integer
+ *
+*/
+
+    public void setRelease(Integer release){
+        this.release = release;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute releaseDate, mark dataset as dirty, mark dataset as not valid
+@param releaseDate DateTime
+ *
+*/
+
+    public void setReleaseDate(DateTime releaseDate){
+        this.releaseDate = releaseDate;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute due, mark dataset as dirty, mark dataset as not valid
  *
 */
@@ -238,23 +379,23 @@ public  class Order extends ApplicationObject{
     }
 
 /**
- *  inc attribute dueDate, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incDueDate(){
-        this.dueDate++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
  *  inc attribute qty, mark dataset as dirty, mark dataset as not valid
  *
 */
 
     public void incQty(){
         this.qty++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute release, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incRelease(){
+        this.release++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -276,7 +417,7 @@ public  class Order extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDue()+ " " +getDueDate()+ " " +getProduct().toColumnString()+ " " +getQty();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDue()+ " " +getDueDate()+ " " +getEarlinessWeight()+ " " +getLatenessWeight()+ " " +getProduct().toColumnString()+ " " +getQty()+ " " +getRelease()+ " " +getReleaseDate();
     }
 
 /**
@@ -302,8 +443,12 @@ public  class Order extends ApplicationObject{
             " name=\""+toXMLName()+"\""+
             " due=\""+toXMLDue()+"\""+
             " dueDate=\""+toXMLDueDate()+"\""+
+            " earlinessWeight=\""+toXMLEarlinessWeight()+"\""+
+            " latenessWeight=\""+toXMLLatenessWeight()+"\""+
             " product=\""+toXMLProduct()+"\""+
-            " qty=\""+toXMLQty()+"\""+" />");
+            " qty=\""+toXMLQty()+"\""+
+            " release=\""+toXMLRelease()+"\""+
+            " releaseDate=\""+toXMLReleaseDate()+"\""+" />");
      }
 
 /**
@@ -323,7 +468,27 @@ public  class Order extends ApplicationObject{
 */
 
     String toXMLDueDate(){
-        return this.getDueDate().toString();
+        return this.getDueDate().toXML();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLEarlinessWeight(){
+        return this.getEarlinessWeight().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLLatenessWeight(){
+        return this.getLatenessWeight().toString();
     }
 
 /**
@@ -347,17 +512,37 @@ public  class Order extends ApplicationObject{
     }
 
 /**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLRelease(){
+        return this.getRelease().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLReleaseDate(){
+        return this.getReleaseDate().toXML();
+    }
+
+/**
  * show object as one row in an HTML table
  * 
  * @return String of form <tr>...</tr>
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Order</th>"+"<th>Name</th>"+"<th>Product</th>"+"<th>Qty</th>"+"<th>Due</th>"+"<th>DueDate</th>"+"</tr>";
+        return "<tr><th>Order</th>"+"<th>Name</th>"+"<th>Product</th>"+"<th>Qty</th>"+"<th>Due</th>"+"<th>DueDate</th>"+"<th>Release</th>"+"<th>ReleaseDate</th>"+"<th>LatenessWeight</th>"+"<th>EarlinessWeight</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getProduct().toColumnString()+"</td>"+ " " +"<td>"+getQty()+"</td>"+ " " +"<td>"+getDue()+"</td>"+ " " +"<td>"+getDueDate()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getProduct().toColumnString()+"</td>"+ " " +"<td>"+getQty()+"</td>"+ " " +"<td>"+getDue()+"</td>"+ " " +"<td>"+getDueDate()+"</td>"+ " " +"<td>"+getRelease()+"</td>"+ " " +"<td>"+getReleaseDate()+"</td>"+ " " +"<td>"+getLatenessWeight()+"</td>"+ " " +"<td>"+getEarlinessWeight()+"</td>"+"</tr>";
     }
 
 /**
@@ -477,8 +662,14 @@ public  class Order extends ApplicationObject{
       if(!this.getDue().equals(b.getDue())){
          System.out.println("Due");
         }
-      if(!this.getDueDate().equals(b.getDueDate())){
+      if(!this.getDueDate().applicationEqual(b.getDueDate())){
          System.out.println("DueDate");
+        }
+      if(!this.getEarlinessWeight().equals(b.getEarlinessWeight())){
+         System.out.println("EarlinessWeight");
+        }
+      if(!this.getLatenessWeight().equals(b.getLatenessWeight())){
+         System.out.println("LatenessWeight");
         }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
@@ -489,11 +680,21 @@ public  class Order extends ApplicationObject{
       if(!this.getQty().equals(b.getQty())){
          System.out.println("Qty");
         }
+      if(!this.getRelease().equals(b.getRelease())){
+         System.out.println("Release");
+        }
+      if(!this.getReleaseDate().applicationEqual(b.getReleaseDate())){
+         System.out.println("ReleaseDate");
+        }
         return  this.getDue().equals(b.getDue()) &&
-          this.getDueDate().equals(b.getDueDate()) &&
+          this.getDueDate().applicationEqual(b.getDueDate()) &&
+          this.getEarlinessWeight().equals(b.getEarlinessWeight()) &&
+          this.getLatenessWeight().equals(b.getLatenessWeight()) &&
           this.getName().equals(b.getName()) &&
           this.getProduct().applicationSame(b.getProduct()) &&
-          this.getQty().equals(b.getQty());
+          this.getQty().equals(b.getQty()) &&
+          this.getRelease().equals(b.getRelease()) &&
+          this.getReleaseDate().applicationEqual(b.getReleaseDate());
     }
 
 /**

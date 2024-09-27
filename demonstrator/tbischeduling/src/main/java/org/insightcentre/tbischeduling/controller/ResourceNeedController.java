@@ -21,7 +21,7 @@ import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
 
 /**
- * Generated at 14:32:41 on 2024-09-23 */
+ * Generated at 18:08:58 on 2024-09-26 */
 public class ResourceNeedController extends Table3Controller {
 	@FXML
 	private TableView<ResourceNeed> table;
@@ -30,10 +30,10 @@ public class ResourceNeedController extends Table3Controller {
 	private TableColumn<ResourceNeed, String> name;
 
 	@FXML
-	private TableColumn<ResourceNeed, ProcessStep> processStep;
+	private TableColumn<ResourceNeed, DisjunctiveResource> disjunctiveResource;
 
 	@FXML
-	private TableColumn<ResourceNeed, DisjunctiveResource> disjunctiveResource;
+	private TableColumn<ResourceNeed, ProcessStep> processStep;
 
 	private GeneratedJfxApp mainApp;
 
@@ -41,10 +41,10 @@ public class ResourceNeedController extends Table3Controller {
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
 		table.setItems(mainApp.getResourceNeedData());
-		processStep.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getProcessStepData()));
-		processStep.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setProcessStep(event.getNewValue()); mainApp.reset();});
 		disjunctiveResource.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getDisjunctiveResourceData()));
 		disjunctiveResource.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDisjunctiveResource(event.getNewValue()); mainApp.reset();});
+		processStep.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getProcessStepData()));
+		processStep.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setProcessStep(event.getNewValue()); mainApp.reset();});
 	}
 
 	public TableView<ResourceNeed> getTable() {
@@ -60,10 +60,10 @@ public class ResourceNeedController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
-		choices.add("processStep");
-		processStep.setCellValueFactory(new PropertyValueFactory<>("processStep"));
 		choices.add("disjunctiveResource");
 		disjunctiveResource.setCellValueFactory(new PropertyValueFactory<>("disjunctiveResource"));
+		choices.add("processStep");
+		processStep.setCellValueFactory(new PropertyValueFactory<>("processStep"));
 		initialize(choices);
 	}
 

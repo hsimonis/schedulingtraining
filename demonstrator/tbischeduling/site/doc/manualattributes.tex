@@ -1,6 +1,31 @@
 \chapter{Attributes}
 These are the attributes of each class. Here you will find the class name and a table of the attributes.     
 \begin{table}
+\caption{CumulativeNeed  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & cumulativeResource &  \\
+$\square$\ & processStep &  \\
+$\square$\ & demand &  \\
+\end{longtable}
+\label{attr:CumulativeNeed}
+\end{table}
+
+\clearpage
+\begin{table}
+\caption{CumulativeProfile  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & cumulativeResource &  \\
+$\square$\ & from &  \\
+$\square$\ & capacity &  \\
+\end{longtable}
+\label{attr:CumulativeProfile}
+\end{table}
+
+\begin{table}
 \caption{CumulativeResource  }
 
 \begin{longtable}{llp{8cm}}
@@ -9,14 +34,29 @@ These are the attributes of each class. Here you will find the class name and a 
 \label{attr:CumulativeResource}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{DisjunctiveResource  }
 
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
+$\square$\ & shortName &  \\
 \end{longtable}
 \label{attr:DisjunctiveResource}
+\end{table}
+
+\begin{table}
+\caption{InputError  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & classDesc &  \\
+$\square$\ & item &  \\
+$\square$\ & field &  \\
+$\square$\ & value &  \\
+$\square$\ & description &  \\
+$\square$\ & severity &  \\
+\end{longtable}
+\label{attr:InputError}
 \end{table}
 
 \begin{table}
@@ -30,6 +70,7 @@ $\square$\ & process &  \\
 \label{attr:Job}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{JobAssignment  }
 
@@ -37,9 +78,11 @@ $\square$\ & process &  \\
 & Attribute & Description \\
 $\square$\ & solution &  \\
 $\square$\ & job &  \\
+$\square$\ & late &  \\
+$\square$\ & early &  \\
+$\square$\ & duration &  \\
 $\square$\ & start &  \\
 $\square$\ & end &  \\
-$\square$\ & duration &  \\
 $\square$\ & startDate &  \\
 $\square$\ & endDate &  \\
 \end{longtable}
@@ -55,6 +98,10 @@ $\square$\ & product &  \\
 $\square$\ & qty &  \\
 $\square$\ & due &  \\
 $\square$\ & dueDate &  \\
+$\square$\ & release &  \\
+$\square$\ & releaseDate &  \\
+$\square$\ & latenessWeight &  \\
+$\square$\ & earlinessWeight &  \\
 \end{longtable}
 \label{attr:Order}
 \end{table}
@@ -65,11 +112,17 @@ $\square$\ & dueDate &  \\
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
 $\square$\ & timePointsAsDate &  \\
+$\square$\ & nrProducts &  \\
+$\square$\ & nrProcesses &  \\
+$\square$\ & nrDisjunctiveResources &  \\
+$\square$\ & nrCumulativeResources &  \\
+$\square$\ & nrOrders &  \\
+$\square$\ & nrJobs &  \\
+$\square$\ & nrTasks &  \\
 \end{longtable}
 \label{attr:Problem}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{Process  }
 
@@ -92,6 +145,7 @@ $\square$\ & offset &  \\
 \label{attr:ProcessSequence}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{ProcessStep  }
 
@@ -119,18 +173,21 @@ $\square$\ & process &  \\
 
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
-$\square$\ & processStep &  \\
 $\square$\ & disjunctiveResource &  \\
+$\square$\ & processStep &  \\
 \end{longtable}
 \label{attr:ResourceNeed}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{Scenario  This class describes the dataset for the application. Typically there is a single instance of this class in the application at all times.}
 
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
+$\square$\ & dataFileVersionNumber &  \\
+$\square$\ & dataFile &  \\
+$\square$\ & horizon &  \\
+$\square$\ & timeResolution &  \\
 \end{longtable}
 \label{attr:Scenario}
 \end{table}
@@ -140,9 +197,42 @@ $\square$\ & disjunctiveResource &  \\
 
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
+$\square$\ & solverRun &  \\
 $\square$\ & objectiveValue &  \\
+$\square$\ & solverStatus &  \\
+$\square$\ & bound &  \\
+$\square$\ & gap &  \\
+$\square$\ & makespan &  \\
+$\square$\ & flowtime &  \\
+$\square$\ & totalLateness &  \\
+$\square$\ & weightedLateness &  \\
+$\square$\ & totalEarliness &  \\
+$\square$\ & weightedEarliness &  \\
 \end{longtable}
 \label{attr:Solution}
+\end{table}
+
+\clearpage
+\begin{table}
+\caption{SolverRun  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & label &  \\
+$\square$\ & description &  \\
+$\square$\ & modelType &  \\
+$\square$\ & solverBackend &  \\
+$\square$\ & objectiveType &  \\
+$\square$\ & enforceReleaseDate &  \\
+$\square$\ & enforceDueDate &  \\
+$\square$\ & timeout &  \\
+$\square$\ & nrThreads &  \\
+$\square$\ & seed &  \\
+$\square$\ & removeSolution &  \\
+$\square$\ & solverStatus &  \\
+$\square$\ & time &  \\
+\end{longtable}
+\label{attr:SolverRun}
 \end{table}
 
 \begin{table}
@@ -152,6 +242,8 @@ $\square$\ & objectiveValue &  \\
 & Attribute & Description \\
 $\square$\ & job &  \\
 $\square$\ & processStep &  \\
+$\square$\ & duration &  \\
+$\square$\ & machines &  \\
 \end{longtable}
 \label{attr:Task}
 \end{table}
@@ -161,12 +253,12 @@ $\square$\ & processStep &  \\
 
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
-$\square$\ & jobAssignment &  \\
 $\square$\ & task &  \\
-$\square$\ & resource &  \\
+$\square$\ & jobAssignment &  \\
+$\square$\ & disjunctiveResource &  \\
+$\square$\ & duration &  \\
 $\square$\ & start &  \\
 $\square$\ & end &  \\
-$\square$\ & duration &  \\
 $\square$\ & startDate &  \\
 $\square$\ & endDate &  \\
 \end{longtable}

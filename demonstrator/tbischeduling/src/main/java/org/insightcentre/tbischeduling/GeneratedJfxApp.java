@@ -27,8 +27,11 @@ import javafx.stage.Stage;
 import org.insightcentre.tbischeduling.controller.RootController;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
+import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
+import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.Order;
@@ -40,14 +43,17 @@ import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.datamodel.Solution;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
+import org.insightcentre.tbischeduling.generatedsolver.GenerateDataDialogBox;
+import org.insightcentre.tbischeduling.generatedsolver.GenerateDataSolver;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 14:32:41 on 2024-09-23 */
+ * Generated at 18:08:58 on 2024-09-26 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -65,7 +71,11 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<ApplicationWarning> applicationWarningData = FXCollections.observableArrayList();
 
+	private ObservableList<InputError> inputErrorData = FXCollections.observableArrayList();
+
 	private ObservableList<Problem> problemData = FXCollections.observableArrayList();
+
+	private ObservableList<Product> productData = FXCollections.observableArrayList();
 
 	private ObservableList<Process> processData = FXCollections.observableArrayList();
 
@@ -73,13 +83,15 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<ProcessSequence> processSequenceData = FXCollections.observableArrayList();
 
+	private ObservableList<ResourceNeed> resourceNeedData = FXCollections.observableArrayList();
+
+	private ObservableList<CumulativeNeed> cumulativeNeedData = FXCollections.observableArrayList();
+
+	private ObservableList<CumulativeProfile> cumulativeProfileData = FXCollections.observableArrayList();
+
 	private ObservableList<DisjunctiveResource> disjunctiveResourceData = FXCollections.observableArrayList();
 
 	private ObservableList<CumulativeResource> cumulativeResourceData = FXCollections.observableArrayList();
-
-	private ObservableList<ResourceNeed> resourceNeedData = FXCollections.observableArrayList();
-
-	private ObservableList<Product> productData = FXCollections.observableArrayList();
 
 	private ObservableList<Order> orderData = FXCollections.observableArrayList();
 
@@ -87,11 +99,13 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<Task> taskData = FXCollections.observableArrayList();
 
+	private ObservableList<SolverRun> solverRunData = FXCollections.observableArrayList();
+
 	private ObservableList<Solution> solutionData = FXCollections.observableArrayList();
 
-	private ObservableList<TaskAssignment> taskAssignmentData = FXCollections.observableArrayList();
-
 	private ObservableList<JobAssignment> jobAssignmentData = FXCollections.observableArrayList();
+
+	private ObservableList<TaskAssignment> taskAssignmentData = FXCollections.observableArrayList();
 
 	public GeneratedJfxApp() {
 		super("tbischeduling", "ENTIRE EDIH Test Before Invest - Scheduling - University College Cork", "*.data", "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling");
@@ -101,13 +115,20 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		tableViews.put("Scenario Differences", "ApplicationDifference");
 		tableViews.put("Warnings", "ApplicationWarning");
 		tableViews.put("Problem", "Problem");
+		tableViews.put("InputError", "InputError");
 		tableViews.put("Product", "Product");
 		tableViews.put("Process", "Process");
 		tableViews.put("ProcessStep", "ProcessStep");
 		tableViews.put("ProcessSequence", "ProcessSequence");
-		tableViews.put("ResourceNeed", "ResourceNeed");
 		tableViews.put("DisjunctiveResource", "DisjunctiveResource");
 		tableViews.put("CumulativeResource", "CumulativeResource");
+		tableViews.put("ResourceNeed", "ResourceNeed");
+		tableViews.put("CumulativeNeed", "CumulativeNeed");
+		tableViews.put("CumulativeProfile", "CumulativeProfile");
+		tableViews.put("Order", "Order");
+		tableViews.put("Job", "Job");
+		tableViews.put("Task", "Task");
+		tableViews.put("SolverRun", "SolverRun");
 		tableViews.put("Solution", "Solution");
 		tableViews.put("JobAssignment", "JobAssignment");
 		tableViews.put("TaskAssignment", "TaskAssignment");
@@ -186,34 +207,42 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		applicationDifferenceData.addAll(base.getListApplicationDifference());
 		applicationWarningData.clear();
 		applicationWarningData.addAll(base.getListApplicationWarning());
+		inputErrorData.clear();
+		inputErrorData.addAll(base.getListInputError());
 		problemData.clear();
 		problemData.addAll(base.getListProblem());
+		productData.clear();
+		productData.addAll(base.getListProduct());
 		processData.clear();
 		processData.addAll(base.getListProcess());
 		processStepData.clear();
 		processStepData.addAll(base.getListProcessStep());
 		processSequenceData.clear();
 		processSequenceData.addAll(base.getListProcessSequence());
+		resourceNeedData.clear();
+		resourceNeedData.addAll(base.getListResourceNeed());
+		cumulativeNeedData.clear();
+		cumulativeNeedData.addAll(base.getListCumulativeNeed());
+		cumulativeProfileData.clear();
+		cumulativeProfileData.addAll(base.getListCumulativeProfile());
 		disjunctiveResourceData.clear();
 		disjunctiveResourceData.addAll(base.getListDisjunctiveResource());
 		cumulativeResourceData.clear();
 		cumulativeResourceData.addAll(base.getListCumulativeResource());
-		resourceNeedData.clear();
-		resourceNeedData.addAll(base.getListResourceNeed());
-		productData.clear();
-		productData.addAll(base.getListProduct());
 		orderData.clear();
 		orderData.addAll(base.getListOrder());
 		jobData.clear();
 		jobData.addAll(base.getListJob());
 		taskData.clear();
 		taskData.addAll(base.getListTask());
+		solverRunData.clear();
+		solverRunData.addAll(base.getListSolverRun());
 		solutionData.clear();
 		solutionData.addAll(base.getListSolution());
-		taskAssignmentData.clear();
-		taskAssignmentData.addAll(base.getListTaskAssignment());
 		jobAssignmentData.clear();
 		jobAssignmentData.addAll(base.getListJobAssignment());
+		taskAssignmentData.clear();
+		taskAssignmentData.addAll(base.getListTaskAssignment());
 		for (BaseController controller : controllers) {
 			controller.setMainApp(this);
 		}
@@ -223,12 +252,17 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		alert(Alert.AlertType.WARNING, "Action LoadDataFileAction is not yet implemented!");
 	}
 
-	public void SaveSpreadsheetAction(Scenario base) {
-		alert(Alert.AlertType.WARNING, "Action SaveSpreadsheetAction is not yet implemented!");
+	public void SaveDataFileAction(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action SaveDataFileAction is not yet implemented!");
 	}
 
 	public void GenerateReportAction(Scenario base) {
 		alert(Alert.AlertType.WARNING, "Action GenerateReportAction is not yet implemented!");
+	}
+
+	public void generateDataSolverRun(Scenario base) {
+		Optional<Boolean> result = new GenerateDataDialogBox(this,base,new GenerateDataSolver(base)).showAndWait();
+		reset();
 	}
 
 	public void scheduleJobsSolverRun(Scenario base) {
@@ -244,11 +278,14 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		if (id.equals("LoadDataFileAction")) {
 			LoadDataFileAction((Scenario) fs);
 		}
-		else if (id.equals("SaveSpreadsheetAction")) {
-			SaveSpreadsheetAction((Scenario) fs);
+		else if (id.equals("SaveDataFileAction")) {
+			SaveDataFileAction((Scenario) fs);
 		}
 		else if (id.equals("GenerateReportAction")) {
 			GenerateReportAction((Scenario) fs);
+		}
+		else if (id.equals("generateDataSolverRun")) {
+			generateDataSolverRun((Scenario) fs);
 		}
 		else if (id.equals("scheduleJobsSolverRun")) {
 			scheduleJobsSolverRun((Scenario) fs);
@@ -270,8 +307,16 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		return applicationWarningData;
 	}
 
+	public ObservableList<InputError> getInputErrorData() {
+		return inputErrorData;
+	}
+
 	public ObservableList<Problem> getProblemData() {
 		return problemData;
+	}
+
+	public ObservableList<Product> getProductData() {
+		return productData;
 	}
 
 	public ObservableList<Process> getProcessData() {
@@ -286,20 +331,24 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		return processSequenceData;
 	}
 
+	public ObservableList<ResourceNeed> getResourceNeedData() {
+		return resourceNeedData;
+	}
+
+	public ObservableList<CumulativeNeed> getCumulativeNeedData() {
+		return cumulativeNeedData;
+	}
+
+	public ObservableList<CumulativeProfile> getCumulativeProfileData() {
+		return cumulativeProfileData;
+	}
+
 	public ObservableList<DisjunctiveResource> getDisjunctiveResourceData() {
 		return disjunctiveResourceData;
 	}
 
 	public ObservableList<CumulativeResource> getCumulativeResourceData() {
 		return cumulativeResourceData;
-	}
-
-	public ObservableList<ResourceNeed> getResourceNeedData() {
-		return resourceNeedData;
-	}
-
-	public ObservableList<Product> getProductData() {
-		return productData;
 	}
 
 	public ObservableList<Order> getOrderData() {
@@ -314,15 +363,19 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		return taskData;
 	}
 
+	public ObservableList<SolverRun> getSolverRunData() {
+		return solverRunData;
+	}
+
 	public ObservableList<Solution> getSolutionData() {
 		return solutionData;
 	}
 
-	public ObservableList<TaskAssignment> getTaskAssignmentData() {
-		return taskAssignmentData;
-	}
-
 	public ObservableList<JobAssignment> getJobAssignmentData() {
 		return jobAssignmentData;
+	}
+
+	public ObservableList<TaskAssignment> getTaskAssignmentData() {
+		return taskAssignmentData;
 	}
 }

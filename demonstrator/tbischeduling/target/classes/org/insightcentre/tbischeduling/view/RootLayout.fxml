@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 14:32:41 on 2024-09-23-->
+<!--Generated at 18:08:58 on 2024-09-26-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -26,7 +26,7 @@
                   <MenuItem id="Load From XML" accelerator="Shortcut+F" onAction="#handle" text="Load From XML..." />
                   <SeparatorMenuItem />
                   <MenuItem id="LoadDataFileAction" accelerator="Shortcut+g" onAction="#handle" text="Load DataFile..." />
-                  <MenuItem id="SaveSpreadsheetAction" onAction="#handle" text="Save Result..." />
+                  <MenuItem id="SaveDataFileAction" onAction="#handle" text="Save DataFile..." />
                   <MenuItem id="GenerateReportAction" onAction="#handle" text="Generate Report..." />
                   <SeparatorMenuItem />
                   <MenuItem id="Print" accelerator="Shortcut+P" onAction="#handle" text="Print..." />
@@ -44,7 +44,10 @@
             </Menu>
             <Menu text="_Scenario">
                <items>
+                  <MenuItem id="generateDataSolverRun" onAction="#handle" text="GenerateData Solver..." />
+                  <SeparatorMenuItem />
                   <MenuItem id="scheduleJobsSolverRun" onAction="#handle" text="ScheduleJobs Solver..." />
+                  <SeparatorMenuItem />
                   <MenuItem id="Check Data" onAction="#handle" text="Check Data" />
                   <SeparatorMenuItem />
                   <MenuItem id="Compare" onAction="#handle" text="Compare..." />
@@ -73,6 +76,7 @@
                   <Menu text="_Problem">
                      <items>
                         <MenuItem id="problemPage" onAction="#handle" text="Problem" />
+                        <MenuItem id="inputErrorPage" onAction="#handle" text="InputError" />
                      </items>
                   </Menu>
                   <Menu text="_Product">
@@ -81,27 +85,31 @@
                         <MenuItem id="processPage" onAction="#handle" text="Process" />
                         <MenuItem id="processStepPage" onAction="#handle" text="ProcessStep" />
                         <MenuItem id="processSequencePage" onAction="#handle" text="ProcessSequence" />
-                        <MenuItem id="resourceNeedPage" accelerator="Shortcut+R" onAction="#handle" text="ResourceNeed" />
                      </items>
                   </Menu>
                   <Menu text="_Resource">
                      <items>
                         <MenuItem id="disjunctiveResourcePage" onAction="#handle" text="DisjunctiveResource" />
                         <MenuItem id="cumulativeResourcePage" onAction="#handle" text="CumulativeResource" />
+                        <SeparatorMenuItem />
+                        <MenuItem id="resourceNeedPage" accelerator="Shortcut+R" onAction="#handle" text="ResourceNeed" />
+                        <MenuItem id="cumulativeNeedPage" onAction="#handle" text="CumulativeNeed" />
+                        <MenuItem id="cumulativeProfilePage" onAction="#handle" text="CumulativeProfile" />
                      </items>
                   </Menu>
                   <Menu text="_Order">
-                     <items />
-                  </Menu>
-                  <SeparatorMenuItem />
-                  <Menu text="_Schedule">
-                     <items />
+                     <items>
+                        <MenuItem id="orderPage" onAction="#handle" text="Order" />
+                        <MenuItem id="jobPage" accelerator="Shortcut+J" onAction="#handle" text="Job" />
+                        <MenuItem id="taskPage" onAction="#handle" text="Task" />
+                     </items>
                   </Menu>
                   <SeparatorMenuItem />
                   <Menu text="_Solution">
                      <items>
+                        <MenuItem id="solverRunPage" onAction="#handle" text="SolverRun" />
                         <MenuItem id="solutionPage" onAction="#handle" text="Solution" />
-                        <MenuItem id="jobAssignmentPage" accelerator="Shortcut+J" onAction="#handle" text="JobAssignment" />
+                        <MenuItem id="jobAssignmentPage" onAction="#handle" text="JobAssignment" />
                         <MenuItem id="taskAssignmentPage" onAction="#handle" text="TaskAssignment" />
                      </items>
                   </Menu>

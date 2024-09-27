@@ -5,23 +5,32 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
+import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
+import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
-import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
-import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
-import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
+import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
+import org.insightcentre.tbischeduling.datamodel.Severity;
+import org.insightcentre.tbischeduling.datamodel.ModelType;
+import org.insightcentre.tbischeduling.datamodel.SolverBackend;
+import org.insightcentre.tbischeduling.datamodel.SolverStatus;
+import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;
@@ -38,6 +47,55 @@ import framework.AppearInCollection;
 */
 
 public  class Problem extends ApplicationObject{
+/**
+ *  
+ *
+*/
+
+    public Integer nrCumulativeResources;
+
+/**
+ *  
+ *
+*/
+
+    public Integer nrDisjunctiveResources;
+
+/**
+ *  
+ *
+*/
+
+    public Integer nrJobs;
+
+/**
+ *  
+ *
+*/
+
+    public Integer nrOrders;
+
+/**
+ *  
+ *
+*/
+
+    public Integer nrProcesses;
+
+/**
+ *  
+ *
+*/
+
+    public Integer nrProducts;
+
+/**
+ *  
+ *
+*/
+
+    public Integer nrTasks;
+
 /**
  *  
  *
@@ -66,7 +124,14 @@ public  class Problem extends ApplicationObject{
 
     public Problem(ApplicationDataset applicationDataset){
         super(applicationDataset);
-        setTimePointsAsDate(true);
+        setNrCumulativeResources(0);
+        setNrDisjunctiveResources(0);
+        setNrJobs(0);
+        setNrOrders(0);
+        setNrProcesses(0);
+        setNrProducts(0);
+        setNrTasks(0);
+        setTimePointsAsDate(false);
         applicationDataset.addProblem(this);
     }
 
@@ -80,10 +145,24 @@ public  class Problem extends ApplicationObject{
     public Problem(ApplicationDataset applicationDataset,
             Integer id,
             String name,
+            Integer nrCumulativeResources,
+            Integer nrDisjunctiveResources,
+            Integer nrJobs,
+            Integer nrOrders,
+            Integer nrProcesses,
+            Integer nrProducts,
+            Integer nrTasks,
             Boolean timePointsAsDate){
         super(applicationDataset,
             id,
             name);
+        setNrCumulativeResources(nrCumulativeResources);
+        setNrDisjunctiveResources(nrDisjunctiveResources);
+        setNrJobs(nrJobs);
+        setNrOrders(nrOrders);
+        setNrProcesses(nrProcesses);
+        setNrProducts(nrProducts);
+        setNrTasks(nrTasks);
         setTimePointsAsDate(timePointsAsDate);
         applicationDataset.addProblem(this);
     }
@@ -92,6 +171,13 @@ public  class Problem extends ApplicationObject{
         this(other.applicationDataset,
             other.id,
             other.name,
+            other.nrCumulativeResources,
+            other.nrDisjunctiveResources,
+            other.nrJobs,
+            other.nrOrders,
+            other.nrProcesses,
+            other.nrProducts,
+            other.nrTasks,
             other.timePointsAsDate);
     }
 
@@ -104,6 +190,76 @@ public  class Problem extends ApplicationObject{
 
     public Boolean remove(){
         return getApplicationDataset().removeProblem(this) && getApplicationDataset().removeApplicationObject(this);
+    }
+
+/**
+ *  get attribute nrCumulativeResources
+ *
+ * @return Integer
+*/
+
+    public Integer getNrCumulativeResources(){
+        return this.nrCumulativeResources;
+    }
+
+/**
+ *  get attribute nrDisjunctiveResources
+ *
+ * @return Integer
+*/
+
+    public Integer getNrDisjunctiveResources(){
+        return this.nrDisjunctiveResources;
+    }
+
+/**
+ *  get attribute nrJobs
+ *
+ * @return Integer
+*/
+
+    public Integer getNrJobs(){
+        return this.nrJobs;
+    }
+
+/**
+ *  get attribute nrOrders
+ *
+ * @return Integer
+*/
+
+    public Integer getNrOrders(){
+        return this.nrOrders;
+    }
+
+/**
+ *  get attribute nrProcesses
+ *
+ * @return Integer
+*/
+
+    public Integer getNrProcesses(){
+        return this.nrProcesses;
+    }
+
+/**
+ *  get attribute nrProducts
+ *
+ * @return Integer
+*/
+
+    public Integer getNrProducts(){
+        return this.nrProducts;
+    }
+
+/**
+ *  get attribute nrTasks
+ *
+ * @return Integer
+*/
+
+    public Integer getNrTasks(){
+        return this.nrTasks;
     }
 
 /**
@@ -125,6 +281,90 @@ public  class Problem extends ApplicationObject{
     }
 
 /**
+ *  set attribute nrCumulativeResources, mark dataset as dirty, mark dataset as not valid
+@param nrCumulativeResources Integer
+ *
+*/
+
+    public void setNrCumulativeResources(Integer nrCumulativeResources){
+        this.nrCumulativeResources = nrCumulativeResources;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute nrDisjunctiveResources, mark dataset as dirty, mark dataset as not valid
+@param nrDisjunctiveResources Integer
+ *
+*/
+
+    public void setNrDisjunctiveResources(Integer nrDisjunctiveResources){
+        this.nrDisjunctiveResources = nrDisjunctiveResources;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute nrJobs, mark dataset as dirty, mark dataset as not valid
+@param nrJobs Integer
+ *
+*/
+
+    public void setNrJobs(Integer nrJobs){
+        this.nrJobs = nrJobs;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute nrOrders, mark dataset as dirty, mark dataset as not valid
+@param nrOrders Integer
+ *
+*/
+
+    public void setNrOrders(Integer nrOrders){
+        this.nrOrders = nrOrders;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute nrProcesses, mark dataset as dirty, mark dataset as not valid
+@param nrProcesses Integer
+ *
+*/
+
+    public void setNrProcesses(Integer nrProcesses){
+        this.nrProcesses = nrProcesses;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute nrProducts, mark dataset as dirty, mark dataset as not valid
+@param nrProducts Integer
+ *
+*/
+
+    public void setNrProducts(Integer nrProducts){
+        this.nrProducts = nrProducts;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute nrTasks, mark dataset as dirty, mark dataset as not valid
+@param nrTasks Integer
+ *
+*/
+
+    public void setNrTasks(Integer nrTasks){
+        this.nrTasks = nrTasks;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute timePointsAsDate, mark dataset as dirty, mark dataset as not valid
 @param timePointsAsDate Boolean
  *
@@ -132,6 +372,83 @@ public  class Problem extends ApplicationObject{
 
     public void setTimePointsAsDate(Boolean timePointsAsDate){
         this.timePointsAsDate = timePointsAsDate;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute nrCumulativeResources, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNrCumulativeResources(){
+        this.nrCumulativeResources++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute nrDisjunctiveResources, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNrDisjunctiveResources(){
+        this.nrDisjunctiveResources++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute nrJobs, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNrJobs(){
+        this.nrJobs++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute nrOrders, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNrOrders(){
+        this.nrOrders++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute nrProcesses, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNrProcesses(){
+        this.nrProcesses++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute nrProducts, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNrProducts(){
+        this.nrProducts++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute nrTasks, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNrTasks(){
+        this.nrTasks++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -153,7 +470,7 @@ public  class Problem extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getTimePointsAsDate();
+        return ""+ " " +getId()+ " " +getName()+ " " +getNrCumulativeResources()+ " " +getNrDisjunctiveResources()+ " " +getNrJobs()+ " " +getNrOrders()+ " " +getNrProcesses()+ " " +getNrProducts()+ " " +getNrTasks()+ " " +getTimePointsAsDate();
     }
 
 /**
@@ -177,8 +494,85 @@ public  class Problem extends ApplicationObject{
          out.println("<problem "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
+            " nrCumulativeResources=\""+toXMLNrCumulativeResources()+"\""+
+            " nrDisjunctiveResources=\""+toXMLNrDisjunctiveResources()+"\""+
+            " nrJobs=\""+toXMLNrJobs()+"\""+
+            " nrOrders=\""+toXMLNrOrders()+"\""+
+            " nrProcesses=\""+toXMLNrProcesses()+"\""+
+            " nrProducts=\""+toXMLNrProducts()+"\""+
+            " nrTasks=\""+toXMLNrTasks()+"\""+
             " timePointsAsDate=\""+toXMLTimePointsAsDate()+"\""+" />");
      }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNrCumulativeResources(){
+        return this.getNrCumulativeResources().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNrDisjunctiveResources(){
+        return this.getNrDisjunctiveResources().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNrJobs(){
+        return this.getNrJobs().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNrOrders(){
+        return this.getNrOrders().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNrProcesses(){
+        return this.getNrProcesses().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNrProducts(){
+        return this.getNrProducts().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNrTasks(){
+        return this.getNrTasks().toString();
+    }
 
 /**
  * helper method for toXML(), prcess one attribute
@@ -197,11 +591,11 @@ public  class Problem extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Problem</th>"+"<th>Name</th>"+"<th>TimePointsAsDate</th>"+"</tr>";
+        return "<tr><th>Problem</th>"+"<th>Name</th>"+"<th>TimePointsAsDate</th>"+"<th>NrProducts</th>"+"<th>NrProcesses</th>"+"<th>NrDisjunctiveResources</th>"+"<th>NrCumulativeResources</th>"+"<th>NrOrders</th>"+"<th>NrJobs</th>"+"<th>NrTasks</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getTimePointsAsDate()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getTimePointsAsDate()+"</td>"+ " " +"<td>"+getNrProducts()+"</td>"+ " " +"<td>"+getNrProcesses()+"</td>"+ " " +"<td>"+getNrDisjunctiveResources()+"</td>"+ " " +"<td>"+getNrCumulativeResources()+"</td>"+ " " +"<td>"+getNrOrders()+"</td>"+ " " +"<td>"+getNrJobs()+"</td>"+ " " +"<td>"+getNrTasks()+"</td>"+"</tr>";
     }
 
 /**
@@ -321,10 +715,38 @@ public  class Problem extends ApplicationObject{
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
+      if(!this.getNrCumulativeResources().equals(b.getNrCumulativeResources())){
+         System.out.println("NrCumulativeResources");
+        }
+      if(!this.getNrDisjunctiveResources().equals(b.getNrDisjunctiveResources())){
+         System.out.println("NrDisjunctiveResources");
+        }
+      if(!this.getNrJobs().equals(b.getNrJobs())){
+         System.out.println("NrJobs");
+        }
+      if(!this.getNrOrders().equals(b.getNrOrders())){
+         System.out.println("NrOrders");
+        }
+      if(!this.getNrProcesses().equals(b.getNrProcesses())){
+         System.out.println("NrProcesses");
+        }
+      if(!this.getNrProducts().equals(b.getNrProducts())){
+         System.out.println("NrProducts");
+        }
+      if(!this.getNrTasks().equals(b.getNrTasks())){
+         System.out.println("NrTasks");
+        }
       if(!this.getTimePointsAsDate().equals(b.getTimePointsAsDate())){
          System.out.println("TimePointsAsDate");
         }
         return  this.getName().equals(b.getName()) &&
+          this.getNrCumulativeResources().equals(b.getNrCumulativeResources()) &&
+          this.getNrDisjunctiveResources().equals(b.getNrDisjunctiveResources()) &&
+          this.getNrJobs().equals(b.getNrJobs()) &&
+          this.getNrOrders().equals(b.getNrOrders()) &&
+          this.getNrProcesses().equals(b.getNrProcesses()) &&
+          this.getNrProducts().equals(b.getNrProducts()) &&
+          this.getNrTasks().equals(b.getNrTasks()) &&
           this.getTimePointsAsDate().equals(b.getTimePointsAsDate());
     }
 

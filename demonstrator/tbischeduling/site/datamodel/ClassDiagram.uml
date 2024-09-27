@@ -24,8 +24,11 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include ApplicationDifference.uml
 !include ApplicationObject.uml
 !include ApplicationWarning.uml
+!include CumulativeNeed.uml
+!include CumulativeProfile.uml
 !include CumulativeResource.uml
 !include DisjunctiveResource.uml
+!include InputError.uml
 !include Job.uml
 !include JobAssignment.uml
 !include Order.uml
@@ -37,31 +40,43 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include ResourceNeed.uml
 !include Scenario.uml
 !include Solution.uml
+!include SolverRun.uml
 !include Task.uml
 !include TaskAssignment.uml
 !include DifferenceType.uml
 !include WarningType.uml
 !include SequenceType.uml
+!include Severity.uml
+!include ModelType.uml
+!include SolverBackend.uml
+!include SolverStatus.uml
+!include ObjectiveType.uml
 ApplicationObjectInterface <|-- ApplicationObject
 ApplicationDatasetInterface <|-- ApplicationDataset
 ApplicationObjectInterface <|-- ApplicationDatasetInterface
 ApplicationDataset <|-- Scenario
 ApplicationDataset  *-- ApplicationObject 
+Process  *-- Product 
 Process  *-- ProcessStep 
 ProcessStep  *-- ProcessSequence : before
 ProcessStep  *-- ProcessSequence : after
-ProcessStep  *-- ResourceNeed 
 DisjunctiveResource  *-- ResourceNeed 
-Process  *-- Product 
+ProcessStep  *-- ResourceNeed 
+CumulativeResource  *-- CumulativeNeed 
+ProcessStep  *-- CumulativeNeed 
+CumulativeResource  *-- CumulativeProfile 
 Product  *-- Order 
 Order  *-- Job 
 Process  *-- Job 
 Job  *-- Task 
 ProcessStep  *-- Task 
+DisjunctiveResource "1..*" *-- Task : machines
+SolverRun  *-- Solution 
 Solution  *-- JobAssignment 
 Job  *-- JobAssignment 
-JobAssignment  *-- TaskAssignment 
 Task  *-- TaskAssignment 
+JobAssignment  *-- TaskAssignment 
+DisjunctiveResource  *-- TaskAssignment 
 header
 Datamodel of Application tbischeduling
 endheader

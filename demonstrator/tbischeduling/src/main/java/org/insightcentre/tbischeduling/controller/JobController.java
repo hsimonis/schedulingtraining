@@ -3,10 +3,15 @@ package org.insightcentre.tbischeduling.controller;
 import framework.gui.AbstractJfxMainWindow;
 import framework.gui.Table3Controller;
 import java.lang.Exception;
+import java.lang.Integer;
+import java.lang.NullPointerException;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.lang.reflect.Field;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,9 +24,10 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Process;
+import org.insightcentre.tbischeduling.datamodel.Product;
 
 /**
- * Generated at 14:32:41 on 2024-09-23 */
+ * Generated at 18:08:58 on 2024-09-26 */
 public class JobController extends Table3Controller {
 	@FXML
 	private TableView<Job> table;
@@ -34,6 +40,18 @@ public class JobController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Job, Process> process;
+
+	@FXML
+	private TableColumn<Job, Product> product;
+
+	@FXML
+	private TableColumn<Job, Integer> release;
+
+	@FXML
+	private TableColumn<Job, Integer> due;
+
+	@FXML
+	private TableColumn<Job, Integer> qty;
 
 	private GeneratedJfxApp mainApp;
 
@@ -52,6 +70,7 @@ public class JobController extends Table3Controller {
 	}
 
 	@FXML
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
 		table.setTableMenuButtonVisible(true);
 		table.setOnMouseClicked(event -> {if (event.isControlDown()) {mainApp.showObject(table.getFocusModel().getFocusedItem());}});
@@ -64,6 +83,34 @@ public class JobController extends Table3Controller {
 		order.setCellValueFactory(new PropertyValueFactory<>("order"));
 		choices.add("process");
 		process.setCellValueFactory(new PropertyValueFactory<>("process"));
+		choices.add("order.product");
+		try {
+			product.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getOrder().getProduct()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("order.release");
+		try {
+			release.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getOrder().getRelease()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("order.due");
+		try {
+			due.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getOrder().getDue()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("order.qty");
+		try {
+			qty.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getOrder().getQty()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
 		initialize(choices);
 	}
 

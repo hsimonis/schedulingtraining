@@ -5,23 +5,32 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
+import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
+import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
-import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
-import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
-import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
+import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
+import org.insightcentre.tbischeduling.datamodel.Severity;
+import org.insightcentre.tbischeduling.datamodel.ModelType;
+import org.insightcentre.tbischeduling.datamodel.SolverBackend;
+import org.insightcentre.tbischeduling.datamodel.SolverStatus;
+import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;
@@ -43,7 +52,21 @@ public  class Task extends ApplicationObject{
  *
 */
 
+    public Integer duration;
+
+/**
+ *  
+ *
+*/
+
     public Job job;
+
+/**
+ *  
+ *
+*/
+
+    public List<DisjunctiveResource> machines;
 
 /**
  *  
@@ -71,7 +94,9 @@ public  class Task extends ApplicationObject{
 
     public Task(ApplicationDataset applicationDataset){
         super(applicationDataset);
+        setDuration(0);
         setJob(null);
+        setMachines(new ArrayList<DisjunctiveResource>());
         setProcessStep(null);
         applicationDataset.addTask(this);
     }
@@ -86,12 +111,16 @@ public  class Task extends ApplicationObject{
     public Task(ApplicationDataset applicationDataset,
             Integer id,
             String name,
+            Integer duration,
             Job job,
+            List<DisjunctiveResource> machines,
             ProcessStep processStep){
         super(applicationDataset,
             id,
             name);
+        setDuration(duration);
         setJob(job);
+        setMachines(machines);
         setProcessStep(processStep);
         applicationDataset.addTask(this);
     }
@@ -100,7 +129,9 @@ public  class Task extends ApplicationObject{
         this(other.applicationDataset,
             other.id,
             other.name,
+            other.duration,
             other.job,
+            other.machines,
             other.processStep);
     }
 
@@ -117,6 +148,16 @@ public  class Task extends ApplicationObject{
     }
 
 /**
+ *  get attribute duration
+ *
+ * @return Integer
+*/
+
+    public Integer getDuration(){
+        return this.duration;
+    }
+
+/**
  *  get attribute job
  *
  * @return Job
@@ -127,6 +168,16 @@ public  class Task extends ApplicationObject{
     }
 
 /**
+ *  get attribute machines
+ *
+ * @return List<DisjunctiveResource>
+*/
+
+    public List<DisjunctiveResource> getMachines(){
+        return this.machines;
+    }
+
+/**
  *  get attribute processStep
  *
  * @return ProcessStep
@@ -134,6 +185,18 @@ public  class Task extends ApplicationObject{
 
     public ProcessStep getProcessStep(){
         return this.processStep;
+    }
+
+/**
+ *  set attribute duration, mark dataset as dirty, mark dataset as not valid
+@param duration Integer
+ *
+*/
+
+    public void setDuration(Integer duration){
+        this.duration = duration;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -149,6 +212,18 @@ public  class Task extends ApplicationObject{
     }
 
 /**
+ *  set attribute machines, mark dataset as dirty, mark dataset as not valid
+@param machines List<DisjunctiveResource>
+ *
+*/
+
+    public void setMachines(List<DisjunctiveResource> machines){
+        this.machines = machines;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute processStep, mark dataset as dirty, mark dataset as not valid
 @param processStep ProcessStep
  *
@@ -156,6 +231,17 @@ public  class Task extends ApplicationObject{
 
     public void setProcessStep(ProcessStep processStep){
         this.processStep = processStep;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute duration, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incDuration(){
+        this.duration++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -177,7 +263,7 @@ public  class Task extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getJob().toColumnString()+ " " +getProcessStep().toColumnString();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDuration()+ " " +getJob().toColumnString()+ " " +getMachines()+ " " +getProcessStep().toColumnString();
     }
 
 /**
@@ -201,7 +287,9 @@ public  class Task extends ApplicationObject{
          out.println("<task "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
+            " duration=\""+toXMLDuration()+"\""+
             " job=\""+toXMLJob()+"\""+
+            " machines=\""+toXMLMachines()+"\""+
             " processStep=\""+toXMLProcessStep()+"\""+" />");
      }
 
@@ -211,8 +299,32 @@ public  class Task extends ApplicationObject{
  * @return String
 */
 
+    String toXMLDuration(){
+        return this.getDuration().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLJob(){
         return "ID_"+this.getJob().getId().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLMachines(){
+        String str="";
+        for(DisjunctiveResource x:getMachines()){
+            str=str+" "+"ID_"+x.getId();
+        }
+        return str;
     }
 
 /**
@@ -232,11 +344,11 @@ public  class Task extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Task</th>"+"<th>Name</th>"+"<th>Job</th>"+"<th>ProcessStep</th>"+"</tr>";
+        return "<tr><th>Task</th>"+"<th>Name</th>"+"<th>Job</th>"+"<th>ProcessStep</th>"+"<th>Duration</th>"+"<th>Machines</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getJob().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getJob().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getMachines()+"</td>"+"</tr>";
     }
 
 /**
@@ -353,8 +465,13 @@ public  class Task extends ApplicationObject{
 */
 
     public Boolean applicationEqual(Task b){
+      if(!this.getDuration().equals(b.getDuration())){
+         System.out.println("Duration");
+        }
       if(!this.getJob().applicationSame(b.getJob())){
          System.out.println("Job");
+        }
+      if (true) {         System.out.println("Machines");
         }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
@@ -362,7 +479,9 @@ public  class Task extends ApplicationObject{
       if(!this.getProcessStep().applicationSame(b.getProcessStep())){
          System.out.println("ProcessStep");
         }
-        return  this.getJob().applicationSame(b.getJob()) &&
+        return  this.getDuration().equals(b.getDuration()) &&
+          this.getJob().applicationSame(b.getJob()) &&
+          true &&
           this.getName().equals(b.getName()) &&
           this.getProcessStep().applicationSame(b.getProcessStep());
     }
@@ -378,6 +497,12 @@ public  class Task extends ApplicationObject{
         }
         if (getJob() == null){
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"job","Task",(getJob()==null?"null":getJob().toString()),"",WarningType.NOTNULL);
+        }
+        if (getMachines() == null){
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"machines","Task",(getMachines()==null?"null":getMachines().toString()),"",WarningType.NOTNULL);
+        }
+        if (getMachines().size() == 0){
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"machines","Task",(getMachines()==null?"null":getMachines().toString()),"",WarningType.NOTEMPTY);
         }
         if (getProcessStep() == null){
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"processStep","Task",(getProcessStep()==null?"null":getProcessStep().toString()),"",WarningType.NOTNULL);
@@ -400,6 +525,9 @@ public  class Task extends ApplicationObject{
    public List<ApplicationObjectInterface> getFeasibleValues(ApplicationDatasetInterface base,String attrName){
       if (attrName.equals("job")){
          return (List) ((Scenario)base).getListJob();
+      }
+      if (attrName.equals("machines")){
+         return (List) ((Scenario)base).getListDisjunctiveResource();
       }
       if (attrName.equals("processStep")){
          return (List) ((Scenario)base).getListProcessStep();

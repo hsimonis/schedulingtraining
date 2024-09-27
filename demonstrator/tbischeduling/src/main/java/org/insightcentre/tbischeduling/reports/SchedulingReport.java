@@ -18,14 +18,13 @@ public class SchedulingReport extends AbstractReport{
         new TableDraw<>("Problem",base.getListProblem()).
                 addStringColumn("Name",this::nameOf).
                 addBooleanColumn(st("Timepoints","as","Date"), Problem::getTimePointsAsDate).
-//                addIntegerColumn(st("Nr","Products"),Problem::getNrProduct).
-//                addIntegerColumn(st("Nr","Process"),Problem::getNrProcess).
-//                addIntegerColumn(st("Nr","Disjunctive","Resources"),Problem::getNrDisjunctiveResources).
-//                addIntegerColumn(st("Nr","Cumulative","Resources"),Problem::getNrCumulativeResources).
-//                addIntegerColumn(st("Nr","Process"),Problem::getNrProcess).
-//                addIntegerColumn(st("Nr","Orders"),Problem::getNrOrders).
-//                addIntegerColumn(st("Nr","Jobs"),Problem::getNrJobs).
-//                addIntegerColumn(st("Nr","Tasks"),Problem::getNrTasks).
+                addIntegerColumn(st("Nr","Products"),Problem::getNrProducts).
+                addIntegerColumn(st("Nr","Process"),Problem::getNrProcesses).
+                addIntegerColumn(st("Nr","Disjunctive","Resources"),Problem::getNrDisjunctiveResources).
+                addIntegerColumn(st("Nr","Cumulative","Resources"),Problem::getNrCumulativeResources).
+                addIntegerColumn(st("Nr","Orders"),Problem::getNrOrders).
+                addIntegerColumn(st("Nr","Jobs"),Problem::getNrJobs).
+                addIntegerColumn(st("Nr","Tasks"),Problem::getNrTasks).
                 generate().latex(tex);
         section("Orders");
 

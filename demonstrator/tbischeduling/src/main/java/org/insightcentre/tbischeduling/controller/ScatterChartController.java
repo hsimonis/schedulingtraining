@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 14:32:41 on 2024-09-23 */
+ * Generated at 18:08:58 on 2024-09-26 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -26,6 +26,18 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("name");
 		filterNames.add("dirty");
 		filterNames.add("valid");
+		attributeNames.add("dataFileVersionNumber");
+		filterNames.add("dataFileVersionNumber");
+		filterNames.add("dataFile");
+		attributeNames.add("horizon");
+		filterNames.add("horizon");
+		attributeNames.add("timeResolution");
+		filterNames.add("timeResolution");
+		choicesMap.put("Scenario", attributeNames);
+		filterMap.put("Scenario", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
 		filterNames.add("name");
 		filterNames.add("type");
 		filterNames.add("item");
@@ -36,7 +48,35 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("type");
 		filterNames.add("limit");
 		filterNames.add("name");
+		filterNames.add("classDesc");
+		filterNames.add("item");
+		filterNames.add("field");
+		filterNames.add("value");
+		filterNames.add("description");
+		filterNames.add("severity");
+		filterNames.add("name");
 		filterNames.add("timePointsAsDate");
+		attributeNames.add("nrProducts");
+		filterNames.add("nrProducts");
+		attributeNames.add("nrProcesses");
+		filterNames.add("nrProcesses");
+		attributeNames.add("nrDisjunctiveResources");
+		filterNames.add("nrDisjunctiveResources");
+		attributeNames.add("nrCumulativeResources");
+		filterNames.add("nrCumulativeResources");
+		attributeNames.add("nrOrders");
+		filterNames.add("nrOrders");
+		attributeNames.add("nrJobs");
+		filterNames.add("nrJobs");
+		attributeNames.add("nrTasks");
+		filterNames.add("nrTasks");
+		choicesMap.put("Problem", attributeNames);
+		filterMap.put("Problem", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("process");
 		filterNames.add("name");
 		filterNames.add("name");
 		filterNames.add("process");
@@ -61,20 +101,46 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
 		filterNames.add("name");
-		filterNames.add("name");
-		filterNames.add("name");
-		filterNames.add("processStep");
 		filterNames.add("disjunctiveResource");
+		filterNames.add("processStep");
 		filterNames.add("name");
-		filterNames.add("process");
+		filterNames.add("cumulativeResource");
+		filterNames.add("processStep");
+		attributeNames.add("demand");
+		filterNames.add("demand");
+		choicesMap.put("CumulativeNeed", attributeNames);
+		filterMap.put("CumulativeNeed", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("cumulativeResource");
+		attributeNames.add("from");
+		filterNames.add("from");
+		attributeNames.add("capacity");
+		filterNames.add("capacity");
+		choicesMap.put("CumulativeProfile", attributeNames);
+		filterMap.put("CumulativeProfile", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("shortName");
+		filterNames.add("name");
 		filterNames.add("name");
 		filterNames.add("product");
 		attributeNames.add("qty");
 		filterNames.add("qty");
 		attributeNames.add("due");
 		filterNames.add("due");
-		attributeNames.add("dueDate");
 		filterNames.add("dueDate");
+		attributeNames.add("release");
+		filterNames.add("release");
+		filterNames.add("releaseDate");
+		attributeNames.add("latenessWeight");
+		filterNames.add("latenessWeight");
+		attributeNames.add("earlinessWeight");
+		filterNames.add("earlinessWeight");
 		choicesMap.put("Order", attributeNames);
 		filterMap.put("Order", filterNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -83,48 +149,157 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("name");
 		filterNames.add("order");
 		filterNames.add("process");
+		filterNames.add("order.product");
+		attributeNames.add("order.release");
+		filterNames.add("order.release");
+		attributeNames.add("order.due");
+		filterNames.add("order.due");
+		attributeNames.add("order.qty");
+		filterNames.add("order.qty");
+		choicesMap.put("Job", attributeNames);
+		filterMap.put("Job", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
 		filterNames.add("name");
 		filterNames.add("job");
 		filterNames.add("processStep");
+		attributeNames.add("duration");
+		filterNames.add("duration");
+		filterNames.add("machines");
+		filterNames.add("job.order");
+		filterNames.add("job.order.product");
+		attributeNames.add("job.order.qty");
+		filterNames.add("job.order.qty");
+		attributeNames.add("processStep.durationFixed");
+		filterNames.add("processStep.durationFixed");
+		attributeNames.add("processStep.durationPerUnit");
+		filterNames.add("processStep.durationPerUnit");
+		choicesMap.put("Task", attributeNames);
+		filterMap.put("Task", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
 		filterNames.add("name");
+		filterNames.add("label");
+		filterNames.add("description");
+		filterNames.add("modelType");
+		filterNames.add("solverBackend");
+		filterNames.add("objectiveType");
+		filterNames.add("enforceReleaseDate");
+		filterNames.add("enforceDueDate");
+		attributeNames.add("timeout");
+		filterNames.add("timeout");
+		attributeNames.add("nrThreads");
+		filterNames.add("nrThreads");
+		attributeNames.add("seed");
+		filterNames.add("seed");
+		filterNames.add("removeSolution");
+		filterNames.add("solverStatus");
+		attributeNames.add("time");
+		filterNames.add("time");
+		choicesMap.put("SolverRun", attributeNames);
+		filterMap.put("SolverRun", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("solverRun");
 		attributeNames.add("objectiveValue");
 		filterNames.add("objectiveValue");
+		filterNames.add("solverStatus");
+		attributeNames.add("bound");
+		filterNames.add("bound");
+		attributeNames.add("gap");
+		filterNames.add("gap");
+		attributeNames.add("makespan");
+		filterNames.add("makespan");
+		attributeNames.add("flowtime");
+		filterNames.add("flowtime");
+		attributeNames.add("totalLateness");
+		filterNames.add("totalLateness");
+		attributeNames.add("weightedLateness");
+		filterNames.add("weightedLateness");
+		attributeNames.add("totalEarliness");
+		filterNames.add("totalEarliness");
+		attributeNames.add("weightedEarliness");
+		filterNames.add("weightedEarliness");
+		filterNames.add("solverRun.modelType");
+		filterNames.add("solverRun.solverBackend");
+		filterNames.add("solverRun.objectiveType");
+		filterNames.add("solverRun.enforceReleaseDate");
+		filterNames.add("solverRun.enforceDueDate");
+		attributeNames.add("solverRun.timeout");
+		filterNames.add("solverRun.timeout");
+		attributeNames.add("solverRun.nrThreads");
+		filterNames.add("solverRun.nrThreads");
+		attributeNames.add("solverRun.seed");
+		filterNames.add("solverRun.seed");
+		filterNames.add("solverRun.removeSolution");
+		attributeNames.add("solverRun.time");
+		filterNames.add("solverRun.time");
 		choicesMap.put("Solution", attributeNames);
 		filterMap.put("Solution", filterNames);
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
 		filterNames.add("name");
-		filterNames.add("jobAssignment");
-		filterNames.add("task");
-		attributeNames.add("resource");
-		filterNames.add("resource");
+		filterNames.add("solution");
+		filterNames.add("job");
+		attributeNames.add("late");
+		filterNames.add("late");
+		attributeNames.add("early");
+		filterNames.add("early");
+		attributeNames.add("duration");
+		filterNames.add("duration");
 		attributeNames.add("start");
 		filterNames.add("start");
 		attributeNames.add("end");
 		filterNames.add("end");
-		attributeNames.add("duration");
-		filterNames.add("duration");
 		filterNames.add("startDate");
 		filterNames.add("endDate");
-		choicesMap.put("TaskAssignment", attributeNames);
-		filterMap.put("TaskAssignment", filterNames);
+		filterNames.add("job.order");
+		filterNames.add("job.order.product");
+		filterNames.add("job.process");
+		attributeNames.add("job.order.release");
+		filterNames.add("job.order.release");
+		attributeNames.add("job.order.due");
+		filterNames.add("job.order.due");
+		attributeNames.add("job.order.qty");
+		filterNames.add("job.order.qty");
+		choicesMap.put("JobAssignment", attributeNames);
+		filterMap.put("JobAssignment", filterNames);
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
 		filterNames.add("name");
-		filterNames.add("solution");
-		filterNames.add("job");
+		filterNames.add("task");
+		filterNames.add("jobAssignment");
+		filterNames.add("disjunctiveResource");
+		attributeNames.add("duration");
+		filterNames.add("duration");
 		attributeNames.add("start");
 		filterNames.add("start");
 		attributeNames.add("end");
 		filterNames.add("end");
-		attributeNames.add("duration");
-		filterNames.add("duration");
 		filterNames.add("startDate");
 		filterNames.add("endDate");
-		choicesMap.put("JobAssignment", attributeNames);
-		filterMap.put("JobAssignment", filterNames);
+		filterNames.add("jobAssignment.solution");
+		filterNames.add("task.job.order");
+		attributeNames.add("task.job.order.release");
+		filterNames.add("task.job.order.release");
+		attributeNames.add("task.job.order.due");
+		filterNames.add("task.job.order.due");
+		filterNames.add("task.job.order.product");
+		attributeNames.add("task.job.order.qty");
+		filterNames.add("task.job.order.qty");
+		filterNames.add("task.processStep");
+		attributeNames.add("task.processStep.durationFixed");
+		filterNames.add("task.processStep.durationFixed");
+		attributeNames.add("task.processStep.durationPerUnit");
+		filterNames.add("task.processStep.durationPerUnit");
+		choicesMap.put("TaskAssignment", attributeNames);
+		filterMap.put("TaskAssignment", filterNames);
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
@@ -160,8 +335,14 @@ public class ScatterChartController extends ChartXYFilterController {
 			else if (className.equals("ApplicationWarning")) {
 				objectList = mainApp.getApplicationWarningData();
 			}
+			else if (className.equals("InputError")) {
+				objectList = mainApp.getInputErrorData();
+			}
 			else if (className.equals("Problem")) {
 				objectList = mainApp.getProblemData();
+			}
+			else if (className.equals("Product")) {
+				objectList = mainApp.getProductData();
 			}
 			else if (className.equals("Process")) {
 				objectList = mainApp.getProcessData();
@@ -172,17 +353,20 @@ public class ScatterChartController extends ChartXYFilterController {
 			else if (className.equals("ProcessSequence")) {
 				objectList = mainApp.getProcessSequenceData();
 			}
+			else if (className.equals("ResourceNeed")) {
+				objectList = mainApp.getResourceNeedData();
+			}
+			else if (className.equals("CumulativeNeed")) {
+				objectList = mainApp.getCumulativeNeedData();
+			}
+			else if (className.equals("CumulativeProfile")) {
+				objectList = mainApp.getCumulativeProfileData();
+			}
 			else if (className.equals("DisjunctiveResource")) {
 				objectList = mainApp.getDisjunctiveResourceData();
 			}
 			else if (className.equals("CumulativeResource")) {
 				objectList = mainApp.getCumulativeResourceData();
-			}
-			else if (className.equals("ResourceNeed")) {
-				objectList = mainApp.getResourceNeedData();
-			}
-			else if (className.equals("Product")) {
-				objectList = mainApp.getProductData();
 			}
 			else if (className.equals("Order")) {
 				objectList = mainApp.getOrderData();
@@ -193,14 +377,17 @@ public class ScatterChartController extends ChartXYFilterController {
 			else if (className.equals("Task")) {
 				objectList = mainApp.getTaskData();
 			}
+			else if (className.equals("SolverRun")) {
+				objectList = mainApp.getSolverRunData();
+			}
 			else if (className.equals("Solution")) {
 				objectList = mainApp.getSolutionData();
 			}
-			else if (className.equals("TaskAssignment")) {
-				objectList = mainApp.getTaskAssignmentData();
-			}
 			else if (className.equals("JobAssignment")) {
 				objectList = mainApp.getJobAssignmentData();
+			}
+			else if (className.equals("TaskAssignment")) {
+				objectList = mainApp.getTaskAssignmentData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();
