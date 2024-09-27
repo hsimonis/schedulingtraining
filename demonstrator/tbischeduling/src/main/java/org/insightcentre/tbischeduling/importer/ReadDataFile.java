@@ -58,7 +58,8 @@ public class ReadDataFile {
             Hashtable<String, SolverRun> solverRunHash = readSolverRuns(root);
             Hashtable<String, Solution> solutionHash = readSolutions(root,solverRunHash);
             Hashtable<String, JobAssignment> jobAssignmentHash = readJobAssignments(root,jobHash,solutionHash);
-            Hashtable<String, TaskAssignment> taskAssignmentHash = readTaskAssignments(root,jobAssignmentHash,taskHash);
+            Hashtable<String, TaskAssignment> taskAssignmentHash = readTaskAssignments(root,jobAssignmentHash,
+                    taskHash,disjunctiveResourceHash);
 
             summarizeProblem(base);
 
@@ -75,23 +76,28 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","classDesc","item","field","value","description","severity"});
-                String name = item.getString("name");
-                String classDesc = item.getString("classDesc");
-                String iName= item.getString("item");
-                String field = item.getString("field");
-                String value = item.getString("value");
-                String description = item.getString("description");
-                String severity = item.getString("severity");
-                InputError e  = new InputError(base);
-                e.setName(name);
-                e.setClassDesc(classDesc);
-                e.setItem(iName);
-                e.setField(field);
-                e.setValue(value);
-                e.setDescription(description);
-                e.setSeverity(toSeverity(severity));
-                res.put(name,e);
+                if (requireFields(key,i,item,new String[]{"name","classDesc","item","field","value",
+                        "description","severity"})) {
+                    String name = item.getString("name");
+                    String classDesc = item.getString("classDesc");
+                    String iName = item.getString("item");
+                    String field = item.getString("field");
+                    String value = item.getString("value");
+                    String description = item.getString("description");
+                    String severity = item.getString("severity");
+                    InputError e = new InputError(base);
+                    e.setName(name);
+                    e.setClassDesc(classDesc);
+                    e.setItem(iName);
+                    e.setField(field);
+                    e.setValue(value);
+                    e.setDescription(description);
+                    e.setSeverity(toSeverity(severity));
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, e);
+                }
 
             }
         } else {
@@ -106,28 +112,32 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","timePointsAsDate","nrProducts","nrProcesses",
-                        "nrDisjunctiveResources","nrCumulativeResources","nrOrders","nrJobs","nrTasks"});
-                String name = item.getString("name");
-                Boolean timePointsAsDate = item.getBoolean("timePointsAsDate");
-                int nrProducts = item.getInt("nrProducts");
-                int nrProcesses = item.getInt("nrProcesses");
-                int nrDisjunctiveResources = item.getInt("nrDisjunctiveResources");
-                int nrCumulativeResources = item.getInt("nrCumulativeResources");
-                int nrOrders = item.getInt("nrOrders");
-                int nrJobs = item.getInt("nrJobs");
-                int nrTasks = item.getInt("nrTasks");
-                Problem p  = new Problem(base);
-                p.setName(name);
-                p.setTimePointsAsDate(timePointsAsDate);
-                p.setNrProducts(nrProducts);
-                p.setNrProcesses(nrProcesses);
-                p.setNrDisjunctiveResources(nrDisjunctiveResources);
-                p.setNrCumulativeResources(nrCumulativeResources);
-                p.setNrOrders(nrOrders);
-                p.setNrJobs(nrJobs);
-                p.setNrTasks(nrTasks);
-                res.put(name,p);
+                if (requireFields(key,i,item,new String[]{"name","timePointsAsDate","nrProducts","nrProcesses",
+                        "nrDisjunctiveResources","nrCumulativeResources","nrOrders","nrJobs","nrTasks"})) {
+                    String name = item.getString("name");
+                    Boolean timePointsAsDate = item.getBoolean("timePointsAsDate");
+                    int nrProducts = item.getInt("nrProducts");
+                    int nrProcesses = item.getInt("nrProcesses");
+                    int nrDisjunctiveResources = item.getInt("nrDisjunctiveResources");
+                    int nrCumulativeResources = item.getInt("nrCumulativeResources");
+                    int nrOrders = item.getInt("nrOrders");
+                    int nrJobs = item.getInt("nrJobs");
+                    int nrTasks = item.getInt("nrTasks");
+                    Problem p = new Problem(base);
+                    p.setName(name);
+                    p.setTimePointsAsDate(timePointsAsDate);
+                    p.setNrProducts(nrProducts);
+                    p.setNrProcesses(nrProcesses);
+                    p.setNrDisjunctiveResources(nrDisjunctiveResources);
+                    p.setNrCumulativeResources(nrCumulativeResources);
+                    p.setNrOrders(nrOrders);
+                    p.setNrJobs(nrJobs);
+                    p.setNrTasks(nrTasks);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, p);
+                }
 
             }
         } else {
@@ -142,11 +152,15 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name"});
-                String name = item.getString("name");
-                DisjunctiveResource p  = new DisjunctiveResource(base);
-                p.setName(name);
-                res.put(name,p);
+                if (requireFields(key,i,item,new String[]{"name"})) {
+                    String name = item.getString("name");
+                    DisjunctiveResource p = new DisjunctiveResource(base);
+                    p.setName(name);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, p);
+                }
 
             }
         } else {
@@ -161,11 +175,15 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name"});
-                String name = item.getString("name");
-                CumulativeResource p  = new CumulativeResource(base);
-                p.setName(name);
-                res.put(name,p);
+                if (requireFields(key,i,item,new String[]{"name"})) {
+                    String name = item.getString("name");
+                    CumulativeResource p = new CumulativeResource(base);
+                    p.setName(name);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, p);
+                }
 
             }
         } else {
@@ -180,11 +198,15 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name"});
-                String name = item.getString("name");
-                Process p  = new Process(base);
-                p.setName(name);
-                res.put(name,p);
+                if (requireFields(key,i,item,new String[]{"name"})) {
+                    String name = item.getString("name");
+                    Process p = new Process(base);
+                    p.setName(name);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, p);
+                }
 
             }
         } else {
@@ -199,17 +221,21 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","process"});
-                String name = item.getString("name");
-                String pName = item.getString("process");
-                Process process = processHash.get(pName);
-                if (process == null){
-                    inputError(key,name,"process",pName,"The required object does not exist",Fatal);
+                if (requireFields(key,i,item,new String[]{"name","process"})) {
+                    String name = item.getString("name");
+                    String pName = item.getString("process");
+                    Process process = processHash.get(pName);
+                    if (process == null) {
+                        inputError(key, name, "process", pName, "The required object does not exist", Fatal);
+                    }
+                    Product p = new Product(base);
+                    p.setName(name);
+                    p.setProcess(process);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, p);
                 }
-                Product p  = new Product(base);
-                p.setName(name);
-                p.setProcess(process);
-                res.put(name,p);
 
             }
         } else {
@@ -225,21 +251,31 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","process","durationFixed","durationPerUnit"});
-                String name = item.getString("name");
-                String pName = item.getString("process");
-                int durationFixed = item.getInt("durationFixed");
-                int durationPerUnit = item.getInt("durationPerUnit");
-                Process process = processHash.get(pName);
-                if (process == null){
-                    inputError(key,name,"process",pName,"The required object does not exist",Fatal);
+                if (requireFields(key,i,item,new String[]{"name","process","durationFixed","durationPerUnit"})) {
+                    String name = item.getString("name");
+                    String pName = item.getString("process");
+                    int durationFixed = item.getInt("durationFixed");
+                    int durationPerUnit = item.getInt("durationPerUnit");
+                    Process process = processHash.get(pName);
+                    if (process == null) {
+                        inputError(key, name, "process", pName, "The required object does not exist", Fatal);
+                    }
+                    if (durationFixed < 0){
+                        inputError(key,name,"durationFixed",String.format("%d",durationFixed),"Value cannot be negative",Fatal);
+                    }
+                    if (durationPerUnit < 0){
+                        inputError(key,name,"durationPerUnit",String.format("%d",durationPerUnit),"Value cannot be negative",Fatal);
+                    }
+                    ProcessStep ps = new ProcessStep(base);
+                    ps.setName(name);
+                    ps.setProcess(process);
+                    ps.setDurationFixed(durationFixed);
+                    ps.setDurationPerUnit(durationPerUnit);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, ps);
                 }
-                ProcessStep ps  = new ProcessStep(base);
-                ps.setName(name);
-                ps.setProcess(process);
-                ps.setDurationFixed(durationFixed);
-                ps.setDurationPerUnit(durationPerUnit);
-                res.put(name,ps);
 
             }
         } else {
@@ -254,31 +290,35 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","before","after","sequenceType","offset"});
-                String name = item.getString("name");
-                String beforeName = item.getString("before");
-                String afterName = item.getString("after");
-                String sequenceType = item.getString("sequenceType");
-                int offset = item.getInt("offset");
-                ProcessStep before = processStepHash.get(beforeName);
-                ProcessStep after = processStepHash.get(afterName);
-                SequenceType type = toSequenceType(sequenceType);
-                if (before == null){
-                    inputError(key,name,"before",beforeName,"The required object does not exist",Fatal);
+                if (requireFields(key,i,item,new String[]{"name","before","after","sequenceType","offset"})) {
+                    String name = item.getString("name");
+                    String beforeName = item.getString("before");
+                    String afterName = item.getString("after");
+                    String sequenceType = item.getString("sequenceType");
+                    int offset = item.getInt("offset");
+                    ProcessStep before = processStepHash.get(beforeName);
+                    ProcessStep after = processStepHash.get(afterName);
+                    SequenceType type = toSequenceType(sequenceType);
+                    if (before == null) {
+                        inputError(key, name, "before", beforeName, "The required object does not exist", Fatal);
+                    }
+                    if (after == null) {
+                        inputError(key, name, "after", afterName, "The required object does not exist", Fatal);
+                    }
+                    if (type == null) {
+                        inputError(key, name, "sequenceType", sequenceType, "This is not a valid SequenceType", Fatal);
+                    }
+                    ProcessSequence ps = new ProcessSequence(base);
+                    ps.setName(name);
+                    ps.setBefore(before);
+                    ps.setAfter(after);
+                    ps.setSequenceType(type);
+                    ps.setOffset(offset);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, ps);
                 }
-                if (after == null){
-                    inputError(key,name,"after",afterName,"The required object does not exist",Fatal);
-                }
-                if (type == null){
-                    inputError(key,name,"sequenceType",sequenceType,"This is not a valid SequenceType",Fatal);
-                }
-                ProcessSequence ps  = new ProcessSequence(base);
-                ps.setName(name);
-                ps.setBefore(before);
-                ps.setAfter(after);
-                ps.setSequenceType(type);
-                ps.setOffset(offset);
-                res.put(name,ps);
 
             }
         } else {
@@ -296,23 +336,27 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","processStep","disjunctiveResource"});
-                String name = item.getString("name");
-                String psName = item.getString("processStep");
-                String rName = item.getString("disjunctiveResource");
-                ProcessStep ps = processStepHash.get(psName);
-                DisjunctiveResource r = disjunctiveResourceHash.get(rName);
-                if (ps == null){
-                    inputError(key,name,"processStep",psName,"The required object does not exist",Fatal);
+                if (requireFields(key,i,item,new String[]{"name","processStep","disjunctiveResource"})) {
+                    String name = item.getString("name");
+                    String psName = item.getString("processStep");
+                    String rName = item.getString("disjunctiveResource");
+                    ProcessStep ps = processStepHash.get(psName);
+                    DisjunctiveResource r = disjunctiveResourceHash.get(rName);
+                    if (ps == null) {
+                        inputError(key, name, "processStep", psName, "The required object does not exist", Fatal);
+                    }
+                    if (r == null) {
+                        inputError(key, name, "disjunctiveResource", rName, "The required object does not exist", Fatal);
+                    }
+                    ResourceNeed rn = new ResourceNeed(base);
+                    rn.setName(name);
+                    rn.setProcessStep(ps);
+                    rn.setDisjunctiveResource(r);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, rn);
                 }
-                if (r == null){
-                    inputError(key,name,"disjunctiveResource",rName,"The required object does not exist",Fatal);
-                }
-                ResourceNeed rn  = new ResourceNeed(base);
-                rn.setName(name);
-                rn.setProcessStep(ps);
-                rn.setDisjunctiveResource(r);
-                res.put(name,rn);
 
             }
         } else {
@@ -329,25 +373,32 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","processStep","cumulativeResource","demand"});
-                String name = item.getString("name");
-                String psName = item.getString("processStep");
-                String rName = item.getString("cumulativeResource");
-                int demand = item.getInt("demand");
-                ProcessStep ps = processStepHash.get(psName);
-                CumulativeResource r = cumulativeResourceHash.get(rName);
-                if (ps == null){
-                    inputError(key,name,"processStep",psName,"The required object does not exist",Fatal);
+                if (requireFields(key,i,item,new String[]{"name","processStep","cumulativeResource","demand"})) {
+                    String name = item.getString("name");
+                    String psName = item.getString("processStep");
+                    String rName = item.getString("cumulativeResource");
+                    int demand = item.getInt("demand");
+                    ProcessStep ps = processStepHash.get(psName);
+                    CumulativeResource r = cumulativeResourceHash.get(rName);
+                    if (ps == null) {
+                        inputError(key, name, "processStep", psName, "The required object does not exist", Fatal);
+                    }
+                    if (r == null) {
+                        inputError(key, name, "cumulativeResource", rName, "The required object does not exist", Fatal);
+                    }
+                    if (demand <= 0 ){
+                        inputError(key,name,"demand",String.format("%d",demand),"Value must be positive",Fatal);
+                    }
+                    CumulativeNeed cn = new CumulativeNeed(base);
+                    cn.setName(name);
+                    cn.setProcessStep(ps);
+                    cn.setCumulativeResource(r);
+                    cn.setDemand(demand);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, cn);
                 }
-                if (r == null){
-                    inputError(key,name,"cumulativeResource",rName,"The required object does not exist",Fatal);
-                }
-                CumulativeNeed cn  = new CumulativeNeed(base);
-                cn.setName(name);
-                cn.setProcessStep(ps);
-                cn.setCumulativeResource(r);
-                cn.setDemand(demand);
-                res.put(name,cn);
 
             }
         } else {
@@ -363,21 +414,28 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","from","cumulativeResource","capacity"});
-                String name = item.getString("name");
-                int from = item.getInt("from");
-                String rName = item.getString("cumulativeResource");
-                int capacity = item.getInt("capacity");
-                CumulativeResource r = cumulativeResourceHash.get(rName);
-                if (r == null){
-                    inputError(key,name,"cumulativeResource",rName,"The required object does not exist",Fatal);
+                if(requireFields(key,i,item,new String[]{"name","from","cumulativeResource","capacity"})) {
+                    String name = item.getString("name");
+                    int from = item.getInt("from");
+                    String rName = item.getString("cumulativeResource");
+                    int capacity = item.getInt("capacity");
+                    CumulativeResource r = cumulativeResourceHash.get(rName);
+                    if (r == null) {
+                        inputError(key, name, "cumulativeResource", rName, "The required object does not exist", Fatal);
+                    }
+                    if (capacity < 0 ){
+                        inputError(key,name,"capacity",String.format("%d",capacity),"Value cannot be negative",Fatal);
+                    }
+                    CumulativeProfile cn = new CumulativeProfile(base);
+                    cn.setName(name);
+                    cn.setFrom(from);
+                    cn.setCumulativeResource(r);
+                    cn.setCapacity(capacity);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, cn);
                 }
-                CumulativeProfile cn  = new CumulativeProfile(base);
-                cn.setName(name);
-                cn.setFrom(from);
-                cn.setCumulativeResource(r);
-                cn.setCapacity(capacity);
-                res.put(name,cn);
 
             }
         } else {
@@ -393,21 +451,44 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","product","qty","due"});
-                String name = item.getString("name");
-                String pName = item.getString("product");
-                int qty = item.getInt("qty");
-                int due = item.getInt("due");
-                Product product = productHash.get(pName);
-                if (product == null){
-                    inputError(key,name,"product",pName,"The required object does not exist",Fatal);
+                if (requireFields(key,i,item,new String[]{"name","product","qty","due","release",
+                        "latenessWeight","earlinessWeight"})) {
+                    String name = item.getString("name");
+                    String pName = item.getString("product");
+                    int qty = item.getInt("qty");
+                    int due = item.getInt("due");
+                    int release = item.getInt("release");
+                    double latenessWeight = item.getDouble("latenessWeight");
+                    double earlinessWeight = item.getDouble("latenessWeight");
+                    Product product = productHash.get(pName);
+                    if (product == null) {
+                        inputError(key, name, "product", pName, "The required object does not exist", Fatal);
+                    }
+                    if (qty <= 0 ){
+                        inputError(key,name,"qty",String.format("%d",qty),"Value must be positive",Fatal);
+                    }
+                    if (release > due){
+                        inputError(key,name,"release",String.format("%d",release),"Release date must before due date",Fatal);
+                    }
+                    if (latenessWeight < 0.0){
+                        inputError(key,name,"latenessWeight",String.format("%f",latenessWeight),"Value cannot be negative",Fatal);
+                    }
+                    if (earlinessWeight < 0.0){
+                        inputError(key,name,"earlinessWeight",String.format("%f",earlinessWeight),"Value cannot be negative",Fatal);
+                    }
+                    Order ord = new Order(base);
+                    ord.setName(name);
+                    ord.setProduct(product);
+                    ord.setQty(qty);
+                    ord.setDue(due);
+                    ord.setRelease(release);
+                    ord.setLatenessWeight(latenessWeight);
+                    ord.setEarlinessWeight(earlinessWeight);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, ord);
                 }
-                Order ord  = new Order(base);
-                ord.setName(name);
-                ord.setProduct(product);
-                ord.setQty(qty);
-                ord.setDue(due);
-                res.put(name,ord);
 
             }
         } else {
@@ -423,23 +504,30 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","order","process"});
-                String name = item.getString("name");
-                String oName = item.getString("order");
-                String pName = item.getString("process");
-                Order order = orderHash.get(oName);
-                Process process = processHash.get(pName);
-                if (order == null){
-                    inputError(key,name,"order",oName,"The required object does not exist",Fatal);
+                if (requireFields(key,i,item,new String[]{"name","order","process"})) {
+                    String name = item.getString("name");
+                    String oName = item.getString("order");
+                    String pName = item.getString("process");
+                    Order order = orderHash.get(oName);
+                    Process process = processHash.get(pName);
+                    if (order == null) {
+                        inputError(key, name, "order", oName, "The required object does not exist", Fatal);
+                    }
+                    if (process == null) {
+                        inputError(key, name, "process", pName, "The required object does not exist", Fatal);
+                    }
+                    if (order != null && order.getProduct() != null && process != order.getProduct().getProcess()){
+                        inputError(key,name,"process",pName,"Process is different from product process",Minor);
+                    }
+                    Job j = new Job(base);
+                    j.setName(name);
+                    j.setOrder(order);
+                    j.setProcess(process);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, j);
                 }
-                if (process == null){
-                    inputError(key,name,"process",pName,"The required object does not exist",Fatal);
-                }
-                Job j  = new Job(base);
-                j.setName(name);
-                j.setOrder(order);
-                j.setProcess(process);
-                res.put(name,j);
 
             }
         } else {
@@ -455,23 +543,29 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","job","processStep"});
-                String name = item.getString("name");
-                String jName = item.getString("job");
-                String pName = item.getString("processStep");
-                Job j = jobHash.get(jName);
-                ProcessStep processStep = processStepHash.get(pName);
-                if (j == null){
-                    inputError(key,name,"job",jName,"The required object does not exist",Fatal);
+                if (requireFields(key,i,item,new String[]{"name","job","processStep","duration"})) {
+                    String name = item.getString("name");
+                    String jName = item.getString("job");
+                    String pName = item.getString("processStep");
+                    int duration = item.getInt("duration");
+                    Job j = jobHash.get(jName);
+                    ProcessStep processStep = processStepHash.get(pName);
+                    if (j == null) {
+                        inputError(key, name, "job", jName, "The required object does not exist", Fatal);
+                    }
+                    if (processStep == null) {
+                        inputError(key, name, "processStep", pName, "The required object does not exist", Fatal);
+                    }
+                    Task t = new Task(base);
+                    t.setName(name);
+                    t.setJob(j);
+                    t.setProcessStep(processStep);
+                    t.setDuration(duration);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, t);
                 }
-                if (processStep == null){
-                    inputError(key,name,"processStep",pName,"The required object does not exist",Fatal);
-                }
-                Task t = new Task(base);
-                t.setName(name);
-                t.setJob(j);
-                t.setProcessStep(processStep);
-                res.put(name,t);
 
             }
         } else {
@@ -487,39 +581,43 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","label","description","modelType","solverBackend",
+                if (requireFields(key,i,item,new String[]{"name","label","description","modelType","solverBackend",
                         "objectiveType","enforceReleaseDate","enforceDueDate","timeout","nrThreads","seed",
-                        "removeSolution","solverStatus","time"});
-                String name = item.getString("name");
-                String label = item.getString("label");
-                String description = item.getString("description");
-                String modelType = item.getString("modelType");
-                String solverBackend = item.getString("solverBackend");
-                String objectiveType = item.getString("objectiveType");
-                boolean enforceReleaseDate = item.getBoolean("enforceReleaseDate");
-                boolean enforceDueDate = item.getBoolean("enforceDueDate");
-                int timeout = item.getInt("timeout");
-                int nrThreads = item.getInt("nrThreads");
-                int seed = item.getInt("seed");
-                boolean removeSolution = item.getBoolean("removeSolution");
-                String solverStatus = item.getString("solverStatus");
-                double time = item.getDouble("time");
-                SolverRun s  = new SolverRun(base);
-                s.setName(name);
-                s.setLabel(label);
-                s.setDescription(description);
-                s.setModelType(toModelType(modelType));
-                s.setSolverBackend(toSolverBackend(solverBackend));
-                s.setObjectiveType(toObjectiveType(objectiveType));
-                s.setEnforceReleaseDate(enforceReleaseDate);
-                s.setEnforceDueDate(enforceDueDate);
-                s.setTimeout(timeout);
-                s.setNrThreads(nrThreads);
-                s.setSeed(seed);
-                s.setRemoveSolution(removeSolution);
-                s.setSolverStatus(toSolverStatus(solverStatus));
-                s.setTime(time);
-                res.put(name,s);
+                        "removeSolution","solverStatus","time"})) {
+                    String name = item.getString("name");
+                    String label = item.getString("label");
+                    String description = item.getString("description");
+                    String modelType = item.getString("modelType");
+                    String solverBackend = item.getString("solverBackend");
+                    String objectiveType = item.getString("objectiveType");
+                    boolean enforceReleaseDate = item.getBoolean("enforceReleaseDate");
+                    boolean enforceDueDate = item.getBoolean("enforceDueDate");
+                    int timeout = item.getInt("timeout");
+                    int nrThreads = item.getInt("nrThreads");
+                    int seed = item.getInt("seed");
+                    boolean removeSolution = item.getBoolean("removeSolution");
+                    String solverStatus = item.getString("solverStatus");
+                    double time = item.getDouble("time");
+                    SolverRun s = new SolverRun(base);
+                    s.setName(name);
+                    s.setLabel(label);
+                    s.setDescription(description);
+                    s.setModelType(toModelType(modelType));
+                    s.setSolverBackend(toSolverBackend(solverBackend));
+                    s.setObjectiveType(toObjectiveType(objectiveType));
+                    s.setEnforceReleaseDate(enforceReleaseDate);
+                    s.setEnforceDueDate(enforceDueDate);
+                    s.setTimeout(timeout);
+                    s.setNrThreads(nrThreads);
+                    s.setSeed(seed);
+                    s.setRemoveSolution(removeSolution);
+                    s.setSolverStatus(toSolverStatus(solverStatus));
+                    s.setTime(time);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, s);
+                }
 
             }
         } else {
@@ -535,45 +633,49 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","solverRun","objectiveValue","solverStatus","bound","gap",
+                if (requireFields(key,i,item,new String[]{"name","solverRun","objectiveValue","solverStatus","bound","gap",
                         "makespan","flowtime",
                         "totalLateness","maxLateness","weightedLateness",
-                        "totalEarliness","maxEarliness","weightedEarliness"});
-                String name = item.getString("name");
-                String solverRun = item.getString("solverRun");
-                int objectiveValue = item.getInt("objectiveValue");
-                String solverStatus = item.getString("solverStatus");
-                double bound = item.getDouble("bound");
-                double gap = item.getDouble("gap");
-                int makespan= item.getInt("makespan");
-                int flowtime= item.getInt("flowtime");
-                int totalLateness= item.getInt("totalLateness");
-                int maxLateness= item.getInt("maxLateness");
-                double weightedLateness= item.getDouble("weightedLateness");
-                int totalEarliness = item.getInt("totalEarliness");
-                int maxEarliness = item.getInt("maxEarliness");
-                double weightedEarliness= item.getDouble("weightedEarliness");
-                SolverRun sr = solverRunHash.get(solverRun);
-                if (sr ==null){
-                    inputError(key,name,"solverRun",solverRun,"The required object does not exist",Fatal);
+                        "totalEarliness","maxEarliness","weightedEarliness"})) {
+                    String name = item.getString("name");
+                    String solverRun = item.getString("solverRun");
+                    int objectiveValue = item.getInt("objectiveValue");
+                    String solverStatus = item.getString("solverStatus");
+                    double bound = item.getDouble("bound");
+                    double gap = item.getDouble("gap");
+                    int makespan = item.getInt("makespan");
+                    int flowtime = item.getInt("flowtime");
+                    int totalLateness = item.getInt("totalLateness");
+                    int maxLateness = item.getInt("maxLateness");
+                    double weightedLateness = item.getDouble("weightedLateness");
+                    int totalEarliness = item.getInt("totalEarliness");
+                    int maxEarliness = item.getInt("maxEarliness");
+                    double weightedEarliness = item.getDouble("weightedEarliness");
+                    SolverRun sr = solverRunHash.get(solverRun);
+                    if (sr == null) {
+                        inputError(key, name, "solverRun", solverRun, "The required object does not exist", Fatal);
 
+                    }
+                    Solution s = new Solution(base);
+                    s.setName(name);
+                    s.setSolverRun(sr);
+                    s.setObjectiveValue(objectiveValue);
+                    s.setSolverStatus(toSolverStatus(solverStatus));
+                    s.setBound(bound);
+                    s.setGap(gap);
+                    s.setMakespan(makespan);
+                    s.setFlowtime(flowtime);
+                    s.setTotalLateness(totalLateness);
+                    s.setMaxLateness(maxLateness);
+                    s.setWeightedLateness(weightedLateness);
+                    s.setTotalEarliness(totalEarliness);
+                    s.setMaxEarliness(maxEarliness);
+                    s.setWeightedEarliness(weightedEarliness);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, s);
                 }
-                Solution s  = new Solution(base);
-                s.setName(name);
-                s.setSolverRun(sr);
-                s.setObjectiveValue(objectiveValue);
-                s.setSolverStatus(toSolverStatus(solverStatus));
-                s.setBound(bound);
-                s.setGap(gap);
-                s.setMakespan(makespan);
-                s.setFlowtime(flowtime);
-                s.setTotalLateness(totalLateness);
-                s.setMaxLateness(maxLateness);
-                s.setWeightedLateness(weightedLateness);
-                s.setTotalEarliness(totalEarliness);
-                s.setMaxEarliness(maxEarliness);
-                s.setWeightedEarliness(weightedEarliness);
-                res.put(name,s);
 
             }
         } else {
@@ -589,29 +691,37 @@ public class ReadDataFile {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","job","solution","start","end","duration"});
-                String name = item.getString("name");
-                String jName = item.getString("job");
-                String sName = item.getString("solution");
-                int start = item.getInt("start");
-                int end = item.getInt("end");
-                int duration = item.getInt("duration");
-                Job j = jobHash.get(jName);
-                Solution s = solutionHash.get(sName);
-                if (j == null){
-                    inputError(key,name,"job",jName,"The required object does not exist",Fatal);
+                if (requireFields(key,i,item,new String[]{"name","job","solution","start","end","duration","late","early"})) {
+                    String name = item.getString("name");
+                    String sName = item.getString("solution");
+                    String jName = item.getString("job");
+                    int start = item.getInt("start");
+                    int end = item.getInt("end");
+                    int duration = item.getInt("duration");
+                    int late = item.getInt("late");
+                    int early = item.getInt("early");
+                    Job j = jobHash.get(jName);
+                    Solution s = solutionHash.get(sName);
+                    if (j == null) {
+                        inputError(key, name, "job", jName, "The required object does not exist", Fatal);
+                    }
+                    if (s == null) {
+                        inputError(key, name, "solution", sName, "The required object does not exist", Fatal);
+                    }
+                    JobAssignment ja = new JobAssignment(base);
+                    ja.setName(name);
+                    ja.setJob(j);
+                    ja.setSolution(s);
+                    ja.setStart(start);
+                    ja.setEnd(end);
+                    ja.setDuration(duration);
+                    ja.setEarly(early);
+                    ja.setLate(late);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, ja);
                 }
-                if (s == null){
-                    inputError(key,name,"solution",sName,"The required object does not exist",Fatal);
-                }
-                JobAssignment ja  = new JobAssignment(base);
-                ja.setName(name);
-                ja.setJob(j);
-                ja.setSolution(s);
-                ja.setStart(start);
-                ja.setEnd(end);
-                ja.setDuration(duration);
-                res.put(name,ja);
 
             }
         } else {
@@ -622,36 +732,49 @@ public class ReadDataFile {
 
     private Hashtable<String,TaskAssignment> readTaskAssignments(JSONObject root,
                                                                  Hashtable<String,JobAssignment> jobAssignmentHash,
-                                                                 Hashtable<String,Task> taskHash){
+                                                                 Hashtable<String,Task> taskHash,
+                                                                 Hashtable<String,DisjunctiveResource> disjHash){
         String key = "taskAssignment";
         Hashtable<String,TaskAssignment> res = new Hashtable<>();
         if (root.has(key)){
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                requireFields(key,i,item,new String[]{"name","jobAssignment","task","start","end","duration"});
-                String name = item.getString("name");
-                String jName = item.getString("jobAssignment");
-                String tName = item.getString("task");
-                int start = item.getInt("start");
-                int end = item.getInt("end");
-                int duration = item.getInt("duration");
-                JobAssignment ja = jobAssignmentHash.get(jName);
-                Task t = taskHash.get(tName);
-                if (ja == null){
-                    inputError(key,name,"jobAssignment",jName,"The required object does not exist",Fatal);
+                if (requireFields(key,i,item,new String[]{"name","jobAssignment","task","disjunctiveResource",
+                        "start","end","duration"})) {
+                    String name = item.getString("name");
+                    String jName = item.getString("jobAssignment");
+                    String tName = item.getString("task");
+                    String rName = item.getString("disjunctiveResource");
+                    int start = item.getInt("start");
+                    int end = item.getInt("end");
+                    int duration = item.getInt("duration");
+                    JobAssignment ja = jobAssignmentHash.get(jName);
+                    Task t = taskHash.get(tName);
+                    DisjunctiveResource r = disjHash.get(rName);
+                    if (ja == null) {
+                        inputError(key, name, "jobAssignment", jName, "The required object does not exist", Fatal);
+                    }
+                    if (t == null) {
+                        inputError(key, name, "task", tName, "The required object does not exist", Fatal);
+                    }
+                    if (r == null) {
+                        inputError(key, name, "disjunctiveResource", rName, "The required object does not exist", Fatal);
+
+                    }
+                    TaskAssignment ta = new TaskAssignment(base);
+                    ta.setName(name);
+                    ta.setJobAssignment(ja);
+                    ta.setTask(t);
+                    ta.setDisjunctiveResource(r);
+                    ta.setStart(start);
+                    ta.setEnd(end);
+                    ta.setDuration(duration);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, ta);
                 }
-                if (t == null){
-                    inputError(key,name,"task",tName,"The required object does not exist",Fatal);
-                }
-                TaskAssignment ta  = new TaskAssignment(base);
-                ta.setName(name);
-                ta.setJobAssignment(ja);
-                ta.setTask(t);
-                ta.setStart(start);
-                ta.setEnd(end);
-                ta.setDuration(duration);
-                res.put(name,ta);
 
             }
         } else {
@@ -696,6 +819,7 @@ public class ReadDataFile {
     }
     private SolverStatus toSolverStatus(String name){
         return switch (name) {
+            case "ToRun" -> ToRun;
             case "Optimal" -> Optimal;
             case "Solution" -> Solution;
             case "Infeasible" -> Infeasible;
@@ -740,12 +864,18 @@ public class ReadDataFile {
         return res;
     }
 
-    private void requireFields(String classDesc,int i,JSONObject obj,String[] keys){
+    /*
+    returns true if all fields are present
+     */
+    private boolean requireFields(String classDesc,int i,JSONObject obj,String[] keys){
+        boolean res = true;
         for(String key:keys){
             if (!obj.has(key)){
                 inputError(classDesc,"entry nr "+i,key,"n/a","Class requires field "+key,Fatal);
+                res = false;
             }
         }
+        return res;
     }
 
 }

@@ -1,0 +1,2165 @@
+{
+  "product": [
+    {
+      "process": "Process 0",
+      "name": "Prod0"
+    },
+    {
+      "process": "Process 1",
+      "name": "Prod1"
+    },
+    {
+      "process": "Process 2",
+      "name": "Prod2"
+    },
+    {
+      "process": "Process 3",
+      "name": "Prod3"
+    },
+    {
+      "process": "Process 4",
+      "name": "Prod4"
+    }
+  ],
+  "process": [
+    {"name": "Process 0"},
+    {"name": "Process 1"},
+    {"name": "Process 2"},
+    {"name": "Process 3"},
+    {"name": "Process 4"}
+  ],
+  "disjunctiveResource": [
+    {"name": "DR0"},
+    {"name": "DR1"},
+    {"name": "DR2"},
+    {"name": "DR3"},
+    {"name": "DR4"},
+    {"name": "DR5"}
+  ],
+  "inputError": [],
+  "cumulativeNeed": [
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN0/0/CR0",
+      "processStep": "PS0/0",
+      "demand": 2
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN0/1/CR0",
+      "processStep": "PS0/1",
+      "demand": 2
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN0/2/CR0",
+      "processStep": "PS0/2",
+      "demand": 2
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN1/0/CR0",
+      "processStep": "PS1/0",
+      "demand": 4
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN1/1/CR0",
+      "processStep": "PS1/1",
+      "demand": 3
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN1/2/CR0",
+      "processStep": "PS1/2",
+      "demand": 1
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN2/0/CR0",
+      "processStep": "PS2/0",
+      "demand": 1
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN2/1/CR0",
+      "processStep": "PS2/1",
+      "demand": 4
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN2/2/CR0",
+      "processStep": "PS2/2",
+      "demand": 1
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN3/0/CR0",
+      "processStep": "PS3/0",
+      "demand": 1
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN3/1/CR0",
+      "processStep": "PS3/1",
+      "demand": 3
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN3/2/CR0",
+      "processStep": "PS3/2",
+      "demand": 3
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN4/0/CR0",
+      "processStep": "PS4/0",
+      "demand": 4
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN4/1/CR0",
+      "processStep": "PS4/1",
+      "demand": 2
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN4/2/CR0",
+      "processStep": "PS4/2",
+      "demand": 4
+    }
+  ],
+  "processStep": [
+    {
+      "process": "Process 0",
+      "name": "PS0/0",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 0",
+      "name": "PS0/1",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 0",
+      "name": "PS0/2",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 1",
+      "name": "PS1/0",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 1",
+      "name": "PS1/1",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 1",
+      "name": "PS1/2",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 2",
+      "name": "PS2/0",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 2",
+      "name": "PS2/1",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 2",
+      "name": "PS2/2",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 3",
+      "name": "PS3/0",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 3",
+      "name": "PS3/1",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 3",
+      "name": "PS3/2",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 4",
+      "name": "PS4/0",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 4",
+      "name": "PS4/1",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "Process 4",
+      "name": "PS4/2",
+      "durationFixed": 10,
+      "durationPerUnit": 1
+    }
+  ],
+  "label": "TbIScheduling data file",
+  "version": 3,
+  "resourceNeed": [
+    {
+      "disjunctiveResource": "DR0",
+      "name": "RN0/0/DR0",
+      "processStep": "PS0/0"
+    },
+    {
+      "disjunctiveResource": "DR1",
+      "name": "RN0/0/DR1",
+      "processStep": "PS0/0"
+    },
+    {
+      "disjunctiveResource": "DR2",
+      "name": "RN0/0/DR2",
+      "processStep": "PS0/0"
+    },
+    {
+      "disjunctiveResource": "DR5",
+      "name": "RN0/0/DR5",
+      "processStep": "PS0/0"
+    },
+    {
+      "disjunctiveResource": "DR0",
+      "name": "RN0/1/DR0",
+      "processStep": "PS0/1"
+    },
+    {
+      "disjunctiveResource": "DR5",
+      "name": "RN0/1/DR5",
+      "processStep": "PS0/1"
+    },
+    {
+      "disjunctiveResource": "DR2",
+      "name": "RN0/2/DR2",
+      "processStep": "PS0/2"
+    },
+    {
+      "disjunctiveResource": "DR4",
+      "name": "RN0/2/DR4",
+      "processStep": "PS0/2"
+    },
+    {
+      "disjunctiveResource": "DR5",
+      "name": "RN0/2/DR5",
+      "processStep": "PS0/2"
+    },
+    {
+      "disjunctiveResource": "DR0",
+      "name": "RN1/0/DR0",
+      "processStep": "PS1/0"
+    },
+    {
+      "disjunctiveResource": "DR1",
+      "name": "RN1/0/DR1",
+      "processStep": "PS1/0"
+    },
+    {
+      "disjunctiveResource": "DR2",
+      "name": "RN1/0/DR2",
+      "processStep": "PS1/0"
+    },
+    {
+      "disjunctiveResource": "DR4",
+      "name": "RN1/0/DR4",
+      "processStep": "PS1/0"
+    },
+    {
+      "disjunctiveResource": "DR5",
+      "name": "RN1/0/DR5",
+      "processStep": "PS1/0"
+    },
+    {
+      "disjunctiveResource": "DR1",
+      "name": "RN1/1/DR1",
+      "processStep": "PS1/1"
+    },
+    {
+      "disjunctiveResource": "DR2",
+      "name": "RN1/1/DR2",
+      "processStep": "PS1/1"
+    },
+    {
+      "disjunctiveResource": "DR3",
+      "name": "RN1/1/DR3",
+      "processStep": "PS1/1"
+    },
+    {
+      "disjunctiveResource": "DR5",
+      "name": "RN1/1/DR5",
+      "processStep": "PS1/1"
+    },
+    {
+      "disjunctiveResource": "DR1",
+      "name": "RN1/2/DR1",
+      "processStep": "PS1/2"
+    },
+    {
+      "disjunctiveResource": "DR2",
+      "name": "RN1/2/DR2",
+      "processStep": "PS1/2"
+    },
+    {
+      "disjunctiveResource": "DR4",
+      "name": "RN1/2/DR4",
+      "processStep": "PS1/2"
+    },
+    {
+      "disjunctiveResource": "DR1",
+      "name": "RN2/0/DR1",
+      "processStep": "PS2/0"
+    },
+    {
+      "disjunctiveResource": "DR0",
+      "name": "RN2/1/DR0",
+      "processStep": "PS2/1"
+    },
+    {
+      "disjunctiveResource": "DR1",
+      "name": "RN2/1/DR1",
+      "processStep": "PS2/1"
+    },
+    {
+      "disjunctiveResource": "DR2",
+      "name": "RN2/2/DR2",
+      "processStep": "PS2/2"
+    },
+    {
+      "disjunctiveResource": "DR3",
+      "name": "RN2/2/DR3",
+      "processStep": "PS2/2"
+    },
+    {
+      "disjunctiveResource": "DR1",
+      "name": "RN3/0/DR1",
+      "processStep": "PS3/0"
+    },
+    {
+      "disjunctiveResource": "DR2",
+      "name": "RN3/0/DR2",
+      "processStep": "PS3/0"
+    },
+    {
+      "disjunctiveResource": "DR3",
+      "name": "RN3/0/DR3",
+      "processStep": "PS3/0"
+    },
+    {
+      "disjunctiveResource": "DR4",
+      "name": "RN3/0/DR4",
+      "processStep": "PS3/0"
+    },
+    {
+      "disjunctiveResource": "DR0",
+      "name": "RN3/1/DR0",
+      "processStep": "PS3/1"
+    },
+    {
+      "disjunctiveResource": "DR1",
+      "name": "RN3/1/DR1",
+      "processStep": "PS3/1"
+    },
+    {
+      "disjunctiveResource": "DR2",
+      "name": "RN3/1/DR2",
+      "processStep": "PS3/1"
+    },
+    {
+      "disjunctiveResource": "DR3",
+      "name": "RN3/1/DR3",
+      "processStep": "PS3/1"
+    },
+    {
+      "disjunctiveResource": "DR4",
+      "name": "RN3/1/DR4",
+      "processStep": "PS3/1"
+    },
+    {
+      "disjunctiveResource": "DR3",
+      "name": "RN3/2/DR3",
+      "processStep": "PS3/2"
+    },
+    {
+      "disjunctiveResource": "DR4",
+      "name": "RN3/2/DR4",
+      "processStep": "PS3/2"
+    },
+    {
+      "disjunctiveResource": "DR2",
+      "name": "RN4/0/DR2",
+      "processStep": "PS4/0"
+    },
+    {
+      "disjunctiveResource": "DR3",
+      "name": "RN4/0/DR3",
+      "processStep": "PS4/0"
+    },
+    {
+      "disjunctiveResource": "DR5",
+      "name": "RN4/0/DR5",
+      "processStep": "PS4/0"
+    },
+    {
+      "disjunctiveResource": "DR2",
+      "name": "RN4/1/DR2",
+      "processStep": "PS4/1"
+    },
+    {
+      "disjunctiveResource": "DR4",
+      "name": "RN4/1/DR4",
+      "processStep": "PS4/1"
+    },
+    {
+      "disjunctiveResource": "DR2",
+      "name": "RN4/2/DR2",
+      "processStep": "PS4/2"
+    },
+    {
+      "disjunctiveResource": "DR4",
+      "name": "RN4/2/DR4",
+      "processStep": "PS4/2"
+    },
+    {
+      "disjunctiveResource": "DR5",
+      "name": "RN4/2/DR5",
+      "processStep": "PS4/2"
+    }
+  ],
+  "cumulativeProfile": [{
+    "cumulativeResource": "CR0",
+    "name": "CP0",
+    "from": 0,
+    "capacity": 10
+  }],
+  "problem": [{
+    "timePointsAsDate": true,
+    "nrDisjunctiveResources": 6,
+    "nrOrders": 20,
+    "nrProcesses": 5,
+    "nrJobs": 20,
+    "nrProducts": 5,
+    "name": "P1",
+    "nrTasks": 60,
+    "nrCumulativeResources": 1
+  }],
+  "cumulativeResource": [{"name": "CR0"}],
+  "task": [
+    {
+      "duration": 15,
+      "name": "T0PS1/0",
+      "processStep": "PS1/0",
+      "job": "J0"
+    },
+    {
+      "duration": 15,
+      "name": "T0PS1/1",
+      "processStep": "PS1/1",
+      "job": "J0"
+    },
+    {
+      "duration": 15,
+      "name": "T0PS1/2",
+      "processStep": "PS1/2",
+      "job": "J0"
+    },
+    {
+      "duration": 11,
+      "name": "T1PS4/0",
+      "processStep": "PS4/0",
+      "job": "J1"
+    },
+    {
+      "duration": 11,
+      "name": "T1PS4/1",
+      "processStep": "PS4/1",
+      "job": "J1"
+    },
+    {
+      "duration": 11,
+      "name": "T1PS4/2",
+      "processStep": "PS4/2",
+      "job": "J1"
+    },
+    {
+      "duration": 17,
+      "name": "T2PS1/0",
+      "processStep": "PS1/0",
+      "job": "J2"
+    },
+    {
+      "duration": 17,
+      "name": "T2PS1/1",
+      "processStep": "PS1/1",
+      "job": "J2"
+    },
+    {
+      "duration": 17,
+      "name": "T2PS1/2",
+      "processStep": "PS1/2",
+      "job": "J2"
+    },
+    {
+      "duration": 19,
+      "name": "T3PS1/0",
+      "processStep": "PS1/0",
+      "job": "J3"
+    },
+    {
+      "duration": 19,
+      "name": "T3PS1/1",
+      "processStep": "PS1/1",
+      "job": "J3"
+    },
+    {
+      "duration": 19,
+      "name": "T3PS1/2",
+      "processStep": "PS1/2",
+      "job": "J3"
+    },
+    {
+      "duration": 12,
+      "name": "T4PS1/0",
+      "processStep": "PS1/0",
+      "job": "J4"
+    },
+    {
+      "duration": 12,
+      "name": "T4PS1/1",
+      "processStep": "PS1/1",
+      "job": "J4"
+    },
+    {
+      "duration": 12,
+      "name": "T4PS1/2",
+      "processStep": "PS1/2",
+      "job": "J4"
+    },
+    {
+      "duration": 16,
+      "name": "T5PS4/0",
+      "processStep": "PS4/0",
+      "job": "J5"
+    },
+    {
+      "duration": 16,
+      "name": "T5PS4/1",
+      "processStep": "PS4/1",
+      "job": "J5"
+    },
+    {
+      "duration": 16,
+      "name": "T5PS4/2",
+      "processStep": "PS4/2",
+      "job": "J5"
+    },
+    {
+      "duration": 14,
+      "name": "T6PS3/0",
+      "processStep": "PS3/0",
+      "job": "J6"
+    },
+    {
+      "duration": 14,
+      "name": "T6PS3/1",
+      "processStep": "PS3/1",
+      "job": "J6"
+    },
+    {
+      "duration": 14,
+      "name": "T6PS3/2",
+      "processStep": "PS3/2",
+      "job": "J6"
+    },
+    {
+      "duration": 14,
+      "name": "T7PS3/0",
+      "processStep": "PS3/0",
+      "job": "J7"
+    },
+    {
+      "duration": 14,
+      "name": "T7PS3/1",
+      "processStep": "PS3/1",
+      "job": "J7"
+    },
+    {
+      "duration": 14,
+      "name": "T7PS3/2",
+      "processStep": "PS3/2",
+      "job": "J7"
+    },
+    {
+      "duration": 18,
+      "name": "T8PS4/0",
+      "processStep": "PS4/0",
+      "job": "J8"
+    },
+    {
+      "duration": 18,
+      "name": "T8PS4/1",
+      "processStep": "PS4/1",
+      "job": "J8"
+    },
+    {
+      "duration": 18,
+      "name": "T8PS4/2",
+      "processStep": "PS4/2",
+      "job": "J8"
+    },
+    {
+      "duration": 15,
+      "name": "T9PS1/0",
+      "processStep": "PS1/0",
+      "job": "J9"
+    },
+    {
+      "duration": 15,
+      "name": "T9PS1/1",
+      "processStep": "PS1/1",
+      "job": "J9"
+    },
+    {
+      "duration": 15,
+      "name": "T9PS1/2",
+      "processStep": "PS1/2",
+      "job": "J9"
+    },
+    {
+      "duration": 18,
+      "name": "T10PS0/0",
+      "processStep": "PS0/0",
+      "job": "J10"
+    },
+    {
+      "duration": 18,
+      "name": "T10PS0/1",
+      "processStep": "PS0/1",
+      "job": "J10"
+    },
+    {
+      "duration": 18,
+      "name": "T10PS0/2",
+      "processStep": "PS0/2",
+      "job": "J10"
+    },
+    {
+      "duration": 12,
+      "name": "T11PS3/0",
+      "processStep": "PS3/0",
+      "job": "J11"
+    },
+    {
+      "duration": 12,
+      "name": "T11PS3/1",
+      "processStep": "PS3/1",
+      "job": "J11"
+    },
+    {
+      "duration": 12,
+      "name": "T11PS3/2",
+      "processStep": "PS3/2",
+      "job": "J11"
+    },
+    {
+      "duration": 19,
+      "name": "T12PS4/0",
+      "processStep": "PS4/0",
+      "job": "J12"
+    },
+    {
+      "duration": 19,
+      "name": "T12PS4/1",
+      "processStep": "PS4/1",
+      "job": "J12"
+    },
+    {
+      "duration": 19,
+      "name": "T12PS4/2",
+      "processStep": "PS4/2",
+      "job": "J12"
+    },
+    {
+      "duration": 19,
+      "name": "T13PS3/0",
+      "processStep": "PS3/0",
+      "job": "J13"
+    },
+    {
+      "duration": 19,
+      "name": "T13PS3/1",
+      "processStep": "PS3/1",
+      "job": "J13"
+    },
+    {
+      "duration": 19,
+      "name": "T13PS3/2",
+      "processStep": "PS3/2",
+      "job": "J13"
+    },
+    {
+      "duration": 16,
+      "name": "T14PS1/0",
+      "processStep": "PS1/0",
+      "job": "J14"
+    },
+    {
+      "duration": 16,
+      "name": "T14PS1/1",
+      "processStep": "PS1/1",
+      "job": "J14"
+    },
+    {
+      "duration": 16,
+      "name": "T14PS1/2",
+      "processStep": "PS1/2",
+      "job": "J14"
+    },
+    {
+      "duration": 15,
+      "name": "T15PS3/0",
+      "processStep": "PS3/0",
+      "job": "J15"
+    },
+    {
+      "duration": 15,
+      "name": "T15PS3/1",
+      "processStep": "PS3/1",
+      "job": "J15"
+    },
+    {
+      "duration": 15,
+      "name": "T15PS3/2",
+      "processStep": "PS3/2",
+      "job": "J15"
+    },
+    {
+      "duration": 15,
+      "name": "T16PS4/0",
+      "processStep": "PS4/0",
+      "job": "J16"
+    },
+    {
+      "duration": 15,
+      "name": "T16PS4/1",
+      "processStep": "PS4/1",
+      "job": "J16"
+    },
+    {
+      "duration": 15,
+      "name": "T16PS4/2",
+      "processStep": "PS4/2",
+      "job": "J16"
+    },
+    {
+      "duration": 15,
+      "name": "T17PS2/0",
+      "processStep": "PS2/0",
+      "job": "J17"
+    },
+    {
+      "duration": 15,
+      "name": "T17PS2/1",
+      "processStep": "PS2/1",
+      "job": "J17"
+    },
+    {
+      "duration": 15,
+      "name": "T17PS2/2",
+      "processStep": "PS2/2",
+      "job": "J17"
+    },
+    {
+      "duration": 11,
+      "name": "T18PS1/0",
+      "processStep": "PS1/0",
+      "job": "J18"
+    },
+    {
+      "duration": 11,
+      "name": "T18PS1/1",
+      "processStep": "PS1/1",
+      "job": "J18"
+    },
+    {
+      "duration": 11,
+      "name": "T18PS1/2",
+      "processStep": "PS1/2",
+      "job": "J18"
+    },
+    {
+      "duration": 19,
+      "name": "T19PS0/0",
+      "processStep": "PS0/0",
+      "job": "J19"
+    },
+    {
+      "duration": 19,
+      "name": "T19PS0/1",
+      "processStep": "PS0/1",
+      "job": "J19"
+    },
+    {
+      "duration": 19,
+      "name": "T19PS0/2",
+      "processStep": "PS0/2",
+      "job": "J19"
+    }
+  ],
+  "solution": [{
+    "makespan": 158,
+    "weightedEarliness": 28957,
+    "totalEarliness": 28957,
+    "totalLateness": 0,
+    "bound": 70,
+    "solverStatus": "Solution",
+    "weightedLateness": 0,
+    "maxEarliness": 2765,
+    "maxLateness": 0,
+    "gap": 0.5569620253164557,
+    "name": "Sol1",
+    "solverRun": "Run1",
+    "objectiveValue": 158,
+    "flowtime": 2623
+  }],
+  "taskAssignment": [
+    {
+      "duration": 15,
+      "task": "T0PS1/0",
+      "disjunctiveResource": "DR0",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA0",
+      "start": 56,
+      "end": 71,
+      "jobAssignment": "JA0",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T0PS1/1",
+      "disjunctiveResource": "DR5",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA1",
+      "start": 81,
+      "end": 96,
+      "jobAssignment": "JA0",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T0PS1/2",
+      "disjunctiveResource": "DR2",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA2",
+      "start": 143,
+      "end": 158,
+      "jobAssignment": "JA0",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 11,
+      "task": "T1PS4/0",
+      "disjunctiveResource": "DR2",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA3",
+      "start": 50,
+      "end": 61,
+      "jobAssignment": "JA1",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 11,
+      "task": "T1PS4/1",
+      "disjunctiveResource": "DR4",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA4",
+      "start": 80,
+      "end": 91,
+      "jobAssignment": "JA1",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 11,
+      "task": "T1PS4/2",
+      "disjunctiveResource": "DR5",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA5",
+      "start": 147,
+      "end": 158,
+      "jobAssignment": "JA1",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 17,
+      "task": "T2PS1/0",
+      "disjunctiveResource": "DR1",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA6",
+      "start": 45,
+      "end": 62,
+      "jobAssignment": "JA2",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 17,
+      "task": "T2PS1/1",
+      "disjunctiveResource": "DR5",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA7",
+      "start": 64,
+      "end": 81,
+      "jobAssignment": "JA2",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 17,
+      "task": "T2PS1/2",
+      "disjunctiveResource": "DR2",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA8",
+      "start": 126,
+      "end": 143,
+      "jobAssignment": "JA2",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T3PS1/0",
+      "disjunctiveResource": "DR5",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA9",
+      "start": 30,
+      "end": 49,
+      "jobAssignment": "JA3",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T3PS1/1",
+      "disjunctiveResource": "DR3",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA10",
+      "start": 49,
+      "end": 68,
+      "jobAssignment": "JA3",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T3PS1/2",
+      "disjunctiveResource": "DR1",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA11",
+      "start": 89,
+      "end": 108,
+      "jobAssignment": "JA3",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 12,
+      "task": "T4PS1/0",
+      "disjunctiveResource": "DR2",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA12",
+      "start": 0,
+      "end": 12,
+      "jobAssignment": "JA4",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 12,
+      "task": "T4PS1/1",
+      "disjunctiveResource": "DR2",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA13",
+      "start": 95,
+      "end": 107,
+      "jobAssignment": "JA4",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 12,
+      "task": "T4PS1/2",
+      "disjunctiveResource": "DR1",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA14",
+      "start": 123,
+      "end": 135,
+      "jobAssignment": "JA4",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 16,
+      "task": "T5PS4/0",
+      "disjunctiveResource": "DR3",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA15",
+      "start": 0,
+      "end": 16,
+      "jobAssignment": "JA5",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 16,
+      "task": "T5PS4/1",
+      "disjunctiveResource": "DR4",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA16",
+      "start": 19,
+      "end": 35,
+      "jobAssignment": "JA5",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 16,
+      "task": "T5PS4/2",
+      "disjunctiveResource": "DR4",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA17",
+      "start": 35,
+      "end": 51,
+      "jobAssignment": "JA5",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 14,
+      "task": "T6PS3/0",
+      "disjunctiveResource": "DR3",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA18",
+      "start": 16,
+      "end": 30,
+      "jobAssignment": "JA6",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 14,
+      "task": "T6PS3/1",
+      "disjunctiveResource": "DR0",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA19",
+      "start": 71,
+      "end": 85,
+      "jobAssignment": "JA6",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 14,
+      "task": "T6PS3/2",
+      "disjunctiveResource": "DR3",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA20",
+      "start": 131,
+      "end": 145,
+      "jobAssignment": "JA6",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 14,
+      "task": "T7PS3/0",
+      "disjunctiveResource": "DR1",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA21",
+      "start": 15,
+      "end": 29,
+      "jobAssignment": "JA7",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 14,
+      "task": "T7PS3/1",
+      "disjunctiveResource": "DR4",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA22",
+      "start": 51,
+      "end": 65,
+      "jobAssignment": "JA7",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 14,
+      "task": "T7PS3/2",
+      "disjunctiveResource": "DR3",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA23",
+      "start": 117,
+      "end": 131,
+      "jobAssignment": "JA7",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 18,
+      "task": "T8PS4/0",
+      "disjunctiveResource": "DR3",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA24",
+      "start": 30,
+      "end": 48,
+      "jobAssignment": "JA8",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 18,
+      "task": "T8PS4/1",
+      "disjunctiveResource": "DR2",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA25",
+      "start": 61,
+      "end": 79,
+      "jobAssignment": "JA8",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 18,
+      "task": "T8PS4/2",
+      "disjunctiveResource": "DR5",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA26",
+      "start": 96,
+      "end": 114,
+      "jobAssignment": "JA8",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T9PS1/0",
+      "disjunctiveResource": "DR5",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA27",
+      "start": 0,
+      "end": 15,
+      "jobAssignment": "JA9",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T9PS1/1",
+      "disjunctiveResource": "DR5",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA28",
+      "start": 49,
+      "end": 64,
+      "jobAssignment": "JA9",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T9PS1/2",
+      "disjunctiveResource": "DR1",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA29",
+      "start": 108,
+      "end": 123,
+      "jobAssignment": "JA9",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 18,
+      "task": "T10PS0/0",
+      "disjunctiveResource": "DR0",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA30",
+      "start": 0,
+      "end": 18,
+      "jobAssignment": "JA10",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 18,
+      "task": "T10PS0/1",
+      "disjunctiveResource": "DR0",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA31",
+      "start": 104,
+      "end": 122,
+      "jobAssignment": "JA10",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 18,
+      "task": "T10PS0/2",
+      "disjunctiveResource": "DR5",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA32",
+      "start": 129,
+      "end": 147,
+      "jobAssignment": "JA10",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 12,
+      "task": "T11PS3/0",
+      "disjunctiveResource": "DR1",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA33",
+      "start": 77,
+      "end": 89,
+      "jobAssignment": "JA11",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 12,
+      "task": "T11PS3/1",
+      "disjunctiveResource": "DR0",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA34",
+      "start": 133,
+      "end": 145,
+      "jobAssignment": "JA11",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 12,
+      "task": "T11PS3/2",
+      "disjunctiveResource": "DR3",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA35",
+      "start": 145,
+      "end": 157,
+      "jobAssignment": "JA11",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T12PS4/0",
+      "disjunctiveResource": "DR2",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA36",
+      "start": 12,
+      "end": 31,
+      "jobAssignment": "JA12",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T12PS4/1",
+      "disjunctiveResource": "DR2",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA37",
+      "start": 31,
+      "end": 50,
+      "jobAssignment": "JA12",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T12PS4/2",
+      "disjunctiveResource": "DR4",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA38",
+      "start": 106,
+      "end": 125,
+      "jobAssignment": "JA12",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T13PS3/0",
+      "disjunctiveResource": "DR4",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA39",
+      "start": 0,
+      "end": 19,
+      "jobAssignment": "JA13",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T13PS3/1",
+      "disjunctiveResource": "DR0",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA40",
+      "start": 37,
+      "end": 56,
+      "jobAssignment": "JA13",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T13PS3/2",
+      "disjunctiveResource": "DR3",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA41",
+      "start": 83,
+      "end": 102,
+      "jobAssignment": "JA13",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 16,
+      "task": "T14PS1/0",
+      "disjunctiveResource": "DR1",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA42",
+      "start": 29,
+      "end": 45,
+      "jobAssignment": "JA14",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 16,
+      "task": "T14PS1/1",
+      "disjunctiveResource": "DR2",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA43",
+      "start": 79,
+      "end": 95,
+      "jobAssignment": "JA14",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 16,
+      "task": "T14PS1/2",
+      "disjunctiveResource": "DR4",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA44",
+      "start": 125,
+      "end": 141,
+      "jobAssignment": "JA14",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T15PS3/0",
+      "disjunctiveResource": "DR3",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA45",
+      "start": 68,
+      "end": 83,
+      "jobAssignment": "JA15",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T15PS3/1",
+      "disjunctiveResource": "DR4",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA46",
+      "start": 91,
+      "end": 106,
+      "jobAssignment": "JA15",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T15PS3/2",
+      "disjunctiveResource": "DR4",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA47",
+      "start": 141,
+      "end": 156,
+      "jobAssignment": "JA15",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T16PS4/0",
+      "disjunctiveResource": "DR5",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA48",
+      "start": 15,
+      "end": 30,
+      "jobAssignment": "JA16",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T16PS4/1",
+      "disjunctiveResource": "DR4",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA49",
+      "start": 65,
+      "end": 80,
+      "jobAssignment": "JA16",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T16PS4/2",
+      "disjunctiveResource": "DR5",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA50",
+      "start": 114,
+      "end": 129,
+      "jobAssignment": "JA16",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T17PS2/0",
+      "disjunctiveResource": "DR1",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA51",
+      "start": 0,
+      "end": 15,
+      "jobAssignment": "JA17",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T17PS2/1",
+      "disjunctiveResource": "DR1",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA52",
+      "start": 62,
+      "end": 77,
+      "jobAssignment": "JA17",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 15,
+      "task": "T17PS2/2",
+      "disjunctiveResource": "DR3",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA53",
+      "start": 102,
+      "end": 117,
+      "jobAssignment": "JA17",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 11,
+      "task": "T18PS1/0",
+      "disjunctiveResource": "DR0",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA54",
+      "start": 122,
+      "end": 133,
+      "jobAssignment": "JA18",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 11,
+      "task": "T18PS1/1",
+      "disjunctiveResource": "DR1",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA55",
+      "start": 135,
+      "end": 146,
+      "jobAssignment": "JA18",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 11,
+      "task": "T18PS1/2",
+      "disjunctiveResource": "DR1",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA56",
+      "start": 146,
+      "end": 157,
+      "jobAssignment": "JA18",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T19PS0/0",
+      "disjunctiveResource": "DR0",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA57",
+      "start": 18,
+      "end": 37,
+      "jobAssignment": "JA19",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T19PS0/1",
+      "disjunctiveResource": "DR0",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA58",
+      "start": 85,
+      "end": 104,
+      "jobAssignment": "JA19",
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 19,
+      "task": "T19PS0/2",
+      "disjunctiveResource": "DR2",
+      "endDate": "1/1/1900 00:00",
+      "name": "TA59",
+      "start": 107,
+      "end": 126,
+      "jobAssignment": "JA19",
+      "startDate": "1/1/1900 00:00"
+    }
+  ],
+  "processSequence": [
+    {
+      "offset": 0,
+      "before": "PS0/0",
+      "name": "Seq 0/1",
+      "after": "PS0/1",
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": "PS0/1",
+      "name": "Seq 0/2",
+      "after": "PS0/2",
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": "PS1/0",
+      "name": "Seq 1/1",
+      "after": "PS1/1",
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": "PS1/1",
+      "name": "Seq 1/2",
+      "after": "PS1/2",
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": "PS2/0",
+      "name": "Seq 2/1",
+      "after": "PS2/1",
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": "PS2/1",
+      "name": "Seq 2/2",
+      "after": "PS2/2",
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": "PS3/0",
+      "name": "Seq 3/1",
+      "after": "PS3/1",
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": "PS3/1",
+      "name": "Seq 3/2",
+      "after": "PS3/2",
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": "PS4/0",
+      "name": "Seq 4/1",
+      "after": "PS4/1",
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": "PS4/1",
+      "name": "Seq 4/2",
+      "after": "PS4/2",
+      "sequenceType": "EndBeforeStart"
+    }
+  ],
+  "solverRun": [{
+    "nrThreads": 2,
+    "seed": 1,
+    "solverBackend": "CPSat",
+    "solverStatus": "ToRun",
+    "description": "",
+    "label": "test",
+    "modelType": "CPO",
+    "objectiveType": "Makespan",
+    "timeout": 60,
+    "name": "Run1",
+    "time": 60.152,
+    "removeSolution": false,
+    "enforceReleaseDate": true,
+    "enforceDueDate": false
+  }],
+  "jobAssignment": [
+    {
+      "duration": 102,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA0",
+      "start": 56,
+      "end": 158,
+      "job": "J0",
+      "early": 2312,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 108,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA1",
+      "start": 50,
+      "end": 158,
+      "job": "J1",
+      "early": 2687,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 98,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA2",
+      "start": 45,
+      "end": 143,
+      "job": "J2",
+      "early": 609,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 78,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA3",
+      "start": 30,
+      "end": 108,
+      "job": "J3",
+      "early": 2765,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 135,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA4",
+      "start": 0,
+      "end": 135,
+      "job": "J4",
+      "early": 371,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 51,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA5",
+      "start": 0,
+      "end": 51,
+      "job": "J5",
+      "early": 2152,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 129,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA6",
+      "start": 16,
+      "end": 145,
+      "job": "J6",
+      "early": 724,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 116,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA7",
+      "start": 15,
+      "end": 131,
+      "job": "J7",
+      "early": 2597,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 84,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA8",
+      "start": 30,
+      "end": 114,
+      "job": "J8",
+      "early": 2348,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 123,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA9",
+      "start": 0,
+      "end": 123,
+      "job": "J9",
+      "early": 2677,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 147,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA10",
+      "start": 0,
+      "end": 147,
+      "job": "J10",
+      "early": 841,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 80,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA11",
+      "start": 77,
+      "end": 157,
+      "job": "J11",
+      "early": 248,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 113,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA12",
+      "start": 12,
+      "end": 125,
+      "job": "J12",
+      "early": 1238,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 102,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA13",
+      "start": 0,
+      "end": 102,
+      "job": "J13",
+      "early": 259,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 112,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA14",
+      "start": 29,
+      "end": 141,
+      "job": "J14",
+      "early": 2312,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 88,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA15",
+      "start": 68,
+      "end": 156,
+      "job": "J15",
+      "early": 1917,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 114,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA16",
+      "start": 15,
+      "end": 129,
+      "job": "J16",
+      "early": 56,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 117,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA17",
+      "start": 0,
+      "end": 117,
+      "job": "J17",
+      "early": 530,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 35,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA18",
+      "start": 122,
+      "end": 157,
+      "job": "J18",
+      "early": 1130,
+      "startDate": "1/1/1900 00:00"
+    },
+    {
+      "duration": 108,
+      "solution": "Sol1",
+      "late": 0,
+      "endDate": "1/1/1900 00:00",
+      "name": "JA19",
+      "start": 18,
+      "end": 126,
+      "job": "J19",
+      "early": 1184,
+      "startDate": "1/1/1900 00:00"
+    }
+  ],
+  "job": [
+    {
+      "process": "Process 1",
+      "name": "J0",
+      "order": "Order0"
+    },
+    {
+      "process": "Process 4",
+      "name": "J1",
+      "order": "Order1"
+    },
+    {
+      "process": "Process 1",
+      "name": "J2",
+      "order": "Order2"
+    },
+    {
+      "process": "Process 1",
+      "name": "J3",
+      "order": "Order3"
+    },
+    {
+      "process": "Process 1",
+      "name": "J4",
+      "order": "Order4"
+    },
+    {
+      "process": "Process 4",
+      "name": "J5",
+      "order": "Order5"
+    },
+    {
+      "process": "Process 3",
+      "name": "J6",
+      "order": "Order6"
+    },
+    {
+      "process": "Process 3",
+      "name": "J7",
+      "order": "Order7"
+    },
+    {
+      "process": "Process 4",
+      "name": "J8",
+      "order": "Order8"
+    },
+    {
+      "process": "Process 1",
+      "name": "J9",
+      "order": "Order9"
+    },
+    {
+      "process": "Process 0",
+      "name": "J10",
+      "order": "Order10"
+    },
+    {
+      "process": "Process 3",
+      "name": "J11",
+      "order": "Order11"
+    },
+    {
+      "process": "Process 4",
+      "name": "J12",
+      "order": "Order12"
+    },
+    {
+      "process": "Process 3",
+      "name": "J13",
+      "order": "Order13"
+    },
+    {
+      "process": "Process 1",
+      "name": "J14",
+      "order": "Order14"
+    },
+    {
+      "process": "Process 3",
+      "name": "J15",
+      "order": "Order15"
+    },
+    {
+      "process": "Process 4",
+      "name": "J16",
+      "order": "Order16"
+    },
+    {
+      "process": "Process 2",
+      "name": "J17",
+      "order": "Order17"
+    },
+    {
+      "process": "Process 1",
+      "name": "J18",
+      "order": "Order18"
+    },
+    {
+      "process": "Process 0",
+      "name": "J19",
+      "order": "Order19"
+    }
+  ],
+  "order": [
+    {
+      "product": "Prod1",
+      "due": 2470,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 5,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order0",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod4",
+      "due": 2845,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order1",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod1",
+      "due": 752,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 7,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order2",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod1",
+      "due": 2873,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 9,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order3",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod1",
+      "due": 506,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 2,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order4",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod4",
+      "due": 2203,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 6,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order5",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod3",
+      "due": 869,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 4,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order6",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod3",
+      "due": 2728,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 4,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order7",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod4",
+      "due": 2462,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 8,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order8",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod1",
+      "due": 2800,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 5,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order9",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod0",
+      "due": 988,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 8,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order10",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod3",
+      "due": 405,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 2,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order11",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod4",
+      "due": 1363,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 9,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order12",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod3",
+      "due": 361,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 9,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order13",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod1",
+      "due": 2453,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 6,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order14",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod3",
+      "due": 2073,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 5,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order15",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod4",
+      "due": 185,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 5,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order16",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod2",
+      "due": 647,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 5,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order17",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod1",
+      "due": 1287,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order18",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "Prod0",
+      "due": 1310,
+      "releaseDate": "1/1/1900 00:00",
+      "release": 0,
+      "qty": 9,
+      "dueDate": "1/1/1900 00:00",
+      "name": "Order19",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    }
+  ]
+}

@@ -278,8 +278,10 @@ public class CPOModel extends AbstractModel{
                 sol.setMakespan(jaList.stream().mapToInt(JobAssignment::getEnd).max().orElse(0));
                 sol.setFlowtime(jaList.stream().mapToInt(JobAssignment::getEnd).sum());
                 sol.setTotalLateness(jaList.stream().mapToInt(JobAssignment::getLate).sum());
+                sol.setMaxLateness(jaList.stream().mapToInt(JobAssignment::getLate).max().orElse(0));
                 sol.setWeightedLateness(jaList.stream().mapToDouble(this::weightedLateness).sum());
                 sol.setTotalEarliness(jaList.stream().mapToInt(JobAssignment::getEarly).sum());
+                sol.setMaxEarliness(jaList.stream().mapToInt(JobAssignment::getEarly).max().orElse(0));
                 sol.setWeightedEarliness(jaList.stream().mapToDouble(this::weightedEarliness).sum());
                 // to capture previously unseen solver status strings
                 assert(run.getSolverStatus() != null);

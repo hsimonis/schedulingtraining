@@ -33,7 +33,10 @@ public class SchedulingReport extends AbstractReport{
                 addStringColumn("Product",x->nameOf(x.getProduct())).
                 addStringColumn("Process",x->nameOf(x.getProduct().getProcess())).
                 addIntegerColumn("Qty", Order::getQty,"%,d").
+                addIntegerColumn("Release", Order::getRelease,"%,d").
                 addIntegerColumn("Due", Order::getDue,"%,d").
+                addDoubleColumn("Earliness Weight",Order::getEarlinessWeight,"%5.2f").
+                addDoubleColumn("Lateness Weight",Order::getLatenessWeight,"%5.2f").
 //                addDateTimeColumn(st("Due","Date"),Order::getDueDate).
                 tableStyle(TableStyle.LONGTABLE).
                 generate().latex(tex);
@@ -43,7 +46,19 @@ public class SchedulingReport extends AbstractReport{
 
             new TableDraw<>("Solutions (Total " + base.getListSolution().size() + ")", base.getListSolution()).
                     addStringColumn("Name", this::nameOf).
+                    addStringColumn(st("Solver","Status"),x->x.getSolverStatus().toString()).
                     addIntegerColumn(st("Objective", "Value"), Solution::getObjectiveValue,"%,d").
+                    addDoubleColumn("Bound",Solution::getBound,"%5.2f").
+                    addDoubleColumn("Gap",Solution::getGap,"%5.2f").
+                    addIntegerColumn("Makespan", Solution::getMakespan,"%,d").
+                    addIntegerColumn("Flowtime", Solution::getFlowtime,"%,d").
+                    addIntegerColumn(st("Total", "Lateness"), Solution::getTotalLateness,"%,d").
+                    addIntegerColumn(st("Max", "Lateness"), Solution::getMaxLateness,"%,d").
+                    addIntegerColumn(st("Total", "Earliness"), Solution::getTotalEarliness,"%,d").
+                    addIntegerColumn(st("Max", "Earliness"), Solution::getMaxEarliness,"%,d").
+                    addStringColumn(st("Model","Type"),x->x.getSolverRun().getModelType().toString()).
+                    addStringColumn(st("Objective","Type"),x->x.getSolverRun().getObjectiveType().toString()).
+                    addDoubleColumn("Time",x->x.getSolverRun().getTime(),"%5.2f").
                     generate().latex(tex);
         } else {
             section("No Solutions");

@@ -19,13 +19,13 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
 
     public boolean solve(){
         info("Solving");
+        if (getRemoveSolution()){
+            Reset.resetSolution(base);
+        }
         SolverRun run = createSolverRun(getLabel(),getDescription(),toModelType(getModelType()),
                 toSolverBackend(getSolverBackend()),toObjectiveType(getObjectiveType()),
                 getEnforceReleaseDate(),getEnforceDueDate(),getTimeout(),getNrThreads(),getSeed(),
                 getRemoveSolution());
-        if (getRemoveSolution()){
-            Reset.resetSolution(base);
-        }
         switch(toModelType(getModelType())){
             case CPO:
                 return new CPOModel(base,run).solve();

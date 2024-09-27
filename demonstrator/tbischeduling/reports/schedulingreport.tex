@@ -44,38 +44,48 @@ P1&true&5&5&6&1&20&20&60\\
 
 \section{Orders}
 
-\begin{longtable}{lllrr}
+\begin{longtable}{lllrrrrr}
 \caption{Orders (Total 20)}
 \\ \toprule
-Name &Product &Process &Qty &Due \\ \midrule
+Name &Product &Process &Qty &Release &Due &Earliness Weight &Lateness Weight \\ \midrule
 \endfirsthead
 \toprule
-Name &Product &Process &Qty &Due \\ \midrule
+Name &Product &Process &Qty &Release &Due &Earliness Weight &Lateness Weight \\ \midrule
 \endhead
 \bottomrule
 \endfoot
-Order0&Prod2&Process 2&3&2,409\\ 
-Order1&Prod1&Process 1&3&459\\ 
-Order2&Prod3&Process 3&1&2,845\\ 
-Order3&Prod2&Process 2&1&1,925\\ 
-Order4&Prod2&Process 2&4&2,591\\ 
-Order5&Prod4&Process 4&9&2,873\\ 
-Order6&Prod1&Process 1&3&318\\ 
-Order7&Prod1&Process 1&1&1,399\\ 
-Order8&Prod3&Process 3&6&2,203\\ 
-Order9&Prod1&Process 1&8&1,634\\ 
-Order10&Prod4&Process 4&4&208\\ 
-Order11&Prod4&Process 4&4&2,728\\ 
-Order12&Prod2&Process 2&3&1,917\\ 
-Order13&Prod2&Process 2&4&2,331\\ 
-Order14&Prod0&Process 0&5&2,800\\ 
-Order15&Prod3&Process 3&4&2,673\\ 
-Order16&Prod0&Process 0&6&1,968\\ 
-Order17&Prod2&Process 2&2&405\\ 
-Order18&Prod3&Process 3&3&2,791\\ 
-Order19&Prod4&Process 4&3&1,383\\ 
+Order0&Prod1&Process 1&5&0&2,470& 1.00& 1.00\\ 
+Order1&Prod4&Process 4&1&0&2,845& 1.00& 1.00\\ 
+Order2&Prod1&Process 1&7&0&752& 1.00& 1.00\\ 
+Order3&Prod1&Process 1&9&0&2,873& 1.00& 1.00\\ 
+Order4&Prod1&Process 1&2&0&506& 1.00& 1.00\\ 
+Order5&Prod4&Process 4&6&0&2,203& 1.00& 1.00\\ 
+Order6&Prod3&Process 3&4&0&869& 1.00& 1.00\\ 
+Order7&Prod3&Process 3&4&0&2,728& 1.00& 1.00\\ 
+Order8&Prod4&Process 4&8&0&2,462& 1.00& 1.00\\ 
+Order9&Prod1&Process 1&5&0&2,800& 1.00& 1.00\\ 
+Order10&Prod0&Process 0&8&0&988& 1.00& 1.00\\ 
+Order11&Prod3&Process 3&2&0&405& 1.00& 1.00\\ 
+Order12&Prod4&Process 4&9&0&1,363& 1.00& 1.00\\ 
+Order13&Prod3&Process 3&9&0&361& 1.00& 1.00\\ 
+Order14&Prod1&Process 1&6&0&2,453& 1.00& 1.00\\ 
+Order15&Prod3&Process 3&5&0&2,073& 1.00& 1.00\\ 
+Order16&Prod4&Process 4&5&0&185& 1.00& 1.00\\ 
+Order17&Prod2&Process 2&5&0&647& 1.00& 1.00\\ 
+Order18&Prod1&Process 1&1&0&1,287& 1.00& 1.00\\ 
+Order19&Prod0&Process 0&9&0&1,310& 1.00& 1.00\\ 
 \end{longtable}
 
-\section{No Solutions}
+\section{Solution}
+
+\begin{table}[htbp]
+\caption{Solutions (Total 1)}
+\centering
+\begin{tabular}{llrrrrrrrrrllr} \toprule
+Name &SolverStatus &\shortstack{Objective\\Value} &Bound &Gap &Makespan &Flowtime &\shortstack{Total\\Lateness} &\shortstack{Max\\Lateness} &\shortstack{Total\\Earliness} &\shortstack{Max\\Earliness} &\shortstack{Model\\Type} &\shortstack{Objective\\Type} &Time \\ \midrule
+Sol1&Solution&157&71.00& 0.55&157&2,609&0&0&28,971&2,775&CPO&Makespan&60.15\\ 
+\bottomrule
+\end{tabular}
+\end{table}
 
 \end{document}

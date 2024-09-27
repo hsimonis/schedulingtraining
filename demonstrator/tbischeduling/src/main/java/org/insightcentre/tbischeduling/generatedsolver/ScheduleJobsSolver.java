@@ -20,7 +20,7 @@ public class ScheduleJobsSolver extends DefaultSolver{
     protected int weightLateness=100;
     protected int weightEarlyness=1;
     protected String modelType="CPO";
-    protected String solverBackend="CP-SAT";
+    protected String solverBackend="CPSat";
     protected String objectiveType="Makespan";
     protected int timeout=60;
     protected int nrThreads=2;

@@ -52,6 +52,12 @@ public enum SolverStatus{
  *
 */
 
+ToRun,
+    /**
+ *  
+ *
+*/
+
 Optimal,
     /**
  *  
