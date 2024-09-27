@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 13:42:39 on 2024-09-27 */
+ * Generated at 16:31:01 on 2024-09-27 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -67,6 +67,13 @@ public class BarChartController extends ChartController {
 		attributeNames.add("processStep.durationFixed");
 		attributeNames.add("processStep.durationPerUnit");
 		choicesMap.put("Task", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("until");
+		choicesMap.put("WiP", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("from");
+		attributeNames.add("to");
+		choicesMap.put("Downtime", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("timeout");
 		attributeNames.add("nrThreads");
@@ -176,6 +183,12 @@ public class BarChartController extends ChartController {
 			}
 			else if (className.equals("Task")) {
 				objectList = mainApp.getTaskData();
+			}
+			else if (className.equals("WiP")) {
+				objectList = mainApp.getWiPData();
+			}
+			else if (className.equals("Downtime")) {
+				objectList = mainApp.getDowntimeData();
 			}
 			else if (className.equals("SolverRun")) {
 				objectList = mainApp.getSolverRunData();

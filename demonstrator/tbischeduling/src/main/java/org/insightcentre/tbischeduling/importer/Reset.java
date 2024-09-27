@@ -31,6 +31,8 @@ public class Reset {
      */
     public static void resetSchedule(Scenario base){
         resetSolution(base);
+        base.resetListWiP();
+        base.resetListDowntime();
         base.resetListTask();
         base.resetListJob();
         base.resetListOrder();

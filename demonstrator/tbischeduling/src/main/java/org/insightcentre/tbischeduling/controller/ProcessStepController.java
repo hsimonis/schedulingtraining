@@ -21,7 +21,7 @@ import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 
 /**
- * Generated at 13:42:39 on 2024-09-27 */
+ * Generated at 16:31:01 on 2024-09-27 */
 public class ProcessStepController extends Table3Controller {
 	@FXML
 	private TableView<ProcessStep> table;

@@ -28,6 +28,7 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include CumulativeProfile.uml
 !include CumulativeResource.uml
 !include DisjunctiveResource.uml
+!include Downtime.uml
 !include InputError.uml
 !include Job.uml
 !include JobAssignment.uml
@@ -43,6 +44,7 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include SolverRun.uml
 !include Task.uml
 !include TaskAssignment.uml
+!include WiP.uml
 !include DifferenceType.uml
 !include WarningType.uml
 !include SequenceType.uml
@@ -51,6 +53,7 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include SolverBackend.uml
 !include SolverStatus.uml
 !include ObjectiveType.uml
+!include ResourceModel.uml
 ApplicationObjectInterface <|-- ApplicationObject
 ApplicationDatasetInterface <|-- ApplicationDataset
 ApplicationObjectInterface <|-- ApplicationDatasetInterface
@@ -72,6 +75,8 @@ Job  *-- Task
 ProcessStep  *-- Task 
 DisjunctiveResource "1..*" *-- Task : machines
 Task "0..*" *-- Task : precedes
+DisjunctiveResource  *-- WiP 
+DisjunctiveResource  *-- Downtime 
 SolverRun  *-- Solution 
 Solution  *-- JobAssignment 
 Job  *-- JobAssignment 

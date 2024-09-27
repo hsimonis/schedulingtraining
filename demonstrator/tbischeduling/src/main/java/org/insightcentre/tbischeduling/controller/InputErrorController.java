@@ -20,7 +20,7 @@ import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Severity;
 
 /**
- * Generated at 13:42:39 on 2024-09-27 */
+ * Generated at 16:31:01 on 2024-09-27 */
 public class InputErrorController extends Table3Controller {
 	@FXML
 	private TableView<InputError> table;

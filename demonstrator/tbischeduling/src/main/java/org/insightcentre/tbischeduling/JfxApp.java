@@ -42,7 +42,7 @@ public class JfxApp extends GeneratedJfxApp {
                 Scenario base = new Scenario();
                 IrishCalendar.buildCalendar();
                 // define the format version of the datafiles
-                base.setDataFileVersionNumber(3.0);
+                base.setDataFileVersionNumber(4.0);
                 base.setDataFile("");
                 base.setHorizon(2000);
                 new CreateData(base,"P1",42,5,3,6,1,

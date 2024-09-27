@@ -114,6 +114,16 @@ public ObjectiveType getObjectiveType(String attributeName,
             return ObjectiveType.valueOf(e);
         }
     }
+public ResourceModel getResourceModel(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("ResourceModel"+": "+attributeName);
+            return null;
+        } else {
+            return ResourceModel.valueOf(e);
+        }
+    }
     public ApplicationDataset getApplicationDataset(String attributeName,
                                Attributes attributes) {
         return (ApplicationDataset) find(getId(attributeName,attributes));
@@ -261,6 +271,25 @@ public ObjectiveType getObjectiveType(String attributeName,
             if (words[i].length() > 0) {
                 int id = Integer.parseInt(words[i].substring(3));
                 res.add((DisjunctiveResource) find(id));
+            }
+        }
+        return res;
+    }
+
+    public Downtime getDowntime(String attributeName,
+                               Attributes attributes) {
+        return (Downtime) find(getId(attributeName,attributes));
+    }
+
+    public List<Downtime> getDowntimeCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<Downtime> res = new ArrayList<Downtime>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((Downtime) find(id));
             }
         }
         return res;
@@ -551,6 +580,25 @@ public ObjectiveType getObjectiveType(String attributeName,
         return res;
     }
 
+    public WiP getWiP(String attributeName,
+                               Attributes attributes) {
+        return (WiP) find(getId(attributeName,attributes));
+    }
+
+    public List<WiP> getWiPCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<WiP> res = new ArrayList<WiP>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((WiP) find(id));
+            }
+        }
+        return res;
+    }
+
     private class ConfigHandler extends DefaultHandler {
         private int numNodes = 0;
         public Scenario getScenario() {
@@ -637,6 +685,18 @@ public ObjectiveType getObjectiveType(String attributeName,
                         id,
                         getString("name", attributes, "dummy"),
                         getString("shortName",attributes,"")
+                        ));
+            } else if (qname.equals("downtime")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new Downtime(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        null,
+                        getInteger("from",attributes,0),
+                        getDateTime("fromDate",attributes,"2011-01-01"),
+                        getInteger("to",attributes,0),
+                        getDateTime("toDate",attributes,"2011-01-01")
                         ));
             } else if (qname.equals("inputError")) {
                 assert (base != null);
@@ -819,6 +879,16 @@ public ObjectiveType getObjectiveType(String attributeName,
                         getDateTime("startDate",attributes,"2011-01-01"),
                         null
                         ));
+            } else if (qname.equals("wiP")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new WiP(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        null,
+                        getInteger("until",attributes,0),
+                        getDateTime("untilDate",attributes,"2011-01-01")
+                        ));
             } else {
                 System.out.println("Element Structure " + qname);
                 numNodes++;
@@ -879,6 +949,11 @@ public ObjectiveType getObjectiveType(String attributeName,
                 assert (base != null);
                 int id = getId("id", attributes);
                 DisjunctiveResource item = (DisjunctiveResource) find(id);
+            } else if (qname.equals("downtime")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                Downtime item = (Downtime) find(id);
+                 item.setDisjunctiveResource(getDisjunctiveResource("disjunctiveResource",attributes));
             } else if (qname.equals("inputError")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -961,6 +1036,11 @@ public ObjectiveType getObjectiveType(String attributeName,
                  item.setDisjunctiveResource(getDisjunctiveResource("disjunctiveResource",attributes));
                  item.setJobAssignment(getJobAssignment("jobAssignment",attributes));
                  item.setTask(getTask("task",attributes));
+            } else if (qname.equals("wiP")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                WiP item = (WiP) find(id);
+                 item.setDisjunctiveResource(getDisjunctiveResource("disjunctiveResource",attributes));
             } else {
                 System.out.println("Element Structure " + qname);
                 numNodes++;

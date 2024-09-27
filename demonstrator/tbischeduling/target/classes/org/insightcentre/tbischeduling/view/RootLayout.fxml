@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 13:42:39 on 2024-09-27-->
+<!--Generated at 16:31:01 on 2024-09-27-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -97,11 +97,15 @@
                         <MenuItem id="cumulativeProfilePage" onAction="#handle" text="CumulativeProfile" />
                      </items>
                   </Menu>
-                  <Menu text="_Order">
+                  <Menu text="_Schedule">
                      <items>
                         <MenuItem id="orderPage" onAction="#handle" text="Order" />
+                        <SeparatorMenuItem />
                         <MenuItem id="jobPage" accelerator="Shortcut+J" onAction="#handle" text="Job" />
                         <MenuItem id="taskPage" onAction="#handle" text="Task" />
+                        <SeparatorMenuItem />
+                        <MenuItem id="wiPPage" accelerator="Shortcut+W" onAction="#handle" text="WiP" />
+                        <MenuItem id="downtimePage" onAction="#handle" text="Downtime" />
                      </items>
                   </Menu>
                   <SeparatorMenuItem />
@@ -121,7 +125,7 @@
                   <Menu text="_System">
                      <items>
                         <MenuItem id="applicationDifferencePage" onAction="#handle" text="Scenario Differences" />
-                        <MenuItem id="applicationWarningPage" accelerator="Shortcut+W" onAction="#handle" text="Warnings" />
+                        <MenuItem id="applicationWarningPage" onAction="#handle" text="Warnings" />
                      </items>
                   </Menu>
                </items>

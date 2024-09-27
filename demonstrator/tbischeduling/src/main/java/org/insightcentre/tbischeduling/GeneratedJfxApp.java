@@ -31,6 +31,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
 import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
+import org.insightcentre.tbischeduling.datamodel.Downtime;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
@@ -46,6 +47,7 @@ import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
+import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import org.insightcentre.tbischeduling.generatedsolver.GenerateDataDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.GenerateDataSolver;
@@ -53,7 +55,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 13:42:39 on 2024-09-27 */
+ * Generated at 16:31:01 on 2024-09-27 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -99,6 +101,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<Task> taskData = FXCollections.observableArrayList();
 
+	private ObservableList<WiP> wiPData = FXCollections.observableArrayList();
+
+	private ObservableList<Downtime> downtimeData = FXCollections.observableArrayList();
+
 	private ObservableList<SolverRun> solverRunData = FXCollections.observableArrayList();
 
 	private ObservableList<Solution> solutionData = FXCollections.observableArrayList();
@@ -128,6 +134,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		tableViews.put("Order", "Order");
 		tableViews.put("Job", "Job");
 		tableViews.put("Task", "Task");
+		tableViews.put("WiP", "WiP");
+		tableViews.put("Downtime", "Downtime");
 		tableViews.put("SolverRun", "SolverRun");
 		tableViews.put("Solution", "Solution");
 		tableViews.put("JobAssignment", "JobAssignment");
@@ -235,6 +243,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		jobData.addAll(base.getListJob());
 		taskData.clear();
 		taskData.addAll(base.getListTask());
+		wiPData.clear();
+		wiPData.addAll(base.getListWiP());
+		downtimeData.clear();
+		downtimeData.addAll(base.getListDowntime());
 		solverRunData.clear();
 		solverRunData.addAll(base.getListSolverRun());
 		solutionData.clear();
@@ -361,6 +373,14 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public ObservableList<Task> getTaskData() {
 		return taskData;
+	}
+
+	public ObservableList<WiP> getWiPData() {
+		return wiPData;
+	}
+
+	public ObservableList<Downtime> getDowntimeData() {
+		return downtimeData;
 	}
 
 	public ObservableList<SolverRun> getSolverRunData() {

@@ -19,6 +19,8 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
+import org.insightcentre.tbischeduling.datamodel.WiP;
+import org.insightcentre.tbischeduling.datamodel.Downtime;
 import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
@@ -31,6 +33,7 @@ import org.insightcentre.tbischeduling.datamodel.ModelType;
 import org.insightcentre.tbischeduling.datamodel.SolverBackend;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
+import org.insightcentre.tbischeduling.datamodel.ResourceModel;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;
@@ -213,6 +216,20 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<Task> listTask = new ArrayList<Task>();
 
 /**
+ *  This lists holds all items of class WiP and its subclasses
+ *
+*/
+
+    List<WiP> listWiP = new ArrayList<WiP>();
+
+/**
+ *  This lists holds all items of class Downtime and its subclasses
+ *
+*/
+
+    List<Downtime> listDowntime = new ArrayList<Downtime>();
+
+/**
  *  This lists holds all items of class SolverRun and its subclasses
  *
 */
@@ -369,6 +386,7 @@ public int compareTo(ApplicationDataset ds2){
                              "CumulativeProfile",
                              "CumulativeResource",
                              "DisjunctiveResource",
+                             "Downtime",
                              "InputError",
                              "Job",
                              "JobAssignment",
@@ -383,7 +401,8 @@ public int compareTo(ApplicationDataset ds2){
                              "Solution",
                              "SolverRun",
                              "Task",
-                             "TaskAssignment");
+                             "TaskAssignment",
+                             "WiP");
     }
 
 /**
@@ -455,6 +474,8 @@ public int compareTo(ApplicationDataset ds2){
         resetListOrder();
         resetListJob();
         resetListTask();
+        resetListWiP();
+        resetListDowntime();
         resetListSolverRun();
         resetListSolution();
         resetListJobAssignment();
@@ -1040,6 +1061,74 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Iterator for list of class WiP
+ *
+*/
+
+    public Iterator<WiP> getIteratorWiP(){
+        return listWiP.iterator();
+    }
+
+/**
+ *  Getter for list of class WiP
+ *
+*/
+
+    public List<WiP> getListWiP(){
+        return listWiP;
+    }
+
+/**
+ *  reset the list of class WiP; use with care, does not call cascades
+ *
+*/
+
+    public void resetListWiP(){
+        listWiP = new ArrayList<WiP>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof WiP)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class Downtime
+ *
+*/
+
+    public Iterator<Downtime> getIteratorDowntime(){
+        return listDowntime.iterator();
+    }
+
+/**
+ *  Getter for list of class Downtime
+ *
+*/
+
+    public List<Downtime> getListDowntime(){
+        return listDowntime;
+    }
+
+/**
+ *  reset the list of class Downtime; use with care, does not call cascades
+ *
+*/
+
+    public void resetListDowntime(){
+        listDowntime = new ArrayList<Downtime>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof Downtime)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
  *  Iterator for list of class SolverRun
  *
 */
@@ -1561,6 +1650,42 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Removing object item of class DisjunctiveResource; remove all dependent objects of class WiP which refer to item through their attribute disjunctiveResource
+ *
+*/
+
+    public void cascadeWiPDisjunctiveResource(DisjunctiveResource item){
+        assert item != null;
+        List<WiP> toRemove = new ArrayList<WiP>();
+        for(WiP a:getListWiP()) {
+         if (a.getDisjunctiveResource() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(WiP b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class DisjunctiveResource; remove all dependent objects of class Downtime which refer to item through their attribute disjunctiveResource
+ *
+*/
+
+    public void cascadeDowntimeDisjunctiveResource(DisjunctiveResource item){
+        assert item != null;
+        List<Downtime> toRemove = new ArrayList<Downtime>();
+        for(Downtime a:getListDowntime()) {
+         if (a.getDisjunctiveResource() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(Downtime b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
  *  Removing object item of class SolverRun; remove all dependent objects of class Solution which refer to item through their attribute solverRun
  *
 */
@@ -2049,6 +2174,46 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class WiP
+ *
+*/
+
+    public void addWiP(WiP wiP){
+        assert wiP != null;
+        this.listWiP.add(wiP);
+    }
+
+/**
+ *  remove an item from the list for class WiP
+ *
+*/
+
+    public Boolean removeWiP(WiP wiP){
+        assert wiP != null;
+        return this.listWiP.remove(wiP);
+    }
+
+/**
+ *  add an item to the list for class Downtime
+ *
+*/
+
+    public void addDowntime(Downtime downtime){
+        assert downtime != null;
+        this.listDowntime.add(downtime);
+    }
+
+/**
+ *  remove an item from the list for class Downtime
+ *
+*/
+
+    public Boolean removeDowntime(Downtime downtime){
+        assert downtime != null;
+        return this.listDowntime.remove(downtime);
+    }
+
+/**
  *  add an item to the list for class SolverRun
  *
 */
@@ -2152,6 +2317,9 @@ public int compareTo(ApplicationDataset ds2){
         for(DisjunctiveResource x:getListDisjunctiveResource()){
             System.out.println(x);
         }
+        for(Downtime x:getListDowntime()){
+            System.out.println(x);
+        }
         for(InputError x:getListInputError()){
             System.out.println(x);
         }
@@ -2195,6 +2363,9 @@ public int compareTo(ApplicationDataset ds2){
             System.out.println(x);
         }
         for(TaskAssignment x:getListTaskAssignment()){
+            System.out.println(x);
+        }
+        for(WiP x:getListWiP()){
             System.out.println(x);
         }
     }
@@ -2251,6 +2422,9 @@ public int compareTo(ApplicationDataset ds2){
         for(DisjunctiveResource x:getListDisjunctiveResource()){
             if (x.getClass().equals(DisjunctiveResource.class)) x.toXML(out);
         }
+        for(Downtime x:getListDowntime()){
+            if (x.getClass().equals(Downtime.class)) x.toXML(out);
+        }
         for(InputError x:getListInputError()){
             if (x.getClass().equals(InputError.class)) x.toXML(out);
         }
@@ -2292,6 +2466,9 @@ public int compareTo(ApplicationDataset ds2){
         }
         for(TaskAssignment x:getListTaskAssignment()){
             if (x.getClass().equals(TaskAssignment.class)) x.toXML(out);
+        }
+        for(WiP x:getListWiP()){
+            if (x.getClass().equals(WiP.class)) x.toXML(out);
         }
         out.println("</body>");
         out.close();
@@ -2393,6 +2570,7 @@ public int compareTo(ApplicationDataset ds2){
         compareCumulativeProfile(this.getListCumulativeProfile(),compare.getListCumulativeProfile());
         compareCumulativeResource(this.getListCumulativeResource(),compare.getListCumulativeResource());
         compareDisjunctiveResource(this.getListDisjunctiveResource(),compare.getListDisjunctiveResource());
+        compareDowntime(this.getListDowntime(),compare.getListDowntime());
         compareInputError(this.getListInputError(),compare.getListInputError());
         compareJob(this.getListJob(),compare.getListJob());
         compareJobAssignment(this.getListJobAssignment(),compare.getListJobAssignment());
@@ -2407,6 +2585,7 @@ public int compareTo(ApplicationDataset ds2){
         compareSolverRun(this.getListSolverRun(),compare.getListSolverRun());
         compareTask(this.getListTask(),compare.getListTask());
         compareTaskAssignment(this.getListTaskAssignment(),compare.getListTaskAssignment());
+        compareWiP(this.getListWiP(),compare.getListWiP());
         System.out.println("Done Comparing ApplicationDataset");
     }
 
@@ -2526,6 +2705,30 @@ public int compareTo(ApplicationDataset ds2){
             DisjunctiveResource a = DisjunctiveResource.find(b,aList);
             if (a == null) {
                 new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DisjunctiveResource B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types Downtime, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareDowntime(List<Downtime> aList,List<Downtime> bList){
+        System.out.println("Comparing Downtime");
+        for(Downtime a:aList){
+            Downtime b= Downtime.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Downtime A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Downtime A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Downtime B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(Downtime b: bList){
+            Downtime a = Downtime.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Downtime B",b.toString(),DifferenceType.ONLYB);
             }
         }
     }
@@ -2867,6 +3070,30 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ * compare two lists of types WiP, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareWiP(List<WiP> aList,List<WiP> bList){
+        System.out.println("Comparing WiP");
+        for(WiP a:aList){
+            WiP b= WiP.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"WiP A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"WiP A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"WiP B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(WiP b: bList){
+            WiP a = WiP.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"WiP B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
  * check all objects in dataset for internal consistency, based on multiplicity
  * and restrictions; create applicationWarning if inconsistent
 */
@@ -2877,6 +3104,7 @@ public int compareTo(ApplicationDataset ds2){
         checkCumulativeProfile(this.getListCumulativeProfile());
         checkCumulativeResource(this.getListCumulativeResource());
         checkDisjunctiveResource(this.getListDisjunctiveResource());
+        checkDowntime(this.getListDowntime());
         checkInputError(this.getListInputError());
         checkJob(this.getListJob());
         checkJobAssignment(this.getListJobAssignment());
@@ -2892,6 +3120,7 @@ public int compareTo(ApplicationDataset ds2){
         checkSolverRun(this.getListSolverRun());
         checkTask(this.getListTask());
         checkTaskAssignment(this.getListTaskAssignment());
+        checkWiP(this.getListWiP());
     }
 
 /**
@@ -2945,6 +3174,17 @@ public int compareTo(ApplicationDataset ds2){
 
     public void checkDisjunctiveResource(List<DisjunctiveResource> list){
         for(DisjunctiveResource a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<Downtime> dataset list of all items of type Downtime
+*/
+
+    public void checkDowntime(List<Downtime> list){
+        for(Downtime a:list){
             a.check();
         }
     }
@@ -3114,6 +3354,17 @@ public int compareTo(ApplicationDataset ds2){
         }
     }
 
+/**
+ * helper method for checkAll()
+ * @param list List<WiP> dataset list of all items of type WiP
+*/
+
+    public void checkWiP(List<WiP> list){
+        for(WiP a:list){
+            a.check();
+        }
+    }
+
    public void generateDummies(){
         ApplicationDifference.dummy(this);
         ApplicationWarning.dummy(this);
@@ -3121,6 +3372,7 @@ public int compareTo(ApplicationDataset ds2){
         CumulativeProfile.dummy(this);
         CumulativeResource.dummy(this);
         DisjunctiveResource.dummy(this);
+        Downtime.dummy(this);
         InputError.dummy(this);
         Job.dummy(this);
         JobAssignment.dummy(this);
@@ -3136,6 +3388,7 @@ public int compareTo(ApplicationDataset ds2){
         SolverRun.dummy(this);
         Task.dummy(this);
         TaskAssignment.dummy(this);
+        WiP.dummy(this);
    }
 
 /**

@@ -54,6 +54,8 @@ public class ReadDataFile {
             Hashtable<String, Order> orderHash = readOrders(root,productHash);
             Hashtable<String, Job> jobHash = readJobs(root,orderHash,processHash);
             Hashtable<String, Task> taskHash = readTasks(root,jobHash,processStepHash);
+            Hashtable<String, WiP> wipHash = readWiPs(root,disjunctiveResourceHash);
+            Hashtable<String, Downtime> downtimeHash = readDowntimes(root,disjunctiveResourceHash);
 
             Hashtable<String, SolverRun> solverRunHash = readSolverRuns(root);
             Hashtable<String, Solution> solutionHash = readSolutions(root,solverRunHash);
@@ -565,6 +567,73 @@ public class ReadDataFile {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
                     res.put(name, t);
+                }
+
+            }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
+        }
+        return res;
+    }
+
+    private Hashtable<String,WiP> readWiPs(JSONObject root,
+                                           Hashtable<String,DisjunctiveResource> disjunctiveResourceHash){
+        String key = "wip";
+        Hashtable<String,WiP> res = new Hashtable<>();
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
+            for(int i=0;i<arr.length();i++){
+                JSONObject item = arr.getJSONObject(i);
+                if (requireFields(key,i,item,new String[]{"name","disjunctiveResource","until"})) {
+                    String name = item.getString("name");
+                    String rName = item.getString("disjunctiveResource");
+                    int until = item.getInt("until");
+                    DisjunctiveResource r = disjunctiveResourceHash.get(rName);
+                    if (r == null) {
+                        inputError(key, name, "disjunctiveResource", rName, "The required object does not exist", Fatal);
+                    }
+                    WiP w = new WiP(base);
+                    w.setName(name);
+                    w.setDisjunctiveResource(r);
+                    w.setUntil(until);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, w);
+                }
+
+            }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
+        }
+        return res;
+    }
+    private Hashtable<String,Downtime> readDowntimes(JSONObject root,
+                                           Hashtable<String,DisjunctiveResource> disjunctiveResourceHash){
+        String key = "downtime";
+        Hashtable<String,Downtime> res = new Hashtable<>();
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
+            for(int i=0;i<arr.length();i++){
+                JSONObject item = arr.getJSONObject(i);
+                if (requireFields(key,i,item,new String[]{"name","disjunctiveResource","from","to"})) {
+                    String name = item.getString("name");
+                    String rName = item.getString("disjunctiveResource");
+                    int from = item.getInt("from");
+                    int to = item.getInt("to");
+                    DisjunctiveResource r = disjunctiveResourceHash.get(rName);
+                    if (r == null) {
+                        inputError(key, name, "disjunctiveResource", rName, "The required object does not exist", Fatal);
+                    }
+                    Downtime d = new Downtime(base);
+                    d.setName(name);
+                    d.setDisjunctiveResource(r);
+                    d.setFrom(from);
+                    d.setTo(to);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, d);
                 }
 
             }

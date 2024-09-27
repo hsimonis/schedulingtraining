@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 13:42:39 on 2024-09-27 */
+ * Generated at 16:31:01 on 2024-09-27 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -147,6 +147,20 @@ public class PieChartController extends ChartController {
 		attributeNames.add("processStep.durationFixed");
 		attributeNames.add("processStep.durationPerUnit");
 		choicesMap.put("Task", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("until");
+		attributeNames.add("untilDate");
+		attributeNames.add("disjunctiveResource");
+		choicesMap.put("WiP", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("from");
+		attributeNames.add("to");
+		attributeNames.add("fromDate");
+		attributeNames.add("toDate");
+		attributeNames.add("disjunctiveResource");
+		choicesMap.put("Downtime", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
 		attributeNames.add("label");
@@ -292,6 +306,12 @@ public class PieChartController extends ChartController {
 			}
 			else if (className.equals("Task")) {
 				objectList = mainApp.getTaskData();
+			}
+			else if (className.equals("WiP")) {
+				objectList = mainApp.getWiPData();
+			}
+			else if (className.equals("Downtime")) {
+				objectList = mainApp.getDowntimeData();
 			}
 			else if (className.equals("SolverRun")) {
 				objectList = mainApp.getSolverRunData();

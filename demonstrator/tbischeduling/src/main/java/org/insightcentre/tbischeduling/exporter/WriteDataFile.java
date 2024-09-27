@@ -47,6 +47,8 @@ public class WriteDataFile {
         root.put("order",orders());
         root.put("job",jobs());
         root.put("task",tasks());
+        root.put("wip",wips());
+        root.put("downtime",downtimes());
 
         root.put("solverRun",solverRuns());
         root.put("solution",sols());
@@ -235,6 +237,34 @@ public class WriteDataFile {
             obj.put("job",p.getJob().getName());
             obj.put("processStep",p.getProcessStep().getName());
             obj.put("duration",p.getDuration());
+            res.put(obj);
+        }
+        return res;
+    }
+
+    private JSONArray wips(){
+        JSONArray res = new JSONArray();
+        for(WiP w:base.getListWiP()){
+            JSONObject obj = new JSONObject();
+            obj.put("name",w.getName());
+            obj.put("disjunctiveResource",w.getDisjunctiveResource().getName());
+            obj.put("until",w.getUntil());
+            obj.put("untilDate",w.getUntilDate());
+            res.put(obj);
+        }
+        return res;
+    }
+
+    private JSONArray downtimes(){
+        JSONArray res = new JSONArray();
+        for(Downtime d:base.getListDowntime()){
+            JSONObject obj = new JSONObject();
+            obj.put("name",d.getName());
+            obj.put("disjunctiveResource",d.getDisjunctiveResource().getName());
+            obj.put("from",d.getFrom());
+            obj.put("to",d.getTo());
+            obj.put("fromDate",d.getFromDate().toString());
+            obj.put("toDate",d.getToDate().toString());
             res.put(obj);
         }
         return res;

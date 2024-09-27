@@ -12,6 +12,7 @@ public class GenerateDataSolver extends DefaultSolver{
     protected long startSystem = 0;
 // solver parameters
     protected String name="test";
+    protected String resourceModel="HybridFlowShop";
     protected int nrProducts=5;
     protected int nrStages=3;
     protected int nrDisjunctiveResources=6;
@@ -31,9 +32,10 @@ public class GenerateDataSolver extends DefaultSolver{
     public GenerateDataSolver(Scenario base){
         super(base,new String[] {});
     }
-    public GenerateDataSolver(Scenario base,String name,int nrProducts,int nrStages,int nrDisjunctiveResources,double resourceProbability,int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,int cumulCapacity,int nrOrders,int minQty,int maxQty,int earliestDue,int horizonDays,int timeResolution,int seed){
+    public GenerateDataSolver(Scenario base,String name,String resourceModel,int nrProducts,int nrStages,int nrDisjunctiveResources,double resourceProbability,int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,int cumulCapacity,int nrOrders,int minQty,int maxQty,int earliestDue,int horizonDays,int timeResolution,int seed){
         super(base,new String[] {});
         this.name=name;
+        this.resourceModel=resourceModel;
         this.nrProducts=nrProducts;
         this.nrStages=nrStages;
         this.nrDisjunctiveResources=nrDisjunctiveResources;
@@ -53,6 +55,10 @@ public class GenerateDataSolver extends DefaultSolver{
 
 public String getName(){
  return name;
+}
+
+public String getResourceModel(){
+ return resourceModel;
 }
 
 public int getNrProducts(){
@@ -117,6 +123,11 @@ public int getSeed(){
 
 public GenerateDataSolver setName(String v){
  name = v;
+ return this;
+}
+
+public GenerateDataSolver setResourceModel(String v){
+ resourceModel = v;
  return this;
 }
 

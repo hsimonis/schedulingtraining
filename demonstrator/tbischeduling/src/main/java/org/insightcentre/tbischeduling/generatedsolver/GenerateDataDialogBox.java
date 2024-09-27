@@ -22,6 +22,7 @@ import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 
 public class GenerateDataDialogBox extends GeneralDialogBox{
    private TextField nameItem = new TextField();
+   private TextField resourceModelItem = new TextField();
    private IntegerTextField nrProductsItem = new IntegerTextField();
    private IntegerTextField nrStagesItem = new IntegerTextField();
    private IntegerTextField nrDisjunctiveResourcesItem = new IntegerTextField();
@@ -47,6 +48,9 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
         pane.add(new Label("name:"), 0, row);
         pane.add(nameItem, 1, row++);
         nameItem.setText(((GenerateDataSolver)solver).getName());
+        pane.add(new Label("Resource Model:"), 0, row);
+        pane.add(resourceModelItem, 1, row++);
+        resourceModelItem.setText(((GenerateDataSolver)solver).getResourceModel());
         pane.add(new Label("nr Products:"), 0, row);
         pane.add(nrProductsItem, 1, row++);
         nrProductsItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrProducts()));
@@ -102,6 +106,7 @@ public void handle(InputEvent event) {
       ((KeyEvent) event).getCode() == KeyCode.ENTER)) {
         info("Get GenerateData parameters");
         String nameValue = nameItem.getText();
+        String resourceModelValue = resourceModelItem.getText();
         int nrProductsValue = Integer.parseInt(nrProductsItem.getText());
         int nrStagesValue = Integer.parseInt(nrStagesItem.getText());
         int nrDisjunctiveResourcesValue = Integer.parseInt(nrDisjunctiveResourcesItem.getText());
@@ -119,6 +124,7 @@ public void handle(InputEvent event) {
         int seedValue = Integer.parseInt(seedItem.getText());
         ((GenerateDataSolver)getSolver())
             .setName(nameValue)
+            .setResourceModel(resourceModelValue)
             .setNrProducts(nrProductsValue)
             .setNrStages(nrStagesValue)
             .setNrDisjunctiveResources(nrDisjunctiveResourcesValue)

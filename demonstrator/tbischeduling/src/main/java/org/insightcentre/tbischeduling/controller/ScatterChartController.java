@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 13:42:39 on 2024-09-27 */
+ * Generated at 16:31:01 on 2024-09-27 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -180,6 +180,29 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("processStep.durationPerUnit");
 		choicesMap.put("Task", attributeNames);
 		filterMap.put("Task", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		attributeNames.add("until");
+		filterNames.add("until");
+		filterNames.add("untilDate");
+		filterNames.add("disjunctiveResource");
+		choicesMap.put("WiP", attributeNames);
+		filterMap.put("WiP", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		attributeNames.add("from");
+		filterNames.add("from");
+		attributeNames.add("to");
+		filterNames.add("to");
+		filterNames.add("fromDate");
+		filterNames.add("toDate");
+		filterNames.add("disjunctiveResource");
+		choicesMap.put("Downtime", attributeNames);
+		filterMap.put("Downtime", filterNames);
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
@@ -383,6 +406,12 @@ public class ScatterChartController extends ChartXYFilterController {
 			}
 			else if (className.equals("Task")) {
 				objectList = mainApp.getTaskData();
+			}
+			else if (className.equals("WiP")) {
+				objectList = mainApp.getWiPData();
+			}
+			else if (className.equals("Downtime")) {
+				objectList = mainApp.getDowntimeData();
 			}
 			else if (className.equals("SolverRun")) {
 				objectList = mainApp.getSolverRunData();

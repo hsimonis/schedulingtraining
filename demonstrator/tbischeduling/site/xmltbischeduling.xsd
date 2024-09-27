@@ -9,6 +9,7 @@
 				<xs:element ref="cumulativeProfile" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="cumulativeResource" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="disjunctiveResource" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="downtime" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="inputError" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="job" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="jobAssignment" minOccurs="0" maxOccurs="unbounded"/>
@@ -24,6 +25,7 @@
 				<xs:element ref="solverRun" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="task" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="taskAssignment" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="wiP" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -81,6 +83,18 @@
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
 			<xs:attribute name="shortName" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="downtime">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="disjunctiveResource" use="required" type="xs:IDREF"/>
+			<xs:attribute name="from" use="required" type="xs:integer"/>
+			<xs:attribute name="fromDate" use="required" type="xs:dateTime"/>
+			<xs:attribute name="to" use="required" type="xs:integer"/>
+			<xs:attribute name="toDate" use="required" type="xs:dateTime"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="inputError">
@@ -274,6 +288,16 @@
 			<xs:attribute name="start" use="required" type="xs:integer"/>
 			<xs:attribute name="startDate" use="required" type="xs:dateTime"/>
 			<xs:attribute name="task" use="required" type="xs:IDREF"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="wiP">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="disjunctiveResource" use="required" type="xs:IDREF"/>
+			<xs:attribute name="until" use="required" type="xs:integer"/>
+			<xs:attribute name="untilDate" use="required" type="xs:dateTime"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>
