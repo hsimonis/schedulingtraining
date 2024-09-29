@@ -1359,15 +1359,15 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
- *  Removing object item of class Process; remove all dependent objects of class Product which refer to item through their attribute process
+ *  Removing object item of class Process; remove all dependent objects of class Product which refer to item through their attribute defaultProcess
  *
 */
 
-    public void cascadeProductProcess(Process item){
+    public void cascadeProductDefaultProcess(Process item){
         assert item != null;
         List<Product> toRemove = new ArrayList<Product>();
         for(Product a:getListProduct()) {
-         if (a.getProcess() == item) {
+         if (a.getDefaultProcess() == item) {
             toRemove.add(a);
          }
         }
@@ -1530,6 +1530,24 @@ public int compareTo(ApplicationDataset ds2){
         List<Order> toRemove = new ArrayList<Order>();
         for(Order a:getListOrder()) {
          if (a.getProduct() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(Order b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class Process; remove all dependent objects of class Order which refer to item through their attribute process
+ *
+*/
+
+    public void cascadeOrderProcess(Process item){
+        assert item != null;
+        List<Order> toRemove = new ArrayList<Order>();
+        for(Order a:getListOrder()) {
+         if (a.getProcess() == item) {
             toRemove.add(a);
          }
         }

@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 16:31:01 on 2024-09-27 */
+ * Generated at 10:29:29 on 2024-09-28 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -70,7 +70,7 @@ public class PieChartController extends ChartController {
 		choicesMap.put("Problem", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
-		attributeNames.add("process");
+		attributeNames.add("defaultProcess");
 		choicesMap.put("Product", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
@@ -115,6 +115,7 @@ public class PieChartController extends ChartController {
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
 		attributeNames.add("product");
+		attributeNames.add("process");
 		attributeNames.add("qty");
 		attributeNames.add("due");
 		attributeNames.add("dueDate");
@@ -122,7 +123,6 @@ public class PieChartController extends ChartController {
 		attributeNames.add("releaseDate");
 		attributeNames.add("latenessWeight");
 		attributeNames.add("earlinessWeight");
-		attributeNames.add("product.process");
 		choicesMap.put("Order", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
@@ -188,10 +188,14 @@ public class PieChartController extends ChartController {
 		attributeNames.add("flowtime");
 		attributeNames.add("totalLateness");
 		attributeNames.add("maxLateness");
+		attributeNames.add("nrLate");
 		attributeNames.add("weightedLateness");
 		attributeNames.add("totalEarliness");
 		attributeNames.add("maxEarliness");
+		attributeNames.add("nrEarly");
 		attributeNames.add("weightedEarliness");
+		attributeNames.add("percentEarly");
+		attributeNames.add("percentLate");
 		attributeNames.add("solverRun.modelType");
 		attributeNames.add("solverRun.solverBackend");
 		attributeNames.add("solverRun.objectiveType");

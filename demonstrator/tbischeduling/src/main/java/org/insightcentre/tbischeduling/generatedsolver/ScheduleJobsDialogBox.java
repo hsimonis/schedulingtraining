@@ -27,11 +27,13 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
    private TextField startTimeItem = new TextField();
    private CheckBox enforceReleaseDateItem = new CheckBox();
    private CheckBox enforceDueDateItem = new CheckBox();
-   private IntegerTextField weightLatenessItem = new IntegerTextField();
-   private IntegerTextField weightEarlynessItem = new IntegerTextField();
    private TextField modelTypeItem = new TextField();
    private TextField solverBackendItem = new TextField();
    private TextField objectiveTypeItem = new TextField();
+   private IntegerTextField weightMakespanItem = new IntegerTextField();
+   private IntegerTextField weightFlowtimeItem = new IntegerTextField();
+   private IntegerTextField weightLatenessItem = new IntegerTextField();
+   private IntegerTextField weightEarlynessItem = new IntegerTextField();
    private IntegerTextField timeoutItem = new IntegerTextField();
    private IntegerTextField nrThreadsItem = new IntegerTextField();
    private IntegerTextField seedItem = new IntegerTextField();
@@ -61,12 +63,6 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
         pane.add(new Label("Enforce DueDate:"), 0, row);
         pane.add(enforceDueDateItem, 1, row++);
         enforceDueDateItem.setSelected(((ScheduleJobsSolver)solver).getEnforceDueDate());
-        pane.add(new Label("Weight Lateness:"), 0, row);
-        pane.add(weightLatenessItem, 1, row++);
-        weightLatenessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightLateness()));
-        pane.add(new Label("Weight Earlyness:"), 0, row);
-        pane.add(weightEarlynessItem, 1, row++);
-        weightEarlynessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightEarlyness()));
         pane.add(new Label("Model Type:"), 0, row);
         pane.add(modelTypeItem, 1, row++);
         modelTypeItem.setText(((ScheduleJobsSolver)solver).getModelType());
@@ -76,6 +72,18 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
         pane.add(new Label("Objective Type:"), 0, row);
         pane.add(objectiveTypeItem, 1, row++);
         objectiveTypeItem.setText(((ScheduleJobsSolver)solver).getObjectiveType());
+        pane.add(new Label("Weight Makespan:"), 0, row);
+        pane.add(weightMakespanItem, 1, row++);
+        weightMakespanItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightMakespan()));
+        pane.add(new Label("Weight Flowtime:"), 0, row);
+        pane.add(weightFlowtimeItem, 1, row++);
+        weightFlowtimeItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightFlowtime()));
+        pane.add(new Label("Weight Lateness:"), 0, row);
+        pane.add(weightLatenessItem, 1, row++);
+        weightLatenessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightLateness()));
+        pane.add(new Label("Weight Earlyness:"), 0, row);
+        pane.add(weightEarlynessItem, 1, row++);
+        weightEarlynessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightEarlyness()));
         pane.add(new Label("Timeout (s):"), 0, row);
         pane.add(timeoutItem, 1, row++);
         timeoutItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getTimeout()));
@@ -103,11 +111,13 @@ public void handle(InputEvent event) {
         String startTimeValue = startTimeItem.getText();
         boolean enforceReleaseDateValue = enforceReleaseDateItem.isSelected();
         boolean enforceDueDateValue = enforceDueDateItem.isSelected();
-        int weightLatenessValue = Integer.parseInt(weightLatenessItem.getText());
-        int weightEarlynessValue = Integer.parseInt(weightEarlynessItem.getText());
         String modelTypeValue = modelTypeItem.getText();
         String solverBackendValue = solverBackendItem.getText();
         String objectiveTypeValue = objectiveTypeItem.getText();
+        int weightMakespanValue = Integer.parseInt(weightMakespanItem.getText());
+        int weightFlowtimeValue = Integer.parseInt(weightFlowtimeItem.getText());
+        int weightLatenessValue = Integer.parseInt(weightLatenessItem.getText());
+        int weightEarlynessValue = Integer.parseInt(weightEarlynessItem.getText());
         int timeoutValue = Integer.parseInt(timeoutItem.getText());
         int nrThreadsValue = Integer.parseInt(nrThreadsItem.getText());
         int seedValue = Integer.parseInt(seedItem.getText());
@@ -119,11 +129,13 @@ public void handle(InputEvent event) {
             .setStartTime(startTimeValue)
             .setEnforceReleaseDate(enforceReleaseDateValue)
             .setEnforceDueDate(enforceDueDateValue)
-            .setWeightLateness(weightLatenessValue)
-            .setWeightEarlyness(weightEarlynessValue)
             .setModelType(modelTypeValue)
             .setSolverBackend(solverBackendValue)
             .setObjectiveType(objectiveTypeValue)
+            .setWeightMakespan(weightMakespanValue)
+            .setWeightFlowtime(weightFlowtimeValue)
+            .setWeightLateness(weightLatenessValue)
+            .setWeightEarlyness(weightEarlynessValue)
             .setTimeout(timeoutValue)
             .setNrThreads(nrThreadsValue)
             .setSeed(seedValue)

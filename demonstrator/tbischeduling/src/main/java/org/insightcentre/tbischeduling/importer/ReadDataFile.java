@@ -51,7 +51,7 @@ public class ReadDataFile {
             Hashtable<String, CumulativeNeed> cumulativeNeedHash = readCumulativeNeeds(root,processStepHash,cumulativeResourceHash);
             Hashtable<String, CumulativeProfile> cumulativeProfileHash = readCumulativeProfiles(root,cumulativeResourceHash);
 
-            Hashtable<String, Order> orderHash = readOrders(root,productHash);
+            Hashtable<String, Order> orderHash = readOrders(root,productHash,processHash);
             Hashtable<String, Job> jobHash = readJobs(root,orderHash,processHash);
             Hashtable<String, Task> taskHash = readTasks(root,jobHash,processStepHash);
             Hashtable<String, WiP> wipHash = readWiPs(root,disjunctiveResourceHash);
@@ -225,14 +225,14 @@ public class ReadDataFile {
                 JSONObject item = arr.getJSONObject(i);
                 if (requireFields(key,i,item,new String[]{"name","process"})) {
                     String name = item.getString("name");
-                    String pName = item.getString("process");
+                    String pName = item.getString("defaultProcess");
                     Process process = processHash.get(pName);
                     if (process == null) {
-                        inputError(key, name, "process", pName, "The required object does not exist", Fatal);
+                        inputError(key, name, "defaultProcess", pName, "The required object does not exist", Fatal);
                     }
                     Product p = new Product(base);
                     p.setName(name);
-                    p.setProcess(process);
+                    p.setDefaultProcess(process);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -446,7 +446,8 @@ public class ReadDataFile {
         return res;
     }
 
-    private Hashtable<String,Order> readOrders(JSONObject root,Hashtable<String,Product> productHash){
+    private Hashtable<String,Order> readOrders(JSONObject root,Hashtable<String,Product> productHash,
+                                               Hashtable<String,Process> processHash){
         String key = "order";
         Hashtable<String,Order> res = new Hashtable<>();
         if (root.has(key)){
@@ -457,14 +458,19 @@ public class ReadDataFile {
                         "latenessWeight","earlinessWeight"})) {
                     String name = item.getString("name");
                     String pName = item.getString("product");
+                    String qName = item.getString("process");
                     int qty = item.getInt("qty");
                     int due = item.getInt("due");
                     int release = item.getInt("release");
                     double latenessWeight = item.getDouble("latenessWeight");
                     double earlinessWeight = item.getDouble("latenessWeight");
                     Product product = productHash.get(pName);
+                    Process process = processHash.get(qName);
                     if (product == null) {
                         inputError(key, name, "product", pName, "The required object does not exist", Fatal);
+                    }
+                    if (process == null) {
+                        inputError(key, name, "process", qName, "The required object does not exist", Fatal);
                     }
                     if (qty <= 0 ){
                         inputError(key,name,"qty",String.format("%d",qty),"Value must be positive",Fatal);
@@ -481,6 +487,7 @@ public class ReadDataFile {
                     Order ord = new Order(base);
                     ord.setName(name);
                     ord.setProduct(product);
+                    ord.setProcess(process);
                     ord.setQty(qty);
                     ord.setDue(due);
                     ord.setRelease(release);
@@ -518,8 +525,8 @@ public class ReadDataFile {
                     if (process == null) {
                         inputError(key, name, "process", pName, "The required object does not exist", Fatal);
                     }
-                    if (order != null && order.getProduct() != null && process != order.getProduct().getProcess()){
-                        inputError(key,name,"process",pName,"Process is different from product process",Minor);
+                    if (order != null && process != order.getProcess()){
+                        inputError(key,name,"process",pName,"Process is different from order process",Fatal);
                     }
                     Job j = new Job(base);
                     j.setName(name);
@@ -716,10 +723,14 @@ public class ReadDataFile {
                     int flowtime = item.getInt("flowtime");
                     int totalLateness = item.getInt("totalLateness");
                     int maxLateness = item.getInt("maxLateness");
+                    int nrLate = item.getInt("nrLate");
                     double weightedLateness = item.getDouble("weightedLateness");
                     int totalEarliness = item.getInt("totalEarliness");
                     int maxEarliness = item.getInt("maxEarliness");
+                    int nrEarly = item.getInt("nrEarly");
                     double weightedEarliness = item.getDouble("weightedEarliness");
+                    double percentEarly = item.getDouble("percentEarly");
+                    double percentLate = item.getDouble("percentLate");
                     SolverRun sr = solverRunHash.get(solverRun);
                     if (sr == null) {
                         inputError(key, name, "solverRun", solverRun, "The required object does not exist", Fatal);
@@ -736,10 +747,14 @@ public class ReadDataFile {
                     s.setFlowtime(flowtime);
                     s.setTotalLateness(totalLateness);
                     s.setMaxLateness(maxLateness);
+                    s.setNrLate(nrLate);
                     s.setWeightedLateness(weightedLateness);
                     s.setTotalEarliness(totalEarliness);
                     s.setMaxEarliness(maxEarliness);
+                    s.setNrEarly(nrEarly);
                     s.setWeightedEarliness(weightedEarliness);
+                    s.setPercentEarly(percentEarly);
+                    s.setPercentLate(percentLate);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -874,6 +889,7 @@ public class ReadDataFile {
             case "CPO" -> CPO;
             case "MiniZincDiffn" -> MiniZincDiffn;
             case "MiniZincTask" -> MiniZincTask;
+            case "REST" -> REST;
             default -> null;
         };
     }

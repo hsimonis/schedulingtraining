@@ -7,13 +7,10 @@ import framework.types.DateTime;
 import java.lang.Double;
 import java.lang.Exception;
 import java.lang.Integer;
-import java.lang.NullPointerException;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.lang.reflect.Field;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,7 +25,7 @@ import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.Product;
 
 /**
- * Generated at 16:31:01 on 2024-09-27 */
+ * Generated at 10:29:29 on 2024-09-28 */
 public class OrderController extends Table3Controller {
 	@FXML
 	private TableView<Order> table;
@@ -38,6 +35,9 @@ public class OrderController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Order, Product> product;
+
+	@FXML
+	private TableColumn<Order, Process> process;
 
 	@FXML
 	private TableColumn<Order, Integer> qty;
@@ -60,9 +60,6 @@ public class OrderController extends Table3Controller {
 	@FXML
 	private TableColumn<Order, Double> earlinessWeight;
 
-	@FXML
-	private TableColumn<Order, Process> process;
-
 	private GeneratedJfxApp mainApp;
 
 	@Override
@@ -71,6 +68,8 @@ public class OrderController extends Table3Controller {
 		table.setItems(mainApp.getOrderData());
 		product.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getProductData()));
 		product.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setProduct(event.getNewValue()); mainApp.reset();});
+		process.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getProcessData()));
+		process.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setProcess(event.getNewValue()); mainApp.reset();});
 	}
 
 	public TableView<Order> getTable() {
@@ -78,7 +77,6 @@ public class OrderController extends Table3Controller {
 	}
 
 	@FXML
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
 		table.setTableMenuButtonVisible(true);
 		table.setOnMouseClicked(event -> {if (event.isControlDown()) {mainApp.showObject(table.getFocusModel().getFocusedItem());}});
@@ -89,6 +87,8 @@ public class OrderController extends Table3Controller {
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
 		choices.add("product");
 		product.setCellValueFactory(new PropertyValueFactory<>("product"));
+		choices.add("process");
+		process.setCellValueFactory(new PropertyValueFactory<>("process"));
 		choices.add("qty");
 		qty.setCellValueFactory(new PropertyValueFactory<>("qty"));
 		qty.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
@@ -117,13 +117,6 @@ public class OrderController extends Table3Controller {
 		earlinessWeight.setCellValueFactory(new PropertyValueFactory<>("earlinessWeight"));
 		earlinessWeight.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("")));
 		earlinessWeight.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEarlinessWeight(event.getNewValue()); mainApp.reset();});
-		choices.add("product.process");
-		try {
-			process.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getProduct().getProcess()));
-		}
-		catch (NullPointerException e) {
-			System.err.println(e);
-		}
 		initialize(choices);
 	}
 

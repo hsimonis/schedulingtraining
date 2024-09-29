@@ -31,7 +31,7 @@ public class SchedulingReport extends AbstractReport{
         new TableDraw<>("Orders (Total "+base.getListOrder().size()+")",base.getListOrder()).
                 addStringColumn("Name",this::nameOf).
                 addStringColumn("Product",x->nameOf(x.getProduct())).
-                addStringColumn("Process",x->nameOf(x.getProduct().getProcess())).
+                addStringColumn("Process",x->nameOf(x.getProcess())).
                 addIntegerColumn("Qty", Order::getQty,"%,d").
                 addIntegerColumn("Release", Order::getRelease,"%,d").
                 addIntegerColumn("Due", Order::getDue,"%,d").
@@ -54,8 +54,10 @@ public class SchedulingReport extends AbstractReport{
                     addIntegerColumn("Flowtime", Solution::getFlowtime,"%,d").
                     addIntegerColumn(st("Total", "Lateness"), Solution::getTotalLateness,"%,d").
                     addIntegerColumn(st("Max", "Lateness"), Solution::getMaxLateness,"%,d").
+                    addIntegerColumn(st("Nr", "Late"), Solution::getNrLate,"%,d").
                     addIntegerColumn(st("Total", "Earliness"), Solution::getTotalEarliness,"%,d").
                     addIntegerColumn(st("Max", "Earliness"), Solution::getMaxEarliness,"%,d").
+                    addIntegerColumn(st("Nr", "Early"), Solution::getNrEarly,"%,d").
                     addStringColumn(st("Model","Type"),x->x.getSolverRun().getModelType().toString()).
                     addStringColumn(st("Objective","Type"),x->x.getSolverRun().getObjectiveType().toString()).
                     addDoubleColumn("Time",x->x.getSolverRun().getTime(),"%5.2f").

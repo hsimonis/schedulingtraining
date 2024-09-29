@@ -20,17 +20,17 @@ public class CPOModel extends AbstractModel{
     }
     static class IntervalVarList extends ArrayList<IloIntervalVar> {
         public IloIntervalVar[] toArray() {
-            return (IloIntervalVar[]) this.toArray(new IloIntervalVar[this.size()]);
+            return this.toArray(new IloIntervalVar[0]);
         }
     }
     static class IntVarList extends ArrayList<IloIntVar> {
         public IloIntVar[] toArray() {
-            return (IloIntVar[]) this.toArray(new IloIntVar[this.size()]);
+            return this.toArray(new IloIntVar[0]);
         }
     }
     static class IntExprList extends ArrayList<IloIntExpr> {
         public IloIntExpr[] toArray() {
-            return (IloIntExpr[]) this.toArray(new IloIntExpr[this.size()]);
+            return this.toArray(new IloIntExpr[0]);
         }
     }
 
@@ -91,6 +91,7 @@ public class CPOModel extends AbstractModel{
 
             // create task related variables
             for(int i=0;i<nrTasks;i++){
+                // assumes machine independent duration
                 x[i] = cp.intervalVar(durations[i],tasks[i].getName());
                 x[i].setPresent();
                 x[i].setStartMin(0);
@@ -100,8 +101,18 @@ public class CPOModel extends AbstractModel{
             for(int j=0;j<nrJobs;j++){
                 y[j] = cp.intervalVar(jobs[j].getName());
                 y[j].setPresent();
-                y[j].setStartMin(0);
-                y[j].setEndMax(horizon);
+                // enforce release date
+                if (run.getEnforceReleaseDate()) {
+                    y[j].setStartMin(jobs[j].getOrder().getRelease());
+                } else {
+                    y[j].setStartMin(0);
+                }
+                // enforce due date
+                if (run.getEnforceDueDate()) {
+                    y[j].setEndMax(jobs[j].getOrder().getDue());
+                } else {
+                    y[j].setEndMax(horizon);
+                }
                 lateness[j] = cp.max(0,cp.diff(cp.endOf(y[j]),dueDate[j]));
                 earliness[j] = cp.max(0,cp.diff(dueDate[j],cp.endOf(y[j])));
             }
@@ -114,7 +125,8 @@ public class CPOModel extends AbstractModel{
                 } else if (list.size() > 1){
                     for(DisjunctiveResource r:list){
                         int k = disjHash.get(r);
-                        z[i][k] = cp.intervalVar();
+                        // the duration is not machine dependent
+                        z[i][k] = cp.intervalVar(durations[i],"Z"+i+","+k);
                         z[i][k].setOptional();
                     }
                 } else {
@@ -133,22 +145,30 @@ public class CPOModel extends AbstractModel{
                 }
                 cp.add(cp.span(y[jobHash.get(job)],spans.toArray()));
             }
-            // create temporal constraints between tasks
-            for(Job job:mapTask.keySet()){
-                Hashtable<ProcessStep,Task> processStepHash = new Hashtable<>();
-                for(Task t:mapTask.get(job)){
-                    processStepHash.put(t.getProcessStep(),t);
-                }
-                for(ProcessSequence seq:base.getListProcessSequence().stream().filter(xx->xx.getBefore().getProcess()==job.getProcess()).toList()){
-                    int beforeIndex = taskHash.get(processStepHash.get(seq.getBefore()));
-                    int afterIndex = taskHash.get(processStepHash.get(seq.getAfter()));
-                    if (seq.getSequenceType()==SequenceType.EndBeforeStart) {
-                        cp.add(cp.endBeforeStart(x[beforeIndex], x[afterIndex]));
-                    } else {
-                        severe("Bad precedence type "+seq.getSequenceType()+" ignored!");
-                    }
+            // create temporal constraints between tasks; only precedences at this point
+            for(Task before:tasks){
+                int beforeIndex = taskHash.get(before);
+                for(Task after:before.getPrecedes()){
+                    int afterIndex=taskHash.get(after);
+                    cp.add(cp.endBeforeStart(x[beforeIndex], x[afterIndex]));
                 }
             }
+            // this is more complex code to compute the precedences from the processSequence data
+//            for(Job job:mapTask.keySet()){
+//                Hashtable<ProcessStep,Task> processStepHash = new Hashtable<>();
+//                for(Task t:mapTask.get(job)){
+//                    processStepHash.put(t.getProcessStep(),t);
+//                }
+//                for(ProcessSequence seq:base.getListProcessSequence().stream().filter(xx->xx.getBefore().getProcess()==job.getProcess()).toList()){
+//                    int beforeIndex = taskHash.get(processStepHash.get(seq.getBefore()));
+//                    int afterIndex = taskHash.get(processStepHash.get(seq.getAfter()));
+//                    if (seq.getSequenceType()==SequenceType.EndBeforeStart) {
+//                        cp.add(cp.endBeforeStart(x[beforeIndex], x[afterIndex]));
+//                    } else {
+//                        severe("Bad precedence type "+seq.getSequenceType()+" ignored!");
+//                    }
+//                }
+//            }
             // create disjunctive constraints
             for(int k=0;k<nrDisjunctiveResources;k++){
                 IntervalVarList disjunctive = new IntervalVarList();
@@ -279,10 +299,14 @@ public class CPOModel extends AbstractModel{
                 sol.setFlowtime(jaList.stream().mapToInt(JobAssignment::getEnd).sum());
                 sol.setTotalLateness(jaList.stream().mapToInt(JobAssignment::getLate).sum());
                 sol.setMaxLateness(jaList.stream().mapToInt(JobAssignment::getLate).max().orElse(0));
+                sol.setNrLate((int)jaList.stream().filter(xx->xx.getLate() >0).count());
                 sol.setWeightedLateness(jaList.stream().mapToDouble(this::weightedLateness).sum());
                 sol.setTotalEarliness(jaList.stream().mapToInt(JobAssignment::getEarly).sum());
                 sol.setMaxEarliness(jaList.stream().mapToInt(JobAssignment::getEarly).max().orElse(0));
+                sol.setNrEarly((int)jaList.stream().filter(xx->xx.getEarly()>0).count());
                 sol.setWeightedEarliness(jaList.stream().mapToDouble(this::weightedEarliness).sum());
+                sol.setPercentEarly(100.0*sol.getNrEarly()/nrJobs);
+                sol.setPercentLate(100.0*sol.getNrLate()/nrJobs);
                 // to capture previously unseen solver status strings
                 assert(run.getSolverStatus() != null);
                 return true;
@@ -312,11 +336,12 @@ public class CPOModel extends AbstractModel{
     }
 
     private int duration(Task t){
-        int qty = t.getJob().getOrder().getQty();
-        ProcessStep ps = t.getProcessStep();
-        return ps.getDurationFixed()+ps.getDurationPerUnit()*qty;
-    }
+        return t.getDuration();
+   }
 
+    /*
+    convert CPO status strings into SolverStatus enums; these are solver specific
+     */
     private SolverStatus toSolverStatus(String name){
         return switch (name) {
             case "Optimal" -> Optimal;

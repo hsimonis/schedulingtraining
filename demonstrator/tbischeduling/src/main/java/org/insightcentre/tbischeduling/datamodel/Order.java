@@ -83,6 +83,13 @@ public  class Order extends ApplicationObject{
  *
 */
 
+    public Process process;
+
+/**
+ *  
+ *
+*/
+
     public Product product;
 
 /**
@@ -129,6 +136,7 @@ public  class Order extends ApplicationObject{
         setDueDate(new DateTime());
         setEarlinessWeight(1.0);
         setLatenessWeight(1.0);
+        setProcess(null);
         setProduct(null);
         setQty(0);
         setRelease(0);
@@ -150,6 +158,7 @@ public  class Order extends ApplicationObject{
             DateTime dueDate,
             Double earlinessWeight,
             Double latenessWeight,
+            Process process,
             Product product,
             Integer qty,
             Integer release,
@@ -161,6 +170,7 @@ public  class Order extends ApplicationObject{
         setDueDate(dueDate);
         setEarlinessWeight(earlinessWeight);
         setLatenessWeight(latenessWeight);
+        setProcess(process);
         setProduct(product);
         setQty(qty);
         setRelease(release);
@@ -176,6 +186,7 @@ public  class Order extends ApplicationObject{
             other.dueDate,
             other.earlinessWeight,
             other.latenessWeight,
+            other.process,
             other.product,
             other.qty,
             other.release,
@@ -232,6 +243,16 @@ public  class Order extends ApplicationObject{
 
     public Double getLatenessWeight(){
         return this.latenessWeight;
+    }
+
+/**
+ *  get attribute process
+ *
+ * @return Process
+*/
+
+    public Process getProcess(){
+        return this.process;
     }
 
 /**
@@ -318,6 +339,18 @@ public  class Order extends ApplicationObject{
 
     public void setLatenessWeight(Double latenessWeight){
         this.latenessWeight = latenessWeight;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute process, mark dataset as dirty, mark dataset as not valid
+@param process Process
+ *
+*/
+
+    public void setProcess(Process process){
+        this.process = process;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -420,7 +453,7 @@ public  class Order extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDue()+ " " +getDueDate()+ " " +getEarlinessWeight()+ " " +getLatenessWeight()+ " " +getProduct().toColumnString()+ " " +getQty()+ " " +getRelease()+ " " +getReleaseDate();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDue()+ " " +getDueDate()+ " " +getEarlinessWeight()+ " " +getLatenessWeight()+ " " +getProcess().toColumnString()+ " " +getProduct().toColumnString()+ " " +getQty()+ " " +getRelease()+ " " +getReleaseDate();
     }
 
 /**
@@ -448,6 +481,7 @@ public  class Order extends ApplicationObject{
             " dueDate=\""+toXMLDueDate()+"\""+
             " earlinessWeight=\""+toXMLEarlinessWeight()+"\""+
             " latenessWeight=\""+toXMLLatenessWeight()+"\""+
+            " process=\""+toXMLProcess()+"\""+
             " product=\""+toXMLProduct()+"\""+
             " qty=\""+toXMLQty()+"\""+
             " release=\""+toXMLRelease()+"\""+
@@ -500,6 +534,16 @@ public  class Order extends ApplicationObject{
  * @return String
 */
 
+    String toXMLProcess(){
+        return "ID_"+this.getProcess().getId().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLProduct(){
         return "ID_"+this.getProduct().getId().toString();
     }
@@ -541,11 +585,11 @@ public  class Order extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Order</th>"+"<th>Name</th>"+"<th>Product</th>"+"<th>Qty</th>"+"<th>Due</th>"+"<th>DueDate</th>"+"<th>Release</th>"+"<th>ReleaseDate</th>"+"<th>LatenessWeight</th>"+"<th>EarlinessWeight</th>"+"</tr>";
+        return "<tr><th>Order</th>"+"<th>Name</th>"+"<th>Product</th>"+"<th>Process</th>"+"<th>Qty</th>"+"<th>Due</th>"+"<th>DueDate</th>"+"<th>Release</th>"+"<th>ReleaseDate</th>"+"<th>LatenessWeight</th>"+"<th>EarlinessWeight</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getProduct().toColumnString()+"</td>"+ " " +"<td>"+getQty()+"</td>"+ " " +"<td>"+getDue()+"</td>"+ " " +"<td>"+getDueDate()+"</td>"+ " " +"<td>"+getRelease()+"</td>"+ " " +"<td>"+getReleaseDate()+"</td>"+ " " +"<td>"+getLatenessWeight()+"</td>"+ " " +"<td>"+getEarlinessWeight()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getProduct().toColumnString()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getQty()+"</td>"+ " " +"<td>"+getDue()+"</td>"+ " " +"<td>"+getDueDate()+"</td>"+ " " +"<td>"+getRelease()+"</td>"+ " " +"<td>"+getReleaseDate()+"</td>"+ " " +"<td>"+getLatenessWeight()+"</td>"+ " " +"<td>"+getEarlinessWeight()+"</td>"+"</tr>";
     }
 
 /**
@@ -677,6 +721,9 @@ public  class Order extends ApplicationObject{
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
+      if(!this.getProcess().applicationSame(b.getProcess())){
+         System.out.println("Process");
+        }
       if(!this.getProduct().applicationSame(b.getProduct())){
          System.out.println("Product");
         }
@@ -694,6 +741,7 @@ public  class Order extends ApplicationObject{
           this.getEarlinessWeight().equals(b.getEarlinessWeight()) &&
           this.getLatenessWeight().equals(b.getLatenessWeight()) &&
           this.getName().equals(b.getName()) &&
+          this.getProcess().applicationSame(b.getProcess()) &&
           this.getProduct().applicationSame(b.getProduct()) &&
           this.getQty().equals(b.getQty()) &&
           this.getRelease().equals(b.getRelease()) &&
@@ -708,6 +756,9 @@ public  class Order extends ApplicationObject{
     public void check(){
         if (getApplicationDataset() == null){
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"applicationDataset","Order",(getApplicationDataset()==null?"null":getApplicationDataset().toString()),"",WarningType.NOTNULL);
+        }
+        if (getProcess() == null){
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"process","Order",(getProcess()==null?"null":getProcess().toString()),"",WarningType.NOTNULL);
         }
         if (getProduct() == null){
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"product","Order",(getProduct()==null?"null":getProduct().toString()),"",WarningType.NOTNULL);
@@ -728,6 +779,9 @@ public  class Order extends ApplicationObject{
     }
 
    public List<ApplicationObjectInterface> getFeasibleValues(ApplicationDatasetInterface base,String attrName){
+      if (attrName.equals("process")){
+         return (List) ((Scenario)base).getListProcess();
+      }
       if (attrName.equals("product")){
          return (List) ((Scenario)base).getListProduct();
       }

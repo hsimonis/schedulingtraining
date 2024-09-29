@@ -102,8 +102,9 @@ public  class Process extends ApplicationObject{
 */
 
     public Boolean remove(){
-        getApplicationDataset().cascadeProductProcess(this);
+        getApplicationDataset().cascadeProductDefaultProcess(this);
         getApplicationDataset().cascadeProcessStepProcess(this);
+        getApplicationDataset().cascadeOrderProcess(this);
         getApplicationDataset().cascadeJobProcess(this);
         return getApplicationDataset().removeProcess(this) && getApplicationDataset().removeApplicationObject(this);
     }

@@ -55,7 +55,7 @@ public  class Product extends ApplicationObject{
  *
 */
 
-    public Process process;
+    public Process defaultProcess;
 
 /**
  *  No-arg constructor for use in TableView
@@ -76,7 +76,7 @@ public  class Product extends ApplicationObject{
 
     public Product(ApplicationDataset applicationDataset){
         super(applicationDataset);
-        setProcess(null);
+        setDefaultProcess(null);
         applicationDataset.addProduct(this);
     }
 
@@ -90,11 +90,11 @@ public  class Product extends ApplicationObject{
     public Product(ApplicationDataset applicationDataset,
             Integer id,
             String name,
-            Process process){
+            Process defaultProcess){
         super(applicationDataset,
             id,
             name);
-        setProcess(process);
+        setDefaultProcess(defaultProcess);
         applicationDataset.addProduct(this);
     }
 
@@ -102,7 +102,7 @@ public  class Product extends ApplicationObject{
         this(other.applicationDataset,
             other.id,
             other.name,
-            other.process);
+            other.defaultProcess);
     }
 
 /**
@@ -118,23 +118,23 @@ public  class Product extends ApplicationObject{
     }
 
 /**
- *  get attribute process
+ *  get attribute defaultProcess
  *
  * @return Process
 */
 
-    public Process getProcess(){
-        return this.process;
+    public Process getDefaultProcess(){
+        return this.defaultProcess;
     }
 
 /**
- *  set attribute process, mark dataset as dirty, mark dataset as not valid
-@param process Process
+ *  set attribute defaultProcess, mark dataset as dirty, mark dataset as not valid
+@param defaultProcess Process
  *
 */
 
-    public void setProcess(Process process){
-        this.process = process;
+    public void setDefaultProcess(Process defaultProcess){
+        this.defaultProcess = defaultProcess;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -156,7 +156,7 @@ public  class Product extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getProcess().toColumnString();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDefaultProcess().toColumnString();
     }
 
 /**
@@ -180,7 +180,7 @@ public  class Product extends ApplicationObject{
          out.println("<product "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
-            " process=\""+toXMLProcess()+"\""+" />");
+            " defaultProcess=\""+toXMLDefaultProcess()+"\""+" />");
      }
 
 /**
@@ -189,8 +189,8 @@ public  class Product extends ApplicationObject{
  * @return String
 */
 
-    String toXMLProcess(){
-        return "ID_"+this.getProcess().getId().toString();
+    String toXMLDefaultProcess(){
+        return "ID_"+this.getDefaultProcess().getId().toString();
     }
 
 /**
@@ -200,11 +200,11 @@ public  class Product extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Product</th>"+"<th>Name</th>"+"<th>Process</th>"+"</tr>";
+        return "<tr><th>Product</th>"+"<th>Name</th>"+"<th>DefaultProcess</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDefaultProcess().toColumnString()+"</td>"+"</tr>";
     }
 
 /**
@@ -321,14 +321,14 @@ public  class Product extends ApplicationObject{
 */
 
     public Boolean applicationEqual(Product b){
+      if(!this.getDefaultProcess().applicationSame(b.getDefaultProcess())){
+         System.out.println("DefaultProcess");
+        }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
-      if(!this.getProcess().applicationSame(b.getProcess())){
-         System.out.println("Process");
-        }
-        return  this.getName().equals(b.getName()) &&
-          this.getProcess().applicationSame(b.getProcess());
+        return  this.getDefaultProcess().applicationSame(b.getDefaultProcess()) &&
+          this.getName().equals(b.getName());
     }
 
 /**
@@ -340,8 +340,8 @@ public  class Product extends ApplicationObject{
         if (getApplicationDataset() == null){
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"applicationDataset","Product",(getApplicationDataset()==null?"null":getApplicationDataset().toString()),"",WarningType.NOTNULL);
         }
-        if (getProcess() == null){
-         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"process","Product",(getProcess()==null?"null":getProcess().toString()),"",WarningType.NOTNULL);
+        if (getDefaultProcess() == null){
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"defaultProcess","Product",(getDefaultProcess()==null?"null":getDefaultProcess().toString()),"",WarningType.NOTNULL);
         }
     }
 
@@ -359,7 +359,7 @@ public  class Product extends ApplicationObject{
     }
 
    public List<ApplicationObjectInterface> getFeasibleValues(ApplicationDatasetInterface base,String attrName){
-      if (attrName.equals("process")){
+      if (attrName.equals("defaultProcess")){
          return (List) ((Scenario)base).getListProcess();
       }
       return null;

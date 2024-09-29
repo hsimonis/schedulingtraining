@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 16:31:01 on 2024-09-27 */
+ * Generated at 10:29:29 on 2024-09-28 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -88,10 +88,14 @@ public class BarChartController extends ChartController {
 		attributeNames.add("flowtime");
 		attributeNames.add("totalLateness");
 		attributeNames.add("maxLateness");
+		attributeNames.add("nrLate");
 		attributeNames.add("weightedLateness");
 		attributeNames.add("totalEarliness");
 		attributeNames.add("maxEarliness");
+		attributeNames.add("nrEarly");
 		attributeNames.add("weightedEarliness");
+		attributeNames.add("percentEarly");
+		attributeNames.add("percentLate");
 		attributeNames.add("solverRun.timeout");
 		attributeNames.add("solverRun.nrThreads");
 		attributeNames.add("solverRun.seed");

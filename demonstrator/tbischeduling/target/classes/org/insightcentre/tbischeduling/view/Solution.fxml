@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 16:31:01 on 2024-09-27-->
+<!--Generated at 10:15:58 on 2024-09-28-->
 
 
 <Tab text="Solution" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.SolutionController">
@@ -28,10 +28,14 @@
                <TableColumn fx:id="flowtime" styleClass="right-aligned" text="Flowtime" />
                <TableColumn fx:id="totalLateness" styleClass="right-aligned" text="TotalLateness" />
                <TableColumn fx:id="maxLateness" styleClass="right-aligned" text="MaxLateness" />
+               <TableColumn fx:id="nrLate" styleClass="right-aligned" text="NrLate" />
                <TableColumn fx:id="weightedLateness" styleClass="right-aligned" text="WeightedLateness" />
                <TableColumn fx:id="totalEarliness" styleClass="right-aligned" text="TotalEarliness" />
                <TableColumn fx:id="maxEarliness" styleClass="right-aligned" text="MaxEarliness" />
+               <TableColumn fx:id="nrEarly" styleClass="right-aligned" text="NrEarly" />
                <TableColumn fx:id="weightedEarliness" styleClass="right-aligned" text="WeightedEarliness" />
+               <TableColumn fx:id="percentEarly" styleClass="right-aligned" text="PercentEarly" />
+               <TableColumn fx:id="percentLate" styleClass="right-aligned" text="PercentLate" />
                <TableColumn fx:id="modelType" styleClass="right-aligned,disabled-column" text="ModelType" />
                <TableColumn fx:id="solverBackend" styleClass="right-aligned,disabled-column" text="SolverBackend" />
                <TableColumn fx:id="objectiveType" styleClass="right-aligned,disabled-column" text="ObjectiveType" />

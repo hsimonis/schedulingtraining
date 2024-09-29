@@ -7,6 +7,7 @@ import org.insightcentre.tbischeduling.importer.Reset;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
 import static org.insightcentre.tbischeduling.datamodel.ObjectiveType.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverBackend.*;
+import static org.insightcentre.tbischeduling.datamodel.SolverStatus.ToRun;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
@@ -33,6 +34,8 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
                 return new MiniZincDiffnModel(base,run).solve();
             case MiniZincTask:
                 return new MiniZincTaskModel(base,run).solve();
+            case REST:
+                return new RESTSolver(base,run).solve();
             default:
                 severe("Unknown model type "+getModelType());
                 assert(false);
@@ -91,6 +94,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         res.setNrThreads(nrThreads);
         res.setSeed(seed);
         res.setRemoveSolution(removeSolution);
+        res.setSolverStatus(ToRun);
         return res;
     }
 }

@@ -747,6 +747,7 @@ public ResourceModel getResourceModel(String attributeName,
                         getDouble("earlinessWeight",attributes,0.0),
                         getDouble("latenessWeight",attributes,0.0),
                         null,
+                        null,
                         getInteger("qty",attributes,0),
                         getInteger("release",attributes,0),
                         getDateTime("releaseDate",attributes,"2011-01-01")
@@ -823,7 +824,11 @@ public ResourceModel getResourceModel(String attributeName,
                         getInteger("makespan",attributes,0),
                         getInteger("maxEarliness",attributes,0),
                         getInteger("maxLateness",attributes,0),
+                        getInteger("nrEarly",attributes,0),
+                        getInteger("nrLate",attributes,0),
                         getInteger("objectiveValue",attributes,0),
+                        getDouble("percentEarly",attributes,0.0),
+                        getDouble("percentLate",attributes,0.0),
                         null,
                         null,
                         getInteger("totalEarliness",attributes,0),
@@ -975,6 +980,7 @@ public ResourceModel getResourceModel(String attributeName,
                 assert (base != null);
                 int id = getId("id", attributes);
                 Order item = (Order) find(id);
+                 item.setProcess(getProcess("process",attributes));
                  item.setProduct(getProduct("product",attributes));
             } else if (qname.equals("problem")) {
                 assert (base != null);
@@ -1000,7 +1006,7 @@ public ResourceModel getResourceModel(String attributeName,
                 assert (base != null);
                 int id = getId("id", attributes);
                 Product item = (Product) find(id);
-                 item.setProcess(getProcess("process",attributes));
+                 item.setDefaultProcess(getProcess("defaultProcess",attributes));
             } else if (qname.equals("resourceNeed")) {
                 assert (base != null);
                 int id = getId("id", attributes);

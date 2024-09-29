@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 16:31:01 on 2024-09-27 */
+ * Generated at 10:29:29 on 2024-09-28 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -76,7 +76,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
 		filterNames.add("name");
-		filterNames.add("process");
+		filterNames.add("defaultProcess");
 		filterNames.add("name");
 		filterNames.add("name");
 		filterNames.add("process");
@@ -129,6 +129,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("name");
 		filterNames.add("name");
 		filterNames.add("product");
+		filterNames.add("process");
 		attributeNames.add("qty");
 		filterNames.add("qty");
 		attributeNames.add("due");
@@ -141,7 +142,6 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("latenessWeight");
 		attributeNames.add("earlinessWeight");
 		filterNames.add("earlinessWeight");
-		filterNames.add("product.process");
 		choicesMap.put("Order", attributeNames);
 		filterMap.put("Order", filterNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -246,14 +246,22 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("totalLateness");
 		attributeNames.add("maxLateness");
 		filterNames.add("maxLateness");
+		attributeNames.add("nrLate");
+		filterNames.add("nrLate");
 		attributeNames.add("weightedLateness");
 		filterNames.add("weightedLateness");
 		attributeNames.add("totalEarliness");
 		filterNames.add("totalEarliness");
 		attributeNames.add("maxEarliness");
 		filterNames.add("maxEarliness");
+		attributeNames.add("nrEarly");
+		filterNames.add("nrEarly");
 		attributeNames.add("weightedEarliness");
 		filterNames.add("weightedEarliness");
+		attributeNames.add("percentEarly");
+		filterNames.add("percentEarly");
+		attributeNames.add("percentLate");
+		filterNames.add("percentLate");
 		filterNames.add("solverRun.modelType");
 		filterNames.add("solverRun.solverBackend");
 		filterNames.add("solverRun.objectiveType");

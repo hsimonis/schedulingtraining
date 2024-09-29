@@ -20,7 +20,7 @@ import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.Product;
 
 /**
- * Generated at 16:31:01 on 2024-09-27 */
+ * Generated at 10:29:29 on 2024-09-28 */
 public class ProductController extends Table3Controller {
 	@FXML
 	private TableView<Product> table;
@@ -29,7 +29,7 @@ public class ProductController extends Table3Controller {
 	private TableColumn<Product, String> name;
 
 	@FXML
-	private TableColumn<Product, Process> process;
+	private TableColumn<Product, Process> defaultProcess;
 
 	private GeneratedJfxApp mainApp;
 
@@ -37,8 +37,8 @@ public class ProductController extends Table3Controller {
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
 		table.setItems(mainApp.getProductData());
-		process.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getProcessData()));
-		process.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setProcess(event.getNewValue()); mainApp.reset();});
+		defaultProcess.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getProcessData()));
+		defaultProcess.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDefaultProcess(event.getNewValue()); mainApp.reset();});
 	}
 
 	public TableView<Product> getTable() {
@@ -54,8 +54,8 @@ public class ProductController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
-		choices.add("process");
-		process.setCellValueFactory(new PropertyValueFactory<>("process"));
+		choices.add("defaultProcess");
+		defaultProcess.setCellValueFactory(new PropertyValueFactory<>("defaultProcess"));
 		initialize(choices);
 	}
 

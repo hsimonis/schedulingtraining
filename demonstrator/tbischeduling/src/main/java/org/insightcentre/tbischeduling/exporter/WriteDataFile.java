@@ -101,7 +101,7 @@ public class WriteDataFile {
         for(Product p:base.getListProduct()){
             JSONObject obj = new JSONObject();
             obj.put("name",p.getName());
-            obj.put("process",p.getProcess().getName());
+            obj.put("defaultProcess",p.getDefaultProcess().getName());
             res.put(obj);
         }
         return res;
@@ -207,6 +207,7 @@ public class WriteDataFile {
             JSONObject obj = new JSONObject();
             obj.put("name",p.getName());
             obj.put("product",p.getProduct().getName());
+            obj.put("process",p.getProcess().getName());
             obj.put("qty",p.getQty());
             obj.put("due",p.getDue());
             obj.put("dueDate",p.getDueDate().toString());
@@ -312,10 +313,14 @@ public class WriteDataFile {
             obj.put("flowtime",sol.getFlowtime());
             obj.put("totalEarliness",sol.getTotalEarliness());
             obj.put("maxEarliness",sol.getMaxEarliness());
+            obj.put("nrEarly",sol.getNrEarly());
             obj.put("weightedEarliness",sol.getWeightedEarliness());
             obj.put("totalLateness",sol.getTotalLateness());
             obj.put("maxLateness",sol.getMaxLateness());
+            obj.put("nrLate",sol.getNrLate());
             obj.put("weightedLateness",sol.getWeightedLateness());
+            obj.put("percentEarly",sol.getPercentEarly());
+            obj.put("percentLate",sol.getPercentLate());
             res.put(obj);
         }
         return res;

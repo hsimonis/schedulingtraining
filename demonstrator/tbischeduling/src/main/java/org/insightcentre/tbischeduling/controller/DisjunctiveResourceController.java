@@ -18,7 +18,7 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 
 /**
- * Generated at 16:31:01 on 2024-09-27 */
+ * Generated at 10:29:29 on 2024-09-28 */
 public class DisjunctiveResourceController extends Table3Controller {
 	@FXML
 	private TableView<DisjunctiveResource> table;

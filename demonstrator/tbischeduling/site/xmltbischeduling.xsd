@@ -144,6 +144,7 @@
 			<xs:attribute name="dueDate" use="required" type="xs:dateTime"/>
 			<xs:attribute name="earlinessWeight" use="required" type="xs:double"/>
 			<xs:attribute name="latenessWeight" use="required" type="xs:double"/>
+			<xs:attribute name="process" use="required" type="xs:IDREF"/>
 			<xs:attribute name="product" use="required" type="xs:IDREF"/>
 			<xs:attribute name="qty" use="required" type="xs:integer"/>
 			<xs:attribute name="release" use="required" type="xs:integer"/>
@@ -198,7 +199,7 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
-			<xs:attribute name="process" use="required" type="xs:IDREF"/>
+			<xs:attribute name="defaultProcess" use="required" type="xs:IDREF"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="resourceNeed">
@@ -233,7 +234,11 @@
 			<xs:attribute name="makespan" use="required" type="xs:integer"/>
 			<xs:attribute name="maxEarliness" use="required" type="xs:integer"/>
 			<xs:attribute name="maxLateness" use="required" type="xs:integer"/>
+			<xs:attribute name="nrEarly" use="required" type="xs:integer"/>
+			<xs:attribute name="nrLate" use="required" type="xs:integer"/>
 			<xs:attribute name="objectiveValue" use="required" type="xs:integer"/>
+			<xs:attribute name="percentEarly" use="required" type="xs:double"/>
+			<xs:attribute name="percentLate" use="required" type="xs:double"/>
 			<xs:attribute name="solverRun" use="required" type="xs:IDREF"/>
 			<xs:attribute name="solverStatus" use="required" type="xs:string"/>
 			<xs:attribute name="totalEarliness" use="required" type="xs:integer"/>

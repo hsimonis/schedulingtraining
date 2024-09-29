@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
+import static org.insightcentre.tbischeduling.datamodel.ResourceModel.FlowShop;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
 public class JfxApp extends GeneratedJfxApp {
@@ -42,10 +43,11 @@ public class JfxApp extends GeneratedJfxApp {
                 Scenario base = new Scenario();
                 IrishCalendar.buildCalendar();
                 // define the format version of the datafiles
-                base.setDataFileVersionNumber(4.0);
+                base.setDataFileVersionNumber(5.0);
                 base.setDataFile("");
                 base.setHorizon(2000);
-                new CreateData(base,"P1",42,5,3,6,1,
+                info("Creating default data");
+                new CreateData(base,"P1",FlowShop,42,5,3,6,1,
                         0.3,1,5,10,
                         20,20,horizon(10,5),1,10);
                 base.setDirty(false);

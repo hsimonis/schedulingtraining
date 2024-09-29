@@ -79,7 +79,13 @@ HybridJobShop,
  *
 */
 
-Random;
+Random,
+    /**
+ *  
+ *
+*/
+
+All;
 private static ResourceModel[] cache = null;
 
 public static ResourceModel[] cachedValues(){

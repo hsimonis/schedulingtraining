@@ -97,7 +97,35 @@ public  class Solution extends ApplicationObject{
  *
 */
 
+    public Integer nrEarly;
+
+/**
+ *  
+ *
+*/
+
+    public Integer nrLate;
+
+/**
+ *  
+ *
+*/
+
     public Integer objectiveValue;
+
+/**
+ *  
+ *
+*/
+
+    public Double percentEarly;
+
+/**
+ *  
+ *
+*/
+
+    public Double percentLate;
 
 /**
  *  
@@ -166,7 +194,11 @@ public  class Solution extends ApplicationObject{
         setMakespan(0);
         setMaxEarliness(0);
         setMaxLateness(0);
+        setNrEarly(0);
+        setNrLate(0);
         setObjectiveValue(0);
+        setPercentEarly(0.0);
+        setPercentLate(0.0);
         setSolverRun(null);
         setSolverStatus(null);
         setTotalEarliness(0);
@@ -192,7 +224,11 @@ public  class Solution extends ApplicationObject{
             Integer makespan,
             Integer maxEarliness,
             Integer maxLateness,
+            Integer nrEarly,
+            Integer nrLate,
             Integer objectiveValue,
+            Double percentEarly,
+            Double percentLate,
             SolverRun solverRun,
             SolverStatus solverStatus,
             Integer totalEarliness,
@@ -208,7 +244,11 @@ public  class Solution extends ApplicationObject{
         setMakespan(makespan);
         setMaxEarliness(maxEarliness);
         setMaxLateness(maxLateness);
+        setNrEarly(nrEarly);
+        setNrLate(nrLate);
         setObjectiveValue(objectiveValue);
+        setPercentEarly(percentEarly);
+        setPercentLate(percentLate);
         setSolverRun(solverRun);
         setSolverStatus(solverStatus);
         setTotalEarliness(totalEarliness);
@@ -228,7 +268,11 @@ public  class Solution extends ApplicationObject{
             other.makespan,
             other.maxEarliness,
             other.maxLateness,
+            other.nrEarly,
+            other.nrLate,
             other.objectiveValue,
+            other.percentEarly,
+            other.percentLate,
             other.solverRun,
             other.solverStatus,
             other.totalEarliness,
@@ -310,6 +354,26 @@ public  class Solution extends ApplicationObject{
     }
 
 /**
+ *  get attribute nrEarly
+ *
+ * @return Integer
+*/
+
+    public Integer getNrEarly(){
+        return this.nrEarly;
+    }
+
+/**
+ *  get attribute nrLate
+ *
+ * @return Integer
+*/
+
+    public Integer getNrLate(){
+        return this.nrLate;
+    }
+
+/**
  *  get attribute objectiveValue
  *
  * @return Integer
@@ -317,6 +381,26 @@ public  class Solution extends ApplicationObject{
 
     public Integer getObjectiveValue(){
         return this.objectiveValue;
+    }
+
+/**
+ *  get attribute percentEarly
+ *
+ * @return Double
+*/
+
+    public Double getPercentEarly(){
+        return this.percentEarly;
+    }
+
+/**
+ *  get attribute percentLate
+ *
+ * @return Double
+*/
+
+    public Double getPercentLate(){
+        return this.percentLate;
     }
 
 /**
@@ -452,6 +536,30 @@ public  class Solution extends ApplicationObject{
     }
 
 /**
+ *  set attribute nrEarly, mark dataset as dirty, mark dataset as not valid
+@param nrEarly Integer
+ *
+*/
+
+    public void setNrEarly(Integer nrEarly){
+        this.nrEarly = nrEarly;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute nrLate, mark dataset as dirty, mark dataset as not valid
+@param nrLate Integer
+ *
+*/
+
+    public void setNrLate(Integer nrLate){
+        this.nrLate = nrLate;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute objectiveValue, mark dataset as dirty, mark dataset as not valid
 @param objectiveValue Integer
  *
@@ -459,6 +567,30 @@ public  class Solution extends ApplicationObject{
 
     public void setObjectiveValue(Integer objectiveValue){
         this.objectiveValue = objectiveValue;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute percentEarly, mark dataset as dirty, mark dataset as not valid
+@param percentEarly Double
+ *
+*/
+
+    public void setPercentEarly(Double percentEarly){
+        this.percentEarly = percentEarly;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute percentLate, mark dataset as dirty, mark dataset as not valid
+@param percentLate Double
+ *
+*/
+
+    public void setPercentLate(Double percentLate){
+        this.percentLate = percentLate;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -580,6 +712,28 @@ public  class Solution extends ApplicationObject{
     }
 
 /**
+ *  inc attribute nrEarly, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNrEarly(){
+        this.nrEarly++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute nrLate, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNrLate(){
+        this.nrLate++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute objectiveValue, mark dataset as dirty, mark dataset as not valid
  *
 */
@@ -629,7 +783,7 @@ public  class Solution extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getFlowtime()+ " " +getGap()+ " " +getMakespan()+ " " +getMaxEarliness()+ " " +getMaxLateness()+ " " +getObjectiveValue()+ " " +getSolverRun().toColumnString()+ " " +getSolverStatus()+ " " +getTotalEarliness()+ " " +getTotalLateness()+ " " +getWeightedEarliness()+ " " +getWeightedLateness();
+        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getFlowtime()+ " " +getGap()+ " " +getMakespan()+ " " +getMaxEarliness()+ " " +getMaxLateness()+ " " +getNrEarly()+ " " +getNrLate()+ " " +getObjectiveValue()+ " " +getPercentEarly()+ " " +getPercentLate()+ " " +getSolverRun().toColumnString()+ " " +getSolverStatus()+ " " +getTotalEarliness()+ " " +getTotalLateness()+ " " +getWeightedEarliness()+ " " +getWeightedLateness();
     }
 
 /**
@@ -659,7 +813,11 @@ public  class Solution extends ApplicationObject{
             " makespan=\""+toXMLMakespan()+"\""+
             " maxEarliness=\""+toXMLMaxEarliness()+"\""+
             " maxLateness=\""+toXMLMaxLateness()+"\""+
+            " nrEarly=\""+toXMLNrEarly()+"\""+
+            " nrLate=\""+toXMLNrLate()+"\""+
             " objectiveValue=\""+toXMLObjectiveValue()+"\""+
+            " percentEarly=\""+toXMLPercentEarly()+"\""+
+            " percentLate=\""+toXMLPercentLate()+"\""+
             " solverRun=\""+toXMLSolverRun()+"\""+
             " solverStatus=\""+toXMLSolverStatus()+"\""+
             " totalEarliness=\""+toXMLTotalEarliness()+"\""+
@@ -734,8 +892,48 @@ public  class Solution extends ApplicationObject{
  * @return String
 */
 
+    String toXMLNrEarly(){
+        return this.getNrEarly().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNrLate(){
+        return this.getNrLate().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLObjectiveValue(){
         return this.getObjectiveValue().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLPercentEarly(){
+        return this.getPercentEarly().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLPercentLate(){
+        return this.getPercentLate().toString();
     }
 
 /**
@@ -805,11 +1003,11 @@ public  class Solution extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Solution</th>"+"<th>Name</th>"+"<th>SolverRun</th>"+"<th>ObjectiveValue</th>"+"<th>SolverStatus</th>"+"<th>Bound</th>"+"<th>Gap</th>"+"<th>Makespan</th>"+"<th>Flowtime</th>"+"<th>TotalLateness</th>"+"<th>MaxLateness</th>"+"<th>WeightedLateness</th>"+"<th>TotalEarliness</th>"+"<th>MaxEarliness</th>"+"<th>WeightedEarliness</th>"+"</tr>";
+        return "<tr><th>Solution</th>"+"<th>Name</th>"+"<th>SolverRun</th>"+"<th>ObjectiveValue</th>"+"<th>SolverStatus</th>"+"<th>Bound</th>"+"<th>Gap</th>"+"<th>Makespan</th>"+"<th>Flowtime</th>"+"<th>TotalLateness</th>"+"<th>MaxLateness</th>"+"<th>NrLate</th>"+"<th>WeightedLateness</th>"+"<th>TotalEarliness</th>"+"<th>MaxEarliness</th>"+"<th>NrEarly</th>"+"<th>WeightedEarliness</th>"+"<th>PercentEarly</th>"+"<th>PercentLate</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolverRun().toColumnString()+"</td>"+ " " +"<td>"+getObjectiveValue()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGap()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getFlowtime()+"</td>"+ " " +"<td>"+getTotalLateness()+"</td>"+ " " +"<td>"+getMaxLateness()+"</td>"+ " " +"<td>"+getWeightedLateness()+"</td>"+ " " +"<td>"+getTotalEarliness()+"</td>"+ " " +"<td>"+getMaxEarliness()+"</td>"+ " " +"<td>"+getWeightedEarliness()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolverRun().toColumnString()+"</td>"+ " " +"<td>"+getObjectiveValue()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGap()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getFlowtime()+"</td>"+ " " +"<td>"+getTotalLateness()+"</td>"+ " " +"<td>"+getMaxLateness()+"</td>"+ " " +"<td>"+getNrLate()+"</td>"+ " " +"<td>"+getWeightedLateness()+"</td>"+ " " +"<td>"+getTotalEarliness()+"</td>"+ " " +"<td>"+getMaxEarliness()+"</td>"+ " " +"<td>"+getNrEarly()+"</td>"+ " " +"<td>"+getWeightedEarliness()+"</td>"+ " " +"<td>"+getPercentEarly()+"</td>"+ " " +"<td>"+getPercentLate()+"</td>"+"</tr>";
     }
 
 /**
@@ -947,8 +1145,20 @@ public  class Solution extends ApplicationObject{
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
+      if(!this.getNrEarly().equals(b.getNrEarly())){
+         System.out.println("NrEarly");
+        }
+      if(!this.getNrLate().equals(b.getNrLate())){
+         System.out.println("NrLate");
+        }
       if(!this.getObjectiveValue().equals(b.getObjectiveValue())){
          System.out.println("ObjectiveValue");
+        }
+      if(!this.getPercentEarly().equals(b.getPercentEarly())){
+         System.out.println("PercentEarly");
+        }
+      if(!this.getPercentLate().equals(b.getPercentLate())){
+         System.out.println("PercentLate");
         }
       if(!this.getSolverRun().applicationSame(b.getSolverRun())){
          System.out.println("SolverRun");
@@ -975,7 +1185,11 @@ public  class Solution extends ApplicationObject{
           this.getMaxEarliness().equals(b.getMaxEarliness()) &&
           this.getMaxLateness().equals(b.getMaxLateness()) &&
           this.getName().equals(b.getName()) &&
+          this.getNrEarly().equals(b.getNrEarly()) &&
+          this.getNrLate().equals(b.getNrLate()) &&
           this.getObjectiveValue().equals(b.getObjectiveValue()) &&
+          this.getPercentEarly().equals(b.getPercentEarly()) &&
+          this.getPercentLate().equals(b.getPercentLate()) &&
           this.getSolverRun().applicationSame(b.getSolverRun()) &&
           this.getSolverStatus().equals(b.getSolverStatus()) &&
           this.getTotalEarliness().equals(b.getTotalEarliness()) &&

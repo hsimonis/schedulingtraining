@@ -67,7 +67,13 @@ MiniZincDiffn,
  *
 */
 
-MiniZincTask;
+MiniZincTask,
+    /**
+ *  
+ *
+*/
+
+REST;
 private static ModelType[] cache = null;
 
 public static ModelType[] cachedValues(){

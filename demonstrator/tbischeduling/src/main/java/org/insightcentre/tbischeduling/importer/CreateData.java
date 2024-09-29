@@ -5,24 +5,27 @@ import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.datamodel.Process;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 import static org.insightcentre.tbischeduling.importer.Reset.resetAll;
+import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
+import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
 public class CreateData {
     Random random;
     Scenario base;
 
-    public CreateData(Scenario base,String name,int seed,int nrProducts,int nrStages,int nrDisjunctiveResources,int nrCumulativeResources,
+    public CreateData(Scenario base,String name,ResourceModel resourceModel,int seed,int nrProducts,int nrStages,int nrDisjunctiveResources,int nrCumulativeResources,
                       double resourceProbability,int minCumulDemand,int maxCumulDemand,int cumulCapacity,
                       int nrOrders,int earliestDue,int horizon,int minQty,int maxQty) {
         this.base = base;
         random = new Random(seed);
         resetAll(base);
         base.setHorizon(horizon);
-        createBaseData(name,nrProducts,nrStages,nrDisjunctiveResources,nrCumulativeResources,
+        createBaseData(name,resourceModel,nrProducts,nrStages,nrDisjunctiveResources,nrCumulativeResources,
                 resourceProbability,minCumulDemand,maxCumulDemand,cumulCapacity);
         createSchedule(nrOrders,earliestDue,horizon,minQty,maxQty);
 
@@ -30,16 +33,18 @@ public class CreateData {
         summarizeProblem(base);
     }
 
-    private void createBaseData( String name,int nrProducts, int nrStages, int nrDisjunctiveResources, int nrCumulativeResources,
+    private void createBaseData( String name,ResourceModel resourceModel,int nrProducts, int nrStages, int nrDisjunctiveResources, int nrCumulativeResources,
                                  double resourceProbability,int minCumulDemand,int maxCumulDemand,int cumulCapacity){
 
     Problem problem = new Problem(base);
         problem.setName(name);
         problem.setTimePointsAsDate(true);
+        DisjunctiveResource[] resources = new DisjunctiveResource[nrDisjunctiveResources];
         for(int i=0;i<nrDisjunctiveResources;i++){
             DisjunctiveResource r = new DisjunctiveResource(base);
             r.setName("DR"+i);
             r.setShortName("DR"+i);
+            resources[i] = r;
         }
         for(int i=0;i<nrCumulativeResources;i++){
             CumulativeResource r = new CumulativeResource(base);
@@ -55,8 +60,10 @@ public class CreateData {
             p.setName("Prod"+i);
             Process pp = new Process(base);
             pp.setName("Process "+i);
-            p.setProcess(pp);
+            p.setDefaultProcess(pp);
             ProcessStep before = null;
+            int[] permutation = permuteArray(nrStages);
+//            info("permutation "+ Arrays.toString(permutation));
             for(int j=0;j<nrStages;j++){
                 ProcessStep ps = new ProcessStep(base);
                 ps.setProcess(pp);
@@ -72,11 +79,66 @@ public class CreateData {
                     seq.setOffset(0);
                 }
                 before = ps;
-                for(DisjunctiveResource r:resources(ps,resourceProbability)){
-                    ResourceNeed rn = new ResourceNeed(base);
-                    rn.setName("RN"+i+"/"+j+"/"+r.getName());
-                    rn.setProcessStep(ps);
-                    rn.setDisjunctiveResource(r);
+                switch(resourceModel) {
+                    case HybridFlowShop: {
+                        int nrMachinesPerStage = nrDisjunctiveResources / nrStages;
+                        assert (nrDisjunctiveResources == nrStages * nrMachinesPerStage);
+                        for (int k = 0; k < nrMachinesPerStage; k++) {
+                            ResourceNeed rnf = new ResourceNeed(base);
+                            rnf.setName("RN" + i + "/" + j + "/" + k);
+                            rnf.setProcessStep(ps);
+                            rnf.setDisjunctiveResource(resources[j * nrMachinesPerStage + k]);
+                        }
+                        break;
+                    }
+                    case HybridJobShop: {
+                        int nrMachinesPerStage = nrDisjunctiveResources / nrStages;
+                        assert (nrDisjunctiveResources == nrStages * nrMachinesPerStage);
+                        for (int k = 0; k < nrMachinesPerStage; k++) {
+                            ResourceNeed rnf = new ResourceNeed(base);
+                            int l = permutation[j];
+                            rnf.setName("RN" + i + "/" + l + "/" + k);
+                            rnf.setProcessStep(ps);
+                            rnf.setDisjunctiveResource(resources[l * nrMachinesPerStage + k]);
+                        }
+                        break;
+                    }
+                    case FlowShop: {
+                        assert (nrDisjunctiveResources >= nrStages);
+                        ResourceNeed rnf = new ResourceNeed(base);
+                        rnf.setName("RN" + i + "/" + j);
+                        rnf.setProcessStep(ps);
+                        rnf.setDisjunctiveResource(resources[j]);
+                        break;
+                    }
+                    case JobShop: {
+                        assert (nrDisjunctiveResources >= nrStages);
+                        ResourceNeed rnf = new ResourceNeed(base);
+                        int k = permutation[j];
+                        rnf.setName("RN" + i + "/" + k);
+                        rnf.setProcessStep(ps);
+                        rnf.setDisjunctiveResource(resources[k]);
+                        break;
+                    }
+                    case Random:
+                        for (DisjunctiveResource r : resources(ps, resourceProbability)) {
+                            ResourceNeed rn = new ResourceNeed(base);
+                            rn.setName("RN" + i + "/" + j + "/" + r.getName());
+                            rn.setProcessStep(ps);
+                            rn.setDisjunctiveResource(r);
+                        }
+                        break;
+                    case All:
+                        for (DisjunctiveResource r : resources) {
+                            ResourceNeed rn = new ResourceNeed(base);
+                            rn.setName("RN" + i + "/" + j + "/" + r.getName());
+                            rn.setProcessStep(ps);
+                            rn.setDisjunctiveResource(r);
+                        }
+                        break;
+                    default:
+                        severe("Unhandled resource model "+resourceModel.toString());
+                        assert(false);
                 }
                 for(CumulativeResource cr:base.getListCumulativeResource()){
                     int demand = minCumulDemand+(maxCumulDemand-minCumulDemand > 0 ?random.nextInt(maxCumulDemand-minCumulDemand):0);
@@ -113,13 +175,14 @@ public class CreateData {
             Order ord = new Order(base);
             ord.setName("Order"+i);
             ord.setProduct(pickProduct());
+            ord.setProcess(ord.getProduct().getDefaultProcess());
             ord.setQty(pickQty(minQty,maxQty));
             ord.setDue(due(earliestDue,horizon));
 //            ord.setDueDate(toDateTime(ord.getDue()));
             Job j = new Job(base);
             j.setName("J"+i);
             j.setOrder(ord);
-            j.setProcess(ord.getProduct().getProcess());
+            j.setProcess(ord.getProcess());
             for(ProcessStep ps:processSteps(j.getProcess())){
                 Task t = new Task(base);
                 t.setName("T"+i+ps.getName());
@@ -194,6 +257,20 @@ public class CreateData {
                 filter(x->x.getJob()==t.getJob()).
                 filter(x->seqList.contains(x.getProcessStep())).
                 toList();
+    }
+
+    public int[] permuteArray(int size){
+        int[] array = new int[size];
+        for(int i=0;i<size;i++){
+            array[i] = i;
+        }
+        for(int i=0;i<size;i++) {
+            int j = i + random.nextInt(size-i);
+            int temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
     }
 
 }

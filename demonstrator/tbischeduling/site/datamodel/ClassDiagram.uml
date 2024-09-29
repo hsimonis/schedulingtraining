@@ -59,7 +59,7 @@ ApplicationDatasetInterface <|-- ApplicationDataset
 ApplicationObjectInterface <|-- ApplicationDatasetInterface
 ApplicationDataset <|-- Scenario
 ApplicationDataset  *-- ApplicationObject 
-Process  *-- Product 
+Process  *-- Product : defaultProcess
 Process  *-- ProcessStep 
 ProcessStep  *-- ProcessSequence : before
 ProcessStep  *-- ProcessSequence : after
@@ -69,6 +69,7 @@ CumulativeResource  *-- CumulativeNeed
 ProcessStep  *-- CumulativeNeed 
 CumulativeResource  *-- CumulativeProfile 
 Product  *-- Order 
+Process  *-- Order 
 Order  *-- Job 
 Process  *-- Job 
 Job  *-- Task 
