@@ -11,18 +11,28 @@ import java.io.PrintWriter;
 
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
-public class WriteDataFile {
+public class WriteData {
     Scenario base;
-    public WriteDataFile(Scenario base, File selected){
+    JSONObject root;
+    public WriteData(Scenario base){
         this.base = base;
-        try{
+        root = createJSON();
+     }
+
+    public JSONObject toJSON(){
+        return root;
+    }
+    public String toString(int indent){
+        return root.toString(indent);
+    }
+    public void toFile(File selected,int indent) {
+        try {
             PrintWriter out = new PrintWriter(selected);
-            JSONObject root = createJSON();
-            out.println(root.toString(2));
+            out.println(toString(indent));
             out.close();
             base.setDirty(false);
-        } catch(IOException e){
-            severe("Cannot write file "+selected.toString()+", exception "+e.getMessage());
+        } catch (IOException e) {
+            severe("Cannot write file " + selected.toString() + ", exception " + e.getMessage());
         }
     }
 

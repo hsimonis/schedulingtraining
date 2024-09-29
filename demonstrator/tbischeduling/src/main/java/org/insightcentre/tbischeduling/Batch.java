@@ -1,18 +1,5 @@
 package org.insightcentre.tbischeduling;
 
-import framework.types.IrishCalendar;
-import org.insightcentre.tbischeduling.datamodel.Problem;
-import org.insightcentre.tbischeduling.datamodel.Scenario;
-import org.insightcentre.tbischeduling.datamodel.SolverRun;
-import org.insightcentre.tbischeduling.exporter.WriteDataFile;
-import org.insightcentre.tbischeduling.implementedsolver.CPOModel;
-import org.insightcentre.tbischeduling.importer.ReadDataFile;
-
-import java.io.File;
-
-import static org.insightcentre.tbischeduling.datamodel.SolverStatus.ToRun;
-import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
-
 public class Batch {
 
 

@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Hashtable;
 
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
@@ -20,55 +19,72 @@ import static org.insightcentre.tbischeduling.importer.CreateData.summarizeProbl
 import static org.insightcentre.tbischeduling.importer.Reset.resetAll;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
-public class ReadDataFile {
+public class ReadData {
+    JSONObject root;
     Scenario base;
-    public ReadDataFile(Scenario base, File selected){
+    public ReadData(Scenario base, File selected) {
         this.base = base;
-        try{
+        try {
             resetAll(base);
             String contents = new String(Files.readAllBytes(selected.toPath()));
-            JSONObject root = new JSONObject(contents);
-
-            if (!root.has("version")){
-                inputError("root","root","version","n/a","File does not have version field",Fatal);
-            }
-            double version = root.getDouble("version");
-            // compare to version number defined in minimalData()
-            if (version < base.getDataFileVersionNumber()){
-                inputError("root","root","version",String.format("%f",version),"File version outdated",Fatal);
-            }
-
-            // read the different fields of data, create a hashtable from name to Object
-            Hashtable<String, InputError> inputErrorHash = readInputErrors(root);
-            Hashtable<String, Problem> problemHash = readProblems(root);
-            Hashtable<String, DisjunctiveResource> disjunctiveResourceHash = readDisjunctiveResources(root);
-            Hashtable<String, CumulativeResource> cumulativeResourceHash = readCumulativeResources(root);
-            Hashtable<String, Process> processHash = readProcesses(root);
-            Hashtable<String, Product> productHash = readProducts(root,processHash);
-            Hashtable<String, ProcessStep> processStepHash = readProcessSteps(root,processHash);
-            Hashtable<String, ProcessSequence> processSequenceHash = readProcessSequences(root,processStepHash);
-            Hashtable<String, ResourceNeed> resourceNeedHash = readResourceNeeds(root,processStepHash,disjunctiveResourceHash);
-            Hashtable<String, CumulativeNeed> cumulativeNeedHash = readCumulativeNeeds(root,processStepHash,cumulativeResourceHash);
-            Hashtable<String, CumulativeProfile> cumulativeProfileHash = readCumulativeProfiles(root,cumulativeResourceHash);
-
-            Hashtable<String, Order> orderHash = readOrders(root,productHash,processHash);
-            Hashtable<String, Job> jobHash = readJobs(root,orderHash,processHash);
-            Hashtable<String, Task> taskHash = readTasks(root,jobHash,processStepHash);
-            Hashtable<String, WiP> wipHash = readWiPs(root,disjunctiveResourceHash);
-            Hashtable<String, Downtime> downtimeHash = readDowntimes(root,disjunctiveResourceHash);
-
-            Hashtable<String, SolverRun> solverRunHash = readSolverRuns(root);
-            Hashtable<String, Solution> solutionHash = readSolutions(root,solverRunHash);
-            Hashtable<String, JobAssignment> jobAssignmentHash = readJobAssignments(root,jobHash,solutionHash);
-            Hashtable<String, TaskAssignment> taskAssignmentHash = readTaskAssignments(root,jobAssignmentHash,
-                    taskHash,disjunctiveResourceHash);
-
-            summarizeProblem(base);
-
-
+            root = new JSONObject(contents);
         } catch(IOException e){
             severe("Cannot read file "+selected+", exception "+e.getMessage());
         }
+        read(root);
+    }
+    public ReadData(Scenario base, String text) {
+        this.base = base;
+        this.root = new JSONObject(text);
+        read(root);
+    }
+    public ReadData(Scenario base, JSONObject root) {
+        this.base = base;
+        this.root = root;
+        read(root);
+    }
+
+
+    private void read(JSONObject root){
+        resetAll(base);
+
+        if (!root.has("version")){
+            inputError("root","root","version","n/a","File does not have version field",Fatal);
+        }
+        double version = root.getDouble("version");
+        // compare to version number defined in minimalData()
+        if (version < base.getDataFileVersionNumber()){
+            inputError("root","root","version",String.format("%f",version),"File version outdated",Fatal);
+        }
+
+        // read the different fields of data, create a hashtable from name to Object
+        Hashtable<String, InputError> inputErrorHash = readInputErrors(root);
+        Hashtable<String, Problem> problemHash = readProblems(root);
+        Hashtable<String, DisjunctiveResource> disjunctiveResourceHash = readDisjunctiveResources(root);
+        Hashtable<String, CumulativeResource> cumulativeResourceHash = readCumulativeResources(root);
+        Hashtable<String, Process> processHash = readProcesses(root);
+        Hashtable<String, Product> productHash = readProducts(root,processHash);
+        Hashtable<String, ProcessStep> processStepHash = readProcessSteps(root,processHash);
+        Hashtable<String, ProcessSequence> processSequenceHash = readProcessSequences(root,processStepHash);
+        Hashtable<String, ResourceNeed> resourceNeedHash = readResourceNeeds(root,processStepHash,disjunctiveResourceHash);
+        Hashtable<String, CumulativeNeed> cumulativeNeedHash = readCumulativeNeeds(root,processStepHash,cumulativeResourceHash);
+        Hashtable<String, CumulativeProfile> cumulativeProfileHash = readCumulativeProfiles(root,cumulativeResourceHash);
+
+        Hashtable<String, Order> orderHash = readOrders(root,productHash,processHash);
+        Hashtable<String, Job> jobHash = readJobs(root,orderHash,processHash);
+        Hashtable<String, Task> taskHash = readTasks(root,jobHash,processStepHash);
+        Hashtable<String, WiP> wipHash = readWiPs(root,disjunctiveResourceHash);
+        Hashtable<String, Downtime> downtimeHash = readDowntimes(root,disjunctiveResourceHash);
+
+        Hashtable<String, SolverRun> solverRunHash = readSolverRuns(root);
+        Hashtable<String, Solution> solutionHash = readSolutions(root,solverRunHash);
+        Hashtable<String, JobAssignment> jobAssignmentHash = readJobAssignments(root,jobHash,solutionHash);
+        Hashtable<String, TaskAssignment> taskAssignmentHash = readTaskAssignments(root,jobAssignmentHash,
+                taskHash,disjunctiveResourceHash);
+
+        summarizeProblem(base);
+
+
     }
 
     private Hashtable<String,InputError> readInputErrors(JSONObject root){

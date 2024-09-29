@@ -4,21 +4,18 @@ package org.insightcentre.tbischeduling;
 Generated once, should be extended by user
 */
 
-import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import org.insightcentre.tbischeduling.datamodel.*;
 import framework.ApplicationDatasetInterface;
 import framework.ApplicationObjectInterface;
 import framework.types.IrishCalendar;
-import org.insightcentre.tbischeduling.exporter.WriteDataFile;
+import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.generatedsolver.GenerateDataDialogBox;
-import org.insightcentre.tbischeduling.generatedsolver.GenerateDataSolver;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
-import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 import org.insightcentre.tbischeduling.implementedsolver.GenerateDataSolverImpl;
 import org.insightcentre.tbischeduling.implementedsolver.ScheduleJobsSolverImpl;
 import org.insightcentre.tbischeduling.importer.CreateData;
-import org.insightcentre.tbischeduling.importer.ReadDataFile;
+import org.insightcentre.tbischeduling.importer.ReadData;
 import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
 import java.io.File;
@@ -77,7 +74,7 @@ public class JfxApp extends GeneratedJfxApp {
                         try {
                                 info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
                                 base.setDataFile(selected.getName());
-                                new ReadDataFile(base,selected);
+                                new ReadData(base,selected);
                         } catch(IOException e){
                                 severe("IOException "+e.getMessage());
                         }
@@ -105,7 +102,7 @@ public class JfxApp extends GeneratedJfxApp {
                 if (selected != null){
                         try {
                                 info("Saving File: " + selected.getCanonicalPath());
-                                new WriteDataFile(base,selected);
+                                new WriteData(base).toFile(selected,2);
                         } catch(IOException e){
                                 severe("IOException "+e.getMessage());
                         }
