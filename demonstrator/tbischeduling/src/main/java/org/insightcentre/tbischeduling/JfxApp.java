@@ -11,7 +11,8 @@ import framework.ApplicationObjectInterface;
 import framework.types.IrishCalendar;
 import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.generatedsolver.GenerateDataDialogBox;
-import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
+import org.insightcentre.tbischeduling.generatedsolver.GenerateDataDialogBoxImpl;
+import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBoxImpl;
 import org.insightcentre.tbischeduling.implementedsolver.GenerateDataSolverImpl;
 import org.insightcentre.tbischeduling.implementedsolver.ScheduleJobsSolverImpl;
 import org.insightcentre.tbischeduling.importer.CreateData;
@@ -123,13 +124,13 @@ public class JfxApp extends GeneratedJfxApp {
 
         @Override
         public void generateDataSolverRun(Scenario base) {
-                Optional<Boolean> result = new GenerateDataDialogBox(this,base,new GenerateDataSolverImpl(base)).showAndWait();
+                Optional<Boolean> result = new GenerateDataDialogBoxImpl(this,base,new GenerateDataSolverImpl(base)).showAndWait();
                 reset();
         }
 
         @Override
         public void scheduleJobsSolverRun(Scenario base) {
-                Optional<Boolean> result = new ScheduleJobsDialogBox(this,base,new ScheduleJobsSolverImpl(base)).showAndWait();
+                Optional<Boolean> result = new ScheduleJobsDialogBoxImpl(this,base,new ScheduleJobsSolverImpl(base)).showAndWait();
                 reset();
                 showView("Solution");
         }
