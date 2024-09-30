@@ -50,60 +50,66 @@ import framework.AppearInCollection;
  * @author generated
 */
 
-public enum Severity{
+public enum DurationModel{
     /**
  *  
  *
 */
 
-Fatal,
+Random,
     /**
  *  
  *
 */
 
-Critical,
+RandomByStage,
     /**
  *  
  *
 */
 
-Major,
+Uniform,
     /**
  *  
  *
 */
 
-Minor;
-private static Severity[] cache = null;
+UniformByStage,
+    /**
+ *  
+ *
+*/
 
-public static Severity[] cachedValues(){
+Unitary;
+private static DurationModel[] cache = null;
+
+public static DurationModel[] cachedValues(){
     if (cache== null){
-        cache = Severity.values();
+        cache = DurationModel.values();
     }
     return cache;
 }
 
 public static String[] getNamesAndAll(){
-    String[] res = new String[Severity.cachedValues().length+1];
+    String[] res = new String[DurationModel.cachedValues().length+1];
     int i=0;
     res[i++] = "All";
-    for(Severity p:Severity.cachedValues()){
+    for(DurationModel p:DurationModel.cachedValues()){
         res[i++] = p.name();
     }
     return res;
 }
 
 public static String[] getNames(){
-    String[] res = new String[Severity.cachedValues().length];
+    String[] res = new String[DurationModel.cachedValues().length];
     int i=0;
-    for(Severity p:Severity.cachedValues()){
+    for(DurationModel p:DurationModel.cachedValues()){
         res[i++] = p.name();
     }
     return res;
 }
 
-public static Severity entry(int i){
+public static DurationModel entry(int i){
     return cachedValues()[i];
 }
 
@@ -111,7 +117,7 @@ public static String nameOf(int i){
     return cachedValues()[i].name();
 }
 
-public static int indexOf(Severity p){
+public static int indexOf(DurationModel p){
     return p.ordinal();
 }
 

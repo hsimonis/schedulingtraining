@@ -34,6 +34,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverBackend;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.ResourceModel;
+import org.insightcentre.tbischeduling.datamodel.DurationModel;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;

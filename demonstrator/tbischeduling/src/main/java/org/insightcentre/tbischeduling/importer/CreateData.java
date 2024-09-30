@@ -18,23 +18,32 @@ public class CreateData {
     Random random;
     Scenario base;
 
-    public CreateData(Scenario base,String name,ResourceModel resourceModel,int seed,int nrProducts,int nrStages,int nrDisjunctiveResources,int nrCumulativeResources,
-                      double resourceProbability,int minCumulDemand,int maxCumulDemand,int cumulCapacity,
+    public CreateData(Scenario base,String name,ResourceModel resourceModel,int seed,int nrProducts,
+                      int minStages,int maxStages,
+                      int nrDisjunctiveResources,int nrCumulativeResources,
+                      double resourceProbability,
+                      DurationModel durationModel,int minDuration,int maxDuration,int durationFixedFactor,
+                      int minCumulDemand,int maxCumulDemand,int cumulCapacity,
                       int nrOrders,int earliestDue,int horizon,int minQty,int maxQty) {
         this.base = base;
         random = new Random(seed);
         resetAll(base);
         base.setHorizon(horizon);
-        createBaseData(name,resourceModel,nrProducts,nrStages,nrDisjunctiveResources,nrCumulativeResources,
-                resourceProbability,minCumulDemand,maxCumulDemand,cumulCapacity);
+        createBaseData(name,resourceModel,nrProducts,minStages,maxStages,nrDisjunctiveResources,nrCumulativeResources,
+                resourceProbability,
+                durationModel,minDuration,maxDuration,durationFixedFactor,
+                minCumulDemand,maxCumulDemand,cumulCapacity);
         createSchedule(nrOrders,earliestDue,horizon,minQty,maxQty);
 
         base.setDirty(false);
         summarizeProblem(base);
     }
 
-    private void createBaseData( String name,ResourceModel resourceModel,int nrProducts, int nrStages, int nrDisjunctiveResources, int nrCumulativeResources,
-                                 double resourceProbability,int minCumulDemand,int maxCumulDemand,int cumulCapacity){
+    private void createBaseData( String name,ResourceModel resourceModel,int nrProducts, int minStages, int maxStages,
+                                 int nrDisjunctiveResources, int nrCumulativeResources,
+                                 double resourceProbability,
+                                 DurationModel durationModel,int minDuration,int maxDuration,int durationFixedFactor,
+                                 int minCumulDemand,int maxCumulDemand,int cumulCapacity){
 
     Problem problem = new Problem(base);
         problem.setName(name);
@@ -62,14 +71,41 @@ public class CreateData {
             pp.setName("Process "+i);
             p.setDefaultProcess(pp);
             ProcessStep before = null;
-            int[] permutation = permuteArray(nrStages);
+            int[] permutation = permuteArray(maxStages);
+            int[] stageDurationDefault = stageDurationDefaults(durationModel,maxStages,minDuration,maxDuration);
 //            info("permutation "+ Arrays.toString(permutation));
+            int nrStages = randomStages(minStages,maxStages);
             for(int j=0;j<nrStages;j++){
                 ProcessStep ps = new ProcessStep(base);
                 ps.setProcess(pp);
                 ps.setName("PS"+i+"/"+j);
-                ps.setDurationFixed(10);
-                ps.setDurationPerUnit(1);
+                switch(durationModel){
+                    case Random:
+                        ps.setDurationFixed(durationFixedFactor*randomDuration(minDuration,maxDuration));
+                        ps.setDurationPerUnit(randomDuration(minDuration,maxDuration));
+                        break;
+                    case RandomByStage:
+                        ps.setDurationFixed(durationFixedFactor*randomDuration(minDuration,stageDurationDefault[j]));
+                        ps.setDurationPerUnit(randomDuration(minDuration,stageDurationDefault[j]));
+                        break;
+                    case Uniform:
+                        ps.setDurationFixed(durationFixedFactor*stageDurationDefault[j]);
+                        ps.setDurationPerUnit(stageDurationDefault[j]);
+                        break;
+                    case UniformByStage:
+                        ps.setDurationFixed(durationFixedFactor*stageDurationDefault[0]);
+                        ps.setDurationPerUnit(stageDurationDefault[0]);
+                        break;
+                    case Unitary:
+                        ps.setDurationFixed(1);
+                        ps.setDurationPerUnit(0);
+                        break;
+                    default:
+                        severe("durationModel value not handled "+durationModel);
+                        assert(false);
+                        ps.setDurationFixed(1);
+                        ps.setDurationPerUnit(0);
+                }
                 if (before!=null) {
                     ProcessSequence seq = new ProcessSequence(base);
                     seq.setName("Seq " + i + "/" + j);
@@ -82,7 +118,7 @@ public class CreateData {
                 switch(resourceModel) {
                     case HybridFlowShop: {
                         int nrMachinesPerStage = nrDisjunctiveResources / nrStages;
-                        assert (nrDisjunctiveResources == nrStages * nrMachinesPerStage);
+                        assert (nrDisjunctiveResources >= nrStages * nrMachinesPerStage);
                         for (int k = 0; k < nrMachinesPerStage; k++) {
                             ResourceNeed rnf = new ResourceNeed(base);
                             rnf.setName("RN" + i + "/" + j + "/" + k);
@@ -93,7 +129,7 @@ public class CreateData {
                     }
                     case HybridJobShop: {
                         int nrMachinesPerStage = nrDisjunctiveResources / nrStages;
-                        assert (nrDisjunctiveResources == nrStages * nrMachinesPerStage);
+                        assert (nrDisjunctiveResources >= nrStages * nrMachinesPerStage);
                         for (int k = 0; k < nrMachinesPerStage; k++) {
                             ResourceNeed rnf = new ResourceNeed(base);
                             int l = permutation[j];
@@ -271,6 +307,35 @@ public class CreateData {
             array[j] = temp;
         }
         return array;
+    }
+
+    public int[] stageDurationDefaults(DurationModel model,int size,int minDuration,int maxDuration){
+        assert(maxDuration >= minDuration);
+        assert(minDuration >= 0);
+        int[] array=new int[size];
+        for(int i=0;i<size;i++){
+            array[i] = randomDuration(minDuration,maxDuration);
+        }
+        return array;
+    }
+
+    public int randomDuration(int minDuration,int maxDuration){
+        assert(minDuration <= maxDuration);
+        if (minDuration == maxDuration){
+            return minDuration;
+        } else {
+            return minDuration+random.nextInt(maxDuration - minDuration);
+        }
+    }
+
+    public int randomStages(int minStages,int maxStages) {
+        assert (minStages <= maxStages);
+        assert (minStages > 0);
+        if (minStages == maxStages) {
+            return minStages;
+        } else {
+            return minStages + random.nextInt(maxStages - minStages);
+        }
     }
 
 }

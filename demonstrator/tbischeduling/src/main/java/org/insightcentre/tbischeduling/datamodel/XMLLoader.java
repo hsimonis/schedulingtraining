@@ -124,6 +124,16 @@ public ResourceModel getResourceModel(String attributeName,
             return ResourceModel.valueOf(e);
         }
     }
+public DurationModel getDurationModel(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("DurationModel"+": "+attributeName);
+            return null;
+        } else {
+            return DurationModel.valueOf(e);
+        }
+    }
     public ApplicationDataset getApplicationDataset(String attributeName,
                                Attributes attributes) {
         return (ApplicationDataset) find(getId(attributeName,attributes));

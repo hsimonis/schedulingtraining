@@ -33,7 +33,7 @@ import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 
 /**
- * Generated at 10:29:29 on 2024-09-28 */
+ * Generated at 12:41:15 on 2024-09-29 */
 public class TaskAssignmentController extends Table3Controller {
 	@FXML
 	private TableView<TaskAssignment> table;

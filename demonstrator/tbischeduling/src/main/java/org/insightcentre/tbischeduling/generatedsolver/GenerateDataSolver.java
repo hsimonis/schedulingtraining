@@ -14,9 +14,14 @@ public class GenerateDataSolver extends DefaultSolver{
     protected String name="test";
     protected String resourceModel="HybridFlowShop";
     protected int nrProducts=5;
-    protected int nrStages=3;
-    protected int nrDisjunctiveResources=6;
+    protected int minStages=4;
+    protected int maxStages=4;
+    protected int nrDisjunctiveResources=8;
     protected double resourceProbability=0.3;
+    protected String durationModel="Random";
+    protected int minDuration=5;
+    protected int maxDuration=20;
+    protected int durationFixedFactor=0;
     protected int nrCumulativeResources=1;
     protected int minCumulDemand=1;
     protected int maxCumulDemand=5;
@@ -32,14 +37,19 @@ public class GenerateDataSolver extends DefaultSolver{
     public GenerateDataSolver(Scenario base){
         super(base,new String[] {});
     }
-    public GenerateDataSolver(Scenario base,String name,String resourceModel,int nrProducts,int nrStages,int nrDisjunctiveResources,double resourceProbability,int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,int cumulCapacity,int nrOrders,int minQty,int maxQty,int earliestDue,int horizonDays,int timeResolution,int seed){
+    public GenerateDataSolver(Scenario base,String name,String resourceModel,int nrProducts,int minStages,int maxStages,int nrDisjunctiveResources,double resourceProbability,String durationModel,int minDuration,int maxDuration,int durationFixedFactor,int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,int cumulCapacity,int nrOrders,int minQty,int maxQty,int earliestDue,int horizonDays,int timeResolution,int seed){
         super(base,new String[] {});
         this.name=name;
         this.resourceModel=resourceModel;
         this.nrProducts=nrProducts;
-        this.nrStages=nrStages;
+        this.minStages=minStages;
+        this.maxStages=maxStages;
         this.nrDisjunctiveResources=nrDisjunctiveResources;
         this.resourceProbability=resourceProbability;
+        this.durationModel=durationModel;
+        this.minDuration=minDuration;
+        this.maxDuration=maxDuration;
+        this.durationFixedFactor=durationFixedFactor;
         this.nrCumulativeResources=nrCumulativeResources;
         this.minCumulDemand=minCumulDemand;
         this.maxCumulDemand=maxCumulDemand;
@@ -65,8 +75,12 @@ public int getNrProducts(){
  return nrProducts;
 }
 
-public int getNrStages(){
- return nrStages;
+public int getMinStages(){
+ return minStages;
+}
+
+public int getMaxStages(){
+ return maxStages;
 }
 
 public int getNrDisjunctiveResources(){
@@ -75,6 +89,22 @@ public int getNrDisjunctiveResources(){
 
 public double getResourceProbability(){
  return resourceProbability;
+}
+
+public String getDurationModel(){
+ return durationModel;
+}
+
+public int getMinDuration(){
+ return minDuration;
+}
+
+public int getMaxDuration(){
+ return maxDuration;
+}
+
+public int getDurationFixedFactor(){
+ return durationFixedFactor;
 }
 
 public int getNrCumulativeResources(){
@@ -136,8 +166,13 @@ public GenerateDataSolver setNrProducts(int v){
  return this;
 }
 
-public GenerateDataSolver setNrStages(int v){
- nrStages = v;
+public GenerateDataSolver setMinStages(int v){
+ minStages = v;
+ return this;
+}
+
+public GenerateDataSolver setMaxStages(int v){
+ maxStages = v;
  return this;
 }
 
@@ -148,6 +183,26 @@ public GenerateDataSolver setNrDisjunctiveResources(int v){
 
 public GenerateDataSolver setResourceProbability(double v){
  resourceProbability = v;
+ return this;
+}
+
+public GenerateDataSolver setDurationModel(String v){
+ durationModel = v;
+ return this;
+}
+
+public GenerateDataSolver setMinDuration(int v){
+ minDuration = v;
+ return this;
+}
+
+public GenerateDataSolver setMaxDuration(int v){
+ maxDuration = v;
+ return this;
+}
+
+public GenerateDataSolver setDurationFixedFactor(int v){
+ durationFixedFactor = v;
  return this;
 }
 

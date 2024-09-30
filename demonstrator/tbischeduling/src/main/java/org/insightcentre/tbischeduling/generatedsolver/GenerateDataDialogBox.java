@@ -24,9 +24,14 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
    private TextField nameItem = new TextField();
    private TextField resourceModelItem = new TextField();
    private IntegerTextField nrProductsItem = new IntegerTextField();
-   private IntegerTextField nrStagesItem = new IntegerTextField();
+   private IntegerTextField minStagesItem = new IntegerTextField();
+   private IntegerTextField maxStagesItem = new IntegerTextField();
    private IntegerTextField nrDisjunctiveResourcesItem = new IntegerTextField();
    private DoubleTextField resourceProbabilityItem = new DoubleTextField();
+   private TextField durationModelItem = new TextField();
+   private IntegerTextField minDurationItem = new IntegerTextField();
+   private IntegerTextField maxDurationItem = new IntegerTextField();
+   private IntegerTextField durationFixedFactorItem = new IntegerTextField();
    private IntegerTextField nrCumulativeResourcesItem = new IntegerTextField();
    private IntegerTextField minCumulDemandItem = new IntegerTextField();
    private IntegerTextField maxCumulDemandItem = new IntegerTextField();
@@ -54,15 +59,30 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
         pane.add(new Label("nr Products:"), 0, row);
         pane.add(nrProductsItem, 1, row++);
         nrProductsItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrProducts()));
-        pane.add(new Label("nr Stages:"), 0, row);
-        pane.add(nrStagesItem, 1, row++);
-        nrStagesItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrStages()));
+        pane.add(new Label("Min Nr Stages:"), 0, row);
+        pane.add(minStagesItem, 1, row++);
+        minStagesItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinStages()));
+        pane.add(new Label("Max Nr Stages:"), 0, row);
+        pane.add(maxStagesItem, 1, row++);
+        maxStagesItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxStages()));
         pane.add(new Label("Nr Disjunctive Resources:"), 0, row);
         pane.add(nrDisjunctiveResourcesItem, 1, row++);
         nrDisjunctiveResourcesItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrDisjunctiveResources()));
         pane.add(new Label("Resource Probability:"), 0, row);
         pane.add(resourceProbabilityItem, 1, row++);
         resourceProbabilityItem.setText(String.format("%f",((GenerateDataSolver)solver).getResourceProbability()));
+        pane.add(new Label("Duration Model:"), 0, row);
+        pane.add(durationModelItem, 1, row++);
+        durationModelItem.setText(((GenerateDataSolver)solver).getDurationModel());
+        pane.add(new Label("Min Duration:"), 0, row);
+        pane.add(minDurationItem, 1, row++);
+        minDurationItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinDuration()));
+        pane.add(new Label("Max Duration:"), 0, row);
+        pane.add(maxDurationItem, 1, row++);
+        maxDurationItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxDuration()));
+        pane.add(new Label("Duration Fixed Factor:"), 0, row);
+        pane.add(durationFixedFactorItem, 1, row++);
+        durationFixedFactorItem.setText(String.format("%d",((GenerateDataSolver)solver).getDurationFixedFactor()));
         pane.add(new Label("Nr Cumulative Resources:"), 0, row);
         pane.add(nrCumulativeResourcesItem, 1, row++);
         nrCumulativeResourcesItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrCumulativeResources()));
@@ -108,9 +128,14 @@ public void handle(InputEvent event) {
         String nameValue = nameItem.getText();
         String resourceModelValue = resourceModelItem.getText();
         int nrProductsValue = Integer.parseInt(nrProductsItem.getText());
-        int nrStagesValue = Integer.parseInt(nrStagesItem.getText());
+        int minStagesValue = Integer.parseInt(minStagesItem.getText());
+        int maxStagesValue = Integer.parseInt(maxStagesItem.getText());
         int nrDisjunctiveResourcesValue = Integer.parseInt(nrDisjunctiveResourcesItem.getText());
         double resourceProbabilityValue = Double.parseDouble(resourceProbabilityItem.getText());
+        String durationModelValue = durationModelItem.getText();
+        int minDurationValue = Integer.parseInt(minDurationItem.getText());
+        int maxDurationValue = Integer.parseInt(maxDurationItem.getText());
+        int durationFixedFactorValue = Integer.parseInt(durationFixedFactorItem.getText());
         int nrCumulativeResourcesValue = Integer.parseInt(nrCumulativeResourcesItem.getText());
         int minCumulDemandValue = Integer.parseInt(minCumulDemandItem.getText());
         int maxCumulDemandValue = Integer.parseInt(maxCumulDemandItem.getText());
@@ -126,9 +151,14 @@ public void handle(InputEvent event) {
             .setName(nameValue)
             .setResourceModel(resourceModelValue)
             .setNrProducts(nrProductsValue)
-            .setNrStages(nrStagesValue)
+            .setMinStages(minStagesValue)
+            .setMaxStages(maxStagesValue)
             .setNrDisjunctiveResources(nrDisjunctiveResourcesValue)
             .setResourceProbability(resourceProbabilityValue)
+            .setDurationModel(durationModelValue)
+            .setMinDuration(minDurationValue)
+            .setMaxDuration(maxDurationValue)
+            .setDurationFixedFactor(durationFixedFactorValue)
             .setNrCumulativeResources(nrCumulativeResourcesValue)
             .setMinCumulDemand(minCumulDemandValue)
             .setMaxCumulDemand(maxCumulDemandValue)

@@ -44,9 +44,10 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setDataFile("");
                 base.setHorizon(2000);
                 info("Creating default data");
-                new CreateData(base,"P1",FlowShop,42,5,3,6,1,
-                        0.3,1,5,10,
-                        20,20,horizon(10,5),1,10);
+                new CreateData(base,"P1",FlowShop,42,5,4,4,6,1,
+                        0.3,DurationModel.Random,5,20,1,
+                        5,10, 20,
+                        20,50,horizon(10,5),1,10);
                 base.setDirty(false);
                 return base;
         }
