@@ -42,6 +42,7 @@ import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
+import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.SolverRun;
@@ -55,7 +56,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 12:41:15 on 2024-09-29 */
+ * Generated at 17:10:44 on 2024-10-01 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -113,6 +114,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<TaskAssignment> taskAssignmentData = FXCollections.observableArrayList();
 
+	private ObservableList<ResourceUtilization> resourceUtilizationData = FXCollections.observableArrayList();
+
 	public GeneratedJfxApp() {
 		super("tbischeduling", "ENTIRE EDIH Test Before Invest - Scheduling - University College Cork", "*.data", "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling");
 		fs = minimalDataset();
@@ -140,6 +143,7 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		tableViews.put("Solution", "Solution");
 		tableViews.put("JobAssignment", "JobAssignment");
 		tableViews.put("TaskAssignment", "TaskAssignment");
+		tableViews.put("ResourceUtilization", "ResourceUtilization");
 	}
 
 	public static void main(String[] args) {
@@ -255,6 +259,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		jobAssignmentData.addAll(base.getListJobAssignment());
 		taskAssignmentData.clear();
 		taskAssignmentData.addAll(base.getListTaskAssignment());
+		resourceUtilizationData.clear();
+		resourceUtilizationData.addAll(base.getListResourceUtilization());
 		for (BaseController controller : controllers) {
 			controller.setMainApp(this);
 		}
@@ -397,5 +403,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public ObservableList<TaskAssignment> getTaskAssignmentData() {
 		return taskAssignmentData;
+	}
+
+	public ObservableList<ResourceUtilization> getResourceUtilizationData() {
+		return resourceUtilizationData;
 	}
 }

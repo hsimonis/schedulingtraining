@@ -35,6 +35,12 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
     private final IntegerTextField nrOrdersItem = new IntegerTextField();
     private final IntegerTextField minQtyItem = new IntegerTextField();
     private final IntegerTextField maxQtyItem = new IntegerTextField();
+    private final DoubleTextField wipProbabilityItem = new DoubleTextField();
+    private final IntegerTextField minWipItem = new IntegerTextField();
+    private final IntegerTextField maxWipItem = new IntegerTextField();
+    private final DoubleTextField downtimeProbabilityItem = new DoubleTextField();
+    private final IntegerTextField minDowntimeItem = new IntegerTextField();
+    private final IntegerTextField maxDowntimeItem = new IntegerTextField();
     private final IntegerTextField earliestDueItem = new IntegerTextField();
     private final IntegerTextField horizonDaysItem = new IntegerTextField();
     private final IntegerTextField timeResolutionItem = new IntegerTextField();
@@ -55,7 +61,7 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
         nameItem.setText(((GenerateDataSolver)solver).getName());
 
         Separator sep1 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep1,0,row++,2,1);
+        pane.add(sep1,0,row++,4,1);
 
 
         pane.add(new Label("Resource Model:"), 0, row);
@@ -67,16 +73,15 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
         pane.add(nrProductsItem, 1, row++);
         nrProductsItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrProducts()));
 
-        pane.add(new Label("Min Stages:"), 0, row);
-        pane.add(minStagesItem, 1, row++);
+        pane.add(new Label("Stages Min:"), 0, row);
+        pane.add(minStagesItem, 1, row);
         minStagesItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinStages()));
-
-        pane.add(new Label("Max Stages:"), 0, row);
-        pane.add(maxStagesItem, 1, row++);
+        pane.add(new Label("Max:"), 2, row);
+        pane.add(maxStagesItem, 3, row++);
         maxStagesItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxStages()));
 
         Separator sep2 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep2,0,row++,2,1);
+        pane.add(sep2,0,row++,4,1);
 
 
         pane.add(new Label("Nr Disjunctive Resources:"), 0, row);
@@ -88,7 +93,7 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
         resourceProbabilityItem.setText(String.format("%f",((GenerateDataSolver)solver).getResourceProbability()));
 
         Separator sep3 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep3,0,row++,2,1);
+        pane.add(sep3,0,row++,4,1);
 
 
         pane.add(new Label("Duration Model:"), 0, row);
@@ -96,12 +101,11 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
         durationModelItem.getItems().addAll(DurationModel.getNames());
         durationModelItem.setValue(((GenerateDataSolver)solver).getDurationModel());
 
-        pane.add(new Label("Min Duration:"), 0, row);
-        pane.add(minDurationItem, 1, row++);
+        pane.add(new Label("Duration Min:"), 0, row);
+        pane.add(minDurationItem, 1, row);
         minDurationItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinDuration()));
-
-        pane.add(new Label("Max Duration:"), 0, row);
-        pane.add(maxDurationItem, 1, row++);
+        pane.add(new Label("Max:"), 2, row);
+        pane.add(maxDurationItem, 3, row++);
         maxDurationItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxDuration()));
 
         pane.add(new Label("Duration Fixed Factor:"), 0, row);
@@ -109,19 +113,18 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
         durationFixedFactorItem.setText(String.format("%d",((GenerateDataSolver)solver).getDurationFixedFactor()));
 
         Separator sep4 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep4,0,row++,2,1);
+        pane.add(sep4,0,row++,4,1);
 
 
         pane.add(new Label("Nr Cumulative Resources:"), 0, row);
         pane.add(nrCumulativeResourcesItem, 1, row++);
         nrCumulativeResourcesItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrCumulativeResources()));
 
-        pane.add(new Label("Min Cumul Demand:"), 0, row);
-        pane.add(minCumulDemandItem, 1, row++);
+        pane.add(new Label("Cumul Demand Min:"), 0, row);
+        pane.add(minCumulDemandItem, 1, row);
         minCumulDemandItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinCumulDemand()));
-
-        pane.add(new Label("Max Cumul Demand:"), 0, row);
-        pane.add(maxCumulDemandItem, 1, row++);
+        pane.add(new Label("Max:"), 2, row);
+        pane.add(maxCumulDemandItem, 3, row++);
         maxCumulDemandItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxCumulDemand()));
 
         pane.add(new Label("Cumul Capacity:"), 0, row);
@@ -129,23 +132,51 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
         cumulCapacityItem.setText(String.format("%d",((GenerateDataSolver)solver).getCumulCapacity()));
 
         Separator sep5 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep5,0,row++,2,1);
+        pane.add(sep5,0,row++,4,1);
 
 
         pane.add(new Label("Nr Orders:"), 0, row);
         pane.add(nrOrdersItem, 1, row++);
         nrOrdersItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrOrders()));
 
-        pane.add(new Label("Min Qty:"), 0, row);
-        pane.add(minQtyItem, 1, row++);
+        pane.add(new Label("Qty Min:"), 0, row);
+        pane.add(minQtyItem, 1, row);
         minQtyItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinQty()));
-
-        pane.add(new Label("Max Qty:"), 0, row);
-        pane.add(maxQtyItem, 1, row++);
+        pane.add(new Label("Max:"), 2, row);
+        pane.add(maxQtyItem, 3, row++);
         maxQtyItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxQty()));
 
         Separator sep6 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep6,0,row++,2,1);
+        pane.add(sep6,0,row++,4,1);
+
+        pane.add(new Label("WiP Probability:"), 0, row);
+        pane.add(wipProbabilityItem, 1, row++);
+        wipProbabilityItem.setText(String.format("%f",((GenerateDataSolver)solver).getWipProbability()));
+
+        pane.add(new Label("WiP Min:"), 0, row);
+        pane.add(minWipItem, 1, row);
+        minWipItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinWip()));
+        pane.add(new Label("Max:"), 2, row);
+        pane.add(maxWipItem, 3, row++);
+        maxWipItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxWip()));
+
+        Separator sep7 = new Separator(Orientation.HORIZONTAL);
+        pane.add(sep7,0,row++,4,1);
+
+
+        pane.add(new Label("Downtime Probability:"), 0, row);
+        pane.add(downtimeProbabilityItem, 1, row++);
+        downtimeProbabilityItem.setText(String.format("%f",((GenerateDataSolver)solver).getDowntimeProbability()));
+
+        pane.add(new Label("Downtime Min:"), 0, row);
+        pane.add(minDowntimeItem, 1, row);
+        minDowntimeItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinDowntime()));
+        pane.add(new Label("Max:"), 2, row);
+        pane.add(maxDowntimeItem, 3, row++);
+        maxDowntimeItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxDowntime()));
+
+        Separator sep8 = new Separator(Orientation.HORIZONTAL);
+        pane.add(sep8,0,row++,4,1);
 
 
         pane.add(new Label("Earliest Due:"), 0, row);
@@ -195,6 +226,14 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
             int minQtyValue = Integer.parseInt(minQtyItem.getText());
             int maxQtyValue = Integer.parseInt(maxQtyItem.getText());
 
+            double wipProbabilityValue = Double.parseDouble(wipProbabilityItem.getText());
+            int minWipValue = Integer.parseInt(minWipItem.getText());
+            int maxWipValue = Integer.parseInt(maxWipItem.getText());
+
+            double downtimeProbabilityValue = Double.parseDouble(downtimeProbabilityItem.getText());
+            int minDowntimeValue = Integer.parseInt(minDowntimeItem.getText());
+            int maxDowntimeValue = Integer.parseInt(maxDowntimeItem.getText());
+
             int earliestDueValue = Integer.parseInt(earliestDueItem.getText());
             int horizonDaysValue = Integer.parseInt(horizonDaysItem.getText());
             int timeResolutionValue = Integer.parseInt(timeResolutionItem.getText());
@@ -219,6 +258,14 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
                     .setNrOrders(nrOrdersValue)
                     .setMinQty(minQtyValue)
                     .setMaxQty(maxQtyValue)
+
+                    .setWipProbability(wipProbabilityValue)
+                    .setMinWip(minWipValue)
+                    .setMaxWip(maxWipValue)
+                    .setDowntimeProbability(downtimeProbabilityValue)
+                    .setMinDowntime(minDowntimeValue)
+                    .setMaxDowntime(maxDowntimeValue)
+
                     .setEarliestDue(earliestDueValue)
                     .setHorizonDays(horizonDaysValue)
                     .setTimeResolution(timeResolutionValue)

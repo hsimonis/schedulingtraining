@@ -24,7 +24,9 @@ public class CreateData {
                       double resourceProbability,
                       DurationModel durationModel,int minDuration,int maxDuration,int durationFixedFactor,
                       int minCumulDemand,int maxCumulDemand,int cumulCapacity,
-                      int nrOrders,int earliestDue,int horizon,int minQty,int maxQty) {
+                      int nrOrders,int earliestDue,int horizon,int minQty,int maxQty,
+                      double wipProbability,int minWip,int maxWip,
+                      double downtimeProbability, int minDowntime, int maxDowntime) {
         this.base = base;
         random = new Random(seed);
         resetAll(base);
@@ -33,7 +35,9 @@ public class CreateData {
                 resourceProbability,
                 durationModel,minDuration,maxDuration,durationFixedFactor,
                 minCumulDemand,maxCumulDemand,cumulCapacity);
-        createSchedule(nrOrders,earliestDue,horizon,minQty,maxQty);
+        createSchedule(nrOrders,earliestDue,horizon,minQty,maxQty,
+                wipProbability,minWip,maxWip,
+                downtimeProbability,minDowntime,maxDowntime);
 
         base.setDirty(false);
         summarizeProblem(base);
@@ -79,6 +83,7 @@ public class CreateData {
                 ProcessStep ps = new ProcessStep(base);
                 ps.setProcess(pp);
                 ps.setName("PS"+i+"/"+j);
+                ps.setStage(j);
                 switch(durationModel){
                     case Random:
                         ps.setDurationFixed(durationFixedFactor*randomDuration(minDuration,maxDuration));
@@ -206,7 +211,9 @@ public class CreateData {
         return res;
     }
 
-    private void createSchedule(int nrOrders,int earliestDue,int horizon,int minQty,int maxQty){
+    private void createSchedule(int nrOrders,int earliestDue,int horizon,int minQty,int maxQty,
+                                double wipProbability,int minWip,int maxWip,
+                                double downtimeProbability,int minDowntime,int maxDowntime){
         for(int i=0;i<nrOrders;i++){
             Order ord = new Order(base);
             ord.setName("Order"+i);
@@ -226,8 +233,29 @@ public class CreateData {
                 t.setJob(j);
                 t.setProcessStep(ps);
                 t.setDuration(duration(t));
+                t.setStage(ps.getStage());
             }
 
+        }
+        for(DisjunctiveResource r:base.getListDisjunctiveResource()){
+            if (random.nextDouble() < wipProbability){
+                int until = minWip+(maxWip-minWip> 0 ?random.nextInt(maxWip-minWip):0);
+                WiP wip = new WiP(base);
+                wip.setName("W"+r.getName());
+                wip.setDisjunctiveResource(r);
+                wip.setUntil(until);
+
+            }
+            if (random.nextDouble() < downtimeProbability){
+                int from = random.nextInt(base.getHorizon());
+                int duration = minDowntime+(maxDowntime-minDowntime > 0? random.nextInt(maxDowntime-minDowntime):0);
+                int to = Math.min(from+duration,base.getHorizon());
+                Downtime d = new Downtime(base);
+                d.setName("D"+r.getName());
+                d.setDisjunctiveResource(r);
+                d.setFrom(from);
+                d.setTo(to);
+            }
         }
     }
 

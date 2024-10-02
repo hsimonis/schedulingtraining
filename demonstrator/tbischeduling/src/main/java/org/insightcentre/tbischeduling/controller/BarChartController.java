@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 12:41:15 on 2024-09-29 */
+ * Generated at 17:10:44 on 2024-10-01 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -36,6 +36,7 @@ public class BarChartController extends ChartController {
 		attributeNames.add("nrTasks");
 		choicesMap.put("Problem", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("stage");
 		attributeNames.add("durationFixed");
 		attributeNames.add("durationPerUnit");
 		choicesMap.put("ProcessStep", attributeNames);
@@ -63,6 +64,7 @@ public class BarChartController extends ChartController {
 		choicesMap.put("Job", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("duration");
+		attributeNames.add("stage");
 		attributeNames.add("job.order.qty");
 		attributeNames.add("processStep.durationFixed");
 		attributeNames.add("processStep.durationPerUnit");
@@ -121,6 +123,13 @@ public class BarChartController extends ChartController {
 		attributeNames.add("task.processStep.durationFixed");
 		attributeNames.add("task.processStep.durationPerUnit");
 		choicesMap.put("TaskAssignment", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("earliest");
+		attributeNames.add("latest");
+		attributeNames.add("active");
+		attributeNames.add("use");
+		attributeNames.add("utilization");
+		choicesMap.put("ResourceUtilization", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
@@ -205,6 +214,9 @@ public class BarChartController extends ChartController {
 			}
 			else if (className.equals("TaskAssignment")) {
 				objectList = mainApp.getTaskAssignmentData();
+			}
+			else if (className.equals("ResourceUtilization")) {
+				objectList = mainApp.getResourceUtilizationData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

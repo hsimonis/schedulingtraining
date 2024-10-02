@@ -39,6 +39,12 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
    private IntegerTextField nrOrdersItem = new IntegerTextField();
    private IntegerTextField minQtyItem = new IntegerTextField();
    private IntegerTextField maxQtyItem = new IntegerTextField();
+   private DoubleTextField wipProbabilityItem = new DoubleTextField();
+   private IntegerTextField minWipItem = new IntegerTextField();
+   private IntegerTextField maxWipItem = new IntegerTextField();
+   private DoubleTextField downtimeProbabilityItem = new DoubleTextField();
+   private IntegerTextField minDowntimeItem = new IntegerTextField();
+   private IntegerTextField maxDowntimeItem = new IntegerTextField();
    private IntegerTextField earliestDueItem = new IntegerTextField();
    private IntegerTextField horizonDaysItem = new IntegerTextField();
    private IntegerTextField timeResolutionItem = new IntegerTextField();
@@ -104,6 +110,24 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
         pane.add(new Label("Max Qty:"), 0, row);
         pane.add(maxQtyItem, 1, row++);
         maxQtyItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxQty()));
+        pane.add(new Label("WiP Probability:"), 0, row);
+        pane.add(wipProbabilityItem, 1, row++);
+        wipProbabilityItem.setText(String.format("%f",((GenerateDataSolver)solver).getWipProbability()));
+        pane.add(new Label("Min WiP:"), 0, row);
+        pane.add(minWipItem, 1, row++);
+        minWipItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinWip()));
+        pane.add(new Label("Max WiP:"), 0, row);
+        pane.add(maxWipItem, 1, row++);
+        maxWipItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxWip()));
+        pane.add(new Label("Downtime Probability:"), 0, row);
+        pane.add(downtimeProbabilityItem, 1, row++);
+        downtimeProbabilityItem.setText(String.format("%f",((GenerateDataSolver)solver).getDowntimeProbability()));
+        pane.add(new Label("Min Downtime:"), 0, row);
+        pane.add(minDowntimeItem, 1, row++);
+        minDowntimeItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinDowntime()));
+        pane.add(new Label("Max Downtime:"), 0, row);
+        pane.add(maxDowntimeItem, 1, row++);
+        maxDowntimeItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxDowntime()));
         pane.add(new Label("Earliest DueDate (int):"), 0, row);
         pane.add(earliestDueItem, 1, row++);
         earliestDueItem.setText(String.format("%d",((GenerateDataSolver)solver).getEarliestDue()));
@@ -143,6 +167,12 @@ public void handle(InputEvent event) {
         int nrOrdersValue = Integer.parseInt(nrOrdersItem.getText());
         int minQtyValue = Integer.parseInt(minQtyItem.getText());
         int maxQtyValue = Integer.parseInt(maxQtyItem.getText());
+        double wipProbabilityValue = Double.parseDouble(wipProbabilityItem.getText());
+        int minWipValue = Integer.parseInt(minWipItem.getText());
+        int maxWipValue = Integer.parseInt(maxWipItem.getText());
+        double downtimeProbabilityValue = Double.parseDouble(downtimeProbabilityItem.getText());
+        int minDowntimeValue = Integer.parseInt(minDowntimeItem.getText());
+        int maxDowntimeValue = Integer.parseInt(maxDowntimeItem.getText());
         int earliestDueValue = Integer.parseInt(earliestDueItem.getText());
         int horizonDaysValue = Integer.parseInt(horizonDaysItem.getText());
         int timeResolutionValue = Integer.parseInt(timeResolutionItem.getText());
@@ -166,6 +196,12 @@ public void handle(InputEvent event) {
             .setNrOrders(nrOrdersValue)
             .setMinQty(minQtyValue)
             .setMaxQty(maxQtyValue)
+            .setWipProbability(wipProbabilityValue)
+            .setMinWip(minWipValue)
+            .setMaxWip(maxWipValue)
+            .setDowntimeProbability(downtimeProbabilityValue)
+            .setMinDowntime(minDowntimeValue)
+            .setMaxDowntime(maxDowntimeValue)
             .setEarliestDue(earliestDueValue)
             .setHorizonDays(horizonDaysValue)
             .setTimeResolution(timeResolutionValue)

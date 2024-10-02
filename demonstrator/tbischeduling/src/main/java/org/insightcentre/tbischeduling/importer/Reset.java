@@ -23,6 +23,7 @@ public class Reset {
         base.resetListJobAssignment();
         base.resetListSolution();
         base.resetListSolverRun();
+        base.resetListResourceUtilization();
     }
 
 

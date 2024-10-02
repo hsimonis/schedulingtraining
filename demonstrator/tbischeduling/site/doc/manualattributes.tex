@@ -167,6 +167,7 @@ $\square$\ & offset &  \\
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
 $\square$\ & process &  \\
+$\square$\ & stage &  \\
 $\square$\ & durationFixed &  \\
 $\square$\ & durationPerUnit &  \\
 \end{longtable}
@@ -195,6 +196,23 @@ $\square$\ & processStep &  \\
 \end{table}
 
 \begin{table}
+\caption{ResourceUtilization  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & disjunctiveResource &  \\
+$\square$\ & solution &  \\
+$\square$\ & earliest &  \\
+$\square$\ & latest &  \\
+$\square$\ & active &  \\
+$\square$\ & use &  \\
+$\square$\ & utilization &  \\
+\end{longtable}
+\label{attr:ResourceUtilization}
+\end{table}
+
+\clearpage
+\begin{table}
 \caption{Scenario  This class describes the dataset for the application. Typically there is a single instance of this class in the application at all times.}
 
 \begin{longtable}{llp{8cm}}
@@ -207,7 +225,6 @@ $\square$\ & timeResolution &  \\
 \label{attr:Scenario}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{Solution  }
 
@@ -265,6 +282,7 @@ $\square$\ & shortName &  \\
 $\square$\ & job &  \\
 $\square$\ & processStep &  \\
 $\square$\ & duration &  \\
+$\square$\ & stage &  \\
 $\square$\ & machines &  \\
 $\square$\ & precedes &  \\
 \end{longtable}
@@ -288,6 +306,7 @@ $\square$\ & endDate &  \\
 \label{attr:TaskAssignment}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{WiP  }
 
@@ -299,5 +318,3 @@ $\square$\ & disjunctiveResource &  \\
 \end{longtable}
 \label{attr:WiP}
 \end{table}
-
-\clearpage

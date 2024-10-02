@@ -18,7 +18,7 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
 
 /**
- * Generated at 12:41:15 on 2024-09-29 */
+ * Generated at 17:10:44 on 2024-10-01 */
 public class CumulativeResourceController extends Table3Controller {
 	@FXML
 	private TableView<CumulativeResource> table;

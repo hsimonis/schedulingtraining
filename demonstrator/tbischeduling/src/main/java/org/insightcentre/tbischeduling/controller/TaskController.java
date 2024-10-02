@@ -29,7 +29,7 @@ import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Task;
 
 /**
- * Generated at 12:41:15 on 2024-09-29 */
+ * Generated at 17:10:44 on 2024-10-01 */
 public class TaskController extends Table3Controller {
 	@FXML
 	private TableView<Task> table;
@@ -48,6 +48,9 @@ public class TaskController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Task, Integer> duration;
+
+	@FXML
+	private TableColumn<Task, Integer> stage;
 
 	@FXML
 	private TableColumn<Task, String> machines;
@@ -108,6 +111,10 @@ public class TaskController extends Table3Controller {
 		duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
 		duration.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		duration.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDuration(event.getNewValue()); mainApp.reset();});
+		choices.add("stage");
+		stage.setCellValueFactory(new PropertyValueFactory<>("stage"));
+		stage.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		stage.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setStage(event.getNewValue()); mainApp.reset();});
 		choices.add("machines");
 		machines.setCellValueFactory(cellData -> new SimpleStringProperty(convert(cellData.getValue().getMachines())));
 		choices.add("precedes");

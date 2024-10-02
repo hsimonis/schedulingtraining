@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 12:41:15 on 2024-09-29 */
+ * Generated at 17:10:44 on 2024-10-01 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -78,6 +78,7 @@ public class PieChartController extends ChartController {
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
 		attributeNames.add("process");
+		attributeNames.add("stage");
 		attributeNames.add("durationFixed");
 		attributeNames.add("durationPerUnit");
 		choicesMap.put("ProcessStep", attributeNames);
@@ -139,6 +140,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("job");
 		attributeNames.add("processStep");
 		attributeNames.add("duration");
+		attributeNames.add("stage");
 		attributeNames.add("machines");
 		attributeNames.add("precedes");
 		attributeNames.add("job.order");
@@ -245,6 +247,16 @@ public class PieChartController extends ChartController {
 		attributeNames.add("task.processStep.durationFixed");
 		attributeNames.add("task.processStep.durationPerUnit");
 		choicesMap.put("TaskAssignment", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("disjunctiveResource");
+		attributeNames.add("solution");
+		attributeNames.add("earliest");
+		attributeNames.add("latest");
+		attributeNames.add("active");
+		attributeNames.add("use");
+		attributeNames.add("utilization");
+		choicesMap.put("ResourceUtilization", attributeNames);
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -328,6 +340,9 @@ public class PieChartController extends ChartController {
 			}
 			else if (className.equals("TaskAssignment")) {
 				objectList = mainApp.getTaskAssignmentData();
+			}
+			else if (className.equals("ResourceUtilization")) {
+				objectList = mainApp.getResourceUtilizationData();
 			}
 			if (objectList != null) {
 				Map<String, Integer> countMap = new HashMap<String, Integer>();

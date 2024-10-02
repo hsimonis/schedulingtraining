@@ -25,6 +25,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
+import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -94,6 +95,13 @@ public  class Task extends ApplicationObject implements AppearInCollection{
     public String shortName;
 
 /**
+ *  
+ *
+*/
+
+    public Integer stage;
+
+/**
  *  No-arg constructor for use in TableView
  *
 */
@@ -118,6 +126,7 @@ public  class Task extends ApplicationObject implements AppearInCollection{
         setPrecedes(new ArrayList<Task>());
         setProcessStep(null);
         setShortName("");
+        setStage(0);
         applicationDataset.addTask(this);
     }
 
@@ -136,7 +145,8 @@ public  class Task extends ApplicationObject implements AppearInCollection{
             List<DisjunctiveResource> machines,
             List<Task> precedes,
             ProcessStep processStep,
-            String shortName){
+            String shortName,
+            Integer stage){
         super(applicationDataset,
             id,
             name);
@@ -146,6 +156,7 @@ public  class Task extends ApplicationObject implements AppearInCollection{
         setPrecedes(precedes);
         setProcessStep(processStep);
         setShortName(shortName);
+        setStage(stage);
         applicationDataset.addTask(this);
     }
 
@@ -158,7 +169,8 @@ public  class Task extends ApplicationObject implements AppearInCollection{
             other.machines,
             other.precedes,
             other.processStep,
-            other.shortName);
+            other.shortName,
+            other.stage);
     }
 
 /**
@@ -248,6 +260,16 @@ public  class Task extends ApplicationObject implements AppearInCollection{
     }
 
 /**
+ *  get attribute stage
+ *
+ * @return Integer
+*/
+
+    public Integer getStage(){
+        return this.stage;
+    }
+
+/**
  *  set attribute duration, mark dataset as dirty, mark dataset as not valid
 @param duration Integer
  *
@@ -320,12 +342,35 @@ public  class Task extends ApplicationObject implements AppearInCollection{
     }
 
 /**
+ *  set attribute stage, mark dataset as dirty, mark dataset as not valid
+@param stage Integer
+ *
+*/
+
+    public void setStage(Integer stage){
+        this.stage = stage;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute duration, mark dataset as dirty, mark dataset as not valid
  *
 */
 
     public void incDuration(){
         this.duration++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute stage, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incStage(){
+        this.stage++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -347,7 +392,7 @@ public  class Task extends ApplicationObject implements AppearInCollection{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDuration()+ " " +getJob().toColumnString()+ " " +getMachines()+ " " +getPrecedes()+ " " +getProcessStep().toColumnString()+ " " +getShortName();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDuration()+ " " +getJob().toColumnString()+ " " +getMachines()+ " " +getPrecedes()+ " " +getProcessStep().toColumnString()+ " " +getShortName()+ " " +getStage();
     }
 
 /**
@@ -376,7 +421,8 @@ public  class Task extends ApplicationObject implements AppearInCollection{
             " machines=\""+toXMLMachines()+"\""+
             " precedes=\""+toXMLPrecedes()+"\""+
             " processStep=\""+toXMLProcessStep()+"\""+
-            " shortName=\""+toXMLShortName()+"\""+" />");
+            " shortName=\""+toXMLShortName()+"\""+
+            " stage=\""+toXMLStage()+"\""+" />");
      }
 
 /**
@@ -448,17 +494,27 @@ public  class Task extends ApplicationObject implements AppearInCollection{
     }
 
 /**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLStage(){
+        return this.getStage().toString();
+    }
+
+/**
  * show object as one row in an HTML table
  * 
  * @return String of form <tr>...</tr>
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Task</th>"+"<th>Name</th>"+"<th>ShortName</th>"+"<th>Job</th>"+"<th>ProcessStep</th>"+"<th>Duration</th>"+"<th>Machines</th>"+"<th>Precedes</th>"+"</tr>";
+        return "<tr><th>Task</th>"+"<th>Name</th>"+"<th>ShortName</th>"+"<th>Job</th>"+"<th>ProcessStep</th>"+"<th>Duration</th>"+"<th>Stage</th>"+"<th>Machines</th>"+"<th>Precedes</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getShortName()+"</td>"+ " " +"<td>"+getJob().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getMachines()+"</td>"+ " " +"<td>"+getPrecedes()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getShortName()+"</td>"+ " " +"<td>"+getJob().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStage()+"</td>"+ " " +"<td>"+getMachines()+"</td>"+ " " +"<td>"+getPrecedes()+"</td>"+"</tr>";
     }
 
 /**
@@ -594,13 +650,17 @@ public  class Task extends ApplicationObject implements AppearInCollection{
       if(!this.getShortName().equals(b.getShortName())){
          System.out.println("ShortName");
         }
+      if(!this.getStage().equals(b.getStage())){
+         System.out.println("Stage");
+        }
         return  this.getDuration().equals(b.getDuration()) &&
           this.getJob().applicationSame(b.getJob()) &&
           true &&
           this.getName().equals(b.getName()) &&
           true &&
           this.getProcessStep().applicationSame(b.getProcessStep()) &&
-          this.getShortName().equals(b.getShortName());
+          this.getShortName().equals(b.getShortName()) &&
+          this.getStage().equals(b.getStage());
     }
 
 /**

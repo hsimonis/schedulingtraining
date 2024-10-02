@@ -82,6 +82,7 @@ public class ReadData {
         Hashtable<String, TaskAssignment> taskAssignmentHash = readTaskAssignments(root,jobAssignmentHash,
                 taskHash,disjunctiveResourceHash);
 
+        info("File read, "+base.getListInputError().size()+" error(s).");
         summarizeProblem(base);
 
 
@@ -239,7 +240,7 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","process"})) {
+                if (requireFields(key,i,item,new String[]{"name","defaultProcess"})) {
                     String name = item.getString("name");
                     String pName = item.getString("defaultProcess");
                     Process process = processHash.get(pName);

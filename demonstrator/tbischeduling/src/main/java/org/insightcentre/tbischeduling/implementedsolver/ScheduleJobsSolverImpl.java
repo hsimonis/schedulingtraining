@@ -4,6 +4,11 @@ import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 import org.insightcentre.tbischeduling.importer.Reset;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.groupingBy;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
 import static org.insightcentre.tbischeduling.datamodel.ObjectiveType.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverBackend.*;
@@ -19,6 +24,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
     }
 
     public boolean solve(){
+        boolean res = false;
         info("Solving");
         if (getRemoveSolution()){
             Reset.resetSolution(base);
@@ -29,19 +35,27 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
                 getRemoveSolution());
         switch(toModelType(getModelType())){
             case CPO:
-                return new CPOModel(base,run).solve();
+                res = new CPOModel(base,run).solve();
+                break;
             case MiniZincDiffn:
-                return new MiniZincDiffnModel(base,run).solve();
+                res = new MiniZincDiffnModel(base,run).solve();
+                break;
             case MiniZincTask:
-                return new MiniZincTaskModel(base,run).solve();
+                res = new MiniZincTaskModel(base,run).solve();
+                break;
             case REST:
-                return new RESTSolver(base,run).solve();
+                res = new RESTSolver(base,run).solve();
+                break;
             default:
                 severe("Unknown model type "+getModelType());
                 assert(false);
         }
+        if (res) {
+            Solution sol = Solution.findLast(base);
+            kpiCalc(sol);
+        }
         base.setDirty(true);
-        return true;
+        return res;
     }
 
     private ModelType toModelType(String name){
@@ -96,5 +110,28 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         res.setRemoveSolution(removeSolution);
         res.setSolverStatus(ToRun);
         return res;
+    }
+
+    private void kpiCalc(Solution sol){
+        List<TaskAssignment> list = base.getListTaskAssignment().stream().filter(x->x.getJobAssignment().getSolution()==sol).toList();
+        Map<DisjunctiveResource,List<TaskAssignment>> map = list.stream().collect(groupingBy(TaskAssignment::getDisjunctiveResource));
+        // create entries in a given order
+        for(DisjunctiveResource r:map.keySet().stream().sorted(Comparator.comparing(DisjunctiveResource::getName)).toList()){
+            List<TaskAssignment> current = map.get(r);
+            int earliest = current.stream().mapToInt(TaskAssignment::getStart).min().orElse(0);
+            int latest = current.stream().mapToInt(TaskAssignment::getEnd).max().orElse(0);
+            int active = latest-earliest;
+            int use = current.stream().mapToInt(TaskAssignment::getDuration).sum();
+            double utilization = 100.0*use/active;
+            ResourceUtilization ru = new ResourceUtilization(base);
+            ru.setName(r.getName());
+            ru.setDisjunctiveResource(r);
+            ru.setSolution(sol);
+            ru.setEarliest(earliest);
+            ru.setLatest(latest);
+            ru.setActive(active);
+            ru.setUse(use);
+            ru.setUtilization(utilization);
+        }
     }
 }

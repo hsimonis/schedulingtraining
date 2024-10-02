@@ -39,6 +39,7 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include ProcessStep.uml
 !include Product.uml
 !include ResourceNeed.uml
+!include ResourceUtilization.uml
 !include Scenario.uml
 !include Solution.uml
 !include SolverRun.uml
@@ -85,6 +86,8 @@ Job  *-- JobAssignment
 Task  *-- TaskAssignment 
 JobAssignment  *-- TaskAssignment 
 DisjunctiveResource  *-- TaskAssignment 
+DisjunctiveResource  *-- ResourceUtilization 
+Solution  *-- ResourceUtilization 
 header
 Datamodel of Application tbischeduling
 endheader

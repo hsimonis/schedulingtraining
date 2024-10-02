@@ -51,48 +51,34 @@ import framework.AppearInCollection;
  * @author generated
 */
 
-public  class JobAssignment extends ApplicationObject{
+public  class ResourceUtilization extends ApplicationObject{
 /**
  *  
  *
 */
 
-    public Integer duration;
-
-/**
- *  
- *
-*/
-
-    public Integer early;
+    public Integer active;
 
 /**
  *  
  *
 */
 
-    public Integer end;
+    public DisjunctiveResource disjunctiveResource;
 
 /**
  *  
  *
 */
 
-    public DateTime endDate;
+    public Integer earliest;
 
 /**
  *  
  *
 */
 
-    public Job job;
-
-/**
- *  
- *
-*/
-
-    public Integer late;
+    public Integer latest;
 
 /**
  *  
@@ -106,21 +92,21 @@ public  class JobAssignment extends ApplicationObject{
  *
 */
 
-    public Integer start;
+    public Integer use;
 
 /**
  *  
  *
 */
 
-    public DateTime startDate;
+    public Double utilization;
 
 /**
  *  No-arg constructor for use in TableView
  *
 */
 
-    public JobAssignment(){
+    public ResourceUtilization(){
         super();
     }
 
@@ -132,18 +118,16 @@ public  class JobAssignment extends ApplicationObject{
  *
 */
 
-    public JobAssignment(ApplicationDataset applicationDataset){
+    public ResourceUtilization(ApplicationDataset applicationDataset){
         super(applicationDataset);
-        setDuration(0);
-        setEarly(0);
-        setEnd(0);
-        setEndDate(new DateTime());
-        setJob(null);
-        setLate(0);
+        setActive(0);
+        setDisjunctiveResource(null);
+        setEarliest(0);
+        setLatest(0);
         setSolution(null);
-        setStart(0);
-        setStartDate(new DateTime());
-        applicationDataset.addJobAssignment(this);
+        setUse(0);
+        setUtilization(0.0);
+        applicationDataset.addResourceUtilization(this);
     }
 
 /**
@@ -153,46 +137,40 @@ public  class JobAssignment extends ApplicationObject{
  *
 */
 
-    public JobAssignment(ApplicationDataset applicationDataset,
+    public ResourceUtilization(ApplicationDataset applicationDataset,
             Integer id,
             String name,
-            Integer duration,
-            Integer early,
-            Integer end,
-            DateTime endDate,
-            Job job,
-            Integer late,
+            Integer active,
+            DisjunctiveResource disjunctiveResource,
+            Integer earliest,
+            Integer latest,
             Solution solution,
-            Integer start,
-            DateTime startDate){
+            Integer use,
+            Double utilization){
         super(applicationDataset,
             id,
             name);
-        setDuration(duration);
-        setEarly(early);
-        setEnd(end);
-        setEndDate(endDate);
-        setJob(job);
-        setLate(late);
+        setActive(active);
+        setDisjunctiveResource(disjunctiveResource);
+        setEarliest(earliest);
+        setLatest(latest);
         setSolution(solution);
-        setStart(start);
-        setStartDate(startDate);
-        applicationDataset.addJobAssignment(this);
+        setUse(use);
+        setUtilization(utilization);
+        applicationDataset.addResourceUtilization(this);
     }
 
-    public JobAssignment(JobAssignment other){
+    public ResourceUtilization(ResourceUtilization other){
         this(other.applicationDataset,
             other.id,
             other.name,
-            other.duration,
-            other.early,
-            other.end,
-            other.endDate,
-            other.job,
-            other.late,
+            other.active,
+            other.disjunctiveResource,
+            other.earliest,
+            other.latest,
             other.solution,
-            other.start,
-            other.startDate);
+            other.use,
+            other.utilization);
     }
 
 /**
@@ -203,68 +181,47 @@ public  class JobAssignment extends ApplicationObject{
 */
 
     public Boolean remove(){
-        getApplicationDataset().cascadeTaskAssignmentJobAssignment(this);
-        return getApplicationDataset().removeJobAssignment(this) && getApplicationDataset().removeApplicationObject(this);
+        return getApplicationDataset().removeResourceUtilization(this) && getApplicationDataset().removeApplicationObject(this);
     }
 
 /**
- *  get attribute duration
+ *  get attribute active
  *
  * @return Integer
 */
 
-    public Integer getDuration(){
-        return this.duration;
+    public Integer getActive(){
+        return this.active;
     }
 
 /**
- *  get attribute early
+ *  get attribute disjunctiveResource
+ *
+ * @return DisjunctiveResource
+*/
+
+    public DisjunctiveResource getDisjunctiveResource(){
+        return this.disjunctiveResource;
+    }
+
+/**
+ *  get attribute earliest
  *
  * @return Integer
 */
 
-    public Integer getEarly(){
-        return this.early;
+    public Integer getEarliest(){
+        return this.earliest;
     }
 
 /**
- *  get attribute end
+ *  get attribute latest
  *
  * @return Integer
 */
 
-    public Integer getEnd(){
-        return this.end;
-    }
-
-/**
- *  get attribute endDate
- *
- * @return DateTime
-*/
-
-    public DateTime getEndDate(){
-        return this.endDate;
-    }
-
-/**
- *  get attribute job
- *
- * @return Job
-*/
-
-    public Job getJob(){
-        return this.job;
-    }
-
-/**
- *  get attribute late
- *
- * @return Integer
-*/
-
-    public Integer getLate(){
-        return this.late;
+    public Integer getLatest(){
+        return this.latest;
     }
 
 /**
@@ -278,93 +235,69 @@ public  class JobAssignment extends ApplicationObject{
     }
 
 /**
- *  get attribute start
+ *  get attribute use
  *
  * @return Integer
 */
 
-    public Integer getStart(){
-        return this.start;
+    public Integer getUse(){
+        return this.use;
     }
 
 /**
- *  get attribute startDate
+ *  get attribute utilization
  *
- * @return DateTime
+ * @return Double
 */
 
-    public DateTime getStartDate(){
-        return this.startDate;
+    public Double getUtilization(){
+        return this.utilization;
     }
 
 /**
- *  set attribute duration, mark dataset as dirty, mark dataset as not valid
-@param duration Integer
+ *  set attribute active, mark dataset as dirty, mark dataset as not valid
+@param active Integer
  *
 */
 
-    public void setDuration(Integer duration){
-        this.duration = duration;
+    public void setActive(Integer active){
+        this.active = active;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
 
 /**
- *  set attribute early, mark dataset as dirty, mark dataset as not valid
-@param early Integer
+ *  set attribute disjunctiveResource, mark dataset as dirty, mark dataset as not valid
+@param disjunctiveResource DisjunctiveResource
  *
 */
 
-    public void setEarly(Integer early){
-        this.early = early;
+    public void setDisjunctiveResource(DisjunctiveResource disjunctiveResource){
+        this.disjunctiveResource = disjunctiveResource;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
 
 /**
- *  set attribute end, mark dataset as dirty, mark dataset as not valid
-@param end Integer
+ *  set attribute earliest, mark dataset as dirty, mark dataset as not valid
+@param earliest Integer
  *
 */
 
-    public void setEnd(Integer end){
-        this.end = end;
+    public void setEarliest(Integer earliest){
+        this.earliest = earliest;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
 
 /**
- *  set attribute endDate, mark dataset as dirty, mark dataset as not valid
-@param endDate DateTime
+ *  set attribute latest, mark dataset as dirty, mark dataset as not valid
+@param latest Integer
  *
 */
 
-    public void setEndDate(DateTime endDate){
-        this.endDate = endDate;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute job, mark dataset as dirty, mark dataset as not valid
-@param job Job
- *
-*/
-
-    public void setJob(Job job){
-        this.job = job;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute late, mark dataset as dirty, mark dataset as not valid
-@param late Integer
- *
-*/
-
-    public void setLate(Integer late){
-        this.late = late;
+    public void setLatest(Integer latest){
+        this.latest = latest;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -382,80 +315,69 @@ public  class JobAssignment extends ApplicationObject{
     }
 
 /**
- *  set attribute start, mark dataset as dirty, mark dataset as not valid
-@param start Integer
+ *  set attribute use, mark dataset as dirty, mark dataset as not valid
+@param use Integer
  *
 */
 
-    public void setStart(Integer start){
-        this.start = start;
+    public void setUse(Integer use){
+        this.use = use;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
 
 /**
- *  set attribute startDate, mark dataset as dirty, mark dataset as not valid
-@param startDate DateTime
+ *  set attribute utilization, mark dataset as dirty, mark dataset as not valid
+@param utilization Double
  *
 */
 
-    public void setStartDate(DateTime startDate){
-        this.startDate = startDate;
+    public void setUtilization(Double utilization){
+        this.utilization = utilization;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
 
 /**
- *  inc attribute duration, mark dataset as dirty, mark dataset as not valid
+ *  inc attribute active, mark dataset as dirty, mark dataset as not valid
  *
 */
 
-    public void incDuration(){
-        this.duration++;
+    public void incActive(){
+        this.active++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
 
 /**
- *  inc attribute early, mark dataset as dirty, mark dataset as not valid
+ *  inc attribute earliest, mark dataset as dirty, mark dataset as not valid
  *
 */
 
-    public void incEarly(){
-        this.early++;
+    public void incEarliest(){
+        this.earliest++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
 
 /**
- *  inc attribute end, mark dataset as dirty, mark dataset as not valid
+ *  inc attribute latest, mark dataset as dirty, mark dataset as not valid
  *
 */
 
-    public void incEnd(){
-        this.end++;
+    public void incLatest(){
+        this.latest++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
 
 /**
- *  inc attribute late, mark dataset as dirty, mark dataset as not valid
+ *  inc attribute use, mark dataset as dirty, mark dataset as not valid
  *
 */
 
-    public void incLate(){
-        this.late++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute start, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incStart(){
-        this.start++;
+    public void incUse(){
+        this.use++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -477,7 +399,7 @@ public  class JobAssignment extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDuration()+ " " +getEarly()+ " " +getEnd()+ " " +getEndDate()+ " " +getJob().toColumnString()+ " " +getLate()+ " " +getSolution().toColumnString()+ " " +getStart()+ " " +getStartDate();
+        return ""+ " " +getId()+ " " +getName()+ " " +getActive()+ " " +getDisjunctiveResource().toColumnString()+ " " +getEarliest()+ " " +getLatest()+ " " +getSolution().toColumnString()+ " " +getUse()+ " " +getUtilization();
     }
 
 /**
@@ -498,18 +420,16 @@ public  class JobAssignment extends ApplicationObject{
 */
 
      public void toXML(PrintWriter out){
-         out.println("<jobAssignment "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
+         out.println("<resourceUtilization "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
-            " duration=\""+toXMLDuration()+"\""+
-            " early=\""+toXMLEarly()+"\""+
-            " end=\""+toXMLEnd()+"\""+
-            " endDate=\""+toXMLEndDate()+"\""+
-            " job=\""+toXMLJob()+"\""+
-            " late=\""+toXMLLate()+"\""+
+            " active=\""+toXMLActive()+"\""+
+            " disjunctiveResource=\""+toXMLDisjunctiveResource()+"\""+
+            " earliest=\""+toXMLEarliest()+"\""+
+            " latest=\""+toXMLLatest()+"\""+
             " solution=\""+toXMLSolution()+"\""+
-            " start=\""+toXMLStart()+"\""+
-            " startDate=\""+toXMLStartDate()+"\""+" />");
+            " use=\""+toXMLUse()+"\""+
+            " utilization=\""+toXMLUtilization()+"\""+" />");
      }
 
 /**
@@ -518,8 +438,8 @@ public  class JobAssignment extends ApplicationObject{
  * @return String
 */
 
-    String toXMLDuration(){
-        return this.getDuration().toString();
+    String toXMLActive(){
+        return this.getActive().toString();
     }
 
 /**
@@ -528,8 +448,8 @@ public  class JobAssignment extends ApplicationObject{
  * @return String
 */
 
-    String toXMLEarly(){
-        return this.getEarly().toString();
+    String toXMLDisjunctiveResource(){
+        return "ID_"+this.getDisjunctiveResource().getId().toString();
     }
 
 /**
@@ -538,8 +458,8 @@ public  class JobAssignment extends ApplicationObject{
  * @return String
 */
 
-    String toXMLEnd(){
-        return this.getEnd().toString();
+    String toXMLEarliest(){
+        return this.getEarliest().toString();
     }
 
 /**
@@ -548,28 +468,8 @@ public  class JobAssignment extends ApplicationObject{
  * @return String
 */
 
-    String toXMLEndDate(){
-        return this.getEndDate().toXML();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLJob(){
-        return "ID_"+this.getJob().getId().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLLate(){
-        return this.getLate().toString();
+    String toXMLLatest(){
+        return this.getLatest().toString();
     }
 
 /**
@@ -588,8 +488,8 @@ public  class JobAssignment extends ApplicationObject{
  * @return String
 */
 
-    String toXMLStart(){
-        return this.getStart().toString();
+    String toXMLUse(){
+        return this.getUse().toString();
     }
 
 /**
@@ -598,8 +498,8 @@ public  class JobAssignment extends ApplicationObject{
  * @return String
 */
 
-    String toXMLStartDate(){
-        return this.getStartDate().toXML();
+    String toXMLUtilization(){
+        return this.getUtilization().toString();
     }
 
 /**
@@ -609,22 +509,22 @@ public  class JobAssignment extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>JobAssignment</th>"+"<th>Name</th>"+"<th>Solution</th>"+"<th>Job</th>"+"<th>Late</th>"+"<th>Early</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"</tr>";
+        return "<tr><th>ResourceUtilization</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>Solution</th>"+"<th>Earliest</th>"+"<th>Latest</th>"+"<th>Active</th>"+"<th>Use</th>"+"<th>Utilization</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolution().toColumnString()+"</td>"+ " " +"<td>"+getJob().toColumnString()+"</td>"+ " " +"<td>"+getLate()+"</td>"+ " " +"<td>"+getEarly()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getSolution().toColumnString()+"</td>"+ " " +"<td>"+getEarliest()+"</td>"+ " " +"<td>"+getLatest()+"</td>"+ " " +"<td>"+getActive()+"</td>"+ " " +"<td>"+getUse()+"</td>"+ " " +"<td>"+getUtilization()+"</td>"+"</tr>";
     }
 
 /**
  * find the same object in another dataset
- * @param a JobAssignment item we are looking for
- * @param bList List<JobAssignment> list of items in which we are searching
- * @return JobAssignment entry of list b which is applicationSame() to a
+ * @param a ResourceUtilization item we are looking for
+ * @param bList List<ResourceUtilization> list of items in which we are searching
+ * @return ResourceUtilization entry of list b which is applicationSame() to a
 */
 
-    public static JobAssignment find(JobAssignment a, List<JobAssignment> bList){
-        for(JobAssignment b : bList){
+    public static ResourceUtilization find(ResourceUtilization a, List<ResourceUtilization> bList){
+        for(ResourceUtilization b : bList){
             if (b.applicationSame(a)){
                 return b;
             }
@@ -636,12 +536,12 @@ public  class JobAssignment extends ApplicationObject{
  * find an object from its name; returns null if no such item exists
  * it is not defined which object is returned if multiple have the same name
  * @param base  dataset in which we are searching
- * @param name JobAssignment name of the object we are looking for
- * @return JobAssignment entry of the dataset with the given name; otherwise null
+ * @param name ResourceUtilization name of the object we are looking for
+ * @return ResourceUtilization entry of the dataset with the given name; otherwise null
 */
 
-    public static JobAssignment findByName(ApplicationDataset base, String name){
-        for(JobAssignment a:base.getListJobAssignment()) {
+    public static ResourceUtilization findByName(ApplicationDataset base, String name){
+        for(ResourceUtilization a:base.getListResourceUtilization()) {
             if (a.getName().equals(name)){
                 return a;
             }
@@ -653,18 +553,18 @@ public  class JobAssignment extends ApplicationObject{
  * find an object from its name; create new instance if no such item exists
  * it is not defined which object is returned if multiple have the same name
  * @param base  dataset in which we are searching
- * @param name JobAssignment name of the object we are looking for
- * @return JobAssignment entry of the dataset with the given name
+ * @param name ResourceUtilization name of the object we are looking for
+ * @return ResourceUtilization entry of the dataset with the given name
 */
 
-    public static JobAssignment findOrCreate(ApplicationDataset base, String name){
+    public static ResourceUtilization findOrCreate(ApplicationDataset base, String name){
         if (name.equals("null")){ return null;}
-        for(JobAssignment a:base.getListJobAssignment()) {
+        for(ResourceUtilization a:base.getListResourceUtilization()) {
             if (a.getName().equals(name)){
                 return a;
             }
         }
-        JobAssignment res = new JobAssignment(base);
+        ResourceUtilization res = new ResourceUtilization(base);
         res.setName(name);
         return res;
     }
@@ -672,26 +572,26 @@ public  class JobAssignment extends ApplicationObject{
 /**
  * find the first entry in the dataset of that type
  * @param base dataset in which we are searching
- * @return JobAssignment first entry in the dataset of this type; null if that does not exists
+ * @return ResourceUtilization first entry in the dataset of this type; null if that does not exists
 */
 
-    public static JobAssignment findFirst(ApplicationDataset base){
-        if (base.getListJobAssignment().isEmpty()) {
+    public static ResourceUtilization findFirst(ApplicationDataset base){
+        if (base.getListResourceUtilization().isEmpty()) {
             return null;
         }
-        return base.getListJobAssignment().get(0);
+        return base.getListResourceUtilization().get(0);
     }
 
 /**
  * find some entry entry in the dataset of that type
  * @param base dataset in which we are searching
- * @return JobAssignment some entry in the dataset of this type; null if that does not exists
+ * @return ResourceUtilization some entry in the dataset of this type; null if that does not exists
 */
 
-    public static JobAssignment findAny(ApplicationDataset base){
-        int size=base.getListJobAssignment().size();
+    public static ResourceUtilization findAny(ApplicationDataset base){
+        int size=base.getListResourceUtilization().size();
         if (size > 0) {
-             return base.getListJobAssignment().get(new Random().nextInt(size));
+             return base.getListResourceUtilization().get(new Random().nextInt(size));
         }
         return null;
     }
@@ -699,13 +599,13 @@ public  class JobAssignment extends ApplicationObject{
 /**
  * find the last entry in the dataset of that type
  * @param base dataset in which we are searching
- * @return JobAssignment last entry in the dataset of this type; null if that does not exists
+ * @return ResourceUtilization last entry in the dataset of this type; null if that does not exists
 */
 
-    public static JobAssignment findLast(ApplicationDataset base){
-        int size=base.getListJobAssignment().size();
+    public static ResourceUtilization findLast(ApplicationDataset base){
+        int size=base.getListResourceUtilization().size();
         if (size > 0) {
-             return base.getListJobAssignment().get(size-1);
+             return base.getListResourceUtilization().get(size-1);
         }
         return null;
     }
@@ -713,11 +613,11 @@ public  class JobAssignment extends ApplicationObject{
 /**
  * check if two objects (typically in different datasets) refer to the same real-world item
  * often this means that the names match, depending on the display_key
- * @param b JobAssignment compare this to that object
+ * @param b ResourceUtilization compare this to that object
  * @return Boolean true if the objects match the same criteria
 */
 
-    public Boolean applicationSame(JobAssignment b){
+    public Boolean applicationSame(ResourceUtilization b){
         return this.getName().equals(b.getName());
     }
 
@@ -725,28 +625,22 @@ public  class JobAssignment extends ApplicationObject{
  * check if two objects (typically in different datasets) are equal, i.e. have the same field values
  * typically used to check if an item is different in two datasets
  * this is quite different from the equals() method, which checks if the objects are idenitcal
- * @param b JobAssignment compare this to that object
+ * @param b ResourceUtilization compare this to that object
  * @return Boolean true if the objects match the equal criteria
 */
 
-    public Boolean applicationEqual(JobAssignment b){
-      if(!this.getDuration().equals(b.getDuration())){
-         System.out.println("Duration");
+    public Boolean applicationEqual(ResourceUtilization b){
+      if(!this.getActive().equals(b.getActive())){
+         System.out.println("Active");
         }
-      if(!this.getEarly().equals(b.getEarly())){
-         System.out.println("Early");
+      if(!this.getDisjunctiveResource().applicationSame(b.getDisjunctiveResource())){
+         System.out.println("DisjunctiveResource");
         }
-      if(!this.getEnd().equals(b.getEnd())){
-         System.out.println("End");
+      if(!this.getEarliest().equals(b.getEarliest())){
+         System.out.println("Earliest");
         }
-      if(!this.getEndDate().applicationEqual(b.getEndDate())){
-         System.out.println("EndDate");
-        }
-      if(!this.getJob().applicationSame(b.getJob())){
-         System.out.println("Job");
-        }
-      if(!this.getLate().equals(b.getLate())){
-         System.out.println("Late");
+      if(!this.getLatest().equals(b.getLatest())){
+         System.out.println("Latest");
         }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
@@ -754,22 +648,20 @@ public  class JobAssignment extends ApplicationObject{
       if(!this.getSolution().applicationSame(b.getSolution())){
          System.out.println("Solution");
         }
-      if(!this.getStart().equals(b.getStart())){
-         System.out.println("Start");
+      if(!this.getUse().equals(b.getUse())){
+         System.out.println("Use");
         }
-      if(!this.getStartDate().applicationEqual(b.getStartDate())){
-         System.out.println("StartDate");
+      if(!this.getUtilization().equals(b.getUtilization())){
+         System.out.println("Utilization");
         }
-        return  this.getDuration().equals(b.getDuration()) &&
-          this.getEarly().equals(b.getEarly()) &&
-          this.getEnd().equals(b.getEnd()) &&
-          this.getEndDate().applicationEqual(b.getEndDate()) &&
-          this.getJob().applicationSame(b.getJob()) &&
-          this.getLate().equals(b.getLate()) &&
+        return  this.getActive().equals(b.getActive()) &&
+          this.getDisjunctiveResource().applicationSame(b.getDisjunctiveResource()) &&
+          this.getEarliest().equals(b.getEarliest()) &&
+          this.getLatest().equals(b.getLatest()) &&
           this.getName().equals(b.getName()) &&
           this.getSolution().applicationSame(b.getSolution()) &&
-          this.getStart().equals(b.getStart()) &&
-          this.getStartDate().applicationEqual(b.getStartDate());
+          this.getUse().equals(b.getUse()) &&
+          this.getUtilization().equals(b.getUtilization());
     }
 
 /**
@@ -779,18 +671,18 @@ public  class JobAssignment extends ApplicationObject{
 
     public void check(){
         if (getApplicationDataset() == null){
-         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"applicationDataset","JobAssignment",(getApplicationDataset()==null?"null":getApplicationDataset().toString()),"",WarningType.NOTNULL);
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"applicationDataset","ResourceUtilization",(getApplicationDataset()==null?"null":getApplicationDataset().toString()),"",WarningType.NOTNULL);
         }
-        if (getJob() == null){
-         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"job","JobAssignment",(getJob()==null?"null":getJob().toString()),"",WarningType.NOTNULL);
+        if (getDisjunctiveResource() == null){
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"disjunctiveResource","ResourceUtilization",(getDisjunctiveResource()==null?"null":getDisjunctiveResource().toString()),"",WarningType.NOTNULL);
         }
         if (getSolution() == null){
-         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"solution","JobAssignment",(getSolution()==null?"null":getSolution().toString()),"",WarningType.NOTNULL);
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"solution","ResourceUtilization",(getSolution()==null?"null":getSolution().toString()),"",WarningType.NOTNULL);
         }
     }
 
     static void dummy(ApplicationDataset base){
-// no dummy information for class JobAssignment
+// no dummy information for class ResourceUtilization
     }
 
 /**
@@ -803,8 +695,8 @@ public  class JobAssignment extends ApplicationObject{
     }
 
    public List<ApplicationObjectInterface> getFeasibleValues(ApplicationDatasetInterface base,String attrName){
-      if (attrName.equals("job")){
-         return (List) ((Scenario)base).getListJob();
+      if (attrName.equals("disjunctiveResource")){
+         return (List) ((Scenario)base).getListDisjunctiveResource();
       }
       if (attrName.equals("solution")){
          return (List) ((Scenario)base).getListSolution();

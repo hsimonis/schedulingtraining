@@ -25,6 +25,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
+import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -73,6 +74,13 @@ public  class ProcessStep extends ApplicationObject{
     public Process process;
 
 /**
+ *  
+ *
+*/
+
+    public Integer stage;
+
+/**
  *  No-arg constructor for use in TableView
  *
 */
@@ -94,6 +102,7 @@ public  class ProcessStep extends ApplicationObject{
         setDurationFixed(0);
         setDurationPerUnit(0);
         setProcess(null);
+        setStage(0);
         applicationDataset.addProcessStep(this);
     }
 
@@ -109,13 +118,15 @@ public  class ProcessStep extends ApplicationObject{
             String name,
             Integer durationFixed,
             Integer durationPerUnit,
-            Process process){
+            Process process,
+            Integer stage){
         super(applicationDataset,
             id,
             name);
         setDurationFixed(durationFixed);
         setDurationPerUnit(durationPerUnit);
         setProcess(process);
+        setStage(stage);
         applicationDataset.addProcessStep(this);
     }
 
@@ -125,7 +136,8 @@ public  class ProcessStep extends ApplicationObject{
             other.name,
             other.durationFixed,
             other.durationPerUnit,
-            other.process);
+            other.process,
+            other.stage);
     }
 
 /**
@@ -175,6 +187,16 @@ public  class ProcessStep extends ApplicationObject{
     }
 
 /**
+ *  get attribute stage
+ *
+ * @return Integer
+*/
+
+    public Integer getStage(){
+        return this.stage;
+    }
+
+/**
  *  set attribute durationFixed, mark dataset as dirty, mark dataset as not valid
 @param durationFixed Integer
  *
@@ -211,6 +233,18 @@ public  class ProcessStep extends ApplicationObject{
     }
 
 /**
+ *  set attribute stage, mark dataset as dirty, mark dataset as not valid
+@param stage Integer
+ *
+*/
+
+    public void setStage(Integer stage){
+        this.stage = stage;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute durationFixed, mark dataset as dirty, mark dataset as not valid
  *
 */
@@ -233,6 +267,17 @@ public  class ProcessStep extends ApplicationObject{
     }
 
 /**
+ *  inc attribute stage, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incStage(){
+        this.stage++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  override generic toString() method, show all attributes in human readable form
  * @return String details of the format are not clearly defined at the moment
 */
@@ -249,7 +294,7 @@ public  class ProcessStep extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDurationFixed()+ " " +getDurationPerUnit()+ " " +getProcess().toColumnString();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDurationFixed()+ " " +getDurationPerUnit()+ " " +getProcess().toColumnString()+ " " +getStage();
     }
 
 /**
@@ -275,7 +320,8 @@ public  class ProcessStep extends ApplicationObject{
             " name=\""+toXMLName()+"\""+
             " durationFixed=\""+toXMLDurationFixed()+"\""+
             " durationPerUnit=\""+toXMLDurationPerUnit()+"\""+
-            " process=\""+toXMLProcess()+"\""+" />");
+            " process=\""+toXMLProcess()+"\""+
+            " stage=\""+toXMLStage()+"\""+" />");
      }
 
 /**
@@ -309,17 +355,27 @@ public  class ProcessStep extends ApplicationObject{
     }
 
 /**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLStage(){
+        return this.getStage().toString();
+    }
+
+/**
  * show object as one row in an HTML table
  * 
  * @return String of form <tr>...</tr>
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>ProcessStep</th>"+"<th>Name</th>"+"<th>Process</th>"+"<th>DurationFixed</th>"+"<th>DurationPerUnit</th>"+"</tr>";
+        return "<tr><th>ProcessStep</th>"+"<th>Name</th>"+"<th>Process</th>"+"<th>Stage</th>"+"<th>DurationFixed</th>"+"<th>DurationPerUnit</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getDurationFixed()+"</td>"+ " " +"<td>"+getDurationPerUnit()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getStage()+"</td>"+ " " +"<td>"+getDurationFixed()+"</td>"+ " " +"<td>"+getDurationPerUnit()+"</td>"+"</tr>";
     }
 
 /**
@@ -448,10 +504,14 @@ public  class ProcessStep extends ApplicationObject{
       if(!this.getProcess().applicationSame(b.getProcess())){
          System.out.println("Process");
         }
+      if(!this.getStage().equals(b.getStage())){
+         System.out.println("Stage");
+        }
         return  this.getDurationFixed().equals(b.getDurationFixed()) &&
           this.getDurationPerUnit().equals(b.getDurationPerUnit()) &&
           this.getName().equals(b.getName()) &&
-          this.getProcess().applicationSame(b.getProcess());
+          this.getProcess().applicationSame(b.getProcess()) &&
+          this.getStage().equals(b.getStage());
     }
 
 /**

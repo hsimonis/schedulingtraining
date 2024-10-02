@@ -29,6 +29,12 @@ public class GenerateDataSolver extends DefaultSolver{
     protected int nrOrders=20;
     protected int minQty=1;
     protected int maxQty=10;
+    protected double wipProbability=1.0;
+    protected int minWip=20;
+    protected int maxWip=50;
+    protected double downtimeProbability=0.0;
+    protected int minDowntime=50;
+    protected int maxDowntime=70;
     protected int earliestDue=20;
     protected int horizonDays=10;
     protected int timeResolution=5;
@@ -37,7 +43,7 @@ public class GenerateDataSolver extends DefaultSolver{
     public GenerateDataSolver(Scenario base){
         super(base,new String[] {});
     }
-    public GenerateDataSolver(Scenario base,String name,String resourceModel,int nrProducts,int minStages,int maxStages,int nrDisjunctiveResources,double resourceProbability,String durationModel,int minDuration,int maxDuration,int durationFixedFactor,int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,int cumulCapacity,int nrOrders,int minQty,int maxQty,int earliestDue,int horizonDays,int timeResolution,int seed){
+    public GenerateDataSolver(Scenario base,String name,String resourceModel,int nrProducts,int minStages,int maxStages,int nrDisjunctiveResources,double resourceProbability,String durationModel,int minDuration,int maxDuration,int durationFixedFactor,int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,int cumulCapacity,int nrOrders,int minQty,int maxQty,double wipProbability,int minWip,int maxWip,double downtimeProbability,int minDowntime,int maxDowntime,int earliestDue,int horizonDays,int timeResolution,int seed){
         super(base,new String[] {});
         this.name=name;
         this.resourceModel=resourceModel;
@@ -57,6 +63,12 @@ public class GenerateDataSolver extends DefaultSolver{
         this.nrOrders=nrOrders;
         this.minQty=minQty;
         this.maxQty=maxQty;
+        this.wipProbability=wipProbability;
+        this.minWip=minWip;
+        this.maxWip=maxWip;
+        this.downtimeProbability=downtimeProbability;
+        this.minDowntime=minDowntime;
+        this.maxDowntime=maxDowntime;
         this.earliestDue=earliestDue;
         this.horizonDays=horizonDays;
         this.timeResolution=timeResolution;
@@ -133,6 +145,30 @@ public int getMinQty(){
 
 public int getMaxQty(){
  return maxQty;
+}
+
+public double getWipProbability(){
+ return wipProbability;
+}
+
+public int getMinWip(){
+ return minWip;
+}
+
+public int getMaxWip(){
+ return maxWip;
+}
+
+public double getDowntimeProbability(){
+ return downtimeProbability;
+}
+
+public int getMinDowntime(){
+ return minDowntime;
+}
+
+public int getMaxDowntime(){
+ return maxDowntime;
 }
 
 public int getEarliestDue(){
@@ -238,6 +274,36 @@ public GenerateDataSolver setMinQty(int v){
 
 public GenerateDataSolver setMaxQty(int v){
  maxQty = v;
+ return this;
+}
+
+public GenerateDataSolver setWipProbability(double v){
+ wipProbability = v;
+ return this;
+}
+
+public GenerateDataSolver setMinWip(int v){
+ minWip = v;
+ return this;
+}
+
+public GenerateDataSolver setMaxWip(int v){
+ maxWip = v;
+ return this;
+}
+
+public GenerateDataSolver setDowntimeProbability(double v){
+ downtimeProbability = v;
+ return this;
+}
+
+public GenerateDataSolver setMinDowntime(int v){
+ minDowntime = v;
+ return this;
+}
+
+public GenerateDataSolver setMaxDowntime(int v){
+ maxDowntime = v;
  return this;
 }
 

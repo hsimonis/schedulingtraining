@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import static org.insightcentre.tbischeduling.datamodel.ResourceModel.FlowShop;
+import static org.insightcentre.tbischeduling.datamodel.ResourceModel.HybridFlowShop;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
 public class JfxApp extends GeneratedJfxApp {
@@ -45,10 +46,12 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setDataFile("");
                 base.setHorizon(2000);
                 info("Creating default data");
-                new CreateData(base,"P1",FlowShop,42,5,4,4,6,1,
+                new CreateData(base,"P1",HybridFlowShop,42,5,4,4,8,1,
                         0.3,DurationModel.Random,5,20,1,
-                        5,10, 20,
-                        20,50,horizon(10,5),1,10);
+                        1,1, 10,
+                        20,50,horizon(10,5),1,10,
+                        1.0,20,50,
+                        0.5,50,70);
                 base.setDirty(false);
                 return base;
         }
@@ -131,6 +134,7 @@ public class JfxApp extends GeneratedJfxApp {
         @Override
         public void scheduleJobsSolverRun(Scenario base) {
                 Optional<Boolean> result = new ScheduleJobsDialogBoxImpl(this,base,new ScheduleJobsSolverImpl(base)).showAndWait();
+                new SchedulingReport(base,"reports/").produce("schedulingreport","Scheduling Report","L. O'Toole and H. Simonis");
                 reset();
                 showView("Solution");
         }

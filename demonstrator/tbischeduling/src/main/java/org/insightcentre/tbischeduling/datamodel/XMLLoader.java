@@ -495,6 +495,25 @@ public DurationModel getDurationModel(String attributeName,
         return res;
     }
 
+    public ResourceUtilization getResourceUtilization(String attributeName,
+                               Attributes attributes) {
+        return (ResourceUtilization) find(getId(attributeName,attributes));
+    }
+
+    public List<ResourceUtilization> getResourceUtilizationCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<ResourceUtilization> res = new ArrayList<ResourceUtilization>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((ResourceUtilization) find(id));
+            }
+        }
+        return res;
+    }
+
     public Scenario getScenario(String attributeName,
                                Attributes attributes) {
         return (Scenario) find(getId(attributeName,attributes));
@@ -803,7 +822,8 @@ public DurationModel getDurationModel(String attributeName,
                         getString("name", attributes, "dummy"),
                         getInteger("durationFixed",attributes,0),
                         getInteger("durationPerUnit",attributes,0),
-                        null
+                        null,
+                        getInteger("stage",attributes,0)
                         ));
             } else if (qname.equals("product")) {
                 assert (base != null);
@@ -821,6 +841,20 @@ public DurationModel getDurationModel(String attributeName,
                         getString("name", attributes, "dummy"),
                         null,
                         null
+                        ));
+            } else if (qname.equals("resourceUtilization")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new ResourceUtilization(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getInteger("active",attributes,0),
+                        null,
+                        getInteger("earliest",attributes,0),
+                        getInteger("latest",attributes,0),
+                        null,
+                        getInteger("use",attributes,0),
+                        getDouble("utilization",attributes,0.0)
                         ));
             } else if (qname.equals("solution")) {
                 assert (base != null);
@@ -877,7 +911,8 @@ public DurationModel getDurationModel(String attributeName,
                         null,
                         null,
                         null,
-                        getString("shortName",attributes,"")
+                        getString("shortName",attributes,""),
+                        getInteger("stage",attributes,0)
                         ));
             } else if (qname.equals("taskAssignment")) {
                 assert (base != null);
@@ -1023,6 +1058,12 @@ public DurationModel getDurationModel(String attributeName,
                 ResourceNeed item = (ResourceNeed) find(id);
                  item.setDisjunctiveResource(getDisjunctiveResource("disjunctiveResource",attributes));
                  item.setProcessStep(getProcessStep("processStep",attributes));
+            } else if (qname.equals("resourceUtilization")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                ResourceUtilization item = (ResourceUtilization) find(id);
+                 item.setDisjunctiveResource(getDisjunctiveResource("disjunctiveResource",attributes));
+                 item.setSolution(getSolution("solution",attributes));
             } else if (qname.equals("solution")) {
                 assert (base != null);
                 int id = getId("id", attributes);

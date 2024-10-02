@@ -21,7 +21,7 @@ import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 
 /**
- * Generated at 12:41:15 on 2024-09-29 */
+ * Generated at 17:10:44 on 2024-10-01 */
 public class ProcessStepController extends Table3Controller {
 	@FXML
 	private TableView<ProcessStep> table;
@@ -31,6 +31,9 @@ public class ProcessStepController extends Table3Controller {
 
 	@FXML
 	private TableColumn<ProcessStep, Process> process;
+
+	@FXML
+	private TableColumn<ProcessStep, Integer> stage;
 
 	@FXML
 	private TableColumn<ProcessStep, Integer> durationFixed;
@@ -63,6 +66,10 @@ public class ProcessStepController extends Table3Controller {
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
 		choices.add("process");
 		process.setCellValueFactory(new PropertyValueFactory<>("process"));
+		choices.add("stage");
+		stage.setCellValueFactory(new PropertyValueFactory<>("stage"));
+		stage.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		stage.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setStage(event.getNewValue()); mainApp.reset();});
 		choices.add("durationFixed");
 		durationFixed.setCellValueFactory(new PropertyValueFactory<>("durationFixed"));
 		durationFixed.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));

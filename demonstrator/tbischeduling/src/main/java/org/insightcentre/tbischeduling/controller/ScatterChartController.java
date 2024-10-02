@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 12:41:15 on 2024-09-29 */
+ * Generated at 17:10:44 on 2024-10-01 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -80,6 +80,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("name");
 		filterNames.add("name");
 		filterNames.add("process");
+		attributeNames.add("stage");
+		filterNames.add("stage");
 		attributeNames.add("durationFixed");
 		filterNames.add("durationFixed");
 		attributeNames.add("durationPerUnit");
@@ -168,6 +170,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("processStep");
 		attributeNames.add("duration");
 		filterNames.add("duration");
+		attributeNames.add("stage");
+		filterNames.add("stage");
 		filterNames.add("machines");
 		filterNames.add("precedes");
 		filterNames.add("job.order");
@@ -341,6 +345,24 @@ public class ScatterChartController extends ChartXYFilterController {
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("disjunctiveResource");
+		filterNames.add("solution");
+		attributeNames.add("earliest");
+		filterNames.add("earliest");
+		attributeNames.add("latest");
+		filterNames.add("latest");
+		attributeNames.add("active");
+		filterNames.add("active");
+		attributeNames.add("use");
+		filterNames.add("use");
+		attributeNames.add("utilization");
+		filterNames.add("utilization");
+		choicesMap.put("ResourceUtilization", attributeNames);
+		filterMap.put("ResourceUtilization", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -432,6 +454,9 @@ public class ScatterChartController extends ChartXYFilterController {
 			}
 			else if (className.equals("TaskAssignment")) {
 				objectList = mainApp.getTaskAssignmentData();
+			}
+			else if (className.equals("ResourceUtilization")) {
+				objectList = mainApp.getResourceUtilizationData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

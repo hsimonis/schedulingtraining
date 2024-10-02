@@ -20,6 +20,7 @@
 				<xs:element ref="processStep" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="product" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="resourceNeed" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="resourceUtilization" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="scenario" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="solution" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="solverRun" minOccurs="0" maxOccurs="unbounded"/>
@@ -192,6 +193,7 @@
 			<xs:attribute name="durationFixed" use="required" type="xs:integer"/>
 			<xs:attribute name="durationPerUnit" use="required" type="xs:integer"/>
 			<xs:attribute name="process" use="required" type="xs:IDREF"/>
+			<xs:attribute name="stage" use="required" type="xs:integer"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="product">
@@ -209,6 +211,20 @@
 			<xs:attribute name="name" use="required" type="xs:string"/>
 			<xs:attribute name="disjunctiveResource" use="required" type="xs:IDREF"/>
 			<xs:attribute name="processStep" use="required" type="xs:IDREF"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="resourceUtilization">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="active" use="required" type="xs:integer"/>
+			<xs:attribute name="disjunctiveResource" use="required" type="xs:IDREF"/>
+			<xs:attribute name="earliest" use="required" type="xs:integer"/>
+			<xs:attribute name="latest" use="required" type="xs:integer"/>
+			<xs:attribute name="solution" use="required" type="xs:IDREF"/>
+			<xs:attribute name="use" use="required" type="xs:integer"/>
+			<xs:attribute name="utilization" use="required" type="xs:double"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="scenario">
@@ -278,6 +294,7 @@
 			<xs:attribute name="precedes" use="required" type="xs:IDREFS"/>
 			<xs:attribute name="processStep" use="required" type="xs:IDREF"/>
 			<xs:attribute name="shortName" use="required" type="xs:string"/>
+			<xs:attribute name="stage" use="required" type="xs:integer"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="taskAssignment">

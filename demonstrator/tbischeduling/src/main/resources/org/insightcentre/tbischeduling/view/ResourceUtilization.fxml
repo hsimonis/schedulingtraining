@@ -13,21 +13,19 @@
 <!--Generated at 17:10:44 on 2024-10-01-->
 
 
-<Tab text="Order" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.OrderController">
+<Tab text="ResourceUtilization" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.ResourceUtilizationController">
    <BorderPane>
       <center>
          <TableView fx:id="table" editable="true">
             <columns>
                <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
-               <TableColumn fx:id="product" styleClass="right-aligned" text="Product" />
-               <TableColumn fx:id="process" styleClass="right-aligned" text="Process" />
-               <TableColumn fx:id="qty" styleClass="right-aligned" text="Qty" />
-               <TableColumn fx:id="due" styleClass="right-aligned" text="Due" />
-               <TableColumn fx:id="dueDate" styleClass="right-aligned" text="DueDate" />
-               <TableColumn fx:id="release" styleClass="right-aligned" text="Release" />
-               <TableColumn fx:id="releaseDate" styleClass="right-aligned" text="ReleaseDate" />
-               <TableColumn fx:id="latenessWeight" styleClass="right-aligned" text="LatenessWeight" />
-               <TableColumn fx:id="earlinessWeight" styleClass="right-aligned" text="EarlinessWeight" />
+               <TableColumn fx:id="disjunctiveResource" styleClass="right-aligned" text="DisjunctiveResource" />
+               <TableColumn fx:id="solution" styleClass="right-aligned" text="Solution" />
+               <TableColumn fx:id="earliest" styleClass="right-aligned" text="Earliest" />
+               <TableColumn fx:id="latest" styleClass="right-aligned" text="Latest" />
+               <TableColumn fx:id="active" styleClass="right-aligned" text="Active" />
+               <TableColumn fx:id="use" styleClass="right-aligned" text="Use" />
+               <TableColumn fx:id="utilization" styleClass="right-aligned" text="Utilization" />
             </columns>
          </TableView>
       </center>

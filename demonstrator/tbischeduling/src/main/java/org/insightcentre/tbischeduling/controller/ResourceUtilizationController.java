@@ -2,16 +2,13 @@ package org.insightcentre.tbischeduling.controller;
 
 import framework.gui.AbstractJfxMainWindow;
 import framework.gui.Table3Controller;
+import java.lang.Double;
 import java.lang.Exception;
 import java.lang.Integer;
-import java.lang.NullPointerException;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.lang.reflect.Field;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,56 +18,57 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
-import org.insightcentre.tbischeduling.datamodel.Job;
-import org.insightcentre.tbischeduling.datamodel.Order;
-import org.insightcentre.tbischeduling.datamodel.Process;
-import org.insightcentre.tbischeduling.datamodel.Product;
+import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
+import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
+import org.insightcentre.tbischeduling.datamodel.Solution;
 
 /**
  * Generated at 17:10:44 on 2024-10-01 */
-public class JobController extends Table3Controller {
+public class ResourceUtilizationController extends Table3Controller {
 	@FXML
-	private TableView<Job> table;
+	private TableView<ResourceUtilization> table;
 
 	@FXML
-	private TableColumn<Job, String> name;
+	private TableColumn<ResourceUtilization, String> name;
 
 	@FXML
-	private TableColumn<Job, Order> order;
+	private TableColumn<ResourceUtilization, DisjunctiveResource> disjunctiveResource;
 
 	@FXML
-	private TableColumn<Job, Process> process;
+	private TableColumn<ResourceUtilization, Solution> solution;
 
 	@FXML
-	private TableColumn<Job, Product> product;
+	private TableColumn<ResourceUtilization, Integer> earliest;
 
 	@FXML
-	private TableColumn<Job, Integer> release;
+	private TableColumn<ResourceUtilization, Integer> latest;
 
 	@FXML
-	private TableColumn<Job, Integer> due;
+	private TableColumn<ResourceUtilization, Integer> active;
 
 	@FXML
-	private TableColumn<Job, Integer> qty;
+	private TableColumn<ResourceUtilization, Integer> use;
+
+	@FXML
+	private TableColumn<ResourceUtilization, Double> utilization;
 
 	private GeneratedJfxApp mainApp;
 
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
-		table.setItems(mainApp.getJobData());
-		order.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getOrderData()));
-		order.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setOrder(event.getNewValue()); mainApp.reset();});
-		process.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getProcessData()));
-		process.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setProcess(event.getNewValue()); mainApp.reset();});
+		table.setItems(mainApp.getResourceUtilizationData());
+		disjunctiveResource.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getDisjunctiveResourceData()));
+		disjunctiveResource.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDisjunctiveResource(event.getNewValue()); mainApp.reset();});
+		solution.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getSolutionData()));
+		solution.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSolution(event.getNewValue()); mainApp.reset();});
 	}
 
-	public TableView<Job> getTable() {
+	public TableView<ResourceUtilization> getTable() {
 		return table;
 	}
 
 	@FXML
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
 		table.setTableMenuButtonVisible(true);
 		table.setOnMouseClicked(event -> {if (event.isControlDown()) {mainApp.showObject(table.getFocusModel().getFocusedItem());}});
@@ -79,47 +77,39 @@ public class JobController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
-		choices.add("order");
-		order.setCellValueFactory(new PropertyValueFactory<>("order"));
-		choices.add("process");
-		process.setCellValueFactory(new PropertyValueFactory<>("process"));
-		choices.add("order.product");
-		try {
-			product.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getOrder().getProduct()));
-		}
-		catch (NullPointerException e) {
-			System.err.println(e);
-		}
-		choices.add("order.release");
-		try {
-			release.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getOrder().getRelease()).asObject());
-		}
-		catch (NullPointerException e) {
-			System.err.println(e);
-		}
-		choices.add("order.due");
-		try {
-			due.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getOrder().getDue()).asObject());
-		}
-		catch (NullPointerException e) {
-			System.err.println(e);
-		}
-		choices.add("order.qty");
-		try {
-			qty.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getOrder().getQty()).asObject());
-		}
-		catch (NullPointerException e) {
-			System.err.println(e);
-		}
+		choices.add("disjunctiveResource");
+		disjunctiveResource.setCellValueFactory(new PropertyValueFactory<>("disjunctiveResource"));
+		choices.add("solution");
+		solution.setCellValueFactory(new PropertyValueFactory<>("solution"));
+		choices.add("earliest");
+		earliest.setCellValueFactory(new PropertyValueFactory<>("earliest"));
+		earliest.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		earliest.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEarliest(event.getNewValue()); mainApp.reset();});
+		choices.add("latest");
+		latest.setCellValueFactory(new PropertyValueFactory<>("latest"));
+		latest.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		latest.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setLatest(event.getNewValue()); mainApp.reset();});
+		choices.add("active");
+		active.setCellValueFactory(new PropertyValueFactory<>("active"));
+		active.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		active.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setActive(event.getNewValue()); mainApp.reset();});
+		choices.add("use");
+		use.setCellValueFactory(new PropertyValueFactory<>("use"));
+		use.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		use.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setUse(event.getNewValue()); mainApp.reset();});
+		choices.add("utilization");
+		utilization.setCellValueFactory(new PropertyValueFactory<>("utilization"));
+		utilization.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		utilization.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setUtilization(event.getNewValue()); mainApp.reset();});
 		initialize(choices);
 	}
 
 	@Override
 	public void filter(String attribute, String comparison, String text) {
-		table.setItems(mainApp.getJobData());
+		table.setItems(mainApp.getResourceUtilizationData());
 		try {
-			ObservableList<Job> filteredItems = FXCollections.observableArrayList();
-			for (Job item : table.getItems()) {
+			ObservableList<ResourceUtilization> filteredItems = FXCollections.observableArrayList();
+			for (ResourceUtilization item : table.getItems()) {
 				String[] fields = attribute.split("\\.");
 				Field f = null;
 				Object obj = item;

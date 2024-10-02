@@ -25,6 +25,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
+import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -259,6 +260,13 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<TaskAssignment> listTaskAssignment = new ArrayList<TaskAssignment>();
 
 /**
+ *  This lists holds all items of class ResourceUtilization and its subclasses
+ *
+*/
+
+    List<ResourceUtilization> listResourceUtilization = new ArrayList<ResourceUtilization>();
+
+/**
  *  This is the static counter from which all id numbers are generated.It is used by all classes, so that ids are unique over all objects.
  *
 */
@@ -398,6 +406,7 @@ public int compareTo(ApplicationDataset ds2){
                              "ProcessStep",
                              "Product",
                              "ResourceNeed",
+                             "ResourceUtilization",
                              "Scenario",
                              "Solution",
                              "SolverRun",
@@ -481,6 +490,7 @@ public int compareTo(ApplicationDataset ds2){
         resetListSolution();
         resetListJobAssignment();
         resetListTaskAssignment();
+        resetListResourceUtilization();
     }
 
 /**
@@ -1266,6 +1276,40 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Iterator for list of class ResourceUtilization
+ *
+*/
+
+    public Iterator<ResourceUtilization> getIteratorResourceUtilization(){
+        return listResourceUtilization.iterator();
+    }
+
+/**
+ *  Getter for list of class ResourceUtilization
+ *
+*/
+
+    public List<ResourceUtilization> getListResourceUtilization(){
+        return listResourceUtilization;
+    }
+
+/**
+ *  reset the list of class ResourceUtilization; use with care, does not call cascades
+ *
+*/
+
+    public void resetListResourceUtilization(){
+        listResourceUtilization = new ArrayList<ResourceUtilization>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof ResourceUtilization)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
  *  Generate a new id number, used in constructor calls
  *
 */
@@ -1813,6 +1857,42 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Removing object item of class DisjunctiveResource; remove all dependent objects of class ResourceUtilization which refer to item through their attribute disjunctiveResource
+ *
+*/
+
+    public void cascadeResourceUtilizationDisjunctiveResource(DisjunctiveResource item){
+        assert item != null;
+        List<ResourceUtilization> toRemove = new ArrayList<ResourceUtilization>();
+        for(ResourceUtilization a:getListResourceUtilization()) {
+         if (a.getDisjunctiveResource() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(ResourceUtilization b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class Solution; remove all dependent objects of class ResourceUtilization which refer to item through their attribute solution
+ *
+*/
+
+    public void cascadeResourceUtilizationSolution(Solution item){
+        assert item != null;
+        List<ResourceUtilization> toRemove = new ArrayList<ResourceUtilization>();
+        for(ResourceUtilization a:getListResourceUtilization()) {
+         if (a.getSolution() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(ResourceUtilization b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
  *  add an item to the list for class ApplicationDataset
  *
 */
@@ -2313,6 +2393,26 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class ResourceUtilization
+ *
+*/
+
+    public void addResourceUtilization(ResourceUtilization resourceUtilization){
+        assert resourceUtilization != null;
+        this.listResourceUtilization.add(resourceUtilization);
+    }
+
+/**
+ *  remove an item from the list for class ResourceUtilization
+ *
+*/
+
+    public Boolean removeResourceUtilization(ResourceUtilization resourceUtilization){
+        assert resourceUtilization != null;
+        return this.listResourceUtilization.remove(resourceUtilization);
+    }
+
+/**
  *  dump all items on the console for debugging
  *
 */
@@ -2367,6 +2467,9 @@ public int compareTo(ApplicationDataset ds2){
             System.out.println(x);
         }
         for(ResourceNeed x:getListResourceNeed()){
+            System.out.println(x);
+        }
+        for(ResourceUtilization x:getListResourceUtilization()){
             System.out.println(x);
         }
         for(Scenario x:getListScenario()){
@@ -2473,6 +2576,9 @@ public int compareTo(ApplicationDataset ds2){
         }
         for(ResourceNeed x:getListResourceNeed()){
             if (x.getClass().equals(ResourceNeed.class)) x.toXML(out);
+        }
+        for(ResourceUtilization x:getListResourceUtilization()){
+            if (x.getClass().equals(ResourceUtilization.class)) x.toXML(out);
         }
         for(Solution x:getListSolution()){
             if (x.getClass().equals(Solution.class)) x.toXML(out);
@@ -2600,6 +2706,7 @@ public int compareTo(ApplicationDataset ds2){
         compareProcessStep(this.getListProcessStep(),compare.getListProcessStep());
         compareProduct(this.getListProduct(),compare.getListProduct());
         compareResourceNeed(this.getListResourceNeed(),compare.getListResourceNeed());
+        compareResourceUtilization(this.getListResourceUtilization(),compare.getListResourceUtilization());
         compareSolution(this.getListSolution(),compare.getListSolution());
         compareSolverRun(this.getListSolverRun(),compare.getListSolverRun());
         compareTask(this.getListTask(),compare.getListTask());
@@ -2993,6 +3100,30 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ * compare two lists of types ResourceUtilization, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareResourceUtilization(List<ResourceUtilization> aList,List<ResourceUtilization> bList){
+        System.out.println("Comparing ResourceUtilization");
+        for(ResourceUtilization a:aList){
+            ResourceUtilization b= ResourceUtilization.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"ResourceUtilization A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"ResourceUtilization A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"ResourceUtilization B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(ResourceUtilization b: bList){
+            ResourceUtilization a = ResourceUtilization.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"ResourceUtilization B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
  * compare two lists of types Solution, create AppplicationWarnings for items which are in only one of the lists
  * or for items which are applicationSame(), but not applicationEqual()
 */
@@ -3134,6 +3265,7 @@ public int compareTo(ApplicationDataset ds2){
         checkProcessStep(this.getListProcessStep());
         checkProduct(this.getListProduct());
         checkResourceNeed(this.getListResourceNeed());
+        checkResourceUtilization(this.getListResourceUtilization());
         checkScenario(this.getListScenario());
         checkSolution(this.getListSolution());
         checkSolverRun(this.getListSolverRun());
@@ -3320,6 +3452,17 @@ public int compareTo(ApplicationDataset ds2){
 
 /**
  * helper method for checkAll()
+ * @param list List<ResourceUtilization> dataset list of all items of type ResourceUtilization
+*/
+
+    public void checkResourceUtilization(List<ResourceUtilization> list){
+        for(ResourceUtilization a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
  * @param list List<Scenario> dataset list of all items of type Scenario
 */
 
@@ -3402,6 +3545,7 @@ public int compareTo(ApplicationDataset ds2){
         ProcessStep.dummy(this);
         Product.dummy(this);
         ResourceNeed.dummy(this);
+        ResourceUtilization.dummy(this);
         Scenario.dummy(this);
         Solution.dummy(this);
         SolverRun.dummy(this);

@@ -26,7 +26,9 @@ public class GenerateDataSolverImpl extends GenerateDataSolver {
                 toDurationModel(getDurationModel()),getMinDuration(),getMaxDuration(),getDurationFixedFactor(),
                 getMinCumulDemand(),getMaxCumulDemand(),getCumulCapacity(),
                 getNrOrders(),
-                getEarliestDue(),horizon(getHorizonDays(),getTimeResolution()),getMinQty(),getMaxQty());
+                getEarliestDue(),horizon(getHorizonDays(),getTimeResolution()),getMinQty(),getMaxQty(),
+                getWipProbability(),getMinWip(),getMaxWip(),
+                getDowntimeProbability(),getMinDowntime(),getMaxDowntime());
         return true;
     }
 
