@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 17:10:44 on 2024-10-01-->
+<!--Generated at 15:36:02 on 2024-10-02-->
 
 
 <Tab text="TaskAssignment" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.TaskAssignmentController">
@@ -19,14 +19,14 @@
          <TableView fx:id="table" editable="true">
             <columns>
                <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
-               <TableColumn fx:id="task" styleClass="right-aligned" text="Task" />
-               <TableColumn fx:id="jobAssignment" styleClass="right-aligned" text="JobAssignment" />
                <TableColumn fx:id="disjunctiveResource" styleClass="right-aligned" text="DisjunctiveResource" />
                <TableColumn fx:id="duration" styleClass="right-aligned" text="Duration" />
                <TableColumn fx:id="start" styleClass="right-aligned" text="Start" />
                <TableColumn fx:id="end" styleClass="right-aligned" text="End" />
                <TableColumn fx:id="startDate" styleClass="right-aligned" text="StartDate" />
                <TableColumn fx:id="endDate" styleClass="right-aligned" text="EndDate" />
+               <TableColumn fx:id="task" styleClass="right-aligned" text="Task" />
+               <TableColumn fx:id="jobAssignment" styleClass="right-aligned" text="JobAssignment" />
                <TableColumn fx:id="solution" styleClass="right-aligned,disabled-column" text="Solution" />
                <TableColumn fx:id="order" styleClass="right-aligned,disabled-column" text="Order" />
                <TableColumn fx:id="release" styleClass="right-aligned,disabled-column" text="Release" />

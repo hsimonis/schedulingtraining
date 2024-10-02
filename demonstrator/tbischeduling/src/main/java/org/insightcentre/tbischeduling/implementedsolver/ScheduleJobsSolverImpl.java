@@ -3,6 +3,8 @@ package org.insightcentre.tbischeduling.implementedsolver;
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 import org.insightcentre.tbischeduling.importer.Reset;
+import org.insightcentre.tbischeduling.reports.RunReport;
+import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
 import java.util.Comparator;
 import java.util.List;
@@ -31,8 +33,9 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         }
         SolverRun run = createSolverRun(getLabel(),getDescription(),toModelType(getModelType()),
                 toSolverBackend(getSolverBackend()),toObjectiveType(getObjectiveType()),
-                getEnforceReleaseDate(),getEnforceDueDate(),getTimeout(),getNrThreads(),getSeed(),
-                getRemoveSolution());
+                getEnforceReleaseDate(),getEnforceDueDate(),getEnforceCumulative(),getEnforceWip(),getEnforceDowntime(),
+                getTimeout(),getNrThreads(),getSeed(),
+                getRemoveSolution(),getProduceReport(),getProducePDF());
         switch(toModelType(getModelType())){
             case CPO:
                 res = new CPOModel(base,run).solve();
@@ -53,7 +56,16 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         if (res) {
             Solution sol = Solution.findLast(base);
             kpiCalc(sol);
+
+            if (run.getProduceReport() || run.getProducePDF()) {
+                new SchedulingReport(base, "reports/").produce("schedulingreport", "Scheduling Report", "L. O'Toole and H. Simonis");
+            }
+            if (run.getProducePDF()) {
+                // run latex to produce report
+                new RunReport("lualatex", "reports/", "schedulingreport").runProgram();
+            }
         }
+
         base.setDirty(true);
         return res;
     }
@@ -94,7 +106,9 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
 
     private SolverRun createSolverRun(String label,String description,ModelType modelType,SolverBackend solverBackend,
                                       ObjectiveType objectiveType,boolean enforceReleaseDate,boolean enforceDueDate,
-                                      int timeout,int nrThreads,int seed,boolean removeSolution){
+                                      boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,
+                                      int timeout,int nrThreads,int seed,boolean removeSolution,
+                                      boolean produceReport,boolean producePDF){
         SolverRun res = new SolverRun(base);
         res.setName("Run"+runNr++);
         res.setLabel(label);
@@ -104,10 +118,16 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         res.setObjectiveType(objectiveType);
         res.setEnforceReleaseDate(enforceReleaseDate);
         res.setEnforceDueDate(enforceDueDate);
+        res.setEnforceCumulative(enforceCumulative);
+        res.setEnforceWip(enforceWip);
+        res.setEnforceDowntime(enforceDowntime);
+
         res.setTimeout(timeout);
         res.setNrThreads(nrThreads);
         res.setSeed(seed);
         res.setRemoveSolution(removeSolution);
+        res.setProduceReport(produceReport);
+        res.setProducePDF(producePDF);
         res.setSolverStatus(ToRun);
         return res;
     }

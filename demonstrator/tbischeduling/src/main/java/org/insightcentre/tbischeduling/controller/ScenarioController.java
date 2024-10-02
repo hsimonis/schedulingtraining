@@ -27,7 +27,7 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
 
 /**
- * Generated at 17:10:44 on 2024-10-01 */
+ * Generated at 15:36:02 on 2024-10-02 */
 public class ScenarioController extends Table3Controller {
 	@FXML
 	private TableView<Scenario> table;
@@ -52,6 +52,15 @@ public class ScenarioController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Scenario, Integer> timeResolution;
+
+	@FXML
+	private TableColumn<Scenario, Integer> ganttWidth;
+
+	@FXML
+	private TableColumn<Scenario, Integer> ganttLinesPerPage;
+
+	@FXML
+	private TableColumn<Scenario, Double> ganttLineHeight;
 
 	private GeneratedJfxApp mainApp;
 
@@ -96,6 +105,18 @@ public class ScenarioController extends Table3Controller {
 		timeResolution.setCellValueFactory(new PropertyValueFactory<>("timeResolution"));
 		timeResolution.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		timeResolution.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTimeResolution(event.getNewValue()); mainApp.reset();});
+		choices.add("ganttWidth");
+		ganttWidth.setCellValueFactory(new PropertyValueFactory<>("ganttWidth"));
+		ganttWidth.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		ganttWidth.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setGanttWidth(event.getNewValue()); mainApp.reset();});
+		choices.add("ganttLinesPerPage");
+		ganttLinesPerPage.setCellValueFactory(new PropertyValueFactory<>("ganttLinesPerPage"));
+		ganttLinesPerPage.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		ganttLinesPerPage.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setGanttLinesPerPage(event.getNewValue()); mainApp.reset();});
+		choices.add("ganttLineHeight");
+		ganttLineHeight.setCellValueFactory(new PropertyValueFactory<>("ganttLineHeight"));
+		ganttLineHeight.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("")));
+		ganttLineHeight.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setGanttLineHeight(event.getNewValue()); mainApp.reset();});
 		initialize(choices);
 	}
 

@@ -33,6 +33,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
 import org.insightcentre.tbischeduling.datamodel.InputError;
+import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.Order;
@@ -41,6 +42,7 @@ import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.Product;
+import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
@@ -56,7 +58,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 17:10:44 on 2024-10-01 */
+ * Generated at 15:36:02 on 2024-10-02 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -96,6 +98,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<CumulativeResource> cumulativeResourceData = FXCollections.observableArrayList();
 
+	private ObservableList<ResourceActivity> resourceActivityData = FXCollections.observableArrayList();
+
 	private ObservableList<Order> orderData = FXCollections.observableArrayList();
 
 	private ObservableList<Job> jobData = FXCollections.observableArrayList();
@@ -116,10 +120,13 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<ResourceUtilization> resourceUtilizationData = FXCollections.observableArrayList();
 
+	private ObservableList<IntermediateSolution> intermediateSolutionData = FXCollections.observableArrayList();
+
 	public GeneratedJfxApp() {
 		super("tbischeduling", "ENTIRE EDIH Test Before Invest - Scheduling - University College Cork", "*.data", "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling");
 		fs = minimalDataset();
 		reset();
+		tableViews.put("ResourceActivity", "ResourceActivity");
 		tableViews.put("Scenario", "Scenario");
 		tableViews.put("Scenario Differences", "ApplicationDifference");
 		tableViews.put("Warnings", "ApplicationWarning");
@@ -144,6 +151,7 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		tableViews.put("JobAssignment", "JobAssignment");
 		tableViews.put("TaskAssignment", "TaskAssignment");
 		tableViews.put("ResourceUtilization", "ResourceUtilization");
+		tableViews.put("IntermediateSolution", "IntermediateSolution");
 	}
 
 	public static void main(String[] args) {
@@ -241,6 +249,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		disjunctiveResourceData.addAll(base.getListDisjunctiveResource());
 		cumulativeResourceData.clear();
 		cumulativeResourceData.addAll(base.getListCumulativeResource());
+		resourceActivityData.clear();
+		resourceActivityData.addAll(base.getListResourceActivity());
 		orderData.clear();
 		orderData.addAll(base.getListOrder());
 		jobData.clear();
@@ -261,6 +271,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		taskAssignmentData.addAll(base.getListTaskAssignment());
 		resourceUtilizationData.clear();
 		resourceUtilizationData.addAll(base.getListResourceUtilization());
+		intermediateSolutionData.clear();
+		intermediateSolutionData.addAll(base.getListIntermediateSolution());
 		for (BaseController controller : controllers) {
 			controller.setMainApp(this);
 		}
@@ -369,6 +381,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		return cumulativeResourceData;
 	}
 
+	public ObservableList<ResourceActivity> getResourceActivityData() {
+		return resourceActivityData;
+	}
+
 	public ObservableList<Order> getOrderData() {
 		return orderData;
 	}
@@ -407,5 +423,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public ObservableList<ResourceUtilization> getResourceUtilizationData() {
 		return resourceUtilizationData;
+	}
+
+	public ObservableList<IntermediateSolution> getIntermediateSolutionData() {
+		return intermediateSolutionData;
 	}
 }

@@ -20,7 +20,7 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 
 /**
- * Generated at 17:10:44 on 2024-10-01 */
+ * Generated at 15:36:02 on 2024-10-02 */
 public class ApplicationWarningController extends Table3Controller {
 	@FXML
 	private TableView<ApplicationWarning> table;

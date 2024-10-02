@@ -324,6 +324,25 @@ public DurationModel getDurationModel(String attributeName,
         return res;
     }
 
+    public IntermediateSolution getIntermediateSolution(String attributeName,
+                               Attributes attributes) {
+        return (IntermediateSolution) find(getId(attributeName,attributes));
+    }
+
+    public List<IntermediateSolution> getIntermediateSolutionCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<IntermediateSolution> res = new ArrayList<IntermediateSolution>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((IntermediateSolution) find(id));
+            }
+        }
+        return res;
+    }
+
     public Job getJob(String attributeName,
                                Attributes attributes) {
         return (Job) find(getId(attributeName,attributes));
@@ -471,6 +490,25 @@ public DurationModel getDurationModel(String attributeName,
             if (words[i].length() > 0) {
                 int id = Integer.parseInt(words[i].substring(3));
                 res.add((Product) find(id));
+            }
+        }
+        return res;
+    }
+
+    public ResourceActivity getResourceActivity(String attributeName,
+                               Attributes attributes) {
+        return (ResourceActivity) find(getId(attributeName,attributes));
+    }
+
+    public List<ResourceActivity> getResourceActivityCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<ResourceActivity> res = new ArrayList<ResourceActivity>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((ResourceActivity) find(id));
             }
         }
         return res;
@@ -656,6 +694,9 @@ public DurationModel getDurationModel(String attributeName,
                         getBoolean("valid",attributes,false),
                         getString("dataFile",attributes,""),
                         getDouble("dataFileVersionNumber",attributes,0.0),
+                        getDouble("ganttLineHeight",attributes,0.0),
+                        getInteger("ganttLinesPerPage",attributes,0),
+                        getInteger("ganttWidth",attributes,0),
                         getInteger("horizon",attributes,0),
                         getInteger("timeResolution",attributes,0)
                               );
@@ -722,10 +763,11 @@ public DurationModel getDurationModel(String attributeName,
                         id,
                         getString("name", attributes, "dummy"),
                         null,
-                        getInteger("from",attributes,0),
-                        getDateTime("fromDate",attributes,"2011-01-01"),
-                        getInteger("to",attributes,0),
-                        getDateTime("toDate",attributes,"2011-01-01")
+                        getInteger("duration",attributes,0),
+                        getInteger("end",attributes,0),
+                        getDateTime("endDate",attributes,"2011-01-01"),
+                        getInteger("start",attributes,0),
+                        getDateTime("startDate",attributes,"2011-01-01")
                         ));
             } else if (qname.equals("inputError")) {
                 assert (base != null);
@@ -739,6 +781,19 @@ public DurationModel getDurationModel(String attributeName,
                         getString("item",attributes,""),
                         null,
                         getString("value",attributes,"")
+                        ));
+            } else if (qname.equals("intermediateSolution")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new IntermediateSolution(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getDouble("bound",attributes,0.0),
+                        getDouble("cost",attributes,0.0),
+                        getDouble("gapPercent",attributes,0.0),
+                        getInteger("nr",attributes,0),
+                        null,
+                        getDouble("time",attributes,0.0)
                         ));
             } else if (qname.equals("job")) {
                 assert (base != null);
@@ -887,12 +942,17 @@ public DurationModel getDurationModel(String attributeName,
                         id,
                         getString("name", attributes, "dummy"),
                         getString("description",attributes,""),
+                        getBoolean("enforceCumulative",attributes,false),
+                        getBoolean("enforceDowntime",attributes,false),
                         getBoolean("enforceDueDate",attributes,false),
                         getBoolean("enforceReleaseDate",attributes,false),
+                        getBoolean("enforceWip",attributes,false),
                         getString("label",attributes,""),
                         null,
                         getInteger("nrThreads",attributes,0),
                         null,
+                        getBoolean("producePDF",attributes,false),
+                        getBoolean("produceReport",attributes,false),
                         getBoolean("removeSolution",attributes,false),
                         getInteger("seed",attributes,0),
                         null,
@@ -924,9 +984,9 @@ public DurationModel getDurationModel(String attributeName,
                         getInteger("duration",attributes,0),
                         getInteger("end",attributes,0),
                         getDateTime("endDate",attributes,"2011-01-01"),
-                        null,
                         getInteger("start",attributes,0),
                         getDateTime("startDate",attributes,"2011-01-01"),
+                        null,
                         null
                         ));
             } else if (qname.equals("wiP")) {
@@ -936,8 +996,11 @@ public DurationModel getDurationModel(String attributeName,
                         id,
                         getString("name", attributes, "dummy"),
                         null,
-                        getInteger("until",attributes,0),
-                        getDateTime("untilDate",attributes,"2011-01-01")
+                        getInteger("duration",attributes,0),
+                        getInteger("end",attributes,0),
+                        getDateTime("endDate",attributes,"2011-01-01"),
+                        getInteger("start",attributes,0),
+                        getDateTime("startDate",attributes,"2011-01-01")
                         ));
             } else {
                 System.out.println("Element Structure " + qname);
@@ -1009,6 +1072,11 @@ public DurationModel getDurationModel(String attributeName,
                 int id = getId("id", attributes);
                 InputError item = (InputError) find(id);
                  item.setSeverity(getSeverity("severity",attributes));
+            } else if (qname.equals("intermediateSolution")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                IntermediateSolution item = (IntermediateSolution) find(id);
+                 item.setSolverRun(getSolverRun("solverRun",attributes));
             } else if (qname.equals("job")) {
                 assert (base != null);
                 int id = getId("id", attributes);

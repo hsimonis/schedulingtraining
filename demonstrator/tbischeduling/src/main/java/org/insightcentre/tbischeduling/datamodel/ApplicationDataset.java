@@ -16,6 +16,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
 import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
+import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
@@ -26,6 +27,7 @@ import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
+import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -197,6 +199,13 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<CumulativeResource> listCumulativeResource = new ArrayList<CumulativeResource>();
 
 /**
+ *  This lists holds all items of class ResourceActivity and its subclasses
+ *
+*/
+
+    List<ResourceActivity> listResourceActivity = new ArrayList<ResourceActivity>();
+
+/**
  *  This lists holds all items of class Order and its subclasses
  *
 */
@@ -265,6 +274,13 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
 */
 
     List<ResourceUtilization> listResourceUtilization = new ArrayList<ResourceUtilization>();
+
+/**
+ *  This lists holds all items of class IntermediateSolution and its subclasses
+ *
+*/
+
+    List<IntermediateSolution> listIntermediateSolution = new ArrayList<IntermediateSolution>();
 
 /**
  *  This is the static counter from which all id numbers are generated.It is used by all classes, so that ids are unique over all objects.
@@ -397,6 +413,7 @@ public int compareTo(ApplicationDataset ds2){
                              "DisjunctiveResource",
                              "Downtime",
                              "InputError",
+                             "IntermediateSolution",
                              "Job",
                              "JobAssignment",
                              "Order",
@@ -481,16 +498,18 @@ public int compareTo(ApplicationDataset ds2){
         resetListCumulativeProfile();
         resetListDisjunctiveResource();
         resetListCumulativeResource();
+        resetListResourceActivity();
+        resetListWiP();
+        resetListDowntime();
+        resetListTaskAssignment();
         resetListOrder();
         resetListJob();
         resetListTask();
-        resetListWiP();
-        resetListDowntime();
         resetListSolverRun();
         resetListSolution();
         resetListJobAssignment();
-        resetListTaskAssignment();
         resetListResourceUtilization();
+        resetListIntermediateSolution();
     }
 
 /**
@@ -970,6 +989,43 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Iterator for list of class ResourceActivity
+ *
+*/
+
+    public Iterator<ResourceActivity> getIteratorResourceActivity(){
+        return listResourceActivity.iterator();
+    }
+
+/**
+ *  Getter for list of class ResourceActivity
+ *
+*/
+
+    public List<ResourceActivity> getListResourceActivity(){
+        return listResourceActivity;
+    }
+
+/**
+ *  reset the list of class ResourceActivity; use with care, does not call cascades
+ *
+*/
+
+    public void resetListResourceActivity(){
+        listResourceActivity = new ArrayList<ResourceActivity>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof ResourceActivity)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+        resetListWiP();
+        resetListDowntime();
+        resetListTaskAssignment();
+    }
+
+/**
  *  Iterator for list of class Order
  *
 */
@@ -1096,6 +1152,13 @@ public int compareTo(ApplicationDataset ds2){
 
     public void resetListWiP(){
         listWiP = new ArrayList<WiP>();
+        List<ResourceActivity> newListResourceActivity = new ArrayList<ResourceActivity>();
+        for(ResourceActivity a:listResourceActivity){
+            if (!(a instanceof WiP)){
+                newListResourceActivity.add(a);
+            }
+        }
+       listResourceActivity = newListResourceActivity;
         List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
         for(ApplicationObject a:listApplicationObject){
             if (!(a instanceof WiP)){
@@ -1130,6 +1193,13 @@ public int compareTo(ApplicationDataset ds2){
 
     public void resetListDowntime(){
         listDowntime = new ArrayList<Downtime>();
+        List<ResourceActivity> newListResourceActivity = new ArrayList<ResourceActivity>();
+        for(ResourceActivity a:listResourceActivity){
+            if (!(a instanceof Downtime)){
+                newListResourceActivity.add(a);
+            }
+        }
+       listResourceActivity = newListResourceActivity;
         List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
         for(ApplicationObject a:listApplicationObject){
             if (!(a instanceof Downtime)){
@@ -1266,6 +1336,13 @@ public int compareTo(ApplicationDataset ds2){
 
     public void resetListTaskAssignment(){
         listTaskAssignment = new ArrayList<TaskAssignment>();
+        List<ResourceActivity> newListResourceActivity = new ArrayList<ResourceActivity>();
+        for(ResourceActivity a:listResourceActivity){
+            if (!(a instanceof TaskAssignment)){
+                newListResourceActivity.add(a);
+            }
+        }
+       listResourceActivity = newListResourceActivity;
         List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
         for(ApplicationObject a:listApplicationObject){
             if (!(a instanceof TaskAssignment)){
@@ -1303,6 +1380,40 @@ public int compareTo(ApplicationDataset ds2){
         List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
         for(ApplicationObject a:listApplicationObject){
             if (!(a instanceof ResourceUtilization)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class IntermediateSolution
+ *
+*/
+
+    public Iterator<IntermediateSolution> getIteratorIntermediateSolution(){
+        return listIntermediateSolution.iterator();
+    }
+
+/**
+ *  Getter for list of class IntermediateSolution
+ *
+*/
+
+    public List<IntermediateSolution> getListIntermediateSolution(){
+        return listIntermediateSolution;
+    }
+
+/**
+ *  reset the list of class IntermediateSolution; use with care, does not call cascades
+ *
+*/
+
+    public void resetListIntermediateSolution(){
+        listIntermediateSolution = new ArrayList<IntermediateSolution>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof IntermediateSolution)){
                 newListApplicationObject.add(a);
             }
         }
@@ -1566,6 +1677,24 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Removing object item of class DisjunctiveResource; remove all dependent objects of class ResourceActivity which refer to item through their attribute disjunctiveResource
+ *
+*/
+
+    public void cascadeResourceActivityDisjunctiveResource(DisjunctiveResource item){
+        assert item != null;
+        List<ResourceActivity> toRemove = new ArrayList<ResourceActivity>();
+        for(ResourceActivity a:getListResourceActivity()) {
+         if (a.getDisjunctiveResource() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(ResourceActivity b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
  *  Removing object item of class Product; remove all dependent objects of class Order which refer to item through their attribute product
  *
 */
@@ -1713,42 +1842,6 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
- *  Removing object item of class DisjunctiveResource; remove all dependent objects of class WiP which refer to item through their attribute disjunctiveResource
- *
-*/
-
-    public void cascadeWiPDisjunctiveResource(DisjunctiveResource item){
-        assert item != null;
-        List<WiP> toRemove = new ArrayList<WiP>();
-        for(WiP a:getListWiP()) {
-         if (a.getDisjunctiveResource() == item) {
-            toRemove.add(a);
-         }
-        }
-        for(WiP b:toRemove) {
-            b.remove();
-        }
-    }
-
-/**
- *  Removing object item of class DisjunctiveResource; remove all dependent objects of class Downtime which refer to item through their attribute disjunctiveResource
- *
-*/
-
-    public void cascadeDowntimeDisjunctiveResource(DisjunctiveResource item){
-        assert item != null;
-        List<Downtime> toRemove = new ArrayList<Downtime>();
-        for(Downtime a:getListDowntime()) {
-         if (a.getDisjunctiveResource() == item) {
-            toRemove.add(a);
-         }
-        }
-        for(Downtime b:toRemove) {
-            b.remove();
-        }
-    }
-
-/**
  *  Removing object item of class SolverRun; remove all dependent objects of class Solution which refer to item through their attribute solverRun
  *
 */
@@ -1839,24 +1932,6 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
- *  Removing object item of class DisjunctiveResource; remove all dependent objects of class TaskAssignment which refer to item through their attribute disjunctiveResource
- *
-*/
-
-    public void cascadeTaskAssignmentDisjunctiveResource(DisjunctiveResource item){
-        assert item != null;
-        List<TaskAssignment> toRemove = new ArrayList<TaskAssignment>();
-        for(TaskAssignment a:getListTaskAssignment()) {
-         if (a.getDisjunctiveResource() == item) {
-            toRemove.add(a);
-         }
-        }
-        for(TaskAssignment b:toRemove) {
-            b.remove();
-        }
-    }
-
-/**
  *  Removing object item of class DisjunctiveResource; remove all dependent objects of class ResourceUtilization which refer to item through their attribute disjunctiveResource
  *
 */
@@ -1888,6 +1963,24 @@ public int compareTo(ApplicationDataset ds2){
          }
         }
         for(ResourceUtilization b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class SolverRun; remove all dependent objects of class IntermediateSolution which refer to item through their attribute solverRun
+ *
+*/
+
+    public void cascadeIntermediateSolutionSolverRun(SolverRun item){
+        assert item != null;
+        List<IntermediateSolution> toRemove = new ArrayList<IntermediateSolution>();
+        for(IntermediateSolution a:getListIntermediateSolution()) {
+         if (a.getSolverRun() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(IntermediateSolution b:toRemove) {
             b.remove();
         }
     }
@@ -2213,6 +2306,26 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class ResourceActivity
+ *
+*/
+
+    public void addResourceActivity(ResourceActivity resourceActivity){
+        assert resourceActivity != null;
+        this.listResourceActivity.add(resourceActivity);
+    }
+
+/**
+ *  remove an item from the list for class ResourceActivity
+ *
+*/
+
+    public Boolean removeResourceActivity(ResourceActivity resourceActivity){
+        assert resourceActivity != null;
+        return this.listResourceActivity.remove(resourceActivity);
+    }
+
+/**
  *  add an item to the list for class Order
  *
 */
@@ -2413,6 +2526,26 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class IntermediateSolution
+ *
+*/
+
+    public void addIntermediateSolution(IntermediateSolution intermediateSolution){
+        assert intermediateSolution != null;
+        this.listIntermediateSolution.add(intermediateSolution);
+    }
+
+/**
+ *  remove an item from the list for class IntermediateSolution
+ *
+*/
+
+    public Boolean removeIntermediateSolution(IntermediateSolution intermediateSolution){
+        assert intermediateSolution != null;
+        return this.listIntermediateSolution.remove(intermediateSolution);
+    }
+
+/**
  *  dump all items on the console for debugging
  *
 */
@@ -2440,6 +2573,9 @@ public int compareTo(ApplicationDataset ds2){
             System.out.println(x);
         }
         for(InputError x:getListInputError()){
+            System.out.println(x);
+        }
+        for(IntermediateSolution x:getListIntermediateSolution()){
             System.out.println(x);
         }
         for(Job x:getListJob()){
@@ -2549,6 +2685,9 @@ public int compareTo(ApplicationDataset ds2){
         }
         for(InputError x:getListInputError()){
             if (x.getClass().equals(InputError.class)) x.toXML(out);
+        }
+        for(IntermediateSolution x:getListIntermediateSolution()){
+            if (x.getClass().equals(IntermediateSolution.class)) x.toXML(out);
         }
         for(Job x:getListJob()){
             if (x.getClass().equals(Job.class)) x.toXML(out);
@@ -2697,6 +2836,7 @@ public int compareTo(ApplicationDataset ds2){
         compareDisjunctiveResource(this.getListDisjunctiveResource(),compare.getListDisjunctiveResource());
         compareDowntime(this.getListDowntime(),compare.getListDowntime());
         compareInputError(this.getListInputError(),compare.getListInputError());
+        compareIntermediateSolution(this.getListIntermediateSolution(),compare.getListIntermediateSolution());
         compareJob(this.getListJob(),compare.getListJob());
         compareJobAssignment(this.getListJobAssignment(),compare.getListJobAssignment());
         compareOrder(this.getListOrder(),compare.getListOrder());
@@ -2879,6 +3019,30 @@ public int compareTo(ApplicationDataset ds2){
             InputError a = InputError.find(b,aList);
             if (a == null) {
                 new ApplicationDifference(this,ApplicationDataset.getIdNr(),"InputError B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types IntermediateSolution, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareIntermediateSolution(List<IntermediateSolution> aList,List<IntermediateSolution> bList){
+        System.out.println("Comparing IntermediateSolution");
+        for(IntermediateSolution a:aList){
+            IntermediateSolution b= IntermediateSolution.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"IntermediateSolution A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"IntermediateSolution A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"IntermediateSolution B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(IntermediateSolution b: bList){
+            IntermediateSolution a = IntermediateSolution.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"IntermediateSolution B",b.toString(),DifferenceType.ONLYB);
             }
         }
     }
@@ -3256,6 +3420,7 @@ public int compareTo(ApplicationDataset ds2){
         checkDisjunctiveResource(this.getListDisjunctiveResource());
         checkDowntime(this.getListDowntime());
         checkInputError(this.getListInputError());
+        checkIntermediateSolution(this.getListIntermediateSolution());
         checkJob(this.getListJob());
         checkJobAssignment(this.getListJobAssignment());
         checkOrder(this.getListOrder());
@@ -3347,6 +3512,17 @@ public int compareTo(ApplicationDataset ds2){
 
     public void checkInputError(List<InputError> list){
         for(InputError a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<IntermediateSolution> dataset list of all items of type IntermediateSolution
+*/
+
+    public void checkIntermediateSolution(List<IntermediateSolution> list){
+        for(IntermediateSolution a:list){
             a.check();
         }
     }
@@ -3536,6 +3712,7 @@ public int compareTo(ApplicationDataset ds2){
         DisjunctiveResource.dummy(this);
         Downtime.dummy(this);
         InputError.dummy(this);
+        IntermediateSolution.dummy(this);
         Job.dummy(this);
         JobAssignment.dummy(this);
         Order.dummy(this);

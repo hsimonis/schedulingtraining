@@ -608,10 +608,12 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","disjunctiveResource","until"})) {
+                if (requireFields(key,i,item,new String[]{"name","disjunctiveResource","start","end","duration"})) {
                     String name = item.getString("name");
                     String rName = item.getString("disjunctiveResource");
-                    int until = item.getInt("until");
+                    int duration = item.getInt("duration");
+                    int start = item.getInt("start");
+                    int end = item.getInt("end");
                     DisjunctiveResource r = disjunctiveResourceHash.get(rName);
                     if (r == null) {
                         inputError(key, name, "disjunctiveResource", rName, "The required object does not exist", Fatal);
@@ -619,7 +621,9 @@ public class ReadData {
                     WiP w = new WiP(base);
                     w.setName(name);
                     w.setDisjunctiveResource(r);
-                    w.setUntil(until);
+                    w.setStart(start);
+                    w.setEnd(end);
+                    w.setDuration(duration);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -640,11 +644,12 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","disjunctiveResource","from","to"})) {
+                if (requireFields(key,i,item,new String[]{"name","disjunctiveResource","start","end","duration"})) {
                     String name = item.getString("name");
                     String rName = item.getString("disjunctiveResource");
-                    int from = item.getInt("from");
-                    int to = item.getInt("to");
+                    int start = item.getInt("start");
+                    int end = item.getInt("end");
+                    int duration = item.getInt("duration");
                     DisjunctiveResource r = disjunctiveResourceHash.get(rName);
                     if (r == null) {
                         inputError(key, name, "disjunctiveResource", rName, "The required object does not exist", Fatal);
@@ -652,8 +657,9 @@ public class ReadData {
                     Downtime d = new Downtime(base);
                     d.setName(name);
                     d.setDisjunctiveResource(r);
-                    d.setFrom(from);
-                    d.setTo(to);
+                    d.setStart(start);
+                    d.setEnd(end);
+                    d.setDuration(duration);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }

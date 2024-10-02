@@ -23,7 +23,7 @@ import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
 
 /**
- * Generated at 17:10:44 on 2024-10-01 */
+ * Generated at 15:36:02 on 2024-10-02 */
 public class DowntimeController extends Table3Controller {
 	@FXML
 	private TableView<Downtime> table;
@@ -32,19 +32,22 @@ public class DowntimeController extends Table3Controller {
 	private TableColumn<Downtime, String> name;
 
 	@FXML
-	private TableColumn<Downtime, Integer> from;
-
-	@FXML
-	private TableColumn<Downtime, Integer> to;
-
-	@FXML
-	private TableColumn<Downtime, DateTime> fromDate;
-
-	@FXML
-	private TableColumn<Downtime, DateTime> toDate;
-
-	@FXML
 	private TableColumn<Downtime, DisjunctiveResource> disjunctiveResource;
+
+	@FXML
+	private TableColumn<Downtime, Integer> duration;
+
+	@FXML
+	private TableColumn<Downtime, Integer> start;
+
+	@FXML
+	private TableColumn<Downtime, Integer> end;
+
+	@FXML
+	private TableColumn<Downtime, DateTime> startDate;
+
+	@FXML
+	private TableColumn<Downtime, DateTime> endDate;
 
 	private GeneratedJfxApp mainApp;
 
@@ -69,24 +72,28 @@ public class DowntimeController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
-		choices.add("from");
-		from.setCellValueFactory(new PropertyValueFactory<>("from"));
-		from.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
-		from.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setFrom(event.getNewValue()); mainApp.reset();});
-		choices.add("to");
-		to.setCellValueFactory(new PropertyValueFactory<>("to"));
-		to.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
-		to.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTo(event.getNewValue()); mainApp.reset();});
-		choices.add("fromDate");
-		fromDate.setCellValueFactory(new PropertyValueFactory<>("fromDate"));
-		fromDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
-		fromDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setFromDate(event.getNewValue()); mainApp.reset();});
-		choices.add("toDate");
-		toDate.setCellValueFactory(new PropertyValueFactory<>("toDate"));
-		toDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
-		toDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setToDate(event.getNewValue()); mainApp.reset();});
 		choices.add("disjunctiveResource");
 		disjunctiveResource.setCellValueFactory(new PropertyValueFactory<>("disjunctiveResource"));
+		choices.add("duration");
+		duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+		duration.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		duration.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDuration(event.getNewValue()); mainApp.reset();});
+		choices.add("start");
+		start.setCellValueFactory(new PropertyValueFactory<>("start"));
+		start.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		start.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setStart(event.getNewValue()); mainApp.reset();});
+		choices.add("end");
+		end.setCellValueFactory(new PropertyValueFactory<>("end"));
+		end.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		end.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEnd(event.getNewValue()); mainApp.reset();});
+		choices.add("startDate");
+		startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+		startDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
+		startDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setStartDate(event.getNewValue()); mainApp.reset();});
+		choices.add("endDate");
+		endDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+		endDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
+		endDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEndDate(event.getNewValue()); mainApp.reset();});
 		initialize(choices);
 	}
 

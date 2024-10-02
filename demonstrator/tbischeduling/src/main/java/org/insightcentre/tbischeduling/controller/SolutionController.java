@@ -32,7 +32,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 17:10:44 on 2024-10-01 */
+ * Generated at 15:36:02 on 2024-10-02 */
 public class SolutionController extends Table3Controller {
 	@FXML
 	private TableView<Solution> table;

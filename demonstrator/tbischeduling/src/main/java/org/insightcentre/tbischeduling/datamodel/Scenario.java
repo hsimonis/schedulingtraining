@@ -16,6 +16,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
 import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
+import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
@@ -26,6 +27,7 @@ import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
+import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -71,6 +73,27 @@ public  class Scenario extends ApplicationDataset{
  *
 */
 
+    public Double ganttLineHeight;
+
+/**
+ *  
+ *
+*/
+
+    public Integer ganttLinesPerPage;
+
+/**
+ *  
+ *
+*/
+
+    public Integer ganttWidth;
+
+/**
+ *  
+ *
+*/
+
     public Integer horizon;
 
 /**
@@ -101,6 +124,9 @@ public  class Scenario extends ApplicationDataset{
         super(applicationDataset);
         setDataFile("");
         setDataFileVersionNumber(0.0);
+        setGanttLineHeight(0.0);
+        setGanttLinesPerPage(0);
+        setGanttWidth(0);
         setHorizon(0);
         setTimeResolution(0);
         addScenario(this);
@@ -119,6 +145,9 @@ public  class Scenario extends ApplicationDataset{
             Boolean valid,
             String dataFile,
             Double dataFileVersionNumber,
+            Double ganttLineHeight,
+            Integer ganttLinesPerPage,
+            Integer ganttWidth,
             Integer horizon,
             Integer timeResolution){
         super(dirty,
@@ -127,6 +156,9 @@ public  class Scenario extends ApplicationDataset{
             valid);
         setDataFile(dataFile);
         setDataFileVersionNumber(dataFileVersionNumber);
+        setGanttLineHeight(ganttLineHeight);
+        setGanttLinesPerPage(ganttLinesPerPage);
+        setGanttWidth(ganttWidth);
         setHorizon(horizon);
         setTimeResolution(timeResolution);
         addScenario(this);
@@ -139,6 +171,9 @@ public  class Scenario extends ApplicationDataset{
             other.valid,
             other.dataFile,
             other.dataFileVersionNumber,
+            other.ganttLineHeight,
+            other.ganttLinesPerPage,
+            other.ganttWidth,
             other.horizon,
             other.timeResolution);
     }
@@ -166,6 +201,36 @@ public  class Scenario extends ApplicationDataset{
 
     public Double getDataFileVersionNumber(){
         return this.dataFileVersionNumber;
+    }
+
+/**
+ *  get attribute ganttLineHeight
+ *
+ * @return Double
+*/
+
+    public Double getGanttLineHeight(){
+        return this.ganttLineHeight;
+    }
+
+/**
+ *  get attribute ganttLinesPerPage
+ *
+ * @return Integer
+*/
+
+    public Integer getGanttLinesPerPage(){
+        return this.ganttLinesPerPage;
+    }
+
+/**
+ *  get attribute ganttWidth
+ *
+ * @return Integer
+*/
+
+    public Integer getGanttWidth(){
+        return this.ganttWidth;
     }
 
 /**
@@ -213,6 +278,42 @@ public  class Scenario extends ApplicationDataset{
     }
 
 /**
+ *  set attribute ganttLineHeight, mark dataset as dirty, mark dataset as not valid
+@param ganttLineHeight Double
+ *
+*/
+
+    public void setGanttLineHeight(Double ganttLineHeight){
+        this.ganttLineHeight = ganttLineHeight;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute ganttLinesPerPage, mark dataset as dirty, mark dataset as not valid
+@param ganttLinesPerPage Integer
+ *
+*/
+
+    public void setGanttLinesPerPage(Integer ganttLinesPerPage){
+        this.ganttLinesPerPage = ganttLinesPerPage;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute ganttWidth, mark dataset as dirty, mark dataset as not valid
+@param ganttWidth Integer
+ *
+*/
+
+    public void setGanttWidth(Integer ganttWidth){
+        this.ganttWidth = ganttWidth;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute horizon, mark dataset as dirty, mark dataset as not valid
 @param horizon Integer
  *
@@ -232,6 +333,28 @@ public  class Scenario extends ApplicationDataset{
 
     public void setTimeResolution(Integer timeResolution){
         this.timeResolution = timeResolution;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute ganttLinesPerPage, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incGanttLinesPerPage(){
+        this.ganttLinesPerPage++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute ganttWidth, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incGanttWidth(){
+        this.ganttWidth++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -275,7 +398,7 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public String prettyString(){
-        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getHorizon()+ " " +getTimeResolution();
+        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getGanttLineHeight()+ " " +getGanttLinesPerPage()+ " " +getGanttWidth()+ " " +getHorizon()+ " " +getTimeResolution();
     }
 
 /**
@@ -302,6 +425,9 @@ public  class Scenario extends ApplicationDataset{
             " valid=\""+toXMLValid()+"\""+
             " dataFile=\""+toXMLDataFile()+"\""+
             " dataFileVersionNumber=\""+toXMLDataFileVersionNumber()+"\""+
+            " ganttLineHeight=\""+toXMLGanttLineHeight()+"\""+
+            " ganttLinesPerPage=\""+toXMLGanttLinesPerPage()+"\""+
+            " ganttWidth=\""+toXMLGanttWidth()+"\""+
             " horizon=\""+toXMLHorizon()+"\""+
             " timeResolution=\""+toXMLTimeResolution()+"\""+" />");
      }
@@ -332,6 +458,36 @@ public  class Scenario extends ApplicationDataset{
  * @return String
 */
 
+    String toXMLGanttLineHeight(){
+        return this.getGanttLineHeight().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLGanttLinesPerPage(){
+        return this.getGanttLinesPerPage().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLGanttWidth(){
+        return this.getGanttWidth().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLHorizon(){
         return this.getHorizon().toString();
     }
@@ -353,11 +509,11 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"</tr>";
+        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"<th>GanttWidth</th>"+"<th>GanttLinesPerPage</th>"+"<th>GanttLineHeight</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+ " " +"<td>"+getGanttWidth()+"</td>"+ " " +"<td>"+getGanttLinesPerPage()+"</td>"+ " " +"<td>"+getGanttLineHeight()+"</td>"+"</tr>";
     }
 
 /**
@@ -402,6 +558,15 @@ public  class Scenario extends ApplicationDataset{
       if(!this.getDataFileVersionNumber().equals(b.getDataFileVersionNumber())){
          System.out.println("DataFileVersionNumber");
         }
+      if(!this.getGanttLineHeight().equals(b.getGanttLineHeight())){
+         System.out.println("GanttLineHeight");
+        }
+      if(!this.getGanttLinesPerPage().equals(b.getGanttLinesPerPage())){
+         System.out.println("GanttLinesPerPage");
+        }
+      if(!this.getGanttWidth().equals(b.getGanttWidth())){
+         System.out.println("GanttWidth");
+        }
       if(!this.getHorizon().equals(b.getHorizon())){
          System.out.println("Horizon");
         }
@@ -413,6 +578,9 @@ public  class Scenario extends ApplicationDataset{
         }
         return  this.getDataFile().equals(b.getDataFile()) &&
           this.getDataFileVersionNumber().equals(b.getDataFileVersionNumber()) &&
+          this.getGanttLineHeight().equals(b.getGanttLineHeight()) &&
+          this.getGanttLinesPerPage().equals(b.getGanttLinesPerPage()) &&
+          this.getGanttWidth().equals(b.getGanttWidth()) &&
           this.getHorizon().equals(b.getHorizon()) &&
           this.getName().equals(b.getName()) &&
           this.getTimeResolution().equals(b.getTimeResolution());

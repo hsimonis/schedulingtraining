@@ -32,7 +32,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 17:10:44 on 2024-10-01 */
+ * Generated at 15:36:02 on 2024-10-02 */
 public class SolverRunController extends Table3Controller {
 	@FXML
 	private TableView<SolverRun> table;
@@ -62,6 +62,15 @@ public class SolverRunController extends Table3Controller {
 	private TableColumn<SolverRun, Boolean> enforceDueDate;
 
 	@FXML
+	private TableColumn<SolverRun, Boolean> enforceCumulative;
+
+	@FXML
+	private TableColumn<SolverRun, Boolean> enforceWip;
+
+	@FXML
+	private TableColumn<SolverRun, Boolean> enforceDowntime;
+
+	@FXML
 	private TableColumn<SolverRun, Integer> timeout;
 
 	@FXML
@@ -72,6 +81,12 @@ public class SolverRunController extends Table3Controller {
 
 	@FXML
 	private TableColumn<SolverRun, Boolean> removeSolution;
+
+	@FXML
+	private TableColumn<SolverRun, Boolean> produceReport;
+
+	@FXML
+	private TableColumn<SolverRun, Boolean> producePDF;
 
 	@FXML
 	private TableColumn<SolverRun, SolverStatus> solverStatus;
@@ -132,6 +147,15 @@ public class SolverRunController extends Table3Controller {
 		choices.add("enforceDueDate");
 		enforceDueDate.setCellValueFactory(new EnforceDueDateCallback());
 		enforceDueDate.setCellFactory(CheckBoxTableCell.forTableColumn(enforceDueDate));
+		choices.add("enforceCumulative");
+		enforceCumulative.setCellValueFactory(new EnforceCumulativeCallback());
+		enforceCumulative.setCellFactory(CheckBoxTableCell.forTableColumn(enforceCumulative));
+		choices.add("enforceWip");
+		enforceWip.setCellValueFactory(new EnforceWipCallback());
+		enforceWip.setCellFactory(CheckBoxTableCell.forTableColumn(enforceWip));
+		choices.add("enforceDowntime");
+		enforceDowntime.setCellValueFactory(new EnforceDowntimeCallback());
+		enforceDowntime.setCellFactory(CheckBoxTableCell.forTableColumn(enforceDowntime));
 		choices.add("timeout");
 		timeout.setCellValueFactory(new PropertyValueFactory<>("timeout"));
 		timeout.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
@@ -147,6 +171,12 @@ public class SolverRunController extends Table3Controller {
 		choices.add("removeSolution");
 		removeSolution.setCellValueFactory(new RemoveSolutionCallback());
 		removeSolution.setCellFactory(CheckBoxTableCell.forTableColumn(removeSolution));
+		choices.add("produceReport");
+		produceReport.setCellValueFactory(new ProduceReportCallback());
+		produceReport.setCellFactory(CheckBoxTableCell.forTableColumn(produceReport));
+		choices.add("producePDF");
+		producePDF.setCellValueFactory(new ProducePDFCallback());
+		producePDF.setCellFactory(CheckBoxTableCell.forTableColumn(producePDF));
 		choices.add("solverStatus");
 		solverStatus.setCellValueFactory(new PropertyValueFactory<>("solverStatus"));
 		choices.add("time");
@@ -239,6 +269,51 @@ public class SolverRunController extends Table3Controller {
 		}
 	}
 
+	class EnforceCumulativeCallback implements Callback<TableColumn.CellDataFeatures<SolverRun, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SolverRun, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().enforceCumulativeWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setEnforceCumulative(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class EnforceWipCallback implements Callback<TableColumn.CellDataFeatures<SolverRun, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SolverRun, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().enforceWipWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setEnforceWip(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class EnforceDowntimeCallback implements Callback<TableColumn.CellDataFeatures<SolverRun, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SolverRun, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().enforceDowntimeWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setEnforceDowntime(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
 	class RemoveSolutionCallback implements Callback<TableColumn.CellDataFeatures<SolverRun, Boolean>, ObservableValue<Boolean>> {
 		@Override
 		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SolverRun, Boolean> cellData) {
@@ -248,6 +323,36 @@ public class SolverRunController extends Table3Controller {
 				@SuppressWarnings("rawtypes")
 				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
 					cellData.getValue().setRemoveSolution(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class ProduceReportCallback implements Callback<TableColumn.CellDataFeatures<SolverRun, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SolverRun, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().produceReportWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setProduceReport(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class ProducePDFCallback implements Callback<TableColumn.CellDataFeatures<SolverRun, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SolverRun, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().producePDFWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setProducePDF(newValue);
 				}
 			});
 			return prop;

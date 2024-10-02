@@ -25,7 +25,9 @@ public class GenerateDataSolver extends DefaultSolver{
     protected int nrCumulativeResources=1;
     protected int minCumulDemand=1;
     protected int maxCumulDemand=5;
-    protected int cumulCapacity=10;
+    protected int profilePieces=3;
+    protected int minCumulCapacity=5;
+    protected int maxCumulCapacity=10;
     protected int nrOrders=20;
     protected int minQty=1;
     protected int maxQty=10;
@@ -43,7 +45,7 @@ public class GenerateDataSolver extends DefaultSolver{
     public GenerateDataSolver(Scenario base){
         super(base,new String[] {});
     }
-    public GenerateDataSolver(Scenario base,String name,String resourceModel,int nrProducts,int minStages,int maxStages,int nrDisjunctiveResources,double resourceProbability,String durationModel,int minDuration,int maxDuration,int durationFixedFactor,int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,int cumulCapacity,int nrOrders,int minQty,int maxQty,double wipProbability,int minWip,int maxWip,double downtimeProbability,int minDowntime,int maxDowntime,int earliestDue,int horizonDays,int timeResolution,int seed){
+    public GenerateDataSolver(Scenario base,String name,String resourceModel,int nrProducts,int minStages,int maxStages,int nrDisjunctiveResources,double resourceProbability,String durationModel,int minDuration,int maxDuration,int durationFixedFactor,int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,int profilePieces,int minCumulCapacity,int maxCumulCapacity,int nrOrders,int minQty,int maxQty,double wipProbability,int minWip,int maxWip,double downtimeProbability,int minDowntime,int maxDowntime,int earliestDue,int horizonDays,int timeResolution,int seed){
         super(base,new String[] {});
         this.name=name;
         this.resourceModel=resourceModel;
@@ -59,7 +61,9 @@ public class GenerateDataSolver extends DefaultSolver{
         this.nrCumulativeResources=nrCumulativeResources;
         this.minCumulDemand=minCumulDemand;
         this.maxCumulDemand=maxCumulDemand;
-        this.cumulCapacity=cumulCapacity;
+        this.profilePieces=profilePieces;
+        this.minCumulCapacity=minCumulCapacity;
+        this.maxCumulCapacity=maxCumulCapacity;
         this.nrOrders=nrOrders;
         this.minQty=minQty;
         this.maxQty=maxQty;
@@ -131,8 +135,16 @@ public int getMaxCumulDemand(){
  return maxCumulDemand;
 }
 
-public int getCumulCapacity(){
- return cumulCapacity;
+public int getProfilePieces(){
+ return profilePieces;
+}
+
+public int getMinCumulCapacity(){
+ return minCumulCapacity;
+}
+
+public int getMaxCumulCapacity(){
+ return maxCumulCapacity;
 }
 
 public int getNrOrders(){
@@ -257,8 +269,18 @@ public GenerateDataSolver setMaxCumulDemand(int v){
  return this;
 }
 
-public GenerateDataSolver setCumulCapacity(int v){
- cumulCapacity = v;
+public GenerateDataSolver setProfilePieces(int v){
+ profilePieces = v;
+ return this;
+}
+
+public GenerateDataSolver setMinCumulCapacity(int v){
+ minCumulCapacity = v;
+ return this;
+}
+
+public GenerateDataSolver setMaxCumulCapacity(int v){
+ maxCumulCapacity = v;
  return this;
 }
 

@@ -16,6 +16,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
 import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
+import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
@@ -26,6 +27,7 @@ import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
+import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -64,6 +66,24 @@ public  class SolverRun extends ApplicationObject{
  *
 */
 
+    public Boolean enforceCumulative;
+
+    private transient BooleanProperty enforceCumulativeWrapper;
+
+/**
+ *  
+ *
+*/
+
+    public Boolean enforceDowntime;
+
+    private transient BooleanProperty enforceDowntimeWrapper;
+
+/**
+ *  
+ *
+*/
+
     public Boolean enforceDueDate;
 
     private transient BooleanProperty enforceDueDateWrapper;
@@ -76,6 +96,15 @@ public  class SolverRun extends ApplicationObject{
     public Boolean enforceReleaseDate;
 
     private transient BooleanProperty enforceReleaseDateWrapper;
+
+/**
+ *  
+ *
+*/
+
+    public Boolean enforceWip;
+
+    private transient BooleanProperty enforceWipWrapper;
 
 /**
  *  
@@ -104,6 +133,24 @@ public  class SolverRun extends ApplicationObject{
 */
 
     public ObjectiveType objectiveType;
+
+/**
+ *  
+ *
+*/
+
+    public Boolean producePDF;
+
+    private transient BooleanProperty producePDFWrapper;
+
+/**
+ *  
+ *
+*/
+
+    public Boolean produceReport;
+
+    private transient BooleanProperty produceReportWrapper;
 
 /**
  *  
@@ -169,12 +216,17 @@ public  class SolverRun extends ApplicationObject{
     public SolverRun(ApplicationDataset applicationDataset){
         super(applicationDataset);
         setDescription("");
+        setEnforceCumulative(true);
+        setEnforceDowntime(true);
         setEnforceDueDate(true);
         setEnforceReleaseDate(true);
+        setEnforceWip(true);
         setLabel("");
         setModelType(null);
         setNrThreads(0);
         setObjectiveType(null);
+        setProducePDF(true);
+        setProduceReport(true);
         setRemoveSolution(true);
         setSeed(0);
         setSolverBackend(null);
@@ -195,12 +247,17 @@ public  class SolverRun extends ApplicationObject{
             Integer id,
             String name,
             String description,
+            Boolean enforceCumulative,
+            Boolean enforceDowntime,
             Boolean enforceDueDate,
             Boolean enforceReleaseDate,
+            Boolean enforceWip,
             String label,
             ModelType modelType,
             Integer nrThreads,
             ObjectiveType objectiveType,
+            Boolean producePDF,
+            Boolean produceReport,
             Boolean removeSolution,
             Integer seed,
             SolverBackend solverBackend,
@@ -211,12 +268,17 @@ public  class SolverRun extends ApplicationObject{
             id,
             name);
         setDescription(description);
+        setEnforceCumulative(enforceCumulative);
+        setEnforceDowntime(enforceDowntime);
         setEnforceDueDate(enforceDueDate);
         setEnforceReleaseDate(enforceReleaseDate);
+        setEnforceWip(enforceWip);
         setLabel(label);
         setModelType(modelType);
         setNrThreads(nrThreads);
         setObjectiveType(objectiveType);
+        setProducePDF(producePDF);
+        setProduceReport(produceReport);
         setRemoveSolution(removeSolution);
         setSeed(seed);
         setSolverBackend(solverBackend);
@@ -231,12 +293,17 @@ public  class SolverRun extends ApplicationObject{
             other.id,
             other.name,
             other.description,
+            other.enforceCumulative,
+            other.enforceDowntime,
             other.enforceDueDate,
             other.enforceReleaseDate,
+            other.enforceWip,
             other.label,
             other.modelType,
             other.nrThreads,
             other.objectiveType,
+            other.producePDF,
+            other.produceReport,
             other.removeSolution,
             other.seed,
             other.solverBackend,
@@ -254,6 +321,7 @@ public  class SolverRun extends ApplicationObject{
 
     public Boolean remove(){
         getApplicationDataset().cascadeSolutionSolverRun(this);
+        getApplicationDataset().cascadeIntermediateSolutionSolverRun(this);
         return getApplicationDataset().removeSolverRun(this) && getApplicationDataset().removeApplicationObject(this);
     }
 
@@ -265,6 +333,42 @@ public  class SolverRun extends ApplicationObject{
 
     public String getDescription(){
         return this.description;
+    }
+
+/**
+ *  get attribute enforceCumulative
+ *
+ * @return Boolean
+*/
+
+    public Boolean getEnforceCumulative(){
+        return this.enforceCumulative;
+    }
+
+    public BooleanProperty enforceCumulativeWrapperProperty() {
+        if (enforceCumulativeWrapper == null) {
+            enforceCumulativeWrapper = new SimpleBooleanProperty();
+        }
+        enforceCumulativeWrapper.set(enforceCumulative);
+        return enforceCumulativeWrapper;
+    }
+
+/**
+ *  get attribute enforceDowntime
+ *
+ * @return Boolean
+*/
+
+    public Boolean getEnforceDowntime(){
+        return this.enforceDowntime;
+    }
+
+    public BooleanProperty enforceDowntimeWrapperProperty() {
+        if (enforceDowntimeWrapper == null) {
+            enforceDowntimeWrapper = new SimpleBooleanProperty();
+        }
+        enforceDowntimeWrapper.set(enforceDowntime);
+        return enforceDowntimeWrapper;
     }
 
 /**
@@ -301,6 +405,24 @@ public  class SolverRun extends ApplicationObject{
         }
         enforceReleaseDateWrapper.set(enforceReleaseDate);
         return enforceReleaseDateWrapper;
+    }
+
+/**
+ *  get attribute enforceWip
+ *
+ * @return Boolean
+*/
+
+    public Boolean getEnforceWip(){
+        return this.enforceWip;
+    }
+
+    public BooleanProperty enforceWipWrapperProperty() {
+        if (enforceWipWrapper == null) {
+            enforceWipWrapper = new SimpleBooleanProperty();
+        }
+        enforceWipWrapper.set(enforceWip);
+        return enforceWipWrapper;
     }
 
 /**
@@ -341,6 +463,42 @@ public  class SolverRun extends ApplicationObject{
 
     public ObjectiveType getObjectiveType(){
         return this.objectiveType;
+    }
+
+/**
+ *  get attribute producePDF
+ *
+ * @return Boolean
+*/
+
+    public Boolean getProducePDF(){
+        return this.producePDF;
+    }
+
+    public BooleanProperty producePDFWrapperProperty() {
+        if (producePDFWrapper == null) {
+            producePDFWrapper = new SimpleBooleanProperty();
+        }
+        producePDFWrapper.set(producePDF);
+        return producePDFWrapper;
+    }
+
+/**
+ *  get attribute produceReport
+ *
+ * @return Boolean
+*/
+
+    public Boolean getProduceReport(){
+        return this.produceReport;
+    }
+
+    public BooleanProperty produceReportWrapperProperty() {
+        if (produceReportWrapper == null) {
+            produceReportWrapper = new SimpleBooleanProperty();
+        }
+        produceReportWrapper.set(produceReport);
+        return produceReportWrapper;
     }
 
 /**
@@ -424,6 +582,30 @@ public  class SolverRun extends ApplicationObject{
     }
 
 /**
+ *  set attribute enforceCumulative, mark dataset as dirty, mark dataset as not valid
+@param enforceCumulative Boolean
+ *
+*/
+
+    public void setEnforceCumulative(Boolean enforceCumulative){
+        this.enforceCumulative = enforceCumulative;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute enforceDowntime, mark dataset as dirty, mark dataset as not valid
+@param enforceDowntime Boolean
+ *
+*/
+
+    public void setEnforceDowntime(Boolean enforceDowntime){
+        this.enforceDowntime = enforceDowntime;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute enforceDueDate, mark dataset as dirty, mark dataset as not valid
 @param enforceDueDate Boolean
  *
@@ -443,6 +625,18 @@ public  class SolverRun extends ApplicationObject{
 
     public void setEnforceReleaseDate(Boolean enforceReleaseDate){
         this.enforceReleaseDate = enforceReleaseDate;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute enforceWip, mark dataset as dirty, mark dataset as not valid
+@param enforceWip Boolean
+ *
+*/
+
+    public void setEnforceWip(Boolean enforceWip){
+        this.enforceWip = enforceWip;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -491,6 +685,30 @@ public  class SolverRun extends ApplicationObject{
 
     public void setObjectiveType(ObjectiveType objectiveType){
         this.objectiveType = objectiveType;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute producePDF, mark dataset as dirty, mark dataset as not valid
+@param producePDF Boolean
+ *
+*/
+
+    public void setProducePDF(Boolean producePDF){
+        this.producePDF = producePDF;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute produceReport, mark dataset as dirty, mark dataset as not valid
+@param produceReport Boolean
+ *
+*/
+
+    public void setProduceReport(Boolean produceReport){
+        this.produceReport = produceReport;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -617,7 +835,7 @@ public  class SolverRun extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDescription()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getSolverStatus()+ " " +getTime()+ " " +getTimeout();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getSolverStatus()+ " " +getTime()+ " " +getTimeout();
     }
 
 /**
@@ -642,12 +860,17 @@ public  class SolverRun extends ApplicationObject{
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
             " description=\""+toXMLDescription()+"\""+
+            " enforceCumulative=\""+toXMLEnforceCumulative()+"\""+
+            " enforceDowntime=\""+toXMLEnforceDowntime()+"\""+
             " enforceDueDate=\""+toXMLEnforceDueDate()+"\""+
             " enforceReleaseDate=\""+toXMLEnforceReleaseDate()+"\""+
+            " enforceWip=\""+toXMLEnforceWip()+"\""+
             " label=\""+toXMLLabel()+"\""+
             " modelType=\""+toXMLModelType()+"\""+
             " nrThreads=\""+toXMLNrThreads()+"\""+
             " objectiveType=\""+toXMLObjectiveType()+"\""+
+            " producePDF=\""+toXMLProducePDF()+"\""+
+            " produceReport=\""+toXMLProduceReport()+"\""+
             " removeSolution=\""+toXMLRemoveSolution()+"\""+
             " seed=\""+toXMLSeed()+"\""+
             " solverBackend=\""+toXMLSolverBackend()+"\""+
@@ -672,6 +895,26 @@ public  class SolverRun extends ApplicationObject{
  * @return String
 */
 
+    String toXMLEnforceCumulative(){
+        return this.getEnforceCumulative().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLEnforceDowntime(){
+        return this.getEnforceDowntime().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLEnforceDueDate(){
         return this.getEnforceDueDate().toString();
     }
@@ -684,6 +927,16 @@ public  class SolverRun extends ApplicationObject{
 
     String toXMLEnforceReleaseDate(){
         return this.getEnforceReleaseDate().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLEnforceWip(){
+        return this.getEnforceWip().toString();
     }
 
 /**
@@ -724,6 +977,26 @@ public  class SolverRun extends ApplicationObject{
 
     String toXMLObjectiveType(){
         return this.getObjectiveType().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLProducePDF(){
+        return this.getProducePDF().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLProduceReport(){
+        return this.getProduceReport().toString();
     }
 
 /**
@@ -793,11 +1066,11 @@ public  class SolverRun extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>SolverRun</th>"+"<th>Name</th>"+"<th>Label</th>"+"<th>Description</th>"+"<th>ModelType</th>"+"<th>SolverBackend</th>"+"<th>ObjectiveType</th>"+"<th>EnforceReleaseDate</th>"+"<th>EnforceDueDate</th>"+"<th>Timeout</th>"+"<th>NrThreads</th>"+"<th>Seed</th>"+"<th>RemoveSolution</th>"+"<th>SolverStatus</th>"+"<th>Time</th>"+"</tr>";
+        return "<tr><th>SolverRun</th>"+"<th>Name</th>"+"<th>Label</th>"+"<th>Description</th>"+"<th>ModelType</th>"+"<th>SolverBackend</th>"+"<th>ObjectiveType</th>"+"<th>EnforceReleaseDate</th>"+"<th>EnforceDueDate</th>"+"<th>EnforceCumulative</th>"+"<th>EnforceWip</th>"+"<th>EnforceDowntime</th>"+"<th>Timeout</th>"+"<th>NrThreads</th>"+"<th>Seed</th>"+"<th>RemoveSolution</th>"+"<th>ProduceReport</th>"+"<th>ProducePDF</th>"+"<th>SolverStatus</th>"+"<th>Time</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getLabel()+"</td>"+ " " +"<td>"+getDescription()+"</td>"+ " " +"<td>"+getModelType()+"</td>"+ " " +"<td>"+getSolverBackend()+"</td>"+ " " +"<td>"+getObjectiveType()+"</td>"+ " " +"<td>"+getEnforceReleaseDate()+"</td>"+ " " +"<td>"+getEnforceDueDate()+"</td>"+ " " +"<td>"+getTimeout()+"</td>"+ " " +"<td>"+getNrThreads()+"</td>"+ " " +"<td>"+getSeed()+"</td>"+ " " +"<td>"+getRemoveSolution()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getTime()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getLabel()+"</td>"+ " " +"<td>"+getDescription()+"</td>"+ " " +"<td>"+getModelType()+"</td>"+ " " +"<td>"+getSolverBackend()+"</td>"+ " " +"<td>"+getObjectiveType()+"</td>"+ " " +"<td>"+getEnforceReleaseDate()+"</td>"+ " " +"<td>"+getEnforceDueDate()+"</td>"+ " " +"<td>"+getEnforceCumulative()+"</td>"+ " " +"<td>"+getEnforceWip()+"</td>"+ " " +"<td>"+getEnforceDowntime()+"</td>"+ " " +"<td>"+getTimeout()+"</td>"+ " " +"<td>"+getNrThreads()+"</td>"+ " " +"<td>"+getSeed()+"</td>"+ " " +"<td>"+getRemoveSolution()+"</td>"+ " " +"<td>"+getProduceReport()+"</td>"+ " " +"<td>"+getProducePDF()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getTime()+"</td>"+"</tr>";
     }
 
 /**
@@ -917,11 +1190,20 @@ public  class SolverRun extends ApplicationObject{
       if(!this.getDescription().equals(b.getDescription())){
          System.out.println("Description");
         }
+      if(!this.getEnforceCumulative().equals(b.getEnforceCumulative())){
+         System.out.println("EnforceCumulative");
+        }
+      if(!this.getEnforceDowntime().equals(b.getEnforceDowntime())){
+         System.out.println("EnforceDowntime");
+        }
       if(!this.getEnforceDueDate().equals(b.getEnforceDueDate())){
          System.out.println("EnforceDueDate");
         }
       if(!this.getEnforceReleaseDate().equals(b.getEnforceReleaseDate())){
          System.out.println("EnforceReleaseDate");
+        }
+      if(!this.getEnforceWip().equals(b.getEnforceWip())){
+         System.out.println("EnforceWip");
         }
       if(!this.getLabel().equals(b.getLabel())){
          System.out.println("Label");
@@ -937,6 +1219,12 @@ public  class SolverRun extends ApplicationObject{
         }
       if(!this.getObjectiveType().equals(b.getObjectiveType())){
          System.out.println("ObjectiveType");
+        }
+      if(!this.getProducePDF().equals(b.getProducePDF())){
+         System.out.println("ProducePDF");
+        }
+      if(!this.getProduceReport().equals(b.getProduceReport())){
+         System.out.println("ProduceReport");
         }
       if(!this.getRemoveSolution().equals(b.getRemoveSolution())){
          System.out.println("RemoveSolution");
@@ -957,13 +1245,18 @@ public  class SolverRun extends ApplicationObject{
          System.out.println("Timeout");
         }
         return  this.getDescription().equals(b.getDescription()) &&
+          this.getEnforceCumulative().equals(b.getEnforceCumulative()) &&
+          this.getEnforceDowntime().equals(b.getEnforceDowntime()) &&
           this.getEnforceDueDate().equals(b.getEnforceDueDate()) &&
           this.getEnforceReleaseDate().equals(b.getEnforceReleaseDate()) &&
+          this.getEnforceWip().equals(b.getEnforceWip()) &&
           this.getLabel().equals(b.getLabel()) &&
           this.getModelType().equals(b.getModelType()) &&
           this.getName().equals(b.getName()) &&
           this.getNrThreads().equals(b.getNrThreads()) &&
           this.getObjectiveType().equals(b.getObjectiveType()) &&
+          this.getProducePDF().equals(b.getProducePDF()) &&
+          this.getProduceReport().equals(b.getProduceReport()) &&
           this.getRemoveSolution().equals(b.getRemoveSolution()) &&
           this.getSeed().equals(b.getSeed()) &&
           this.getSolverBackend().equals(b.getSolverBackend()) &&

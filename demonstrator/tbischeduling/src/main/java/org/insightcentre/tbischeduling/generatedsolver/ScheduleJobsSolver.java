@@ -17,6 +17,9 @@ public class ScheduleJobsSolver extends DefaultSolver{
     protected String startTime="08:00";
     protected boolean enforceReleaseDate=true;
     protected boolean enforceDueDate=false;
+    protected boolean enforceCumulative=true;
+    protected boolean enforceWip=true;
+    protected boolean enforceDowntime=true;
     protected String modelType="CPO";
     protected String solverBackend="CPSat";
     protected String objectiveType="Makespan";
@@ -28,11 +31,13 @@ public class ScheduleJobsSolver extends DefaultSolver{
     protected int nrThreads=2;
     protected int seed=1;
     protected boolean removeSolution=false;
+    protected boolean produceReport=true;
+    protected boolean producePDF=true;
 
     public ScheduleJobsSolver(Scenario base){
         super(base,new String[] {});
     }
-    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarlyness,int timeout,int nrThreads,int seed,boolean removeSolution){
+    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarlyness,int timeout,int nrThreads,int seed,boolean removeSolution,boolean produceReport,boolean producePDF){
         super(base,new String[] {});
         this.label=label;
         this.description=description;
@@ -40,6 +45,9 @@ public class ScheduleJobsSolver extends DefaultSolver{
         this.startTime=startTime;
         this.enforceReleaseDate=enforceReleaseDate;
         this.enforceDueDate=enforceDueDate;
+        this.enforceCumulative=enforceCumulative;
+        this.enforceWip=enforceWip;
+        this.enforceDowntime=enforceDowntime;
         this.modelType=modelType;
         this.solverBackend=solverBackend;
         this.objectiveType=objectiveType;
@@ -51,6 +59,8 @@ public class ScheduleJobsSolver extends DefaultSolver{
         this.nrThreads=nrThreads;
         this.seed=seed;
         this.removeSolution=removeSolution;
+        this.produceReport=produceReport;
+        this.producePDF=producePDF;
     }
 
 public String getLabel(){
@@ -75,6 +85,18 @@ public boolean getEnforceReleaseDate(){
 
 public boolean getEnforceDueDate(){
  return enforceDueDate;
+}
+
+public boolean getEnforceCumulative(){
+ return enforceCumulative;
+}
+
+public boolean getEnforceWip(){
+ return enforceWip;
+}
+
+public boolean getEnforceDowntime(){
+ return enforceDowntime;
 }
 
 public String getModelType(){
@@ -121,6 +143,14 @@ public boolean getRemoveSolution(){
  return removeSolution;
 }
 
+public boolean getProduceReport(){
+ return produceReport;
+}
+
+public boolean getProducePDF(){
+ return producePDF;
+}
+
 public ScheduleJobsSolver setLabel(String v){
  label = v;
  return this;
@@ -148,6 +178,21 @@ public ScheduleJobsSolver setEnforceReleaseDate(boolean v){
 
 public ScheduleJobsSolver setEnforceDueDate(boolean v){
  enforceDueDate = v;
+ return this;
+}
+
+public ScheduleJobsSolver setEnforceCumulative(boolean v){
+ enforceCumulative = v;
+ return this;
+}
+
+public ScheduleJobsSolver setEnforceWip(boolean v){
+ enforceWip = v;
+ return this;
+}
+
+public ScheduleJobsSolver setEnforceDowntime(boolean v){
+ enforceDowntime = v;
  return this;
 }
 
@@ -203,6 +248,16 @@ public ScheduleJobsSolver setSeed(int v){
 
 public ScheduleJobsSolver setRemoveSolution(boolean v){
  removeSolution = v;
+ return this;
+}
+
+public ScheduleJobsSolver setProduceReport(boolean v){
+ produceReport = v;
+ return this;
+}
+
+public ScheduleJobsSolver setProducePDF(boolean v){
+ producePDF = v;
  return this;
 }
 

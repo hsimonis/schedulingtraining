@@ -16,6 +16,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
 import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
+import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
@@ -26,6 +27,7 @@ import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
+import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -51,42 +53,7 @@ import framework.AppearInCollection;
  * @author generated
 */
 
-public  class Downtime extends ApplicationObject{
-/**
- *  
- *
-*/
-
-    public DisjunctiveResource disjunctiveResource;
-
-/**
- *  
- *
-*/
-
-    public Integer from;
-
-/**
- *  
- *
-*/
-
-    public DateTime fromDate;
-
-/**
- *  
- *
-*/
-
-    public Integer to;
-
-/**
- *  
- *
-*/
-
-    public DateTime toDate;
-
+public  class Downtime extends ResourceActivity{
 /**
  *  No-arg constructor for use in TableView
  *
@@ -106,11 +73,6 @@ public  class Downtime extends ApplicationObject{
 
     public Downtime(ApplicationDataset applicationDataset){
         super(applicationDataset);
-        setDisjunctiveResource(null);
-        setFrom(0);
-        setFromDate(new DateTime());
-        setTo(0);
-        setToDate(new DateTime());
         applicationDataset.addDowntime(this);
     }
 
@@ -125,18 +87,20 @@ public  class Downtime extends ApplicationObject{
             Integer id,
             String name,
             DisjunctiveResource disjunctiveResource,
-            Integer from,
-            DateTime fromDate,
-            Integer to,
-            DateTime toDate){
+            Integer duration,
+            Integer end,
+            DateTime endDate,
+            Integer start,
+            DateTime startDate){
         super(applicationDataset,
             id,
-            name);
-        setDisjunctiveResource(disjunctiveResource);
-        setFrom(from);
-        setFromDate(fromDate);
-        setTo(to);
-        setToDate(toDate);
+            name,
+            disjunctiveResource,
+            duration,
+            end,
+            endDate,
+            start,
+            startDate);
         applicationDataset.addDowntime(this);
     }
 
@@ -145,10 +109,11 @@ public  class Downtime extends ApplicationObject{
             other.id,
             other.name,
             other.disjunctiveResource,
-            other.from,
-            other.fromDate,
-            other.to,
-            other.toDate);
+            other.duration,
+            other.end,
+            other.endDate,
+            other.start,
+            other.startDate);
     }
 
 /**
@@ -159,139 +124,7 @@ public  class Downtime extends ApplicationObject{
 */
 
     public Boolean remove(){
-        return getApplicationDataset().removeDowntime(this) && getApplicationDataset().removeApplicationObject(this);
-    }
-
-/**
- *  get attribute disjunctiveResource
- *
- * @return DisjunctiveResource
-*/
-
-    public DisjunctiveResource getDisjunctiveResource(){
-        return this.disjunctiveResource;
-    }
-
-/**
- *  get attribute from
- *
- * @return Integer
-*/
-
-    public Integer getFrom(){
-        return this.from;
-    }
-
-/**
- *  get attribute fromDate
- *
- * @return DateTime
-*/
-
-    public DateTime getFromDate(){
-        return this.fromDate;
-    }
-
-/**
- *  get attribute to
- *
- * @return Integer
-*/
-
-    public Integer getTo(){
-        return this.to;
-    }
-
-/**
- *  get attribute toDate
- *
- * @return DateTime
-*/
-
-    public DateTime getToDate(){
-        return this.toDate;
-    }
-
-/**
- *  set attribute disjunctiveResource, mark dataset as dirty, mark dataset as not valid
-@param disjunctiveResource DisjunctiveResource
- *
-*/
-
-    public void setDisjunctiveResource(DisjunctiveResource disjunctiveResource){
-        this.disjunctiveResource = disjunctiveResource;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute from, mark dataset as dirty, mark dataset as not valid
-@param from Integer
- *
-*/
-
-    public void setFrom(Integer from){
-        this.from = from;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute fromDate, mark dataset as dirty, mark dataset as not valid
-@param fromDate DateTime
- *
-*/
-
-    public void setFromDate(DateTime fromDate){
-        this.fromDate = fromDate;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute to, mark dataset as dirty, mark dataset as not valid
-@param to Integer
- *
-*/
-
-    public void setTo(Integer to){
-        this.to = to;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute toDate, mark dataset as dirty, mark dataset as not valid
-@param toDate DateTime
- *
-*/
-
-    public void setToDate(DateTime toDate){
-        this.toDate = toDate;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute from, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incFrom(){
-        this.from++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute to, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incTo(){
-        this.to++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
+        return getApplicationDataset().removeDowntime(this) && getApplicationDataset().removeResourceActivity(this) && getApplicationDataset().removeApplicationObject(this);
     }
 
 /**
@@ -311,7 +144,7 @@ public  class Downtime extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getFrom()+ " " +getFromDate()+ " " +getTo()+ " " +getToDate();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getStart()+ " " +getStartDate();
     }
 
 /**
@@ -336,61 +169,12 @@ public  class Downtime extends ApplicationObject{
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
             " disjunctiveResource=\""+toXMLDisjunctiveResource()+"\""+
-            " from=\""+toXMLFrom()+"\""+
-            " fromDate=\""+toXMLFromDate()+"\""+
-            " to=\""+toXMLTo()+"\""+
-            " toDate=\""+toXMLToDate()+"\""+" />");
+            " duration=\""+toXMLDuration()+"\""+
+            " end=\""+toXMLEnd()+"\""+
+            " endDate=\""+toXMLEndDate()+"\""+
+            " start=\""+toXMLStart()+"\""+
+            " startDate=\""+toXMLStartDate()+"\""+" />");
      }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLDisjunctiveResource(){
-        return "ID_"+this.getDisjunctiveResource().getId().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLFrom(){
-        return this.getFrom().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLFromDate(){
-        return this.getFromDate().toXML();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLTo(){
-        return this.getTo().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLToDate(){
-        return this.getToDate().toXML();
-    }
 
 /**
  * show object as one row in an HTML table
@@ -399,11 +183,11 @@ public  class Downtime extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Downtime</th>"+"<th>Name</th>"+"<th>From</th>"+"<th>To</th>"+"<th>FromDate</th>"+"<th>ToDate</th>"+"<th>DisjunctiveResource</th>"+"</tr>";
+        return "<tr><th>Downtime</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getFrom()+"</td>"+ " " +"<td>"+getTo()+"</td>"+ " " +"<td>"+getFromDate()+"</td>"+ " " +"<td>"+getToDate()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+"</tr>";
     }
 
 /**
@@ -523,27 +307,31 @@ public  class Downtime extends ApplicationObject{
       if(!this.getDisjunctiveResource().applicationSame(b.getDisjunctiveResource())){
          System.out.println("DisjunctiveResource");
         }
-      if(!this.getFrom().equals(b.getFrom())){
-         System.out.println("From");
+      if(!this.getDuration().equals(b.getDuration())){
+         System.out.println("Duration");
         }
-      if(!this.getFromDate().applicationEqual(b.getFromDate())){
-         System.out.println("FromDate");
+      if(!this.getEnd().equals(b.getEnd())){
+         System.out.println("End");
+        }
+      if(!this.getEndDate().applicationEqual(b.getEndDate())){
+         System.out.println("EndDate");
         }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
-      if(!this.getTo().equals(b.getTo())){
-         System.out.println("To");
+      if(!this.getStart().equals(b.getStart())){
+         System.out.println("Start");
         }
-      if(!this.getToDate().applicationEqual(b.getToDate())){
-         System.out.println("ToDate");
+      if(!this.getStartDate().applicationEqual(b.getStartDate())){
+         System.out.println("StartDate");
         }
         return  this.getDisjunctiveResource().applicationSame(b.getDisjunctiveResource()) &&
-          this.getFrom().equals(b.getFrom()) &&
-          this.getFromDate().applicationEqual(b.getFromDate()) &&
+          this.getDuration().equals(b.getDuration()) &&
+          this.getEnd().equals(b.getEnd()) &&
+          this.getEndDate().applicationEqual(b.getEndDate()) &&
           this.getName().equals(b.getName()) &&
-          this.getTo().equals(b.getTo()) &&
-          this.getToDate().applicationEqual(b.getToDate());
+          this.getStart().equals(b.getStart()) &&
+          this.getStartDate().applicationEqual(b.getStartDate());
     }
 
 /**

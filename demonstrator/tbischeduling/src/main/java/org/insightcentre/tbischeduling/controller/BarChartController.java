@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 17:10:44 on 2024-10-01 */
+ * Generated at 15:36:02 on 2024-10-02 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -25,6 +25,9 @@ public class BarChartController extends ChartController {
 		attributeNames.add("dataFileVersionNumber");
 		attributeNames.add("horizon");
 		attributeNames.add("timeResolution");
+		attributeNames.add("ganttWidth");
+		attributeNames.add("ganttLinesPerPage");
+		attributeNames.add("ganttLineHeight");
 		choicesMap.put("Scenario", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("nrProducts");
@@ -51,6 +54,11 @@ public class BarChartController extends ChartController {
 		attributeNames.add("capacity");
 		choicesMap.put("CumulativeProfile", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("duration");
+		attributeNames.add("start");
+		attributeNames.add("end");
+		choicesMap.put("ResourceActivity", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("qty");
 		attributeNames.add("due");
 		attributeNames.add("release");
@@ -70,11 +78,14 @@ public class BarChartController extends ChartController {
 		attributeNames.add("processStep.durationPerUnit");
 		choicesMap.put("Task", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
-		attributeNames.add("until");
+		attributeNames.add("duration");
+		attributeNames.add("start");
+		attributeNames.add("end");
 		choicesMap.put("WiP", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
-		attributeNames.add("from");
-		attributeNames.add("to");
+		attributeNames.add("duration");
+		attributeNames.add("start");
+		attributeNames.add("end");
 		choicesMap.put("Downtime", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("timeout");
@@ -130,6 +141,13 @@ public class BarChartController extends ChartController {
 		attributeNames.add("use");
 		attributeNames.add("utilization");
 		choicesMap.put("ResourceUtilization", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("nr");
+		attributeNames.add("cost");
+		attributeNames.add("bound");
+		attributeNames.add("time");
+		attributeNames.add("gapPercent");
+		choicesMap.put("IntermediateSolution", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
@@ -188,6 +206,9 @@ public class BarChartController extends ChartController {
 			else if (className.equals("CumulativeResource")) {
 				objectList = mainApp.getCumulativeResourceData();
 			}
+			else if (className.equals("ResourceActivity")) {
+				objectList = mainApp.getResourceActivityData();
+			}
 			else if (className.equals("Order")) {
 				objectList = mainApp.getOrderData();
 			}
@@ -217,6 +238,9 @@ public class BarChartController extends ChartController {
 			}
 			else if (className.equals("ResourceUtilization")) {
 				objectList = mainApp.getResourceUtilizationData();
+			}
+			else if (className.equals("IntermediateSolution")) {
+				objectList = mainApp.getIntermediateSolutionData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

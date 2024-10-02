@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 17:10:44 on 2024-10-01-->
+<!--Generated at 15:36:02 on 2024-10-02-->
 
 
 <Tab text="SolverRun" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.SolverRunController">
@@ -26,10 +26,15 @@
                <TableColumn fx:id="objectiveType" styleClass="right-aligned" text="ObjectiveType" />
                <TableColumn fx:id="enforceReleaseDate" styleClass="right-aligned" text="EnforceReleaseDate" />
                <TableColumn fx:id="enforceDueDate" styleClass="right-aligned" text="EnforceDueDate" />
+               <TableColumn fx:id="enforceCumulative" styleClass="right-aligned" text="EnforceCumulative" />
+               <TableColumn fx:id="enforceWip" styleClass="right-aligned" text="EnforceWip" />
+               <TableColumn fx:id="enforceDowntime" styleClass="right-aligned" text="EnforceDowntime" />
                <TableColumn fx:id="timeout" styleClass="right-aligned" text="Timeout" />
                <TableColumn fx:id="nrThreads" styleClass="right-aligned" text="NrThreads" />
                <TableColumn fx:id="seed" styleClass="right-aligned" text="Seed" />
                <TableColumn fx:id="removeSolution" styleClass="right-aligned" text="RemoveSolution" />
+               <TableColumn fx:id="produceReport" styleClass="right-aligned" text="ProduceReport" />
+               <TableColumn fx:id="producePDF" styleClass="right-aligned" text="ProducePDF" />
                <TableColumn fx:id="solverStatus" styleClass="right-aligned" text="SolverStatus" />
                <TableColumn fx:id="time" styleClass="right-aligned" text="Time" />
             </columns>

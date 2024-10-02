@@ -24,6 +24,7 @@ public class Reset {
         base.resetListSolution();
         base.resetListSolverRun();
         base.resetListResourceUtilization();
+        base.resetListIntermediateSolution();
     }
 
 

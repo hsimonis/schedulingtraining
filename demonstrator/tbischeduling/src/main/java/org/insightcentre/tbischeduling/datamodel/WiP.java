@@ -16,6 +16,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
 import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
+import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
@@ -26,6 +27,7 @@ import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
+import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -51,28 +53,7 @@ import framework.AppearInCollection;
  * @author generated
 */
 
-public  class WiP extends ApplicationObject{
-/**
- *  
- *
-*/
-
-    public DisjunctiveResource disjunctiveResource;
-
-/**
- *  
- *
-*/
-
-    public Integer until;
-
-/**
- *  
- *
-*/
-
-    public DateTime untilDate;
-
+public  class WiP extends ResourceActivity{
 /**
  *  No-arg constructor for use in TableView
  *
@@ -92,9 +73,6 @@ public  class WiP extends ApplicationObject{
 
     public WiP(ApplicationDataset applicationDataset){
         super(applicationDataset);
-        setDisjunctiveResource(null);
-        setUntil(0);
-        setUntilDate(new DateTime());
         applicationDataset.addWiP(this);
     }
 
@@ -109,14 +87,20 @@ public  class WiP extends ApplicationObject{
             Integer id,
             String name,
             DisjunctiveResource disjunctiveResource,
-            Integer until,
-            DateTime untilDate){
+            Integer duration,
+            Integer end,
+            DateTime endDate,
+            Integer start,
+            DateTime startDate){
         super(applicationDataset,
             id,
-            name);
-        setDisjunctiveResource(disjunctiveResource);
-        setUntil(until);
-        setUntilDate(untilDate);
+            name,
+            disjunctiveResource,
+            duration,
+            end,
+            endDate,
+            start,
+            startDate);
         applicationDataset.addWiP(this);
     }
 
@@ -125,8 +109,11 @@ public  class WiP extends ApplicationObject{
             other.id,
             other.name,
             other.disjunctiveResource,
-            other.until,
-            other.untilDate);
+            other.duration,
+            other.end,
+            other.endDate,
+            other.start,
+            other.startDate);
     }
 
 /**
@@ -137,84 +124,7 @@ public  class WiP extends ApplicationObject{
 */
 
     public Boolean remove(){
-        return getApplicationDataset().removeWiP(this) && getApplicationDataset().removeApplicationObject(this);
-    }
-
-/**
- *  get attribute disjunctiveResource
- *
- * @return DisjunctiveResource
-*/
-
-    public DisjunctiveResource getDisjunctiveResource(){
-        return this.disjunctiveResource;
-    }
-
-/**
- *  get attribute until
- *
- * @return Integer
-*/
-
-    public Integer getUntil(){
-        return this.until;
-    }
-
-/**
- *  get attribute untilDate
- *
- * @return DateTime
-*/
-
-    public DateTime getUntilDate(){
-        return this.untilDate;
-    }
-
-/**
- *  set attribute disjunctiveResource, mark dataset as dirty, mark dataset as not valid
-@param disjunctiveResource DisjunctiveResource
- *
-*/
-
-    public void setDisjunctiveResource(DisjunctiveResource disjunctiveResource){
-        this.disjunctiveResource = disjunctiveResource;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute until, mark dataset as dirty, mark dataset as not valid
-@param until Integer
- *
-*/
-
-    public void setUntil(Integer until){
-        this.until = until;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute untilDate, mark dataset as dirty, mark dataset as not valid
-@param untilDate DateTime
- *
-*/
-
-    public void setUntilDate(DateTime untilDate){
-        this.untilDate = untilDate;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute until, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incUntil(){
-        this.until++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
+        return getApplicationDataset().removeWiP(this) && getApplicationDataset().removeResourceActivity(this) && getApplicationDataset().removeApplicationObject(this);
     }
 
 /**
@@ -234,7 +144,7 @@ public  class WiP extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getUntil()+ " " +getUntilDate();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getStart()+ " " +getStartDate();
     }
 
 /**
@@ -259,39 +169,12 @@ public  class WiP extends ApplicationObject{
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
             " disjunctiveResource=\""+toXMLDisjunctiveResource()+"\""+
-            " until=\""+toXMLUntil()+"\""+
-            " untilDate=\""+toXMLUntilDate()+"\""+" />");
+            " duration=\""+toXMLDuration()+"\""+
+            " end=\""+toXMLEnd()+"\""+
+            " endDate=\""+toXMLEndDate()+"\""+
+            " start=\""+toXMLStart()+"\""+
+            " startDate=\""+toXMLStartDate()+"\""+" />");
      }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLDisjunctiveResource(){
-        return "ID_"+this.getDisjunctiveResource().getId().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLUntil(){
-        return this.getUntil().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLUntilDate(){
-        return this.getUntilDate().toXML();
-    }
 
 /**
  * show object as one row in an HTML table
@@ -300,11 +183,11 @@ public  class WiP extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>WiP</th>"+"<th>Name</th>"+"<th>Until</th>"+"<th>UntilDate</th>"+"<th>DisjunctiveResource</th>"+"</tr>";
+        return "<tr><th>WiP</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getUntil()+"</td>"+ " " +"<td>"+getUntilDate()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+"</tr>";
     }
 
 /**
@@ -424,19 +307,31 @@ public  class WiP extends ApplicationObject{
       if(!this.getDisjunctiveResource().applicationSame(b.getDisjunctiveResource())){
          System.out.println("DisjunctiveResource");
         }
+      if(!this.getDuration().equals(b.getDuration())){
+         System.out.println("Duration");
+        }
+      if(!this.getEnd().equals(b.getEnd())){
+         System.out.println("End");
+        }
+      if(!this.getEndDate().applicationEqual(b.getEndDate())){
+         System.out.println("EndDate");
+        }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
-      if(!this.getUntil().equals(b.getUntil())){
-         System.out.println("Until");
+      if(!this.getStart().equals(b.getStart())){
+         System.out.println("Start");
         }
-      if(!this.getUntilDate().applicationEqual(b.getUntilDate())){
-         System.out.println("UntilDate");
+      if(!this.getStartDate().applicationEqual(b.getStartDate())){
+         System.out.println("StartDate");
         }
         return  this.getDisjunctiveResource().applicationSame(b.getDisjunctiveResource()) &&
+          this.getDuration().equals(b.getDuration()) &&
+          this.getEnd().equals(b.getEnd()) &&
+          this.getEndDate().applicationEqual(b.getEndDate()) &&
           this.getName().equals(b.getName()) &&
-          this.getUntil().equals(b.getUntil()) &&
-          this.getUntilDate().applicationEqual(b.getUntilDate());
+          this.getStart().equals(b.getStart()) &&
+          this.getStartDate().applicationEqual(b.getStartDate());
     }
 
 /**

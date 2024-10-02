@@ -33,19 +33,13 @@ import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 
 /**
- * Generated at 17:10:44 on 2024-10-01 */
+ * Generated at 15:36:02 on 2024-10-02 */
 public class TaskAssignmentController extends Table3Controller {
 	@FXML
 	private TableView<TaskAssignment> table;
 
 	@FXML
 	private TableColumn<TaskAssignment, String> name;
-
-	@FXML
-	private TableColumn<TaskAssignment, Task> task;
-
-	@FXML
-	private TableColumn<TaskAssignment, JobAssignment> jobAssignment;
 
 	@FXML
 	private TableColumn<TaskAssignment, DisjunctiveResource> disjunctiveResource;
@@ -64,6 +58,12 @@ public class TaskAssignmentController extends Table3Controller {
 
 	@FXML
 	private TableColumn<TaskAssignment, DateTime> endDate;
+
+	@FXML
+	private TableColumn<TaskAssignment, Task> task;
+
+	@FXML
+	private TableColumn<TaskAssignment, JobAssignment> jobAssignment;
 
 	@FXML
 	private TableColumn<TaskAssignment, Solution> solution;
@@ -98,12 +98,12 @@ public class TaskAssignmentController extends Table3Controller {
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
 		table.setItems(mainApp.getTaskAssignmentData());
+		disjunctiveResource.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getDisjunctiveResourceData()));
+		disjunctiveResource.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDisjunctiveResource(event.getNewValue()); mainApp.reset();});
 		task.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getTaskData()));
 		task.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTask(event.getNewValue()); mainApp.reset();});
 		jobAssignment.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getJobAssignmentData()));
 		jobAssignment.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setJobAssignment(event.getNewValue()); mainApp.reset();});
-		disjunctiveResource.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getDisjunctiveResourceData()));
-		disjunctiveResource.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDisjunctiveResource(event.getNewValue()); mainApp.reset();});
 	}
 
 	public TableView<TaskAssignment> getTable() {
@@ -120,10 +120,6 @@ public class TaskAssignmentController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
-		choices.add("task");
-		task.setCellValueFactory(new PropertyValueFactory<>("task"));
-		choices.add("jobAssignment");
-		jobAssignment.setCellValueFactory(new PropertyValueFactory<>("jobAssignment"));
 		choices.add("disjunctiveResource");
 		disjunctiveResource.setCellValueFactory(new PropertyValueFactory<>("disjunctiveResource"));
 		choices.add("duration");
@@ -146,6 +142,10 @@ public class TaskAssignmentController extends Table3Controller {
 		endDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
 		endDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
 		endDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEndDate(event.getNewValue()); mainApp.reset();});
+		choices.add("task");
+		task.setCellValueFactory(new PropertyValueFactory<>("task"));
+		choices.add("jobAssignment");
+		jobAssignment.setCellValueFactory(new PropertyValueFactory<>("jobAssignment"));
 		choices.add("jobAssignment.solution");
 		try {
 			solution.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJobAssignment().getSolution()));

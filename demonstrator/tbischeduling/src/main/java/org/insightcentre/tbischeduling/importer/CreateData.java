@@ -23,7 +23,8 @@ public class CreateData {
                       int nrDisjunctiveResources,int nrCumulativeResources,
                       double resourceProbability,
                       DurationModel durationModel,int minDuration,int maxDuration,int durationFixedFactor,
-                      int minCumulDemand,int maxCumulDemand,int cumulCapacity,
+                      int minCumulDemand,int maxCumulDemand,
+                      int profilePieces,int minCumulCapacity,int maxCumulCapacity,
                       int nrOrders,int earliestDue,int horizon,int minQty,int maxQty,
                       double wipProbability,int minWip,int maxWip,
                       double downtimeProbability, int minDowntime, int maxDowntime) {
@@ -34,7 +35,7 @@ public class CreateData {
         createBaseData(name,resourceModel,nrProducts,minStages,maxStages,nrDisjunctiveResources,nrCumulativeResources,
                 resourceProbability,
                 durationModel,minDuration,maxDuration,durationFixedFactor,
-                minCumulDemand,maxCumulDemand,cumulCapacity);
+                minCumulDemand,maxCumulDemand,profilePieces,minCumulCapacity,maxCumulCapacity);
         createSchedule(nrOrders,earliestDue,horizon,minQty,maxQty,
                 wipProbability,minWip,maxWip,
                 downtimeProbability,minDowntime,maxDowntime);
@@ -47,7 +48,8 @@ public class CreateData {
                                  int nrDisjunctiveResources, int nrCumulativeResources,
                                  double resourceProbability,
                                  DurationModel durationModel,int minDuration,int maxDuration,int durationFixedFactor,
-                                 int minCumulDemand,int maxCumulDemand,int cumulCapacity){
+                                 int minCumulDemand,int maxCumulDemand,
+                                 int profilePieces,int minCumulCapacity,int maxCumulCapacity){
 
     Problem problem = new Problem(base);
         problem.setName(name);
@@ -62,11 +64,15 @@ public class CreateData {
         for(int i=0;i<nrCumulativeResources;i++){
             CumulativeResource r = new CumulativeResource(base);
             r.setName("CR"+i);
-            CumulativeProfile cp = new CumulativeProfile(base);
-            cp.setName("CP"+i);
-            cp.setCumulativeResource(r);
-            cp.setFrom(0);
-            cp.setCapacity(cumulCapacity);
+            int start = 0;
+            for(int k=0;k<profilePieces;k++) {
+                CumulativeProfile cp = new CumulativeProfile(base);
+                cp.setName("CP" + i+k);
+                cp.setCumulativeResource(r);
+                cp.setFrom(start);
+                cp.setCapacity(minCumulCapacity+(maxCumulCapacity-minCumulCapacity>0?random.nextInt(maxCumulCapacity-minCumulCapacity):0));
+                start+= random.nextInt(base.getHorizon()/profilePieces);
+            }
         }
         for(int i=0;i<nrProducts;i++){
             Product p = new Product(base);
@@ -243,18 +249,21 @@ public class CreateData {
                 WiP wip = new WiP(base);
                 wip.setName("W"+r.getName());
                 wip.setDisjunctiveResource(r);
-                wip.setUntil(until);
+                wip.setStart(0);
+                wip.setDuration(until);
+                wip.setEnd(until);
 
             }
             if (random.nextDouble() < downtimeProbability){
-                int from = random.nextInt(base.getHorizon());
+                int start = random.nextInt(base.getHorizon());
                 int duration = minDowntime+(maxDowntime-minDowntime > 0? random.nextInt(maxDowntime-minDowntime):0);
-                int to = Math.min(from+duration,base.getHorizon());
+                int end = Math.min(start+duration,base.getHorizon());
                 Downtime d = new Downtime(base);
                 d.setName("D"+r.getName());
                 d.setDisjunctiveResource(r);
-                d.setFrom(from);
-                d.setTo(to);
+                d.setStart(start);
+                d.setEnd(end);
+                d.setDuration(duration);
             }
         }
     }

@@ -26,6 +26,9 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
     private final TextField startTimeItem = new TextField();
     private final CheckBox enforceReleaseDateItem = new CheckBox();
     private final CheckBox enforceDueDateItem = new CheckBox();
+    private final CheckBox enforceCumulativeItem = new CheckBox();
+    private final CheckBox enforceWipItem = new CheckBox();
+    private final CheckBox enforceDowntimeItem = new CheckBox();
     private final ChoiceBox modelTypeItem = new ChoiceBox();
     private final ChoiceBox solverBackendItem = new ChoiceBox();
     private final ChoiceBox objectiveTypeItem = new ChoiceBox();
@@ -37,6 +40,8 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
     private final IntegerTextField nrThreadsItem = new IntegerTextField();
     private final IntegerTextField seedItem = new IntegerTextField();
     private final CheckBox removeSolutionItem = new CheckBox();
+    private final CheckBox produceReportItem = new CheckBox();
+    private final CheckBox producePDFItem = new CheckBox();
 
     private final String pattern = "d-M-yyyy";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
@@ -53,7 +58,7 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         labelItem.setText(((ScheduleJobsSolver)solver).getLabel());
         pane.add(new Label("Description:"), 0, row);
         descriptionItem.setPrefRowCount(4);
-        descriptionItem.setPrefColumnCount(20);
+        descriptionItem.setPrefColumnCount(10);
         descriptionItem.setWrapText(true);
         pane.add(descriptionItem, 1, row++);
         descriptionItem.setText(((ScheduleJobsSolver)solver).getDescription());
@@ -68,12 +73,31 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(startTimeItem, 1, row++);
         startTimeItem.setText(((ScheduleJobsSolver)solver).getStartTime());
 
+        Separator sep2 = new Separator(Orientation.HORIZONTAL);
+        pane.add(sep2,0,row++,2,1);
+
         pane.add(new Label("Enforce Release Date:"), 0, row);
         pane.add(enforceReleaseDateItem, 1, row++);
-        enforceDueDateItem.setSelected(((ScheduleJobsSolver)solver).getEnforceReleaseDate());
+        enforceReleaseDateItem.setSelected(((ScheduleJobsSolver)solver).getEnforceReleaseDate());
+
         pane.add(new Label("Enforce Due Date:"), 0, row);
         pane.add(enforceDueDateItem, 1, row++);
         enforceDueDateItem.setSelected(((ScheduleJobsSolver)solver).getEnforceDueDate());
+
+        pane.add(new Label("Enforce Cumulative:"), 0, row);
+        pane.add(enforceCumulativeItem, 1, row++);
+        enforceCumulativeItem.setSelected(((ScheduleJobsSolver)solver).getEnforceCumulative());
+
+        pane.add(new Label("Enforce WiP:"), 0, row);
+        pane.add(enforceWipItem, 1, row++);
+        enforceWipItem.setSelected(((ScheduleJobsSolver)solver).getEnforceWip());
+
+        pane.add(new Label("Enforce Downtime:"), 0, row);
+        pane.add(enforceDowntimeItem, 1, row++);
+        enforceDowntimeItem.setSelected(((ScheduleJobsSolver)solver).getEnforceDowntime());
+
+        Separator sep3 = new Separator(Orientation.HORIZONTAL);
+        pane.add(sep3,0,row++,2,1);
 
         pane.add(new Label("Model Type:"), 0, row);
         pane.add(modelTypeItem, 1, row++);
@@ -84,6 +108,9 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(solverBackendItem, 1, row++);
         solverBackendItem.getItems().addAll(SolverBackend.getNames());
         solverBackendItem.setValue(((ScheduleJobsSolver)solver).getSolverBackend());
+
+        Separator sep4 = new Separator(Orientation.HORIZONTAL);
+        pane.add(sep4,0,row++,2,1);
 
         pane.add(new Label("Objective Type:"), 0, row);
         pane.add(objectiveTypeItem, 1, row++);
@@ -99,12 +126,12 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(new Label("Weight Lateness:"), 0, row);
         pane.add(weightLatenessItem, 1, row++);
         weightLatenessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightLateness()));
-        pane.add(new Label("Weight Earlyness:"), 0, row);
+        pane.add(new Label("Weight Earliness:"), 0, row);
         pane.add(weightEarlynessItem, 1, row++);
         weightEarlynessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightEarlyness()));
 
-        Separator sep2 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep2,0,row++,2,1);
+        Separator sep5 = new Separator(Orientation.HORIZONTAL);
+        pane.add(sep5,0,row++,2,1);
 
         pane.add(new Label("Timeout (s):"), 0, row);
         pane.add(timeoutItem, 1, row++);
@@ -119,6 +146,12 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(removeSolutionItem, 1, row++);
         enforceDueDateItem.setSelected(((ScheduleJobsSolver)solver).getRemoveSolution());
 
+        pane.add(new Label("Produce Report LaTeX:"), 0, row);
+        pane.add(produceReportItem, 1, row);
+        produceReportItem.setSelected(((ScheduleJobsSolver)solver).getProduceReport());
+        pane.add(new Label("PDF:"), 2, row);
+        pane.add(producePDFItem, 3, row++);
+        producePDFItem.setSelected(((ScheduleJobsSolver)solver).getProducePDF());
 
         getDialogPane().setContent(pane);
         setTitle("Schedule Solver Parameters");
@@ -135,6 +168,9 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
             String startTimeValue = startTimeItem.getText();
             boolean enforceReleaseDateValue = enforceReleaseDateItem.isSelected();
             boolean enforceDueDateValue = enforceDueDateItem.isSelected();
+            boolean enforceCumulativeValue = enforceCumulativeItem.isSelected();
+            boolean enforceWipValue = enforceWipItem.isSelected();
+            boolean enforceDowntimeValue = enforceDowntimeItem.isSelected();
 
             String modelTypeValue = modelTypeItem.getValue().toString();
             String solverBackendValue = solverBackendItem.getValue().toString();
@@ -147,6 +183,8 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
             int nrThreadsValue = Integer.parseInt(nrThreadsItem.getText());
             int seedValue = Integer.parseInt(seedItem.getText());
             boolean removeSolutionValue = removeSolutionItem.isSelected();
+            boolean produceReportValue = produceReportItem.isSelected();
+            boolean producePDFValue = producePDFItem.isSelected();
             ((ScheduleJobsSolver)getSolver())
                     .setLabel(labelValue)
                     .setDescription(descriptionValue)
@@ -154,6 +192,9 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
                     .setStartTime(startTimeValue)
                     .setEnforceReleaseDate(enforceReleaseDateValue)
                     .setEnforceDueDate(enforceDueDateValue)
+                    .setEnforceCumulative(enforceCumulativeValue)
+                    .setEnforceWip(enforceWipValue)
+                    .setEnforceDowntime(enforceDowntimeValue)
                     .setModelType(modelTypeValue)
                     .setSolverBackend(solverBackendValue)
                     .setObjectiveType(objectiveTypeValue)
@@ -165,6 +206,8 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
                     .setNrThreads(nrThreadsValue)
                     .setSeed(seedValue)
                     .setRemoveSolution(removeSolutionValue)
+                    .setProduceReport(produceReportValue)
+                    .setProducePDF(producePDFValue)
             ;
             super.handle(event);
         } else {

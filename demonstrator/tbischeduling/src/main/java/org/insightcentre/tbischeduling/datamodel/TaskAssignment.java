@@ -16,6 +16,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
 import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
+import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
@@ -26,6 +27,7 @@ import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
+import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -51,55 +53,13 @@ import framework.AppearInCollection;
  * @author generated
 */
 
-public  class TaskAssignment extends ApplicationObject{
-/**
- *  
- *
-*/
-
-    public DisjunctiveResource disjunctiveResource;
-
-/**
- *  
- *
-*/
-
-    public Integer duration;
-
-/**
- *  
- *
-*/
-
-    public Integer end;
-
-/**
- *  
- *
-*/
-
-    public DateTime endDate;
-
+public  class TaskAssignment extends ResourceActivity{
 /**
  *  
  *
 */
 
     public JobAssignment jobAssignment;
-
-/**
- *  
- *
-*/
-
-    public Integer start;
-
-/**
- *  
- *
-*/
-
-    public DateTime startDate;
 
 /**
  *  
@@ -127,13 +87,7 @@ public  class TaskAssignment extends ApplicationObject{
 
     public TaskAssignment(ApplicationDataset applicationDataset){
         super(applicationDataset);
-        setDisjunctiveResource(null);
-        setDuration(0);
-        setEnd(0);
-        setEndDate(new DateTime());
         setJobAssignment(null);
-        setStart(0);
-        setStartDate(new DateTime());
         setTask(null);
         applicationDataset.addTaskAssignment(this);
     }
@@ -152,20 +106,20 @@ public  class TaskAssignment extends ApplicationObject{
             Integer duration,
             Integer end,
             DateTime endDate,
-            JobAssignment jobAssignment,
             Integer start,
             DateTime startDate,
+            JobAssignment jobAssignment,
             Task task){
         super(applicationDataset,
             id,
-            name);
-        setDisjunctiveResource(disjunctiveResource);
-        setDuration(duration);
-        setEnd(end);
-        setEndDate(endDate);
+            name,
+            disjunctiveResource,
+            duration,
+            end,
+            endDate,
+            start,
+            startDate);
         setJobAssignment(jobAssignment);
-        setStart(start);
-        setStartDate(startDate);
         setTask(task);
         applicationDataset.addTaskAssignment(this);
     }
@@ -178,9 +132,9 @@ public  class TaskAssignment extends ApplicationObject{
             other.duration,
             other.end,
             other.endDate,
-            other.jobAssignment,
             other.start,
             other.startDate,
+            other.jobAssignment,
             other.task);
     }
 
@@ -192,47 +146,7 @@ public  class TaskAssignment extends ApplicationObject{
 */
 
     public Boolean remove(){
-        return getApplicationDataset().removeTaskAssignment(this) && getApplicationDataset().removeApplicationObject(this);
-    }
-
-/**
- *  get attribute disjunctiveResource
- *
- * @return DisjunctiveResource
-*/
-
-    public DisjunctiveResource getDisjunctiveResource(){
-        return this.disjunctiveResource;
-    }
-
-/**
- *  get attribute duration
- *
- * @return Integer
-*/
-
-    public Integer getDuration(){
-        return this.duration;
-    }
-
-/**
- *  get attribute end
- *
- * @return Integer
-*/
-
-    public Integer getEnd(){
-        return this.end;
-    }
-
-/**
- *  get attribute endDate
- *
- * @return DateTime
-*/
-
-    public DateTime getEndDate(){
-        return this.endDate;
+        return getApplicationDataset().removeTaskAssignment(this) && getApplicationDataset().removeResourceActivity(this) && getApplicationDataset().removeApplicationObject(this);
     }
 
 /**
@@ -246,26 +160,6 @@ public  class TaskAssignment extends ApplicationObject{
     }
 
 /**
- *  get attribute start
- *
- * @return Integer
-*/
-
-    public Integer getStart(){
-        return this.start;
-    }
-
-/**
- *  get attribute startDate
- *
- * @return DateTime
-*/
-
-    public DateTime getStartDate(){
-        return this.startDate;
-    }
-
-/**
  *  get attribute task
  *
  * @return Task
@@ -273,54 +167,6 @@ public  class TaskAssignment extends ApplicationObject{
 
     public Task getTask(){
         return this.task;
-    }
-
-/**
- *  set attribute disjunctiveResource, mark dataset as dirty, mark dataset as not valid
-@param disjunctiveResource DisjunctiveResource
- *
-*/
-
-    public void setDisjunctiveResource(DisjunctiveResource disjunctiveResource){
-        this.disjunctiveResource = disjunctiveResource;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute duration, mark dataset as dirty, mark dataset as not valid
-@param duration Integer
- *
-*/
-
-    public void setDuration(Integer duration){
-        this.duration = duration;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute end, mark dataset as dirty, mark dataset as not valid
-@param end Integer
- *
-*/
-
-    public void setEnd(Integer end){
-        this.end = end;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute endDate, mark dataset as dirty, mark dataset as not valid
-@param endDate DateTime
- *
-*/
-
-    public void setEndDate(DateTime endDate){
-        this.endDate = endDate;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -336,30 +182,6 @@ public  class TaskAssignment extends ApplicationObject{
     }
 
 /**
- *  set attribute start, mark dataset as dirty, mark dataset as not valid
-@param start Integer
- *
-*/
-
-    public void setStart(Integer start){
-        this.start = start;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute startDate, mark dataset as dirty, mark dataset as not valid
-@param startDate DateTime
- *
-*/
-
-    public void setStartDate(DateTime startDate){
-        this.startDate = startDate;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
  *  set attribute task, mark dataset as dirty, mark dataset as not valid
 @param task Task
  *
@@ -367,39 +189,6 @@ public  class TaskAssignment extends ApplicationObject{
 
     public void setTask(Task task){
         this.task = task;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute duration, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incDuration(){
-        this.duration++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute end, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incEnd(){
-        this.end++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute start, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incStart(){
-        this.start++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -421,7 +210,7 @@ public  class TaskAssignment extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getJobAssignment().toColumnString()+ " " +getStart()+ " " +getStartDate()+ " " +getTask().toColumnString();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getStart()+ " " +getStartDate()+ " " +getJobAssignment().toColumnString()+ " " +getTask().toColumnString();
     }
 
 /**
@@ -449,9 +238,9 @@ public  class TaskAssignment extends ApplicationObject{
             " duration=\""+toXMLDuration()+"\""+
             " end=\""+toXMLEnd()+"\""+
             " endDate=\""+toXMLEndDate()+"\""+
-            " jobAssignment=\""+toXMLJobAssignment()+"\""+
             " start=\""+toXMLStart()+"\""+
             " startDate=\""+toXMLStartDate()+"\""+
+            " jobAssignment=\""+toXMLJobAssignment()+"\""+
             " task=\""+toXMLTask()+"\""+" />");
      }
 
@@ -461,68 +250,8 @@ public  class TaskAssignment extends ApplicationObject{
  * @return String
 */
 
-    String toXMLDisjunctiveResource(){
-        return "ID_"+this.getDisjunctiveResource().getId().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLDuration(){
-        return this.getDuration().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLEnd(){
-        return this.getEnd().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLEndDate(){
-        return this.getEndDate().toXML();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
     String toXMLJobAssignment(){
         return "ID_"+this.getJobAssignment().getId().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLStart(){
-        return this.getStart().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLStartDate(){
-        return this.getStartDate().toXML();
     }
 
 /**
@@ -542,11 +271,11 @@ public  class TaskAssignment extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>TaskAssignment</th>"+"<th>Name</th>"+"<th>Task</th>"+"<th>JobAssignment</th>"+"<th>DisjunctiveResource</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"</tr>";
+        return "<tr><th>TaskAssignment</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"<th>Task</th>"+"<th>JobAssignment</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getTask().toColumnString()+"</td>"+ " " +"<td>"+getJobAssignment().toColumnString()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+ " " +"<td>"+getTask().toColumnString()+"</td>"+ " " +"<td>"+getJobAssignment().toColumnString()+"</td>"+"</tr>";
     }
 
 /**

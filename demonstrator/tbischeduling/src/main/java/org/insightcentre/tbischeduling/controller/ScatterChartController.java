@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 17:10:44 on 2024-10-01 */
+ * Generated at 15:36:02 on 2024-10-02 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -33,6 +33,12 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("horizon");
 		attributeNames.add("timeResolution");
 		filterNames.add("timeResolution");
+		attributeNames.add("ganttWidth");
+		filterNames.add("ganttWidth");
+		attributeNames.add("ganttLinesPerPage");
+		filterNames.add("ganttLinesPerPage");
+		attributeNames.add("ganttLineHeight");
+		filterNames.add("ganttLineHeight");
 		choicesMap.put("Scenario", attributeNames);
 		filterMap.put("Scenario", filterNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -130,6 +136,21 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("shortName");
 		filterNames.add("name");
 		filterNames.add("name");
+		filterNames.add("disjunctiveResource");
+		attributeNames.add("duration");
+		filterNames.add("duration");
+		attributeNames.add("start");
+		filterNames.add("start");
+		attributeNames.add("end");
+		filterNames.add("end");
+		filterNames.add("startDate");
+		filterNames.add("endDate");
+		choicesMap.put("ResourceActivity", attributeNames);
+		filterMap.put("ResourceActivity", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
 		filterNames.add("product");
 		filterNames.add("process");
 		attributeNames.add("qty");
@@ -188,23 +209,30 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
 		filterNames.add("name");
-		attributeNames.add("until");
-		filterNames.add("until");
-		filterNames.add("untilDate");
 		filterNames.add("disjunctiveResource");
+		attributeNames.add("duration");
+		filterNames.add("duration");
+		attributeNames.add("start");
+		filterNames.add("start");
+		attributeNames.add("end");
+		filterNames.add("end");
+		filterNames.add("startDate");
+		filterNames.add("endDate");
 		choicesMap.put("WiP", attributeNames);
 		filterMap.put("WiP", filterNames);
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
 		filterNames.add("name");
-		attributeNames.add("from");
-		filterNames.add("from");
-		attributeNames.add("to");
-		filterNames.add("to");
-		filterNames.add("fromDate");
-		filterNames.add("toDate");
 		filterNames.add("disjunctiveResource");
+		attributeNames.add("duration");
+		filterNames.add("duration");
+		attributeNames.add("start");
+		filterNames.add("start");
+		attributeNames.add("end");
+		filterNames.add("end");
+		filterNames.add("startDate");
+		filterNames.add("endDate");
 		choicesMap.put("Downtime", attributeNames);
 		filterMap.put("Downtime", filterNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -218,6 +246,9 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("objectiveType");
 		filterNames.add("enforceReleaseDate");
 		filterNames.add("enforceDueDate");
+		filterNames.add("enforceCumulative");
+		filterNames.add("enforceWip");
+		filterNames.add("enforceDowntime");
 		attributeNames.add("timeout");
 		filterNames.add("timeout");
 		attributeNames.add("nrThreads");
@@ -225,6 +256,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		attributeNames.add("seed");
 		filterNames.add("seed");
 		filterNames.add("removeSolution");
+		filterNames.add("produceReport");
+		filterNames.add("producePDF");
 		filterNames.add("solverStatus");
 		attributeNames.add("time");
 		filterNames.add("time");
@@ -315,8 +348,6 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
 		filterNames.add("name");
-		filterNames.add("task");
-		filterNames.add("jobAssignment");
 		filterNames.add("disjunctiveResource");
 		attributeNames.add("duration");
 		filterNames.add("duration");
@@ -326,6 +357,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("end");
 		filterNames.add("startDate");
 		filterNames.add("endDate");
+		filterNames.add("task");
+		filterNames.add("jobAssignment");
 		filterNames.add("jobAssignment.solution");
 		filterNames.add("task.job.order");
 		attributeNames.add("task.job.order.release");
@@ -360,6 +393,23 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("utilization");
 		choicesMap.put("ResourceUtilization", attributeNames);
 		filterMap.put("ResourceUtilization", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("solverRun");
+		attributeNames.add("nr");
+		filterNames.add("nr");
+		attributeNames.add("cost");
+		filterNames.add("cost");
+		attributeNames.add("bound");
+		filterNames.add("bound");
+		attributeNames.add("time");
+		filterNames.add("time");
+		attributeNames.add("gapPercent");
+		filterNames.add("gapPercent");
+		choicesMap.put("IntermediateSolution", attributeNames);
+		filterMap.put("IntermediateSolution", filterNames);
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
@@ -428,6 +478,9 @@ public class ScatterChartController extends ChartXYFilterController {
 			else if (className.equals("CumulativeResource")) {
 				objectList = mainApp.getCumulativeResourceData();
 			}
+			else if (className.equals("ResourceActivity")) {
+				objectList = mainApp.getResourceActivityData();
+			}
 			else if (className.equals("Order")) {
 				objectList = mainApp.getOrderData();
 			}
@@ -457,6 +510,9 @@ public class ScatterChartController extends ChartXYFilterController {
 			}
 			else if (className.equals("ResourceUtilization")) {
 				objectList = mainApp.getResourceUtilizationData();
+			}
+			else if (className.equals("IntermediateSolution")) {
+				objectList = mainApp.getIntermediateSolutionData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

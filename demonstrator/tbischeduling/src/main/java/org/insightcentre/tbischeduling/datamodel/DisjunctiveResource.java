@@ -16,6 +16,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
 import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
+import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
@@ -26,6 +27,7 @@ import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
+import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -116,10 +118,8 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
 
     public Boolean remove(){
         getApplicationDataset().cascadeResourceNeedDisjunctiveResource(this);
+        getApplicationDataset().cascadeResourceActivityDisjunctiveResource(this);
         getApplicationDataset().cascadeTaskMachines(this);
-        getApplicationDataset().cascadeWiPDisjunctiveResource(this);
-        getApplicationDataset().cascadeDowntimeDisjunctiveResource(this);
-        getApplicationDataset().cascadeTaskAssignmentDisjunctiveResource(this);
         getApplicationDataset().cascadeResourceUtilizationDisjunctiveResource(this);
         return getApplicationDataset().removeDisjunctiveResource(this) && getApplicationDataset().removeApplicationObject(this);
     }

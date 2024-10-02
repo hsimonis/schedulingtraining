@@ -27,6 +27,9 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
    private TextField startTimeItem = new TextField();
    private CheckBox enforceReleaseDateItem = new CheckBox();
    private CheckBox enforceDueDateItem = new CheckBox();
+   private CheckBox enforceCumulativeItem = new CheckBox();
+   private CheckBox enforceWipItem = new CheckBox();
+   private CheckBox enforceDowntimeItem = new CheckBox();
    private TextField modelTypeItem = new TextField();
    private TextField solverBackendItem = new TextField();
    private TextField objectiveTypeItem = new TextField();
@@ -38,6 +41,8 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
    private IntegerTextField nrThreadsItem = new IntegerTextField();
    private IntegerTextField seedItem = new IntegerTextField();
    private CheckBox removeSolutionItem = new CheckBox();
+   private CheckBox produceReportItem = new CheckBox();
+   private CheckBox producePDFItem = new CheckBox();
 
     public ScheduleJobsDialogBox(GeneratedJfxApp app, Scenario base,AbstractSolver solver){
         super(app, base, solver);
@@ -63,6 +68,15 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
         pane.add(new Label("Enforce DueDate:"), 0, row);
         pane.add(enforceDueDateItem, 1, row++);
         enforceDueDateItem.setSelected(((ScheduleJobsSolver)solver).getEnforceDueDate());
+        pane.add(new Label("Enforce Cumulative:"), 0, row);
+        pane.add(enforceCumulativeItem, 1, row++);
+        enforceCumulativeItem.setSelected(((ScheduleJobsSolver)solver).getEnforceCumulative());
+        pane.add(new Label("Enforce WiP:"), 0, row);
+        pane.add(enforceWipItem, 1, row++);
+        enforceWipItem.setSelected(((ScheduleJobsSolver)solver).getEnforceWip());
+        pane.add(new Label("Enforce Downtime:"), 0, row);
+        pane.add(enforceDowntimeItem, 1, row++);
+        enforceDowntimeItem.setSelected(((ScheduleJobsSolver)solver).getEnforceDowntime());
         pane.add(new Label("Model Type:"), 0, row);
         pane.add(modelTypeItem, 1, row++);
         modelTypeItem.setText(((ScheduleJobsSolver)solver).getModelType());
@@ -96,6 +110,12 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
         pane.add(new Label("Remove Previous Solution:"), 0, row);
         pane.add(removeSolutionItem, 1, row++);
         removeSolutionItem.setSelected(((ScheduleJobsSolver)solver).getRemoveSolution());
+        pane.add(new Label("Produce LaTeX Report:"), 0, row);
+        pane.add(produceReportItem, 1, row++);
+        produceReportItem.setSelected(((ScheduleJobsSolver)solver).getProduceReport());
+        pane.add(new Label("Produce PDF Report:"), 0, row);
+        pane.add(producePDFItem, 1, row++);
+        producePDFItem.setSelected(((ScheduleJobsSolver)solver).getProducePDF());
         getDialogPane().setContent(pane);
         setTitle("ScheduleJobs Solver Parameters");
     }
@@ -111,6 +131,9 @@ public void handle(InputEvent event) {
         String startTimeValue = startTimeItem.getText();
         boolean enforceReleaseDateValue = enforceReleaseDateItem.isSelected();
         boolean enforceDueDateValue = enforceDueDateItem.isSelected();
+        boolean enforceCumulativeValue = enforceCumulativeItem.isSelected();
+        boolean enforceWipValue = enforceWipItem.isSelected();
+        boolean enforceDowntimeValue = enforceDowntimeItem.isSelected();
         String modelTypeValue = modelTypeItem.getText();
         String solverBackendValue = solverBackendItem.getText();
         String objectiveTypeValue = objectiveTypeItem.getText();
@@ -122,6 +145,8 @@ public void handle(InputEvent event) {
         int nrThreadsValue = Integer.parseInt(nrThreadsItem.getText());
         int seedValue = Integer.parseInt(seedItem.getText());
         boolean removeSolutionValue = removeSolutionItem.isSelected();
+        boolean produceReportValue = produceReportItem.isSelected();
+        boolean producePDFValue = producePDFItem.isSelected();
         ((ScheduleJobsSolver)getSolver())
             .setLabel(labelValue)
             .setDescription(descriptionValue)
@@ -129,6 +154,9 @@ public void handle(InputEvent event) {
             .setStartTime(startTimeValue)
             .setEnforceReleaseDate(enforceReleaseDateValue)
             .setEnforceDueDate(enforceDueDateValue)
+            .setEnforceCumulative(enforceCumulativeValue)
+            .setEnforceWip(enforceWipValue)
+            .setEnforceDowntime(enforceDowntimeValue)
             .setModelType(modelTypeValue)
             .setSolverBackend(solverBackendValue)
             .setObjectiveType(objectiveTypeValue)
@@ -140,6 +168,8 @@ public void handle(InputEvent event) {
             .setNrThreads(nrThreadsValue)
             .setSeed(seedValue)
             .setRemoveSolution(removeSolutionValue)
+            .setProduceReport(produceReportValue)
+            .setProducePDF(producePDFValue)
             ;
         super.handle(event);
     }

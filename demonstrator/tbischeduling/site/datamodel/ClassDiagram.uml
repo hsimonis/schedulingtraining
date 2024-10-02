@@ -30,6 +30,7 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include DisjunctiveResource.uml
 !include Downtime.uml
 !include InputError.uml
+!include IntermediateSolution.uml
 !include Job.uml
 !include JobAssignment.uml
 !include Order.uml
@@ -38,6 +39,7 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include ProcessSequence.uml
 !include ProcessStep.uml
 !include Product.uml
+!include ResourceActivity.uml
 !include ResourceNeed.uml
 !include ResourceUtilization.uml
 !include Scenario.uml
@@ -60,6 +62,9 @@ ApplicationObjectInterface <|-- ApplicationObject
 ApplicationDatasetInterface <|-- ApplicationDataset
 ApplicationObjectInterface <|-- ApplicationDatasetInterface
 ApplicationDataset <|-- Scenario
+ResourceActivity <|-- WiP
+ResourceActivity <|-- Downtime
+ResourceActivity <|-- TaskAssignment
 ApplicationDataset  *-- ApplicationObject 
 Process  *-- Product : defaultProcess
 Process  *-- ProcessStep 
@@ -70,6 +75,7 @@ ProcessStep  *-- ResourceNeed
 CumulativeResource  *-- CumulativeNeed 
 ProcessStep  *-- CumulativeNeed 
 CumulativeResource  *-- CumulativeProfile 
+DisjunctiveResource  *-- ResourceActivity 
 Product  *-- Order 
 Process  *-- Order 
 Order  *-- Job 
@@ -78,16 +84,14 @@ Job  *-- Task
 ProcessStep  *-- Task 
 DisjunctiveResource "1..*" *-- Task : machines
 Task "0..*" *-- Task : precedes
-DisjunctiveResource  *-- WiP 
-DisjunctiveResource  *-- Downtime 
 SolverRun  *-- Solution 
 Solution  *-- JobAssignment 
 Job  *-- JobAssignment 
 Task  *-- TaskAssignment 
 JobAssignment  *-- TaskAssignment 
-DisjunctiveResource  *-- TaskAssignment 
 DisjunctiveResource  *-- ResourceUtilization 
 Solution  *-- ResourceUtilization 
+SolverRun  *-- IntermediateSolution 
 header
 Datamodel of Application tbischeduling
 endheader

@@ -49,11 +49,6 @@ $\square$\ & shortName &  \\
 
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
-$\square$\ & from &  \\
-$\square$\ & to &  \\
-$\square$\ & fromDate &  \\
-$\square$\ & toDate &  \\
-$\square$\ & disjunctiveResource &  \\
 \end{longtable}
 \label{attr:Downtime}
 \end{table}
@@ -74,6 +69,21 @@ $\square$\ & severity &  \\
 \end{table}
 
 \clearpage
+\begin{table}
+\caption{IntermediateSolution  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & solverRun &  \\
+$\square$\ & nr &  \\
+$\square$\ & cost &  \\
+$\square$\ & bound &  \\
+$\square$\ & time &  \\
+$\square$\ & gapPercent &  \\
+\end{longtable}
+\label{attr:IntermediateSolution}
+\end{table}
+
 \begin{table}
 \caption{Job  }
 
@@ -138,6 +148,7 @@ $\square$\ & nrTasks &  \\
 \label{attr:Problem}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{Process  }
 
@@ -147,7 +158,6 @@ $\square$\ & nrTasks &  \\
 \label{attr:Process}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{ProcessSequence  }
 
@@ -185,6 +195,22 @@ $\square$\ & defaultProcess &  \\
 \end{table}
 
 \begin{table}
+\caption{ResourceActivity  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & disjunctiveResource &  \\
+$\square$\ & duration &  \\
+$\square$\ & start &  \\
+$\square$\ & end &  \\
+$\square$\ & startDate &  \\
+$\square$\ & endDate &  \\
+\end{longtable}
+\label{attr:ResourceActivity}
+\end{table}
+
+\clearpage
+\begin{table}
 \caption{ResourceNeed  }
 
 \begin{longtable}{llp{8cm}}
@@ -211,7 +237,6 @@ $\square$\ & utilization &  \\
 \label{attr:ResourceUtilization}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{Scenario  This class describes the dataset for the application. Typically there is a single instance of this class in the application at all times.}
 
@@ -221,6 +246,9 @@ $\square$\ & dataFileVersionNumber &  \\
 $\square$\ & dataFile &  \\
 $\square$\ & horizon &  \\
 $\square$\ & timeResolution &  \\
+$\square$\ & ganttWidth &  \\
+$\square$\ & ganttLinesPerPage &  \\
+$\square$\ & ganttLineHeight &  \\
 \end{longtable}
 \label{attr:Scenario}
 \end{table}
@@ -263,16 +291,22 @@ $\square$\ & solverBackend &  \\
 $\square$\ & objectiveType &  \\
 $\square$\ & enforceReleaseDate &  \\
 $\square$\ & enforceDueDate &  \\
+$\square$\ & enforceCumulative &  \\
+$\square$\ & enforceWip &  \\
+$\square$\ & enforceDowntime &  \\
 $\square$\ & timeout &  \\
 $\square$\ & nrThreads &  \\
 $\square$\ & seed &  \\
 $\square$\ & removeSolution &  \\
+$\square$\ & produceReport &  \\
+$\square$\ & producePDF &  \\
 $\square$\ & solverStatus &  \\
 $\square$\ & time &  \\
 \end{longtable}
 \label{attr:SolverRun}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{Task  }
 
@@ -296,25 +330,15 @@ $\square$\ & precedes &  \\
 & Attribute & Description \\
 $\square$\ & task &  \\
 $\square$\ & jobAssignment &  \\
-$\square$\ & disjunctiveResource &  \\
-$\square$\ & duration &  \\
-$\square$\ & start &  \\
-$\square$\ & end &  \\
-$\square$\ & startDate &  \\
-$\square$\ & endDate &  \\
 \end{longtable}
 \label{attr:TaskAssignment}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{WiP  }
 
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
-$\square$\ & until &  \\
-$\square$\ & untilDate &  \\
-$\square$\ & disjunctiveResource &  \\
 \end{longtable}
 \label{attr:WiP}
 \end{table}

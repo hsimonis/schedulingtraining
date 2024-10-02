@@ -4,10 +4,15 @@ import framework.reports.visualization.gantt.GanttDraw;
 import framework.reports.visualization.gantt.GanttResourceFunctions;
 import framework.reports.visualization.gantt.GanttTaskFunctions;
 import framework.reports.visualization.plot.barplot.BarPlot;
+import framework.reports.visualization.plot.lineplot.LinePlot;
+import framework.reports.visualization.plot.lineplot.LinePlotFunctions;
 import framework.reports.visualization.plot.profileplot.AddProfile;
 import framework.reports.visualization.plot.profileplot.ProfilePlot;
+import framework.reports.visualization.plot.scatterplot.ScatterPlot;
+import framework.reports.visualization.plot.scatterplot.ScatterPlotFunctions;
 import framework.reports.visualization.tabular.TableStyle;
-import framework.reports.visualization.tabular.table.TableDraw;
+import framework.reports.visualization.tabular.table.*;
+import org.apache.commons.collections4.ListUtils;
 import org.insightcentre.tbischeduling.datamodel.*;
 
 import java.io.PrintWriter;
@@ -15,7 +20,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import static framework.reports.visualization.tabular.table.LimitOp.GT;
+import static framework.reports.visualization.tabular.table.RankingDirection.GreaterIsBetter;
+import static framework.reports.visualization.tabular.table.RankingDirection.SmallerIsBetter;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 
 public class SchedulingReport extends AbstractReport{
@@ -58,27 +67,44 @@ public class SchedulingReport extends AbstractReport{
         if (base.getListSolution().size() > 0) {
             section("Solution");
 
+            // highlight fields if value is not "true"
+            DefaultValuePainter<Solution> enforcePainter = new DefaultValuePainter<>(true);
+            enforcePainter.setColor("white","red!30");
+
+            new TableDraw<>("Relaxation of Constraints",base.getListSolution()).
+                    addStringColumn("Name", this::nameOf).
+                    addBooleanColumn(st("Enforce","Release","Date"),x->x.getSolverRun().getEnforceReleaseDate(),enforcePainter).
+                    addBooleanColumn(st("Enforce","Due","Date"),x->x.getSolverRun().getEnforceDueDate(),enforcePainter).
+                    addBooleanColumn(st("Enforce","Cumulative"),x->x.getSolverRun().getEnforceCumulative(),enforcePainter).
+                    addBooleanColumn(st("Enforce","WiP"),x->x.getSolverRun().getEnforceWip(),enforcePainter).
+                    addBooleanColumn(st("Enforce","Downtime"),x->x.getSolverRun().getEnforceDowntime(),enforcePainter).
+                    addIntegerColumn(st("Nr","Threads"),x->x.getSolverRun().getNrThreads()).
+                    addIntegerColumn(st("Timeout","(s)"),x->x.getSolverRun().getTimeout()).
+                    generate().latex(tex);
+
             new TableDraw<>("Solutions (Total " + base.getListSolution().size() + ")", base.getListSolution()).
                     addStringColumn("Name", this::nameOf).
                     addStringColumn(st("Solver","Status"),x->x.getSolverStatus().toString()).
-                    addIntegerColumn(st("Objective", "Value"), Solution::getObjectiveValue,"%,d").
-                    addDoubleColumn("Bound",Solution::getBound,"%5.2f").
-                    addDoubleColumn("Gap",Solution::getGap,"%5.2f").
-                    addIntegerColumn("Makespan", Solution::getMakespan,"%,d").
-                    addIntegerColumn("Flowtime", Solution::getFlowtime,"%,d").
-                    addIntegerColumn(st("Total", "Lateness"), Solution::getTotalLateness,"%,d").
-                    addIntegerColumn(st("Max", "Lateness"), Solution::getMaxLateness,"%,d").
-                    addIntegerColumn(st("Nr", "Late"), Solution::getNrLate,"%,d").
-                    addIntegerColumn(st("Total", "Earliness"), Solution::getTotalEarliness,"%,d").
-                    addIntegerColumn(st("Max", "Earliness"), Solution::getMaxEarliness,"%,d").
-                    addIntegerColumn(st("Nr", "Early"), Solution::getNrEarly,"%,d").
-                    addStringColumn(st("Model","Type"),x->x.getSolverRun().getModelType().toString()).
                     addStringColumn(st("Objective","Type"),x->x.getSolverRun().getObjectiveType().toString()).
-                    addDoubleColumn("Time",x->x.getSolverRun().getTime(),"%5.2f").
+                    addIntegerColumn(st("Objective", "Value"), Solution::getObjectiveValue,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                    addDoubleColumn("Bound",Solution::getBound,"%5.2f",new KPIRanking<>(GreaterIsBetter)).
+                    addDoubleColumn("Gap",Solution::getGap,"%5.2f",new KPIRanking<>(SmallerIsBetter)).
+                    addIntegerColumn("Makespan", Solution::getMakespan,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                    addIntegerColumn("Flowtime", Solution::getFlowtime,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                    addIntegerColumn(st("Total", "Lateness"), Solution::getTotalLateness,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                    addIntegerColumn(st("Max", "Lateness"), Solution::getMaxLateness,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                    addIntegerColumn(st("Nr", "Late"), Solution::getNrLate,"%,d",new KPIRankingWithLimit<>(SmallerIsBetter,GT,0)).
+                    addIntegerColumn(st("Total", "Earliness"), Solution::getTotalEarliness,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                    addIntegerColumn(st("Max", "Earliness"), Solution::getMaxEarliness,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                    addIntegerColumn(st("Nr", "Early"), Solution::getNrEarly,"%,d",new KPIRankingWithLimit<>(SmallerIsBetter,GT,0)).
+                    addStringColumn(st("Model","Type"),x->x.getSolverRun().getModelType().toString()).
+                    addDoubleColumn(st("Time","(s)"),x->x.getSolverRun().getTime(),"%5.2f").
                     generate().latex(tex);
 
             Solution sol = Solution.findLast(base);
             assert(sol!=null);
+            intermediateSolutions(sol.getSolverRun());
+
             List<DisjunctiveResource> machines = base.getListDisjunctiveResource();
             List<Job> jobs = base.getListJobAssignment().stream().
                     filter(x->x.getSolution()==sol).
@@ -90,16 +116,30 @@ public class SchedulingReport extends AbstractReport{
                     toList();
             int minStage = tasks.stream().mapToInt(x -> x.getTask().getStage()).min().orElse(0);
             int maxStage = tasks.stream().mapToInt(x -> x.getTask().getStage()).max().orElse(0);
+            int end = sol.getMakespan();
 
             initColors();
 
-            machineGantt(sol,machines,tasks,minStage,maxStage);
+            List<ResourceActivity> activities = new ArrayList<>(tasks);
+            // only show wip if constraints are enforced
+            if (sol.getSolverRun().getEnforceWip()) {
+                activities.addAll(new ArrayList<ResourceActivity>(base.getListWiP()));
+            }
+            // only show downtimes if constraints are enforced
+            // only show downtimes that are in makespan
+            if (sol.getSolverRun().getEnforceDowntime()) {
+                activities.addAll(new ArrayList<ResourceActivity>(base.getListDowntime().stream().
+                        filter(x->x.getStart()<end).
+                        toList()));
+            }
+            machineGantt(sol,machines,activities,minStage,maxStage);
             jobGantt(sol,jobs,tasks,minStage,maxStage);
 
             utilizationChart(sol);
             for(CumulativeResource cr:base.getListCumulativeResource()) {
                 cumulProfile(sol,cr);
             }
+            latenessPlot(sol);
 
 
         } else {
@@ -107,46 +147,75 @@ public class SchedulingReport extends AbstractReport{
         }
     }
 
-    private void machineGantt(Solution sol,List<DisjunctiveResource> machines,
-                              List<TaskAssignment> tasks,int minStage,int maxStage) {
+    private void machineGantt(Solution sol,List<DisjunctiveResource> all,
+                              List<ResourceActivity> tasks,int minStage,int maxStage) {
+        List<List<DisjunctiveResource>> split = ListUtils.partition(all,base.getGanttLinesPerPage());
+        int parts=split.size();
+        int part=1;
+        for(List<DisjunctiveResource> machines:split) {
+            int height = (int)Math.round(machines.size()*base.getGanttLineHeight());
+            List<ResourceActivity> toDraw = tasks.stream().filter(x->machines.contains(x.getDisjunctiveResource())).toList();
 
-        GanttDraw<DisjunctiveResource, TaskAssignment> gd = new GanttDraw<>(machines,
-                new GanttResourceFunctions<>(this::nameOf, this::resourceStyle),
-                tasks,
-                new GanttTaskFunctions<>(x -> xcoor(x.getStart()), x -> xcoor(x.getEnd()),
-                        TaskAssignment::getDisjunctiveResource,
-                        x -> "", this::taskStyle));
-        gd.addMarker(sol.getMakespan(), "draw=red,thick",
-                        "Cmax: " + sol.getMakespan(),
-                        "above left,font=\\scriptsize").
-                width(23).height(7).
-                title("Machine Gantt for Solution " + sol.getName()).
-                label("resourceGantt");
-        for (int i = minStage; i <= maxStage; i++) {
-            gd.addLegendEntry("Stage" + i, "draw=black,fill=stagecolor" + i + "!10,font=\\scriptsize");
+            GanttDraw<DisjunctiveResource, ResourceActivity> gd = new GanttDraw<>(machines,
+                    new GanttResourceFunctions<>(this::nameOf, this::resourceStyle),
+                    toDraw,
+                    new GanttTaskFunctions<>(x -> xcoor(x.getStart()), x -> xcoor(x.getEnd()),
+                            ResourceActivity::getDisjunctiveResource,
+                            x -> "", this::taskStyle));
+            gd.addMarker(sol.getMakespan(), "draw=makespancolor,thick",
+                            "Cmax: " + sol.getMakespan(),
+                            "above left,font=\\scriptsize").
+                    width(base.getGanttWidth()).height(height).
+                    title("Machine Gantt for Solution " + sol.getName()+ (parts>1?" (Part " + part + " of " + parts + ")":"")).
+                    label("resourceGantt"+part);
+            if (containsWip(toDraw)) {
+                gd.addLegendEntry("WiP", "draw=black,fill=wipcolor!40,font=\\scriptsize");
+            }
+            if (containsDowntime(toDraw)) {
+                gd.addLegendEntry("Down", "draw=black,fill=downcolor!40,font=\\scriptsize");
+            }
+            for (int i = minStage; i <= maxStage; i++) {
+                gd.addLegendEntry("Stage" + i, "draw=black,fill=stagecolor" + i + "!10,font=\\scriptsize");
+            }
+            gd.addLegendEntry("Late", "draw=latecolor,font=\\scriptsize");
+
+            gd.generate().latex(tex);
+            part++;
         }
-        gd.addLegendEntry("Late","draw=red,font=\\scriptsize");
-
-        gd.generate().latex(tex);
     }
 
-    private void jobGantt(Solution sol,List<Job> jobs,List<TaskAssignment> tasks,int minStage,int maxStage){
-        GanttDraw<Job,TaskAssignment> gd = new GanttDraw<>(jobs,
-                new GanttResourceFunctions<>(this::nameOf, this::resourceStyle),
-                tasks,new GanttTaskFunctions<>(x->xcoor(x.getStart()),x->xcoor(x.getEnd()),
-                this::job,
-                x->"", this::taskStyle));
-        gd.addMarker(sol.getMakespan(),"draw=red,thick",
-                        "Cmax: "+sol.getMakespan(),
-                        "above left,font=\\scriptsize").
-                width(23).height(13).
-                title("Job Gantt for Solution "+sol.getName()).
-                label("jobGantt");
-        for (int i = minStage; i <= maxStage; i++) {
-            gd.addLegendEntry("Stage" + i, "draw=black,fill=stagecolor" + i + "!10,font=\\scriptsize");
+    private boolean containsWip(List<ResourceActivity> list){
+        return list.stream().anyMatch(x -> x instanceof WiP);
+    }
+    private boolean containsDowntime(List<ResourceActivity> list){
+        return list.stream().anyMatch(x -> x instanceof Downtime);
+    }
+
+    private void jobGantt(Solution sol,List<Job> all,List<TaskAssignment> tasks,int minStage,int maxStage){
+        List<List<Job>> split = ListUtils.partition(all,base.getGanttLinesPerPage());
+        int parts=split.size();
+        int part=1;
+        for(List<Job> jobs:split) {
+            int height = (int)Math.round(jobs.size()*base.getGanttLineHeight());
+            List<TaskAssignment> toDraw = tasks.stream().filter(x->jobs.contains(x.getJobAssignment().getJob())).toList();
+            GanttDraw<Job, TaskAssignment> gd = new GanttDraw<>(jobs,
+                    new GanttResourceFunctions<>(this::nameOf, this::resourceStyle),
+                    toDraw, new GanttTaskFunctions<>(x -> xcoor(x.getStart()), x -> xcoor(x.getEnd()),
+                    this::job,
+                    x -> "", this::taskStyle));
+            gd.addMarker(sol.getMakespan(), "draw=makespancolor,thick",
+                            "Cmax: " + sol.getMakespan(),
+                            "above left,font=\\scriptsize").
+                    width(base.getGanttWidth()).height(height).
+                        title("Job Gantt for Solution " + sol.getName() + (parts>1?" (Part " + part + " of " + parts + ")":"")).
+                    label("jobGantt"+part);
+            for (int i = minStage; i <= maxStage; i++) {
+                gd.addLegendEntry("Stage" + i, "draw=black,fill=stagecolor" + i + "!10,font=\\scriptsize");
+            }
+            gd.addLegendEntry("Late", "draw=latecolor,font=\\scriptsize");
+            gd.generate().latex(tex);
+            part++;
         }
-        gd.addLegendEntry("Late","draw=red,font=\\scriptsize");
-        gd.generate().latex(tex);
 
     }
 
@@ -159,11 +228,11 @@ public class SchedulingReport extends AbstractReport{
         jobColorHash = new Hashtable<>();
         resourceColorHash = new Hashtable<>();
         for(Job j:base.getListJob()){
-            String color = "green!10";
+            String color = "jobcolor!10";
             jobColorHash.put(j,color);
         }
         for(DisjunctiveResource r:base.getListDisjunctiveResource()){
-            String color = "blue!10";
+            String color = "resourcecolor!10";
             resourceColorHash.put(r,color);
         }
     }
@@ -173,19 +242,28 @@ public class SchedulingReport extends AbstractReport{
     }
 
     private String resourceStyle(DisjunctiveResource r){
-        return "draw=black,fill=blue!10,font=\\scriptsize";
+        return "draw=black,fill=resourcecolor!10,font=\\scriptsize";
     }
     private String resourceStyle(Job j){
-        return "draw=black,fill=green!10,font=\\scriptsize";
+        return "draw=black,fill=jobcolor!10,font=\\scriptsize";
     }
 
-    private String taskStyle(TaskAssignment ta){
-        return "draw="+lateColor(ta)+",fill="+stageColor(ta.getTask().getStage());
+    private String taskStyle(ResourceActivity ta){
+        if (ta instanceof WiP){
+            return "draw=black,fill=wipcolor!40";
+
+        } else if (ta instanceof Downtime){
+            return "draw=black,fill=downcolor!40";
+
+        } else {
+            TaskAssignment task = (TaskAssignment) ta;
+            return "draw=" + lateColor(task) + ",fill=" + stageColor(task.getTask().getStage());
+        }
     }
 
     private String lateColor(TaskAssignment ta){
-        if (ta.getJobAssignment().getLate() > 0){
-            return "red";
+        if (ta.getJobAssignment().getLate() > 0 && ta.getEnd() > ta.getJobAssignment().getJob().getOrder().getDue()){
+            return "latecolor";
         }
         return "black";
     }
@@ -199,6 +277,12 @@ public class SchedulingReport extends AbstractReport{
     }
 
     private void stagecolorDefs(PrintWriter tex) {
+        tex.printf("\\definecolor{wipcolor}{RGB}{%d,%d,%d}\n", 128,128,128);
+        tex.printf("\\definecolor{downcolor}{RGB}{%d,%d,%d}\n", 255,0,0);
+        tex.printf("\\definecolor{latecolor}{RGB}{%d,%d,%d}\n", 255,0,0);
+        tex.printf("\\definecolor{makespancolor}{RGB}{%d,%d,%d}\n", 255,0,0);
+        tex.printf("\\definecolor{resourcecolor}{RGB}{%d,%d,%d}\n", 0,0,255);
+        tex.printf("\\definecolor{jobcolor}{RGB}{%d,%d,%d}\n", 0,255,0);
         tex.printf("\\definecolor{stagecolor%d}{RGB}{%d,%d,%d}\n", 0, 240, 163, 255);
         tex.printf("\\definecolor{stagecolor%d}{RGB}{%d,%d,%d}\n", 1, 0, 117, 220);
         tex.printf("\\definecolor{stagecolor%d}{RGB}{%d,%d,%d}\n", 2, 153, 63, 0);
@@ -269,6 +353,42 @@ public class SchedulingReport extends AbstractReport{
             }
         }
         return 0;
+    }
+
+    private void intermediateSolutions(SolverRun run){
+        List<IntermediateSolution> steps = base.getListIntermediateSolution().stream().
+                filter(x->x.getSolverRun()==run).
+                sorted(Comparator.comparing(IntermediateSolution::getTime)).
+                toList();
+        new LinePlot<>(steps,new LinePlotFunctions<>(IntermediateSolution::getTime, IntermediateSolution::getCost)).
+                width(23).height(12).
+                title("Cost of Intermediate Solutions").
+                xlabel("Time (s)").ylabel("Cost").
+                generate().latex(tex);
+    }
+
+    private void latenessPlot(Solution sol){
+        List<JobAssignment> list = base.getListJobAssignment().stream().filter(x->x.getSolution()==sol).toList();
+        int maxDelay = list.stream().mapToInt(JobAssignment::getLate).max().orElse(0);
+        int maxEarly = list.stream().mapToInt(JobAssignment::getEarly).max().orElse(0);
+        new ScatterPlot<>(list,
+                new ScatterPlotFunctions<>(JobAssignment::getEnd, this::earlyLate, this::earlyLate)).
+                addLevel("Max Delay: "+maxDelay,"draw=red",maxDelay).
+                addLevel("Max Early: "+maxEarly,"draw=blue",-maxEarly).
+                addLevel("On-time","draw=black",0).
+                addMarker(""+sol.getMakespan(),"draw=red",sol.getMakespan()).
+                width(23).height(13).
+                title("Earliness/Lateness Over Time").
+                xlabel("Time").
+                ylabel("Earliness/Lateness").generate().latex(tex);
+    }
+
+    private int earlyLate(JobAssignment ja){
+        if (ja.getLate() >0){
+            return ja.getLate();
+        } else {
+            return -ja.getEarly();
+        }
     }
 
 

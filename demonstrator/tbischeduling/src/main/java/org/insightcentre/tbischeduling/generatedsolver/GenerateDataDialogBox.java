@@ -35,7 +35,9 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
    private IntegerTextField nrCumulativeResourcesItem = new IntegerTextField();
    private IntegerTextField minCumulDemandItem = new IntegerTextField();
    private IntegerTextField maxCumulDemandItem = new IntegerTextField();
-   private IntegerTextField cumulCapacityItem = new IntegerTextField();
+   private IntegerTextField profilePiecesItem = new IntegerTextField();
+   private IntegerTextField minCumulCapacityItem = new IntegerTextField();
+   private IntegerTextField maxCumulCapacityItem = new IntegerTextField();
    private IntegerTextField nrOrdersItem = new IntegerTextField();
    private IntegerTextField minQtyItem = new IntegerTextField();
    private IntegerTextField maxQtyItem = new IntegerTextField();
@@ -98,9 +100,15 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
         pane.add(new Label("Max Cumulative Demand:"), 0, row);
         pane.add(maxCumulDemandItem, 1, row++);
         maxCumulDemandItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxCumulDemand()));
-        pane.add(new Label("Cumulative Capacity:"), 0, row);
-        pane.add(cumulCapacityItem, 1, row++);
-        cumulCapacityItem.setText(String.format("%d",((GenerateDataSolver)solver).getCumulCapacity()));
+        pane.add(new Label("Profile Pieces:"), 0, row);
+        pane.add(profilePiecesItem, 1, row++);
+        profilePiecesItem.setText(String.format("%d",((GenerateDataSolver)solver).getProfilePieces()));
+        pane.add(new Label("Min Cumulative Capacity:"), 0, row);
+        pane.add(minCumulCapacityItem, 1, row++);
+        minCumulCapacityItem.setText(String.format("%d",((GenerateDataSolver)solver).getMinCumulCapacity()));
+        pane.add(new Label("Max Cumulative Capacity:"), 0, row);
+        pane.add(maxCumulCapacityItem, 1, row++);
+        maxCumulCapacityItem.setText(String.format("%d",((GenerateDataSolver)solver).getMaxCumulCapacity()));
         pane.add(new Label("nr Orders:"), 0, row);
         pane.add(nrOrdersItem, 1, row++);
         nrOrdersItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrOrders()));
@@ -163,7 +171,9 @@ public void handle(InputEvent event) {
         int nrCumulativeResourcesValue = Integer.parseInt(nrCumulativeResourcesItem.getText());
         int minCumulDemandValue = Integer.parseInt(minCumulDemandItem.getText());
         int maxCumulDemandValue = Integer.parseInt(maxCumulDemandItem.getText());
-        int cumulCapacityValue = Integer.parseInt(cumulCapacityItem.getText());
+        int profilePiecesValue = Integer.parseInt(profilePiecesItem.getText());
+        int minCumulCapacityValue = Integer.parseInt(minCumulCapacityItem.getText());
+        int maxCumulCapacityValue = Integer.parseInt(maxCumulCapacityItem.getText());
         int nrOrdersValue = Integer.parseInt(nrOrdersItem.getText());
         int minQtyValue = Integer.parseInt(minQtyItem.getText());
         int maxQtyValue = Integer.parseInt(maxQtyItem.getText());
@@ -192,7 +202,9 @@ public void handle(InputEvent event) {
             .setNrCumulativeResources(nrCumulativeResourcesValue)
             .setMinCumulDemand(minCumulDemandValue)
             .setMaxCumulDemand(maxCumulDemandValue)
-            .setCumulCapacity(cumulCapacityValue)
+            .setProfilePieces(profilePiecesValue)
+            .setMinCumulCapacity(minCumulCapacityValue)
+            .setMaxCumulCapacity(maxCumulCapacityValue)
             .setNrOrders(nrOrdersValue)
             .setMinQty(minQtyValue)
             .setMaxQty(maxQtyValue)

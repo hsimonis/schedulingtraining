@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 17:10:44 on 2024-10-01-->
+<!--Generated at 15:36:02 on 2024-10-02-->
 
 
 <Tab text="WiP" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.WiPController">
@@ -19,9 +19,12 @@
          <TableView fx:id="table" editable="true">
             <columns>
                <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
-               <TableColumn fx:id="until" styleClass="right-aligned" text="Until" />
-               <TableColumn fx:id="untilDate" styleClass="right-aligned" text="UntilDate" />
                <TableColumn fx:id="disjunctiveResource" styleClass="right-aligned" text="DisjunctiveResource" />
+               <TableColumn fx:id="duration" styleClass="right-aligned" text="Duration" />
+               <TableColumn fx:id="start" styleClass="right-aligned" text="Start" />
+               <TableColumn fx:id="end" styleClass="right-aligned" text="End" />
+               <TableColumn fx:id="startDate" styleClass="right-aligned" text="StartDate" />
+               <TableColumn fx:id="endDate" styleClass="right-aligned" text="EndDate" />
             </columns>
          </TableView>
       </center>

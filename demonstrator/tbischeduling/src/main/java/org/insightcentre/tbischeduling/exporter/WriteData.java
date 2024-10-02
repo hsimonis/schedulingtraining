@@ -259,8 +259,11 @@ public class WriteData {
             JSONObject obj = new JSONObject();
             obj.put("name",w.getName());
             obj.put("disjunctiveResource",w.getDisjunctiveResource().getName());
-            obj.put("until",w.getUntil());
-            obj.put("untilDate",w.getUntilDate());
+            obj.put("duration",w.getDuration());
+            obj.put("start",w.getStart());
+            obj.put("startDate",w.getStartDate());
+            obj.put("end",w.getEnd());
+            obj.put("endDate",w.getEndDate());
             res.put(obj);
         }
         return res;
@@ -272,10 +275,11 @@ public class WriteData {
             JSONObject obj = new JSONObject();
             obj.put("name",d.getName());
             obj.put("disjunctiveResource",d.getDisjunctiveResource().getName());
-            obj.put("from",d.getFrom());
-            obj.put("to",d.getTo());
-            obj.put("fromDate",d.getFromDate().toString());
-            obj.put("toDate",d.getToDate().toString());
+            obj.put("duration",d.getDuration());
+            obj.put("start",d.getStart());
+            obj.put("end",d.getEnd());
+            obj.put("startDate",d.getStartDate().toString());
+            obj.put("endDate",d.getEndDate().toString());
             res.put(obj);
         }
         return res;

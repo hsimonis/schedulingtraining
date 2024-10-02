@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 17:10:44 on 2024-10-01-->
+<!--Generated at 15:36:02 on 2024-10-02-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -73,6 +73,7 @@
             </Menu>
             <Menu text="_Window">
                <items>
+                  <MenuItem id="resourceActivityPage" accelerator="Shortcut+R" onAction="#handle" text="ResourceActivity" />
                   <Menu text="_Problem">
                      <items>
                         <MenuItem id="problemPage" onAction="#handle" text="Problem" />
@@ -92,7 +93,7 @@
                         <MenuItem id="disjunctiveResourcePage" onAction="#handle" text="DisjunctiveResource" />
                         <MenuItem id="cumulativeResourcePage" onAction="#handle" text="CumulativeResource" />
                         <SeparatorMenuItem />
-                        <MenuItem id="resourceNeedPage" accelerator="Shortcut+R" onAction="#handle" text="ResourceNeed" />
+                        <MenuItem id="resourceNeedPage" onAction="#handle" text="ResourceNeed" />
                         <MenuItem id="cumulativeNeedPage" onAction="#handle" text="CumulativeNeed" />
                         <MenuItem id="cumulativeProfilePage" onAction="#handle" text="CumulativeProfile" />
                      </items>
@@ -117,6 +118,8 @@
                         <MenuItem id="taskAssignmentPage" onAction="#handle" text="TaskAssignment" />
                         <SeparatorMenuItem />
                         <MenuItem id="resourceUtilizationPage" onAction="#handle" text="ResourceUtilization" />
+                        <SeparatorMenuItem />
+                        <MenuItem id="intermediateSolutionPage" onAction="#handle" text="IntermediateSolution" />
                      </items>
                   </Menu>
                   <SeparatorMenuItem />
