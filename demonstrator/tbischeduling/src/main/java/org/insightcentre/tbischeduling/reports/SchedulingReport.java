@@ -73,6 +73,7 @@ public class SchedulingReport extends AbstractReport{
 
             new TableDraw<>("Relaxation of Constraints",base.getListSolution()).
                     addStringColumn("Name", this::nameOf).
+                    addStringColumn("Label", x->safe(x.getSolverRun().getLabel())).
                     addBooleanColumn(st("Enforce","Release","Date"),x->x.getSolverRun().getEnforceReleaseDate(),enforcePainter).
                     addBooleanColumn(st("Enforce","Due","Date"),x->x.getSolverRun().getEnforceDueDate(),enforcePainter).
                     addBooleanColumn(st("Enforce","Cumulative"),x->x.getSolverRun().getEnforceCumulative(),enforcePainter).
@@ -373,10 +374,10 @@ public class SchedulingReport extends AbstractReport{
         int maxEarly = list.stream().mapToInt(JobAssignment::getEarly).max().orElse(0);
         new ScatterPlot<>(list,
                 new ScatterPlotFunctions<>(JobAssignment::getEnd, this::earlyLate, this::earlyLate)).
-                addLevel("Max Delay: "+maxDelay,"draw=red",maxDelay).
-                addLevel("Max Early: "+maxEarly,"draw=blue",-maxEarly).
+                addLevel("Max Delay: "+String.format("%,d",maxDelay),"draw=red",maxDelay).
+                addLevel("Max Early: "+String.format("%,d",maxEarly),"draw=blue",-maxEarly).
                 addLevel("On-time","draw=black",0).
-                addMarker(""+sol.getMakespan(),"draw=red",sol.getMakespan()).
+                addMarker(""+String.format("%,d",sol.getMakespan()),"draw=red",sol.getMakespan()).
                 width(23).height(13).
                 title("Earliness/Lateness Over Time").
                 xlabel("Time").

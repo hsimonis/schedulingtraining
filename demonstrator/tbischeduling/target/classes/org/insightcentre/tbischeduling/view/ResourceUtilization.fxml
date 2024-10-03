@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+
+<!--Generated at 15:36:02 on 2024-10-02-->
+
+
+<Tab text="ResourceUtilization" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.ResourceUtilizationController">
+   <BorderPane>
+      <center>
+         <TableView fx:id="table" editable="true">
+            <columns>
+               <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
+               <TableColumn fx:id="disjunctiveResource" styleClass="right-aligned" text="DisjunctiveResource" />
+               <TableColumn fx:id="solution" styleClass="right-aligned" text="Solution" />
+               <TableColumn fx:id="earliest" styleClass="right-aligned" text="Earliest" />
+               <TableColumn fx:id="latest" styleClass="right-aligned" text="Latest" />
+               <TableColumn fx:id="active" styleClass="right-aligned" text="Active" />
+               <TableColumn fx:id="use" styleClass="right-aligned" text="Use" />
+               <TableColumn fx:id="utilization" styleClass="right-aligned" text="Utilization" />
+            </columns>
+         </TableView>
+      </center>
+      <bottom>
+         <TitledPane fx:id="filterPane" expanded="false" text="Filter">
+            <content>
+               <HBox alignment="center" spacing="5.0">
+                  <ChoiceBox fx:id="filterChoiceBox" />
+                  <ChoiceBox fx:id="filterComparisonBox" />
+                  <TextField fx:id="filterTextField" />
+               </HBox>
+            </content>
+         </TitledPane>
+      </bottom>
+   </BorderPane>
+</Tab>
