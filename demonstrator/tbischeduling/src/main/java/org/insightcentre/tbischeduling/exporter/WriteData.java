@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
 public class WriteData {
@@ -27,10 +28,12 @@ public class WriteData {
     }
     public void toFile(File selected,int indent) {
         try {
+            info("Writing file "+selected.toString());
             PrintWriter out = new PrintWriter(selected);
             out.println(toString(indent));
             out.close();
             base.setDirty(false);
+            info("File written");
         } catch (IOException e) {
             severe("Cannot write file " + selected.toString() + ", exception " + e.getMessage());
         }
