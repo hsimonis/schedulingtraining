@@ -830,6 +830,7 @@ public DurationModel getDurationModel(String attributeName,
                         getDateTime("dueDate",attributes,"2011-01-01"),
                         getDouble("earlinessWeight",attributes,0.0),
                         getDouble("latenessWeight",attributes,0.0),
+                        getInteger("nr",attributes,0),
                         null,
                         null,
                         getInteger("qty",attributes,0),
@@ -958,7 +959,11 @@ public DurationModel getDurationModel(String attributeName,
                         null,
                         null,
                         getDouble("time",attributes,0.0),
-                        getInteger("timeout",attributes,0)
+                        getInteger("timeout",attributes,0),
+                        getInteger("weightEarliness",attributes,0),
+                        getInteger("weightFlowtime",attributes,0),
+                        getInteger("weightLateness",attributes,0),
+                        getInteger("weightMakespan",attributes,0)
                         ));
             } else if (qname.equals("task")) {
                 assert (base != null);

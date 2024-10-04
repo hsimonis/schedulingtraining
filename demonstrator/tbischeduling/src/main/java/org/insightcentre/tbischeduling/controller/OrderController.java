@@ -25,13 +25,16 @@ import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.Product;
 
 /**
- * Generated at 15:36:02 on 2024-10-02 */
+ * Generated at 22:48:03 on 2024-10-03 */
 public class OrderController extends Table3Controller {
 	@FXML
 	private TableView<Order> table;
 
 	@FXML
 	private TableColumn<Order, String> name;
+
+	@FXML
+	private TableColumn<Order, Integer> nr;
 
 	@FXML
 	private TableColumn<Order, Product> product;
@@ -85,6 +88,10 @@ public class OrderController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
+		choices.add("nr");
+		nr.setCellValueFactory(new PropertyValueFactory<>("nr"));
+		nr.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		nr.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setNr(event.getNewValue()); mainApp.reset();});
 		choices.add("product");
 		product.setCellValueFactory(new PropertyValueFactory<>("product"));
 		choices.add("process");

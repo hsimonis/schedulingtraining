@@ -107,6 +107,12 @@ WeightedLateness,
  *
 */
 
+OnTime,
+    /**
+ *  
+ *
+*/
+
 Hybrid;
 private static ObjectiveType[] cache = null;
 

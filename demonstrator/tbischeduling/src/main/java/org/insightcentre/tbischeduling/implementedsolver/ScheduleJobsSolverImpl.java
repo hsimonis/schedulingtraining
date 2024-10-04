@@ -34,6 +34,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         SolverRun run = createSolverRun(getLabel(),getDescription(),toModelType(getModelType()),
                 toSolverBackend(getSolverBackend()),toObjectiveType(getObjectiveType()),
                 getEnforceReleaseDate(),getEnforceDueDate(),getEnforceCumulative(),getEnforceWip(),getEnforceDowntime(),
+                getWeightMakespan(),getWeightFlowtime(),getWeightEarlyness(),getWeightLateness(),
                 getTimeout(),getNrThreads(),getSeed(),
                 getRemoveSolution(),getProduceReport(),getProducePDF());
         switch(toModelType(getModelType())){
@@ -99,6 +100,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
             case "TotalEarliness" -> TotalEarliness;
             case "MaxEarliness" -> MaxEarliness;
             case "WeightedEarliness" -> WeightedEarliness;
+            case "OnTime" -> OnTime;
             case "Hybrid" -> Hybrid;
             default -> null;
         };
@@ -107,6 +109,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
     private SolverRun createSolverRun(String label,String description,ModelType modelType,SolverBackend solverBackend,
                                       ObjectiveType objectiveType,boolean enforceReleaseDate,boolean enforceDueDate,
                                       boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,
+                                      int weightMakespan,int weightFlowtime,int weightEarlyness,int weightLateness,
                                       int timeout,int nrThreads,int seed,boolean removeSolution,
                                       boolean produceReport,boolean producePDF){
         SolverRun res = new SolverRun(base);
@@ -121,6 +124,11 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         res.setEnforceCumulative(enforceCumulative);
         res.setEnforceWip(enforceWip);
         res.setEnforceDowntime(enforceDowntime);
+
+        res.setWeightMakespan(weightMakespan);
+        res.setWeightFlowtime(weightFlowtime);
+        res.setWeightEarliness(weightEarlyness);
+        res.setWeightLateness(weightLateness);
 
         res.setTimeout(timeout);
         res.setNrThreads(nrThreads);

@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 15:36:02 on 2024-10-02 */
+ * Generated at 22:48:03 on 2024-10-03 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -127,6 +127,7 @@ public class PieChartController extends ChartController {
 		choicesMap.put("ResourceActivity", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
+		attributeNames.add("nr");
 		attributeNames.add("product");
 		attributeNames.add("process");
 		attributeNames.add("qty");
@@ -191,6 +192,10 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceCumulative");
 		attributeNames.add("enforceWip");
 		attributeNames.add("enforceDowntime");
+		attributeNames.add("weightMakespan");
+		attributeNames.add("weightFlowtime");
+		attributeNames.add("weightEarliness");
+		attributeNames.add("weightLateness");
 		attributeNames.add("timeout");
 		attributeNames.add("nrThreads");
 		attributeNames.add("seed");

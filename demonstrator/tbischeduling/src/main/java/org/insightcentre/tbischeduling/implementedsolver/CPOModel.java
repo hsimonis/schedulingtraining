@@ -84,6 +84,7 @@ public class CPOModel extends AbstractModel{
             // lateness variables for the jobs
             IloIntExpr[] lateness = new IloIntExpr[nrJobs];
             IloIntExpr[] earliness = new IloIntExpr[nrJobs];
+            IloIntExpr[] ontime = new IloIntExpr[2*nrJobs];
             // variables for machine use; most fields are null
             // some are set to x variables if there is no machine choice
             IloIntervalVar[][] z = new IloIntervalVar[nrTasks][nrDisjunctiveResources];
@@ -115,6 +116,8 @@ public class CPOModel extends AbstractModel{
                 // constrain lateness and earliness to depend on end date
                 lateness[j] = cp.max(0,cp.diff(cp.endOf(y[j]),dueDate[j]));
                 earliness[j] = cp.max(0,cp.diff(dueDate[j],cp.endOf(y[j])));
+                ontime[2*j] = lateness[j];
+                ontime[2*j+1] = earliness[j];
             }
             // create machine task variables if there is more than one choice
             for(int i=0;i<nrTasks;i++){
@@ -289,6 +292,32 @@ public class CPOModel extends AbstractModel{
                 case TotalEarliness -> objective = cp.minimize(cp.sum(earliness));
                 case MaxLateness -> objective = cp.minimize(cp.max(lateness));
                 case MaxEarliness -> objective = cp.minimize(cp.max(earliness));
+                case OnTime -> {
+                    IntExprList total = new IntExprList();
+                    total.add(cp.prod(run.getWeightLateness(),cp.sum(lateness)));
+                    total.add(cp.prod(run.getWeightEarliness(),cp.sum(earliness)));
+
+                    objective = cp.minimize(cp.sum(total.toArray()));
+
+                }
+                case Hybrid -> {
+                    IntExprList total = new IntExprList();
+                    IloIntExpr makespan = cp.intVar(0,base.getHorizon());
+                    IloIntExpr flowtime = cp.intVar(0,base.getHorizon()*nrJobs);
+                    IntExprList ends = new IntExprList();
+                    for(int j=0;j<nrJobs;j++){
+                        ends.add(cp.endOf(y[j]));
+                    }
+                    cp.addEq(makespan,cp.max(ends.toArray()));
+                    cp.addEq(flowtime,cp.sum(ends.toArray()));
+                    total.add(cp.prod(run.getWeightMakespan(),makespan));
+                    total.add(cp.prod(run.getWeightFlowtime(),flowtime));
+                    total.add(cp.prod(run.getWeightLateness(),cp.sum(lateness)));
+                    total.add(cp.prod(run.getWeightEarliness(),cp.sum(earliness)));
+
+                    objective = cp.minimize(cp.sum(total.toArray()));
+
+                }
                 default -> {
                     severe("ObjectiveType not implemented " + run.getObjectiveType());
                     assert (false);

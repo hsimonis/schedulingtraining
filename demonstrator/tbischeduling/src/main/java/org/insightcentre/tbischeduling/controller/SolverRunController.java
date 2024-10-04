@@ -32,7 +32,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 15:36:02 on 2024-10-02 */
+ * Generated at 22:48:03 on 2024-10-03 */
 public class SolverRunController extends Table3Controller {
 	@FXML
 	private TableView<SolverRun> table;
@@ -69,6 +69,18 @@ public class SolverRunController extends Table3Controller {
 
 	@FXML
 	private TableColumn<SolverRun, Boolean> enforceDowntime;
+
+	@FXML
+	private TableColumn<SolverRun, Integer> weightMakespan;
+
+	@FXML
+	private TableColumn<SolverRun, Integer> weightFlowtime;
+
+	@FXML
+	private TableColumn<SolverRun, Integer> weightEarliness;
+
+	@FXML
+	private TableColumn<SolverRun, Integer> weightLateness;
 
 	@FXML
 	private TableColumn<SolverRun, Integer> timeout;
@@ -156,6 +168,22 @@ public class SolverRunController extends Table3Controller {
 		choices.add("enforceDowntime");
 		enforceDowntime.setCellValueFactory(new EnforceDowntimeCallback());
 		enforceDowntime.setCellFactory(CheckBoxTableCell.forTableColumn(enforceDowntime));
+		choices.add("weightMakespan");
+		weightMakespan.setCellValueFactory(new PropertyValueFactory<>("weightMakespan"));
+		weightMakespan.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		weightMakespan.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWeightMakespan(event.getNewValue()); mainApp.reset();});
+		choices.add("weightFlowtime");
+		weightFlowtime.setCellValueFactory(new PropertyValueFactory<>("weightFlowtime"));
+		weightFlowtime.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		weightFlowtime.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWeightFlowtime(event.getNewValue()); mainApp.reset();});
+		choices.add("weightEarliness");
+		weightEarliness.setCellValueFactory(new PropertyValueFactory<>("weightEarliness"));
+		weightEarliness.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		weightEarliness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWeightEarliness(event.getNewValue()); mainApp.reset();});
+		choices.add("weightLateness");
+		weightLateness.setCellValueFactory(new PropertyValueFactory<>("weightLateness"));
+		weightLateness.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		weightLateness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWeightLateness(event.getNewValue()); mainApp.reset();});
 		choices.add("timeout");
 		timeout.setCellValueFactory(new PropertyValueFactory<>("timeout"));
 		timeout.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));

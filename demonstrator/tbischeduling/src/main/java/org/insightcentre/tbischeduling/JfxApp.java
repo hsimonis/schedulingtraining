@@ -10,10 +10,10 @@ import framework.ApplicationDatasetInterface;
 import framework.ApplicationObjectInterface;
 import framework.types.IrishCalendar;
 import org.insightcentre.tbischeduling.exporter.WriteData;
-import org.insightcentre.tbischeduling.generatedsolver.GenerateDataDialogBox;
-import org.insightcentre.tbischeduling.generatedsolver.GenerateDataDialogBoxImpl;
-import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBoxImpl;
+import org.insightcentre.tbischeduling.generatedsolver.*;
 import org.insightcentre.tbischeduling.implementedsolver.GenerateDataSolverImpl;
+import org.insightcentre.tbischeduling.implementedsolver.NewDowntimeSolverImpl;
+import org.insightcentre.tbischeduling.implementedsolver.NewOrderSolverImpl;
 import org.insightcentre.tbischeduling.implementedsolver.ScheduleJobsSolverImpl;
 import org.insightcentre.tbischeduling.importer.CreateData;
 import org.insightcentre.tbischeduling.importer.ReadData;
@@ -141,5 +141,15 @@ public class JfxApp extends GeneratedJfxApp {
                 showView("Solution");
         }
 
+        @Override
+        public void newOrderSolverRun(Scenario base) {
+                Optional<Boolean> result = new NewOrderDialogBoxImpl(this,base,new NewOrderSolverImpl(base)).showAndWait();
+                reset();
+        }
+        @Override
+        public void newDowntimeSolverRun(Scenario base) {
+                Optional<Boolean> result = new NewDowntimeDialogBoxImpl(this,base,new NewDowntimeSolverImpl(base)).showAndWait();
+                reset();
+        }
 
 }

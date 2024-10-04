@@ -21,7 +21,7 @@ import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
 
 /**
- * Generated at 15:36:02 on 2024-10-02 */
+ * Generated at 22:48:03 on 2024-10-03 */
 public class ResourceNeedController extends Table3Controller {
 	@FXML
 	private TableView<ResourceNeed> table;

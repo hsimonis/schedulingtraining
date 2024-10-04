@@ -18,6 +18,12 @@ public class CreateData {
     Random random;
     Scenario base;
 
+    public CreateData(Scenario base,Order ord,int i){
+        this.base = base;
+        scheduleOrder(ord,i);
+        base.setDirty(false);
+        summarizeProblem(base);
+    }
     public CreateData(Scenario base,String name,ResourceModel resourceModel,int seed,int nrProducts,
                       int minStages,int maxStages,
                       int nrDisjunctiveResources,int nrCumulativeResources,
@@ -223,24 +229,13 @@ public class CreateData {
         for(int i=0;i<nrOrders;i++){
             Order ord = new Order(base);
             ord.setName("Order"+i);
+            ord.setNr(i);
             ord.setProduct(pickProduct());
             ord.setProcess(ord.getProduct().getDefaultProcess());
             ord.setQty(pickQty(minQty,maxQty));
             ord.setDue(due(earliestDue,horizon));
 //            ord.setDueDate(toDateTime(ord.getDue()));
-            Job j = new Job(base);
-            j.setName("J"+i);
-            j.setOrder(ord);
-            j.setProcess(ord.getProcess());
-            for(ProcessStep ps:processSteps(j.getProcess())){
-                Task t = new Task(base);
-                t.setName("T"+i+ps.getName());
-                t.setShortName("T"+i+ps.getName());
-                t.setJob(j);
-                t.setProcessStep(ps);
-                t.setDuration(duration(t));
-                t.setStage(ps.getStage());
-            }
+            scheduleOrder(ord,i);
 
         }
         for(DisjunctiveResource r:base.getListDisjunctiveResource()){
@@ -266,6 +261,23 @@ public class CreateData {
                 d.setDuration(duration);
             }
         }
+    }
+
+    private void scheduleOrder(Order ord,int i){
+        Job j = new Job(base);
+        j.setName("J"+i);
+        j.setOrder(ord);
+        j.setProcess(ord.getProcess());
+        for(ProcessStep ps:processSteps(j.getProcess())){
+            Task t = new Task(base);
+            t.setName("T"+i+ps.getName());
+            t.setShortName("T"+i+ps.getName());
+            t.setJob(j);
+            t.setProcessStep(ps);
+            t.setDuration(duration(t));
+            t.setStage(ps.getStage());
+        }
+
     }
 
     private int duration(Task t){

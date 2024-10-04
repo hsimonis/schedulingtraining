@@ -87,6 +87,13 @@ public  class Order extends ApplicationObject{
  *
 */
 
+    public Integer nr;
+
+/**
+ *  
+ *
+*/
+
     public Process process;
 
 /**
@@ -140,6 +147,7 @@ public  class Order extends ApplicationObject{
         setDueDate(new DateTime());
         setEarlinessWeight(1.0);
         setLatenessWeight(1.0);
+        setNr(0);
         setProcess(null);
         setProduct(null);
         setQty(0);
@@ -162,6 +170,7 @@ public  class Order extends ApplicationObject{
             DateTime dueDate,
             Double earlinessWeight,
             Double latenessWeight,
+            Integer nr,
             Process process,
             Product product,
             Integer qty,
@@ -174,6 +183,7 @@ public  class Order extends ApplicationObject{
         setDueDate(dueDate);
         setEarlinessWeight(earlinessWeight);
         setLatenessWeight(latenessWeight);
+        setNr(nr);
         setProcess(process);
         setProduct(product);
         setQty(qty);
@@ -190,6 +200,7 @@ public  class Order extends ApplicationObject{
             other.dueDate,
             other.earlinessWeight,
             other.latenessWeight,
+            other.nr,
             other.process,
             other.product,
             other.qty,
@@ -247,6 +258,16 @@ public  class Order extends ApplicationObject{
 
     public Double getLatenessWeight(){
         return this.latenessWeight;
+    }
+
+/**
+ *  get attribute nr
+ *
+ * @return Integer
+*/
+
+    public Integer getNr(){
+        return this.nr;
     }
 
 /**
@@ -348,6 +369,18 @@ public  class Order extends ApplicationObject{
     }
 
 /**
+ *  set attribute nr, mark dataset as dirty, mark dataset as not valid
+@param nr Integer
+ *
+*/
+
+    public void setNr(Integer nr){
+        this.nr = nr;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute process, mark dataset as dirty, mark dataset as not valid
 @param process Process
  *
@@ -419,6 +452,17 @@ public  class Order extends ApplicationObject{
     }
 
 /**
+ *  inc attribute nr, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNr(){
+        this.nr++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute qty, mark dataset as dirty, mark dataset as not valid
  *
 */
@@ -457,7 +501,7 @@ public  class Order extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDue()+ " " +getDueDate()+ " " +getEarlinessWeight()+ " " +getLatenessWeight()+ " " +getProcess().toColumnString()+ " " +getProduct().toColumnString()+ " " +getQty()+ " " +getRelease()+ " " +getReleaseDate();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDue()+ " " +getDueDate()+ " " +getEarlinessWeight()+ " " +getLatenessWeight()+ " " +getNr()+ " " +getProcess().toColumnString()+ " " +getProduct().toColumnString()+ " " +getQty()+ " " +getRelease()+ " " +getReleaseDate();
     }
 
 /**
@@ -485,6 +529,7 @@ public  class Order extends ApplicationObject{
             " dueDate=\""+toXMLDueDate()+"\""+
             " earlinessWeight=\""+toXMLEarlinessWeight()+"\""+
             " latenessWeight=\""+toXMLLatenessWeight()+"\""+
+            " nr=\""+toXMLNr()+"\""+
             " process=\""+toXMLProcess()+"\""+
             " product=\""+toXMLProduct()+"\""+
             " qty=\""+toXMLQty()+"\""+
@@ -530,6 +575,16 @@ public  class Order extends ApplicationObject{
 
     String toXMLLatenessWeight(){
         return this.getLatenessWeight().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNr(){
+        return this.getNr().toString();
     }
 
 /**
@@ -589,11 +644,11 @@ public  class Order extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Order</th>"+"<th>Name</th>"+"<th>Product</th>"+"<th>Process</th>"+"<th>Qty</th>"+"<th>Due</th>"+"<th>DueDate</th>"+"<th>Release</th>"+"<th>ReleaseDate</th>"+"<th>LatenessWeight</th>"+"<th>EarlinessWeight</th>"+"</tr>";
+        return "<tr><th>Order</th>"+"<th>Name</th>"+"<th>Nr</th>"+"<th>Product</th>"+"<th>Process</th>"+"<th>Qty</th>"+"<th>Due</th>"+"<th>DueDate</th>"+"<th>Release</th>"+"<th>ReleaseDate</th>"+"<th>LatenessWeight</th>"+"<th>EarlinessWeight</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getProduct().toColumnString()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getQty()+"</td>"+ " " +"<td>"+getDue()+"</td>"+ " " +"<td>"+getDueDate()+"</td>"+ " " +"<td>"+getRelease()+"</td>"+ " " +"<td>"+getReleaseDate()+"</td>"+ " " +"<td>"+getLatenessWeight()+"</td>"+ " " +"<td>"+getEarlinessWeight()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getNr()+"</td>"+ " " +"<td>"+getProduct().toColumnString()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getQty()+"</td>"+ " " +"<td>"+getDue()+"</td>"+ " " +"<td>"+getDueDate()+"</td>"+ " " +"<td>"+getRelease()+"</td>"+ " " +"<td>"+getReleaseDate()+"</td>"+ " " +"<td>"+getLatenessWeight()+"</td>"+ " " +"<td>"+getEarlinessWeight()+"</td>"+"</tr>";
     }
 
 /**
@@ -725,6 +780,9 @@ public  class Order extends ApplicationObject{
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
+      if(!this.getNr().equals(b.getNr())){
+         System.out.println("Nr");
+        }
       if(!this.getProcess().applicationSame(b.getProcess())){
          System.out.println("Process");
         }
@@ -745,6 +803,7 @@ public  class Order extends ApplicationObject{
           this.getEarlinessWeight().equals(b.getEarlinessWeight()) &&
           this.getLatenessWeight().equals(b.getLatenessWeight()) &&
           this.getName().equals(b.getName()) &&
+          this.getNr().equals(b.getNr()) &&
           this.getProcess().applicationSame(b.getProcess()) &&
           this.getProduct().applicationSame(b.getProduct()) &&
           this.getQty().equals(b.getQty()) &&

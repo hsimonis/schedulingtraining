@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 15:36:02 on 2024-10-02-->
+<!--Generated at 22:48:03 on 2024-10-03-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -36,6 +36,9 @@
             </Menu>
             <Menu text="_Edit">
                <items>
+                  <MenuItem id="newOrderSolverRun" onAction="#handle" text="NewOrder Solver..." />
+                  <MenuItem id="newDowntimeSolverRun" onAction="#handle" text="NewDowntime Solver..." />
+                  <SeparatorMenuItem />
                   <MenuItem id="New" onAction="#handle" text="New" />
                   <MenuItem id="Copy" accelerator="Shortcut+C" onAction="#handle" text="Copy" />
                   <MenuItem id="Paste" onAction="#handle" text="Paste" />

@@ -54,11 +54,15 @@ import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import org.insightcentre.tbischeduling.generatedsolver.GenerateDataDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.GenerateDataSolver;
+import org.insightcentre.tbischeduling.generatedsolver.NewDowntimeDialogBox;
+import org.insightcentre.tbischeduling.generatedsolver.NewDowntimeSolver;
+import org.insightcentre.tbischeduling.generatedsolver.NewOrderDialogBox;
+import org.insightcentre.tbischeduling.generatedsolver.NewOrderSolver;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 15:36:02 on 2024-10-02 */
+ * Generated at 22:48:03 on 2024-10-03 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -290,6 +294,16 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		alert(Alert.AlertType.WARNING, "Action GenerateReportAction is not yet implemented!");
 	}
 
+	public void newOrderSolverRun(Scenario base) {
+		Optional<Boolean> result = new NewOrderDialogBox(this,base,new NewOrderSolver(base)).showAndWait();
+		reset();
+	}
+
+	public void newDowntimeSolverRun(Scenario base) {
+		Optional<Boolean> result = new NewDowntimeDialogBox(this,base,new NewDowntimeSolver(base)).showAndWait();
+		reset();
+	}
+
 	public void generateDataSolverRun(Scenario base) {
 		Optional<Boolean> result = new GenerateDataDialogBox(this,base,new GenerateDataSolver(base)).showAndWait();
 		reset();
@@ -313,6 +327,12 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		}
 		else if (id.equals("GenerateReportAction")) {
 			GenerateReportAction((Scenario) fs);
+		}
+		else if (id.equals("newOrderSolverRun")) {
+			newOrderSolverRun((Scenario) fs);
+		}
+		else if (id.equals("newDowntimeSolverRun")) {
+			newDowntimeSolverRun((Scenario) fs);
 		}
 		else if (id.equals("generateDataSolverRun")) {
 			generateDataSolverRun((Scenario) fs);

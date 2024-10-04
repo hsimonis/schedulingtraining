@@ -22,6 +22,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static framework.reports.visualization.plot.PlotStyle.FIGURE;
 import static framework.reports.visualization.tabular.table.LimitOp.GT;
 import static framework.reports.visualization.tabular.table.RankingDirection.GreaterIsBetter;
 import static framework.reports.visualization.tabular.table.RankingDirection.SmallerIsBetter;
@@ -36,33 +37,13 @@ public class SchedulingReport extends AbstractReport{
 
     public void content(){
         stagecolorDefs(tex);
+
         section("Introduction");
+        problemTable();
 
-        new TableDraw<>("Problem",base.getListProblem()).
-                addStringColumn("Name",this::nameOf).
-                addBooleanColumn(st("Timepoints","as","Date"), Problem::getTimePointsAsDate).
-                addIntegerColumn(st("Nr","Products"),Problem::getNrProducts).
-                addIntegerColumn(st("Nr","Process"),Problem::getNrProcesses).
-                addIntegerColumn(st("Nr","Disjunctive","Resources"),Problem::getNrDisjunctiveResources).
-                addIntegerColumn(st("Nr","Cumulative","Resources"),Problem::getNrCumulativeResources).
-                addIntegerColumn(st("Nr","Orders"),Problem::getNrOrders).
-                addIntegerColumn(st("Nr","Jobs"),Problem::getNrJobs).
-                addIntegerColumn(st("Nr","Tasks"),Problem::getNrTasks).
-                generate().latex(tex);
-        section("Orders");
 
-        new TableDraw<>("Orders (Total "+base.getListOrder().size()+")",base.getListOrder()).
-                addStringColumn("Name",this::nameOf).
-                addStringColumn("Product",x->nameOf(x.getProduct())).
-                addStringColumn("Process",x->nameOf(x.getProcess())).
-                addIntegerColumn("Qty", Order::getQty,"%,d").
-                addIntegerColumn("Release", Order::getRelease,"%,d").
-                addIntegerColumn("Due", Order::getDue,"%,d").
-                addDoubleColumn("Earliness Weight",Order::getEarlinessWeight,"%5.2f").
-                addDoubleColumn("Lateness Weight",Order::getLatenessWeight,"%5.2f").
-//                addDateTimeColumn(st("Due","Date"),Order::getDueDate).
-                tableStyle(TableStyle.LONGTABLE).
-                generate().latex(tex);
+//        section("Orders");
+//        orderTable();
 
         if (base.getListSolution().size() > 0) {
             section("Solution");
@@ -71,36 +52,9 @@ public class SchedulingReport extends AbstractReport{
             DefaultValuePainter<Solution> enforcePainter = new DefaultValuePainter<>(true);
             enforcePainter.setColor("white","red!30");
 
-            new TableDraw<>("Relaxation of Constraints",base.getListSolution()).
-                    addStringColumn("Name", this::nameOf).
-                    addStringColumn("Label", x->safe(x.getSolverRun().getLabel())).
-                    addBooleanColumn(st("Enforce","Release","Date"),x->x.getSolverRun().getEnforceReleaseDate(),enforcePainter).
-                    addBooleanColumn(st("Enforce","Due","Date"),x->x.getSolverRun().getEnforceDueDate(),enforcePainter).
-                    addBooleanColumn(st("Enforce","Cumulative"),x->x.getSolverRun().getEnforceCumulative(),enforcePainter).
-                    addBooleanColumn(st("Enforce","WiP"),x->x.getSolverRun().getEnforceWip(),enforcePainter).
-                    addBooleanColumn(st("Enforce","Downtime"),x->x.getSolverRun().getEnforceDowntime(),enforcePainter).
-                    addIntegerColumn(st("Nr","Threads"),x->x.getSolverRun().getNrThreads()).
-                    addIntegerColumn(st("Timeout","(s)"),x->x.getSolverRun().getTimeout()).
-                    generate().latex(tex);
+            relaxationTable(enforcePainter);
 
-            new TableDraw<>("Solutions (Total " + base.getListSolution().size() + ")", base.getListSolution()).
-                    addStringColumn("Name", this::nameOf).
-                    addStringColumn(st("Solver","Status"),x->x.getSolverStatus().toString()).
-                    addStringColumn(st("Objective","Type"),x->x.getSolverRun().getObjectiveType().toString()).
-                    addIntegerColumn(st("Objective", "Value"), Solution::getObjectiveValue,"%,d",new KPIRanking<>(SmallerIsBetter)).
-                    addDoubleColumn("Bound",Solution::getBound,"%5.2f",new KPIRanking<>(GreaterIsBetter)).
-                    addDoubleColumn("Gap",Solution::getGap,"%5.2f",new KPIRanking<>(SmallerIsBetter)).
-                    addIntegerColumn("Makespan", Solution::getMakespan,"%,d",new KPIRanking<>(SmallerIsBetter)).
-                    addIntegerColumn("Flowtime", Solution::getFlowtime,"%,d",new KPIRanking<>(SmallerIsBetter)).
-                    addIntegerColumn(st("Total", "Lateness"), Solution::getTotalLateness,"%,d",new KPIRanking<>(SmallerIsBetter)).
-                    addIntegerColumn(st("Max", "Lateness"), Solution::getMaxLateness,"%,d",new KPIRanking<>(SmallerIsBetter)).
-                    addIntegerColumn(st("Nr", "Late"), Solution::getNrLate,"%,d",new KPIRankingWithLimit<>(SmallerIsBetter,GT,0)).
-                    addIntegerColumn(st("Total", "Earliness"), Solution::getTotalEarliness,"%,d",new KPIRanking<>(SmallerIsBetter)).
-                    addIntegerColumn(st("Max", "Earliness"), Solution::getMaxEarliness,"%,d",new KPIRanking<>(SmallerIsBetter)).
-                    addIntegerColumn(st("Nr", "Early"), Solution::getNrEarly,"%,d",new KPIRankingWithLimit<>(SmallerIsBetter,GT,0)).
-                    addStringColumn(st("Model","Type"),x->x.getSolverRun().getModelType().toString()).
-                    addDoubleColumn(st("Time","(s)"),x->x.getSolverRun().getTime(),"%5.2f").
-                    generate().latex(tex);
+            solutionTable();
 
             Solution sol = Solution.findLast(base);
             assert(sol!=null);
@@ -147,6 +101,74 @@ public class SchedulingReport extends AbstractReport{
             section("No Solutions");
         }
     }
+
+    private void problemTable(){
+        new TableDraw<>("Problem",base.getListProblem()).
+                addStringColumn("Name",this::nameOf).
+                addBooleanColumn(st("Timepoints","as","Date"), Problem::getTimePointsAsDate).
+                addIntegerColumn(st("Nr","Products"),Problem::getNrProducts).
+                addIntegerColumn(st("Nr","Process"),Problem::getNrProcesses).
+                addIntegerColumn(st("Nr","Disjunctive","Resources"),Problem::getNrDisjunctiveResources).
+                addIntegerColumn(st("Nr","Cumulative","Resources"),Problem::getNrCumulativeResources).
+                addIntegerColumn(st("Nr","Orders"),Problem::getNrOrders).
+                addIntegerColumn(st("Nr","Jobs"),Problem::getNrJobs).
+                addIntegerColumn(st("Nr","Tasks"),Problem::getNrTasks).
+                generate().latex(tex);
+
+    }
+
+    private void orderTable(){
+        new TableDraw<>("Orders (Total "+base.getListOrder().size()+")",base.getListOrder()).
+                addStringColumn("Name",this::nameOf).
+                addStringColumn("Product",x->nameOf(x.getProduct())).
+                addStringColumn("Process",x->nameOf(x.getProcess())).
+                addIntegerColumn("Qty", Order::getQty,"%,d").
+                addIntegerColumn("Release", Order::getRelease,"%,d").
+                addIntegerColumn("Due", Order::getDue,"%,d").
+                addDoubleColumn("Earliness Weight",Order::getEarlinessWeight,"%5.2f").
+                addDoubleColumn("Lateness Weight",Order::getLatenessWeight,"%5.2f").
+//                addDateTimeColumn(st("Due","Date"),Order::getDueDate).
+        tableStyle(TableStyle.LONGTABLE).
+                generate().latex(tex);
+
+    }
+
+    private void relaxationTable(CellPainter<Solution> enforcePainter) {
+        new TableDraw<>("Relaxation of Constraints", base.getListSolution()).
+                addStringColumn("Name", this::nameOf).
+                addStringColumn("Label", x -> safe(x.getSolverRun().getLabel())).
+                addBooleanColumn(st("Enforce", "Release", "Date"), x -> x.getSolverRun().getEnforceReleaseDate(), enforcePainter).
+                addBooleanColumn(st("Enforce", "Due", "Date"), x -> x.getSolverRun().getEnforceDueDate(), enforcePainter).
+                addBooleanColumn(st("Enforce", "Cumulative"), x -> x.getSolverRun().getEnforceCumulative(), enforcePainter).
+                addBooleanColumn(st("Enforce", "WiP"), x -> x.getSolverRun().getEnforceWip(), enforcePainter).
+                addBooleanColumn(st("Enforce", "Downtime"), x -> x.getSolverRun().getEnforceDowntime(), enforcePainter).
+                addIntegerColumn(st("Nr", "Threads"), x -> x.getSolverRun().getNrThreads()).
+                addIntegerColumn(st("Timeout", "(s)"), x -> x.getSolverRun().getTimeout()).
+                generate().latex(tex);
+    }
+
+    private void solutionTable(){
+        new TableDraw<>("Solutions (Total " + base.getListSolution().size() + ")", base.getListSolution()).
+                addStringColumn("Name", this::nameOf).
+                addStringColumn(st("Solver","Status"),x->x.getSolverStatus().toString()).
+                addStringColumn(st("Objective","Type"),x->x.getSolverRun().getObjectiveType().toString()).
+                addIntegerColumn(st("Objective", "Value"), Solution::getObjectiveValue,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                addDoubleColumn("Bound",Solution::getBound,"%5.2f",new KPIRanking<>(GreaterIsBetter)).
+                addDoubleColumn("Gap",Solution::getGap,"%5.2f",new KPIRanking<>(SmallerIsBetter)).
+                addIntegerColumn("Makespan", Solution::getMakespan,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                addIntegerColumn("Flowtime", Solution::getFlowtime,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                addIntegerColumn(st("Total", "Lateness"), Solution::getTotalLateness,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                addIntegerColumn(st("Max", "Lateness"), Solution::getMaxLateness,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                addIntegerColumn(st("Nr", "Late"), Solution::getNrLate,"%,d",new KPIRankingWithLimit<>(SmallerIsBetter,GT,0)).
+                addIntegerColumn(st("Total", "Earliness"), Solution::getTotalEarliness,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                addIntegerColumn(st("Max", "Earliness"), Solution::getMaxEarliness,"%,d",new KPIRanking<>(SmallerIsBetter)).
+                addIntegerColumn(st("Nr", "Early"), Solution::getNrEarly,"%,d",new KPIRankingWithLimit<>(SmallerIsBetter,GT,0)).
+                addStringColumn(st("Model","Type"),x->x.getSolverRun().getModelType().toString()).
+                addDoubleColumn(st("Time","(s)"),x->x.getSolverRun().getTime(),"%5.2f").
+                generate().latex(tex);
+
+    }
+
 
     private void machineGantt(Solution sol,List<DisjunctiveResource> all,
                               List<ResourceActivity> tasks,int minStage,int maxStage) {
@@ -298,8 +320,9 @@ public class SchedulingReport extends AbstractReport{
         List<ResourceUtilization> list = base.getListResourceUtilization().stream().filter(x->x.getSolution()==sol).toList();
         new BarPlot<>(list, ResourceUtilization::getDisjunctiveResource, ResourceUtilization::getUtilization).
                 includeZero(true).
+                plotStyle(FIGURE).
                 width(12).height(10).
-                title("Resource Utilization for Solution "+sol.getName()).
+                caption("Resource Utilization for Solution "+sol.getName()).
                 xlabel("Resource").ylabel("Utilization").
                 generate().latex(tex);
     }
@@ -312,8 +335,10 @@ public class SchedulingReport extends AbstractReport{
         ProfilePlot<Level> pp =new ProfilePlot<>(0,end);
         pp.addProfile(new AddProfile<>(levels,"Capacity",Level::getStart,Level::getEnd,Level::getValue));
         pp.addProfile(new AddProfile<>(toLevels(ta,cr), "Demand",Level::getStart, Level::getEnd, Level::getValue));
-        pp.legendPos("outer north east").width(21).height(12).
-                title("Cumulative Resource Use "+cr.getName()).
+        pp.plotStyle(FIGURE).
+                legendPos("outer north east").
+                width(21).height(12).
+                caption("Cumulative Resource Use "+cr.getName()).
                 xlabel("Time").ylabel("Resource Use").
                 generate().latex(tex);
         info("Max "+pp.getYmax());
@@ -362,8 +387,9 @@ public class SchedulingReport extends AbstractReport{
                 sorted(Comparator.comparing(IntermediateSolution::getTime)).
                 toList();
         new LinePlot<>(steps,new LinePlotFunctions<>(IntermediateSolution::getTime, IntermediateSolution::getCost)).
+                plotStyle(FIGURE).
                 width(23).height(12).
-                title("Cost of Intermediate Solutions").
+                caption("Cost of Intermediate Solutions").
                 xlabel("Time (s)").ylabel("Cost").
                 generate().latex(tex);
     }
@@ -378,8 +404,9 @@ public class SchedulingReport extends AbstractReport{
                 addLevel("Max Early: "+String.format("%,d",maxEarly),"draw=blue",-maxEarly).
                 addLevel("On-time","draw=black",0).
                 addMarker(""+String.format("%,d",sol.getMakespan()),"draw=red",sol.getMakespan()).
+                plotStyle(FIGURE).
                 width(23).height(13).
-                title("Earliness/Lateness Over Time").
+                caption("Earliness/Lateness Over Time").
                 xlabel("Time").
                 ylabel("Earliness/Lateness").generate().latex(tex);
     }

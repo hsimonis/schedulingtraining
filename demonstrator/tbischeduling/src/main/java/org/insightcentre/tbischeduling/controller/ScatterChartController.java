@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 15:36:02 on 2024-10-02 */
+ * Generated at 22:48:03 on 2024-10-03 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -151,6 +151,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
 		filterNames.add("name");
+		attributeNames.add("nr");
+		filterNames.add("nr");
 		filterNames.add("product");
 		filterNames.add("process");
 		attributeNames.add("qty");
@@ -249,6 +251,14 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceCumulative");
 		filterNames.add("enforceWip");
 		filterNames.add("enforceDowntime");
+		attributeNames.add("weightMakespan");
+		filterNames.add("weightMakespan");
+		attributeNames.add("weightFlowtime");
+		filterNames.add("weightFlowtime");
+		attributeNames.add("weightEarliness");
+		filterNames.add("weightEarliness");
+		attributeNames.add("weightLateness");
+		filterNames.add("weightLateness");
 		attributeNames.add("timeout");
 		filterNames.add("timeout");
 		attributeNames.add("nrThreads");
