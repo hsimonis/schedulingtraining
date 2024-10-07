@@ -26,6 +26,7 @@ public class ReadData {
     JSONObject root;
     Scenario base;
 
+    // DateTime format produced by DateTime.toString() when writing them
     String dateTimeFormat = "d/M/yyyy HH:mm";
     public ReadData(Scenario base, File selected) {
         this.base = base;
