@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 22:48:03 on 2024-10-03-->
+<!--Generated at 08:17:45 on 2024-10-07-->
 
 
 <Tab text="CumulativeProfile" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.CumulativeProfileController">
@@ -21,6 +21,7 @@
                <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
                <TableColumn fx:id="cumulativeResource" styleClass="right-aligned" text="CumulativeResource" />
                <TableColumn fx:id="from" styleClass="right-aligned" text="From" />
+               <TableColumn fx:id="fromDate" styleClass="right-aligned" text="FromDate" />
                <TableColumn fx:id="capacity" styleClass="right-aligned" text="Capacity" />
             </columns>
          </TableView>

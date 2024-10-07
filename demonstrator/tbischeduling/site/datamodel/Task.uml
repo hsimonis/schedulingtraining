@@ -1,7 +1,9 @@
  class Task {
 Integer duration
+List<Task> follows
 Job job
 List<DisjunctiveResource> machines
+Integer nr
 List<Task> precedes
 ProcessStep processStep
 String shortName

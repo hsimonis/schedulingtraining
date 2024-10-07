@@ -1,6 +1,8 @@
 package org.insightcentre.tbischeduling.importer;
 
+import framework.types.DateOnly;
 import framework.types.DateTime;
+import framework.types.TimeOnly;
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.datamodel.Process;
 
@@ -13,10 +15,12 @@ import java.util.stream.Collectors;
 import static org.insightcentre.tbischeduling.importer.Reset.resetAll;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
+import static org.insightcentre.tbischeduling.utilities.TypeConverters.toDateTime;
 
 public class CreateData {
     Random random;
     Scenario base;
+    int taskNr = 0;
 
     public CreateData(Scenario base,Order ord,int i){
         this.base = base;
@@ -24,21 +28,25 @@ public class CreateData {
         base.setDirty(false);
         summarizeProblem(base);
     }
-    public CreateData(Scenario base,String name,ResourceModel resourceModel,int seed,int nrProducts,
+    public CreateData(Scenario base,String label,DateTime startDateTime,ResourceModel resourceModel,int nrProducts,
                       int minStages,int maxStages,
-                      int nrDisjunctiveResources,int nrCumulativeResources,
+                      int nrDisjunctiveResources,
                       double resourceProbability,
                       DurationModel durationModel,int minDuration,int maxDuration,int durationFixedFactor,
-                      int minCumulDemand,int maxCumulDemand,
+                      int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,
                       int profilePieces,int minCumulCapacity,int maxCumulCapacity,
-                      int nrOrders,int earliestDue,int horizon,int minQty,int maxQty,
+                      int nrOrders,int minQty,int maxQty,
                       double wipProbability,int minWip,int maxWip,
-                      double downtimeProbability, int minDowntime, int maxDowntime) {
+                      double downtimeProbability, int minDowntime, int maxDowntime,
+                      int earliestDue,int horizonDays,int timeResolution,int seed) {
         this.base = base;
         random = new Random(seed);
         resetAll(base);
+        int horizon = horizon(horizonDays,timeResolution);
         base.setHorizon(horizon);
-        createBaseData(name,resourceModel,nrProducts,minStages,maxStages,nrDisjunctiveResources,nrCumulativeResources,
+        base.setStartDateTime(startDateTime);
+        base.setTimeResolution(timeResolution);
+        createBaseData(label,resourceModel,nrProducts,minStages,maxStages,nrDisjunctiveResources,nrCumulativeResources,
                 resourceProbability,
                 durationModel,minDuration,maxDuration,durationFixedFactor,
                 minCumulDemand,maxCumulDemand,profilePieces,minCumulCapacity,maxCumulCapacity);
@@ -50,15 +58,22 @@ public class CreateData {
         summarizeProblem(base);
     }
 
-    private void createBaseData( String name,ResourceModel resourceModel,int nrProducts, int minStages, int maxStages,
-                                 int nrDisjunctiveResources, int nrCumulativeResources,
-                                 double resourceProbability,
-                                 DurationModel durationModel,int minDuration,int maxDuration,int durationFixedFactor,
-                                 int minCumulDemand,int maxCumulDemand,
-                                 int profilePieces,int minCumulCapacity,int maxCumulCapacity){
+    public static int horizon(int days,int timeResolution){
+        return days*1440/timeResolution;
+    }
+
+
+    private void createBaseData(String label,
+                                ResourceModel resourceModel, int nrProducts, int minStages, int maxStages,
+                                int nrDisjunctiveResources, int nrCumulativeResources,
+                                double resourceProbability,
+                                DurationModel durationModel, int minDuration, int maxDuration, int durationFixedFactor,
+                                int minCumulDemand, int maxCumulDemand,
+                                int profilePieces, int minCumulCapacity, int maxCumulCapacity){
 
     Problem problem = new Problem(base);
-        problem.setName(name);
+        problem.setName("Generated");
+        problem.setLabel(label);
         problem.setTimePointsAsDate(true);
         DisjunctiveResource[] resources = new DisjunctiveResource[nrDisjunctiveResources];
         for(int i=0;i<nrDisjunctiveResources;i++){
@@ -76,6 +91,7 @@ public class CreateData {
                 cp.setName("CP" + i+k);
                 cp.setCumulativeResource(r);
                 cp.setFrom(start);
+                cp.setFromDate(toDateTime(base,start));
                 cp.setCapacity(minCumulCapacity+(maxCumulCapacity-minCumulCapacity>0?random.nextInt(maxCumulCapacity-minCumulCapacity):0));
                 start+= random.nextInt(base.getHorizon()/profilePieces);
             }
@@ -234,7 +250,9 @@ public class CreateData {
             ord.setProcess(ord.getProduct().getDefaultProcess());
             ord.setQty(pickQty(minQty,maxQty));
             ord.setDue(due(earliestDue,horizon));
-//            ord.setDueDate(toDateTime(ord.getDue()));
+            ord.setDueDate(toDateTime(base,ord.getDue()));
+            ord.setRelease(0);
+            ord.setReleaseDate(toDateTime(base,ord.getRelease()));
             scheduleOrder(ord,i);
 
         }
@@ -247,6 +265,8 @@ public class CreateData {
                 wip.setStart(0);
                 wip.setDuration(until);
                 wip.setEnd(until);
+                wip.setStartDate(toDateTime(base,wip.getStart()));
+                wip.setEndDate(toDateTime(base,wip.getEnd()));
 
             }
             if (random.nextDouble() < downtimeProbability){
@@ -259,6 +279,8 @@ public class CreateData {
                 d.setStart(start);
                 d.setEnd(end);
                 d.setDuration(duration);
+                d.setStartDate(toDateTime(base,d.getStart()));
+                d.setEndDate(toDateTime(base,d.getEnd()));
             }
         }
     }
@@ -266,12 +288,14 @@ public class CreateData {
     private void scheduleOrder(Order ord,int i){
         Job j = new Job(base);
         j.setName("J"+i);
+        j.setNr(i);
         j.setOrder(ord);
         j.setProcess(ord.getProcess());
         for(ProcessStep ps:processSteps(j.getProcess())){
             Task t = new Task(base);
             t.setName("T"+i+ps.getName());
             t.setShortName("T"+i+ps.getName());
+            t.setNr(taskNr++);
             t.setJob(j);
             t.setProcessStep(ps);
             t.setDuration(duration(t));
@@ -302,10 +326,6 @@ public class CreateData {
         return Math.min(horizon,earliestDue+random.nextInt(horizon));
     }
 
-    private DateTime toDateTime(int period){
-//        return base.getHorizonStart().addMinutes(period);
-        return null;
-    }
 
     public static void summarizeProblem(Scenario base){
         assert(base.getListProblem().size()==1);
@@ -322,6 +342,7 @@ public class CreateData {
         for(Task t:base.getListTask()){
             t.setMachines(disjunctiveResources(base,t));
             t.setPrecedes(precedences(base,t));
+            t.setFollows(follows(base,t));
         }
     }
 
@@ -338,6 +359,15 @@ public class CreateData {
         List<ProcessStep> seqList = base.getListProcessSequence().stream().
                 filter(x->x.getBefore()==t.getProcessStep()).
                 map(ProcessSequence::getAfter).toList();
+        return base.getListTask().stream().
+                filter(x->x.getJob()==t.getJob()).
+                filter(x->seqList.contains(x.getProcessStep())).
+                toList();
+    }
+    public static List<Task> follows(Scenario base,Task t){
+        List<ProcessStep> seqList = base.getListProcessSequence().stream().
+                filter(x->x.getAfter()==t.getProcessStep()).
+                map(ProcessSequence::getBefore).toList();
         return base.getListTask().stream().
                 filter(x->x.getJob()==t.getJob()).
                 filter(x->seqList.contains(x.getProcessStep())).

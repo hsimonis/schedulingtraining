@@ -36,7 +36,7 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
    private IntegerTextField weightMakespanItem = new IntegerTextField();
    private IntegerTextField weightFlowtimeItem = new IntegerTextField();
    private IntegerTextField weightLatenessItem = new IntegerTextField();
-   private IntegerTextField weightEarlynessItem = new IntegerTextField();
+   private IntegerTextField weightEarlinessItem = new IntegerTextField();
    private IntegerTextField timeoutItem = new IntegerTextField();
    private IntegerTextField nrThreadsItem = new IntegerTextField();
    private IntegerTextField seedItem = new IntegerTextField();
@@ -95,9 +95,9 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
         pane.add(new Label("Weight Lateness:"), 0, row);
         pane.add(weightLatenessItem, 1, row++);
         weightLatenessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightLateness()));
-        pane.add(new Label("Weight Earlyness:"), 0, row);
-        pane.add(weightEarlynessItem, 1, row++);
-        weightEarlynessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightEarlyness()));
+        pane.add(new Label("Weight Earliness:"), 0, row);
+        pane.add(weightEarlinessItem, 1, row++);
+        weightEarlinessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightEarliness()));
         pane.add(new Label("Timeout (s):"), 0, row);
         pane.add(timeoutItem, 1, row++);
         timeoutItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getTimeout()));
@@ -140,7 +140,7 @@ public void handle(InputEvent event) {
         int weightMakespanValue = Integer.parseInt(weightMakespanItem.getText());
         int weightFlowtimeValue = Integer.parseInt(weightFlowtimeItem.getText());
         int weightLatenessValue = Integer.parseInt(weightLatenessItem.getText());
-        int weightEarlynessValue = Integer.parseInt(weightEarlynessItem.getText());
+        int weightEarlinessValue = Integer.parseInt(weightEarlinessItem.getText());
         int timeoutValue = Integer.parseInt(timeoutItem.getText());
         int nrThreadsValue = Integer.parseInt(nrThreadsItem.getText());
         int seedValue = Integer.parseInt(seedItem.getText());
@@ -163,7 +163,7 @@ public void handle(InputEvent event) {
             .setWeightMakespan(weightMakespanValue)
             .setWeightFlowtime(weightFlowtimeValue)
             .setWeightLateness(weightLatenessValue)
-            .setWeightEarlyness(weightEarlynessValue)
+            .setWeightEarliness(weightEarlinessValue)
             .setTimeout(timeoutValue)
             .setNrThreads(nrThreadsValue)
             .setSeed(seedValue)

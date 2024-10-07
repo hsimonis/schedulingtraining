@@ -1,6 +1,77 @@
 \chapter{Attributes}
 These are the attributes of each class. Here you will find the class name and a table of the attributes.     
 \begin{table}
+\caption{AbstractDataGeneratorProperty  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & label &  \\
+$\square$\ & startDateTime &  \\
+$\square$\ & resourceModel &  \\
+$\square$\ & nrProducts &  \\
+$\square$\ & minStages &  \\
+$\square$\ & maxStages &  \\
+$\square$\ & nrDisjunctiveResources &  \\
+$\square$\ & resourceProbability &  \\
+$\square$\ & durationModel &  \\
+$\square$\ & minDuration &  \\
+$\square$\ & maxDuration &  \\
+$\square$\ & durationFixedFactor &  \\
+$\square$\ & nrCumulativeResources &  \\
+$\square$\ & minCumulDemand &  \\
+$\square$\ & maxCumulDemand &  \\
+$\square$\ & profilePieces &  \\
+$\square$\ & minCumulCapacity &  \\
+$\square$\ & maxCumulCapacity &  \\
+$\square$\ & nrOrders &  \\
+$\square$\ & minQty &  \\
+$\square$\ & maxQty &  \\
+$\square$\ & wipProbability &  \\
+$\square$\ & minWip &  \\
+$\square$\ & maxWip &  \\
+$\square$\ & downtimeProbability &  \\
+$\square$\ & minDowntime &  \\
+$\square$\ & maxDowntime &  \\
+$\square$\ & earliestDue &  \\
+$\square$\ & horizonDays &  \\
+$\square$\ & timeResolution &  \\
+$\square$\ & seed &  \\
+\end{longtable}
+\label{attr:AbstractDataGeneratorProperty}
+\end{table}
+
+\clearpage
+\begin{table}
+\caption{AbstractSolverProperty  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & label &  \\
+$\square$\ & description &  \\
+$\square$\ & startDateTime &  \\
+$\square$\ & enforceReleaseDate &  \\
+$\square$\ & enforceDueDate &  \\
+$\square$\ & enforceCumulative &  \\
+$\square$\ & enforceWip &  \\
+$\square$\ & enforceDowntime &  \\
+$\square$\ & modelType &  \\
+$\square$\ & solverBackend &  \\
+$\square$\ & objectiveType &  \\
+$\square$\ & weightMakespan &  \\
+$\square$\ & weightFlowtime &  \\
+$\square$\ & weightLateness &  \\
+$\square$\ & weightEarliness &  \\
+$\square$\ & timeout &  \\
+$\square$\ & nrThreads &  \\
+$\square$\ & seed &  \\
+$\square$\ & removeSolution &  \\
+$\square$\ & produceReport &  \\
+$\square$\ & producePDF &  \\
+\end{longtable}
+\label{attr:AbstractSolverProperty}
+\end{table}
+
+\begin{table}
 \caption{CumulativeNeed  }
 
 \begin{longtable}{llp{8cm}}
@@ -12,7 +83,6 @@ $\square$\ & demand &  \\
 \label{attr:CumulativeNeed}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{CumulativeProfile  }
 
@@ -20,6 +90,7 @@ $\square$\ & demand &  \\
 & Attribute & Description \\
 $\square$\ & cumulativeResource &  \\
 $\square$\ & from &  \\
+$\square$\ & fromDate &  \\
 $\square$\ & capacity &  \\
 \end{longtable}
 \label{attr:CumulativeProfile}
@@ -32,6 +103,25 @@ $\square$\ & capacity &  \\
 & Attribute & Description \\
 \end{longtable}
 \label{attr:CumulativeResource}
+\end{table}
+
+\begin{table}
+\caption{DataGeneratorProperty  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+\end{longtable}
+\label{attr:DataGeneratorProperty}
+\end{table}
+
+\clearpage
+\begin{table}
+\caption{DataGeneratorRun  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+\end{longtable}
+\label{attr:DataGeneratorRun}
 \end{table}
 
 \begin{table}
@@ -68,7 +158,6 @@ $\square$\ & severity &  \\
 \label{attr:InputError}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{IntermediateSolution  }
 
@@ -84,6 +173,7 @@ $\square$\ & gapPercent &  \\
 \label{attr:IntermediateSolution}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{Job  }
 
@@ -91,6 +181,7 @@ $\square$\ & gapPercent &  \\
 & Attribute & Description \\
 $\square$\ & order &  \\
 $\square$\ & process &  \\
+$\square$\ & nr &  \\
 \end{longtable}
 \label{attr:Job}
 \end{table}
@@ -137,6 +228,7 @@ $\square$\ & earlinessWeight &  \\
 
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
+$\square$\ & label &  \\
 $\square$\ & timePointsAsDate &  \\
 $\square$\ & nrProducts &  \\
 $\square$\ & nrProcesses &  \\
@@ -149,7 +241,6 @@ $\square$\ & nrTasks &  \\
 \label{attr:Problem}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{Process  }
 
@@ -159,6 +250,7 @@ $\square$\ & nrTasks &  \\
 \label{attr:Process}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{ProcessSequence  }
 
@@ -210,7 +302,6 @@ $\square$\ & endDate &  \\
 \label{attr:ResourceActivity}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{ResourceNeed  }
 
@@ -218,10 +309,12 @@ $\square$\ & endDate &  \\
 & Attribute & Description \\
 $\square$\ & disjunctiveResource &  \\
 $\square$\ & processStep &  \\
+$\square$\ & value &  \\
 \end{longtable}
 \label{attr:ResourceNeed}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{ResourceUtilization  }
 
@@ -245,11 +338,14 @@ $\square$\ & utilization &  \\
 & Attribute & Description \\
 $\square$\ & dataFileVersionNumber &  \\
 $\square$\ & dataFile &  \\
+$\square$\ & startDateTime &  \\
 $\square$\ & horizon &  \\
 $\square$\ & timeResolution &  \\
 $\square$\ & ganttWidth &  \\
 $\square$\ & ganttLinesPerPage &  \\
 $\square$\ & ganttLineHeight &  \\
+$\square$\ & solverProperty &  \\
+$\square$\ & dataGeneratorProperty &  \\
 \end{longtable}
 \label{attr:Scenario}
 \end{table}
@@ -276,42 +372,52 @@ $\square$\ & nrEarly &  \\
 $\square$\ & weightedEarliness &  \\
 $\square$\ & percentEarly &  \\
 $\square$\ & percentLate &  \\
+$\square$\ & duration &  \\
+$\square$\ & start &  \\
+$\square$\ & end &  \\
+$\square$\ & startDate &  \\
+$\square$\ & endDate &  \\
 \end{longtable}
 \label{attr:Solution}
 \end{table}
 
 \begin{table}
+\caption{SolutionError  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & solution &  \\
+$\square$\ & classDesc &  \\
+$\square$\ & item &  \\
+$\square$\ & field &  \\
+$\square$\ & value &  \\
+$\square$\ & description &  \\
+$\square$\ & severity &  \\
+\end{longtable}
+\label{attr:SolutionError}
+\end{table}
+
+\begin{table}
+\caption{SolverProperty  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+\end{longtable}
+\label{attr:SolverProperty}
+\end{table}
+
+\clearpage
+\begin{table}
 \caption{SolverRun  }
 
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
-$\square$\ & label &  \\
-$\square$\ & description &  \\
-$\square$\ & modelType &  \\
-$\square$\ & solverBackend &  \\
-$\square$\ & objectiveType &  \\
-$\square$\ & enforceReleaseDate &  \\
-$\square$\ & enforceDueDate &  \\
-$\square$\ & enforceCumulative &  \\
-$\square$\ & enforceWip &  \\
-$\square$\ & enforceDowntime &  \\
-$\square$\ & weightMakespan &  \\
-$\square$\ & weightFlowtime &  \\
-$\square$\ & weightEarliness &  \\
-$\square$\ & weightLateness &  \\
-$\square$\ & timeout &  \\
-$\square$\ & nrThreads &  \\
-$\square$\ & seed &  \\
-$\square$\ & removeSolution &  \\
-$\square$\ & produceReport &  \\
-$\square$\ & producePDF &  \\
 $\square$\ & solverStatus &  \\
 $\square$\ & time &  \\
 \end{longtable}
 \label{attr:SolverRun}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{Task  }
 
@@ -322,8 +428,10 @@ $\square$\ & job &  \\
 $\square$\ & processStep &  \\
 $\square$\ & duration &  \\
 $\square$\ & stage &  \\
+$\square$\ & nr &  \\
 $\square$\ & machines &  \\
 $\square$\ & precedes &  \\
+$\square$\ & follows &  \\
 \end{longtable}
 \label{attr:Task}
 \end{table}

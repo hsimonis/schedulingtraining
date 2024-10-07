@@ -5,6 +5,12 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -22,12 +28,12 @@ import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
-import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
+import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -54,6 +60,13 @@ import framework.AppearInCollection;
 */
 
 public  class Job extends ApplicationObject{
+/**
+ *  
+ *
+*/
+
+    public Integer nr;
+
 /**
  *  
  *
@@ -87,6 +100,7 @@ public  class Job extends ApplicationObject{
 
     public Job(ApplicationDataset applicationDataset){
         super(applicationDataset);
+        setNr(0);
         setOrder(null);
         setProcess(null);
         applicationDataset.addJob(this);
@@ -102,11 +116,13 @@ public  class Job extends ApplicationObject{
     public Job(ApplicationDataset applicationDataset,
             Integer id,
             String name,
+            Integer nr,
             Order order,
             Process process){
         super(applicationDataset,
             id,
             name);
+        setNr(nr);
         setOrder(order);
         setProcess(process);
         applicationDataset.addJob(this);
@@ -116,6 +132,7 @@ public  class Job extends ApplicationObject{
         this(other.applicationDataset,
             other.id,
             other.name,
+            other.nr,
             other.order,
             other.process);
     }
@@ -131,6 +148,16 @@ public  class Job extends ApplicationObject{
         getApplicationDataset().cascadeTaskJob(this);
         getApplicationDataset().cascadeJobAssignmentJob(this);
         return getApplicationDataset().removeJob(this) && getApplicationDataset().removeApplicationObject(this);
+    }
+
+/**
+ *  get attribute nr
+ *
+ * @return Integer
+*/
+
+    public Integer getNr(){
+        return this.nr;
     }
 
 /**
@@ -151,6 +178,18 @@ public  class Job extends ApplicationObject{
 
     public Process getProcess(){
         return this.process;
+    }
+
+/**
+ *  set attribute nr, mark dataset as dirty, mark dataset as not valid
+@param nr Integer
+ *
+*/
+
+    public void setNr(Integer nr){
+        this.nr = nr;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -178,6 +217,17 @@ public  class Job extends ApplicationObject{
     }
 
 /**
+ *  inc attribute nr, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNr(){
+        this.nr++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  override generic toString() method, show all attributes in human readable form
  * @return String details of the format are not clearly defined at the moment
 */
@@ -194,7 +244,7 @@ public  class Job extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getOrder().toColumnString()+ " " +getProcess().toColumnString();
+        return ""+ " " +getId()+ " " +getName()+ " " +getNr()+ " " +getOrder().toColumnString()+ " " +getProcess().toColumnString();
     }
 
 /**
@@ -218,9 +268,20 @@ public  class Job extends ApplicationObject{
          out.println("<job "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
+            " nr=\""+toXMLNr()+"\""+
             " order=\""+toXMLOrder()+"\""+
             " process=\""+toXMLProcess()+"\""+" />");
      }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNr(){
+        return this.getNr().toString();
+    }
 
 /**
  * helper method for toXML(), prcess one attribute
@@ -249,11 +310,11 @@ public  class Job extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Job</th>"+"<th>Name</th>"+"<th>Order</th>"+"<th>Process</th>"+"</tr>";
+        return "<tr><th>Job</th>"+"<th>Name</th>"+"<th>Order</th>"+"<th>Process</th>"+"<th>Nr</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getOrder().toColumnString()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getOrder().toColumnString()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getNr()+"</td>"+"</tr>";
     }
 
 /**
@@ -373,6 +434,9 @@ public  class Job extends ApplicationObject{
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
+      if(!this.getNr().equals(b.getNr())){
+         System.out.println("Nr");
+        }
       if(!this.getOrder().applicationSame(b.getOrder())){
          System.out.println("Order");
         }
@@ -380,6 +444,7 @@ public  class Job extends ApplicationObject{
          System.out.println("Process");
         }
         return  this.getName().equals(b.getName()) &&
+          this.getNr().equals(b.getNr()) &&
           this.getOrder().applicationSame(b.getOrder()) &&
           this.getProcess().applicationSame(b.getProcess());
     }

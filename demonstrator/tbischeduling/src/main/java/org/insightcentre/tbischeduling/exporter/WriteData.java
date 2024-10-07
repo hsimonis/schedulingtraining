@@ -97,6 +97,7 @@ public class WriteData {
         for(Problem p:base.getListProblem()){
             JSONObject obj = new JSONObject();
             obj.put("name",p.getName());
+            obj.put("label",p.getLabel());
             obj.put("timePointsAsDate",p.getTimePointsAsDate());
             obj.put("nrProducts",p.getNrProducts());
             obj.put("nrProcesses",p.getNrProcesses());

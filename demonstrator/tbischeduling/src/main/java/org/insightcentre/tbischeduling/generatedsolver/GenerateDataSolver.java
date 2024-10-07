@@ -11,7 +11,9 @@ public class GenerateDataSolver extends DefaultSolver{
 // solver internal variables
     protected long startSystem = 0;
 // solver parameters
-    protected String name="test";
+    protected String label="test";
+    protected String startDate="1-3-2023";
+    protected String startTime="08:00";
     protected String resourceModel="HybridFlowShop";
     protected int nrProducts=5;
     protected int minStages=4;
@@ -38,16 +40,18 @@ public class GenerateDataSolver extends DefaultSolver{
     protected int minDowntime=50;
     protected int maxDowntime=70;
     protected int earliestDue=20;
-    protected int horizonDays=10;
+    protected int horizonDays=20;
     protected int timeResolution=5;
     protected int seed=42;
 
     public GenerateDataSolver(Scenario base){
         super(base,new String[] {});
     }
-    public GenerateDataSolver(Scenario base,String name,String resourceModel,int nrProducts,int minStages,int maxStages,int nrDisjunctiveResources,double resourceProbability,String durationModel,int minDuration,int maxDuration,int durationFixedFactor,int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,int profilePieces,int minCumulCapacity,int maxCumulCapacity,int nrOrders,int minQty,int maxQty,double wipProbability,int minWip,int maxWip,double downtimeProbability,int minDowntime,int maxDowntime,int earliestDue,int horizonDays,int timeResolution,int seed){
+    public GenerateDataSolver(Scenario base,String label,String startDate,String startTime,String resourceModel,int nrProducts,int minStages,int maxStages,int nrDisjunctiveResources,double resourceProbability,String durationModel,int minDuration,int maxDuration,int durationFixedFactor,int nrCumulativeResources,int minCumulDemand,int maxCumulDemand,int profilePieces,int minCumulCapacity,int maxCumulCapacity,int nrOrders,int minQty,int maxQty,double wipProbability,int minWip,int maxWip,double downtimeProbability,int minDowntime,int maxDowntime,int earliestDue,int horizonDays,int timeResolution,int seed){
         super(base,new String[] {});
-        this.name=name;
+        this.label=label;
+        this.startDate=startDate;
+        this.startTime=startTime;
         this.resourceModel=resourceModel;
         this.nrProducts=nrProducts;
         this.minStages=minStages;
@@ -79,8 +83,16 @@ public class GenerateDataSolver extends DefaultSolver{
         this.seed=seed;
     }
 
-public String getName(){
- return name;
+public String getLabel(){
+ return label;
+}
+
+public String getStartDate(){
+ return startDate;
+}
+
+public String getStartTime(){
+ return startTime;
 }
 
 public String getResourceModel(){
@@ -199,8 +211,18 @@ public int getSeed(){
  return seed;
 }
 
-public GenerateDataSolver setName(String v){
- name = v;
+public GenerateDataSolver setLabel(String v){
+ label = v;
+ return this;
+}
+
+public GenerateDataSolver setStartDate(String v){
+ startDate = v;
+ return this;
+}
+
+public GenerateDataSolver setStartTime(String v){
+ startTime = v;
  return this;
 }
 

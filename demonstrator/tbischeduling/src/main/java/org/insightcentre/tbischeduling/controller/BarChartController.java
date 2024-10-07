@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -29,6 +29,121 @@ public class BarChartController extends ChartController {
 		attributeNames.add("ganttLinesPerPage");
 		attributeNames.add("ganttLineHeight");
 		choicesMap.put("Scenario", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("weightMakespan");
+		attributeNames.add("weightFlowtime");
+		attributeNames.add("weightLateness");
+		attributeNames.add("weightEarliness");
+		attributeNames.add("timeout");
+		attributeNames.add("nrThreads");
+		attributeNames.add("seed");
+		choicesMap.put("AbstractSolverProperty", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("weightMakespan");
+		attributeNames.add("weightFlowtime");
+		attributeNames.add("weightLateness");
+		attributeNames.add("weightEarliness");
+		attributeNames.add("timeout");
+		attributeNames.add("nrThreads");
+		attributeNames.add("seed");
+		choicesMap.put("SolverProperty", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("weightMakespan");
+		attributeNames.add("weightFlowtime");
+		attributeNames.add("weightLateness");
+		attributeNames.add("weightEarliness");
+		attributeNames.add("timeout");
+		attributeNames.add("nrThreads");
+		attributeNames.add("seed");
+		attributeNames.add("time");
+		choicesMap.put("SolverRun", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("nrProducts");
+		attributeNames.add("minStages");
+		attributeNames.add("maxStages");
+		attributeNames.add("nrDisjunctiveResources");
+		attributeNames.add("resourceProbability");
+		attributeNames.add("minDuration");
+		attributeNames.add("maxDuration");
+		attributeNames.add("durationFixedFactor");
+		attributeNames.add("nrCumulativeResources");
+		attributeNames.add("minCumulDemand");
+		attributeNames.add("maxCumulDemand");
+		attributeNames.add("profilePieces");
+		attributeNames.add("minCumulCapacity");
+		attributeNames.add("maxCumulCapacity");
+		attributeNames.add("nrOrders");
+		attributeNames.add("minQty");
+		attributeNames.add("maxQty");
+		attributeNames.add("wipProbability");
+		attributeNames.add("minWip");
+		attributeNames.add("maxWip");
+		attributeNames.add("downtimeProbability");
+		attributeNames.add("minDowntime");
+		attributeNames.add("maxDowntime");
+		attributeNames.add("earliestDue");
+		attributeNames.add("horizonDays");
+		attributeNames.add("timeResolution");
+		attributeNames.add("seed");
+		choicesMap.put("AbstractDataGeneratorProperty", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("nrProducts");
+		attributeNames.add("minStages");
+		attributeNames.add("maxStages");
+		attributeNames.add("nrDisjunctiveResources");
+		attributeNames.add("resourceProbability");
+		attributeNames.add("minDuration");
+		attributeNames.add("maxDuration");
+		attributeNames.add("durationFixedFactor");
+		attributeNames.add("nrCumulativeResources");
+		attributeNames.add("minCumulDemand");
+		attributeNames.add("maxCumulDemand");
+		attributeNames.add("profilePieces");
+		attributeNames.add("minCumulCapacity");
+		attributeNames.add("maxCumulCapacity");
+		attributeNames.add("nrOrders");
+		attributeNames.add("minQty");
+		attributeNames.add("maxQty");
+		attributeNames.add("wipProbability");
+		attributeNames.add("minWip");
+		attributeNames.add("maxWip");
+		attributeNames.add("downtimeProbability");
+		attributeNames.add("minDowntime");
+		attributeNames.add("maxDowntime");
+		attributeNames.add("earliestDue");
+		attributeNames.add("horizonDays");
+		attributeNames.add("timeResolution");
+		attributeNames.add("seed");
+		choicesMap.put("DataGeneratorProperty", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("nrProducts");
+		attributeNames.add("minStages");
+		attributeNames.add("maxStages");
+		attributeNames.add("nrDisjunctiveResources");
+		attributeNames.add("resourceProbability");
+		attributeNames.add("minDuration");
+		attributeNames.add("maxDuration");
+		attributeNames.add("durationFixedFactor");
+		attributeNames.add("nrCumulativeResources");
+		attributeNames.add("minCumulDemand");
+		attributeNames.add("maxCumulDemand");
+		attributeNames.add("profilePieces");
+		attributeNames.add("minCumulCapacity");
+		attributeNames.add("maxCumulCapacity");
+		attributeNames.add("nrOrders");
+		attributeNames.add("minQty");
+		attributeNames.add("maxQty");
+		attributeNames.add("wipProbability");
+		attributeNames.add("minWip");
+		attributeNames.add("maxWip");
+		attributeNames.add("downtimeProbability");
+		attributeNames.add("minDowntime");
+		attributeNames.add("maxDowntime");
+		attributeNames.add("earliestDue");
+		attributeNames.add("horizonDays");
+		attributeNames.add("timeResolution");
+		attributeNames.add("seed");
+		choicesMap.put("DataGeneratorRun", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("nrProducts");
 		attributeNames.add("nrProcesses");
@@ -46,6 +161,9 @@ public class BarChartController extends ChartController {
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("offset");
 		choicesMap.put("ProcessSequence", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("value");
+		choicesMap.put("ResourceNeed", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("demand");
 		choicesMap.put("CumulativeNeed", attributeNames);
@@ -67,6 +185,7 @@ public class BarChartController extends ChartController {
 		attributeNames.add("earlinessWeight");
 		choicesMap.put("Order", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("nr");
 		attributeNames.add("order.release");
 		attributeNames.add("order.due");
 		attributeNames.add("order.qty");
@@ -74,6 +193,7 @@ public class BarChartController extends ChartController {
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("duration");
 		attributeNames.add("stage");
+		attributeNames.add("nr");
 		attributeNames.add("job.order.qty");
 		attributeNames.add("processStep.durationFixed");
 		attributeNames.add("processStep.durationPerUnit");
@@ -88,16 +208,6 @@ public class BarChartController extends ChartController {
 		attributeNames.add("start");
 		attributeNames.add("end");
 		choicesMap.put("Downtime", attributeNames);
-		attributeNames = FXCollections.observableArrayList();
-		attributeNames.add("weightMakespan");
-		attributeNames.add("weightFlowtime");
-		attributeNames.add("weightEarliness");
-		attributeNames.add("weightLateness");
-		attributeNames.add("timeout");
-		attributeNames.add("nrThreads");
-		attributeNames.add("seed");
-		attributeNames.add("time");
-		choicesMap.put("SolverRun", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("objectiveValue");
 		attributeNames.add("bound");
@@ -114,6 +224,13 @@ public class BarChartController extends ChartController {
 		attributeNames.add("weightedEarliness");
 		attributeNames.add("percentEarly");
 		attributeNames.add("percentLate");
+		attributeNames.add("duration");
+		attributeNames.add("start");
+		attributeNames.add("end");
+		attributeNames.add("solverRun.weightMakespan");
+		attributeNames.add("solverRun.weightFlowtime");
+		attributeNames.add("solverRun.weightEarliness");
+		attributeNames.add("solverRun.weightLateness");
 		attributeNames.add("solverRun.timeout");
 		attributeNames.add("solverRun.nrThreads");
 		attributeNames.add("solverRun.seed");
@@ -178,6 +295,24 @@ public class BarChartController extends ChartController {
 			else if (className.equals("ApplicationWarning")) {
 				objectList = mainApp.getApplicationWarningData();
 			}
+			else if (className.equals("AbstractSolverProperty")) {
+				objectList = mainApp.getAbstractSolverPropertyData();
+			}
+			else if (className.equals("SolverProperty")) {
+				objectList = mainApp.getSolverPropertyData();
+			}
+			else if (className.equals("SolverRun")) {
+				objectList = mainApp.getSolverRunData();
+			}
+			else if (className.equals("AbstractDataGeneratorProperty")) {
+				objectList = mainApp.getAbstractDataGeneratorPropertyData();
+			}
+			else if (className.equals("DataGeneratorProperty")) {
+				objectList = mainApp.getDataGeneratorPropertyData();
+			}
+			else if (className.equals("DataGeneratorRun")) {
+				objectList = mainApp.getDataGeneratorRunData();
+			}
 			else if (className.equals("InputError")) {
 				objectList = mainApp.getInputErrorData();
 			}
@@ -229,9 +364,6 @@ public class BarChartController extends ChartController {
 			else if (className.equals("Downtime")) {
 				objectList = mainApp.getDowntimeData();
 			}
-			else if (className.equals("SolverRun")) {
-				objectList = mainApp.getSolverRunData();
-			}
 			else if (className.equals("Solution")) {
 				objectList = mainApp.getSolutionData();
 			}
@@ -246,6 +378,9 @@ public class BarChartController extends ChartController {
 			}
 			else if (className.equals("IntermediateSolution")) {
 				objectList = mainApp.getIntermediateSolutionData();
+			}
+			else if (className.equals("SolutionError")) {
+				objectList = mainApp.getSolutionErrorData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

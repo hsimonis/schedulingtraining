@@ -134,6 +134,44 @@ public DurationModel getDurationModel(String attributeName,
             return DurationModel.valueOf(e);
         }
     }
+    public AbstractDataGeneratorProperty getAbstractDataGeneratorProperty(String attributeName,
+                               Attributes attributes) {
+        return (AbstractDataGeneratorProperty) find(getId(attributeName,attributes));
+    }
+
+    public List<AbstractDataGeneratorProperty> getAbstractDataGeneratorPropertyCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<AbstractDataGeneratorProperty> res = new ArrayList<AbstractDataGeneratorProperty>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((AbstractDataGeneratorProperty) find(id));
+            }
+        }
+        return res;
+    }
+
+    public AbstractSolverProperty getAbstractSolverProperty(String attributeName,
+                               Attributes attributes) {
+        return (AbstractSolverProperty) find(getId(attributeName,attributes));
+    }
+
+    public List<AbstractSolverProperty> getAbstractSolverPropertyCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<AbstractSolverProperty> res = new ArrayList<AbstractSolverProperty>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((AbstractSolverProperty) find(id));
+            }
+        }
+        return res;
+    }
+
     public ApplicationDataset getApplicationDataset(String attributeName,
                                Attributes attributes) {
         return (ApplicationDataset) find(getId(attributeName,attributes));
@@ -262,6 +300,44 @@ public DurationModel getDurationModel(String attributeName,
             if (words[i].length() > 0) {
                 int id = Integer.parseInt(words[i].substring(3));
                 res.add((CumulativeResource) find(id));
+            }
+        }
+        return res;
+    }
+
+    public DataGeneratorProperty getDataGeneratorProperty(String attributeName,
+                               Attributes attributes) {
+        return (DataGeneratorProperty) find(getId(attributeName,attributes));
+    }
+
+    public List<DataGeneratorProperty> getDataGeneratorPropertyCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<DataGeneratorProperty> res = new ArrayList<DataGeneratorProperty>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((DataGeneratorProperty) find(id));
+            }
+        }
+        return res;
+    }
+
+    public DataGeneratorRun getDataGeneratorRun(String attributeName,
+                               Attributes attributes) {
+        return (DataGeneratorRun) find(getId(attributeName,attributes));
+    }
+
+    public List<DataGeneratorRun> getDataGeneratorRunCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<DataGeneratorRun> res = new ArrayList<DataGeneratorRun>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((DataGeneratorRun) find(id));
             }
         }
         return res;
@@ -590,6 +666,44 @@ public DurationModel getDurationModel(String attributeName,
         return res;
     }
 
+    public SolutionError getSolutionError(String attributeName,
+                               Attributes attributes) {
+        return (SolutionError) find(getId(attributeName,attributes));
+    }
+
+    public List<SolutionError> getSolutionErrorCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<SolutionError> res = new ArrayList<SolutionError>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((SolutionError) find(id));
+            }
+        }
+        return res;
+    }
+
+    public SolverProperty getSolverProperty(String attributeName,
+                               Attributes attributes) {
+        return (SolverProperty) find(getId(attributeName,attributes));
+    }
+
+    public List<SolverProperty> getSolverPropertyCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<SolverProperty> res = new ArrayList<SolverProperty>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((SolverProperty) find(id));
+            }
+        }
+        return res;
+    }
+
     public SolverRun getSolverRun(String attributeName,
                                Attributes attributes) {
         return (SolverRun) find(getId(attributeName,attributes));
@@ -694,10 +808,13 @@ public DurationModel getDurationModel(String attributeName,
                         getBoolean("valid",attributes,false),
                         getString("dataFile",attributes,""),
                         getDouble("dataFileVersionNumber",attributes,0.0),
+                        null,
                         getDouble("ganttLineHeight",attributes,0.0),
                         getInteger("ganttLinesPerPage",attributes,0),
                         getInteger("ganttWidth",attributes,0),
                         getInteger("horizon",attributes,0),
+                        null,
+                        getDateTime("startDateTime",attributes,"2011-01-01"),
                         getInteger("timeResolution",attributes,0)
                               );
             } else if (qname.equals("applicationDifference")) {
@@ -739,7 +856,8 @@ public DurationModel getDurationModel(String attributeName,
                         getString("name", attributes, "dummy"),
                         getInteger("capacity",attributes,0),
                         null,
-                        getInteger("from",attributes,0)
+                        getInteger("from",attributes,0),
+                        getDateTime("fromDate",attributes,"2011-01-01")
                         ));
             } else if (qname.equals("cumulativeResource")) {
                 assert (base != null);
@@ -747,6 +865,82 @@ public DurationModel getDurationModel(String attributeName,
                 store(id, new CumulativeResource(base,
                         id,
                         getString("name", attributes, "dummy")
+                        ));
+            } else if (qname.equals("dataGeneratorProperty")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new DataGeneratorProperty(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getDouble("downtimeProbability",attributes,0.0),
+                        getInteger("durationFixedFactor",attributes,0),
+                        null,
+                        getInteger("earliestDue",attributes,0),
+                        getInteger("horizonDays",attributes,0),
+                        getString("label",attributes,""),
+                        getInteger("maxCumulCapacity",attributes,0),
+                        getInteger("maxCumulDemand",attributes,0),
+                        getInteger("maxDowntime",attributes,0),
+                        getInteger("maxDuration",attributes,0),
+                        getInteger("maxQty",attributes,0),
+                        getInteger("maxStages",attributes,0),
+                        getInteger("maxWip",attributes,0),
+                        getInteger("minCumulCapacity",attributes,0),
+                        getInteger("minCumulDemand",attributes,0),
+                        getInteger("minDowntime",attributes,0),
+                        getInteger("minDuration",attributes,0),
+                        getInteger("minQty",attributes,0),
+                        getInteger("minStages",attributes,0),
+                        getInteger("minWip",attributes,0),
+                        getInteger("nrCumulativeResources",attributes,0),
+                        getInteger("nrDisjunctiveResources",attributes,0),
+                        getInteger("nrOrders",attributes,0),
+                        getInteger("nrProducts",attributes,0),
+                        getInteger("profilePieces",attributes,0),
+                        null,
+                        getDouble("resourceProbability",attributes,0.0),
+                        getInteger("seed",attributes,0),
+                        getDateTime("startDateTime",attributes,"2011-01-01"),
+                        getInteger("timeResolution",attributes,0),
+                        getDouble("wipProbability",attributes,0.0)
+                        ));
+            } else if (qname.equals("dataGeneratorRun")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new DataGeneratorRun(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getDouble("downtimeProbability",attributes,0.0),
+                        getInteger("durationFixedFactor",attributes,0),
+                        null,
+                        getInteger("earliestDue",attributes,0),
+                        getInteger("horizonDays",attributes,0),
+                        getString("label",attributes,""),
+                        getInteger("maxCumulCapacity",attributes,0),
+                        getInteger("maxCumulDemand",attributes,0),
+                        getInteger("maxDowntime",attributes,0),
+                        getInteger("maxDuration",attributes,0),
+                        getInteger("maxQty",attributes,0),
+                        getInteger("maxStages",attributes,0),
+                        getInteger("maxWip",attributes,0),
+                        getInteger("minCumulCapacity",attributes,0),
+                        getInteger("minCumulDemand",attributes,0),
+                        getInteger("minDowntime",attributes,0),
+                        getInteger("minDuration",attributes,0),
+                        getInteger("minQty",attributes,0),
+                        getInteger("minStages",attributes,0),
+                        getInteger("minWip",attributes,0),
+                        getInteger("nrCumulativeResources",attributes,0),
+                        getInteger("nrDisjunctiveResources",attributes,0),
+                        getInteger("nrOrders",attributes,0),
+                        getInteger("nrProducts",attributes,0),
+                        getInteger("profilePieces",attributes,0),
+                        null,
+                        getDouble("resourceProbability",attributes,0.0),
+                        getInteger("seed",attributes,0),
+                        getDateTime("startDateTime",attributes,"2011-01-01"),
+                        getInteger("timeResolution",attributes,0),
+                        getDouble("wipProbability",attributes,0.0)
                         ));
             } else if (qname.equals("disjunctiveResource")) {
                 assert (base != null);
@@ -801,6 +995,7 @@ public DurationModel getDurationModel(String attributeName,
                 store(id, new Job(base,
                         id,
                         getString("name", attributes, "dummy"),
+                        getInteger("nr",attributes,0),
                         null,
                         null
                         ));
@@ -843,6 +1038,7 @@ public DurationModel getDurationModel(String attributeName,
                 store(id, new Problem(base,
                         id,
                         getString("name", attributes, "dummy"),
+                        getString("label",attributes,""),
                         getInteger("nrCumulativeResources",attributes,0),
                         getInteger("nrDisjunctiveResources",attributes,0),
                         getInteger("nrJobs",attributes,0),
@@ -896,7 +1092,8 @@ public DurationModel getDurationModel(String attributeName,
                         id,
                         getString("name", attributes, "dummy"),
                         null,
-                        null
+                        null,
+                        getInteger("value",attributes,0)
                         ));
             } else if (qname.equals("resourceUtilization")) {
                 assert (base != null);
@@ -919,6 +1116,9 @@ public DurationModel getDurationModel(String attributeName,
                         id,
                         getString("name", attributes, "dummy"),
                         getDouble("bound",attributes,0.0),
+                        getInteger("duration",attributes,0),
+                        getInteger("end",attributes,0),
+                        getDateTime("endDate",attributes,"2011-01-01"),
                         getInteger("flowtime",attributes,0),
                         getDouble("gap",attributes,0.0),
                         getInteger("makespan",attributes,0),
@@ -931,10 +1131,54 @@ public DurationModel getDurationModel(String attributeName,
                         getDouble("percentLate",attributes,0.0),
                         null,
                         null,
+                        getInteger("start",attributes,0),
+                        getDateTime("startDate",attributes,"2011-01-01"),
                         getInteger("totalEarliness",attributes,0),
                         getInteger("totalLateness",attributes,0),
                         getDouble("weightedEarliness",attributes,0.0),
                         getDouble("weightedLateness",attributes,0.0)
+                        ));
+            } else if (qname.equals("solutionError")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new SolutionError(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getString("classDesc",attributes,""),
+                        getString("description",attributes,""),
+                        getString("field",attributes,""),
+                        getString("item",attributes,""),
+                        null,
+                        null,
+                        getString("value",attributes,"")
+                        ));
+            } else if (qname.equals("solverProperty")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new SolverProperty(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getString("description",attributes,""),
+                        getBoolean("enforceCumulative",attributes,false),
+                        getBoolean("enforceDowntime",attributes,false),
+                        getBoolean("enforceDueDate",attributes,false),
+                        getBoolean("enforceReleaseDate",attributes,false),
+                        getBoolean("enforceWip",attributes,false),
+                        getString("label",attributes,""),
+                        null,
+                        getInteger("nrThreads",attributes,0),
+                        null,
+                        getBoolean("producePDF",attributes,false),
+                        getBoolean("produceReport",attributes,false),
+                        getBoolean("removeSolution",attributes,false),
+                        getInteger("seed",attributes,0),
+                        null,
+                        getDateTime("startDateTime",attributes,"2011-01-01"),
+                        getInteger("timeout",attributes,0),
+                        getInteger("weightEarliness",attributes,0),
+                        getInteger("weightFlowtime",attributes,0),
+                        getInteger("weightLateness",attributes,0),
+                        getInteger("weightMakespan",attributes,0)
                         ));
             } else if (qname.equals("solverRun")) {
                 assert (base != null);
@@ -957,13 +1201,14 @@ public DurationModel getDurationModel(String attributeName,
                         getBoolean("removeSolution",attributes,false),
                         getInteger("seed",attributes,0),
                         null,
-                        null,
-                        getDouble("time",attributes,0.0),
+                        getDateTime("startDateTime",attributes,"2011-01-01"),
                         getInteger("timeout",attributes,0),
                         getInteger("weightEarliness",attributes,0),
                         getInteger("weightFlowtime",attributes,0),
                         getInteger("weightLateness",attributes,0),
-                        getInteger("weightMakespan",attributes,0)
+                        getInteger("weightMakespan",attributes,0),
+                        null,
+                        getDouble("time",attributes,0.0)
                         ));
             } else if (qname.equals("task")) {
                 assert (base != null);
@@ -974,6 +1219,8 @@ public DurationModel getDurationModel(String attributeName,
                         getInteger("duration",attributes,0),
                         null,
                         null,
+                        null,
+                        getInteger("nr",attributes,0),
                         null,
                         null,
                         getString("shortName",attributes,""),
@@ -1038,6 +1285,8 @@ public DurationModel getDurationModel(String attributeName,
                 assert (base != null);
                 int id = getId("id", attributes);
                 Scenario item = (Scenario) base;
+                 item.setDataGeneratorProperty(getDataGeneratorProperty("dataGeneratorProperty",attributes));
+                 item.setSolverProperty(getSolverProperty("solverProperty",attributes));
             } else if (qname.equals("applicationDifference")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1063,6 +1312,18 @@ public DurationModel getDurationModel(String attributeName,
                 assert (base != null);
                 int id = getId("id", attributes);
                 CumulativeResource item = (CumulativeResource) find(id);
+            } else if (qname.equals("dataGeneratorProperty")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                DataGeneratorProperty item = (DataGeneratorProperty) find(id);
+                 item.setDurationModel(getDurationModel("durationModel",attributes));
+                 item.setResourceModel(getResourceModel("resourceModel",attributes));
+            } else if (qname.equals("dataGeneratorRun")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                DataGeneratorRun item = (DataGeneratorRun) find(id);
+                 item.setDurationModel(getDurationModel("durationModel",attributes));
+                 item.setResourceModel(getResourceModel("resourceModel",attributes));
             } else if (qname.equals("disjunctiveResource")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1143,6 +1404,19 @@ public DurationModel getDurationModel(String attributeName,
                 Solution item = (Solution) find(id);
                  item.setSolverRun(getSolverRun("solverRun",attributes));
                  item.setSolverStatus(getSolverStatus("solverStatus",attributes));
+            } else if (qname.equals("solutionError")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                SolutionError item = (SolutionError) find(id);
+                 item.setSeverity(getSeverity("severity",attributes));
+                 item.setSolution(getSolution("solution",attributes));
+            } else if (qname.equals("solverProperty")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                SolverProperty item = (SolverProperty) find(id);
+                 item.setModelType(getModelType("modelType",attributes));
+                 item.setObjectiveType(getObjectiveType("objectiveType",attributes));
+                 item.setSolverBackend(getSolverBackend("solverBackend",attributes));
             } else if (qname.equals("solverRun")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1155,6 +1429,7 @@ public DurationModel getDurationModel(String attributeName,
                 assert (base != null);
                 int id = getId("id", attributes);
                 Task item = (Task) find(id);
+                 item.setFollows(getTaskCollectionFromIds("follows",attributes));
                  item.setJob(getJob("job",attributes));
                  item.setMachines(getDisjunctiveResourceCollectionFromIds("machines",attributes));
                  item.setPrecedes(getTaskCollectionFromIds("precedes",attributes));

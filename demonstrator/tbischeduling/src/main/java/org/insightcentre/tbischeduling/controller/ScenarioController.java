@@ -1,7 +1,9 @@
 package org.insightcentre.tbischeduling.controller;
 
 import framework.gui.AbstractJfxMainWindow;
+import framework.gui.DateTimePickerTableCell;
 import framework.gui.Table3Controller;
+import framework.types.DateTime;
 import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Exception;
@@ -20,14 +22,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class ScenarioController extends Table3Controller {
 	@FXML
 	private TableView<Scenario> table;
@@ -48,6 +53,9 @@ public class ScenarioController extends Table3Controller {
 	private TableColumn<Scenario, String> dataFile;
 
 	@FXML
+	private TableColumn<Scenario, DateTime> startDateTime;
+
+	@FXML
 	private TableColumn<Scenario, Integer> horizon;
 
 	@FXML
@@ -62,12 +70,22 @@ public class ScenarioController extends Table3Controller {
 	@FXML
 	private TableColumn<Scenario, Double> ganttLineHeight;
 
+	@FXML
+	private TableColumn<Scenario, SolverProperty> solverProperty;
+
+	@FXML
+	private TableColumn<Scenario, DataGeneratorProperty> dataGeneratorProperty;
+
 	private GeneratedJfxApp mainApp;
 
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
 		table.setItems(mainApp.getScenarioData());
+		solverProperty.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getSolverPropertyData()));
+		solverProperty.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSolverProperty(event.getNewValue()); mainApp.reset();});
+		dataGeneratorProperty.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getDataGeneratorPropertyData()));
+		dataGeneratorProperty.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDataGeneratorProperty(event.getNewValue()); mainApp.reset();});
 	}
 
 	public TableView<Scenario> getTable() {
@@ -97,6 +115,10 @@ public class ScenarioController extends Table3Controller {
 		dataFile.setCellValueFactory(new PropertyValueFactory<>("dataFile"));
 		dataFile.setCellFactory(TextFieldTableCell.forTableColumn());
 		dataFile.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDataFile(event.getNewValue()); mainApp.reset();});
+		choices.add("startDateTime");
+		startDateTime.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+		startDateTime.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
+		startDateTime.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setStartDateTime(event.getNewValue()); mainApp.reset();});
 		choices.add("horizon");
 		horizon.setCellValueFactory(new PropertyValueFactory<>("horizon"));
 		horizon.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
@@ -117,6 +139,10 @@ public class ScenarioController extends Table3Controller {
 		ganttLineHeight.setCellValueFactory(new PropertyValueFactory<>("ganttLineHeight"));
 		ganttLineHeight.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("")));
 		ganttLineHeight.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setGanttLineHeight(event.getNewValue()); mainApp.reset();});
+		choices.add("solverProperty");
+		solverProperty.setCellValueFactory(new PropertyValueFactory<>("solverProperty"));
+		choices.add("dataGeneratorProperty");
+		dataGeneratorProperty.setCellValueFactory(new PropertyValueFactory<>("dataGeneratorProperty"));
 		initialize(choices);
 	}
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+
+<!--Generated at 08:17:45 on 2024-10-07-->
+
+
+<Tab text="AbstractSolverProperty" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.AbstractSolverPropertyController">
+   <BorderPane>
+      <center>
+         <TableView fx:id="table" editable="true">
+            <columns>
+               <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
+               <TableColumn fx:id="label" styleClass="right-aligned" text="Label" />
+               <TableColumn fx:id="description" styleClass="right-aligned" text="Description" />
+               <TableColumn fx:id="startDateTime" styleClass="right-aligned" text="StartDateTime" />
+               <TableColumn fx:id="enforceReleaseDate" styleClass="right-aligned" text="EnforceReleaseDate" />
+               <TableColumn fx:id="enforceDueDate" styleClass="right-aligned" text="EnforceDueDate" />
+               <TableColumn fx:id="enforceCumulative" styleClass="right-aligned" text="EnforceCumulative" />
+               <TableColumn fx:id="enforceWip" styleClass="right-aligned" text="EnforceWip" />
+               <TableColumn fx:id="enforceDowntime" styleClass="right-aligned" text="EnforceDowntime" />
+               <TableColumn fx:id="modelType" styleClass="right-aligned" text="ModelType" />
+               <TableColumn fx:id="solverBackend" styleClass="right-aligned" text="SolverBackend" />
+               <TableColumn fx:id="objectiveType" styleClass="right-aligned" text="ObjectiveType" />
+               <TableColumn fx:id="weightMakespan" styleClass="right-aligned" text="WeightMakespan" />
+               <TableColumn fx:id="weightFlowtime" styleClass="right-aligned" text="WeightFlowtime" />
+               <TableColumn fx:id="weightLateness" styleClass="right-aligned" text="WeightLateness" />
+               <TableColumn fx:id="weightEarliness" styleClass="right-aligned" text="WeightEarliness" />
+               <TableColumn fx:id="timeout" styleClass="right-aligned" text="Timeout" />
+               <TableColumn fx:id="nrThreads" styleClass="right-aligned" text="NrThreads" />
+               <TableColumn fx:id="seed" styleClass="right-aligned" text="Seed" />
+               <TableColumn fx:id="removeSolution" styleClass="right-aligned" text="RemoveSolution" />
+               <TableColumn fx:id="produceReport" styleClass="right-aligned" text="ProduceReport" />
+               <TableColumn fx:id="producePDF" styleClass="right-aligned" text="ProducePDF" />
+            </columns>
+         </TableView>
+      </center>
+      <bottom>
+         <TitledPane fx:id="filterPane" expanded="false" text="Filter">
+            <content>
+               <HBox alignment="center" spacing="5.0">
+                  <ChoiceBox fx:id="filterChoiceBox" />
+                  <ChoiceBox fx:id="filterComparisonBox" />
+                  <TextField fx:id="filterTextField" />
+               </HBox>
+            </content>
+         </TitledPane>
+      </bottom>
+   </BorderPane>
+</Tab>

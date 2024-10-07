@@ -5,6 +5,12 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -22,12 +28,12 @@ import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
-import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
+import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -69,6 +75,13 @@ public  class ResourceNeed extends ApplicationObject{
     public ProcessStep processStep;
 
 /**
+ *  
+ *
+*/
+
+    public Integer value;
+
+/**
  *  No-arg constructor for use in TableView
  *
 */
@@ -89,6 +102,7 @@ public  class ResourceNeed extends ApplicationObject{
         super(applicationDataset);
         setDisjunctiveResource(null);
         setProcessStep(null);
+        setValue(1);
         applicationDataset.addResourceNeed(this);
     }
 
@@ -103,12 +117,14 @@ public  class ResourceNeed extends ApplicationObject{
             Integer id,
             String name,
             DisjunctiveResource disjunctiveResource,
-            ProcessStep processStep){
+            ProcessStep processStep,
+            Integer value){
         super(applicationDataset,
             id,
             name);
         setDisjunctiveResource(disjunctiveResource);
         setProcessStep(processStep);
+        setValue(value);
         applicationDataset.addResourceNeed(this);
     }
 
@@ -117,7 +133,8 @@ public  class ResourceNeed extends ApplicationObject{
             other.id,
             other.name,
             other.disjunctiveResource,
-            other.processStep);
+            other.processStep,
+            other.value);
     }
 
 /**
@@ -152,6 +169,16 @@ public  class ResourceNeed extends ApplicationObject{
     }
 
 /**
+ *  get attribute value
+ *
+ * @return Integer
+*/
+
+    public Integer getValue(){
+        return this.value;
+    }
+
+/**
  *  set attribute disjunctiveResource, mark dataset as dirty, mark dataset as not valid
 @param disjunctiveResource DisjunctiveResource
  *
@@ -176,6 +203,29 @@ public  class ResourceNeed extends ApplicationObject{
     }
 
 /**
+ *  set attribute value, mark dataset as dirty, mark dataset as not valid
+@param value Integer
+ *
+*/
+
+    public void setValue(Integer value){
+        this.value = value;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute value, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incValue(){
+        this.value++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  override generic toString() method, show all attributes in human readable form
  * @return String details of the format are not clearly defined at the moment
 */
@@ -192,7 +242,7 @@ public  class ResourceNeed extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getProcessStep().toColumnString();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getProcessStep().toColumnString()+ " " +getValue();
     }
 
 /**
@@ -217,7 +267,8 @@ public  class ResourceNeed extends ApplicationObject{
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
             " disjunctiveResource=\""+toXMLDisjunctiveResource()+"\""+
-            " processStep=\""+toXMLProcessStep()+"\""+" />");
+            " processStep=\""+toXMLProcessStep()+"\""+
+            " value=\""+toXMLValue()+"\""+" />");
      }
 
 /**
@@ -241,17 +292,27 @@ public  class ResourceNeed extends ApplicationObject{
     }
 
 /**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLValue(){
+        return this.getValue().toString();
+    }
+
+/**
  * show object as one row in an HTML table
  * 
  * @return String of form <tr>...</tr>
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>ResourceNeed</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>ProcessStep</th>"+"</tr>";
+        return "<tr><th>ResourceNeed</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>ProcessStep</th>"+"<th>Value</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+ " " +"<td>"+getValue()+"</td>"+"</tr>";
     }
 
 /**
@@ -377,9 +438,13 @@ public  class ResourceNeed extends ApplicationObject{
       if(!this.getProcessStep().applicationSame(b.getProcessStep())){
          System.out.println("ProcessStep");
         }
+      if(!this.getValue().equals(b.getValue())){
+         System.out.println("Value");
+        }
         return  this.getDisjunctiveResource().applicationSame(b.getDisjunctiveResource()) &&
           this.getName().equals(b.getName()) &&
-          this.getProcessStep().applicationSame(b.getProcessStep());
+          this.getProcessStep().applicationSame(b.getProcessStep()) &&
+          this.getValue().equals(b.getValue());
     }
 
 /**

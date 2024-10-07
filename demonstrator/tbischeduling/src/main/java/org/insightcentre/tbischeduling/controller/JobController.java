@@ -2,6 +2,7 @@ package org.insightcentre.tbischeduling.controller;
 
 import framework.gui.AbstractJfxMainWindow;
 import framework.gui.Table3Controller;
+import framework.types.DateTime;
 import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.NullPointerException;
@@ -27,7 +28,7 @@ import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.Product;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class JobController extends Table3Controller {
 	@FXML
 	private TableView<Job> table;
@@ -42,6 +43,9 @@ public class JobController extends Table3Controller {
 	private TableColumn<Job, Process> process;
 
 	@FXML
+	private TableColumn<Job, Integer> nr;
+
+	@FXML
 	private TableColumn<Job, Product> product;
 
 	@FXML
@@ -49,6 +53,12 @@ public class JobController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Job, Integer> due;
+
+	@FXML
+	private TableColumn<Job, DateTime> releaseDate;
+
+	@FXML
+	private TableColumn<Job, DateTime> dueDate;
 
 	@FXML
 	private TableColumn<Job, Integer> qty;
@@ -83,6 +93,10 @@ public class JobController extends Table3Controller {
 		order.setCellValueFactory(new PropertyValueFactory<>("order"));
 		choices.add("process");
 		process.setCellValueFactory(new PropertyValueFactory<>("process"));
+		choices.add("nr");
+		nr.setCellValueFactory(new PropertyValueFactory<>("nr"));
+		nr.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		nr.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setNr(event.getNewValue()); mainApp.reset();});
 		choices.add("order.product");
 		try {
 			product.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getOrder().getProduct()));
@@ -100,6 +114,20 @@ public class JobController extends Table3Controller {
 		choices.add("order.due");
 		try {
 			due.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getOrder().getDue()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("order.releaseDate");
+		try {
+			releaseDate.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getOrder().getReleaseDate()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("order.dueDate");
+		try {
+			dueDate.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getOrder().getDueDate()));
 		}
 		catch (NullPointerException e) {
 			System.err.println(e);

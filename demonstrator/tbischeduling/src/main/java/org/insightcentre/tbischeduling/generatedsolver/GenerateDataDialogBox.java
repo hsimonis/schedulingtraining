@@ -21,7 +21,9 @@ import framework.types.IrishCalendar;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 
 public class GenerateDataDialogBox extends GeneralDialogBox{
-   private TextField nameItem = new TextField();
+   private TextField labelItem = new TextField();
+   private TextField startDateItem = new TextField();
+   private TextField startTimeItem = new TextField();
    private TextField resourceModelItem = new TextField();
    private IntegerTextField nrProductsItem = new IntegerTextField();
    private IntegerTextField minStagesItem = new IntegerTextField();
@@ -58,9 +60,15 @@ public class GenerateDataDialogBox extends GeneralDialogBox{
         pane.setVgap(10.0);
         pane.setHgap(10.0);
         int row = 0;
-        pane.add(new Label("name:"), 0, row);
-        pane.add(nameItem, 1, row++);
-        nameItem.setText(((GenerateDataSolver)solver).getName());
+        pane.add(new Label("label:"), 0, row);
+        pane.add(labelItem, 1, row++);
+        labelItem.setText(((GenerateDataSolver)solver).getLabel());
+        pane.add(new Label("StartDate:"), 0, row);
+        pane.add(startDateItem, 1, row++);
+        startDateItem.setText(((GenerateDataSolver)solver).getStartDate());
+        pane.add(new Label("StartTime:"), 0, row);
+        pane.add(startTimeItem, 1, row++);
+        startTimeItem.setText(((GenerateDataSolver)solver).getStartTime());
         pane.add(new Label("Resource Model:"), 0, row);
         pane.add(resourceModelItem, 1, row++);
         resourceModelItem.setText(((GenerateDataSolver)solver).getResourceModel());
@@ -157,7 +165,9 @@ public void handle(InputEvent event) {
       (event.getEventType() == KeyEvent.KEY_RELEASED &&
       ((KeyEvent) event).getCode() == KeyCode.ENTER)) {
         info("Get GenerateData parameters");
-        String nameValue = nameItem.getText();
+        String labelValue = labelItem.getText();
+        String startDateValue = startDateItem.getText();
+        String startTimeValue = startTimeItem.getText();
         String resourceModelValue = resourceModelItem.getText();
         int nrProductsValue = Integer.parseInt(nrProductsItem.getText());
         int minStagesValue = Integer.parseInt(minStagesItem.getText());
@@ -188,7 +198,9 @@ public void handle(InputEvent event) {
         int timeResolutionValue = Integer.parseInt(timeResolutionItem.getText());
         int seedValue = Integer.parseInt(seedItem.getText());
         ((GenerateDataSolver)getSolver())
-            .setName(nameValue)
+            .setLabel(labelValue)
+            .setStartDate(startDateValue)
+            .setStartTime(startTimeValue)
             .setResourceModel(resourceModelValue)
             .setNrProducts(nrProductsValue)
             .setMinStages(minStagesValue)

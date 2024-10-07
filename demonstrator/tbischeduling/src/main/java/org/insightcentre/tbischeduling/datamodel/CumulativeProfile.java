@@ -5,6 +5,12 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -22,12 +28,12 @@ import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
-import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
+import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -76,6 +82,13 @@ public  class CumulativeProfile extends ApplicationObject{
     public Integer from;
 
 /**
+ *  
+ *
+*/
+
+    public DateTime fromDate;
+
+/**
  *  No-arg constructor for use in TableView
  *
 */
@@ -97,6 +110,7 @@ public  class CumulativeProfile extends ApplicationObject{
         setCapacity(0);
         setCumulativeResource(null);
         setFrom(0);
+        setFromDate(new DateTime());
         applicationDataset.addCumulativeProfile(this);
     }
 
@@ -112,13 +126,15 @@ public  class CumulativeProfile extends ApplicationObject{
             String name,
             Integer capacity,
             CumulativeResource cumulativeResource,
-            Integer from){
+            Integer from,
+            DateTime fromDate){
         super(applicationDataset,
             id,
             name);
         setCapacity(capacity);
         setCumulativeResource(cumulativeResource);
         setFrom(from);
+        setFromDate(fromDate);
         applicationDataset.addCumulativeProfile(this);
     }
 
@@ -128,7 +144,8 @@ public  class CumulativeProfile extends ApplicationObject{
             other.name,
             other.capacity,
             other.cumulativeResource,
-            other.from);
+            other.from,
+            other.fromDate);
     }
 
 /**
@@ -173,6 +190,16 @@ public  class CumulativeProfile extends ApplicationObject{
     }
 
 /**
+ *  get attribute fromDate
+ *
+ * @return DateTime
+*/
+
+    public DateTime getFromDate(){
+        return this.fromDate;
+    }
+
+/**
  *  set attribute capacity, mark dataset as dirty, mark dataset as not valid
 @param capacity Integer
  *
@@ -204,6 +231,18 @@ public  class CumulativeProfile extends ApplicationObject{
 
     public void setFrom(Integer from){
         this.from = from;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute fromDate, mark dataset as dirty, mark dataset as not valid
+@param fromDate DateTime
+ *
+*/
+
+    public void setFromDate(DateTime fromDate){
+        this.fromDate = fromDate;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -247,7 +286,7 @@ public  class CumulativeProfile extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getCapacity()+ " " +getCumulativeResource().toColumnString()+ " " +getFrom();
+        return ""+ " " +getId()+ " " +getName()+ " " +getCapacity()+ " " +getCumulativeResource().toColumnString()+ " " +getFrom()+ " " +getFromDate();
     }
 
 /**
@@ -273,7 +312,8 @@ public  class CumulativeProfile extends ApplicationObject{
             " name=\""+toXMLName()+"\""+
             " capacity=\""+toXMLCapacity()+"\""+
             " cumulativeResource=\""+toXMLCumulativeResource()+"\""+
-            " from=\""+toXMLFrom()+"\""+" />");
+            " from=\""+toXMLFrom()+"\""+
+            " fromDate=\""+toXMLFromDate()+"\""+" />");
      }
 
 /**
@@ -307,17 +347,27 @@ public  class CumulativeProfile extends ApplicationObject{
     }
 
 /**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLFromDate(){
+        return this.getFromDate().toXML();
+    }
+
+/**
  * show object as one row in an HTML table
  * 
  * @return String of form <tr>...</tr>
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>CumulativeProfile</th>"+"<th>Name</th>"+"<th>CumulativeResource</th>"+"<th>From</th>"+"<th>Capacity</th>"+"</tr>";
+        return "<tr><th>CumulativeProfile</th>"+"<th>Name</th>"+"<th>CumulativeResource</th>"+"<th>From</th>"+"<th>FromDate</th>"+"<th>Capacity</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getCumulativeResource().toColumnString()+"</td>"+ " " +"<td>"+getFrom()+"</td>"+ " " +"<td>"+getCapacity()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getCumulativeResource().toColumnString()+"</td>"+ " " +"<td>"+getFrom()+"</td>"+ " " +"<td>"+getFromDate()+"</td>"+ " " +"<td>"+getCapacity()+"</td>"+"</tr>";
     }
 
 /**
@@ -443,12 +493,16 @@ public  class CumulativeProfile extends ApplicationObject{
       if(!this.getFrom().equals(b.getFrom())){
          System.out.println("From");
         }
+      if(!this.getFromDate().applicationEqual(b.getFromDate())){
+         System.out.println("FromDate");
+        }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
         return  this.getCapacity().equals(b.getCapacity()) &&
           this.getCumulativeResource().applicationSame(b.getCumulativeResource()) &&
           this.getFrom().equals(b.getFrom()) &&
+          this.getFromDate().applicationEqual(b.getFromDate()) &&
           this.getName().equals(b.getName());
     }
 

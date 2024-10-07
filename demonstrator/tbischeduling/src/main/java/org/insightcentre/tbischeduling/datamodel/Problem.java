@@ -5,6 +5,12 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -22,12 +28,12 @@ import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
-import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
+import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -54,6 +60,13 @@ import framework.AppearInCollection;
 */
 
 public  class Problem extends ApplicationObject{
+/**
+ *  
+ *
+*/
+
+    public String label;
+
 /**
  *  
  *
@@ -131,6 +144,7 @@ public  class Problem extends ApplicationObject{
 
     public Problem(ApplicationDataset applicationDataset){
         super(applicationDataset);
+        setLabel("");
         setNrCumulativeResources(0);
         setNrDisjunctiveResources(0);
         setNrJobs(0);
@@ -152,6 +166,7 @@ public  class Problem extends ApplicationObject{
     public Problem(ApplicationDataset applicationDataset,
             Integer id,
             String name,
+            String label,
             Integer nrCumulativeResources,
             Integer nrDisjunctiveResources,
             Integer nrJobs,
@@ -163,6 +178,7 @@ public  class Problem extends ApplicationObject{
         super(applicationDataset,
             id,
             name);
+        setLabel(label);
         setNrCumulativeResources(nrCumulativeResources);
         setNrDisjunctiveResources(nrDisjunctiveResources);
         setNrJobs(nrJobs);
@@ -178,6 +194,7 @@ public  class Problem extends ApplicationObject{
         this(other.applicationDataset,
             other.id,
             other.name,
+            other.label,
             other.nrCumulativeResources,
             other.nrDisjunctiveResources,
             other.nrJobs,
@@ -197,6 +214,16 @@ public  class Problem extends ApplicationObject{
 
     public Boolean remove(){
         return getApplicationDataset().removeProblem(this) && getApplicationDataset().removeApplicationObject(this);
+    }
+
+/**
+ *  get attribute label
+ *
+ * @return String
+*/
+
+    public String getLabel(){
+        return this.label;
     }
 
 /**
@@ -285,6 +312,18 @@ public  class Problem extends ApplicationObject{
         }
         timePointsAsDateWrapper.set(timePointsAsDate);
         return timePointsAsDateWrapper;
+    }
+
+/**
+ *  set attribute label, mark dataset as dirty, mark dataset as not valid
+@param label String
+ *
+*/
+
+    public void setLabel(String label){
+        this.label = label;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -477,7 +516,7 @@ public  class Problem extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getNrCumulativeResources()+ " " +getNrDisjunctiveResources()+ " " +getNrJobs()+ " " +getNrOrders()+ " " +getNrProcesses()+ " " +getNrProducts()+ " " +getNrTasks()+ " " +getTimePointsAsDate();
+        return ""+ " " +getId()+ " " +getName()+ " " +getLabel()+ " " +getNrCumulativeResources()+ " " +getNrDisjunctiveResources()+ " " +getNrJobs()+ " " +getNrOrders()+ " " +getNrProcesses()+ " " +getNrProducts()+ " " +getNrTasks()+ " " +getTimePointsAsDate();
     }
 
 /**
@@ -501,6 +540,7 @@ public  class Problem extends ApplicationObject{
          out.println("<problem "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
+            " label=\""+toXMLLabel()+"\""+
             " nrCumulativeResources=\""+toXMLNrCumulativeResources()+"\""+
             " nrDisjunctiveResources=\""+toXMLNrDisjunctiveResources()+"\""+
             " nrJobs=\""+toXMLNrJobs()+"\""+
@@ -510,6 +550,16 @@ public  class Problem extends ApplicationObject{
             " nrTasks=\""+toXMLNrTasks()+"\""+
             " timePointsAsDate=\""+toXMLTimePointsAsDate()+"\""+" />");
      }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLLabel(){
+        return this.safeXML(getLabel());
+    }
 
 /**
  * helper method for toXML(), prcess one attribute
@@ -598,11 +648,11 @@ public  class Problem extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Problem</th>"+"<th>Name</th>"+"<th>TimePointsAsDate</th>"+"<th>NrProducts</th>"+"<th>NrProcesses</th>"+"<th>NrDisjunctiveResources</th>"+"<th>NrCumulativeResources</th>"+"<th>NrOrders</th>"+"<th>NrJobs</th>"+"<th>NrTasks</th>"+"</tr>";
+        return "<tr><th>Problem</th>"+"<th>Name</th>"+"<th>Label</th>"+"<th>TimePointsAsDate</th>"+"<th>NrProducts</th>"+"<th>NrProcesses</th>"+"<th>NrDisjunctiveResources</th>"+"<th>NrCumulativeResources</th>"+"<th>NrOrders</th>"+"<th>NrJobs</th>"+"<th>NrTasks</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getTimePointsAsDate()+"</td>"+ " " +"<td>"+getNrProducts()+"</td>"+ " " +"<td>"+getNrProcesses()+"</td>"+ " " +"<td>"+getNrDisjunctiveResources()+"</td>"+ " " +"<td>"+getNrCumulativeResources()+"</td>"+ " " +"<td>"+getNrOrders()+"</td>"+ " " +"<td>"+getNrJobs()+"</td>"+ " " +"<td>"+getNrTasks()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getLabel()+"</td>"+ " " +"<td>"+getTimePointsAsDate()+"</td>"+ " " +"<td>"+getNrProducts()+"</td>"+ " " +"<td>"+getNrProcesses()+"</td>"+ " " +"<td>"+getNrDisjunctiveResources()+"</td>"+ " " +"<td>"+getNrCumulativeResources()+"</td>"+ " " +"<td>"+getNrOrders()+"</td>"+ " " +"<td>"+getNrJobs()+"</td>"+ " " +"<td>"+getNrTasks()+"</td>"+"</tr>";
     }
 
 /**
@@ -719,6 +769,9 @@ public  class Problem extends ApplicationObject{
 */
 
     public Boolean applicationEqual(Problem b){
+      if(!this.getLabel().equals(b.getLabel())){
+         System.out.println("Label");
+        }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
@@ -746,7 +799,8 @@ public  class Problem extends ApplicationObject{
       if(!this.getTimePointsAsDate().equals(b.getTimePointsAsDate())){
          System.out.println("TimePointsAsDate");
         }
-        return  this.getName().equals(b.getName()) &&
+        return  this.getLabel().equals(b.getLabel()) &&
+          this.getName().equals(b.getName()) &&
           this.getNrCumulativeResources().equals(b.getNrCumulativeResources()) &&
           this.getNrDisjunctiveResources().equals(b.getNrDisjunctiveResources()) &&
           this.getNrJobs().equals(b.getNrJobs()) &&

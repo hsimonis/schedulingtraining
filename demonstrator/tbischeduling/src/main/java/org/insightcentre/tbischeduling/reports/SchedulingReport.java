@@ -105,6 +105,7 @@ public class SchedulingReport extends AbstractReport{
     private void problemTable(){
         new TableDraw<>("Problem",base.getListProblem()).
                 addStringColumn("Name",this::nameOf).
+                addStringColumn("Label",x->safe(x.getLabel())).
                 addBooleanColumn(st("Timepoints","as","Date"), Problem::getTimePointsAsDate).
                 addIntegerColumn(st("Nr","Products"),Problem::getNrProducts).
                 addIntegerColumn(st("Nr","Process"),Problem::getNrProcesses).

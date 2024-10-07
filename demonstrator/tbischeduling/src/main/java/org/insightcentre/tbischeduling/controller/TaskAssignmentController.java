@@ -33,7 +33,7 @@ import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class TaskAssignmentController extends Table3Controller {
 	@FXML
 	private TableView<TaskAssignment> table;
@@ -76,6 +76,12 @@ public class TaskAssignmentController extends Table3Controller {
 
 	@FXML
 	private TableColumn<TaskAssignment, Integer> due;
+
+	@FXML
+	private TableColumn<TaskAssignment, DateTime> releaseDate;
+
+	@FXML
+	private TableColumn<TaskAssignment, DateTime> dueDate;
 
 	@FXML
 	private TableColumn<TaskAssignment, Product> product;
@@ -170,6 +176,20 @@ public class TaskAssignmentController extends Table3Controller {
 		choices.add("task.job.order.due");
 		try {
 			due.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getTask().getJob().getOrder().getDue()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("task.job.order.releaseDate");
+		try {
+			releaseDate.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getTask().getJob().getOrder().getReleaseDate()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("task.job.order.dueDate");
+		try {
+			dueDate.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getTask().getJob().getOrder().getDueDate()));
 		}
 		catch (NullPointerException e) {
 			System.err.println(e);

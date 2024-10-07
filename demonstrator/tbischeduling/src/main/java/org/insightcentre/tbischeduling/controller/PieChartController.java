@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -32,11 +32,14 @@ public class PieChartController extends ChartController {
 		attributeNames.add("valid");
 		attributeNames.add("dataFileVersionNumber");
 		attributeNames.add("dataFile");
+		attributeNames.add("startDateTime");
 		attributeNames.add("horizon");
 		attributeNames.add("timeResolution");
 		attributeNames.add("ganttWidth");
 		attributeNames.add("ganttLinesPerPage");
 		attributeNames.add("ganttLineHeight");
+		attributeNames.add("solverProperty");
+		attributeNames.add("dataGeneratorProperty");
 		choicesMap.put("Scenario", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
@@ -53,6 +56,182 @@ public class PieChartController extends ChartController {
 		choicesMap.put("ApplicationWarning", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
+		attributeNames.add("label");
+		attributeNames.add("description");
+		attributeNames.add("startDateTime");
+		attributeNames.add("enforceReleaseDate");
+		attributeNames.add("enforceDueDate");
+		attributeNames.add("enforceCumulative");
+		attributeNames.add("enforceWip");
+		attributeNames.add("enforceDowntime");
+		attributeNames.add("modelType");
+		attributeNames.add("solverBackend");
+		attributeNames.add("objectiveType");
+		attributeNames.add("weightMakespan");
+		attributeNames.add("weightFlowtime");
+		attributeNames.add("weightLateness");
+		attributeNames.add("weightEarliness");
+		attributeNames.add("timeout");
+		attributeNames.add("nrThreads");
+		attributeNames.add("seed");
+		attributeNames.add("removeSolution");
+		attributeNames.add("produceReport");
+		attributeNames.add("producePDF");
+		choicesMap.put("AbstractSolverProperty", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("label");
+		attributeNames.add("description");
+		attributeNames.add("startDateTime");
+		attributeNames.add("enforceReleaseDate");
+		attributeNames.add("enforceDueDate");
+		attributeNames.add("enforceCumulative");
+		attributeNames.add("enforceWip");
+		attributeNames.add("enforceDowntime");
+		attributeNames.add("modelType");
+		attributeNames.add("solverBackend");
+		attributeNames.add("objectiveType");
+		attributeNames.add("weightMakespan");
+		attributeNames.add("weightFlowtime");
+		attributeNames.add("weightLateness");
+		attributeNames.add("weightEarliness");
+		attributeNames.add("timeout");
+		attributeNames.add("nrThreads");
+		attributeNames.add("seed");
+		attributeNames.add("removeSolution");
+		attributeNames.add("produceReport");
+		attributeNames.add("producePDF");
+		choicesMap.put("SolverProperty", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("label");
+		attributeNames.add("description");
+		attributeNames.add("startDateTime");
+		attributeNames.add("enforceReleaseDate");
+		attributeNames.add("enforceDueDate");
+		attributeNames.add("enforceCumulative");
+		attributeNames.add("enforceWip");
+		attributeNames.add("enforceDowntime");
+		attributeNames.add("modelType");
+		attributeNames.add("solverBackend");
+		attributeNames.add("objectiveType");
+		attributeNames.add("weightMakespan");
+		attributeNames.add("weightFlowtime");
+		attributeNames.add("weightLateness");
+		attributeNames.add("weightEarliness");
+		attributeNames.add("timeout");
+		attributeNames.add("nrThreads");
+		attributeNames.add("seed");
+		attributeNames.add("removeSolution");
+		attributeNames.add("produceReport");
+		attributeNames.add("producePDF");
+		attributeNames.add("solverStatus");
+		attributeNames.add("time");
+		choicesMap.put("SolverRun", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("label");
+		attributeNames.add("startDateTime");
+		attributeNames.add("resourceModel");
+		attributeNames.add("nrProducts");
+		attributeNames.add("minStages");
+		attributeNames.add("maxStages");
+		attributeNames.add("nrDisjunctiveResources");
+		attributeNames.add("resourceProbability");
+		attributeNames.add("durationModel");
+		attributeNames.add("minDuration");
+		attributeNames.add("maxDuration");
+		attributeNames.add("durationFixedFactor");
+		attributeNames.add("nrCumulativeResources");
+		attributeNames.add("minCumulDemand");
+		attributeNames.add("maxCumulDemand");
+		attributeNames.add("profilePieces");
+		attributeNames.add("minCumulCapacity");
+		attributeNames.add("maxCumulCapacity");
+		attributeNames.add("nrOrders");
+		attributeNames.add("minQty");
+		attributeNames.add("maxQty");
+		attributeNames.add("wipProbability");
+		attributeNames.add("minWip");
+		attributeNames.add("maxWip");
+		attributeNames.add("downtimeProbability");
+		attributeNames.add("minDowntime");
+		attributeNames.add("maxDowntime");
+		attributeNames.add("earliestDue");
+		attributeNames.add("horizonDays");
+		attributeNames.add("timeResolution");
+		attributeNames.add("seed");
+		choicesMap.put("AbstractDataGeneratorProperty", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("label");
+		attributeNames.add("startDateTime");
+		attributeNames.add("resourceModel");
+		attributeNames.add("nrProducts");
+		attributeNames.add("minStages");
+		attributeNames.add("maxStages");
+		attributeNames.add("nrDisjunctiveResources");
+		attributeNames.add("resourceProbability");
+		attributeNames.add("durationModel");
+		attributeNames.add("minDuration");
+		attributeNames.add("maxDuration");
+		attributeNames.add("durationFixedFactor");
+		attributeNames.add("nrCumulativeResources");
+		attributeNames.add("minCumulDemand");
+		attributeNames.add("maxCumulDemand");
+		attributeNames.add("profilePieces");
+		attributeNames.add("minCumulCapacity");
+		attributeNames.add("maxCumulCapacity");
+		attributeNames.add("nrOrders");
+		attributeNames.add("minQty");
+		attributeNames.add("maxQty");
+		attributeNames.add("wipProbability");
+		attributeNames.add("minWip");
+		attributeNames.add("maxWip");
+		attributeNames.add("downtimeProbability");
+		attributeNames.add("minDowntime");
+		attributeNames.add("maxDowntime");
+		attributeNames.add("earliestDue");
+		attributeNames.add("horizonDays");
+		attributeNames.add("timeResolution");
+		attributeNames.add("seed");
+		choicesMap.put("DataGeneratorProperty", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("label");
+		attributeNames.add("startDateTime");
+		attributeNames.add("resourceModel");
+		attributeNames.add("nrProducts");
+		attributeNames.add("minStages");
+		attributeNames.add("maxStages");
+		attributeNames.add("nrDisjunctiveResources");
+		attributeNames.add("resourceProbability");
+		attributeNames.add("durationModel");
+		attributeNames.add("minDuration");
+		attributeNames.add("maxDuration");
+		attributeNames.add("durationFixedFactor");
+		attributeNames.add("nrCumulativeResources");
+		attributeNames.add("minCumulDemand");
+		attributeNames.add("maxCumulDemand");
+		attributeNames.add("profilePieces");
+		attributeNames.add("minCumulCapacity");
+		attributeNames.add("maxCumulCapacity");
+		attributeNames.add("nrOrders");
+		attributeNames.add("minQty");
+		attributeNames.add("maxQty");
+		attributeNames.add("wipProbability");
+		attributeNames.add("minWip");
+		attributeNames.add("maxWip");
+		attributeNames.add("downtimeProbability");
+		attributeNames.add("minDowntime");
+		attributeNames.add("maxDowntime");
+		attributeNames.add("earliestDue");
+		attributeNames.add("horizonDays");
+		attributeNames.add("timeResolution");
+		attributeNames.add("seed");
+		choicesMap.put("DataGeneratorRun", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
 		attributeNames.add("classDesc");
 		attributeNames.add("item");
 		attributeNames.add("field");
@@ -62,6 +241,7 @@ public class PieChartController extends ChartController {
 		choicesMap.put("InputError", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
+		attributeNames.add("label");
 		attributeNames.add("timePointsAsDate");
 		attributeNames.add("nrProducts");
 		attributeNames.add("nrProcesses");
@@ -96,6 +276,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("name");
 		attributeNames.add("disjunctiveResource");
 		attributeNames.add("processStep");
+		attributeNames.add("value");
 		choicesMap.put("ResourceNeed", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
@@ -107,6 +288,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("name");
 		attributeNames.add("cumulativeResource");
 		attributeNames.add("from");
+		attributeNames.add("fromDate");
 		attributeNames.add("capacity");
 		choicesMap.put("CumulativeProfile", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -142,9 +324,12 @@ public class PieChartController extends ChartController {
 		attributeNames.add("name");
 		attributeNames.add("order");
 		attributeNames.add("process");
+		attributeNames.add("nr");
 		attributeNames.add("order.product");
 		attributeNames.add("order.release");
 		attributeNames.add("order.due");
+		attributeNames.add("order.releaseDate");
+		attributeNames.add("order.dueDate");
 		attributeNames.add("order.qty");
 		choicesMap.put("Job", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -154,8 +339,10 @@ public class PieChartController extends ChartController {
 		attributeNames.add("processStep");
 		attributeNames.add("duration");
 		attributeNames.add("stage");
+		attributeNames.add("nr");
 		attributeNames.add("machines");
 		attributeNames.add("precedes");
+		attributeNames.add("follows");
 		attributeNames.add("job.order");
 		attributeNames.add("job.order.product");
 		attributeNames.add("job.order.qty");
@@ -182,31 +369,6 @@ public class PieChartController extends ChartController {
 		choicesMap.put("Downtime", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
-		attributeNames.add("label");
-		attributeNames.add("description");
-		attributeNames.add("modelType");
-		attributeNames.add("solverBackend");
-		attributeNames.add("objectiveType");
-		attributeNames.add("enforceReleaseDate");
-		attributeNames.add("enforceDueDate");
-		attributeNames.add("enforceCumulative");
-		attributeNames.add("enforceWip");
-		attributeNames.add("enforceDowntime");
-		attributeNames.add("weightMakespan");
-		attributeNames.add("weightFlowtime");
-		attributeNames.add("weightEarliness");
-		attributeNames.add("weightLateness");
-		attributeNames.add("timeout");
-		attributeNames.add("nrThreads");
-		attributeNames.add("seed");
-		attributeNames.add("removeSolution");
-		attributeNames.add("produceReport");
-		attributeNames.add("producePDF");
-		attributeNames.add("solverStatus");
-		attributeNames.add("time");
-		choicesMap.put("SolverRun", attributeNames);
-		attributeNames = FXCollections.observableArrayList();
-		attributeNames.add("name");
 		attributeNames.add("solverRun");
 		attributeNames.add("objectiveValue");
 		attributeNames.add("solverStatus");
@@ -224,11 +386,23 @@ public class PieChartController extends ChartController {
 		attributeNames.add("weightedEarliness");
 		attributeNames.add("percentEarly");
 		attributeNames.add("percentLate");
+		attributeNames.add("duration");
+		attributeNames.add("start");
+		attributeNames.add("end");
+		attributeNames.add("startDate");
+		attributeNames.add("endDate");
 		attributeNames.add("solverRun.modelType");
 		attributeNames.add("solverRun.solverBackend");
 		attributeNames.add("solverRun.objectiveType");
 		attributeNames.add("solverRun.enforceReleaseDate");
 		attributeNames.add("solverRun.enforceDueDate");
+		attributeNames.add("solverRun.enforceCumulative");
+		attributeNames.add("solverRun.enforceWip");
+		attributeNames.add("solverRun.enforceDowntime");
+		attributeNames.add("solverRun.weightMakespan");
+		attributeNames.add("solverRun.weightFlowtime");
+		attributeNames.add("solverRun.weightEarliness");
+		attributeNames.add("solverRun.weightLateness");
 		attributeNames.add("solverRun.timeout");
 		attributeNames.add("solverRun.nrThreads");
 		attributeNames.add("solverRun.seed");
@@ -251,6 +425,8 @@ public class PieChartController extends ChartController {
 		attributeNames.add("job.process");
 		attributeNames.add("job.order.release");
 		attributeNames.add("job.order.due");
+		attributeNames.add("job.order.releaseDate");
+		attributeNames.add("job.order.dueDate");
 		attributeNames.add("job.order.qty");
 		choicesMap.put("JobAssignment", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -267,6 +443,8 @@ public class PieChartController extends ChartController {
 		attributeNames.add("task.job.order");
 		attributeNames.add("task.job.order.release");
 		attributeNames.add("task.job.order.due");
+		attributeNames.add("task.job.order.releaseDate");
+		attributeNames.add("task.job.order.dueDate");
 		attributeNames.add("task.job.order.product");
 		attributeNames.add("task.job.order.qty");
 		attributeNames.add("task.processStep");
@@ -292,6 +470,16 @@ public class PieChartController extends ChartController {
 		attributeNames.add("time");
 		attributeNames.add("gapPercent");
 		choicesMap.put("IntermediateSolution", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("solution");
+		attributeNames.add("classDesc");
+		attributeNames.add("item");
+		attributeNames.add("field");
+		attributeNames.add("value");
+		attributeNames.add("description");
+		attributeNames.add("severity");
+		choicesMap.put("SolutionError", attributeNames);
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -315,6 +503,24 @@ public class PieChartController extends ChartController {
 			}
 			else if (className.equals("ApplicationWarning")) {
 				objectList = mainApp.getApplicationWarningData();
+			}
+			else if (className.equals("AbstractSolverProperty")) {
+				objectList = mainApp.getAbstractSolverPropertyData();
+			}
+			else if (className.equals("SolverProperty")) {
+				objectList = mainApp.getSolverPropertyData();
+			}
+			else if (className.equals("SolverRun")) {
+				objectList = mainApp.getSolverRunData();
+			}
+			else if (className.equals("AbstractDataGeneratorProperty")) {
+				objectList = mainApp.getAbstractDataGeneratorPropertyData();
+			}
+			else if (className.equals("DataGeneratorProperty")) {
+				objectList = mainApp.getDataGeneratorPropertyData();
+			}
+			else if (className.equals("DataGeneratorRun")) {
+				objectList = mainApp.getDataGeneratorRunData();
 			}
 			else if (className.equals("InputError")) {
 				objectList = mainApp.getInputErrorData();
@@ -367,9 +573,6 @@ public class PieChartController extends ChartController {
 			else if (className.equals("Downtime")) {
 				objectList = mainApp.getDowntimeData();
 			}
-			else if (className.equals("SolverRun")) {
-				objectList = mainApp.getSolverRunData();
-			}
 			else if (className.equals("Solution")) {
 				objectList = mainApp.getSolutionData();
 			}
@@ -384,6 +587,9 @@ public class PieChartController extends ChartController {
 			}
 			else if (className.equals("IntermediateSolution")) {
 				objectList = mainApp.getIntermediateSolutionData();
+			}
+			else if (className.equals("SolutionError")) {
+				objectList = mainApp.getSolutionErrorData();
 			}
 			if (objectList != null) {
 				Map<String, Integer> countMap = new HashMap<String, Integer>();

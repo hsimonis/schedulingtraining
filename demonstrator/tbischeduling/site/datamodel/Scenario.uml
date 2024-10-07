@@ -1,9 +1,12 @@
  class Scenario {
 String dataFile
 Double dataFileVersionNumber
+DataGeneratorProperty dataGeneratorProperty
 Double ganttLineHeight
 Integer ganttLinesPerPage
 Integer ganttWidth
 Integer horizon
+SolverProperty solverProperty
+DateTime startDateTime
 Integer timeResolution
 }

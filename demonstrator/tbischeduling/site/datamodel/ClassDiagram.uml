@@ -20,6 +20,8 @@ List<String> getListOfClassNames()
 interface ApplicationObjectComperator{
 int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 }
+!include AbstractDataGeneratorProperty.uml
+!include AbstractSolverProperty.uml
 !include ApplicationDataset.uml
 !include ApplicationDifference.uml
 !include ApplicationObject.uml
@@ -27,6 +29,8 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include CumulativeNeed.uml
 !include CumulativeProfile.uml
 !include CumulativeResource.uml
+!include DataGeneratorProperty.uml
+!include DataGeneratorRun.uml
 !include DisjunctiveResource.uml
 !include Downtime.uml
 !include InputError.uml
@@ -44,6 +48,8 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include ResourceUtilization.uml
 !include Scenario.uml
 !include Solution.uml
+!include SolutionError.uml
+!include SolverProperty.uml
 !include SolverRun.uml
 !include Task.uml
 !include TaskAssignment.uml
@@ -62,10 +68,16 @@ ApplicationObjectInterface <|-- ApplicationObject
 ApplicationDatasetInterface <|-- ApplicationDataset
 ApplicationObjectInterface <|-- ApplicationDatasetInterface
 ApplicationDataset <|-- Scenario
+AbstractSolverProperty <|-- SolverProperty
+AbstractSolverProperty <|-- SolverRun
+AbstractDataGeneratorProperty <|-- DataGeneratorProperty
+AbstractDataGeneratorProperty <|-- DataGeneratorRun
 ResourceActivity <|-- WiP
 ResourceActivity <|-- Downtime
 ResourceActivity <|-- TaskAssignment
 ApplicationDataset  *-- ApplicationObject 
+SolverProperty  *-- Scenario 
+DataGeneratorProperty  *-- Scenario 
 Process  *-- Product : defaultProcess
 Process  *-- ProcessStep 
 ProcessStep  *-- ProcessSequence : before
@@ -84,6 +96,7 @@ Job  *-- Task
 ProcessStep  *-- Task 
 DisjunctiveResource "1..*" *-- Task : machines
 Task "0..*" *-- Task : precedes
+Task "0..*" *-- Task : follows
 SolverRun  *-- Solution 
 Solution  *-- JobAssignment 
 Job  *-- JobAssignment 
@@ -92,6 +105,7 @@ JobAssignment  *-- TaskAssignment
 DisjunctiveResource  *-- ResourceUtilization 
 Solution  *-- ResourceUtilization 
 SolverRun  *-- IntermediateSolution 
+Solution  *-- SolutionError 
 header
 Datamodel of Application tbischeduling
 endheader

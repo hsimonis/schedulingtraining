@@ -5,6 +5,12 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -22,12 +28,12 @@ import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
-import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
+import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -53,128 +59,7 @@ import framework.AppearInCollection;
  * @author generated
 */
 
-public  class SolverRun extends ApplicationObject{
-/**
- *  
- *
-*/
-
-    public String description;
-
-/**
- *  
- *
-*/
-
-    public Boolean enforceCumulative;
-
-    private transient BooleanProperty enforceCumulativeWrapper;
-
-/**
- *  
- *
-*/
-
-    public Boolean enforceDowntime;
-
-    private transient BooleanProperty enforceDowntimeWrapper;
-
-/**
- *  
- *
-*/
-
-    public Boolean enforceDueDate;
-
-    private transient BooleanProperty enforceDueDateWrapper;
-
-/**
- *  
- *
-*/
-
-    public Boolean enforceReleaseDate;
-
-    private transient BooleanProperty enforceReleaseDateWrapper;
-
-/**
- *  
- *
-*/
-
-    public Boolean enforceWip;
-
-    private transient BooleanProperty enforceWipWrapper;
-
-/**
- *  
- *
-*/
-
-    public String label;
-
-/**
- *  
- *
-*/
-
-    public ModelType modelType;
-
-/**
- *  
- *
-*/
-
-    public Integer nrThreads;
-
-/**
- *  
- *
-*/
-
-    public ObjectiveType objectiveType;
-
-/**
- *  
- *
-*/
-
-    public Boolean producePDF;
-
-    private transient BooleanProperty producePDFWrapper;
-
-/**
- *  
- *
-*/
-
-    public Boolean produceReport;
-
-    private transient BooleanProperty produceReportWrapper;
-
-/**
- *  
- *
-*/
-
-    public Boolean removeSolution;
-
-    private transient BooleanProperty removeSolutionWrapper;
-
-/**
- *  
- *
-*/
-
-    public Integer seed;
-
-/**
- *  
- *
-*/
-
-    public SolverBackend solverBackend;
-
+public  class SolverRun extends AbstractSolverProperty{
 /**
  *  
  *
@@ -188,41 +73,6 @@ public  class SolverRun extends ApplicationObject{
 */
 
     public Double time;
-
-/**
- *  
- *
-*/
-
-    public Integer timeout;
-
-/**
- *  
- *
-*/
-
-    public Integer weightEarliness;
-
-/**
- *  
- *
-*/
-
-    public Integer weightFlowtime;
-
-/**
- *  
- *
-*/
-
-    public Integer weightLateness;
-
-/**
- *  
- *
-*/
-
-    public Integer weightMakespan;
 
 /**
  *  No-arg constructor for use in TableView
@@ -243,28 +93,8 @@ public  class SolverRun extends ApplicationObject{
 
     public SolverRun(ApplicationDataset applicationDataset){
         super(applicationDataset);
-        setDescription("");
-        setEnforceCumulative(true);
-        setEnforceDowntime(true);
-        setEnforceDueDate(true);
-        setEnforceReleaseDate(true);
-        setEnforceWip(true);
-        setLabel("");
-        setModelType(null);
-        setNrThreads(0);
-        setObjectiveType(null);
-        setProducePDF(true);
-        setProduceReport(true);
-        setRemoveSolution(true);
-        setSeed(0);
-        setSolverBackend(null);
         setSolverStatus(null);
         setTime(0.0);
-        setTimeout(0);
-        setWeightEarliness(0);
-        setWeightFlowtime(0);
-        setWeightLateness(0);
-        setWeightMakespan(0);
         applicationDataset.addSolverRun(this);
     }
 
@@ -293,38 +123,40 @@ public  class SolverRun extends ApplicationObject{
             Boolean removeSolution,
             Integer seed,
             SolverBackend solverBackend,
-            SolverStatus solverStatus,
-            Double time,
+            DateTime startDateTime,
             Integer timeout,
             Integer weightEarliness,
             Integer weightFlowtime,
             Integer weightLateness,
-            Integer weightMakespan){
+            Integer weightMakespan,
+            SolverStatus solverStatus,
+            Double time){
         super(applicationDataset,
             id,
-            name);
-        setDescription(description);
-        setEnforceCumulative(enforceCumulative);
-        setEnforceDowntime(enforceDowntime);
-        setEnforceDueDate(enforceDueDate);
-        setEnforceReleaseDate(enforceReleaseDate);
-        setEnforceWip(enforceWip);
-        setLabel(label);
-        setModelType(modelType);
-        setNrThreads(nrThreads);
-        setObjectiveType(objectiveType);
-        setProducePDF(producePDF);
-        setProduceReport(produceReport);
-        setRemoveSolution(removeSolution);
-        setSeed(seed);
-        setSolverBackend(solverBackend);
+            name,
+            description,
+            enforceCumulative,
+            enforceDowntime,
+            enforceDueDate,
+            enforceReleaseDate,
+            enforceWip,
+            label,
+            modelType,
+            nrThreads,
+            objectiveType,
+            producePDF,
+            produceReport,
+            removeSolution,
+            seed,
+            solverBackend,
+            startDateTime,
+            timeout,
+            weightEarliness,
+            weightFlowtime,
+            weightLateness,
+            weightMakespan);
         setSolverStatus(solverStatus);
         setTime(time);
-        setTimeout(timeout);
-        setWeightEarliness(weightEarliness);
-        setWeightFlowtime(weightFlowtime);
-        setWeightLateness(weightLateness);
-        setWeightMakespan(weightMakespan);
         applicationDataset.addSolverRun(this);
     }
 
@@ -347,13 +179,14 @@ public  class SolverRun extends ApplicationObject{
             other.removeSolution,
             other.seed,
             other.solverBackend,
-            other.solverStatus,
-            other.time,
+            other.startDateTime,
             other.timeout,
             other.weightEarliness,
             other.weightFlowtime,
             other.weightLateness,
-            other.weightMakespan);
+            other.weightMakespan,
+            other.solverStatus,
+            other.time);
     }
 
 /**
@@ -366,221 +199,7 @@ public  class SolverRun extends ApplicationObject{
     public Boolean remove(){
         getApplicationDataset().cascadeSolutionSolverRun(this);
         getApplicationDataset().cascadeIntermediateSolutionSolverRun(this);
-        return getApplicationDataset().removeSolverRun(this) && getApplicationDataset().removeApplicationObject(this);
-    }
-
-/**
- *  get attribute description
- *
- * @return String
-*/
-
-    public String getDescription(){
-        return this.description;
-    }
-
-/**
- *  get attribute enforceCumulative
- *
- * @return Boolean
-*/
-
-    public Boolean getEnforceCumulative(){
-        return this.enforceCumulative;
-    }
-
-    public BooleanProperty enforceCumulativeWrapperProperty() {
-        if (enforceCumulativeWrapper == null) {
-            enforceCumulativeWrapper = new SimpleBooleanProperty();
-        }
-        enforceCumulativeWrapper.set(enforceCumulative);
-        return enforceCumulativeWrapper;
-    }
-
-/**
- *  get attribute enforceDowntime
- *
- * @return Boolean
-*/
-
-    public Boolean getEnforceDowntime(){
-        return this.enforceDowntime;
-    }
-
-    public BooleanProperty enforceDowntimeWrapperProperty() {
-        if (enforceDowntimeWrapper == null) {
-            enforceDowntimeWrapper = new SimpleBooleanProperty();
-        }
-        enforceDowntimeWrapper.set(enforceDowntime);
-        return enforceDowntimeWrapper;
-    }
-
-/**
- *  get attribute enforceDueDate
- *
- * @return Boolean
-*/
-
-    public Boolean getEnforceDueDate(){
-        return this.enforceDueDate;
-    }
-
-    public BooleanProperty enforceDueDateWrapperProperty() {
-        if (enforceDueDateWrapper == null) {
-            enforceDueDateWrapper = new SimpleBooleanProperty();
-        }
-        enforceDueDateWrapper.set(enforceDueDate);
-        return enforceDueDateWrapper;
-    }
-
-/**
- *  get attribute enforceReleaseDate
- *
- * @return Boolean
-*/
-
-    public Boolean getEnforceReleaseDate(){
-        return this.enforceReleaseDate;
-    }
-
-    public BooleanProperty enforceReleaseDateWrapperProperty() {
-        if (enforceReleaseDateWrapper == null) {
-            enforceReleaseDateWrapper = new SimpleBooleanProperty();
-        }
-        enforceReleaseDateWrapper.set(enforceReleaseDate);
-        return enforceReleaseDateWrapper;
-    }
-
-/**
- *  get attribute enforceWip
- *
- * @return Boolean
-*/
-
-    public Boolean getEnforceWip(){
-        return this.enforceWip;
-    }
-
-    public BooleanProperty enforceWipWrapperProperty() {
-        if (enforceWipWrapper == null) {
-            enforceWipWrapper = new SimpleBooleanProperty();
-        }
-        enforceWipWrapper.set(enforceWip);
-        return enforceWipWrapper;
-    }
-
-/**
- *  get attribute label
- *
- * @return String
-*/
-
-    public String getLabel(){
-        return this.label;
-    }
-
-/**
- *  get attribute modelType
- *
- * @return ModelType
-*/
-
-    public ModelType getModelType(){
-        return this.modelType;
-    }
-
-/**
- *  get attribute nrThreads
- *
- * @return Integer
-*/
-
-    public Integer getNrThreads(){
-        return this.nrThreads;
-    }
-
-/**
- *  get attribute objectiveType
- *
- * @return ObjectiveType
-*/
-
-    public ObjectiveType getObjectiveType(){
-        return this.objectiveType;
-    }
-
-/**
- *  get attribute producePDF
- *
- * @return Boolean
-*/
-
-    public Boolean getProducePDF(){
-        return this.producePDF;
-    }
-
-    public BooleanProperty producePDFWrapperProperty() {
-        if (producePDFWrapper == null) {
-            producePDFWrapper = new SimpleBooleanProperty();
-        }
-        producePDFWrapper.set(producePDF);
-        return producePDFWrapper;
-    }
-
-/**
- *  get attribute produceReport
- *
- * @return Boolean
-*/
-
-    public Boolean getProduceReport(){
-        return this.produceReport;
-    }
-
-    public BooleanProperty produceReportWrapperProperty() {
-        if (produceReportWrapper == null) {
-            produceReportWrapper = new SimpleBooleanProperty();
-        }
-        produceReportWrapper.set(produceReport);
-        return produceReportWrapper;
-    }
-
-/**
- *  get attribute removeSolution
- *
- * @return Boolean
-*/
-
-    public Boolean getRemoveSolution(){
-        return this.removeSolution;
-    }
-
-    public BooleanProperty removeSolutionWrapperProperty() {
-        if (removeSolutionWrapper == null) {
-            removeSolutionWrapper = new SimpleBooleanProperty();
-        }
-        removeSolutionWrapper.set(removeSolution);
-        return removeSolutionWrapper;
-    }
-
-/**
- *  get attribute seed
- *
- * @return Integer
-*/
-
-    public Integer getSeed(){
-        return this.seed;
-    }
-
-/**
- *  get attribute solverBackend
- *
- * @return SolverBackend
-*/
-
-    public SolverBackend getSolverBackend(){
-        return this.solverBackend;
+        return getApplicationDataset().removeSolverRun(this) && getApplicationDataset().removeAbstractSolverProperty(this) && getApplicationDataset().removeApplicationObject(this);
     }
 
 /**
@@ -601,236 +220,6 @@ public  class SolverRun extends ApplicationObject{
 
     public Double getTime(){
         return this.time;
-    }
-
-/**
- *  get attribute timeout
- *
- * @return Integer
-*/
-
-    public Integer getTimeout(){
-        return this.timeout;
-    }
-
-/**
- *  get attribute weightEarliness
- *
- * @return Integer
-*/
-
-    public Integer getWeightEarliness(){
-        return this.weightEarliness;
-    }
-
-/**
- *  get attribute weightFlowtime
- *
- * @return Integer
-*/
-
-    public Integer getWeightFlowtime(){
-        return this.weightFlowtime;
-    }
-
-/**
- *  get attribute weightLateness
- *
- * @return Integer
-*/
-
-    public Integer getWeightLateness(){
-        return this.weightLateness;
-    }
-
-/**
- *  get attribute weightMakespan
- *
- * @return Integer
-*/
-
-    public Integer getWeightMakespan(){
-        return this.weightMakespan;
-    }
-
-/**
- *  set attribute description, mark dataset as dirty, mark dataset as not valid
-@param description String
- *
-*/
-
-    public void setDescription(String description){
-        this.description = description;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute enforceCumulative, mark dataset as dirty, mark dataset as not valid
-@param enforceCumulative Boolean
- *
-*/
-
-    public void setEnforceCumulative(Boolean enforceCumulative){
-        this.enforceCumulative = enforceCumulative;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute enforceDowntime, mark dataset as dirty, mark dataset as not valid
-@param enforceDowntime Boolean
- *
-*/
-
-    public void setEnforceDowntime(Boolean enforceDowntime){
-        this.enforceDowntime = enforceDowntime;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute enforceDueDate, mark dataset as dirty, mark dataset as not valid
-@param enforceDueDate Boolean
- *
-*/
-
-    public void setEnforceDueDate(Boolean enforceDueDate){
-        this.enforceDueDate = enforceDueDate;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute enforceReleaseDate, mark dataset as dirty, mark dataset as not valid
-@param enforceReleaseDate Boolean
- *
-*/
-
-    public void setEnforceReleaseDate(Boolean enforceReleaseDate){
-        this.enforceReleaseDate = enforceReleaseDate;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute enforceWip, mark dataset as dirty, mark dataset as not valid
-@param enforceWip Boolean
- *
-*/
-
-    public void setEnforceWip(Boolean enforceWip){
-        this.enforceWip = enforceWip;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute label, mark dataset as dirty, mark dataset as not valid
-@param label String
- *
-*/
-
-    public void setLabel(String label){
-        this.label = label;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute modelType, mark dataset as dirty, mark dataset as not valid
-@param modelType ModelType
- *
-*/
-
-    public void setModelType(ModelType modelType){
-        this.modelType = modelType;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute nrThreads, mark dataset as dirty, mark dataset as not valid
-@param nrThreads Integer
- *
-*/
-
-    public void setNrThreads(Integer nrThreads){
-        this.nrThreads = nrThreads;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute objectiveType, mark dataset as dirty, mark dataset as not valid
-@param objectiveType ObjectiveType
- *
-*/
-
-    public void setObjectiveType(ObjectiveType objectiveType){
-        this.objectiveType = objectiveType;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute producePDF, mark dataset as dirty, mark dataset as not valid
-@param producePDF Boolean
- *
-*/
-
-    public void setProducePDF(Boolean producePDF){
-        this.producePDF = producePDF;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute produceReport, mark dataset as dirty, mark dataset as not valid
-@param produceReport Boolean
- *
-*/
-
-    public void setProduceReport(Boolean produceReport){
-        this.produceReport = produceReport;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute removeSolution, mark dataset as dirty, mark dataset as not valid
-@param removeSolution Boolean
- *
-*/
-
-    public void setRemoveSolution(Boolean removeSolution){
-        this.removeSolution = removeSolution;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute seed, mark dataset as dirty, mark dataset as not valid
-@param seed Integer
- *
-*/
-
-    public void setSeed(Integer seed){
-        this.seed = seed;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute solverBackend, mark dataset as dirty, mark dataset as not valid
-@param solverBackend SolverBackend
- *
-*/
-
-    public void setSolverBackend(SolverBackend solverBackend){
-        this.solverBackend = solverBackend;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -858,143 +247,6 @@ public  class SolverRun extends ApplicationObject{
     }
 
 /**
- *  set attribute timeout, mark dataset as dirty, mark dataset as not valid
-@param timeout Integer
- *
-*/
-
-    public void setTimeout(Integer timeout){
-        this.timeout = timeout;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute weightEarliness, mark dataset as dirty, mark dataset as not valid
-@param weightEarliness Integer
- *
-*/
-
-    public void setWeightEarliness(Integer weightEarliness){
-        this.weightEarliness = weightEarliness;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute weightFlowtime, mark dataset as dirty, mark dataset as not valid
-@param weightFlowtime Integer
- *
-*/
-
-    public void setWeightFlowtime(Integer weightFlowtime){
-        this.weightFlowtime = weightFlowtime;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute weightLateness, mark dataset as dirty, mark dataset as not valid
-@param weightLateness Integer
- *
-*/
-
-    public void setWeightLateness(Integer weightLateness){
-        this.weightLateness = weightLateness;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  set attribute weightMakespan, mark dataset as dirty, mark dataset as not valid
-@param weightMakespan Integer
- *
-*/
-
-    public void setWeightMakespan(Integer weightMakespan){
-        this.weightMakespan = weightMakespan;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute nrThreads, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incNrThreads(){
-        this.nrThreads++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute seed, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incSeed(){
-        this.seed++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute timeout, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incTimeout(){
-        this.timeout++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute weightEarliness, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incWeightEarliness(){
-        this.weightEarliness++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute weightFlowtime, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incWeightFlowtime(){
-        this.weightFlowtime++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute weightLateness, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incWeightLateness(){
-        this.weightLateness++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
- *  inc attribute weightMakespan, mark dataset as dirty, mark dataset as not valid
- *
-*/
-
-    public void incWeightMakespan(){
-        this.weightMakespan++;
-        getApplicationDataset().setDirty(true);
-        getApplicationDataset().setValid(false);
-    }
-
-/**
  *  override generic toString() method, show all attributes in human readable form
  * @return String details of the format are not clearly defined at the moment
 */
@@ -1011,7 +263,7 @@ public  class SolverRun extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getSolverStatus()+ " " +getTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getStartDateTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan()+ " " +getSolverStatus()+ " " +getTime();
     }
 
 /**
@@ -1050,164 +302,15 @@ public  class SolverRun extends ApplicationObject{
             " removeSolution=\""+toXMLRemoveSolution()+"\""+
             " seed=\""+toXMLSeed()+"\""+
             " solverBackend=\""+toXMLSolverBackend()+"\""+
-            " solverStatus=\""+toXMLSolverStatus()+"\""+
-            " time=\""+toXMLTime()+"\""+
+            " startDateTime=\""+toXMLStartDateTime()+"\""+
             " timeout=\""+toXMLTimeout()+"\""+
             " weightEarliness=\""+toXMLWeightEarliness()+"\""+
             " weightFlowtime=\""+toXMLWeightFlowtime()+"\""+
             " weightLateness=\""+toXMLWeightLateness()+"\""+
-            " weightMakespan=\""+toXMLWeightMakespan()+"\""+" />");
+            " weightMakespan=\""+toXMLWeightMakespan()+"\""+
+            " solverStatus=\""+toXMLSolverStatus()+"\""+
+            " time=\""+toXMLTime()+"\""+" />");
      }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLDescription(){
-        return this.safeXML(getDescription());
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLEnforceCumulative(){
-        return this.getEnforceCumulative().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLEnforceDowntime(){
-        return this.getEnforceDowntime().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLEnforceDueDate(){
-        return this.getEnforceDueDate().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLEnforceReleaseDate(){
-        return this.getEnforceReleaseDate().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLEnforceWip(){
-        return this.getEnforceWip().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLLabel(){
-        return this.safeXML(getLabel());
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLModelType(){
-        return this.getModelType().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLNrThreads(){
-        return this.getNrThreads().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLObjectiveType(){
-        return this.getObjectiveType().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLProducePDF(){
-        return this.getProducePDF().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLProduceReport(){
-        return this.getProduceReport().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLRemoveSolution(){
-        return this.getRemoveSolution().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLSeed(){
-        return this.getSeed().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLSolverBackend(){
-        return this.getSolverBackend().toString();
-    }
 
 /**
  * helper method for toXML(), prcess one attribute
@@ -1230,67 +333,17 @@ public  class SolverRun extends ApplicationObject{
     }
 
 /**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLTimeout(){
-        return this.getTimeout().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLWeightEarliness(){
-        return this.getWeightEarliness().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLWeightFlowtime(){
-        return this.getWeightFlowtime().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLWeightLateness(){
-        return this.getWeightLateness().toString();
-    }
-
-/**
- * helper method for toXML(), prcess one attribute
- * probably useless on its own
- * @return String
-*/
-
-    String toXMLWeightMakespan(){
-        return this.getWeightMakespan().toString();
-    }
-
-/**
  * show object as one row in an HTML table
  * 
  * @return String of form <tr>...</tr>
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>SolverRun</th>"+"<th>Name</th>"+"<th>Label</th>"+"<th>Description</th>"+"<th>ModelType</th>"+"<th>SolverBackend</th>"+"<th>ObjectiveType</th>"+"<th>EnforceReleaseDate</th>"+"<th>EnforceDueDate</th>"+"<th>EnforceCumulative</th>"+"<th>EnforceWip</th>"+"<th>EnforceDowntime</th>"+"<th>WeightMakespan</th>"+"<th>WeightFlowtime</th>"+"<th>WeightEarliness</th>"+"<th>WeightLateness</th>"+"<th>Timeout</th>"+"<th>NrThreads</th>"+"<th>Seed</th>"+"<th>RemoveSolution</th>"+"<th>ProduceReport</th>"+"<th>ProducePDF</th>"+"<th>SolverStatus</th>"+"<th>Time</th>"+"</tr>";
+        return "<tr><th>SolverRun</th>"+"<th>Name</th>"+"<th>Label</th>"+"<th>Description</th>"+"<th>StartDateTime</th>"+"<th>EnforceReleaseDate</th>"+"<th>EnforceDueDate</th>"+"<th>EnforceCumulative</th>"+"<th>EnforceWip</th>"+"<th>EnforceDowntime</th>"+"<th>ModelType</th>"+"<th>SolverBackend</th>"+"<th>ObjectiveType</th>"+"<th>WeightMakespan</th>"+"<th>WeightFlowtime</th>"+"<th>WeightLateness</th>"+"<th>WeightEarliness</th>"+"<th>Timeout</th>"+"<th>NrThreads</th>"+"<th>Seed</th>"+"<th>RemoveSolution</th>"+"<th>ProduceReport</th>"+"<th>ProducePDF</th>"+"<th>SolverStatus</th>"+"<th>Time</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getLabel()+"</td>"+ " " +"<td>"+getDescription()+"</td>"+ " " +"<td>"+getModelType()+"</td>"+ " " +"<td>"+getSolverBackend()+"</td>"+ " " +"<td>"+getObjectiveType()+"</td>"+ " " +"<td>"+getEnforceReleaseDate()+"</td>"+ " " +"<td>"+getEnforceDueDate()+"</td>"+ " " +"<td>"+getEnforceCumulative()+"</td>"+ " " +"<td>"+getEnforceWip()+"</td>"+ " " +"<td>"+getEnforceDowntime()+"</td>"+ " " +"<td>"+getWeightMakespan()+"</td>"+ " " +"<td>"+getWeightFlowtime()+"</td>"+ " " +"<td>"+getWeightEarliness()+"</td>"+ " " +"<td>"+getWeightLateness()+"</td>"+ " " +"<td>"+getTimeout()+"</td>"+ " " +"<td>"+getNrThreads()+"</td>"+ " " +"<td>"+getSeed()+"</td>"+ " " +"<td>"+getRemoveSolution()+"</td>"+ " " +"<td>"+getProduceReport()+"</td>"+ " " +"<td>"+getProducePDF()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getTime()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getLabel()+"</td>"+ " " +"<td>"+getDescription()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getEnforceReleaseDate()+"</td>"+ " " +"<td>"+getEnforceDueDate()+"</td>"+ " " +"<td>"+getEnforceCumulative()+"</td>"+ " " +"<td>"+getEnforceWip()+"</td>"+ " " +"<td>"+getEnforceDowntime()+"</td>"+ " " +"<td>"+getModelType()+"</td>"+ " " +"<td>"+getSolverBackend()+"</td>"+ " " +"<td>"+getObjectiveType()+"</td>"+ " " +"<td>"+getWeightMakespan()+"</td>"+ " " +"<td>"+getWeightFlowtime()+"</td>"+ " " +"<td>"+getWeightLateness()+"</td>"+ " " +"<td>"+getWeightEarliness()+"</td>"+ " " +"<td>"+getTimeout()+"</td>"+ " " +"<td>"+getNrThreads()+"</td>"+ " " +"<td>"+getSeed()+"</td>"+ " " +"<td>"+getRemoveSolution()+"</td>"+ " " +"<td>"+getProduceReport()+"</td>"+ " " +"<td>"+getProducePDF()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getTime()+"</td>"+"</tr>";
     }
 
 /**
@@ -1458,6 +511,9 @@ public  class SolverRun extends ApplicationObject{
       if(!this.getSolverStatus().equals(b.getSolverStatus())){
          System.out.println("SolverStatus");
         }
+      if(!this.getStartDateTime().applicationEqual(b.getStartDateTime())){
+         System.out.println("StartDateTime");
+        }
       if(!this.getTime().equals(b.getTime())){
          System.out.println("Time");
         }
@@ -1493,6 +549,7 @@ public  class SolverRun extends ApplicationObject{
           this.getSeed().equals(b.getSeed()) &&
           this.getSolverBackend().equals(b.getSolverBackend()) &&
           this.getSolverStatus().equals(b.getSolverStatus()) &&
+          this.getStartDateTime().applicationEqual(b.getStartDateTime()) &&
           this.getTime().equals(b.getTime()) &&
           this.getTimeout().equals(b.getTimeout()) &&
           this.getWeightEarliness().equals(b.getWeightEarliness()) &&

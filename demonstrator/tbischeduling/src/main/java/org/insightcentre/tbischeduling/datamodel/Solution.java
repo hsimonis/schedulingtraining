@@ -5,6 +5,12 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -22,12 +28,12 @@ import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
-import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
+import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -53,13 +59,34 @@ import framework.AppearInCollection;
  * @author generated
 */
 
-public  class Solution extends ApplicationObject{
+public  class Solution extends ApplicationObject implements SolutionHierarchy{
 /**
  *  
  *
 */
 
     public Double bound;
+
+/**
+ *  
+ *
+*/
+
+    public Integer duration;
+
+/**
+ *  
+ *
+*/
+
+    public Integer end;
+
+/**
+ *  
+ *
+*/
+
+    public DateTime endDate;
 
 /**
  *  
@@ -150,6 +177,20 @@ public  class Solution extends ApplicationObject{
  *
 */
 
+    public Integer start;
+
+/**
+ *  
+ *
+*/
+
+    public DateTime startDate;
+
+/**
+ *  
+ *
+*/
+
     public Integer totalEarliness;
 
 /**
@@ -193,6 +234,9 @@ public  class Solution extends ApplicationObject{
     public Solution(ApplicationDataset applicationDataset){
         super(applicationDataset);
         setBound(0.0);
+        setDuration(0);
+        setEnd(0);
+        setEndDate(new DateTime());
         setFlowtime(0);
         setGap(0.0);
         setMakespan(0);
@@ -205,6 +249,8 @@ public  class Solution extends ApplicationObject{
         setPercentLate(0.0);
         setSolverRun(null);
         setSolverStatus(null);
+        setStart(0);
+        setStartDate(new DateTime());
         setTotalEarliness(0);
         setTotalLateness(0);
         setWeightedEarliness(0.0);
@@ -223,6 +269,9 @@ public  class Solution extends ApplicationObject{
             Integer id,
             String name,
             Double bound,
+            Integer duration,
+            Integer end,
+            DateTime endDate,
             Integer flowtime,
             Double gap,
             Integer makespan,
@@ -235,6 +284,8 @@ public  class Solution extends ApplicationObject{
             Double percentLate,
             SolverRun solverRun,
             SolverStatus solverStatus,
+            Integer start,
+            DateTime startDate,
             Integer totalEarliness,
             Integer totalLateness,
             Double weightedEarliness,
@@ -243,6 +294,9 @@ public  class Solution extends ApplicationObject{
             id,
             name);
         setBound(bound);
+        setDuration(duration);
+        setEnd(end);
+        setEndDate(endDate);
         setFlowtime(flowtime);
         setGap(gap);
         setMakespan(makespan);
@@ -255,6 +309,8 @@ public  class Solution extends ApplicationObject{
         setPercentLate(percentLate);
         setSolverRun(solverRun);
         setSolverStatus(solverStatus);
+        setStart(start);
+        setStartDate(startDate);
         setTotalEarliness(totalEarliness);
         setTotalLateness(totalLateness);
         setWeightedEarliness(weightedEarliness);
@@ -267,6 +323,9 @@ public  class Solution extends ApplicationObject{
             other.id,
             other.name,
             other.bound,
+            other.duration,
+            other.end,
+            other.endDate,
             other.flowtime,
             other.gap,
             other.makespan,
@@ -279,6 +338,8 @@ public  class Solution extends ApplicationObject{
             other.percentLate,
             other.solverRun,
             other.solverStatus,
+            other.start,
+            other.startDate,
             other.totalEarliness,
             other.totalLateness,
             other.weightedEarliness,
@@ -295,6 +356,7 @@ public  class Solution extends ApplicationObject{
     public Boolean remove(){
         getApplicationDataset().cascadeJobAssignmentSolution(this);
         getApplicationDataset().cascadeResourceUtilizationSolution(this);
+        getApplicationDataset().cascadeSolutionErrorSolution(this);
         return getApplicationDataset().removeSolution(this) && getApplicationDataset().removeApplicationObject(this);
     }
 
@@ -306,6 +368,36 @@ public  class Solution extends ApplicationObject{
 
     public Double getBound(){
         return this.bound;
+    }
+
+/**
+ *  get attribute duration
+ *
+ * @return Integer
+*/
+
+    public Integer getDuration(){
+        return this.duration;
+    }
+
+/**
+ *  get attribute end
+ *
+ * @return Integer
+*/
+
+    public Integer getEnd(){
+        return this.end;
+    }
+
+/**
+ *  get attribute endDate
+ *
+ * @return DateTime
+*/
+
+    public DateTime getEndDate(){
+        return this.endDate;
     }
 
 /**
@@ -429,6 +521,26 @@ public  class Solution extends ApplicationObject{
     }
 
 /**
+ *  get attribute start
+ *
+ * @return Integer
+*/
+
+    public Integer getStart(){
+        return this.start;
+    }
+
+/**
+ *  get attribute startDate
+ *
+ * @return DateTime
+*/
+
+    public DateTime getStartDate(){
+        return this.startDate;
+    }
+
+/**
  *  get attribute totalEarliness
  *
  * @return Integer
@@ -476,6 +588,42 @@ public  class Solution extends ApplicationObject{
 
     public void setBound(Double bound){
         this.bound = bound;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute duration, mark dataset as dirty, mark dataset as not valid
+@param duration Integer
+ *
+*/
+
+    public void setDuration(Integer duration){
+        this.duration = duration;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute end, mark dataset as dirty, mark dataset as not valid
+@param end Integer
+ *
+*/
+
+    public void setEnd(Integer end){
+        this.end = end;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute endDate, mark dataset as dirty, mark dataset as not valid
+@param endDate DateTime
+ *
+*/
+
+    public void setEndDate(DateTime endDate){
+        this.endDate = endDate;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -625,6 +773,30 @@ public  class Solution extends ApplicationObject{
     }
 
 /**
+ *  set attribute start, mark dataset as dirty, mark dataset as not valid
+@param start Integer
+ *
+*/
+
+    public void setStart(Integer start){
+        this.start = start;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute startDate, mark dataset as dirty, mark dataset as not valid
+@param startDate DateTime
+ *
+*/
+
+    public void setStartDate(DateTime startDate){
+        this.startDate = startDate;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute totalEarliness, mark dataset as dirty, mark dataset as not valid
 @param totalEarliness Integer
  *
@@ -668,6 +840,28 @@ public  class Solution extends ApplicationObject{
 
     public void setWeightedLateness(Double weightedLateness){
         this.weightedLateness = weightedLateness;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute duration, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incDuration(){
+        this.duration++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute end, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incEnd(){
+        this.end++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -750,6 +944,17 @@ public  class Solution extends ApplicationObject{
     }
 
 /**
+ *  inc attribute start, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incStart(){
+        this.start++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute totalEarliness, mark dataset as dirty, mark dataset as not valid
  *
 */
@@ -788,7 +993,7 @@ public  class Solution extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getFlowtime()+ " " +getGap()+ " " +getMakespan()+ " " +getMaxEarliness()+ " " +getMaxLateness()+ " " +getNrEarly()+ " " +getNrLate()+ " " +getObjectiveValue()+ " " +getPercentEarly()+ " " +getPercentLate()+ " " +getSolverRun().toColumnString()+ " " +getSolverStatus()+ " " +getTotalEarliness()+ " " +getTotalLateness()+ " " +getWeightedEarliness()+ " " +getWeightedLateness();
+        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getFlowtime()+ " " +getGap()+ " " +getMakespan()+ " " +getMaxEarliness()+ " " +getMaxLateness()+ " " +getNrEarly()+ " " +getNrLate()+ " " +getObjectiveValue()+ " " +getPercentEarly()+ " " +getPercentLate()+ " " +getSolverRun().toColumnString()+ " " +getSolverStatus()+ " " +getStart()+ " " +getStartDate()+ " " +getTotalEarliness()+ " " +getTotalLateness()+ " " +getWeightedEarliness()+ " " +getWeightedLateness();
     }
 
 /**
@@ -813,6 +1018,9 @@ public  class Solution extends ApplicationObject{
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
             " bound=\""+toXMLBound()+"\""+
+            " duration=\""+toXMLDuration()+"\""+
+            " end=\""+toXMLEnd()+"\""+
+            " endDate=\""+toXMLEndDate()+"\""+
             " flowtime=\""+toXMLFlowtime()+"\""+
             " gap=\""+toXMLGap()+"\""+
             " makespan=\""+toXMLMakespan()+"\""+
@@ -825,6 +1033,8 @@ public  class Solution extends ApplicationObject{
             " percentLate=\""+toXMLPercentLate()+"\""+
             " solverRun=\""+toXMLSolverRun()+"\""+
             " solverStatus=\""+toXMLSolverStatus()+"\""+
+            " start=\""+toXMLStart()+"\""+
+            " startDate=\""+toXMLStartDate()+"\""+
             " totalEarliness=\""+toXMLTotalEarliness()+"\""+
             " totalLateness=\""+toXMLTotalLateness()+"\""+
             " weightedEarliness=\""+toXMLWeightedEarliness()+"\""+
@@ -839,6 +1049,36 @@ public  class Solution extends ApplicationObject{
 
     String toXMLBound(){
         return this.getBound().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLDuration(){
+        return this.getDuration().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLEnd(){
+        return this.getEnd().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLEndDate(){
+        return this.getEndDate().toXML();
     }
 
 /**
@@ -967,6 +1207,26 @@ public  class Solution extends ApplicationObject{
  * @return String
 */
 
+    String toXMLStart(){
+        return this.getStart().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLStartDate(){
+        return this.getStartDate().toXML();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLTotalEarliness(){
         return this.getTotalEarliness().toString();
     }
@@ -1008,11 +1268,11 @@ public  class Solution extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Solution</th>"+"<th>Name</th>"+"<th>SolverRun</th>"+"<th>ObjectiveValue</th>"+"<th>SolverStatus</th>"+"<th>Bound</th>"+"<th>Gap</th>"+"<th>Makespan</th>"+"<th>Flowtime</th>"+"<th>TotalLateness</th>"+"<th>MaxLateness</th>"+"<th>NrLate</th>"+"<th>WeightedLateness</th>"+"<th>TotalEarliness</th>"+"<th>MaxEarliness</th>"+"<th>NrEarly</th>"+"<th>WeightedEarliness</th>"+"<th>PercentEarly</th>"+"<th>PercentLate</th>"+"</tr>";
+        return "<tr><th>Solution</th>"+"<th>Name</th>"+"<th>SolverRun</th>"+"<th>ObjectiveValue</th>"+"<th>SolverStatus</th>"+"<th>Bound</th>"+"<th>Gap</th>"+"<th>Makespan</th>"+"<th>Flowtime</th>"+"<th>TotalLateness</th>"+"<th>MaxLateness</th>"+"<th>NrLate</th>"+"<th>WeightedLateness</th>"+"<th>TotalEarliness</th>"+"<th>MaxEarliness</th>"+"<th>NrEarly</th>"+"<th>WeightedEarliness</th>"+"<th>PercentEarly</th>"+"<th>PercentLate</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolverRun().toColumnString()+"</td>"+ " " +"<td>"+getObjectiveValue()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGap()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getFlowtime()+"</td>"+ " " +"<td>"+getTotalLateness()+"</td>"+ " " +"<td>"+getMaxLateness()+"</td>"+ " " +"<td>"+getNrLate()+"</td>"+ " " +"<td>"+getWeightedLateness()+"</td>"+ " " +"<td>"+getTotalEarliness()+"</td>"+ " " +"<td>"+getMaxEarliness()+"</td>"+ " " +"<td>"+getNrEarly()+"</td>"+ " " +"<td>"+getWeightedEarliness()+"</td>"+ " " +"<td>"+getPercentEarly()+"</td>"+ " " +"<td>"+getPercentLate()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolverRun().toColumnString()+"</td>"+ " " +"<td>"+getObjectiveValue()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGap()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getFlowtime()+"</td>"+ " " +"<td>"+getTotalLateness()+"</td>"+ " " +"<td>"+getMaxLateness()+"</td>"+ " " +"<td>"+getNrLate()+"</td>"+ " " +"<td>"+getWeightedLateness()+"</td>"+ " " +"<td>"+getTotalEarliness()+"</td>"+ " " +"<td>"+getMaxEarliness()+"</td>"+ " " +"<td>"+getNrEarly()+"</td>"+ " " +"<td>"+getWeightedEarliness()+"</td>"+ " " +"<td>"+getPercentEarly()+"</td>"+ " " +"<td>"+getPercentLate()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+"</tr>";
     }
 
 /**
@@ -1132,6 +1392,15 @@ public  class Solution extends ApplicationObject{
       if(!this.getBound().equals(b.getBound())){
          System.out.println("Bound");
         }
+      if(!this.getDuration().equals(b.getDuration())){
+         System.out.println("Duration");
+        }
+      if(!this.getEnd().equals(b.getEnd())){
+         System.out.println("End");
+        }
+      if(!this.getEndDate().applicationEqual(b.getEndDate())){
+         System.out.println("EndDate");
+        }
       if(!this.getFlowtime().equals(b.getFlowtime())){
          System.out.println("Flowtime");
         }
@@ -1171,6 +1440,12 @@ public  class Solution extends ApplicationObject{
       if(!this.getSolverStatus().equals(b.getSolverStatus())){
          System.out.println("SolverStatus");
         }
+      if(!this.getStart().equals(b.getStart())){
+         System.out.println("Start");
+        }
+      if(!this.getStartDate().applicationEqual(b.getStartDate())){
+         System.out.println("StartDate");
+        }
       if(!this.getTotalEarliness().equals(b.getTotalEarliness())){
          System.out.println("TotalEarliness");
         }
@@ -1184,6 +1459,9 @@ public  class Solution extends ApplicationObject{
          System.out.println("WeightedLateness");
         }
         return  this.getBound().equals(b.getBound()) &&
+          this.getDuration().equals(b.getDuration()) &&
+          this.getEnd().equals(b.getEnd()) &&
+          this.getEndDate().applicationEqual(b.getEndDate()) &&
           this.getFlowtime().equals(b.getFlowtime()) &&
           this.getGap().equals(b.getGap()) &&
           this.getMakespan().equals(b.getMakespan()) &&
@@ -1197,6 +1475,8 @@ public  class Solution extends ApplicationObject{
           this.getPercentLate().equals(b.getPercentLate()) &&
           this.getSolverRun().applicationSame(b.getSolverRun()) &&
           this.getSolverStatus().equals(b.getSolverStatus()) &&
+          this.getStart().equals(b.getStart()) &&
+          this.getStartDate().applicationEqual(b.getStartDate()) &&
           this.getTotalEarliness().equals(b.getTotalEarliness()) &&
           this.getTotalLateness().equals(b.getTotalLateness()) &&
           this.getWeightedEarliness().equals(b.getWeightedEarliness()) &&

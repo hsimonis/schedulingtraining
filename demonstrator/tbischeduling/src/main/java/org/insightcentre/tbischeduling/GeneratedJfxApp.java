@@ -24,12 +24,18 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.insightcentre.tbischeduling.controller.CumulativeNeedsMatrixDraw;
+import org.insightcentre.tbischeduling.controller.DisjunctiveNeedsMatrixDraw;
 import org.insightcentre.tbischeduling.controller.RootController;
+import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
 import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
 import org.insightcentre.tbischeduling.datamodel.InputError;
@@ -47,6 +53,8 @@ import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.datamodel.Solution;
+import org.insightcentre.tbischeduling.datamodel.SolutionError;
+import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
@@ -62,7 +70,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -79,6 +87,18 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	private ObservableList<ApplicationDifference> applicationDifferenceData = FXCollections.observableArrayList();
 
 	private ObservableList<ApplicationWarning> applicationWarningData = FXCollections.observableArrayList();
+
+	private ObservableList<AbstractSolverProperty> abstractSolverPropertyData = FXCollections.observableArrayList();
+
+	private ObservableList<SolverProperty> solverPropertyData = FXCollections.observableArrayList();
+
+	private ObservableList<SolverRun> solverRunData = FXCollections.observableArrayList();
+
+	private ObservableList<AbstractDataGeneratorProperty> abstractDataGeneratorPropertyData = FXCollections.observableArrayList();
+
+	private ObservableList<DataGeneratorProperty> dataGeneratorPropertyData = FXCollections.observableArrayList();
+
+	private ObservableList<DataGeneratorRun> dataGeneratorRunData = FXCollections.observableArrayList();
 
 	private ObservableList<InputError> inputErrorData = FXCollections.observableArrayList();
 
@@ -114,8 +134,6 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<Downtime> downtimeData = FXCollections.observableArrayList();
 
-	private ObservableList<SolverRun> solverRunData = FXCollections.observableArrayList();
-
 	private ObservableList<Solution> solutionData = FXCollections.observableArrayList();
 
 	private ObservableList<JobAssignment> jobAssignmentData = FXCollections.observableArrayList();
@@ -126,16 +144,17 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<IntermediateSolution> intermediateSolutionData = FXCollections.observableArrayList();
 
+	private ObservableList<SolutionError> solutionErrorData = FXCollections.observableArrayList();
+
 	public GeneratedJfxApp() {
 		super("tbischeduling", "ENTIRE EDIH Test Before Invest - Scheduling - University College Cork", "*.data", "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling");
 		fs = minimalDataset();
 		reset();
-		tableViews.put("ResourceActivity", "ResourceActivity");
 		tableViews.put("Scenario", "Scenario");
 		tableViews.put("Scenario Differences", "ApplicationDifference");
 		tableViews.put("Warnings", "ApplicationWarning");
-		tableViews.put("Problem", "Problem");
 		tableViews.put("InputError", "InputError");
+		tableViews.put("Problem", "Problem");
 		tableViews.put("Product", "Product");
 		tableViews.put("Process", "Process");
 		tableViews.put("ProcessStep", "ProcessStep");
@@ -150,12 +169,19 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		tableViews.put("Task", "Task");
 		tableViews.put("WiP", "WiP");
 		tableViews.put("Downtime", "Downtime");
+		tableViews.put("SolutionError", "SolutionError");
 		tableViews.put("SolverRun", "SolverRun");
 		tableViews.put("Solution", "Solution");
 		tableViews.put("JobAssignment", "JobAssignment");
 		tableViews.put("TaskAssignment", "TaskAssignment");
 		tableViews.put("ResourceUtilization", "ResourceUtilization");
 		tableViews.put("IntermediateSolution", "IntermediateSolution");
+		tableViews.put("DataGeneratorProperty", "DataGeneratorProperty");
+		tableViews.put("SolverProperty", "SolverProperty");
+		tableViews.put("AbstractSolverProperty", "AbstractSolverProperty");
+		tableViews.put("AbstractDataGeneratorProperty", "AbstractDataGeneratorProperty");
+		tableViews.put("DataGeneratorRun", "DataGeneratorRun");
+		tableViews.put("ResourceActivity", "ResourceActivity");
 	}
 
 	public static void main(String[] args) {
@@ -210,6 +236,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		controller.setStatus(text);
 	}
 
+	public void setTitle(String text) {
+		if (primaryStage != null) primaryStage.setTitle(text);
+	}
+
 	@Override
 	public ApplicationDatasetInterface minimalDataset() {
 		Scenario base = new Scenario();
@@ -231,6 +261,18 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		applicationDifferenceData.addAll(base.getListApplicationDifference());
 		applicationWarningData.clear();
 		applicationWarningData.addAll(base.getListApplicationWarning());
+		abstractSolverPropertyData.clear();
+		abstractSolverPropertyData.addAll(base.getListAbstractSolverProperty());
+		solverPropertyData.clear();
+		solverPropertyData.addAll(base.getListSolverProperty());
+		solverRunData.clear();
+		solverRunData.addAll(base.getListSolverRun());
+		abstractDataGeneratorPropertyData.clear();
+		abstractDataGeneratorPropertyData.addAll(base.getListAbstractDataGeneratorProperty());
+		dataGeneratorPropertyData.clear();
+		dataGeneratorPropertyData.addAll(base.getListDataGeneratorProperty());
+		dataGeneratorRunData.clear();
+		dataGeneratorRunData.addAll(base.getListDataGeneratorRun());
 		inputErrorData.clear();
 		inputErrorData.addAll(base.getListInputError());
 		problemData.clear();
@@ -265,8 +307,6 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		wiPData.addAll(base.getListWiP());
 		downtimeData.clear();
 		downtimeData.addAll(base.getListDowntime());
-		solverRunData.clear();
-		solverRunData.addAll(base.getListSolverRun());
 		solutionData.clear();
 		solutionData.addAll(base.getListSolution());
 		jobAssignmentData.clear();
@@ -277,6 +317,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		resourceUtilizationData.addAll(base.getListResourceUtilization());
 		intermediateSolutionData.clear();
 		intermediateSolutionData.addAll(base.getListIntermediateSolution());
+		solutionErrorData.clear();
+		solutionErrorData.addAll(base.getListSolutionError());
 		for (BaseController controller : controllers) {
 			controller.setMainApp(this);
 		}
@@ -292,6 +334,22 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public void GenerateReportAction(Scenario base) {
 		alert(Alert.AlertType.WARNING, "Action GenerateReportAction is not yet implemented!");
+	}
+
+	public void showSolutionReport(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action showSolutionReport is not yet implemented!");
+	}
+
+	public void resourceUtilization0BarChart(Scenario base) {
+		showView("ResourceUtilizationBarChart0BarChartLayout");
+	}
+
+	public void intermediateSolutionTimeCostLineChart(Scenario base) {
+		showView("IntermediateSolutionTimeCostLineChartLayout");
+	}
+
+	public void solutionTreeTreeTable(Scenario base) {
+		showView("SolutionTreeTreeTableLayout");
 	}
 
 	public void newOrderSolverRun(Scenario base) {
@@ -312,6 +370,16 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	public void scheduleJobsSolverRun(Scenario base) {
 		Optional<Boolean> result = new ScheduleJobsDialogBox(this,base,new ScheduleJobsSolver(base)).showAndWait();
 		reset();
+	}
+
+	public void disjunctiveNeedsMatrixMatrixViewer(Scenario base) {
+		new DisjunctiveNeedsMatrixDraw(base,"maps/tree.html","Disjunctive Resource Needs Matrix");
+		showContent("Disjunctive Resource Needs Matrix",DisjunctiveNeedsMatrixDraw.createContent(base,"Disjunctive Resource Needs Matrix"));
+	}
+
+	public void cumulativeNeedsMatrixMatrixViewer(Scenario base) {
+		new CumulativeNeedsMatrixDraw(base,"maps/tree.html","Cumulative Resource Needs Matrix");
+		showContent("Cumulative Resource Needs Matrix",CumulativeNeedsMatrixDraw.createContent(base,"Cumulative Resource Needs Matrix"));
 	}
 
 	@Override
@@ -340,6 +408,24 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		else if (id.equals("scheduleJobsSolverRun")) {
 			scheduleJobsSolverRun((Scenario) fs);
 		}
+		else if (id.equals("disjunctiveNeedsMatrixMatrixViewer")) {
+			disjunctiveNeedsMatrixMatrixViewer((Scenario) fs);
+		}
+		else if (id.equals("cumulativeNeedsMatrixMatrixViewer")) {
+			cumulativeNeedsMatrixMatrixViewer((Scenario) fs);
+		}
+		else if (id.equals("showSolutionReport")) {
+			showSolutionReport((Scenario) fs);
+		}
+		else if (id.equals("solutionTreeTreeTable")) {
+			solutionTreeTreeTable((Scenario) fs);
+		}
+		else if (id.equals("resourceUtilization0BarChart")) {
+			resourceUtilization0BarChart((Scenario) fs);
+		}
+		else if (id.equals("intermediateSolutionTimeCostLineChart")) {
+			intermediateSolutionTimeCostLineChart((Scenario) fs);
+		}
 		else {
 			super.handle(event);
 		}
@@ -355,6 +441,30 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public ObservableList<ApplicationWarning> getApplicationWarningData() {
 		return applicationWarningData;
+	}
+
+	public ObservableList<AbstractSolverProperty> getAbstractSolverPropertyData() {
+		return abstractSolverPropertyData;
+	}
+
+	public ObservableList<SolverProperty> getSolverPropertyData() {
+		return solverPropertyData;
+	}
+
+	public ObservableList<SolverRun> getSolverRunData() {
+		return solverRunData;
+	}
+
+	public ObservableList<AbstractDataGeneratorProperty> getAbstractDataGeneratorPropertyData() {
+		return abstractDataGeneratorPropertyData;
+	}
+
+	public ObservableList<DataGeneratorProperty> getDataGeneratorPropertyData() {
+		return dataGeneratorPropertyData;
+	}
+
+	public ObservableList<DataGeneratorRun> getDataGeneratorRunData() {
+		return dataGeneratorRunData;
 	}
 
 	public ObservableList<InputError> getInputErrorData() {
@@ -425,10 +535,6 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		return downtimeData;
 	}
 
-	public ObservableList<SolverRun> getSolverRunData() {
-		return solverRunData;
-	}
-
 	public ObservableList<Solution> getSolutionData() {
 		return solutionData;
 	}
@@ -447,5 +553,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public ObservableList<IntermediateSolution> getIntermediateSolutionData() {
 		return intermediateSolutionData;
+	}
+
+	public ObservableList<SolutionError> getSolutionErrorData() {
+		return solutionErrorData;
 	}
 }

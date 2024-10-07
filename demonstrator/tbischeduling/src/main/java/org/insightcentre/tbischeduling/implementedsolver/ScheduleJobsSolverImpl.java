@@ -1,5 +1,8 @@
 package org.insightcentre.tbischeduling.implementedsolver;
 
+import framework.types.DateOnly;
+import framework.types.DateTime;
+import framework.types.TimeOnly;
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 import org.insightcentre.tbischeduling.importer.Reset;
@@ -17,12 +20,64 @@ import static org.insightcentre.tbischeduling.datamodel.SolverBackend.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.ToRun;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
+import static org.insightcentre.tbischeduling.utilities.TypeConverters.*;
 
 public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
     static int runNr=1;
 
     public ScheduleJobsSolverImpl(Scenario base){
-        super(base);
+
+        super(base,base.getSolverProperty().getLabel(),
+                base.getSolverProperty().getDescription(),
+                base.getSolverProperty().getStartDateTime().asDateOnly().toString(),
+                base.getSolverProperty().getStartDateTime().asTimeOnly().toString(),
+                base.getSolverProperty().getEnforceReleaseDate(),
+                base.getSolverProperty().getEnforceDueDate(),
+                base.getSolverProperty().getEnforceCumulative(),
+                base.getSolverProperty().getEnforceWip(),
+                base.getSolverProperty().getEnforceDowntime(),
+                base.getSolverProperty().getModelType().toString(),
+                base.getSolverProperty().getSolverBackend().toString(),
+                base.getSolverProperty().getObjectiveType().toString(),
+                base.getSolverProperty().getWeightMakespan(),
+                base.getSolverProperty().getWeightFlowtime(),
+                base.getSolverProperty().getWeightLateness(),
+                base.getSolverProperty().getWeightEarliness(),
+                base.getSolverProperty().getTimeout(),
+                base.getSolverProperty().getNrThreads(),
+                base.getSolverProperty().getSeed(),
+                base.getSolverProperty().getRemoveSolution(),
+                base.getSolverProperty().getProduceReport(),
+                base.getSolverProperty().getProducePDF()
+                );
+    }
+
+    private void saveProperties(){
+        SolverProperty p = base.getSolverProperty();
+        p.setLabel(getLabel());
+        p.setDescription(getDescription());
+        DateOnly dateOnly = DateOnly.parseDateOnly(getStartDate(),"dd-MM-yyyy");
+        TimeOnly timeOnly = TimeOnly.parseTimeOnlyWithoutException(getStartTime());
+        DateTime dateTime = dateOnly.asDateTime().setTime(timeOnly);
+        p.setStartDateTime(dateTime);
+        p.setEnforceReleaseDate(getEnforceReleaseDate());
+        p.setEnforceDueDate(getEnforceDueDate());
+        p.setEnforceCumulative(getEnforceCumulative());
+        p.setEnforceWip(getEnforceWip());
+        p.setEnforceDowntime(getEnforceDowntime());
+        p.setModelType(toModelType(getModelType()));
+        p.setSolverBackend(toSolverBackend(getSolverBackend()));
+        p.setObjectiveType(toObjectiveType(getObjectiveType()));
+        p.setWeightMakespan(getWeightMakespan());
+        p.setWeightFlowtime(getWeightFlowtime());
+        p.setWeightLateness(getWeightLateness());
+        p.setWeightEarliness(getWeightEarliness());
+        p.setTimeout(getTimeout());
+        p.setNrThreads(getNrThreads());
+        p.setSeed(getSeed());
+        p.setRemoveSolution(getRemoveSolution());
+        p.setProduceReport(getProduceReport());
+        p.setProducePDF(getProducePDF());
     }
 
     public boolean solve(){
@@ -31,10 +86,11 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         if (getRemoveSolution()){
             Reset.resetSolution(base);
         }
+        saveProperties();
         SolverRun run = createSolverRun(getLabel(),getDescription(),toModelType(getModelType()),
                 toSolverBackend(getSolverBackend()),toObjectiveType(getObjectiveType()),
                 getEnforceReleaseDate(),getEnforceDueDate(),getEnforceCumulative(),getEnforceWip(),getEnforceDowntime(),
-                getWeightMakespan(),getWeightFlowtime(),getWeightEarlyness(),getWeightLateness(),
+                getWeightMakespan(),getWeightFlowtime(),getWeightEarliness(),getWeightLateness(),
                 getTimeout(),getNrThreads(),getSeed(),
                 getRemoveSolution(),getProduceReport(),getProducePDF());
         switch(toModelType(getModelType())){
@@ -57,6 +113,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         if (res) {
             Solution sol = Solution.findLast(base);
             kpiCalc(sol);
+            new CheckSolutions(base,sol);
 
             if (run.getProduceReport() || run.getProducePDF()) {
                 new SchedulingReport(base, "reports/").produce("schedulingreport", "Scheduling Report", "L. O'Toole and H. Simonis");
@@ -71,45 +128,11 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         return res;
     }
 
-    private ModelType toModelType(String name){
-        return switch (name) {
-            case "CPO" -> CPO;
-            case "MiniZincDiffn" -> MiniZincDiffn;
-            case "MiniZincTask" -> MiniZincTask;
-            default -> null;
-        };
-    }
-
-    private SolverBackend toSolverBackend(String name){
-        return switch(name){
-            case "Chuffed" -> Chuffed;
-            case "Gecode" -> Gecode;
-            case "CPSat" -> CPSat;
-            case "Cplex" -> Cplex;
-            default -> null;
-        };
-    }
-
-    private ObjectiveType toObjectiveType(String name){
-        return switch(name){
-            case "Makespan" -> Makespan;
-            case "Flowtime" -> Flowtime;
-            case "TotalLateness" -> TotalLateness;
-            case "MaxLateness" -> MaxLateness;
-            case "WeightedLateness" -> WeightedLateness;
-            case "TotalEarliness" -> TotalEarliness;
-            case "MaxEarliness" -> MaxEarliness;
-            case "WeightedEarliness" -> WeightedEarliness;
-            case "OnTime" -> OnTime;
-            case "Hybrid" -> Hybrid;
-            default -> null;
-        };
-    }
 
     private SolverRun createSolverRun(String label,String description,ModelType modelType,SolverBackend solverBackend,
                                       ObjectiveType objectiveType,boolean enforceReleaseDate,boolean enforceDueDate,
                                       boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,
-                                      int weightMakespan,int weightFlowtime,int weightEarlyness,int weightLateness,
+                                      int weightMakespan,int weightFlowtime,int weightEarliness,int weightLateness,
                                       int timeout,int nrThreads,int seed,boolean removeSolution,
                                       boolean produceReport,boolean producePDF){
         SolverRun res = new SolverRun(base);
@@ -127,7 +150,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
 
         res.setWeightMakespan(weightMakespan);
         res.setWeightFlowtime(weightFlowtime);
-        res.setWeightEarliness(weightEarlyness);
+        res.setWeightEarliness(weightEarliness);
         res.setWeightLateness(weightLateness);
 
         res.setTimeout(timeout);

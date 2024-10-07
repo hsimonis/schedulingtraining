@@ -1,7 +1,9 @@
 package org.insightcentre.tbischeduling.controller;
 
 import framework.gui.AbstractJfxMainWindow;
+import framework.gui.DateTimePickerTableCell;
 import framework.gui.Table3Controller;
+import framework.types.DateTime;
 import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Exception;
@@ -32,7 +34,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class SolverRunController extends Table3Controller {
 	@FXML
 	private TableView<SolverRun> table;
@@ -47,13 +49,7 @@ public class SolverRunController extends Table3Controller {
 	private TableColumn<SolverRun, String> description;
 
 	@FXML
-	private TableColumn<SolverRun, ModelType> modelType;
-
-	@FXML
-	private TableColumn<SolverRun, SolverBackend> solverBackend;
-
-	@FXML
-	private TableColumn<SolverRun, ObjectiveType> objectiveType;
+	private TableColumn<SolverRun, DateTime> startDateTime;
 
 	@FXML
 	private TableColumn<SolverRun, Boolean> enforceReleaseDate;
@@ -71,16 +67,25 @@ public class SolverRunController extends Table3Controller {
 	private TableColumn<SolverRun, Boolean> enforceDowntime;
 
 	@FXML
+	private TableColumn<SolverRun, ModelType> modelType;
+
+	@FXML
+	private TableColumn<SolverRun, SolverBackend> solverBackend;
+
+	@FXML
+	private TableColumn<SolverRun, ObjectiveType> objectiveType;
+
+	@FXML
 	private TableColumn<SolverRun, Integer> weightMakespan;
 
 	@FXML
 	private TableColumn<SolverRun, Integer> weightFlowtime;
 
 	@FXML
-	private TableColumn<SolverRun, Integer> weightEarliness;
+	private TableColumn<SolverRun, Integer> weightLateness;
 
 	@FXML
-	private TableColumn<SolverRun, Integer> weightLateness;
+	private TableColumn<SolverRun, Integer> weightEarliness;
 
 	@FXML
 	private TableColumn<SolverRun, Integer> timeout;
@@ -147,12 +152,10 @@ public class SolverRunController extends Table3Controller {
 		description.setCellValueFactory(new PropertyValueFactory<>("description"));
 		description.setCellFactory(TextFieldTableCell.forTableColumn());
 		description.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDescription(event.getNewValue()); mainApp.reset();});
-		choices.add("modelType");
-		modelType.setCellValueFactory(new PropertyValueFactory<>("modelType"));
-		choices.add("solverBackend");
-		solverBackend.setCellValueFactory(new PropertyValueFactory<>("solverBackend"));
-		choices.add("objectiveType");
-		objectiveType.setCellValueFactory(new PropertyValueFactory<>("objectiveType"));
+		choices.add("startDateTime");
+		startDateTime.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+		startDateTime.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
+		startDateTime.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setStartDateTime(event.getNewValue()); mainApp.reset();});
 		choices.add("enforceReleaseDate");
 		enforceReleaseDate.setCellValueFactory(new EnforceReleaseDateCallback());
 		enforceReleaseDate.setCellFactory(CheckBoxTableCell.forTableColumn(enforceReleaseDate));
@@ -168,6 +171,12 @@ public class SolverRunController extends Table3Controller {
 		choices.add("enforceDowntime");
 		enforceDowntime.setCellValueFactory(new EnforceDowntimeCallback());
 		enforceDowntime.setCellFactory(CheckBoxTableCell.forTableColumn(enforceDowntime));
+		choices.add("modelType");
+		modelType.setCellValueFactory(new PropertyValueFactory<>("modelType"));
+		choices.add("solverBackend");
+		solverBackend.setCellValueFactory(new PropertyValueFactory<>("solverBackend"));
+		choices.add("objectiveType");
+		objectiveType.setCellValueFactory(new PropertyValueFactory<>("objectiveType"));
 		choices.add("weightMakespan");
 		weightMakespan.setCellValueFactory(new PropertyValueFactory<>("weightMakespan"));
 		weightMakespan.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
@@ -176,14 +185,14 @@ public class SolverRunController extends Table3Controller {
 		weightFlowtime.setCellValueFactory(new PropertyValueFactory<>("weightFlowtime"));
 		weightFlowtime.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		weightFlowtime.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWeightFlowtime(event.getNewValue()); mainApp.reset();});
-		choices.add("weightEarliness");
-		weightEarliness.setCellValueFactory(new PropertyValueFactory<>("weightEarliness"));
-		weightEarliness.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
-		weightEarliness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWeightEarliness(event.getNewValue()); mainApp.reset();});
 		choices.add("weightLateness");
 		weightLateness.setCellValueFactory(new PropertyValueFactory<>("weightLateness"));
 		weightLateness.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		weightLateness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWeightLateness(event.getNewValue()); mainApp.reset();});
+		choices.add("weightEarliness");
+		weightEarliness.setCellValueFactory(new PropertyValueFactory<>("weightEarliness"));
+		weightEarliness.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		weightEarliness.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWeightEarliness(event.getNewValue()); mainApp.reset();});
 		choices.add("timeout");
 		timeout.setCellValueFactory(new PropertyValueFactory<>("timeout"));
 		timeout.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));

@@ -23,7 +23,7 @@ import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class ResourceActivityController extends Table3Controller {
 	@FXML
 	private TableView<ResourceActivity> table;

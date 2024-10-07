@@ -4,6 +4,8 @@ package org.insightcentre.tbischeduling;
 Generated once, should be extended by user
 */
 
+import framework.types.DateTime;
+import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import org.insightcentre.tbischeduling.datamodel.*;
 import framework.ApplicationDatasetInterface;
@@ -21,10 +23,12 @@ import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
 
 import static org.insightcentre.tbischeduling.datamodel.ResourceModel.FlowShop;
 import static org.insightcentre.tbischeduling.datamodel.ResourceModel.HybridFlowShop;
+import static org.insightcentre.tbischeduling.datamodel.Severity.Minor;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
 public class JfxApp extends GeneratedJfxApp {
@@ -36,32 +40,42 @@ public class JfxApp extends GeneratedJfxApp {
                 super.showObject(obj);
         }
 
-// callback called once at startup to create initial data in application
+
+
+        // callback called once at startup to create initial data in application
         @Override
         public ApplicationDatasetInterface minimalDataset() {
                 Scenario base = new Scenario();
                 IrishCalendar.buildCalendar();
                 // define the format version of the datafiles
-                base.setDataFileVersionNumber(5.0);
+                base.setDataFileVersionNumber(6.0);
                 base.setDataFile("");
+                base.setStartDateTime(new DateTime(2024,10,1,0,0));
                 base.setHorizon(2000);
+                base.setTimeResolution(5);
                 base.setGanttWidth(23);
                 base.setGanttLinesPerPage(25);
                 base.setGanttLineHeight(0.5);
+                base.setSolverProperty(createSolverProperties(base));
+                DataGeneratorProperty q = createDataGeneratorProperties(base);
+                base.setDataGeneratorProperty(q);
                 info("Creating default data");
-                new CreateData(base,"P1",HybridFlowShop,42,5,4,4,8,1,
-                        0.3,DurationModel.Random,5,20,1,
-                        1,1, 3,5,10,
-                        50,50,horizon(10,5),1,10,
-                        1.0,20,50,
-                        0.5,50,70);
+                new CreateData(base,q.getLabel(),q.getStartDateTime(),q.getResourceModel(),q.getNrProducts(),
+                        q.getMinStages(),q.getMaxStages(),q.getNrDisjunctiveResources(),
+                        q.getResourceProbability(),q.getDurationModel(),q.getMinDuration(),q.getMaxDuration(),
+                        q.getDurationFixedFactor(),
+                        q.getNrCumulativeResources(),q.getMinCumulDemand(),q.getMaxCumulDemand(),q.getProfilePieces(),
+                        q.getMinCumulCapacity(),q.getMaxCumulCapacity(),
+                        q.getNrOrders(),
+                        q.getMinQty(),q.getMaxQty(),
+                        q.getWipProbability(),q.getMinWip(),q.getMaxWip(),
+                        q.getDowntimeProbability(),q.getMinDowntime(),q.getMaxDowntime(),
+                        q.getEarliestDue(),q.getHorizonDays(),q.getTimeResolution(),q.getSeed());
                 base.setDirty(false);
+                setTitle(applicationTitle+" (Generated)");
                 return base;
         }
 
-        public static int horizon(int days,int timeResolution){
-                return days*1440/timeResolution;
-        }
 
 // main entry point for interactive application
         public static void main(String[] args) {
@@ -80,9 +94,11 @@ public class JfxApp extends GeneratedJfxApp {
                 File selected = fileChooser.showOpenDialog(primaryStage);
                 if (selected != null){
                         try {
+                                setStatus("Reading file "+selected.getName());
                                 info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
                                 base.setDataFile(selected.getName());
                                 new ReadData(base,selected);
+                                setTitle(applicationTitle+" ("+selected.getName()+")");
                         } catch(IOException e){
                                 severe("IOException "+e.getMessage());
                         }
@@ -93,7 +109,13 @@ public class JfxApp extends GeneratedJfxApp {
                 reset();
                 // if any errors were found, show them in the GUI
                 if (base.getListInputError().size() > 0){
+                        setStatus("File read with "+base.getListInputError().size()+" input data errors");
                         showView("InputError");
+                } else if (base.getListSolutionError().size() > 0){
+                        setStatus("File read with "+base.getListSolutionError().size()+" solution errors");
+                        showView("SolutionError");
+                } else {
+                        setStatus("File read");
                 }
         }
 
@@ -109,8 +131,11 @@ public class JfxApp extends GeneratedJfxApp {
                 File selected = fileChooser.showSaveDialog(primaryStage);
                 if (selected != null){
                         try {
+                                setStatus("Saving file");
                                 info("Saving File: " + selected.getCanonicalPath());
                                 new WriteData(base).toFile(selected,2);
+                                setStatus("File saved");
+                                setTitle(applicationTitle+" ("+selected.getName()+")");
                         } catch(IOException e){
                                 severe("IOException "+e.getMessage());
                         }
@@ -123,7 +148,9 @@ public class JfxApp extends GeneratedJfxApp {
 
         @Override
         public void GenerateReportAction(Scenario base) {
-                new SchedulingReport(base,"reports/").produce("schedulingreport","Scheduling Report","L. O'Toole and H. Simonis");
+                new SchedulingReport(base,"reports/").produce("schedulingreport",
+                        "Scheduling Report","L. O'Toole and H. Simonis");
+                setStatus("Scheduling report generated");
                 reset();
 
         }
@@ -131,6 +158,8 @@ public class JfxApp extends GeneratedJfxApp {
         @Override
         public void generateDataSolverRun(Scenario base) {
                 Optional<Boolean> result = new GenerateDataDialogBoxImpl(this,base,new GenerateDataSolverImpl(base)).showAndWait();
+                setStatus("Data Generated");
+                setTitle(applicationTitle+" (Generated data)");
                 reset();
         }
 
@@ -138,18 +167,58 @@ public class JfxApp extends GeneratedJfxApp {
         public void scheduleJobsSolverRun(Scenario base) {
                 Optional<Boolean> result = new ScheduleJobsDialogBoxImpl(this,base,new ScheduleJobsSolverImpl(base)).showAndWait();
                 reset();
-                showView("Solution");
-        }
+                if (base.getListSolutionError().stream().anyMatch(x -> x.getSeverity() != Minor)) {
+                        setStatus("Solver finished with errors");
+                        showView("SolutionError");
+                } else {
+                        setStatus("Solver finished");
+                        showView("Solution");
 
-        @Override
+                }
+        }
         public void newOrderSolverRun(Scenario base) {
-                Optional<Boolean> result = new NewOrderDialogBoxImpl(this,base,new NewOrderSolverImpl(base)).showAndWait();
+                Optional<Boolean> result = new NewOrderDialogBox(this,base,new NewOrderSolver(base)).showAndWait();
                 reset();
         }
+
+//        @Override
+//        public void newOrderSolverRun(Scenario base) {
+//                Optional<Boolean> result = new NewOrderDialogBoxImpl(this,base,new NewOrderSolverImpl(base)).showAndWait();
+//                setStatus("New order created");
+//                reset();
+//        }
         @Override
         public void newDowntimeSolverRun(Scenario base) {
                 Optional<Boolean> result = new NewDowntimeDialogBoxImpl(this,base,new NewDowntimeSolverImpl(base)).showAndWait();
+                setStatus("New downtime created");
                 reset();
+        }
+
+        @Override
+        public void showSolutionReport(Scenario base) {
+                try {
+                        showUrl("Solution Report",new File("reports/html/schedulingreport.html").getAbsoluteFile().toURI().toURL());
+//                        showUrlInBrowser(new File("reports/html/schedulingreport.html").getAbsoluteFile().toURI().toURL());
+                } catch(Exception e){
+                        severe("Cannot show report "+e.getMessage());
+                }
+        }
+
+
+        //??? these should check a property file to read persistent property values
+        public SolverProperty createSolverProperties(Scenario base){
+                SolverProperty res = new SolverProperty(base);
+                res.setName("Default Properties");
+                res.setStartDateTime(base.getStartDateTime());
+                info("Solver startDate "+res.getStartDateTime());
+                return res;
+        }
+        public DataGeneratorProperty createDataGeneratorProperties(Scenario base){
+                DataGeneratorProperty res = new DataGeneratorProperty(base);
+                res.setName("Default Properties");
+                res.setStartDateTime(base.getStartDateTime());
+                info("DateGenerator startDate "+res.getStartDateTime());
+                return res;
         }
 
 }

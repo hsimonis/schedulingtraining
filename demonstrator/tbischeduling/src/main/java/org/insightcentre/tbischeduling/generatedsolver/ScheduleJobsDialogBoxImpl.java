@@ -35,7 +35,7 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
     private final IntegerTextField weightMakespanItem = new IntegerTextField();
     private final IntegerTextField weightFlowtimeItem = new IntegerTextField();
     private final IntegerTextField weightLatenessItem = new IntegerTextField();
-    private final IntegerTextField weightEarlynessItem = new IntegerTextField();
+    private final IntegerTextField weightEarlinessItem = new IntegerTextField();
     private final IntegerTextField timeoutItem = new IntegerTextField();
     private final IntegerTextField nrThreadsItem = new IntegerTextField();
     private final IntegerTextField seedItem = new IntegerTextField();
@@ -62,6 +62,8 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         descriptionItem.setWrapText(true);
         pane.add(descriptionItem, 1, row++);
         descriptionItem.setText(((ScheduleJobsSolver)solver).getDescription());
+        // make descriptionItem span 3 columns
+        GridPane.setColumnSpan( descriptionItem, 3 );
 
         Separator sep1 = new Separator(Orientation.HORIZONTAL);
         pane.add(sep1,0,row++,2,1);
@@ -103,6 +105,19 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(modelTypeItem, 1, row++);
         modelTypeItem.getItems().addAll(ModelType.getNames());
         modelTypeItem.setValue(((ScheduleJobsSolver)solver).getModelType());
+        modelTypeItem.setOnAction( (evt) -> {
+
+            String model = modelTypeItem.getValue().toString();
+//            info("Update "+obj);
+
+            if (model.equals("CPO")){
+                solverBackendItem.setValue("None");
+            } else if (model.equals("REST")){
+                solverBackendItem.setValue("None");
+            } else {
+                solverBackendItem.setValue("CPSat");
+            }
+        });
 
         pane.add(new Label("Solver Backend:"), 0, row);
         pane.add(solverBackendItem, 1, row++);
@@ -116,6 +131,28 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(objectiveTypeItem, 1, row++);
         objectiveTypeItem.getItems().addAll(ObjectiveType.getNames());
         objectiveTypeItem.setValue(((ScheduleJobsSolver)solver).getObjectiveType());
+        objectiveTypeItem.setOnAction( (evt) -> {
+
+            String obj = objectiveTypeItem.getValue().toString();
+//            info("Update "+obj);
+
+            if (obj.equals("Hybrid")){
+                weightMakespanItem.setDisable(false);
+                weightFlowtimeItem.setDisable(false);
+                weightEarlinessItem.setDisable(false);
+                weightLatenessItem.setDisable(false);
+            } else if (obj.equals("OnTime")){
+                weightMakespanItem.setDisable(true);
+                weightFlowtimeItem.setDisable(true);
+                weightEarlinessItem.setDisable(false);
+                weightLatenessItem.setDisable(false);
+            } else {
+                weightMakespanItem.setDisable(true);
+                weightFlowtimeItem.setDisable(true);
+                weightEarlinessItem.setDisable(true);
+                weightLatenessItem.setDisable(true);
+            }
+        });
 
         pane.add(new Label("Weight Makespan:"), 0, row);
         pane.add(weightMakespanItem, 1, row++);
@@ -127,8 +164,13 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(weightLatenessItem, 1, row++);
         weightLatenessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightLateness()));
         pane.add(new Label("Weight Earliness:"), 0, row);
-        pane.add(weightEarlynessItem, 1, row++);
-        weightEarlynessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightEarlyness()));
+        pane.add(weightEarlinessItem, 1, row++);
+        weightEarlinessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightEarliness()));
+        //??? by default make them disabled, this might not match the default value of the objective
+        weightMakespanItem.setDisable(true);
+        weightFlowtimeItem.setDisable(true);
+        weightEarlinessItem.setDisable(true);
+        weightLatenessItem.setDisable(true);
 
         Separator sep5 = new Separator(Orientation.HORIZONTAL);
         pane.add(sep5,0,row++,2,1);
@@ -153,6 +195,7 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(producePDFItem, 3, row++);
         producePDFItem.setSelected(((ScheduleJobsSolver)solver).getProducePDF());
 
+//        pane.setGridLinesVisible(true); //??? debug only
         getDialogPane().setContent(pane);
         setTitle("Schedule Solver Parameters");
     }
@@ -178,7 +221,7 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
             int weightMakespanValue = Integer.parseInt(weightMakespanItem.getText());
             int weightFlowtimeValue = Integer.parseInt(weightFlowtimeItem.getText());
             int weightLatenessValue = Integer.parseInt(weightLatenessItem.getText());
-            int weightEarlynessValue = Integer.parseInt(weightEarlynessItem.getText());
+            int weightEarlinessValue = Integer.parseInt(weightEarlinessItem.getText());
             int timeoutValue = Integer.parseInt(timeoutItem.getText());
             int nrThreadsValue = Integer.parseInt(nrThreadsItem.getText());
             int seedValue = Integer.parseInt(seedItem.getText());
@@ -201,7 +244,7 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
                     .setWeightMakespan(weightMakespanValue)
                     .setWeightFlowtime(weightFlowtimeValue)
                     .setWeightLateness(weightLatenessValue)
-                    .setWeightEarlyness(weightEarlynessValue)
+                    .setWeightEarliness(weightEarlinessValue)
                     .setTimeout(timeoutValue)
                     .setNrThreads(nrThreadsValue)
                     .setSeed(seedValue)

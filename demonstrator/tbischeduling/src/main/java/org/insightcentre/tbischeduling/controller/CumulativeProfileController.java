@@ -1,7 +1,9 @@
 package org.insightcentre.tbischeduling.controller;
 
 import framework.gui.AbstractJfxMainWindow;
+import framework.gui.DateTimePickerTableCell;
 import framework.gui.Table3Controller;
+import framework.types.DateTime;
 import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Object;
@@ -21,7 +23,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class CumulativeProfileController extends Table3Controller {
 	@FXML
 	private TableView<CumulativeProfile> table;
@@ -34,6 +36,9 @@ public class CumulativeProfileController extends Table3Controller {
 
 	@FXML
 	private TableColumn<CumulativeProfile, Integer> from;
+
+	@FXML
+	private TableColumn<CumulativeProfile, DateTime> fromDate;
 
 	@FXML
 	private TableColumn<CumulativeProfile, Integer> capacity;
@@ -67,6 +72,10 @@ public class CumulativeProfileController extends Table3Controller {
 		from.setCellValueFactory(new PropertyValueFactory<>("from"));
 		from.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		from.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setFrom(event.getNewValue()); mainApp.reset();});
+		choices.add("fromDate");
+		fromDate.setCellValueFactory(new PropertyValueFactory<>("fromDate"));
+		fromDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
+		fromDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setFromDate(event.getNewValue()); mainApp.reset();});
 		choices.add("capacity");
 		capacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
 		capacity.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));

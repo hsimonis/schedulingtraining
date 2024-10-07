@@ -5,6 +5,12 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -22,12 +28,12 @@ import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
-import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
+import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -120,6 +126,48 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
 */
 
     List<Scenario> listScenario = new ArrayList<Scenario>();
+
+/**
+ *  This lists holds all items of class AbstractSolverProperty and its subclasses
+ *
+*/
+
+    List<AbstractSolverProperty> listAbstractSolverProperty = new ArrayList<AbstractSolverProperty>();
+
+/**
+ *  This lists holds all items of class SolverProperty and its subclasses
+ *
+*/
+
+    List<SolverProperty> listSolverProperty = new ArrayList<SolverProperty>();
+
+/**
+ *  This lists holds all items of class SolverRun and its subclasses
+ *
+*/
+
+    List<SolverRun> listSolverRun = new ArrayList<SolverRun>();
+
+/**
+ *  This lists holds all items of class AbstractDataGeneratorProperty and its subclasses
+ *
+*/
+
+    List<AbstractDataGeneratorProperty> listAbstractDataGeneratorProperty = new ArrayList<AbstractDataGeneratorProperty>();
+
+/**
+ *  This lists holds all items of class DataGeneratorProperty and its subclasses
+ *
+*/
+
+    List<DataGeneratorProperty> listDataGeneratorProperty = new ArrayList<DataGeneratorProperty>();
+
+/**
+ *  This lists holds all items of class DataGeneratorRun and its subclasses
+ *
+*/
+
+    List<DataGeneratorRun> listDataGeneratorRun = new ArrayList<DataGeneratorRun>();
 
 /**
  *  This lists holds all items of class InputError and its subclasses
@@ -241,13 +289,6 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<Downtime> listDowntime = new ArrayList<Downtime>();
 
 /**
- *  This lists holds all items of class SolverRun and its subclasses
- *
-*/
-
-    List<SolverRun> listSolverRun = new ArrayList<SolverRun>();
-
-/**
  *  This lists holds all items of class Solution and its subclasses
  *
 */
@@ -281,6 +322,13 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
 */
 
     List<IntermediateSolution> listIntermediateSolution = new ArrayList<IntermediateSolution>();
+
+/**
+ *  This lists holds all items of class SolutionError and its subclasses
+ *
+*/
+
+    List<SolutionError> listSolutionError = new ArrayList<SolutionError>();
 
 /**
  *  This is the static counter from which all id numbers are generated.It is used by all classes, so that ids are unique over all objects.
@@ -410,6 +458,8 @@ public int compareTo(ApplicationDataset ds2){
                              "CumulativeNeed",
                              "CumulativeProfile",
                              "CumulativeResource",
+                             "DataGeneratorProperty",
+                             "DataGeneratorRun",
                              "DisjunctiveResource",
                              "Downtime",
                              "InputError",
@@ -426,6 +476,8 @@ public int compareTo(ApplicationDataset ds2){
                              "ResourceUtilization",
                              "Scenario",
                              "Solution",
+                             "SolutionError",
+                             "SolverProperty",
                              "SolverRun",
                              "Task",
                              "TaskAssignment",
@@ -487,6 +539,12 @@ public int compareTo(ApplicationDataset ds2){
         listApplicationObject = new ArrayList<ApplicationObject>();
         resetListApplicationWarning();
         resetListApplicationDifference();
+        resetListAbstractSolverProperty();
+        resetListSolverProperty();
+        resetListSolverRun();
+        resetListAbstractDataGeneratorProperty();
+        resetListDataGeneratorProperty();
+        resetListDataGeneratorRun();
         resetListInputError();
         resetListProblem();
         resetListProduct();
@@ -505,11 +563,11 @@ public int compareTo(ApplicationDataset ds2){
         resetListOrder();
         resetListJob();
         resetListTask();
-        resetListSolverRun();
         resetListSolution();
         resetListJobAssignment();
         resetListResourceUtilization();
         resetListIntermediateSolution();
+        resetListSolutionError();
     }
 
 /**
@@ -612,6 +670,242 @@ public int compareTo(ApplicationDataset ds2){
             }
         }
        listApplicationDataset = newListApplicationDataset;
+    }
+
+/**
+ *  Iterator for list of class AbstractSolverProperty
+ *
+*/
+
+    public Iterator<AbstractSolverProperty> getIteratorAbstractSolverProperty(){
+        return listAbstractSolverProperty.iterator();
+    }
+
+/**
+ *  Getter for list of class AbstractSolverProperty
+ *
+*/
+
+    public List<AbstractSolverProperty> getListAbstractSolverProperty(){
+        return listAbstractSolverProperty;
+    }
+
+/**
+ *  reset the list of class AbstractSolverProperty; use with care, does not call cascades
+ *
+*/
+
+    public void resetListAbstractSolverProperty(){
+        listAbstractSolverProperty = new ArrayList<AbstractSolverProperty>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof AbstractSolverProperty)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+        resetListSolverProperty();
+        resetListSolverRun();
+    }
+
+/**
+ *  Iterator for list of class SolverProperty
+ *
+*/
+
+    public Iterator<SolverProperty> getIteratorSolverProperty(){
+        return listSolverProperty.iterator();
+    }
+
+/**
+ *  Getter for list of class SolverProperty
+ *
+*/
+
+    public List<SolverProperty> getListSolverProperty(){
+        return listSolverProperty;
+    }
+
+/**
+ *  reset the list of class SolverProperty; use with care, does not call cascades
+ *
+*/
+
+    public void resetListSolverProperty(){
+        listSolverProperty = new ArrayList<SolverProperty>();
+        List<AbstractSolverProperty> newListAbstractSolverProperty = new ArrayList<AbstractSolverProperty>();
+        for(AbstractSolverProperty a:listAbstractSolverProperty){
+            if (!(a instanceof SolverProperty)){
+                newListAbstractSolverProperty.add(a);
+            }
+        }
+       listAbstractSolverProperty = newListAbstractSolverProperty;
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof SolverProperty)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class SolverRun
+ *
+*/
+
+    public Iterator<SolverRun> getIteratorSolverRun(){
+        return listSolverRun.iterator();
+    }
+
+/**
+ *  Getter for list of class SolverRun
+ *
+*/
+
+    public List<SolverRun> getListSolverRun(){
+        return listSolverRun;
+    }
+
+/**
+ *  reset the list of class SolverRun; use with care, does not call cascades
+ *
+*/
+
+    public void resetListSolverRun(){
+        listSolverRun = new ArrayList<SolverRun>();
+        List<AbstractSolverProperty> newListAbstractSolverProperty = new ArrayList<AbstractSolverProperty>();
+        for(AbstractSolverProperty a:listAbstractSolverProperty){
+            if (!(a instanceof SolverRun)){
+                newListAbstractSolverProperty.add(a);
+            }
+        }
+       listAbstractSolverProperty = newListAbstractSolverProperty;
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof SolverRun)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class AbstractDataGeneratorProperty
+ *
+*/
+
+    public Iterator<AbstractDataGeneratorProperty> getIteratorAbstractDataGeneratorProperty(){
+        return listAbstractDataGeneratorProperty.iterator();
+    }
+
+/**
+ *  Getter for list of class AbstractDataGeneratorProperty
+ *
+*/
+
+    public List<AbstractDataGeneratorProperty> getListAbstractDataGeneratorProperty(){
+        return listAbstractDataGeneratorProperty;
+    }
+
+/**
+ *  reset the list of class AbstractDataGeneratorProperty; use with care, does not call cascades
+ *
+*/
+
+    public void resetListAbstractDataGeneratorProperty(){
+        listAbstractDataGeneratorProperty = new ArrayList<AbstractDataGeneratorProperty>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof AbstractDataGeneratorProperty)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+        resetListDataGeneratorProperty();
+        resetListDataGeneratorRun();
+    }
+
+/**
+ *  Iterator for list of class DataGeneratorProperty
+ *
+*/
+
+    public Iterator<DataGeneratorProperty> getIteratorDataGeneratorProperty(){
+        return listDataGeneratorProperty.iterator();
+    }
+
+/**
+ *  Getter for list of class DataGeneratorProperty
+ *
+*/
+
+    public List<DataGeneratorProperty> getListDataGeneratorProperty(){
+        return listDataGeneratorProperty;
+    }
+
+/**
+ *  reset the list of class DataGeneratorProperty; use with care, does not call cascades
+ *
+*/
+
+    public void resetListDataGeneratorProperty(){
+        listDataGeneratorProperty = new ArrayList<DataGeneratorProperty>();
+        List<AbstractDataGeneratorProperty> newListAbstractDataGeneratorProperty = new ArrayList<AbstractDataGeneratorProperty>();
+        for(AbstractDataGeneratorProperty a:listAbstractDataGeneratorProperty){
+            if (!(a instanceof DataGeneratorProperty)){
+                newListAbstractDataGeneratorProperty.add(a);
+            }
+        }
+       listAbstractDataGeneratorProperty = newListAbstractDataGeneratorProperty;
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof DataGeneratorProperty)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class DataGeneratorRun
+ *
+*/
+
+    public Iterator<DataGeneratorRun> getIteratorDataGeneratorRun(){
+        return listDataGeneratorRun.iterator();
+    }
+
+/**
+ *  Getter for list of class DataGeneratorRun
+ *
+*/
+
+    public List<DataGeneratorRun> getListDataGeneratorRun(){
+        return listDataGeneratorRun;
+    }
+
+/**
+ *  reset the list of class DataGeneratorRun; use with care, does not call cascades
+ *
+*/
+
+    public void resetListDataGeneratorRun(){
+        listDataGeneratorRun = new ArrayList<DataGeneratorRun>();
+        List<AbstractDataGeneratorProperty> newListAbstractDataGeneratorProperty = new ArrayList<AbstractDataGeneratorProperty>();
+        for(AbstractDataGeneratorProperty a:listAbstractDataGeneratorProperty){
+            if (!(a instanceof DataGeneratorRun)){
+                newListAbstractDataGeneratorProperty.add(a);
+            }
+        }
+       listAbstractDataGeneratorProperty = newListAbstractDataGeneratorProperty;
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof DataGeneratorRun)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
     }
 
 /**
@@ -1210,40 +1504,6 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
- *  Iterator for list of class SolverRun
- *
-*/
-
-    public Iterator<SolverRun> getIteratorSolverRun(){
-        return listSolverRun.iterator();
-    }
-
-/**
- *  Getter for list of class SolverRun
- *
-*/
-
-    public List<SolverRun> getListSolverRun(){
-        return listSolverRun;
-    }
-
-/**
- *  reset the list of class SolverRun; use with care, does not call cascades
- *
-*/
-
-    public void resetListSolverRun(){
-        listSolverRun = new ArrayList<SolverRun>();
-        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
-        for(ApplicationObject a:listApplicationObject){
-            if (!(a instanceof SolverRun)){
-                newListApplicationObject.add(a);
-            }
-        }
-       listApplicationObject = newListApplicationObject;
-    }
-
-/**
  *  Iterator for list of class Solution
  *
 */
@@ -1421,6 +1681,40 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Iterator for list of class SolutionError
+ *
+*/
+
+    public Iterator<SolutionError> getIteratorSolutionError(){
+        return listSolutionError.iterator();
+    }
+
+/**
+ *  Getter for list of class SolutionError
+ *
+*/
+
+    public List<SolutionError> getListSolutionError(){
+        return listSolutionError;
+    }
+
+/**
+ *  reset the list of class SolutionError; use with care, does not call cascades
+ *
+*/
+
+    public void resetListSolutionError(){
+        listSolutionError = new ArrayList<SolutionError>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof SolutionError)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
  *  Generate a new id number, used in constructor calls
  *
 */
@@ -1510,6 +1804,42 @@ public int compareTo(ApplicationDataset ds2){
          }
         }
         for(ApplicationObject b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class SolverProperty; remove all dependent objects of class Scenario which refer to item through their attribute solverProperty
+ *
+*/
+
+    public void cascadeScenarioSolverProperty(SolverProperty item){
+        assert item != null;
+        List<Scenario> toRemove = new ArrayList<Scenario>();
+        for(Scenario a:getListScenario()) {
+         if (a.getSolverProperty() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(Scenario b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class DataGeneratorProperty; remove all dependent objects of class Scenario which refer to item through their attribute dataGeneratorProperty
+ *
+*/
+
+    public void cascadeScenarioDataGeneratorProperty(DataGeneratorProperty item){
+        assert item != null;
+        List<Scenario> toRemove = new ArrayList<Scenario>();
+        for(Scenario a:getListScenario()) {
+         if (a.getDataGeneratorProperty() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(Scenario b:toRemove) {
             b.remove();
         }
     }
@@ -1842,6 +2172,24 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Removing object item of class Task; remove all dependent objects of class Task which refer to item through their attribute follows
+ *
+*/
+
+    public void cascadeTaskFollows(Task item){
+        assert item != null;
+        List<Task> toRemove = new ArrayList<Task>();
+        for(Task a:getListTask()) {
+         if (a.getFollows().contains(item)) {
+            a.getFollows().remove(item);
+         }
+        }
+        for(Task b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
  *  Removing object item of class SolverRun; remove all dependent objects of class Solution which refer to item through their attribute solverRun
  *
 */
@@ -1986,6 +2334,24 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Removing object item of class Solution; remove all dependent objects of class SolutionError which refer to item through their attribute solution
+ *
+*/
+
+    public void cascadeSolutionErrorSolution(Solution item){
+        assert item != null;
+        List<SolutionError> toRemove = new ArrayList<SolutionError>();
+        for(SolutionError a:getListSolutionError()) {
+         if (a.getSolution() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(SolutionError b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
  *  add an item to the list for class ApplicationDataset
  *
 */
@@ -2083,6 +2449,126 @@ public int compareTo(ApplicationDataset ds2){
     public Boolean removeScenario(Scenario scenario){
         assert scenario != null;
         return this.listScenario.remove(scenario);
+    }
+
+/**
+ *  add an item to the list for class AbstractSolverProperty
+ *
+*/
+
+    public void addAbstractSolverProperty(AbstractSolverProperty abstractSolverProperty){
+        assert abstractSolverProperty != null;
+        this.listAbstractSolverProperty.add(abstractSolverProperty);
+    }
+
+/**
+ *  remove an item from the list for class AbstractSolverProperty
+ *
+*/
+
+    public Boolean removeAbstractSolverProperty(AbstractSolverProperty abstractSolverProperty){
+        assert abstractSolverProperty != null;
+        return this.listAbstractSolverProperty.remove(abstractSolverProperty);
+    }
+
+/**
+ *  add an item to the list for class SolverProperty
+ *
+*/
+
+    public void addSolverProperty(SolverProperty solverProperty){
+        assert solverProperty != null;
+        this.listSolverProperty.add(solverProperty);
+    }
+
+/**
+ *  remove an item from the list for class SolverProperty
+ *
+*/
+
+    public Boolean removeSolverProperty(SolverProperty solverProperty){
+        assert solverProperty != null;
+        return this.listSolverProperty.remove(solverProperty);
+    }
+
+/**
+ *  add an item to the list for class SolverRun
+ *
+*/
+
+    public void addSolverRun(SolverRun solverRun){
+        assert solverRun != null;
+        this.listSolverRun.add(solverRun);
+    }
+
+/**
+ *  remove an item from the list for class SolverRun
+ *
+*/
+
+    public Boolean removeSolverRun(SolverRun solverRun){
+        assert solverRun != null;
+        return this.listSolverRun.remove(solverRun);
+    }
+
+/**
+ *  add an item to the list for class AbstractDataGeneratorProperty
+ *
+*/
+
+    public void addAbstractDataGeneratorProperty(AbstractDataGeneratorProperty abstractDataGeneratorProperty){
+        assert abstractDataGeneratorProperty != null;
+        this.listAbstractDataGeneratorProperty.add(abstractDataGeneratorProperty);
+    }
+
+/**
+ *  remove an item from the list for class AbstractDataGeneratorProperty
+ *
+*/
+
+    public Boolean removeAbstractDataGeneratorProperty(AbstractDataGeneratorProperty abstractDataGeneratorProperty){
+        assert abstractDataGeneratorProperty != null;
+        return this.listAbstractDataGeneratorProperty.remove(abstractDataGeneratorProperty);
+    }
+
+/**
+ *  add an item to the list for class DataGeneratorProperty
+ *
+*/
+
+    public void addDataGeneratorProperty(DataGeneratorProperty dataGeneratorProperty){
+        assert dataGeneratorProperty != null;
+        this.listDataGeneratorProperty.add(dataGeneratorProperty);
+    }
+
+/**
+ *  remove an item from the list for class DataGeneratorProperty
+ *
+*/
+
+    public Boolean removeDataGeneratorProperty(DataGeneratorProperty dataGeneratorProperty){
+        assert dataGeneratorProperty != null;
+        return this.listDataGeneratorProperty.remove(dataGeneratorProperty);
+    }
+
+/**
+ *  add an item to the list for class DataGeneratorRun
+ *
+*/
+
+    public void addDataGeneratorRun(DataGeneratorRun dataGeneratorRun){
+        assert dataGeneratorRun != null;
+        this.listDataGeneratorRun.add(dataGeneratorRun);
+    }
+
+/**
+ *  remove an item from the list for class DataGeneratorRun
+ *
+*/
+
+    public Boolean removeDataGeneratorRun(DataGeneratorRun dataGeneratorRun){
+        assert dataGeneratorRun != null;
+        return this.listDataGeneratorRun.remove(dataGeneratorRun);
     }
 
 /**
@@ -2426,26 +2912,6 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
- *  add an item to the list for class SolverRun
- *
-*/
-
-    public void addSolverRun(SolverRun solverRun){
-        assert solverRun != null;
-        this.listSolverRun.add(solverRun);
-    }
-
-/**
- *  remove an item from the list for class SolverRun
- *
-*/
-
-    public Boolean removeSolverRun(SolverRun solverRun){
-        assert solverRun != null;
-        return this.listSolverRun.remove(solverRun);
-    }
-
-/**
  *  add an item to the list for class Solution
  *
 */
@@ -2546,6 +3012,26 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class SolutionError
+ *
+*/
+
+    public void addSolutionError(SolutionError solutionError){
+        assert solutionError != null;
+        this.listSolutionError.add(solutionError);
+    }
+
+/**
+ *  remove an item from the list for class SolutionError
+ *
+*/
+
+    public Boolean removeSolutionError(SolutionError solutionError){
+        assert solutionError != null;
+        return this.listSolutionError.remove(solutionError);
+    }
+
+/**
  *  dump all items on the console for debugging
  *
 */
@@ -2564,6 +3050,12 @@ public int compareTo(ApplicationDataset ds2){
             System.out.println(x);
         }
         for(CumulativeResource x:getListCumulativeResource()){
+            System.out.println(x);
+        }
+        for(DataGeneratorProperty x:getListDataGeneratorProperty()){
+            System.out.println(x);
+        }
+        for(DataGeneratorRun x:getListDataGeneratorRun()){
             System.out.println(x);
         }
         for(DisjunctiveResource x:getListDisjunctiveResource()){
@@ -2612,6 +3104,12 @@ public int compareTo(ApplicationDataset ds2){
             System.out.println(x);
         }
         for(Solution x:getListSolution()){
+            System.out.println(x);
+        }
+        for(SolutionError x:getListSolutionError()){
+            System.out.println(x);
+        }
+        for(SolverProperty x:getListSolverProperty()){
             System.out.println(x);
         }
         for(SolverRun x:getListSolverRun()){
@@ -2677,6 +3175,12 @@ public int compareTo(ApplicationDataset ds2){
         for(CumulativeResource x:getListCumulativeResource()){
             if (x.getClass().equals(CumulativeResource.class)) x.toXML(out);
         }
+        for(DataGeneratorProperty x:getListDataGeneratorProperty()){
+            if (x.getClass().equals(DataGeneratorProperty.class)) x.toXML(out);
+        }
+        for(DataGeneratorRun x:getListDataGeneratorRun()){
+            if (x.getClass().equals(DataGeneratorRun.class)) x.toXML(out);
+        }
         for(DisjunctiveResource x:getListDisjunctiveResource()){
             if (x.getClass().equals(DisjunctiveResource.class)) x.toXML(out);
         }
@@ -2721,6 +3225,12 @@ public int compareTo(ApplicationDataset ds2){
         }
         for(Solution x:getListSolution()){
             if (x.getClass().equals(Solution.class)) x.toXML(out);
+        }
+        for(SolutionError x:getListSolutionError()){
+            if (x.getClass().equals(SolutionError.class)) x.toXML(out);
+        }
+        for(SolverProperty x:getListSolverProperty()){
+            if (x.getClass().equals(SolverProperty.class)) x.toXML(out);
         }
         for(SolverRun x:getListSolverRun()){
             if (x.getClass().equals(SolverRun.class)) x.toXML(out);
@@ -2833,6 +3343,8 @@ public int compareTo(ApplicationDataset ds2){
         compareCumulativeNeed(this.getListCumulativeNeed(),compare.getListCumulativeNeed());
         compareCumulativeProfile(this.getListCumulativeProfile(),compare.getListCumulativeProfile());
         compareCumulativeResource(this.getListCumulativeResource(),compare.getListCumulativeResource());
+        compareDataGeneratorProperty(this.getListDataGeneratorProperty(),compare.getListDataGeneratorProperty());
+        compareDataGeneratorRun(this.getListDataGeneratorRun(),compare.getListDataGeneratorRun());
         compareDisjunctiveResource(this.getListDisjunctiveResource(),compare.getListDisjunctiveResource());
         compareDowntime(this.getListDowntime(),compare.getListDowntime());
         compareInputError(this.getListInputError(),compare.getListInputError());
@@ -2848,6 +3360,8 @@ public int compareTo(ApplicationDataset ds2){
         compareResourceNeed(this.getListResourceNeed(),compare.getListResourceNeed());
         compareResourceUtilization(this.getListResourceUtilization(),compare.getListResourceUtilization());
         compareSolution(this.getListSolution(),compare.getListSolution());
+        compareSolutionError(this.getListSolutionError(),compare.getListSolutionError());
+        compareSolverProperty(this.getListSolverProperty(),compare.getListSolverProperty());
         compareSolverRun(this.getListSolverRun(),compare.getListSolverRun());
         compareTask(this.getListTask(),compare.getListTask());
         compareTaskAssignment(this.getListTaskAssignment(),compare.getListTaskAssignment());
@@ -2947,6 +3461,54 @@ public int compareTo(ApplicationDataset ds2){
             CumulativeResource a = CumulativeResource.find(b,aList);
             if (a == null) {
                 new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeResource B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types DataGeneratorProperty, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareDataGeneratorProperty(List<DataGeneratorProperty> aList,List<DataGeneratorProperty> bList){
+        System.out.println("Comparing DataGeneratorProperty");
+        for(DataGeneratorProperty a:aList){
+            DataGeneratorProperty b= DataGeneratorProperty.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DataGeneratorProperty A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DataGeneratorProperty A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DataGeneratorProperty B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(DataGeneratorProperty b: bList){
+            DataGeneratorProperty a = DataGeneratorProperty.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DataGeneratorProperty B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types DataGeneratorRun, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareDataGeneratorRun(List<DataGeneratorRun> aList,List<DataGeneratorRun> bList){
+        System.out.println("Comparing DataGeneratorRun");
+        for(DataGeneratorRun a:aList){
+            DataGeneratorRun b= DataGeneratorRun.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DataGeneratorRun A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DataGeneratorRun A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DataGeneratorRun B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(DataGeneratorRun b: bList){
+            DataGeneratorRun a = DataGeneratorRun.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DataGeneratorRun B",b.toString(),DifferenceType.ONLYB);
             }
         }
     }
@@ -3312,6 +3874,54 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ * compare two lists of types SolutionError, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareSolutionError(List<SolutionError> aList,List<SolutionError> bList){
+        System.out.println("Comparing SolutionError");
+        for(SolutionError a:aList){
+            SolutionError b= SolutionError.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolutionError A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolutionError A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolutionError B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(SolutionError b: bList){
+            SolutionError a = SolutionError.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolutionError B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types SolverProperty, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareSolverProperty(List<SolverProperty> aList,List<SolverProperty> bList){
+        System.out.println("Comparing SolverProperty");
+        for(SolverProperty a:aList){
+            SolverProperty b= SolverProperty.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolverProperty A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolverProperty A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolverProperty B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(SolverProperty b: bList){
+            SolverProperty a = SolverProperty.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolverProperty B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
  * compare two lists of types SolverRun, create AppplicationWarnings for items which are in only one of the lists
  * or for items which are applicationSame(), but not applicationEqual()
 */
@@ -3417,6 +4027,8 @@ public int compareTo(ApplicationDataset ds2){
         checkCumulativeNeed(this.getListCumulativeNeed());
         checkCumulativeProfile(this.getListCumulativeProfile());
         checkCumulativeResource(this.getListCumulativeResource());
+        checkDataGeneratorProperty(this.getListDataGeneratorProperty());
+        checkDataGeneratorRun(this.getListDataGeneratorRun());
         checkDisjunctiveResource(this.getListDisjunctiveResource());
         checkDowntime(this.getListDowntime());
         checkInputError(this.getListInputError());
@@ -3433,6 +4045,8 @@ public int compareTo(ApplicationDataset ds2){
         checkResourceUtilization(this.getListResourceUtilization());
         checkScenario(this.getListScenario());
         checkSolution(this.getListSolution());
+        checkSolutionError(this.getListSolutionError());
+        checkSolverProperty(this.getListSolverProperty());
         checkSolverRun(this.getListSolverRun());
         checkTask(this.getListTask());
         checkTaskAssignment(this.getListTaskAssignment());
@@ -3479,6 +4093,28 @@ public int compareTo(ApplicationDataset ds2){
 
     public void checkCumulativeResource(List<CumulativeResource> list){
         for(CumulativeResource a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<DataGeneratorProperty> dataset list of all items of type DataGeneratorProperty
+*/
+
+    public void checkDataGeneratorProperty(List<DataGeneratorProperty> list){
+        for(DataGeneratorProperty a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<DataGeneratorRun> dataset list of all items of type DataGeneratorRun
+*/
+
+    public void checkDataGeneratorRun(List<DataGeneratorRun> list){
+        for(DataGeneratorRun a:list){
             a.check();
         }
     }
@@ -3661,6 +4297,28 @@ public int compareTo(ApplicationDataset ds2){
 
 /**
  * helper method for checkAll()
+ * @param list List<SolutionError> dataset list of all items of type SolutionError
+*/
+
+    public void checkSolutionError(List<SolutionError> list){
+        for(SolutionError a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<SolverProperty> dataset list of all items of type SolverProperty
+*/
+
+    public void checkSolverProperty(List<SolverProperty> list){
+        for(SolverProperty a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
  * @param list List<SolverRun> dataset list of all items of type SolverRun
 */
 
@@ -3709,6 +4367,8 @@ public int compareTo(ApplicationDataset ds2){
         CumulativeNeed.dummy(this);
         CumulativeProfile.dummy(this);
         CumulativeResource.dummy(this);
+        DataGeneratorProperty.dummy(this);
+        DataGeneratorRun.dummy(this);
         DisjunctiveResource.dummy(this);
         Downtime.dummy(this);
         InputError.dummy(this);
@@ -3725,6 +4385,8 @@ public int compareTo(ApplicationDataset ds2){
         ResourceUtilization.dummy(this);
         Scenario.dummy(this);
         Solution.dummy(this);
+        SolutionError.dummy(this);
+        SolverProperty.dummy(this);
         SolverRun.dummy(this);
         Task.dummy(this);
         TaskAssignment.dummy(this);

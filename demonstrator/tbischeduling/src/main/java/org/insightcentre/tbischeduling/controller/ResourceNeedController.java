@@ -3,6 +3,7 @@ package org.insightcentre.tbischeduling.controller;
 import framework.gui.AbstractJfxMainWindow;
 import framework.gui.Table3Controller;
 import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -21,7 +22,7 @@ import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class ResourceNeedController extends Table3Controller {
 	@FXML
 	private TableView<ResourceNeed> table;
@@ -34,6 +35,9 @@ public class ResourceNeedController extends Table3Controller {
 
 	@FXML
 	private TableColumn<ResourceNeed, ProcessStep> processStep;
+
+	@FXML
+	private TableColumn<ResourceNeed, Integer> value;
 
 	private GeneratedJfxApp mainApp;
 
@@ -64,6 +68,10 @@ public class ResourceNeedController extends Table3Controller {
 		disjunctiveResource.setCellValueFactory(new PropertyValueFactory<>("disjunctiveResource"));
 		choices.add("processStep");
 		processStep.setCellValueFactory(new PropertyValueFactory<>("processStep"));
+		choices.add("value");
+		value.setCellValueFactory(new PropertyValueFactory<>("value"));
+		value.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		value.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setValue(event.getNewValue()); mainApp.reset();});
 		initialize(choices);
 	}
 

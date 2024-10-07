@@ -1,5 +1,8 @@
  class Solution {
 Double bound
+Integer duration
+Integer end
+DateTime endDate
 Integer flowtime
 Double gap
 Integer makespan
@@ -12,6 +15,8 @@ Double percentEarly
 Double percentLate
 SolverRun solverRun
 SolverStatus solverStatus
+Integer start
+DateTime startDate
 Integer totalEarliness
 Integer totalLateness
 Double weightedEarliness

@@ -31,7 +31,7 @@ import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class JobAssignmentController extends Table3Controller {
 	@FXML
 	private TableView<JobAssignment> table;
@@ -80,6 +80,12 @@ public class JobAssignmentController extends Table3Controller {
 
 	@FXML
 	private TableColumn<JobAssignment, Integer> due;
+
+	@FXML
+	private TableColumn<JobAssignment, DateTime> releaseDate;
+
+	@FXML
+	private TableColumn<JobAssignment, DateTime> dueDate;
 
 	@FXML
 	private TableColumn<JobAssignment, Integer> qty;
@@ -173,6 +179,20 @@ public class JobAssignmentController extends Table3Controller {
 		choices.add("job.order.due");
 		try {
 			due.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getJob().getOrder().getDue()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("job.order.releaseDate");
+		try {
+			releaseDate.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJob().getOrder().getReleaseDate()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("job.order.dueDate");
+		try {
+			dueDate.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJob().getOrder().getDueDate()));
 		}
 		catch (NullPointerException e) {
 			System.err.println(e);

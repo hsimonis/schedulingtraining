@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 22:48:03 on 2024-10-03-->
+<!--Generated at 08:17:45 on 2024-10-07-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -36,8 +36,8 @@
             </Menu>
             <Menu text="_Edit">
                <items>
-                  <MenuItem id="newOrderSolverRun" onAction="#handle" text="NewOrder Solver..." />
-                  <MenuItem id="newDowntimeSolverRun" onAction="#handle" text="NewDowntime Solver..." />
+                  <MenuItem id="newOrderSolverRun" onAction="#handle" text="NewOrder..." />
+                  <MenuItem id="newDowntimeSolverRun" onAction="#handle" text="NewDowntime..." />
                   <SeparatorMenuItem />
                   <MenuItem id="New" onAction="#handle" text="New" />
                   <MenuItem id="Copy" accelerator="Shortcut+C" onAction="#handle" text="Copy" />
@@ -76,11 +76,11 @@
             </Menu>
             <Menu text="_Window">
                <items>
-                  <MenuItem id="resourceActivityPage" accelerator="Shortcut+R" onAction="#handle" text="ResourceActivity" />
                   <Menu text="_Problem">
                      <items>
-                        <MenuItem id="problemPage" onAction="#handle" text="Problem" />
                         <MenuItem id="inputErrorPage" onAction="#handle" text="InputError" />
+                        <SeparatorMenuItem />
+                        <MenuItem id="problemPage" onAction="#handle" text="Problem" />
                      </items>
                   </Menu>
                   <Menu text="_Product">
@@ -96,7 +96,9 @@
                         <MenuItem id="disjunctiveResourcePage" onAction="#handle" text="DisjunctiveResource" />
                         <MenuItem id="cumulativeResourcePage" onAction="#handle" text="CumulativeResource" />
                         <SeparatorMenuItem />
-                        <MenuItem id="resourceNeedPage" onAction="#handle" text="ResourceNeed" />
+                        <MenuItem id="disjunctiveNeedsMatrixMatrixViewer" onAction="#handle" text="DisjunctiveNeedsMatrix" />
+                        <MenuItem id="resourceNeedPage" accelerator="Shortcut+R" onAction="#handle" text="ResourceNeed" />
+                        <MenuItem id="cumulativeNeedsMatrixMatrixViewer" onAction="#handle" text="CumulativeNeedsMatrix" />
                         <MenuItem id="cumulativeNeedPage" onAction="#handle" text="CumulativeNeed" />
                         <MenuItem id="cumulativeProfilePage" onAction="#handle" text="CumulativeProfile" />
                      </items>
@@ -115,18 +117,40 @@
                   <SeparatorMenuItem />
                   <Menu text="_Solution">
                      <items>
+                        <MenuItem id="solutionErrorPage" onAction="#handle" text="SolutionError" />
+                        <SeparatorMenuItem />
+                        <MenuItem id="showSolutionReport" onAction="#handle" text="SolutionReport" />
+                        <MenuItem id="solutionTreeTreeTable" onAction="#handle" text="SolutionTree" />
                         <MenuItem id="solverRunPage" onAction="#handle" text="SolverRun" />
                         <MenuItem id="solutionPage" onAction="#handle" text="Solution" />
                         <MenuItem id="jobAssignmentPage" onAction="#handle" text="JobAssignment" />
                         <MenuItem id="taskAssignmentPage" onAction="#handle" text="TaskAssignment" />
                         <SeparatorMenuItem />
                         <MenuItem id="resourceUtilizationPage" onAction="#handle" text="ResourceUtilization" />
+                        <MenuItem id="resourceUtilization0BarChart" onAction="#handle" text="ResourceUtilizationBarChart0" />
                         <SeparatorMenuItem />
                         <MenuItem id="intermediateSolutionPage" onAction="#handle" text="IntermediateSolution" />
+                        <MenuItem id="intermediateSolutionTimeCostLineChart" onAction="#handle" text="IntermediateSolutionTimeCostLineChart" />
+                     </items>
+                  </Menu>
+                  <SeparatorMenuItem />
+                  <Menu text="_Properties">
+                     <items>
+                        <MenuItem id="dataGeneratorPropertyPage" onAction="#handle" text="DataGeneratorProperty" />
+                        <MenuItem id="solverPropertyPage" onAction="#handle" text="SolverProperty" />
                      </items>
                   </Menu>
                   <SeparatorMenuItem />
                   <MenuItem id="scenarioPage" onAction="#handle" text="Scenario" />
+                  <Menu text="_Others">
+                     <items>
+                        <MenuItem id="abstractSolverPropertyPage" onAction="#handle" text="AbstractSolverProperty" />
+                        <MenuItem id="abstractDataGeneratorPropertyPage" onAction="#handle" text="AbstractDataGeneratorProperty" />
+                        <MenuItem id="dataGeneratorRunPage" onAction="#handle" text="DataGeneratorRun" />
+                        <MenuItem id="resourceActivityPage" onAction="#handle" text="ResourceActivity" />
+                     </items>
+                  </Menu>
+                  <SeparatorMenuItem />
                   <MenuItem id="GenericPieChart" onAction="#handle" text="Generic Pie Chart" />
                   <MenuItem id="GenericBarChart" accelerator="Shortcut+B" onAction="#handle" text="Generic Bar Chart" />
                   <MenuItem id="GenericScatterChart" onAction="#handle" text="Generic Scatter Chart" />

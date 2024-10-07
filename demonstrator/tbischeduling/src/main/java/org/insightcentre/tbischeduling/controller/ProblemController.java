@@ -26,13 +26,16 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class ProblemController extends Table3Controller {
 	@FXML
 	private TableView<Problem> table;
 
 	@FXML
 	private TableColumn<Problem, String> name;
+
+	@FXML
+	private TableColumn<Problem, String> label;
 
 	@FXML
 	private TableColumn<Problem, Boolean> timePointsAsDate;
@@ -79,6 +82,10 @@ public class ProblemController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
+		choices.add("label");
+		label.setCellValueFactory(new PropertyValueFactory<>("label"));
+		label.setCellFactory(TextFieldTableCell.forTableColumn());
+		label.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setLabel(event.getNewValue()); mainApp.reset();});
 		choices.add("timePointsAsDate");
 		timePointsAsDate.setCellValueFactory(new TimePointsAsDateCallback());
 		timePointsAsDate.setCellFactory(CheckBoxTableCell.forTableColumn(timePointsAsDate));

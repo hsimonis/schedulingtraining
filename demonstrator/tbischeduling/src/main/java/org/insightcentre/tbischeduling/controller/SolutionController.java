@@ -1,7 +1,9 @@
 package org.insightcentre.tbischeduling.controller;
 
 import framework.gui.AbstractJfxMainWindow;
+import framework.gui.DateTimePickerTableCell;
 import framework.gui.Table3Controller;
+import framework.types.DateTime;
 import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Exception;
@@ -32,7 +34,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class SolutionController extends Table3Controller {
 	@FXML
 	private TableView<Solution> table;
@@ -92,6 +94,21 @@ public class SolutionController extends Table3Controller {
 	private TableColumn<Solution, Double> percentLate;
 
 	@FXML
+	private TableColumn<Solution, Integer> duration;
+
+	@FXML
+	private TableColumn<Solution, Integer> start;
+
+	@FXML
+	private TableColumn<Solution, Integer> end;
+
+	@FXML
+	private TableColumn<Solution, DateTime> startDate;
+
+	@FXML
+	private TableColumn<Solution, DateTime> endDate;
+
+	@FXML
 	private TableColumn<Solution, ModelType> modelType;
 
 	@FXML
@@ -105,6 +122,27 @@ public class SolutionController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Solution, Boolean> enforceDueDate;
+
+	@FXML
+	private TableColumn<Solution, Boolean> enforceCumulative;
+
+	@FXML
+	private TableColumn<Solution, Boolean> enforceWip;
+
+	@FXML
+	private TableColumn<Solution, Boolean> enforceDowntime;
+
+	@FXML
+	private TableColumn<Solution, Integer> weightMakespan;
+
+	@FXML
+	private TableColumn<Solution, Integer> weightFlowtime;
+
+	@FXML
+	private TableColumn<Solution, Integer> weightEarliness;
+
+	@FXML
+	private TableColumn<Solution, Integer> weightLateness;
 
 	@FXML
 	private TableColumn<Solution, Integer> timeout;
@@ -212,6 +250,26 @@ public class SolutionController extends Table3Controller {
 		percentLate.setCellValueFactory(new PropertyValueFactory<>("percentLate"));
 		percentLate.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
 		percentLate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setPercentLate(event.getNewValue()); mainApp.reset();});
+		choices.add("duration");
+		duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+		duration.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		duration.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDuration(event.getNewValue()); mainApp.reset();});
+		choices.add("start");
+		start.setCellValueFactory(new PropertyValueFactory<>("start"));
+		start.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		start.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setStart(event.getNewValue()); mainApp.reset();});
+		choices.add("end");
+		end.setCellValueFactory(new PropertyValueFactory<>("end"));
+		end.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		end.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEnd(event.getNewValue()); mainApp.reset();});
+		choices.add("startDate");
+		startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+		startDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
+		startDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setStartDate(event.getNewValue()); mainApp.reset();});
+		choices.add("endDate");
+		endDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+		endDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
+		endDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEndDate(event.getNewValue()); mainApp.reset();});
 		choices.add("solverRun.modelType");
 		try {
 			modelType.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getModelType()));
@@ -243,6 +301,55 @@ public class SolutionController extends Table3Controller {
 		choices.add("solverRun.enforceDueDate");
 		try {
 			enforceDueDate.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getEnforceDueDate()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.enforceCumulative");
+		try {
+			enforceCumulative.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getEnforceCumulative()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.enforceWip");
+		try {
+			enforceWip.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getEnforceWip()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.enforceDowntime");
+		try {
+			enforceDowntime.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getEnforceDowntime()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.weightMakespan");
+		try {
+			weightMakespan.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSolverRun().getWeightMakespan()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.weightFlowtime");
+		try {
+			weightFlowtime.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSolverRun().getWeightFlowtime()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.weightEarliness");
+		try {
+			weightEarliness.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSolverRun().getWeightEarliness()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.weightLateness");
+		try {
+			weightLateness.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSolverRun().getWeightLateness()).asObject());
 		}
 		catch (NullPointerException e) {
 			System.err.println(e);

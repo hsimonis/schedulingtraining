@@ -5,6 +5,12 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -22,12 +28,12 @@ import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
-import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
+import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -66,6 +72,13 @@ public  class Task extends ApplicationObject implements AppearInCollection{
  *
 */
 
+    public List<Task> follows;
+
+/**
+ *  
+ *
+*/
+
     public Job job;
 
 /**
@@ -74,6 +87,13 @@ public  class Task extends ApplicationObject implements AppearInCollection{
 */
 
     public List<DisjunctiveResource> machines;
+
+/**
+ *  
+ *
+*/
+
+    public Integer nr;
 
 /**
  *  
@@ -123,8 +143,10 @@ public  class Task extends ApplicationObject implements AppearInCollection{
     public Task(ApplicationDataset applicationDataset){
         super(applicationDataset);
         setDuration(0);
+        setFollows(new ArrayList<Task>());
         setJob(null);
         setMachines(new ArrayList<DisjunctiveResource>());
+        setNr(0);
         setPrecedes(new ArrayList<Task>());
         setProcessStep(null);
         setShortName("");
@@ -143,8 +165,10 @@ public  class Task extends ApplicationObject implements AppearInCollection{
             Integer id,
             String name,
             Integer duration,
+            List<Task> follows,
             Job job,
             List<DisjunctiveResource> machines,
+            Integer nr,
             List<Task> precedes,
             ProcessStep processStep,
             String shortName,
@@ -153,8 +177,10 @@ public  class Task extends ApplicationObject implements AppearInCollection{
             id,
             name);
         setDuration(duration);
+        setFollows(follows);
         setJob(job);
         setMachines(machines);
+        setNr(nr);
         setPrecedes(precedes);
         setProcessStep(processStep);
         setShortName(shortName);
@@ -167,8 +193,10 @@ public  class Task extends ApplicationObject implements AppearInCollection{
             other.id,
             other.name,
             other.duration,
+            other.follows,
             other.job,
             other.machines,
+            other.nr,
             other.precedes,
             other.processStep,
             other.shortName,
@@ -184,6 +212,7 @@ public  class Task extends ApplicationObject implements AppearInCollection{
 
     public Boolean remove(){
         getApplicationDataset().cascadeTaskPrecedes(this);
+        getApplicationDataset().cascadeTaskFollows(this);
         getApplicationDataset().cascadeTaskAssignmentTask(this);
         return getApplicationDataset().removeTask(this) && getApplicationDataset().removeApplicationObject(this);
     }
@@ -212,6 +241,16 @@ public  class Task extends ApplicationObject implements AppearInCollection{
     }
 
 /**
+ *  get attribute follows
+ *
+ * @return List<Task>
+*/
+
+    public List<Task> getFollows(){
+        return this.follows;
+    }
+
+/**
  *  get attribute job
  *
  * @return Job
@@ -229,6 +268,16 @@ public  class Task extends ApplicationObject implements AppearInCollection{
 
     public List<DisjunctiveResource> getMachines(){
         return this.machines;
+    }
+
+/**
+ *  get attribute nr
+ *
+ * @return Integer
+*/
+
+    public Integer getNr(){
+        return this.nr;
     }
 
 /**
@@ -284,6 +333,18 @@ public  class Task extends ApplicationObject implements AppearInCollection{
     }
 
 /**
+ *  set attribute follows, mark dataset as dirty, mark dataset as not valid
+@param follows List<Task>
+ *
+*/
+
+    public void setFollows(List<Task> follows){
+        this.follows = follows;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute job, mark dataset as dirty, mark dataset as not valid
 @param job Job
  *
@@ -303,6 +364,18 @@ public  class Task extends ApplicationObject implements AppearInCollection{
 
     public void setMachines(List<DisjunctiveResource> machines){
         this.machines = machines;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute nr, mark dataset as dirty, mark dataset as not valid
+@param nr Integer
+ *
+*/
+
+    public void setNr(Integer nr){
+        this.nr = nr;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -367,6 +440,17 @@ public  class Task extends ApplicationObject implements AppearInCollection{
     }
 
 /**
+ *  inc attribute nr, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incNr(){
+        this.nr++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute stage, mark dataset as dirty, mark dataset as not valid
  *
 */
@@ -394,7 +478,7 @@ public  class Task extends ApplicationObject implements AppearInCollection{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDuration()+ " " +getJob().toColumnString()+ " " +getMachines()+ " " +getPrecedes()+ " " +getProcessStep().toColumnString()+ " " +getShortName()+ " " +getStage();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDuration()+ " " +getFollows()+ " " +getJob().toColumnString()+ " " +getMachines()+ " " +getNr()+ " " +getPrecedes()+ " " +getProcessStep().toColumnString()+ " " +getShortName()+ " " +getStage();
     }
 
 /**
@@ -419,8 +503,10 @@ public  class Task extends ApplicationObject implements AppearInCollection{
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
             " duration=\""+toXMLDuration()+"\""+
+            " follows=\""+toXMLFollows()+"\""+
             " job=\""+toXMLJob()+"\""+
             " machines=\""+toXMLMachines()+"\""+
+            " nr=\""+toXMLNr()+"\""+
             " precedes=\""+toXMLPrecedes()+"\""+
             " processStep=\""+toXMLProcessStep()+"\""+
             " shortName=\""+toXMLShortName()+"\""+
@@ -435,6 +521,20 @@ public  class Task extends ApplicationObject implements AppearInCollection{
 
     String toXMLDuration(){
         return this.getDuration().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLFollows(){
+        String str="";
+        for(Task x:getFollows()){
+            str=str+" "+"ID_"+x.getId();
+        }
+        return str;
     }
 
 /**
@@ -459,6 +559,16 @@ public  class Task extends ApplicationObject implements AppearInCollection{
             str=str+" "+"ID_"+x.getId();
         }
         return str;
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNr(){
+        return this.getNr().toString();
     }
 
 /**
@@ -512,11 +622,11 @@ public  class Task extends ApplicationObject implements AppearInCollection{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Task</th>"+"<th>Name</th>"+"<th>ShortName</th>"+"<th>Job</th>"+"<th>ProcessStep</th>"+"<th>Duration</th>"+"<th>Stage</th>"+"<th>Machines</th>"+"<th>Precedes</th>"+"</tr>";
+        return "<tr><th>Task</th>"+"<th>Name</th>"+"<th>ShortName</th>"+"<th>Job</th>"+"<th>ProcessStep</th>"+"<th>Duration</th>"+"<th>Stage</th>"+"<th>Nr</th>"+"<th>Machines</th>"+"<th>Precedes</th>"+"<th>Follows</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getShortName()+"</td>"+ " " +"<td>"+getJob().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStage()+"</td>"+ " " +"<td>"+getMachines()+"</td>"+ " " +"<td>"+getPrecedes()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getShortName()+"</td>"+ " " +"<td>"+getJob().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStage()+"</td>"+ " " +"<td>"+getNr()+"</td>"+ " " +"<td>"+getMachines()+"</td>"+ " " +"<td>"+getPrecedes()+"</td>"+ " " +"<td>"+getFollows()+"</td>"+"</tr>";
     }
 
 /**
@@ -636,6 +746,8 @@ public  class Task extends ApplicationObject implements AppearInCollection{
       if(!this.getDuration().equals(b.getDuration())){
          System.out.println("Duration");
         }
+      if (true) {         System.out.println("Follows");
+        }
       if(!this.getJob().applicationSame(b.getJob())){
          System.out.println("Job");
         }
@@ -643,6 +755,9 @@ public  class Task extends ApplicationObject implements AppearInCollection{
         }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
+        }
+      if(!this.getNr().equals(b.getNr())){
+         System.out.println("Nr");
         }
       if (true) {         System.out.println("Precedes");
         }
@@ -656,9 +771,11 @@ public  class Task extends ApplicationObject implements AppearInCollection{
          System.out.println("Stage");
         }
         return  this.getDuration().equals(b.getDuration()) &&
+          true &&
           this.getJob().applicationSame(b.getJob()) &&
           true &&
           this.getName().equals(b.getName()) &&
+          this.getNr().equals(b.getNr()) &&
           true &&
           this.getProcessStep().applicationSame(b.getProcessStep()) &&
           this.getShortName().equals(b.getShortName()) &&
@@ -673,6 +790,9 @@ public  class Task extends ApplicationObject implements AppearInCollection{
     public void check(){
         if (getApplicationDataset() == null){
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"applicationDataset","Task",(getApplicationDataset()==null?"null":getApplicationDataset().toString()),"",WarningType.NOTNULL);
+        }
+        if (getFollows() == null){
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"follows","Task",(getFollows()==null?"null":getFollows().toString()),"",WarningType.NOTNULL);
         }
         if (getJob() == null){
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"job","Task",(getJob()==null?"null":getJob().toString()),"",WarningType.NOTNULL);
@@ -705,6 +825,9 @@ public  class Task extends ApplicationObject implements AppearInCollection{
     }
 
    public List<ApplicationObjectInterface> getFeasibleValues(ApplicationDatasetInterface base,String attrName){
+      if (attrName.equals("follows")){
+         return (List) ((Scenario)base).getListTask();
+      }
       if (attrName.equals("job")){
          return (List) ((Scenario)base).getListJob();
       }

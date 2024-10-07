@@ -46,6 +46,7 @@ public class Reset {
     public static void resetData(Scenario base){
         resetSchedule(base);
         base.resetListInputError();
+        base.resetListSolutionError();
         base.resetListProblem();
         base.resetListResourceNeed();
         base.resetListCumulativeNeed();

@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 22:48:03 on 2024-10-03-->
+<!--Generated at 08:17:45 on 2024-10-07-->
 
 
 <Tab text="Scenario" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.ScenarioController">
@@ -23,11 +23,14 @@
                <TableColumn fx:id="valid" editable="false" styleClass="right-aligned,disabled-column" text="Valid" />
                <TableColumn fx:id="dataFileVersionNumber" styleClass="right-aligned" text="DataFileVersionNumber" />
                <TableColumn fx:id="dataFile" styleClass="right-aligned" text="DataFile" />
+               <TableColumn fx:id="startDateTime" styleClass="right-aligned" text="StartDateTime" />
                <TableColumn fx:id="horizon" styleClass="right-aligned" text="Horizon" />
                <TableColumn fx:id="timeResolution" styleClass="right-aligned" text="TimeResolution" />
                <TableColumn fx:id="ganttWidth" styleClass="right-aligned" text="GanttWidth" />
                <TableColumn fx:id="ganttLinesPerPage" styleClass="right-aligned" text="GanttLinesPerPage" />
                <TableColumn fx:id="ganttLineHeight" styleClass="right-aligned" text="GanttLineHeight" />
+               <TableColumn fx:id="solverProperty" styleClass="right-aligned" text="SolverProperty" />
+               <TableColumn fx:id="dataGeneratorProperty" styleClass="right-aligned" text="DataGeneratorProperty" />
             </columns>
          </TableView>
       </center>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+
+<!--Generated at 08:17:45 on 2024-10-07-->
+
+
+<Tab text="DataGeneratorProperty" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.DataGeneratorPropertyController">
+   <BorderPane>
+      <center>
+         <TableView fx:id="table" editable="true">
+            <columns>
+               <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
+               <TableColumn fx:id="label" styleClass="right-aligned" text="Label" />
+               <TableColumn fx:id="startDateTime" styleClass="right-aligned" text="StartDateTime" />
+               <TableColumn fx:id="resourceModel" styleClass="right-aligned" text="ResourceModel" />
+               <TableColumn fx:id="nrProducts" styleClass="right-aligned" text="NrProducts" />
+               <TableColumn fx:id="minStages" styleClass="right-aligned" text="MinStages" />
+               <TableColumn fx:id="maxStages" styleClass="right-aligned" text="MaxStages" />
+               <TableColumn fx:id="nrDisjunctiveResources" styleClass="right-aligned" text="NrDisjunctiveResources" />
+               <TableColumn fx:id="resourceProbability" styleClass="right-aligned" text="ResourceProbability" />
+               <TableColumn fx:id="durationModel" styleClass="right-aligned" text="DurationModel" />
+               <TableColumn fx:id="minDuration" styleClass="right-aligned" text="MinDuration" />
+               <TableColumn fx:id="maxDuration" styleClass="right-aligned" text="MaxDuration" />
+               <TableColumn fx:id="durationFixedFactor" styleClass="right-aligned" text="DurationFixedFactor" />
+               <TableColumn fx:id="nrCumulativeResources" styleClass="right-aligned" text="NrCumulativeResources" />
+               <TableColumn fx:id="minCumulDemand" styleClass="right-aligned" text="MinCumulDemand" />
+               <TableColumn fx:id="maxCumulDemand" styleClass="right-aligned" text="MaxCumulDemand" />
+               <TableColumn fx:id="profilePieces" styleClass="right-aligned" text="ProfilePieces" />
+               <TableColumn fx:id="minCumulCapacity" styleClass="right-aligned" text="MinCumulCapacity" />
+               <TableColumn fx:id="maxCumulCapacity" styleClass="right-aligned" text="MaxCumulCapacity" />
+               <TableColumn fx:id="nrOrders" styleClass="right-aligned" text="NrOrders" />
+               <TableColumn fx:id="minQty" styleClass="right-aligned" text="MinQty" />
+               <TableColumn fx:id="maxQty" styleClass="right-aligned" text="MaxQty" />
+               <TableColumn fx:id="wipProbability" styleClass="right-aligned" text="WipProbability" />
+               <TableColumn fx:id="minWip" styleClass="right-aligned" text="MinWip" />
+               <TableColumn fx:id="maxWip" styleClass="right-aligned" text="MaxWip" />
+               <TableColumn fx:id="downtimeProbability" styleClass="right-aligned" text="DowntimeProbability" />
+               <TableColumn fx:id="minDowntime" styleClass="right-aligned" text="MinDowntime" />
+               <TableColumn fx:id="maxDowntime" styleClass="right-aligned" text="MaxDowntime" />
+               <TableColumn fx:id="earliestDue" styleClass="right-aligned" text="EarliestDue" />
+               <TableColumn fx:id="horizonDays" styleClass="right-aligned" text="HorizonDays" />
+               <TableColumn fx:id="timeResolution" styleClass="right-aligned" text="TimeResolution" />
+               <TableColumn fx:id="seed" styleClass="right-aligned" text="Seed" />
+            </columns>
+         </TableView>
+      </center>
+      <bottom>
+         <TitledPane fx:id="filterPane" expanded="false" text="Filter">
+            <content>
+               <HBox alignment="center" spacing="5.0">
+                  <ChoiceBox fx:id="filterChoiceBox" />
+                  <ChoiceBox fx:id="filterComparisonBox" />
+                  <TextField fx:id="filterTextField" />
+               </HBox>
+            </content>
+         </TitledPane>
+      </bottom>
+   </BorderPane>
+</Tab>

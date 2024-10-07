@@ -5,6 +5,12 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationObject;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverProperty;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -22,12 +28,12 @@ import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
-import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
+import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -73,6 +79,13 @@ public  class Scenario extends ApplicationDataset{
  *
 */
 
+    public DataGeneratorProperty dataGeneratorProperty;
+
+/**
+ *  
+ *
+*/
+
     public Double ganttLineHeight;
 
 /**
@@ -95,6 +108,20 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public Integer horizon;
+
+/**
+ *  
+ *
+*/
+
+    public SolverProperty solverProperty;
+
+/**
+ *  
+ *
+*/
+
+    public DateTime startDateTime;
 
 /**
  *  
@@ -124,10 +151,13 @@ public  class Scenario extends ApplicationDataset{
         super(applicationDataset);
         setDataFile("");
         setDataFileVersionNumber(0.0);
+        setDataGeneratorProperty(null);
         setGanttLineHeight(0.0);
         setGanttLinesPerPage(0);
         setGanttWidth(0);
         setHorizon(0);
+        setSolverProperty(null);
+        setStartDateTime(new DateTime());
         setTimeResolution(0);
         addScenario(this);
     }
@@ -145,10 +175,13 @@ public  class Scenario extends ApplicationDataset{
             Boolean valid,
             String dataFile,
             Double dataFileVersionNumber,
+            DataGeneratorProperty dataGeneratorProperty,
             Double ganttLineHeight,
             Integer ganttLinesPerPage,
             Integer ganttWidth,
             Integer horizon,
+            SolverProperty solverProperty,
+            DateTime startDateTime,
             Integer timeResolution){
         super(dirty,
             id,
@@ -156,10 +189,13 @@ public  class Scenario extends ApplicationDataset{
             valid);
         setDataFile(dataFile);
         setDataFileVersionNumber(dataFileVersionNumber);
+        setDataGeneratorProperty(dataGeneratorProperty);
         setGanttLineHeight(ganttLineHeight);
         setGanttLinesPerPage(ganttLinesPerPage);
         setGanttWidth(ganttWidth);
         setHorizon(horizon);
+        setSolverProperty(solverProperty);
+        setStartDateTime(startDateTime);
         setTimeResolution(timeResolution);
         addScenario(this);
     }
@@ -171,10 +207,13 @@ public  class Scenario extends ApplicationDataset{
             other.valid,
             other.dataFile,
             other.dataFileVersionNumber,
+            other.dataGeneratorProperty,
             other.ganttLineHeight,
             other.ganttLinesPerPage,
             other.ganttWidth,
             other.horizon,
+            other.solverProperty,
+            other.startDateTime,
             other.timeResolution);
     }
 
@@ -201,6 +240,16 @@ public  class Scenario extends ApplicationDataset{
 
     public Double getDataFileVersionNumber(){
         return this.dataFileVersionNumber;
+    }
+
+/**
+ *  get attribute dataGeneratorProperty
+ *
+ * @return DataGeneratorProperty
+*/
+
+    public DataGeneratorProperty getDataGeneratorProperty(){
+        return this.dataGeneratorProperty;
     }
 
 /**
@@ -244,6 +293,26 @@ public  class Scenario extends ApplicationDataset{
     }
 
 /**
+ *  get attribute solverProperty
+ *
+ * @return SolverProperty
+*/
+
+    public SolverProperty getSolverProperty(){
+        return this.solverProperty;
+    }
+
+/**
+ *  get attribute startDateTime
+ *
+ * @return DateTime
+*/
+
+    public DateTime getStartDateTime(){
+        return this.startDateTime;
+    }
+
+/**
  *  get attribute timeResolution
  *
  * @return Integer
@@ -273,6 +342,18 @@ public  class Scenario extends ApplicationDataset{
 
     public void setDataFileVersionNumber(Double dataFileVersionNumber){
         this.dataFileVersionNumber = dataFileVersionNumber;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute dataGeneratorProperty, mark dataset as dirty, mark dataset as not valid
+@param dataGeneratorProperty DataGeneratorProperty
+ *
+*/
+
+    public void setDataGeneratorProperty(DataGeneratorProperty dataGeneratorProperty){
+        this.dataGeneratorProperty = dataGeneratorProperty;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -321,6 +402,30 @@ public  class Scenario extends ApplicationDataset{
 
     public void setHorizon(Integer horizon){
         this.horizon = horizon;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute solverProperty, mark dataset as dirty, mark dataset as not valid
+@param solverProperty SolverProperty
+ *
+*/
+
+    public void setSolverProperty(SolverProperty solverProperty){
+        this.solverProperty = solverProperty;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute startDateTime, mark dataset as dirty, mark dataset as not valid
+@param startDateTime DateTime
+ *
+*/
+
+    public void setStartDateTime(DateTime startDateTime){
+        this.startDateTime = startDateTime;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -398,7 +503,7 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public String prettyString(){
-        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getGanttLineHeight()+ " " +getGanttLinesPerPage()+ " " +getGanttWidth()+ " " +getHorizon()+ " " +getTimeResolution();
+        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getDataGeneratorProperty().toColumnString()+ " " +getGanttLineHeight()+ " " +getGanttLinesPerPage()+ " " +getGanttWidth()+ " " +getHorizon()+ " " +getSolverProperty().toColumnString()+ " " +getStartDateTime()+ " " +getTimeResolution();
     }
 
 /**
@@ -425,10 +530,13 @@ public  class Scenario extends ApplicationDataset{
             " valid=\""+toXMLValid()+"\""+
             " dataFile=\""+toXMLDataFile()+"\""+
             " dataFileVersionNumber=\""+toXMLDataFileVersionNumber()+"\""+
+            " dataGeneratorProperty=\""+toXMLDataGeneratorProperty()+"\""+
             " ganttLineHeight=\""+toXMLGanttLineHeight()+"\""+
             " ganttLinesPerPage=\""+toXMLGanttLinesPerPage()+"\""+
             " ganttWidth=\""+toXMLGanttWidth()+"\""+
             " horizon=\""+toXMLHorizon()+"\""+
+            " solverProperty=\""+toXMLSolverProperty()+"\""+
+            " startDateTime=\""+toXMLStartDateTime()+"\""+
             " timeResolution=\""+toXMLTimeResolution()+"\""+" />");
      }
 
@@ -450,6 +558,16 @@ public  class Scenario extends ApplicationDataset{
 
     String toXMLDataFileVersionNumber(){
         return this.getDataFileVersionNumber().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLDataGeneratorProperty(){
+        return "ID_"+this.getDataGeneratorProperty().getId().toString();
     }
 
 /**
@@ -498,6 +616,26 @@ public  class Scenario extends ApplicationDataset{
  * @return String
 */
 
+    String toXMLSolverProperty(){
+        return "ID_"+this.getSolverProperty().getId().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLStartDateTime(){
+        return this.getStartDateTime().toXML();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLTimeResolution(){
         return this.getTimeResolution().toString();
     }
@@ -509,11 +647,11 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"<th>GanttWidth</th>"+"<th>GanttLinesPerPage</th>"+"<th>GanttLineHeight</th>"+"</tr>";
+        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>StartDateTime</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"<th>GanttWidth</th>"+"<th>GanttLinesPerPage</th>"+"<th>GanttLineHeight</th>"+"<th>SolverProperty</th>"+"<th>DataGeneratorProperty</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+ " " +"<td>"+getGanttWidth()+"</td>"+ " " +"<td>"+getGanttLinesPerPage()+"</td>"+ " " +"<td>"+getGanttLineHeight()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+ " " +"<td>"+getGanttWidth()+"</td>"+ " " +"<td>"+getGanttLinesPerPage()+"</td>"+ " " +"<td>"+getGanttLineHeight()+"</td>"+ " " +"<td>"+getSolverProperty().toColumnString()+"</td>"+ " " +"<td>"+getDataGeneratorProperty().toColumnString()+"</td>"+"</tr>";
     }
 
 /**
@@ -558,6 +696,9 @@ public  class Scenario extends ApplicationDataset{
       if(!this.getDataFileVersionNumber().equals(b.getDataFileVersionNumber())){
          System.out.println("DataFileVersionNumber");
         }
+      if(!this.getDataGeneratorProperty().applicationSame(b.getDataGeneratorProperty())){
+         System.out.println("DataGeneratorProperty");
+        }
       if(!this.getGanttLineHeight().equals(b.getGanttLineHeight())){
          System.out.println("GanttLineHeight");
         }
@@ -573,16 +714,25 @@ public  class Scenario extends ApplicationDataset{
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
+      if(!this.getSolverProperty().applicationSame(b.getSolverProperty())){
+         System.out.println("SolverProperty");
+        }
+      if(!this.getStartDateTime().applicationEqual(b.getStartDateTime())){
+         System.out.println("StartDateTime");
+        }
       if(!this.getTimeResolution().equals(b.getTimeResolution())){
          System.out.println("TimeResolution");
         }
         return  this.getDataFile().equals(b.getDataFile()) &&
           this.getDataFileVersionNumber().equals(b.getDataFileVersionNumber()) &&
+          this.getDataGeneratorProperty().applicationSame(b.getDataGeneratorProperty()) &&
           this.getGanttLineHeight().equals(b.getGanttLineHeight()) &&
           this.getGanttLinesPerPage().equals(b.getGanttLinesPerPage()) &&
           this.getGanttWidth().equals(b.getGanttWidth()) &&
           this.getHorizon().equals(b.getHorizon()) &&
           this.getName().equals(b.getName()) &&
+          this.getSolverProperty().applicationSame(b.getSolverProperty()) &&
+          this.getStartDateTime().applicationEqual(b.getStartDateTime()) &&
           this.getTimeResolution().equals(b.getTimeResolution());
     }
 
@@ -594,6 +744,12 @@ public  class Scenario extends ApplicationDataset{
     public void check(){
         if (getName().length() == 0) {
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"name","Scenario",(getName()==null?"null":getName().toString()),"",WarningType.NOTEMPTY);
+        }
+        if (getDataGeneratorProperty() == null){
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"dataGeneratorProperty","Scenario",(getDataGeneratorProperty()==null?"null":getDataGeneratorProperty().toString()),"",WarningType.NOTNULL);
+        }
+        if (getSolverProperty() == null){
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"solverProperty","Scenario",(getSolverProperty()==null?"null":getSolverProperty().toString()),"",WarningType.NOTNULL);
         }
     }
 
@@ -611,6 +767,12 @@ public  class Scenario extends ApplicationDataset{
     }
 
    public List<ApplicationObjectInterface> getFeasibleValues(ApplicationDatasetInterface base,String attrName){
+      if (attrName.equals("dataGeneratorProperty")){
+         return (List) ((Scenario)base).getListDataGeneratorProperty();
+      }
+      if (attrName.equals("solverProperty")){
+         return (List) ((Scenario)base).getListSolverProperty();
+      }
       return null;
    }
 

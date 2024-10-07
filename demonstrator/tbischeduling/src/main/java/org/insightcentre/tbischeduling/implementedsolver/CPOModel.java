@@ -9,6 +9,7 @@ import java.util.*;
 import static java.util.stream.Collectors.groupingBy;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
+import static org.insightcentre.tbischeduling.utilities.TypeConverters.toDateTime;
 
 public class CPOModel extends AbstractModel{
     static int solNr = 1;
@@ -363,6 +364,8 @@ public class CPOModel extends AbstractModel{
                     ja.setJob(jobs[j]);
                     ja.setStart(start);
                     ja.setEnd(end);
+                    ja.setStartDate(toDateTime(base,start));
+                    ja.setEndDate(toDateTime(base,end));
                     ja.setDuration(duration);
                     ja.setLate(late);
                     ja.setEarly(early);
@@ -380,6 +383,8 @@ public class CPOModel extends AbstractModel{
                     ta.setTask(tasks[i]);
                     ta.setStart(start);
                     ta.setEnd(end);
+                    ta.setStartDate(toDateTime(base,start));
+                    ta.setEndDate(toDateTime(base,end));
                     ta.setDuration(duration);
                     int cnt =0;
                     for(int k=0;k<nrDisjunctiveResources;k++){
@@ -402,6 +407,11 @@ public class CPOModel extends AbstractModel{
                 sol.setWeightedEarliness(jaList.stream().mapToDouble(this::weightedEarliness).sum());
                 sol.setPercentEarly(100.0*sol.getNrEarly()/nrJobs);
                 sol.setPercentLate(100.0*sol.getNrLate()/nrJobs);
+                sol.setStart(jaList.stream().mapToInt(JobAssignment::getStart).min().orElse(0));
+                sol.setEnd(jaList.stream().mapToInt(JobAssignment::getStart).max().orElse(0));
+                sol.setStartDate(toDateTime(base,sol.getStart()));
+                sol.setEndDate(toDateTime(base,sol.getEnd()));
+                sol.setDuration(sol.getEnd()-sol.getStart());
                 // to capture previously unseen solver status strings
                 assert(run.getSolverStatus() != null);
                 return true;

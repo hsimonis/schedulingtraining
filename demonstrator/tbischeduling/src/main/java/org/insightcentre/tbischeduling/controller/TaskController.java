@@ -29,7 +29,7 @@ import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Task;
 
 /**
- * Generated at 22:48:03 on 2024-10-03 */
+ * Generated at 08:17:45 on 2024-10-07 */
 public class TaskController extends Table3Controller {
 	@FXML
 	private TableView<Task> table;
@@ -53,10 +53,16 @@ public class TaskController extends Table3Controller {
 	private TableColumn<Task, Integer> stage;
 
 	@FXML
+	private TableColumn<Task, Integer> nr;
+
+	@FXML
 	private TableColumn<Task, String> machines;
 
 	@FXML
 	private TableColumn<Task, String> precedes;
+
+	@FXML
+	private TableColumn<Task, String> follows;
 
 	@FXML
 	private TableColumn<Task, Order> order;
@@ -115,10 +121,16 @@ public class TaskController extends Table3Controller {
 		stage.setCellValueFactory(new PropertyValueFactory<>("stage"));
 		stage.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		stage.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setStage(event.getNewValue()); mainApp.reset();});
+		choices.add("nr");
+		nr.setCellValueFactory(new PropertyValueFactory<>("nr"));
+		nr.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		nr.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setNr(event.getNewValue()); mainApp.reset();});
 		choices.add("machines");
 		machines.setCellValueFactory(cellData -> new SimpleStringProperty(convert(cellData.getValue().getMachines())));
 		choices.add("precedes");
 		precedes.setCellValueFactory(cellData -> new SimpleStringProperty(convert(cellData.getValue().getPrecedes())));
+		choices.add("follows");
+		follows.setCellValueFactory(cellData -> new SimpleStringProperty(convert(cellData.getValue().getFollows())));
 		choices.add("job.order");
 		try {
 			order.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJob().getOrder()));

@@ -2,6 +2,7 @@ package org.insightcentre.tbischeduling.importer;
 
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.datamodel.Process;
+import org.insightcentre.tbischeduling.implementedsolver.CheckSolutions;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,6 +19,7 @@ import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
 import static org.insightcentre.tbischeduling.importer.CreateData.summarizeProblem;
 import static org.insightcentre.tbischeduling.importer.Reset.resetAll;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
+import static org.insightcentre.tbischeduling.utilities.TypeConverters.*;
 
 public class ReadData {
     JSONObject root;
@@ -82,8 +84,9 @@ public class ReadData {
         Hashtable<String, TaskAssignment> taskAssignmentHash = readTaskAssignments(root,jobAssignmentHash,
                 taskHash,disjunctiveResourceHash);
 
-        info("File read, "+base.getListInputError().size()+" error(s).");
         summarizeProblem(base);
+        new CheckSolutions(base,base.getListSolution());
+        info("File read, "+base.getListInputError().size()+" input error(s), "+base.getListSolutionError().size()+" solution errors");
 
 
     }
@@ -131,9 +134,9 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","timePointsAsDate","nrProducts","nrProcesses",
+                if (requireFields(key,i,item,new String[]{"label","timePointsAsDate","nrProducts","nrProcesses",
                         "nrDisjunctiveResources","nrCumulativeResources","nrOrders","nrJobs","nrTasks"})) {
-                    String name = item.getString("name");
+                    String label = item.getString("label");
                     Boolean timePointsAsDate = item.getBoolean("timePointsAsDate");
                     int nrProducts = item.getInt("nrProducts");
                     int nrProcesses = item.getInt("nrProcesses");
@@ -143,7 +146,9 @@ public class ReadData {
                     int nrJobs = item.getInt("nrJobs");
                     int nrTasks = item.getInt("nrTasks");
                     Problem p = new Problem(base);
+                    String name = "ReadFromFile";
                     p.setName(name);
+                    p.setLabel(label);
                     p.setTimePointsAsDate(timePointsAsDate);
                     p.setNrProducts(nrProducts);
                     p.setNrProcesses(nrProcesses);
@@ -175,6 +180,7 @@ public class ReadData {
                     String name = item.getString("name");
                     DisjunctiveResource p = new DisjunctiveResource(base);
                     p.setName(name);
+                    p.setShortName(name);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -525,6 +531,7 @@ public class ReadData {
 
     private Hashtable<String,Job> readJobs(JSONObject root,Hashtable<String,Order> orderHash,Hashtable<String,Process> processHash){
         String key = "job";
+        int jobNr = 0;
         Hashtable<String,Job> res = new Hashtable<>();
         if (root.has(key)){
             JSONArray arr = root.getJSONArray(key);
@@ -547,6 +554,7 @@ public class ReadData {
                     }
                     Job j = new Job(base);
                     j.setName(name);
+                    j.setNr(jobNr++);
                     j.setOrder(order);
                     j.setProcess(process);
                     if (res.get(name) != null) {
@@ -564,6 +572,7 @@ public class ReadData {
 
     private Hashtable<String,Task> readTasks(JSONObject root,Hashtable<String,Job> jobHash,Hashtable<String,ProcessStep> processStepHash){
         String key = "task";
+        int taskNr = 0;
         Hashtable<String,Task> res = new Hashtable<>();
         if (root.has(key)){
             JSONArray arr = root.getJSONArray(key);
@@ -584,6 +593,8 @@ public class ReadData {
                     }
                     Task t = new Task(base);
                     t.setName(name);
+                    t.setShortName(name);
+                    t.setNr(taskNr++);
                     t.setJob(j);
                     t.setProcessStep(processStep);
                     t.setDuration(duration);
@@ -891,65 +902,6 @@ public class ReadData {
     }
 
 
-    private SequenceType toSequenceType(String name){
-        if ("EndBeforeStart".equals(name)) {
-            return SequenceType.EndBeforeStart;
-        }
-        return null;
-    }
-
-    private Severity toSeverity(String name){
-        return switch (name) {
-            case "Fatal" -> Fatal;
-            case "Critical" -> Critical;
-            case "Major" -> Major;
-            case "Minor" -> Minor;
-            default -> Minor;
-        };
-    }
-    private ModelType toModelType(String name){
-        return switch (name) {
-            case "CPO" -> CPO;
-            case "MiniZincDiffn" -> MiniZincDiffn;
-            case "MiniZincTask" -> MiniZincTask;
-            case "REST" -> REST;
-            default -> null;
-        };
-    }
-    private SolverBackend toSolverBackend(String name){
-        return switch (name) {
-            case "Chuffed" -> Chuffed;
-            case "Gecode" -> Gecode;
-            case "CPSat" -> CPSat;
-            case "Cplex" -> Cplex;
-            default -> null;
-        };
-    }
-    private SolverStatus toSolverStatus(String name){
-        return switch (name) {
-            case "ToRun" -> ToRun;
-            case "Optimal" -> Optimal;
-            case "Solution" -> Solution;
-            case "Infeasible" -> Infeasible;
-            case "Unknown" -> Unknown;
-            case "Error" -> Error;
-            default -> null;
-        };
-    }
-    private ObjectiveType toObjectiveType(String name){
-        return switch (name) {
-            case "Makespan" -> Makespan;
-            case "Flowtime" -> Flowtime;
-            case "TotalEarliness" -> TotalEarliness;
-            case "MaxEarliness" -> MaxEarliness;
-            case "WeightedEarliness" -> WeightedEarliness;
-            case "TotalLateness" -> TotalLateness;
-            case "MaxLateness" -> MaxLateness;
-            case "WeightedLateness" -> WeightedLateness;
-            case "Hybrid" -> Hybrid;
-            default -> null;
-        };
-    }
 
     int errNr=1;
     private InputError inputError(String classDesc,String item,String field,String value,String description,Severity severity){

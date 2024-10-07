@@ -21,12 +21,12 @@ public class ScheduleJobsSolver extends DefaultSolver{
     protected boolean enforceWip=true;
     protected boolean enforceDowntime=true;
     protected String modelType="CPO";
-    protected String solverBackend="CPSat";
+    protected String solverBackend="None";
     protected String objectiveType="Makespan";
     protected int weightMakespan=1;
     protected int weightFlowtime=1;
     protected int weightLateness=1;
-    protected int weightEarlyness=1;
+    protected int weightEarliness=1;
     protected int timeout=60;
     protected int nrThreads=2;
     protected int seed=1;
@@ -37,7 +37,7 @@ public class ScheduleJobsSolver extends DefaultSolver{
     public ScheduleJobsSolver(Scenario base){
         super(base,new String[] {});
     }
-    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarlyness,int timeout,int nrThreads,int seed,boolean removeSolution,boolean produceReport,boolean producePDF){
+    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarliness,int timeout,int nrThreads,int seed,boolean removeSolution,boolean produceReport,boolean producePDF){
         super(base,new String[] {});
         this.label=label;
         this.description=description;
@@ -54,7 +54,7 @@ public class ScheduleJobsSolver extends DefaultSolver{
         this.weightMakespan=weightMakespan;
         this.weightFlowtime=weightFlowtime;
         this.weightLateness=weightLateness;
-        this.weightEarlyness=weightEarlyness;
+        this.weightEarliness=weightEarliness;
         this.timeout=timeout;
         this.nrThreads=nrThreads;
         this.seed=seed;
@@ -123,8 +123,8 @@ public int getWeightLateness(){
  return weightLateness;
 }
 
-public int getWeightEarlyness(){
- return weightEarlyness;
+public int getWeightEarliness(){
+ return weightEarliness;
 }
 
 public int getTimeout(){
@@ -226,8 +226,8 @@ public ScheduleJobsSolver setWeightLateness(int v){
  return this;
 }
 
-public ScheduleJobsSolver setWeightEarlyness(int v){
- weightEarlyness = v;
+public ScheduleJobsSolver setWeightEarliness(int v){
+ weightEarliness = v;
  return this;
 }
 
