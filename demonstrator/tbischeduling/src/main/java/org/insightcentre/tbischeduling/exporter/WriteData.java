@@ -205,6 +205,7 @@ public class WriteData {
             JSONObject obj = new JSONObject();
             obj.put("name",p.getName());
             obj.put("from",p.getFrom());
+            obj.put("fromDate",p.getFromDate().toString());
             obj.put("cumulativeResource",p.getCumulativeResource().getName());
             obj.put("capacity",p.getCapacity());
             res.put(obj);
@@ -265,9 +266,9 @@ public class WriteData {
             obj.put("disjunctiveResource",w.getDisjunctiveResource().getName());
             obj.put("duration",w.getDuration());
             obj.put("start",w.getStart());
-            obj.put("startDate",w.getStartDate());
+            obj.put("startDate",w.getStartDate().toString());
             obj.put("end",w.getEnd());
-            obj.put("endDate",w.getEndDate());
+            obj.put("endDate",w.getEndDate().toString());
             res.put(obj);
         }
         return res;
@@ -339,6 +340,12 @@ public class WriteData {
             obj.put("weightedLateness",sol.getWeightedLateness());
             obj.put("percentEarly",sol.getPercentEarly());
             obj.put("percentLate",sol.getPercentLate());
+            obj.put("start",sol.getStart());
+            obj.put("end",sol.getEnd());
+            obj.put("duration",sol.getDuration());
+            obj.put("startDate",sol.getStartDate().toString());
+            obj.put("endDate",sol.getEndDate().toString());
+
             res.put(obj);
         }
         return res;
@@ -356,8 +363,8 @@ public class WriteData {
             jObj.put("start",ja.getStart());
             jObj.put("end",ja.getEnd());
             jObj.put("duration",ja.getDuration());
-            jObj.put("startDate",ja.getStartDate());
-            jObj.put("endDate",ja.getEndDate());
+            jObj.put("startDate",ja.getStartDate().toString());
+            jObj.put("endDate",ja.getEndDate().toString());
 
             res.put(jObj);
         }
@@ -375,8 +382,8 @@ public class WriteData {
             tObj.put("start",ta.getStart());
             tObj.put("end",ta.getEnd());
             tObj.put("duration",ta.getDuration());
-            tObj.put("startDate",ta.getStartDate());
-            tObj.put("endDate",ta.getEndDate());
+            tObj.put("startDate",ta.getStartDate().toString());
+            tObj.put("endDate",ta.getEndDate().toString());
 
             res.put(tObj);
         }

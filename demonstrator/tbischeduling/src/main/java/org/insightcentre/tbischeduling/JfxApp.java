@@ -48,7 +48,7 @@ public class JfxApp extends GeneratedJfxApp {
                 Scenario base = new Scenario();
                 IrishCalendar.buildCalendar();
                 // define the format version of the datafiles
-                base.setDataFileVersionNumber(6.0);
+                base.setDataFileVersionNumber(7.0);
                 base.setDataFile("");
                 base.setStartDateTime(new DateTime(2024,10,1,0,0));
                 base.setHorizon(2000);

@@ -1,5 +1,6 @@
 package org.insightcentre.tbischeduling.importer;
 
+import framework.types.DateTime;
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.implementedsolver.CheckSolutions;
@@ -24,6 +25,8 @@ import static org.insightcentre.tbischeduling.utilities.TypeConverters.*;
 public class ReadData {
     JSONObject root;
     Scenario base;
+
+    String dateTimeFormat = "d/M/yyyy HH:mm";
     public ReadData(Scenario base, File selected) {
         this.base = base;
         try {
@@ -439,9 +442,10 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if(requireFields(key,i,item,new String[]{"name","from","cumulativeResource","capacity"})) {
+                if(requireFields(key,i,item,new String[]{"name","from","fromDate","cumulativeResource","capacity"})) {
                     String name = item.getString("name");
                     int from = item.getInt("from");
+                    DateTime fromDate = readDateTime(item.getString("fromDate"),from);
                     String rName = item.getString("cumulativeResource");
                     int capacity = item.getInt("capacity");
                     CumulativeResource r = cumulativeResourceHash.get(rName);
@@ -454,6 +458,7 @@ public class ReadData {
                     CumulativeProfile cn = new CumulativeProfile(base);
                     cn.setName(name);
                     cn.setFrom(from);
+                    cn.setFromDate(fromDate);
                     cn.setCumulativeResource(r);
                     cn.setCapacity(capacity);
                     if (res.get(name) != null) {
@@ -469,6 +474,15 @@ public class ReadData {
         return res;
     }
 
+    private DateTime readDateTime(String string,int value){
+        try{
+            return DateTime.parseDateTime(string,dateTimeFormat);
+        } catch(Exception e){
+            severe("Cannot parse DateTime from "+string);
+            return toDateTime(base,value);
+        }
+    }
+
     private Hashtable<String,Order> readOrders(JSONObject root,Hashtable<String,Product> productHash,
                                                Hashtable<String,Process> processHash){
         String key = "order";
@@ -477,7 +491,7 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","product","qty","due","release",
+                if (requireFields(key,i,item,new String[]{"name","product","qty","due","release","dueDate","releaseDate",
                         "latenessWeight","earlinessWeight"})) {
                     String name = item.getString("name");
                     String pName = item.getString("product");
@@ -485,6 +499,8 @@ public class ReadData {
                     int qty = item.getInt("qty");
                     int due = item.getInt("due");
                     int release = item.getInt("release");
+                    DateTime dueDate = readDateTime(item.getString("dueDate"),due);
+                    DateTime releaseDate = readDateTime(item.getString("releaseDate"),release);
                     double latenessWeight = item.getDouble("latenessWeight");
                     double earlinessWeight = item.getDouble("latenessWeight");
                     Product product = productHash.get(pName);
@@ -513,6 +529,8 @@ public class ReadData {
                     ord.setProcess(process);
                     ord.setQty(qty);
                     ord.setDue(due);
+                    ord.setDueDate(dueDate);
+                    ord.setReleaseDate(releaseDate);
                     ord.setRelease(release);
                     ord.setLatenessWeight(latenessWeight);
                     ord.setEarlinessWeight(earlinessWeight);
@@ -619,12 +637,14 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","disjunctiveResource","start","end","duration"})) {
+                if (requireFields(key,i,item,new String[]{"name","disjunctiveResource","start","end","duration","startDate","endDate"})) {
                     String name = item.getString("name");
                     String rName = item.getString("disjunctiveResource");
                     int duration = item.getInt("duration");
                     int start = item.getInt("start");
                     int end = item.getInt("end");
+                    DateTime startDate = readDateTime(item.getString("startDate"),start);
+                    DateTime endDate = readDateTime(item.getString("endDate"),end);
                     DisjunctiveResource r = disjunctiveResourceHash.get(rName);
                     if (r == null) {
                         inputError(key, name, "disjunctiveResource", rName, "The required object does not exist", Fatal);
@@ -635,6 +655,8 @@ public class ReadData {
                     w.setStart(start);
                     w.setEnd(end);
                     w.setDuration(duration);
+                    w.setStartDate(startDate);
+                    w.setEndDate(endDate);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -655,12 +677,14 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","disjunctiveResource","start","end","duration"})) {
+                if (requireFields(key,i,item,new String[]{"name","disjunctiveResource","start","end","duration","startDate","endDate"})) {
                     String name = item.getString("name");
                     String rName = item.getString("disjunctiveResource");
                     int start = item.getInt("start");
                     int end = item.getInt("end");
                     int duration = item.getInt("duration");
+                    DateTime startDate = readDateTime(item.getString("startDate"),start);
+                    DateTime endDate = readDateTime(item.getString("endDate"),end);
                     DisjunctiveResource r = disjunctiveResourceHash.get(rName);
                     if (r == null) {
                         inputError(key, name, "disjunctiveResource", rName, "The required object does not exist", Fatal);
@@ -671,6 +695,8 @@ public class ReadData {
                     d.setStart(start);
                     d.setEnd(end);
                     d.setDuration(duration);
+                    d.setStartDate(startDate);
+                    d.setEndDate(endDate);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -746,7 +772,7 @@ public class ReadData {
                 if (requireFields(key,i,item,new String[]{"name","solverRun","objectiveValue","solverStatus","bound","gap",
                         "makespan","flowtime",
                         "totalLateness","maxLateness","weightedLateness",
-                        "totalEarliness","maxEarliness","weightedEarliness"})) {
+                        "totalEarliness","maxEarliness","weightedEarliness","start","end","duration","startDate","endDate"})) {
                     String name = item.getString("name");
                     String solverRun = item.getString("solverRun");
                     int objectiveValue = item.getInt("objectiveValue");
@@ -765,6 +791,12 @@ public class ReadData {
                     double weightedEarliness = item.getDouble("weightedEarliness");
                     double percentEarly = item.getDouble("percentEarly");
                     double percentLate = item.getDouble("percentLate");
+                    int start = item.getInt("start");
+                    int end = item.getInt("end");
+                    int duration = item.getInt("duration");
+                    DateTime startDate = readDateTime(item.getString("startDate"),start);
+                    DateTime endDate = readDateTime(item.getString("endDate"),end);
+
                     SolverRun sr = solverRunHash.get(solverRun);
                     if (sr == null) {
                         inputError(key, name, "solverRun", solverRun, "The required object does not exist", Fatal);
@@ -789,6 +821,11 @@ public class ReadData {
                     s.setWeightedEarliness(weightedEarliness);
                     s.setPercentEarly(percentEarly);
                     s.setPercentLate(percentLate);
+                    s.setStart(start);
+                    s.setEnd(end);
+                    s.setDuration(duration);
+                    s.setStartDate(startDate);
+                    s.setEndDate(endDate);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -809,13 +846,15 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","job","solution","start","end","duration","late","early"})) {
+                if (requireFields(key,i,item,new String[]{"name","job","solution","start","end","duration","late","early","startDate","endDate"})) {
                     String name = item.getString("name");
                     String sName = item.getString("solution");
                     String jName = item.getString("job");
                     int start = item.getInt("start");
                     int end = item.getInt("end");
                     int duration = item.getInt("duration");
+                    DateTime startDate = readDateTime(item.getString("startDate"),start);
+                    DateTime endDate = readDateTime(item.getString("endDate"),end);
                     int late = item.getInt("late");
                     int early = item.getInt("early");
                     Job j = jobHash.get(jName);
@@ -833,6 +872,8 @@ public class ReadData {
                     ja.setStart(start);
                     ja.setEnd(end);
                     ja.setDuration(duration);
+                    ja.setStartDate(startDate);
+                    ja.setEndDate(endDate);
                     ja.setEarly(early);
                     ja.setLate(late);
                     if (res.get(name) != null) {
@@ -859,13 +900,15 @@ public class ReadData {
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
                 if (requireFields(key,i,item,new String[]{"name","jobAssignment","task","disjunctiveResource",
-                        "start","end","duration"})) {
+                        "start","end","duration","startDate","endDate"})) {
                     String name = item.getString("name");
                     String jName = item.getString("jobAssignment");
                     String tName = item.getString("task");
                     String rName = item.getString("disjunctiveResource");
                     int start = item.getInt("start");
                     int end = item.getInt("end");
+                    DateTime startDate = readDateTime(item.getString("startDate"),start);
+                    DateTime endDate = readDateTime(item.getString("endDate"),end);
                     int duration = item.getInt("duration");
                     JobAssignment ja = jobAssignmentHash.get(jName);
                     Task t = taskHash.get(tName);
@@ -887,6 +930,8 @@ public class ReadData {
                     ta.setDisjunctiveResource(r);
                     ta.setStart(start);
                     ta.setEnd(end);
+                    ta.setStartDate(startDate);
+                    ta.setEndDate(endDate);
                     ta.setDuration(duration);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
