@@ -1,0 +1,16 @@
+\begin{table}[htbp]
+\caption{\label{tab:colors} Color Legend}
+\centering
+\begin{tabular}{cp{9cm}}\toprule
+Style & Description\\\midrule
+\cellcolor{Gold} name& The \texttt{name} field is the primary key of a structure. The names within one class must be unique.\\
+\cellcolor{GreenYellow} key& A key is a foreign key reference. It is the name of a structure of another type.\\
+\cellcolor{LightSkyBlue} date& A date expresses time in the external representation, e.g. day, month, year, hour, minute.\\
+\cellcolor{PowderBlue} elapsed& A time period measured in elapsed seconds. Used for timeout and runtime reporting.\\
+\cellcolor{Tomato} enum& An eumerated type can only take values from a restricted vocabulary. Lower/Upper case is significant.\\
+\cellcolor{LemonChiffon} internaltime& Many fields use the solver internal time, which is expressed as an integer, based on the distance to a reference start date, divided by the time resolution.\\
+\cellcolor{White} optional& Some input data fields are optional, if they are not given, the value from another field is used.\\
+\bottomrule
+\end{tabular}
+\end{table}
+

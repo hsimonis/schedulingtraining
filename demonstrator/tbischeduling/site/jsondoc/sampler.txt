@@ -1,0 +1,220 @@
+@startjson
+<style>
+.name {
+BackGroundColor gold
+FontColor black
+FontStyle italic
+}
+.key {
+BackGroundColor greenyellow
+FontColor black
+FontStyle italic
+}
+.date {
+BackGroundColor lightskyblue
+FontColor black
+FontStyle italic
+}
+.elapsed {
+BackGroundColor powderblue
+FontColor black
+FontStyle italic
+}
+.enum {
+BackGroundColor tomato
+FontColor black
+FontStyle italic
+}
+.internaltime {
+BackGroundColor lemonchiffon
+FontColor black
+FontStyle italic
+}
+.optional {
+BackGroundColor white
+FontColor black
+FontStyle italic
+}
+</style>
+#highlight "name" <<name>>
+#highlight "disjunctiveResource" <<key>>
+#highlight "cumulativeResource" <<key>>
+#highlight "product" <<key>>
+#highlight "process" <<key>>
+#highlight "defaultProcess" <<key>>
+#highlight "before" <<key>>
+#highlight "after" <<key>>
+#highlight "processStep" <<key>>
+#highlight "solverRun" <<key>>
+#highlight "solution" <<key>>
+#highlight "order" <<key>>
+#highlight "job" <<key>>
+#highlight "task" <<key>>
+#highlight "jobAssignment" <<key>>
+#highlight "endDate" <<date>>
+#highlight "startDate" <<date>>
+#highlight "fromDate" <<date>>
+#highlight "dueDate" <<date>>
+#highlight "releaseDate" <<date>>
+#highlight "fromDate" <<date>>
+#highlight "timeout" <<elapsed>>
+#highlight "time" <<elapsed>>
+#highlight "sequenceType" <<enum>>
+#highlight "solverBackend" <<enum>>
+#highlight "solverStatus" <<enum>>
+#highlight "modelType" <<enum>>
+#highlight "objectiveType" <<enum>>
+#highlight "severity" <<enum>>
+#highlight "start" <<internaltime>>
+#highlight "end" <<internaltime>>
+#highlight "duration" <<internaltime>>
+#highlight "due" <<internaltime>>
+#highlight "release" <<internaltime>>
+#highlight "due" <<internaltime>>
+#highlight "early" <<internaltime>>
+#highlight "late" <<internaltime>>
+#highlight "from" <<internaltime>>
+#highlight "durationFixed" <<internaltime>>
+#highlight "durationPerUnit" <<internaltime>>
+#highlight "offset" <<internaltime>>
+#highlight "makespan" <<internaltime>>
+#highlight "flowtime" <<internaltime>>
+#highlight "totalEarliness" <<internaltime>>
+#highlight "maxEarliness" <<internaltime>>
+#highlight "totalLateness" <<internaltime>>
+#highlight "maxLateness" <<internaltime>>
+#highlight "earlinessWeight" <<optional>>
+#highlight "latenessWeight" <<optional>>
+#highlight "label" <<optional>>
+{
+  "product": [{
+    "name": "Prod0",
+    "defaultProcess": "Process 0"
+  }],
+  "process": [{"name": "Process 0"}],
+  "disjunctiveResource": [{"name": "DR0"}],
+  "inputError": [],
+  "cumulativeNeed": [
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN0/0/CR0",
+      "processStep": "PS0/0",
+      "demand": 1
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN0/1/CR0",
+      "processStep": "PS0/1",
+      "demand": 1
+    }
+  ],
+  "processStep": [
+    {
+      "process": "Process 0",
+      "name": "PS0/0",
+      "durationFixed": 10,
+      "durationPerUnit": 10
+    },
+    {
+      "process": "Process 0",
+      "name": "PS0/1",
+      "durationFixed": 10,
+      "durationPerUnit": 10
+    }
+  ],
+  "label": "TbIScheduling data file",
+  "version": 7,
+  "resourceNeed": [
+    {
+      "disjunctiveResource": "DR0",
+      "name": "RN0/0/DR0",
+      "processStep": "PS0/0"
+    },
+    {
+      "disjunctiveResource": "DR0",
+      "name": "RN0/1/DR0",
+      "processStep": "PS0/1"
+    }
+  ],
+  "downtime": [{
+    "duration": 32,
+    "disjunctiveResource": "DR0",
+    "endDate": "13/10/2024 14:55",
+    "name": "DDR0",
+    "start": 1356,
+    "end": 1388,
+    "startDate": "13/10/2024 12:15"
+  }],
+  "cumulativeProfile": [{
+    "fromDate": "8/10/2024 19:15",
+    "cumulativeResource": "CR0",
+    "name": "CP00",
+    "from": 0,
+    "capacity": 5
+  }],
+  "problem": [{
+    "timePointsAsDate": true,
+    "nrDisjunctiveResources": 1,
+    "nrOrders": 1,
+    "nrProcesses": 1,
+    "nrJobs": 1,
+    "nrProducts": 1,
+    "name": "Generated",
+    "nrTasks": 2,
+    "label": "JSON Doc",
+    "nrCumulativeResources": 1
+  }],
+  "cumulativeResource": [{"name": "CR0"}],
+  "task": [
+    {
+      "duration": 60,
+      "name": "T0PS0/0",
+      "processStep": "PS0/0",
+      "job": "J0"
+    },
+    {
+      "duration": 60,
+      "name": "T0PS0/1",
+      "processStep": "PS0/1",
+      "job": "J0"
+    }
+  ],
+  "solution": [],
+  "taskAssignment": [],
+  "processSequence": [{
+    "offset": 0,
+    "before": "PS0/0",
+    "name": "Seq 0/1",
+    "after": "PS0/1",
+    "sequenceType": "EndBeforeStart"
+  }],
+  "solverRun": [],
+  "jobAssignment": [],
+  "job": [{
+    "process": "Process 0",
+    "name": "J0",
+    "order": "Order0"
+  }],
+  "order": [{
+    "product": "Prod0",
+    "process": "Process 0",
+    "due": 1995,
+    "releaseDate": "8/10/2024 19:15",
+    "release": 0,
+    "qty": 5,
+    "dueDate": "15/10/2024 17:30",
+    "name": "Order0",
+    "earlinessWeight": 1,
+    "latenessWeight": 1
+  }],
+  "wip": [{
+    "duration": 43,
+    "disjunctiveResource": "DR0",
+    "endDate": "8/10/2024 22:50",
+    "name": "WDR0",
+    "start": 0,
+    "end": 43,
+    "startDate": "8/10/2024 19:15"
+  }]
+}
+@endjson

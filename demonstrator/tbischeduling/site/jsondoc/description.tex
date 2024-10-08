@@ -1,0 +1,225 @@
+\documentclass[a4paper]{article}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[svgnames]{xcolor}
+\usepackage{colortbl}
+
+\title{Description of the  JSON Data Format for the \texttt{tbischeduling} Application}
+\author{H. Simonis}
+\begin{document}
+\maketitle
+\begin{abstract}
+This is a semi-generated report which describes the JSON format for input and output of the \texttt{tbischeduling} application.
+\end{abstract}
+
+
+\section{Introduction}
+
+This report shows the different data types that are contained in the JSON input and output files for the \texttt{tbischeduling} application. The report is semi-generated, the textual description is hand-written. while the images are generated from a sample data file via the \emph{plantuml} tool, based on the actual fields being written into an output file.
+
+The \texttt{tbischeduling} application at startup produces a small \texttt{sampler.txt} file with the \texttt{GenerateJSONDoc} class, based on a sample dataset. It creates a dataset with \texttt{CreateData()}, using the smallest number of values that provide a full application data set. It will also produce a set of files of the form \emph{class.txt}, which describe one instance of a class at a time. In the directory \texttt{site/jsondoc} we find a \texttt{Makefile} which will produce this report from the textual description and a set of \texttt{.png} files which are generated from the \texttt{.txt} files by \emph{plantuml}.
+
+\subsection{Design Rules}
+
+Each object (except the \emph{root}) described in the file has a \texttt{String} field called \emph{name}, which is used to identify the object. Null values, empty names, or duplicated names within the same class are not acceptable for this field. 
+
+If a structure refers to another object, it uses the name of that object as a reference, instead of repeating the content of the structure in multiple locations. So an \emph{Order} will refer to a \emph{Product} by name, which in turn refers to a \emph{Process} in the attribute \texttt{defaultProcess}.  
+
+\input{colorcoding}
+
+\section{Overview}
+
+Figure~\ref{fig:sampler} shows the complete format of the input data file for the application. There is a top-level structure which contains global parameters and a version number, and one JSONArray for each data type that is stored in the application. The image is generated from a produced sample datafile using the \emph{plantuml} drawing application.
+
+The structures marked in green are used as foreign keys in other structures.
+
+\begin{figure}[htbp]
+\includegraphics[height=20cm]{sampler.png}
+\caption{\label{fig:sampler}JSON Input Format Overview}
+\end{figure}
+
+\clearpage
+\section{Input Data}
+
+\subsection{Problem Description}
+
+The problem description part of the data defines how the factory operates, which products it can make, and how the product will be produced described in a process. We also define available resources and the resources needed to perform some process step. This description is quite static, it will only change if new products are introduced, or processes are changed.
+
+In the current version, we assume that we know which process to use for which product. In a future version we can allow to pick the best process to make the product for an order as part of the solution process.
+
+Our current version allows multiple identical parallel machines, but not machine preferences or production times that vary with the machine assigned.
+
+\begin{figure}[htbp]
+\includegraphics[height=20cm]{basedata.png}
+\caption{\label{fig:basedata}Base Data Defining Problem Structure}
+\end{figure}
+
+\clearpage
+\subsubsection{Problem}
+
+There can be only one \emph{Problem} instance in each data file, which summarizes the input data.
+
+\includegraphics[width=5cm]{problem.png}
+
+\subsubsection{Product}
+
+A \emph{Product} describes the end product that is made for an order. There is a default process which describes how the product is made.
+
+\includegraphics[width=4cm]{product.png}
+
+\subsubsection{Process}
+
+The \emph{Process} describes how a product is being made. The process typically contains multiple process steps, temporal relations between process steps, and resource requirements for each step.
+
+\includegraphics[width=3cm]{process.png}
+
+\subsubsection{ProcessStep}
+
+A \emph{ProcessStep} describes describes one step of a manufacturing process. The duration values are used to compute how long a tasks will take, depending on the quantity produced for one order.
+
+\includegraphics[width=4cm]{processStep.png}
+
+\subsubsection{ProcessSequence}
+
+The \emph{ProcessSequence} describes the temporal relations between two process steps. We currently only allow the most basic \emph{SequenceType} \texttt{EndBeforeStart}.
+
+\includegraphics[width=5cm]{processSequence.png}
+
+The possible values for the \texttt{sequenceType} field are given in Table~\ref{tab:SequenceType}.
+\input{sequenceType}
+
+
+\subsubsection{DisjunctiveResource}
+
+A \emph{DisjunctiveResource} can work on one task at a time. Task run without interruption, the resource is \emph{non-preemptive}.
+
+\includegraphics[width=2cm]{disjunctiveResource.png}
+
+\subsubsection{ResourceNeed}
+
+Depending on the process step, we may be able to use only one or one of multiple possible machines. There is one entry for each possible machine. We will add machine preferences and machine dependent times later on. Every process step needs to be compatible with at least one disjunctive resource.
+
+\includegraphics[width=5cm]{resourceNeed.png}
+
+\subsubsection{Cumulative Resource}
+
+A \emph{CumulativeResource} can perform multiple tasks at the same time, as long as a given resource profile is not exceeded. A task may consume more than one unit of resource at a time.
+
+\includegraphics[width=2cm]{cumulativeResource.png}
+
+\subsubsection{Cumulative Need}
+
+\emph{CumulativeNeed} describes how many values of a cumulative resource a process step requires. Not all process steps will use a specific cumulative resource, while come tasks will consume resources on more than one cumulative resource. 
+
+\includegraphics[width=5cm]{cumulativeNeed.png}
+
+\subsubsection{Cumulative Profile}
+
+\emph{CumulativeProfile} describes how the available resources of a cumulative resource change over time. The value is valid from the date from to the next profile date, or until the end of the project, if there is no further profile entry.
+
+\includegraphics[width=5cm]{cumulativeProfile.png}
+
+
+\subsection{Schedule}
+
+The Schedule data describe the activities that need to be performed, without without assigning resources or start and end times. 
+
+\begin{figure}[htbp]
+\includegraphics[height=20cm]{schedule.png}
+\caption{\label{fig:schedule}Schedule Specific Data Overview}
+\end{figure}
+
+\clearpage
+\subsubsection{Order}
+
+An \emph{Order} describes which products we are going to make in which quantity, and when the products needs to be ready. We can also express optional weights which indicate the importance of the due date of the order. The order also defines which process we are using for production, in case we specific alternative processes for a product.
+
+\includegraphics[width=5cm]{order.png}
+
+Jobs and tasks can be reconstructed from the orders and the general problem description.
+
+\subsubsection{Job}
+
+A \emph{Job} describes the work needed for one order. The job will consist of one more more tasks.
+ 
+\includegraphics[width=3cm]{job.png}
+
+\subsubsection{Task}
+
+A \emph{Task} describes the work needed to perform one process step for an order.
+
+\includegraphics[width=3cm]{task.png}
+
+\subsubsection{WiP}
+
+Work in progress (\emph{WiP}) defines a period at the start of the schedule when a disjunctive resource is still busy with work assigned in a previous schedule. No task can be scheduled on the machine before the end of the work in progress. The values for the work in progress will normally come from the actual facility, not from the stored previous schedule.
+
+\includegraphics[width=5cm]{wip.png}
+
+\subsubsection{Downtime}
+
+A \emph{Downtime} is a planned shutdown of a disjunctive resource with a defined \texttt{start} and \texttt{end} date. While the machine is shut down, no task can be performed on the resource.
+
+\includegraphics[width=5cm]{downtime.png}
+
+There are variations of a shutdown we might discuss later on, where an unfinished task may stretch over a downtime to complete once the machine becomes available again, but this is not considered here.
+
+\clearpage
+\section{Results}
+
+This section describes the different result types that are stored in the application files. Note that not all object attributes are stored in the data files, some of them are only used when running the solver.
+
+\begin{figure}[htbp]
+\includegraphics[height=20cm]{samplerresult.png}
+\caption{\label{fig:samplerresult}JSON Output Format Overview}
+\end{figure}
+
+\clearpage
+\subsubsection{SolverRun}
+
+A \emph{SolverRun} object is created before the solver is run. It contains the settings which control which model and solver backend is executed together with other parameters. When asking for a solution, the \emph{SolverStatus} field is set to \texttt{ToRun}, after running the solver it contains the solver status returned by the backend. The \texttt{time} value is also set after the solver has finished. 
+
+\includegraphics[width=5cm]{solverRun.png}
+
+The possible values for the \texttt{solverBackend} field are given in Table~\ref{tab:SolverBackend}.
+\input{solverBackend}
+The possible values for the \texttt{solverStatus} field are given in Table~\ref{tab:SolverStatus}.
+\input{solverStatus}
+The possible values for the \texttt{modelType} field are given in Table~\ref{tab:ModelType}.
+\input{modelType}
+The possible values for the \texttt{objectiveType} field are given in Table~\ref{tab:ObjectiveType}.
+\input{objectiveType}
+
+The \emph{SolverStatus} values \texttt{Error}, \texttt{Infeasible}, and \texttt{Unknown} indicate that the solver did not find a solution at all. Otherwise, the best solution found is returned as well. The value \texttt{ToRun} indicates that the solver was not run at all, due to major input errors.
+
+\subsubsection{Solution}
+
+There is a \emph{Solution} object created every time the scheduling solver did find a solution. The object contains the objective value, other cost values and computed key performance indicators. The solver status indicate whether an optimal solution \texttt{Optimal} or only a feasible solution \texttt{Solution} was found.
+ 
+\includegraphics[width=5cm]{solution.png}
+
+The possible values for the \texttt{solverStatus} field are given in Table~\ref{tab:SolverStatus}.
+
+\subsubsection{JobAssignment}
+
+There is one \emph{JobAssignment} object created for every \emph{Job} and every \emph{Solution} that is found. This object contains the resulting schedule for the job, i.e. its \texttt{start}, \texttt{end}, and \texttt{duration} as wells as \texttt{earliness} and \texttt{lateness} costs.
+
+\includegraphics[width=5cm]{jobAssignment.png}
+
+\subsubsection{TaskAssignment}
+
+There is one \emph{TaskAssignment} object created for every \emph{Task} and every \emph{Solution} that is found. This object contains the result values for the task in the given solution. These are \texttt{start}, \texttt{end}, and \texttt{duration} values, as well as the \texttt{disjunctiveResource} on which the task is run.
+
+\includegraphics[width=5cm]{taskAssignment.png}
+
+\subsubsection{Input Error}
+
+When loading a data file, the system checks the data for internal consistencies, and may produce \emph{InputError} objects of different \emph{Severity} levels. If major errors are found, the system will not run the solver, but return the input data with the description of the input errors added.
+
+\includegraphics[width=5cm]{inputError.png}
+
+The possible values for the \texttt{severity} field are given in Table~\ref{tab:Severity}.
+\input{severity}
+
+
+\end{document}

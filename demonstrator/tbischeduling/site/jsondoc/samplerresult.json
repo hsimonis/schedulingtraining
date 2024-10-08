@@ -1,0 +1,204 @@
+{
+  "product": [{
+    "name": "Prod0",
+    "defaultProcess": "Process 0"
+  }],
+  "process": [{"name": "Process 0"}],
+  "disjunctiveResource": [{"name": "DR0"}],
+  "inputError": [],
+  "cumulativeNeed": [
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN0/0/CR0",
+      "processStep": "PS0/0",
+      "demand": 1
+    },
+    {
+      "cumulativeResource": "CR0",
+      "name": "CN0/1/CR0",
+      "processStep": "PS0/1",
+      "demand": 1
+    }
+  ],
+  "processStep": [
+    {
+      "process": "Process 0",
+      "name": "PS0/0",
+      "durationFixed": 10,
+      "durationPerUnit": 13
+    },
+    {
+      "process": "Process 0",
+      "name": "PS0/1",
+      "durationFixed": 9,
+      "durationPerUnit": 13
+    }
+  ],
+  "label": "TbIScheduling data file",
+  "version": 7,
+  "resourceNeed": [
+    {
+      "disjunctiveResource": "DR0",
+      "name": "RN0/0/DR0",
+      "processStep": "PS0/0"
+    },
+    {
+      "disjunctiveResource": "DR0",
+      "name": "RN0/1/DR0",
+      "processStep": "PS0/1"
+    }
+  ],
+  "downtime": [{
+    "duration": 59,
+    "disjunctiveResource": "DR0",
+    "endDate": "19/10/2024 21:30",
+    "name": "DDR0",
+    "start": 5383,
+    "end": 5442,
+    "startDate": "19/10/2024 16:35"
+  }],
+  "cumulativeProfile": [{
+    "fromDate": "1/10/2024 00:00",
+    "cumulativeResource": "CR0",
+    "name": "CP00",
+    "from": 0,
+    "capacity": 5
+  }],
+  "problem": [{
+    "timePointsAsDate": true,
+    "nrDisjunctiveResources": 1,
+    "nrOrders": 1,
+    "nrProcesses": 1,
+    "nrJobs": 1,
+    "nrProducts": 1,
+    "name": "Generated",
+    "nrTasks": 2,
+    "label": "",
+    "nrCumulativeResources": 1
+  }],
+  "cumulativeResource": [{"name": "CR0"}],
+  "task": [
+    {
+      "duration": 127,
+      "name": "T0PS0/0",
+      "processStep": "PS0/0",
+      "job": "J0"
+    },
+    {
+      "duration": 126,
+      "name": "T0PS0/1",
+      "processStep": "PS0/1",
+      "job": "J0"
+    }
+  ],
+  "solution": [{
+    "makespan": 275,
+    "weightedEarliness": 1101,
+    "totalEarliness": 1101,
+    "totalLateness": 0,
+    "endDate": "1/10/2024 01:50",
+    "bound": 275,
+    "solverStatus": "Optimal",
+    "start": 22,
+    "percentLate": 0,
+    "weightedLateness": 0,
+    "maxEarliness": 1101,
+    "nrEarly": 1,
+    "percentEarly": 100,
+    "duration": 0,
+    "maxLateness": 0,
+    "nrLate": 0,
+    "gap": 0,
+    "name": "Sol1",
+    "solverRun": "Run1",
+    "objectiveValue": 275,
+    "end": 22,
+    "flowtime": 275,
+    "startDate": "1/10/2024 01:50"
+  }],
+  "taskAssignment": [
+    {
+      "duration": 127,
+      "task": "T0PS0/0",
+      "disjunctiveResource": "DR0",
+      "endDate": "1/10/2024 12:25",
+      "name": "TA0",
+      "start": 22,
+      "end": 149,
+      "jobAssignment": "JA0",
+      "startDate": "1/10/2024 01:50"
+    },
+    {
+      "duration": 126,
+      "task": "T0PS0/1",
+      "disjunctiveResource": "DR0",
+      "endDate": "1/10/2024 22:55",
+      "name": "TA1",
+      "start": 149,
+      "end": 275,
+      "jobAssignment": "JA0",
+      "startDate": "1/10/2024 12:25"
+    }
+  ],
+  "processSequence": [{
+    "offset": 0,
+    "before": "PS0/0",
+    "name": "Seq 0/1",
+    "after": "PS0/1",
+    "sequenceType": "EndBeforeStart"
+  }],
+  "solverRun": [{
+    "nrThreads": 2,
+    "seed": 42,
+    "solverBackend": "None",
+    "solverStatus": "Optimal",
+    "description": "",
+    "label": "",
+    "modelType": "CPO",
+    "objectiveType": "Makespan",
+    "timeout": 30,
+    "name": "Run1",
+    "time": 0.098,
+    "removeSolution": false,
+    "enforceReleaseDate": true,
+    "enforceDueDate": false
+  }],
+  "jobAssignment": [{
+    "duration": 253,
+    "solution": "Sol1",
+    "late": 0,
+    "endDate": "1/10/2024 22:55",
+    "name": "JA0",
+    "start": 22,
+    "end": 275,
+    "job": "J0",
+    "early": 1101,
+    "startDate": "1/10/2024 01:50"
+  }],
+  "job": [{
+    "process": "Process 0",
+    "name": "J0",
+    "order": "Order0"
+  }],
+  "order": [{
+    "product": "Prod0",
+    "process": "Process 0",
+    "due": 1376,
+    "releaseDate": "1/10/2024 00:00",
+    "release": 0,
+    "qty": 9,
+    "dueDate": "5/10/2024 18:40",
+    "name": "Order0",
+    "earlinessWeight": 1,
+    "latenessWeight": 1
+  }],
+  "wip": [{
+    "duration": 22,
+    "disjunctiveResource": "DR0",
+    "endDate": "1/10/2024 01:50",
+    "name": "WDR0",
+    "start": 0,
+    "end": 22,
+    "startDate": "1/10/2024 00:00"
+  }]
+}

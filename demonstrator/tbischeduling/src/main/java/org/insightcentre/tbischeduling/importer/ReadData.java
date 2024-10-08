@@ -492,8 +492,7 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","product","qty","due","release","dueDate","releaseDate",
-                        "latenessWeight","earlinessWeight"})) {
+                if (requireFields(key,i,item,new String[]{"name","product","qty","due","release","dueDate","releaseDate"})) {
                     String name = item.getString("name");
                     String pName = item.getString("product");
                     String qName = item.getString("process");
@@ -502,8 +501,14 @@ public class ReadData {
                     int release = item.getInt("release");
                     DateTime dueDate = readDateTime(item.getString("dueDate"),due);
                     DateTime releaseDate = readDateTime(item.getString("releaseDate"),release);
-                    double latenessWeight = item.getDouble("latenessWeight");
-                    double earlinessWeight = item.getDouble("latenessWeight");
+                    double latenessWeight = 1.0;
+                    if (item.has("latenessWeight")) {
+                        latenessWeight = item.getDouble("latenessWeight");
+                    }
+                    double earlinessWeight = 1.0;
+                    if (item.has("earlinessWeight")) {
+                        earlinessWeight = item.getDouble("earlinessWeight");
+                    }
                     Product product = productHash.get(pName);
                     Process process = processHash.get(qName);
                     if (product == null) {
@@ -718,11 +723,14 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","label","description","modelType","solverBackend",
+                if (requireFields(key,i,item,new String[]{"name","description","modelType","solverBackend",
                         "objectiveType","enforceReleaseDate","enforceDueDate","timeout","nrThreads","seed",
                         "removeSolution","solverStatus","time"})) {
                     String name = item.getString("name");
-                    String label = item.getString("label");
+                    String label = name;
+                    if (item.has("label")) {
+                        item.getString("label");
+                    }
                     String description = item.getString("description");
                     String modelType = item.getString("modelType");
                     String solverBackend = item.getString("solverBackend");

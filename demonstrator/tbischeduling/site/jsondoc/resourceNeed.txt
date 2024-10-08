@@ -1,0 +1,94 @@
+@startjson
+<style>
+.name {
+BackGroundColor gold
+FontColor black
+FontStyle italic
+}
+.key {
+BackGroundColor greenyellow
+FontColor black
+FontStyle italic
+}
+.date {
+BackGroundColor lightskyblue
+FontColor black
+FontStyle italic
+}
+.elapsed {
+BackGroundColor powderblue
+FontColor black
+FontStyle italic
+}
+.enum {
+BackGroundColor tomato
+FontColor black
+FontStyle italic
+}
+.internaltime {
+BackGroundColor lemonchiffon
+FontColor black
+FontStyle italic
+}
+.optional {
+BackGroundColor white
+FontColor black
+FontStyle italic
+}
+</style>
+#highlight "name" <<name>>
+#highlight "disjunctiveResource" <<key>>
+#highlight "cumulativeResource" <<key>>
+#highlight "product" <<key>>
+#highlight "process" <<key>>
+#highlight "defaultProcess" <<key>>
+#highlight "before" <<key>>
+#highlight "after" <<key>>
+#highlight "processStep" <<key>>
+#highlight "solverRun" <<key>>
+#highlight "solution" <<key>>
+#highlight "order" <<key>>
+#highlight "job" <<key>>
+#highlight "task" <<key>>
+#highlight "jobAssignment" <<key>>
+#highlight "endDate" <<date>>
+#highlight "startDate" <<date>>
+#highlight "fromDate" <<date>>
+#highlight "dueDate" <<date>>
+#highlight "releaseDate" <<date>>
+#highlight "fromDate" <<date>>
+#highlight "timeout" <<elapsed>>
+#highlight "time" <<elapsed>>
+#highlight "sequenceType" <<enum>>
+#highlight "solverBackend" <<enum>>
+#highlight "solverStatus" <<enum>>
+#highlight "modelType" <<enum>>
+#highlight "objectiveType" <<enum>>
+#highlight "severity" <<enum>>
+#highlight "start" <<internaltime>>
+#highlight "end" <<internaltime>>
+#highlight "duration" <<internaltime>>
+#highlight "due" <<internaltime>>
+#highlight "release" <<internaltime>>
+#highlight "due" <<internaltime>>
+#highlight "early" <<internaltime>>
+#highlight "late" <<internaltime>>
+#highlight "from" <<internaltime>>
+#highlight "durationFixed" <<internaltime>>
+#highlight "durationPerUnit" <<internaltime>>
+#highlight "offset" <<internaltime>>
+#highlight "makespan" <<internaltime>>
+#highlight "flowtime" <<internaltime>>
+#highlight "totalEarliness" <<internaltime>>
+#highlight "maxEarliness" <<internaltime>>
+#highlight "totalLateness" <<internaltime>>
+#highlight "maxLateness" <<internaltime>>
+#highlight "earlinessWeight" <<optional>>
+#highlight "latenessWeight" <<optional>>
+#highlight "label" <<optional>>
+{
+  "disjunctiveResource": "DR0",
+  "name": "RN0/0/DR0",
+  "processStep": "PS0/0"
+}
+@endjson

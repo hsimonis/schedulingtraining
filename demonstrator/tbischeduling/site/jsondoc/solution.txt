@@ -1,0 +1,114 @@
+@startjson
+<style>
+.name {
+BackGroundColor gold
+FontColor black
+FontStyle italic
+}
+.key {
+BackGroundColor greenyellow
+FontColor black
+FontStyle italic
+}
+.date {
+BackGroundColor lightskyblue
+FontColor black
+FontStyle italic
+}
+.elapsed {
+BackGroundColor powderblue
+FontColor black
+FontStyle italic
+}
+.enum {
+BackGroundColor tomato
+FontColor black
+FontStyle italic
+}
+.internaltime {
+BackGroundColor lemonchiffon
+FontColor black
+FontStyle italic
+}
+.optional {
+BackGroundColor white
+FontColor black
+FontStyle italic
+}
+</style>
+#highlight "name" <<name>>
+#highlight "disjunctiveResource" <<key>>
+#highlight "cumulativeResource" <<key>>
+#highlight "product" <<key>>
+#highlight "process" <<key>>
+#highlight "defaultProcess" <<key>>
+#highlight "before" <<key>>
+#highlight "after" <<key>>
+#highlight "processStep" <<key>>
+#highlight "solverRun" <<key>>
+#highlight "solution" <<key>>
+#highlight "order" <<key>>
+#highlight "job" <<key>>
+#highlight "task" <<key>>
+#highlight "jobAssignment" <<key>>
+#highlight "endDate" <<date>>
+#highlight "startDate" <<date>>
+#highlight "fromDate" <<date>>
+#highlight "dueDate" <<date>>
+#highlight "releaseDate" <<date>>
+#highlight "fromDate" <<date>>
+#highlight "timeout" <<elapsed>>
+#highlight "time" <<elapsed>>
+#highlight "sequenceType" <<enum>>
+#highlight "solverBackend" <<enum>>
+#highlight "solverStatus" <<enum>>
+#highlight "modelType" <<enum>>
+#highlight "objectiveType" <<enum>>
+#highlight "severity" <<enum>>
+#highlight "start" <<internaltime>>
+#highlight "end" <<internaltime>>
+#highlight "duration" <<internaltime>>
+#highlight "due" <<internaltime>>
+#highlight "release" <<internaltime>>
+#highlight "due" <<internaltime>>
+#highlight "early" <<internaltime>>
+#highlight "late" <<internaltime>>
+#highlight "from" <<internaltime>>
+#highlight "durationFixed" <<internaltime>>
+#highlight "durationPerUnit" <<internaltime>>
+#highlight "offset" <<internaltime>>
+#highlight "makespan" <<internaltime>>
+#highlight "flowtime" <<internaltime>>
+#highlight "totalEarliness" <<internaltime>>
+#highlight "maxEarliness" <<internaltime>>
+#highlight "totalLateness" <<internaltime>>
+#highlight "maxLateness" <<internaltime>>
+#highlight "earlinessWeight" <<optional>>
+#highlight "latenessWeight" <<optional>>
+#highlight "label" <<optional>>
+{
+  "makespan": 163,
+  "weightedEarliness": 1832,
+  "totalEarliness": 1832,
+  "totalLateness": 0,
+  "endDate": "8/10/2024 22:50",
+  "bound": 163,
+  "solverStatus": "Optimal",
+  "start": 43,
+  "percentLate": 0,
+  "weightedLateness": 0,
+  "maxEarliness": 1832,
+  "nrEarly": 1,
+  "percentEarly": 100,
+  "duration": 0,
+  "maxLateness": 0,
+  "nrLate": 0,
+  "gap": 0,
+  "name": "Sol1",
+  "solverRun": "Run1",
+  "objectiveValue": 163,
+  "end": 43,
+  "flowtime": 163,
+  "startDate": "8/10/2024 22:50"
+}
+@endjson

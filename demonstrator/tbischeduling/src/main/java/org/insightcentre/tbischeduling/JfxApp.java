@@ -11,6 +11,7 @@ import org.insightcentre.tbischeduling.datamodel.*;
 import framework.ApplicationDatasetInterface;
 import framework.ApplicationObjectInterface;
 import framework.types.IrishCalendar;
+import org.insightcentre.tbischeduling.exporter.CreateJSONDoc;
 import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.generatedsolver.*;
 import org.insightcentre.tbischeduling.implementedsolver.GenerateDataSolverImpl;
@@ -24,10 +25,10 @@ import org.insightcentre.tbischeduling.reports.SchedulingReport;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.Optional;
 
-import static org.insightcentre.tbischeduling.datamodel.ResourceModel.FlowShop;
-import static org.insightcentre.tbischeduling.datamodel.ResourceModel.HybridFlowShop;
+import static org.insightcentre.tbischeduling.datamodel.ResourceModel.*;
 import static org.insightcentre.tbischeduling.datamodel.Severity.Minor;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
@@ -59,6 +60,8 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setSolverProperty(createSolverProperties(base));
                 DataGeneratorProperty q = createDataGeneratorProperties(base);
                 base.setDataGeneratorProperty(q);
+                info("Create JSON doc");
+                new CreateJSONDoc(base,"site/jsonDoc/");
                 info("Creating default data");
                 new CreateData(base,q.getLabel(),q.getStartDateTime(),q.getResourceModel(),q.getNrProducts(),
                         q.getMinStages(),q.getMaxStages(),q.getNrDisjunctiveResources(),
