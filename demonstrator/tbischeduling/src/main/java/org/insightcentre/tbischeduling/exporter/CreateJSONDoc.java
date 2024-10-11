@@ -12,6 +12,9 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 
 import static org.insightcentre.tbischeduling.datamodel.ResourceModel.All;
@@ -21,6 +24,7 @@ import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 public class CreateJSONDoc {
     public CreateJSONDoc(Scenario base, String docDir){
         assert(docDir.endsWith("/"));
+        makeDirectoryIfNeeded(docDir);
         // create minimal data set; update when parameters are added to the generator
         new CreateData(base,"JSON Doc",new DateTime(new Date()),All,1,
                 2,2,1,
@@ -150,6 +154,17 @@ public class CreateJSONDoc {
 
 
 
+    }
+    private void makeDirectoryIfNeeded(String dir) {
+        Path path = Paths.get(dir);
+        try {
+            if (!Files.exists(path)) {
+                Files.createDirectory(path);
+            }
+        } catch (IOException e) {
+            severe("Cannot create directory " + dir + ", exception " + e.getMessage());
+            assert (false);
+        }
     }
 
     private void enumTypes(String label,String[] names,String docDir,String file){

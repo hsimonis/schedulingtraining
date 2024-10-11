@@ -75,6 +75,20 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
     public Task task;
 
 /**
+ *  
+ *
+*/
+
+    public Integer waitAfter;
+
+/**
+ *  
+ *
+*/
+
+    public Integer waitBefore;
+
+/**
  *  No-arg constructor for use in TableView
  *
 */
@@ -95,6 +109,8 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
         super(applicationDataset);
         setJobAssignment(null);
         setTask(null);
+        setWaitAfter(0);
+        setWaitBefore(0);
         applicationDataset.addTaskAssignment(this);
     }
 
@@ -115,7 +131,9 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
             Integer start,
             DateTime startDate,
             JobAssignment jobAssignment,
-            Task task){
+            Task task,
+            Integer waitAfter,
+            Integer waitBefore){
         super(applicationDataset,
             id,
             name,
@@ -127,6 +145,8 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
             startDate);
         setJobAssignment(jobAssignment);
         setTask(task);
+        setWaitAfter(waitAfter);
+        setWaitBefore(waitBefore);
         applicationDataset.addTaskAssignment(this);
     }
 
@@ -141,7 +161,9 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
             other.start,
             other.startDate,
             other.jobAssignment,
-            other.task);
+            other.task,
+            other.waitAfter,
+            other.waitBefore);
     }
 
 /**
@@ -176,6 +198,26 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
     }
 
 /**
+ *  get attribute waitAfter
+ *
+ * @return Integer
+*/
+
+    public Integer getWaitAfter(){
+        return this.waitAfter;
+    }
+
+/**
+ *  get attribute waitBefore
+ *
+ * @return Integer
+*/
+
+    public Integer getWaitBefore(){
+        return this.waitBefore;
+    }
+
+/**
  *  set attribute jobAssignment, mark dataset as dirty, mark dataset as not valid
 @param jobAssignment JobAssignment
  *
@@ -200,6 +242,52 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
     }
 
 /**
+ *  set attribute waitAfter, mark dataset as dirty, mark dataset as not valid
+@param waitAfter Integer
+ *
+*/
+
+    public void setWaitAfter(Integer waitAfter){
+        this.waitAfter = waitAfter;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute waitBefore, mark dataset as dirty, mark dataset as not valid
+@param waitBefore Integer
+ *
+*/
+
+    public void setWaitBefore(Integer waitBefore){
+        this.waitBefore = waitBefore;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute waitAfter, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incWaitAfter(){
+        this.waitAfter++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute waitBefore, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incWaitBefore(){
+        this.waitBefore++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  override generic toString() method, show all attributes in human readable form
  * @return String details of the format are not clearly defined at the moment
 */
@@ -216,7 +304,7 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getStart()+ " " +getStartDate()+ " " +getJobAssignment().toColumnString()+ " " +getTask().toColumnString();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getStart()+ " " +getStartDate()+ " " +getJobAssignment().toColumnString()+ " " +getTask().toColumnString()+ " " +getWaitAfter()+ " " +getWaitBefore();
     }
 
 /**
@@ -247,7 +335,9 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
             " start=\""+toXMLStart()+"\""+
             " startDate=\""+toXMLStartDate()+"\""+
             " jobAssignment=\""+toXMLJobAssignment()+"\""+
-            " task=\""+toXMLTask()+"\""+" />");
+            " task=\""+toXMLTask()+"\""+
+            " waitAfter=\""+toXMLWaitAfter()+"\""+
+            " waitBefore=\""+toXMLWaitBefore()+"\""+" />");
      }
 
 /**
@@ -271,17 +361,37 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
     }
 
 /**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLWaitAfter(){
+        return this.getWaitAfter().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLWaitBefore(){
+        return this.getWaitBefore().toString();
+    }
+
+/**
  * show object as one row in an HTML table
  * 
  * @return String of form <tr>...</tr>
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>TaskAssignment</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"<th>Task</th>"+"<th>JobAssignment</th>"+"</tr>";
+        return "<tr><th>TaskAssignment</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"<th>Task</th>"+"<th>JobAssignment</th>"+"<th>WaitBefore</th>"+"<th>WaitAfter</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+ " " +"<td>"+getTask().toColumnString()+"</td>"+ " " +"<td>"+getJobAssignment().toColumnString()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+ " " +"<td>"+getTask().toColumnString()+"</td>"+ " " +"<td>"+getJobAssignment().toColumnString()+"</td>"+ " " +"<td>"+getWaitBefore()+"</td>"+ " " +"<td>"+getWaitAfter()+"</td>"+"</tr>";
     }
 
 /**
@@ -425,6 +535,12 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
       if(!this.getTask().applicationSame(b.getTask())){
          System.out.println("Task");
         }
+      if(!this.getWaitAfter().equals(b.getWaitAfter())){
+         System.out.println("WaitAfter");
+        }
+      if(!this.getWaitBefore().equals(b.getWaitBefore())){
+         System.out.println("WaitBefore");
+        }
         return  this.getDisjunctiveResource().applicationSame(b.getDisjunctiveResource()) &&
           this.getDuration().equals(b.getDuration()) &&
           this.getEnd().equals(b.getEnd()) &&
@@ -433,7 +549,9 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
           this.getName().equals(b.getName()) &&
           this.getStart().equals(b.getStart()) &&
           this.getStartDate().applicationEqual(b.getStartDate()) &&
-          this.getTask().applicationSame(b.getTask());
+          this.getTask().applicationSame(b.getTask()) &&
+          this.getWaitAfter().equals(b.getWaitAfter()) &&
+          this.getWaitBefore().equals(b.getWaitBefore());
     }
 
 /**

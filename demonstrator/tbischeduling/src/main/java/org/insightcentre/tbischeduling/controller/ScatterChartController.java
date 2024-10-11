@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 12:12:43 on 2024-10-10 */
+ * Generated at 08:44:24 on 2024-10-11 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -597,6 +597,14 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("end");
 		filterNames.add("startDate");
 		filterNames.add("endDate");
+		attributeNames.add("totalWaitBefore");
+		filterNames.add("totalWaitBefore");
+		attributeNames.add("totalWaitAfter");
+		filterNames.add("totalWaitAfter");
+		attributeNames.add("maxWaitBefore");
+		filterNames.add("maxWaitBefore");
+		attributeNames.add("maxWaitAfter");
+		filterNames.add("maxWaitAfter");
 		filterNames.add("solverRun.modelType");
 		filterNames.add("solverRun.solverBackend");
 		filterNames.add("solverRun.objectiveType");
@@ -670,6 +678,10 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("endDate");
 		filterNames.add("task");
 		filterNames.add("jobAssignment");
+		attributeNames.add("waitBefore");
+		filterNames.add("waitBefore");
+		attributeNames.add("waitAfter");
+		filterNames.add("waitAfter");
 		filterNames.add("jobAssignment.solution");
 		filterNames.add("task.job.order");
 		attributeNames.add("task.job.order.release");

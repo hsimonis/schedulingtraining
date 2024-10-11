@@ -33,7 +33,7 @@ import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 
 /**
- * Generated at 12:12:43 on 2024-10-10 */
+ * Generated at 08:44:24 on 2024-10-11 */
 public class TaskAssignmentController extends Table3Controller {
 	@FXML
 	private TableView<TaskAssignment> table;
@@ -64,6 +64,12 @@ public class TaskAssignmentController extends Table3Controller {
 
 	@FXML
 	private TableColumn<TaskAssignment, JobAssignment> jobAssignment;
+
+	@FXML
+	private TableColumn<TaskAssignment, Integer> waitBefore;
+
+	@FXML
+	private TableColumn<TaskAssignment, Integer> waitAfter;
 
 	@FXML
 	private TableColumn<TaskAssignment, Solution> solution;
@@ -152,6 +158,14 @@ public class TaskAssignmentController extends Table3Controller {
 		task.setCellValueFactory(new PropertyValueFactory<>("task"));
 		choices.add("jobAssignment");
 		jobAssignment.setCellValueFactory(new PropertyValueFactory<>("jobAssignment"));
+		choices.add("waitBefore");
+		waitBefore.setCellValueFactory(new PropertyValueFactory<>("waitBefore"));
+		waitBefore.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		waitBefore.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWaitBefore(event.getNewValue()); mainApp.reset();});
+		choices.add("waitAfter");
+		waitAfter.setCellValueFactory(new PropertyValueFactory<>("waitAfter"));
+		waitAfter.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		waitAfter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWaitAfter(event.getNewValue()); mainApp.reset();});
 		choices.add("jobAssignment.solution");
 		try {
 			solution.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJobAssignment().getSolution()));

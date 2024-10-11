@@ -359,6 +359,8 @@
 			<xs:attribute name="makespan" use="required" type="xs:integer"/>
 			<xs:attribute name="maxEarliness" use="required" type="xs:integer"/>
 			<xs:attribute name="maxLateness" use="required" type="xs:integer"/>
+			<xs:attribute name="maxWaitAfter" use="required" type="xs:integer"/>
+			<xs:attribute name="maxWaitBefore" use="required" type="xs:integer"/>
 			<xs:attribute name="nrEarly" use="required" type="xs:integer"/>
 			<xs:attribute name="nrLate" use="required" type="xs:integer"/>
 			<xs:attribute name="objectiveValue" use="required" type="xs:integer"/>
@@ -370,6 +372,8 @@
 			<xs:attribute name="startDate" use="required" type="xs:dateTime"/>
 			<xs:attribute name="totalEarliness" use="required" type="xs:integer"/>
 			<xs:attribute name="totalLateness" use="required" type="xs:integer"/>
+			<xs:attribute name="totalWaitAfter" use="required" type="xs:integer"/>
+			<xs:attribute name="totalWaitBefore" use="required" type="xs:integer"/>
 			<xs:attribute name="weightedEarliness" use="required" type="xs:double"/>
 			<xs:attribute name="weightedLateness" use="required" type="xs:double"/>
 		</xs:complexType>
@@ -475,6 +479,8 @@
 			<xs:attribute name="startDate" use="required" type="xs:dateTime"/>
 			<xs:attribute name="jobAssignment" use="required" type="xs:IDREF"/>
 			<xs:attribute name="task" use="required" type="xs:IDREF"/>
+			<xs:attribute name="waitAfter" use="required" type="xs:integer"/>
+			<xs:attribute name="waitBefore" use="required" type="xs:integer"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="wiP">

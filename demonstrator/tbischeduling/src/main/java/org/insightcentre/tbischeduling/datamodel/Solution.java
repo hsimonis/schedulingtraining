@@ -128,6 +128,20 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
  *
 */
 
+    public Integer maxWaitAfter;
+
+/**
+ *  
+ *
+*/
+
+    public Integer maxWaitBefore;
+
+/**
+ *  
+ *
+*/
+
     public Integer nrEarly;
 
 /**
@@ -205,6 +219,20 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
  *
 */
 
+    public Integer totalWaitAfter;
+
+/**
+ *  
+ *
+*/
+
+    public Integer totalWaitBefore;
+
+/**
+ *  
+ *
+*/
+
     public Double weightedEarliness;
 
 /**
@@ -242,6 +270,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
         setMakespan(0);
         setMaxEarliness(0);
         setMaxLateness(0);
+        setMaxWaitAfter(0);
+        setMaxWaitBefore(0);
         setNrEarly(0);
         setNrLate(0);
         setObjectiveValue(0);
@@ -253,6 +283,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
         setStartDate(new DateTime());
         setTotalEarliness(0);
         setTotalLateness(0);
+        setTotalWaitAfter(0);
+        setTotalWaitBefore(0);
         setWeightedEarliness(0.0);
         setWeightedLateness(0.0);
         applicationDataset.addSolution(this);
@@ -277,6 +309,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
             Integer makespan,
             Integer maxEarliness,
             Integer maxLateness,
+            Integer maxWaitAfter,
+            Integer maxWaitBefore,
             Integer nrEarly,
             Integer nrLate,
             Integer objectiveValue,
@@ -288,6 +322,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
             DateTime startDate,
             Integer totalEarliness,
             Integer totalLateness,
+            Integer totalWaitAfter,
+            Integer totalWaitBefore,
             Double weightedEarliness,
             Double weightedLateness){
         super(applicationDataset,
@@ -302,6 +338,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
         setMakespan(makespan);
         setMaxEarliness(maxEarliness);
         setMaxLateness(maxLateness);
+        setMaxWaitAfter(maxWaitAfter);
+        setMaxWaitBefore(maxWaitBefore);
         setNrEarly(nrEarly);
         setNrLate(nrLate);
         setObjectiveValue(objectiveValue);
@@ -313,6 +351,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
         setStartDate(startDate);
         setTotalEarliness(totalEarliness);
         setTotalLateness(totalLateness);
+        setTotalWaitAfter(totalWaitAfter);
+        setTotalWaitBefore(totalWaitBefore);
         setWeightedEarliness(weightedEarliness);
         setWeightedLateness(weightedLateness);
         applicationDataset.addSolution(this);
@@ -331,6 +371,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
             other.makespan,
             other.maxEarliness,
             other.maxLateness,
+            other.maxWaitAfter,
+            other.maxWaitBefore,
             other.nrEarly,
             other.nrLate,
             other.objectiveValue,
@@ -342,6 +384,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
             other.startDate,
             other.totalEarliness,
             other.totalLateness,
+            other.totalWaitAfter,
+            other.totalWaitBefore,
             other.weightedEarliness,
             other.weightedLateness);
     }
@@ -448,6 +492,26 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
 
     public Integer getMaxLateness(){
         return this.maxLateness;
+    }
+
+/**
+ *  get attribute maxWaitAfter
+ *
+ * @return Integer
+*/
+
+    public Integer getMaxWaitAfter(){
+        return this.maxWaitAfter;
+    }
+
+/**
+ *  get attribute maxWaitBefore
+ *
+ * @return Integer
+*/
+
+    public Integer getMaxWaitBefore(){
+        return this.maxWaitBefore;
     }
 
 /**
@@ -558,6 +622,26 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
 
     public Integer getTotalLateness(){
         return this.totalLateness;
+    }
+
+/**
+ *  get attribute totalWaitAfter
+ *
+ * @return Integer
+*/
+
+    public Integer getTotalWaitAfter(){
+        return this.totalWaitAfter;
+    }
+
+/**
+ *  get attribute totalWaitBefore
+ *
+ * @return Integer
+*/
+
+    public Integer getTotalWaitBefore(){
+        return this.totalWaitBefore;
     }
 
 /**
@@ -684,6 +768,30 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
 
     public void setMaxLateness(Integer maxLateness){
         this.maxLateness = maxLateness;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute maxWaitAfter, mark dataset as dirty, mark dataset as not valid
+@param maxWaitAfter Integer
+ *
+*/
+
+    public void setMaxWaitAfter(Integer maxWaitAfter){
+        this.maxWaitAfter = maxWaitAfter;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute maxWaitBefore, mark dataset as dirty, mark dataset as not valid
+@param maxWaitBefore Integer
+ *
+*/
+
+    public void setMaxWaitBefore(Integer maxWaitBefore){
+        this.maxWaitBefore = maxWaitBefore;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -821,6 +929,30 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
     }
 
 /**
+ *  set attribute totalWaitAfter, mark dataset as dirty, mark dataset as not valid
+@param totalWaitAfter Integer
+ *
+*/
+
+    public void setTotalWaitAfter(Integer totalWaitAfter){
+        this.totalWaitAfter = totalWaitAfter;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute totalWaitBefore, mark dataset as dirty, mark dataset as not valid
+@param totalWaitBefore Integer
+ *
+*/
+
+    public void setTotalWaitBefore(Integer totalWaitBefore){
+        this.totalWaitBefore = totalWaitBefore;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute weightedEarliness, mark dataset as dirty, mark dataset as not valid
 @param weightedEarliness Double
  *
@@ -911,6 +1043,28 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
     }
 
 /**
+ *  inc attribute maxWaitAfter, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incMaxWaitAfter(){
+        this.maxWaitAfter++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute maxWaitBefore, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incMaxWaitBefore(){
+        this.maxWaitBefore++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute nrEarly, mark dataset as dirty, mark dataset as not valid
  *
 */
@@ -977,6 +1131,28 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
     }
 
 /**
+ *  inc attribute totalWaitAfter, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incTotalWaitAfter(){
+        this.totalWaitAfter++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute totalWaitBefore, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incTotalWaitBefore(){
+        this.totalWaitBefore++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  override generic toString() method, show all attributes in human readable form
  * @return String details of the format are not clearly defined at the moment
 */
@@ -993,7 +1169,7 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getFlowtime()+ " " +getGap()+ " " +getMakespan()+ " " +getMaxEarliness()+ " " +getMaxLateness()+ " " +getNrEarly()+ " " +getNrLate()+ " " +getObjectiveValue()+ " " +getPercentEarly()+ " " +getPercentLate()+ " " +getSolverRun().toColumnString()+ " " +getSolverStatus()+ " " +getStart()+ " " +getStartDate()+ " " +getTotalEarliness()+ " " +getTotalLateness()+ " " +getWeightedEarliness()+ " " +getWeightedLateness();
+        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getFlowtime()+ " " +getGap()+ " " +getMakespan()+ " " +getMaxEarliness()+ " " +getMaxLateness()+ " " +getMaxWaitAfter()+ " " +getMaxWaitBefore()+ " " +getNrEarly()+ " " +getNrLate()+ " " +getObjectiveValue()+ " " +getPercentEarly()+ " " +getPercentLate()+ " " +getSolverRun().toColumnString()+ " " +getSolverStatus()+ " " +getStart()+ " " +getStartDate()+ " " +getTotalEarliness()+ " " +getTotalLateness()+ " " +getTotalWaitAfter()+ " " +getTotalWaitBefore()+ " " +getWeightedEarliness()+ " " +getWeightedLateness();
     }
 
 /**
@@ -1026,6 +1202,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
             " makespan=\""+toXMLMakespan()+"\""+
             " maxEarliness=\""+toXMLMaxEarliness()+"\""+
             " maxLateness=\""+toXMLMaxLateness()+"\""+
+            " maxWaitAfter=\""+toXMLMaxWaitAfter()+"\""+
+            " maxWaitBefore=\""+toXMLMaxWaitBefore()+"\""+
             " nrEarly=\""+toXMLNrEarly()+"\""+
             " nrLate=\""+toXMLNrLate()+"\""+
             " objectiveValue=\""+toXMLObjectiveValue()+"\""+
@@ -1037,6 +1215,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
             " startDate=\""+toXMLStartDate()+"\""+
             " totalEarliness=\""+toXMLTotalEarliness()+"\""+
             " totalLateness=\""+toXMLTotalLateness()+"\""+
+            " totalWaitAfter=\""+toXMLTotalWaitAfter()+"\""+
+            " totalWaitBefore=\""+toXMLTotalWaitBefore()+"\""+
             " weightedEarliness=\""+toXMLWeightedEarliness()+"\""+
             " weightedLateness=\""+toXMLWeightedLateness()+"\""+" />");
      }
@@ -1129,6 +1309,26 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
 
     String toXMLMaxLateness(){
         return this.getMaxLateness().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLMaxWaitAfter(){
+        return this.getMaxWaitAfter().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLMaxWaitBefore(){
+        return this.getMaxWaitBefore().toString();
     }
 
 /**
@@ -1247,6 +1447,26 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
  * @return String
 */
 
+    String toXMLTotalWaitAfter(){
+        return this.getTotalWaitAfter().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLTotalWaitBefore(){
+        return this.getTotalWaitBefore().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLWeightedEarliness(){
         return this.getWeightedEarliness().toString();
     }
@@ -1268,11 +1488,11 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Solution</th>"+"<th>Name</th>"+"<th>SolverRun</th>"+"<th>ObjectiveValue</th>"+"<th>SolverStatus</th>"+"<th>Bound</th>"+"<th>Gap</th>"+"<th>Makespan</th>"+"<th>Flowtime</th>"+"<th>TotalLateness</th>"+"<th>MaxLateness</th>"+"<th>NrLate</th>"+"<th>WeightedLateness</th>"+"<th>TotalEarliness</th>"+"<th>MaxEarliness</th>"+"<th>NrEarly</th>"+"<th>WeightedEarliness</th>"+"<th>PercentEarly</th>"+"<th>PercentLate</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"</tr>";
+        return "<tr><th>Solution</th>"+"<th>Name</th>"+"<th>SolverRun</th>"+"<th>ObjectiveValue</th>"+"<th>SolverStatus</th>"+"<th>Bound</th>"+"<th>Gap</th>"+"<th>Makespan</th>"+"<th>Flowtime</th>"+"<th>TotalLateness</th>"+"<th>MaxLateness</th>"+"<th>NrLate</th>"+"<th>WeightedLateness</th>"+"<th>TotalEarliness</th>"+"<th>MaxEarliness</th>"+"<th>NrEarly</th>"+"<th>WeightedEarliness</th>"+"<th>PercentEarly</th>"+"<th>PercentLate</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"<th>TotalWaitBefore</th>"+"<th>TotalWaitAfter</th>"+"<th>MaxWaitBefore</th>"+"<th>MaxWaitAfter</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolverRun().toColumnString()+"</td>"+ " " +"<td>"+getObjectiveValue()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGap()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getFlowtime()+"</td>"+ " " +"<td>"+getTotalLateness()+"</td>"+ " " +"<td>"+getMaxLateness()+"</td>"+ " " +"<td>"+getNrLate()+"</td>"+ " " +"<td>"+getWeightedLateness()+"</td>"+ " " +"<td>"+getTotalEarliness()+"</td>"+ " " +"<td>"+getMaxEarliness()+"</td>"+ " " +"<td>"+getNrEarly()+"</td>"+ " " +"<td>"+getWeightedEarliness()+"</td>"+ " " +"<td>"+getPercentEarly()+"</td>"+ " " +"<td>"+getPercentLate()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolverRun().toColumnString()+"</td>"+ " " +"<td>"+getObjectiveValue()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGap()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getFlowtime()+"</td>"+ " " +"<td>"+getTotalLateness()+"</td>"+ " " +"<td>"+getMaxLateness()+"</td>"+ " " +"<td>"+getNrLate()+"</td>"+ " " +"<td>"+getWeightedLateness()+"</td>"+ " " +"<td>"+getTotalEarliness()+"</td>"+ " " +"<td>"+getMaxEarliness()+"</td>"+ " " +"<td>"+getNrEarly()+"</td>"+ " " +"<td>"+getWeightedEarliness()+"</td>"+ " " +"<td>"+getPercentEarly()+"</td>"+ " " +"<td>"+getPercentLate()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+ " " +"<td>"+getTotalWaitBefore()+"</td>"+ " " +"<td>"+getTotalWaitAfter()+"</td>"+ " " +"<td>"+getMaxWaitBefore()+"</td>"+ " " +"<td>"+getMaxWaitAfter()+"</td>"+"</tr>";
     }
 
 /**
@@ -1416,6 +1636,12 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
       if(!this.getMaxLateness().equals(b.getMaxLateness())){
          System.out.println("MaxLateness");
         }
+      if(!this.getMaxWaitAfter().equals(b.getMaxWaitAfter())){
+         System.out.println("MaxWaitAfter");
+        }
+      if(!this.getMaxWaitBefore().equals(b.getMaxWaitBefore())){
+         System.out.println("MaxWaitBefore");
+        }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
@@ -1452,6 +1678,12 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
       if(!this.getTotalLateness().equals(b.getTotalLateness())){
          System.out.println("TotalLateness");
         }
+      if(!this.getTotalWaitAfter().equals(b.getTotalWaitAfter())){
+         System.out.println("TotalWaitAfter");
+        }
+      if(!this.getTotalWaitBefore().equals(b.getTotalWaitBefore())){
+         System.out.println("TotalWaitBefore");
+        }
       if(!this.getWeightedEarliness().equals(b.getWeightedEarliness())){
          System.out.println("WeightedEarliness");
         }
@@ -1467,6 +1699,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
           this.getMakespan().equals(b.getMakespan()) &&
           this.getMaxEarliness().equals(b.getMaxEarliness()) &&
           this.getMaxLateness().equals(b.getMaxLateness()) &&
+          this.getMaxWaitAfter().equals(b.getMaxWaitAfter()) &&
+          this.getMaxWaitBefore().equals(b.getMaxWaitBefore()) &&
           this.getName().equals(b.getName()) &&
           this.getNrEarly().equals(b.getNrEarly()) &&
           this.getNrLate().equals(b.getNrLate()) &&
@@ -1479,6 +1713,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
           this.getStartDate().applicationEqual(b.getStartDate()) &&
           this.getTotalEarliness().equals(b.getTotalEarliness()) &&
           this.getTotalLateness().equals(b.getTotalLateness()) &&
+          this.getTotalWaitAfter().equals(b.getTotalWaitAfter()) &&
+          this.getTotalWaitBefore().equals(b.getTotalWaitBefore()) &&
           this.getWeightedEarliness().equals(b.getWeightedEarliness()) &&
           this.getWeightedLateness().equals(b.getWeightedLateness());
     }

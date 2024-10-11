@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 12:12:43 on 2024-10-10-->
+<!--Generated at 08:44:24 on 2024-10-11-->
 
 
 <Tab text="Solution" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.SolutionController">
@@ -41,6 +41,10 @@
                <TableColumn fx:id="end" styleClass="right-aligned" text="End" />
                <TableColumn fx:id="startDate" styleClass="right-aligned" text="StartDate" />
                <TableColumn fx:id="endDate" styleClass="right-aligned" text="EndDate" />
+               <TableColumn fx:id="totalWaitBefore" styleClass="right-aligned" text="TotalWaitBefore" />
+               <TableColumn fx:id="totalWaitAfter" styleClass="right-aligned" text="TotalWaitAfter" />
+               <TableColumn fx:id="maxWaitBefore" styleClass="right-aligned" text="MaxWaitBefore" />
+               <TableColumn fx:id="maxWaitAfter" styleClass="right-aligned" text="MaxWaitAfter" />
                <TableColumn fx:id="modelType" styleClass="right-aligned,disabled-column" text="ModelType" />
                <TableColumn fx:id="solverBackend" styleClass="right-aligned,disabled-column" text="SolverBackend" />
                <TableColumn fx:id="objectiveType" styleClass="right-aligned,disabled-column" text="ObjectiveType" />

@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 12:12:43 on 2024-10-10 */
+ * Generated at 08:44:24 on 2024-10-11 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -391,6 +391,10 @@ public class PieChartController extends ChartController {
 		attributeNames.add("end");
 		attributeNames.add("startDate");
 		attributeNames.add("endDate");
+		attributeNames.add("totalWaitBefore");
+		attributeNames.add("totalWaitAfter");
+		attributeNames.add("maxWaitBefore");
+		attributeNames.add("maxWaitAfter");
 		attributeNames.add("solverRun.modelType");
 		attributeNames.add("solverRun.solverBackend");
 		attributeNames.add("solverRun.objectiveType");
@@ -439,6 +443,8 @@ public class PieChartController extends ChartController {
 		attributeNames.add("endDate");
 		attributeNames.add("task");
 		attributeNames.add("jobAssignment");
+		attributeNames.add("waitBefore");
+		attributeNames.add("waitAfter");
 		attributeNames.add("jobAssignment.solution");
 		attributeNames.add("task.job.order");
 		attributeNames.add("task.job.order.release");

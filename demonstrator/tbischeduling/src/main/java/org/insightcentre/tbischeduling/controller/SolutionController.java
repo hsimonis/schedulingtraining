@@ -34,7 +34,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 12:12:43 on 2024-10-10 */
+ * Generated at 08:44:24 on 2024-10-11 */
 public class SolutionController extends Table3Controller {
 	@FXML
 	private TableView<Solution> table;
@@ -107,6 +107,18 @@ public class SolutionController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Solution, DateTime> endDate;
+
+	@FXML
+	private TableColumn<Solution, Integer> totalWaitBefore;
+
+	@FXML
+	private TableColumn<Solution, Integer> totalWaitAfter;
+
+	@FXML
+	private TableColumn<Solution, Integer> maxWaitBefore;
+
+	@FXML
+	private TableColumn<Solution, Integer> maxWaitAfter;
 
 	@FXML
 	private TableColumn<Solution, ModelType> modelType;
@@ -270,6 +282,22 @@ public class SolutionController extends Table3Controller {
 		endDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
 		endDate.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));
 		endDate.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEndDate(event.getNewValue()); mainApp.reset();});
+		choices.add("totalWaitBefore");
+		totalWaitBefore.setCellValueFactory(new PropertyValueFactory<>("totalWaitBefore"));
+		totalWaitBefore.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		totalWaitBefore.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalWaitBefore(event.getNewValue()); mainApp.reset();});
+		choices.add("totalWaitAfter");
+		totalWaitAfter.setCellValueFactory(new PropertyValueFactory<>("totalWaitAfter"));
+		totalWaitAfter.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		totalWaitAfter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalWaitAfter(event.getNewValue()); mainApp.reset();});
+		choices.add("maxWaitBefore");
+		maxWaitBefore.setCellValueFactory(new PropertyValueFactory<>("maxWaitBefore"));
+		maxWaitBefore.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		maxWaitBefore.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setMaxWaitBefore(event.getNewValue()); mainApp.reset();});
+		choices.add("maxWaitAfter");
+		maxWaitAfter.setCellValueFactory(new PropertyValueFactory<>("maxWaitAfter"));
+		maxWaitAfter.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		maxWaitAfter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setMaxWaitAfter(event.getNewValue()); mainApp.reset();});
 		choices.add("solverRun.modelType");
 		try {
 			modelType.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getModelType()));

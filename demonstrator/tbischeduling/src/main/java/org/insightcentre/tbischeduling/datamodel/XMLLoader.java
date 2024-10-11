@@ -1124,6 +1124,8 @@ public DurationModel getDurationModel(String attributeName,
                         getInteger("makespan",attributes,0),
                         getInteger("maxEarliness",attributes,0),
                         getInteger("maxLateness",attributes,0),
+                        getInteger("maxWaitAfter",attributes,0),
+                        getInteger("maxWaitBefore",attributes,0),
                         getInteger("nrEarly",attributes,0),
                         getInteger("nrLate",attributes,0),
                         getInteger("objectiveValue",attributes,0),
@@ -1135,6 +1137,8 @@ public DurationModel getDurationModel(String attributeName,
                         getDateTime("startDate",attributes,"2011-01-01"),
                         getInteger("totalEarliness",attributes,0),
                         getInteger("totalLateness",attributes,0),
+                        getInteger("totalWaitAfter",attributes,0),
+                        getInteger("totalWaitBefore",attributes,0),
                         getDouble("weightedEarliness",attributes,0.0),
                         getDouble("weightedLateness",attributes,0.0)
                         ));
@@ -1239,7 +1243,9 @@ public DurationModel getDurationModel(String attributeName,
                         getInteger("start",attributes,0),
                         getDateTime("startDate",attributes,"2011-01-01"),
                         null,
-                        null
+                        null,
+                        getInteger("waitAfter",attributes,0),
+                        getInteger("waitBefore",attributes,0)
                         ));
             } else if (qname.equals("wiP")) {
                 assert (base != null);

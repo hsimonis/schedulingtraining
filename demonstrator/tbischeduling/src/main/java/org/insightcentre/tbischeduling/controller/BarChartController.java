@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 12:12:43 on 2024-10-10 */
+ * Generated at 08:44:24 on 2024-10-11 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -227,6 +227,10 @@ public class BarChartController extends ChartController {
 		attributeNames.add("duration");
 		attributeNames.add("start");
 		attributeNames.add("end");
+		attributeNames.add("totalWaitBefore");
+		attributeNames.add("totalWaitAfter");
+		attributeNames.add("maxWaitBefore");
+		attributeNames.add("maxWaitAfter");
 		attributeNames.add("solverRun.weightMakespan");
 		attributeNames.add("solverRun.weightFlowtime");
 		attributeNames.add("solverRun.weightEarliness");
@@ -250,6 +254,8 @@ public class BarChartController extends ChartController {
 		attributeNames.add("duration");
 		attributeNames.add("start");
 		attributeNames.add("end");
+		attributeNames.add("waitBefore");
+		attributeNames.add("waitAfter");
 		attributeNames.add("task.job.order.release");
 		attributeNames.add("task.job.order.due");
 		attributeNames.add("task.job.order.qty");
