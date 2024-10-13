@@ -25,7 +25,7 @@ import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.Product;
 
 /**
- * Generated at 08:44:24 on 2024-10-11 */
+ * Generated at 05:23:33 on 2024-10-13 */
 public class OrderController extends Table3Controller {
 	@FXML
 	private TableView<Order> table;
@@ -62,6 +62,9 @@ public class OrderController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Order, Double> earlinessWeight;
+
+	@FXML
+	private TableColumn<Order, Integer> minDuration;
 
 	private GeneratedJfxApp mainApp;
 
@@ -124,6 +127,10 @@ public class OrderController extends Table3Controller {
 		earlinessWeight.setCellValueFactory(new PropertyValueFactory<>("earlinessWeight"));
 		earlinessWeight.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("")));
 		earlinessWeight.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setEarlinessWeight(event.getNewValue()); mainApp.reset();});
+		choices.add("minDuration");
+		minDuration.setCellValueFactory(new PropertyValueFactory<>("minDuration"));
+		minDuration.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		minDuration.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setMinDuration(event.getNewValue()); mainApp.reset();});
 		initialize(choices);
 	}
 

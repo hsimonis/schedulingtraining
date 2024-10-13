@@ -213,7 +213,7 @@ public class JfxApp extends GeneratedJfxApp {
                 SolverProperty res = new SolverProperty(base);
                 res.setName("Default Properties");
                 res.setStartDateTime(base.getStartDateTime());
-                info("Solver startDate "+res.getStartDateTime());
+                info("Solver startDate "+res.getStartDateTime()+" produceReport "+res.getProduceReport());
                 return res;
         }
         public DataGeneratorProperty createDataGeneratorProperties(Scenario base){

@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 08:44:24 on 2024-10-11 */
+ * Generated at 05:23:33 on 2024-10-13 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -183,6 +183,7 @@ public class BarChartController extends ChartController {
 		attributeNames.add("release");
 		attributeNames.add("latenessWeight");
 		attributeNames.add("earlinessWeight");
+		attributeNames.add("minDuration");
 		choicesMap.put("Order", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("nr");

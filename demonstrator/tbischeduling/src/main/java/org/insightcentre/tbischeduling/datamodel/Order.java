@@ -93,6 +93,13 @@ public  class Order extends ApplicationObject{
  *
 */
 
+    public Integer minDuration;
+
+/**
+ *  
+ *
+*/
+
     public Integer nr;
 
 /**
@@ -153,6 +160,7 @@ public  class Order extends ApplicationObject{
         setDueDate(new DateTime());
         setEarlinessWeight(1.0);
         setLatenessWeight(1.0);
+        setMinDuration(0);
         setNr(0);
         setProcess(null);
         setProduct(null);
@@ -176,6 +184,7 @@ public  class Order extends ApplicationObject{
             DateTime dueDate,
             Double earlinessWeight,
             Double latenessWeight,
+            Integer minDuration,
             Integer nr,
             Process process,
             Product product,
@@ -189,6 +198,7 @@ public  class Order extends ApplicationObject{
         setDueDate(dueDate);
         setEarlinessWeight(earlinessWeight);
         setLatenessWeight(latenessWeight);
+        setMinDuration(minDuration);
         setNr(nr);
         setProcess(process);
         setProduct(product);
@@ -206,6 +216,7 @@ public  class Order extends ApplicationObject{
             other.dueDate,
             other.earlinessWeight,
             other.latenessWeight,
+            other.minDuration,
             other.nr,
             other.process,
             other.product,
@@ -264,6 +275,16 @@ public  class Order extends ApplicationObject{
 
     public Double getLatenessWeight(){
         return this.latenessWeight;
+    }
+
+/**
+ *  get attribute minDuration
+ *
+ * @return Integer
+*/
+
+    public Integer getMinDuration(){
+        return this.minDuration;
     }
 
 /**
@@ -375,6 +396,18 @@ public  class Order extends ApplicationObject{
     }
 
 /**
+ *  set attribute minDuration, mark dataset as dirty, mark dataset as not valid
+@param minDuration Integer
+ *
+*/
+
+    public void setMinDuration(Integer minDuration){
+        this.minDuration = minDuration;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute nr, mark dataset as dirty, mark dataset as not valid
 @param nr Integer
  *
@@ -458,6 +491,17 @@ public  class Order extends ApplicationObject{
     }
 
 /**
+ *  inc attribute minDuration, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incMinDuration(){
+        this.minDuration++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute nr, mark dataset as dirty, mark dataset as not valid
  *
 */
@@ -507,7 +551,7 @@ public  class Order extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDue()+ " " +getDueDate()+ " " +getEarlinessWeight()+ " " +getLatenessWeight()+ " " +getNr()+ " " +getProcess().toColumnString()+ " " +getProduct().toColumnString()+ " " +getQty()+ " " +getRelease()+ " " +getReleaseDate();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDue()+ " " +getDueDate()+ " " +getEarlinessWeight()+ " " +getLatenessWeight()+ " " +getMinDuration()+ " " +getNr()+ " " +getProcess().toColumnString()+ " " +getProduct().toColumnString()+ " " +getQty()+ " " +getRelease()+ " " +getReleaseDate();
     }
 
 /**
@@ -535,6 +579,7 @@ public  class Order extends ApplicationObject{
             " dueDate=\""+toXMLDueDate()+"\""+
             " earlinessWeight=\""+toXMLEarlinessWeight()+"\""+
             " latenessWeight=\""+toXMLLatenessWeight()+"\""+
+            " minDuration=\""+toXMLMinDuration()+"\""+
             " nr=\""+toXMLNr()+"\""+
             " process=\""+toXMLProcess()+"\""+
             " product=\""+toXMLProduct()+"\""+
@@ -581,6 +626,16 @@ public  class Order extends ApplicationObject{
 
     String toXMLLatenessWeight(){
         return this.getLatenessWeight().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLMinDuration(){
+        return this.getMinDuration().toString();
     }
 
 /**
@@ -650,11 +705,11 @@ public  class Order extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Order</th>"+"<th>Name</th>"+"<th>Nr</th>"+"<th>Product</th>"+"<th>Process</th>"+"<th>Qty</th>"+"<th>Due</th>"+"<th>DueDate</th>"+"<th>Release</th>"+"<th>ReleaseDate</th>"+"<th>LatenessWeight</th>"+"<th>EarlinessWeight</th>"+"</tr>";
+        return "<tr><th>Order</th>"+"<th>Name</th>"+"<th>Nr</th>"+"<th>Product</th>"+"<th>Process</th>"+"<th>Qty</th>"+"<th>Due</th>"+"<th>DueDate</th>"+"<th>Release</th>"+"<th>ReleaseDate</th>"+"<th>LatenessWeight</th>"+"<th>EarlinessWeight</th>"+"<th>MinDuration</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getNr()+"</td>"+ " " +"<td>"+getProduct().toColumnString()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getQty()+"</td>"+ " " +"<td>"+getDue()+"</td>"+ " " +"<td>"+getDueDate()+"</td>"+ " " +"<td>"+getRelease()+"</td>"+ " " +"<td>"+getReleaseDate()+"</td>"+ " " +"<td>"+getLatenessWeight()+"</td>"+ " " +"<td>"+getEarlinessWeight()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getNr()+"</td>"+ " " +"<td>"+getProduct().toColumnString()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getQty()+"</td>"+ " " +"<td>"+getDue()+"</td>"+ " " +"<td>"+getDueDate()+"</td>"+ " " +"<td>"+getRelease()+"</td>"+ " " +"<td>"+getReleaseDate()+"</td>"+ " " +"<td>"+getLatenessWeight()+"</td>"+ " " +"<td>"+getEarlinessWeight()+"</td>"+ " " +"<td>"+getMinDuration()+"</td>"+"</tr>";
     }
 
 /**
@@ -783,6 +838,9 @@ public  class Order extends ApplicationObject{
       if(!this.getLatenessWeight().equals(b.getLatenessWeight())){
          System.out.println("LatenessWeight");
         }
+      if(!this.getMinDuration().equals(b.getMinDuration())){
+         System.out.println("MinDuration");
+        }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
@@ -808,6 +866,7 @@ public  class Order extends ApplicationObject{
           this.getDueDate().applicationEqual(b.getDueDate()) &&
           this.getEarlinessWeight().equals(b.getEarlinessWeight()) &&
           this.getLatenessWeight().equals(b.getLatenessWeight()) &&
+          this.getMinDuration().equals(b.getMinDuration()) &&
           this.getName().equals(b.getName()) &&
           this.getNr().equals(b.getNr()) &&
           this.getProcess().applicationSame(b.getProcess()) &&

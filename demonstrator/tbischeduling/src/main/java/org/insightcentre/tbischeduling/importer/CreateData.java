@@ -6,12 +6,10 @@ import framework.types.TimeOnly;
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.datamodel.Process;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.groupingBy;
 import static org.insightcentre.tbischeduling.importer.Reset.resetAll;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
@@ -343,6 +341,10 @@ public class CreateData {
             t.setMachines(disjunctiveResources(base,t));
             t.setPrecedes(precedences(base,t));
             t.setFollows(follows(base,t));
+        }
+        Map<Order,List<Task>> grouped = base.getListTask().stream().collect(groupingBy(x->x.getJob().getOrder()));
+        for(Order ord:grouped.keySet()){
+            ord.setMinDuration(grouped.get(ord).stream().mapToInt(Task::getDuration).sum());
         }
     }
 

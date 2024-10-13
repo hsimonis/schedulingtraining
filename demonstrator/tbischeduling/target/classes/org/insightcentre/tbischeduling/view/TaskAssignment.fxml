@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 08:17:45 on 2024-10-07-->
+<!--Generated at 05:23:33 on 2024-10-13-->
 
 
 <Tab text="TaskAssignment" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.TaskAssignmentController">
@@ -27,6 +27,8 @@
                <TableColumn fx:id="endDate" styleClass="right-aligned" text="EndDate" />
                <TableColumn fx:id="task" styleClass="right-aligned" text="Task" />
                <TableColumn fx:id="jobAssignment" styleClass="right-aligned" text="JobAssignment" />
+               <TableColumn fx:id="waitBefore" styleClass="right-aligned" text="WaitBefore" />
+               <TableColumn fx:id="waitAfter" styleClass="right-aligned" text="WaitAfter" />
                <TableColumn fx:id="solution" styleClass="right-aligned,disabled-column" text="Solution" />
                <TableColumn fx:id="order" styleClass="right-aligned,disabled-column" text="Order" />
                <TableColumn fx:id="release" styleClass="right-aligned,disabled-column" text="Release" />

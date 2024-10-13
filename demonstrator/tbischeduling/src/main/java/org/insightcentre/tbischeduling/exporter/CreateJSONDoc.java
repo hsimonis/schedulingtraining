@@ -95,7 +95,13 @@ public class CreateJSONDoc {
         printAsJSONDoc(new WriteData(base).asJSON(Downtime.findFirst(base)),docDir,"downtime.txt");
 
         // run the scheduler on the minimal dataset
+        //??? remember the solver properties we mess up and restore them to previous values
+        boolean produceReport = base.getSolverProperty().getProduceReport();
+        boolean producePDF = base.getSolverProperty().getProducePDF();
         new ScheduleJobsSolverImpl(base).setProduceReport(false).setProducePDF(false).solve();
+        base.getSolverProperty().setProduceReport(produceReport);
+        base.getSolverProperty().setProducePDF(producePDF);
+
         // get a JSON representation of the solution
         JSONObject solved = new WriteData(base).toJSON();
         // empty the attributes we do not want to show

@@ -372,6 +372,7 @@ public class CPOModel extends AbstractModel{
                     jaHash.put(jobs[j],ja);
                     jaList.add(ja);
                 }
+                Hashtable<Task,TaskAssignment> assignHash = new Hashtable<>();
                 //extract task assignment
                 for(int i=0;i<nrTasks;i++){
                     int start = cp.getStart(x[i]);
@@ -381,6 +382,7 @@ public class CPOModel extends AbstractModel{
                     ta.setName("TA"+i);
                     ta.setJobAssignment(jaHash.get(tasks[i].getJob()));
                     ta.setTask(tasks[i]);
+                    assignHash.put(tasks[i],ta);
                     ta.setStart(start);
                     ta.setEnd(end);
                     ta.setStartDate(toDateTime(base,start));
@@ -395,6 +397,17 @@ public class CPOModel extends AbstractModel{
                     }
                     assert(cnt==1);
                 }
+                Collection<TaskAssignment> taList = assignHash.values();
+                for(int i=0;i<nrTasks;i++){
+                    Task t = tasks[i];
+                    TaskAssignment ta = assignHash.get(t);
+                    assert(ta != null);
+                    int waitBefore = t.getFollows().stream().mapToInt(xx->ta.getStart()-assignHash.get(xx).getEnd()).min().orElse(0);
+                    int waitAfter = t.getPrecedes().stream().mapToInt(xx->assignHash.get(xx).getStart()-ta.getEnd()).min().orElse(0);
+                    ta.setWaitBefore(waitBefore);
+                    ta.setWaitAfter(waitAfter);
+                }
+
                 sol.setMakespan(jaList.stream().mapToInt(JobAssignment::getEnd).max().orElse(0));
                 sol.setFlowtime(jaList.stream().mapToInt(JobAssignment::getEnd).sum());
                 sol.setTotalLateness(jaList.stream().mapToInt(JobAssignment::getLate).sum());
@@ -412,6 +425,10 @@ public class CPOModel extends AbstractModel{
                 sol.setStartDate(toDateTime(base,sol.getStart()));
                 sol.setEndDate(toDateTime(base,sol.getEnd()));
                 sol.setDuration(sol.getEnd()-sol.getStart());
+                sol.setTotalWaitBefore(taList.stream().mapToInt(TaskAssignment::getWaitBefore).sum());
+                sol.setMaxWaitBefore(taList.stream().mapToInt(TaskAssignment::getWaitBefore).max().orElse(0));
+                sol.setTotalWaitAfter(taList.stream().mapToInt(TaskAssignment::getWaitAfter).sum());
+                sol.setMaxWaitAfter(taList.stream().mapToInt(TaskAssignment::getWaitAfter).max().orElse(0));
                 // to capture previously unseen solver status strings
                 assert(run.getSolverStatus() != null);
                 return true;

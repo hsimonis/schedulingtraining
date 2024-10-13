@@ -29,7 +29,7 @@ import org.insightcentre.tbischeduling.datamodel.Product;
 import org.insightcentre.tbischeduling.datamodel.Task;
 
 /**
- * Generated at 08:44:24 on 2024-10-11 */
+ * Generated at 05:23:33 on 2024-10-13 */
 public class TaskController extends Table3Controller {
 	@FXML
 	private TableView<Task> table;

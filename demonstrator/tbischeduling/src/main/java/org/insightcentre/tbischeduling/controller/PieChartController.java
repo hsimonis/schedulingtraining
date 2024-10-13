@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 08:44:24 on 2024-10-11 */
+ * Generated at 05:23:33 on 2024-10-13 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -319,6 +319,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("releaseDate");
 		attributeNames.add("latenessWeight");
 		attributeNames.add("earlinessWeight");
+		attributeNames.add("minDuration");
 		choicesMap.put("Order", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");

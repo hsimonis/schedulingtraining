@@ -242,6 +242,7 @@
 			<xs:attribute name="dueDate" use="required" type="xs:dateTime"/>
 			<xs:attribute name="earlinessWeight" use="required" type="xs:double"/>
 			<xs:attribute name="latenessWeight" use="required" type="xs:double"/>
+			<xs:attribute name="minDuration" use="required" type="xs:integer"/>
 			<xs:attribute name="nr" use="required" type="xs:integer"/>
 			<xs:attribute name="process" use="required" type="xs:IDREF"/>
 			<xs:attribute name="product" use="required" type="xs:IDREF"/>

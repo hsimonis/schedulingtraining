@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 08:44:24 on 2024-10-11 */
+ * Generated at 05:23:33 on 2024-10-13 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -476,6 +476,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("latenessWeight");
 		attributeNames.add("earlinessWeight");
 		filterNames.add("earlinessWeight");
+		attributeNames.add("minDuration");
+		filterNames.add("minDuration");
 		choicesMap.put("Order", attributeNames);
 		filterMap.put("Order", filterNames);
 		attributeNames = FXCollections.observableArrayList();

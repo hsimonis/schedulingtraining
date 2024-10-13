@@ -73,6 +73,7 @@ public class TypeConverters {
             case "TotalLateness" -> TotalLateness;
             case "MaxLateness" -> MaxLateness;
             case "WeightedLateness" -> WeightedLateness;
+            case "OnTime" -> OnTime;
             case "Hybrid" -> Hybrid;
             default -> null;
         };

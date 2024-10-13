@@ -186,7 +186,7 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         seedItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getSeed()));
         pane.add(new Label("Remove Previous Solutions:"), 0, row);
         pane.add(removeSolutionItem, 1, row++);
-        enforceDueDateItem.setSelected(((ScheduleJobsSolver)solver).getRemoveSolution());
+        removeSolutionItem.setSelected(((ScheduleJobsSolver)solver).getRemoveSolution());
 
         pane.add(new Label("Produce Report LaTeX:"), 0, row);
         pane.add(produceReportItem, 1, row);
