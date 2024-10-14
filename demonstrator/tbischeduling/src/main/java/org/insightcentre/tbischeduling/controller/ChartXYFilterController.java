@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
 
 /**
- * Generated at 05:23:33 on 2024-10-13 */
+ * Generated at 12:43:48 on 2024-10-13 */
 public abstract class ChartXYFilterController extends BaseController {
 	protected GeneratedJfxApp mainApp;
 

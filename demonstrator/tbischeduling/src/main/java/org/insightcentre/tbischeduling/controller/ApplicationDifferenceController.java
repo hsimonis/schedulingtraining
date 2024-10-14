@@ -20,7 +20,7 @@ import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 
 /**
- * Generated at 05:23:33 on 2024-10-13 */
+ * Generated at 12:43:48 on 2024-10-13 */
 public class ApplicationDifferenceController extends Table3Controller {
 	@FXML
 	private TableView<ApplicationDifference> table;

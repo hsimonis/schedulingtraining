@@ -70,7 +70,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 05:23:32 on 2024-10-13 */
+ * Generated at 12:43:48 on 2024-10-13 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -336,6 +336,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		alert(Alert.AlertType.WARNING, "Action GenerateReportAction is not yet implemented!");
 	}
 
+	public void ganttViewer(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action ganttViewer is not yet implemented!");
+	}
+
 	public void showSolutionReport(Scenario base) {
 		alert(Alert.AlertType.WARNING, "Action showSolutionReport is not yet implemented!");
 	}
@@ -413,6 +417,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		}
 		else if (id.equals("cumulativeNeedsMatrixMatrixViewer")) {
 			cumulativeNeedsMatrixMatrixViewer((Scenario) fs);
+		}
+		else if (id.equals("ganttViewer")) {
+			ganttViewer((Scenario) fs);
 		}
 		else if (id.equals("showSolutionReport")) {
 			showSolutionReport((Scenario) fs);

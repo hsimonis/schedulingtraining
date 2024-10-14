@@ -58,11 +58,15 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
     LocalDateStringConverter dateConverter = new LocalDateStringConverter(dateFormatter,dateFormatter);
     LocalTimeStringConverter timeConverter = new LocalTimeStringConverter(timeFormatter,timeFormatter);
 
+    double sliderWidth=400.0;
+    double vGap=10.0;
+    double hGap=10.0;
+
     public GenerateDataDialogBoxImpl(GeneratedJfxApp app, Scenario base, AbstractSolver solver){
         super(app, base, solver);
         GridPane pane = new GridPane();
-        pane.setVgap(10.0);
-        pane.setHgap(10.0);
+        pane.setVgap(vGap);
+        pane.setHgap(hGap);
         int row = 0;
         pane.add(new Label("Label:"), 0, row);
         pane.add(labelItem, 1, row++);
@@ -93,6 +97,7 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
         nrDisjunctiveResourcesItem.setMinorTickCount(1);
         nrDisjunctiveResourcesItem.setShowTickMarks(true);
         nrDisjunctiveResourcesItem.setShowTickLabels(true);
+        nrDisjunctiveResourcesItem.setPrefWidth(sliderWidth);
         pane.add(nrDisjunctiveResourcesItem, 1, row++);
         nrDisjunctiveResourcesItem.setValue(((GenerateDataSolver)solver).getNrDisjunctiveResources());
         GridPane.setColumnSpan( nrDisjunctiveResourcesItem, 3 );
@@ -103,189 +108,229 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
         resourceProbabilityItem.setShowTickMarks(true);
         resourceProbabilityItem.setShowTickLabels(true);
 //        resourceProbabilityItem.setSnapToTicks(true);
+        resourceProbabilityItem.setPrefWidth(sliderWidth);
         pane.add(resourceProbabilityItem, 1, row++);
         resourceProbabilityItem.setValue(((GenerateDataSolver)solver).getResourceProbability());
         GridPane.setColumnSpan( resourceProbabilityItem, 3 );
 
-        Separator sep2 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep2,0,row++,4,1);
 
-        pane.add(new Label("Nr Products:"), 0, row);
-        pane.add(nrProductsItem, 1, row++);
+        Accordion accordion = new Accordion();
+        pane.add(accordion,0,row++);
+        GridPane.setColumnSpan( accordion, 5 );
+
+        GridPane productGrid = new GridPane();
+        productGrid.setVgap(vGap);
+        productGrid.setHgap(hGap);
+        int pRow =0;
+        TitledPane productPane = new TitledPane("Products",productGrid);
+        accordion.getPanes().add(productPane);
+
+        productGrid.add(new Label("Nr Products:"), 0, pRow);
+        productGrid.add(nrProductsItem, 1, pRow++);
         nrProductsItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrProducts()));
 
-        pane.add(new Label("Stages Range:"), 0, row);
+        productGrid.add(new Label("Stages Range:"), 0, pRow);
         stagesItem.setMajorTickUnit(1);
         stagesItem.setMinorTickCount(0);
         stagesItem.setShowTickMarks(true);
         stagesItem.setShowTickLabels(true);
         stagesItem.setSnapToTicks(true);
-        pane.add(stagesItem,1,row++);
+        productGrid.add(stagesItem,1,pRow++);
         stagesItem.setLowValue(((GenerateDataSolver)solver).getMinStages());
         stagesItem.setHighValue(((GenerateDataSolver)solver).getMaxStages());
         GridPane.setColumnSpan( stagesItem, 3 );
 
-        Separator sep3 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep3,0,row++,4,1);
 
+        GridPane durationGrid = new GridPane();
+        durationGrid.setVgap(vGap);
+        durationGrid.setHgap(hGap);
+        int duRow =0;
+        TitledPane durationPane = new TitledPane("Duration",durationGrid);
+        accordion.getPanes().add(durationPane);
 
-        pane.add(new Label("Duration Model:"), 0, row);
-        pane.add(durationModelItem, 1, row++);
+        durationGrid.add(new Label("Duration Model:"), 0, duRow);
+        durationGrid.add(durationModelItem, 1, duRow++);
         durationModelItem.getItems().addAll(DurationModel.getNames());
         durationModelItem.setValue(((GenerateDataSolver)solver).getDurationModel());
 
-        pane.add(new Label("Duration Range:"), 0, row);
+        durationGrid.add(new Label("Duration Range:"), 0, duRow);
         durationItem.setMajorTickUnit(5);
         durationItem.setMinorTickCount(4);
         durationItem.setShowTickMarks(true);
         durationItem.setShowTickLabels(true);
         durationItem.setSnapToTicks(true);
-        pane.add(durationItem,1,row++);
+        durationItem.setPrefWidth(sliderWidth);
+        durationGrid.add(durationItem,1,duRow++);
         durationItem.setLowValue(((GenerateDataSolver)solver).getMinDuration());
         durationItem.setHighValue(((GenerateDataSolver)solver).getMaxDuration());
-        GridPane.setColumnSpan( durationItem, 3 );
+//        GridPane.setColumnSpan( durationItem, 5 );
 
-        pane.add(new Label("Duration Fixed Factor:"), 0, row);
+        durationGrid.add(new Label("Duration Fixed Factor:"), 0, duRow);
         durationFixedFactorItem.setMajorTickUnit(1);
         durationFixedFactorItem.setMinorTickCount(0);
         durationFixedFactorItem.setShowTickMarks(true);
         durationFixedFactorItem.setShowTickLabels(true);
-        pane.add(durationFixedFactorItem, 1, row++);
+        durationGrid.add(durationFixedFactorItem, 1, duRow++);
         durationFixedFactorItem.setValue(((GenerateDataSolver)solver).getDurationFixedFactor());
 
-        Separator sep4 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep4,0,row++,4,1);
 
 
-        pane.add(new Label("Nr Cumulative Resources:"), 0, row);
+        GridPane cumulGrid = new GridPane();
+        cumulGrid.setVgap(vGap);
+        cumulGrid.setHgap(hGap);
+        int cRow =0;
+        TitledPane cumulPane = new TitledPane("Cumulative Resource",cumulGrid);
+        accordion.getPanes().add(cumulPane);
+
+        cumulGrid.add(new Label("Nr Cumulative Resources:"), 0, cRow);
         nrCumulativeResourcesItem.setMajorTickUnit(1);
         nrCumulativeResourcesItem.setMinorTickCount(0);
         nrCumulativeResourcesItem.setShowTickMarks(true);
         nrCumulativeResourcesItem.setShowTickLabels(true);
-        pane.add(nrCumulativeResourcesItem, 1, row++);
+        cumulGrid.add(nrCumulativeResourcesItem, 1, cRow++);
         nrCumulativeResourcesItem.setValue(((GenerateDataSolver)solver).getNrCumulativeResources());
 //        GridPane.setColumnSpan( nrCumulativeResourcesItem, 3 );
 
 
-        pane.add(new Label("Cumul Demand Range:"), 0, row);
+        cumulGrid.add(new Label("Cumul Demand Range:"), 0, cRow);
         cumulDemandItem.setMajorTickUnit(1);
         cumulDemandItem.setMinorTickCount(0);
         cumulDemandItem.setShowTickMarks(true);
         cumulDemandItem.setShowTickLabels(true);
         cumulDemandItem.setSnapToTicks(true);
-        pane.add(cumulDemandItem,1,row++);
+        cumulGrid.add(cumulDemandItem,1,cRow++);
         cumulDemandItem.setLowValue(((GenerateDataSolver)solver).getMinCumulDemand());
         cumulDemandItem.setHighValue(((GenerateDataSolver)solver).getMaxCumulDemand());
         GridPane.setColumnSpan( cumulDemandItem, 3 );
 
 
-        pane.add(new Label("Profile Pieces:"), 0, row);
+        cumulGrid.add(new Label("Profile Pieces:"), 0, cRow);
         profilePiecesItem.setMajorTickUnit(1);
         profilePiecesItem.setMinorTickCount(0);
         profilePiecesItem.setShowTickMarks(true);
         profilePiecesItem.setShowTickLabels(true);
-        pane.add(profilePiecesItem, 1, row++);
+        cumulGrid.add(profilePiecesItem, 1, cRow++);
         profilePiecesItem.setValue(((GenerateDataSolver)solver).getProfilePieces());
 
-        pane.add(new Label("Cumul Capacity Range:"), 0, row);
+        cumulGrid.add(new Label("Cumul Capacity Range:"), 0, cRow);
         cumulCapacityItem.setMajorTickUnit(5);
         cumulCapacityItem.setMinorTickCount(4);
         cumulCapacityItem.setShowTickMarks(true);
         cumulCapacityItem.setShowTickLabels(true);
         cumulCapacityItem.setSnapToTicks(true);
-        pane.add(cumulCapacityItem,1,row++);
+        cumulCapacityItem.setPrefWidth(sliderWidth);
+        cumulGrid.add(cumulCapacityItem,1,cRow++);
         cumulCapacityItem.setLowValue(((GenerateDataSolver)solver).getMinCumulCapacity());
         cumulCapacityItem.setHighValue(((GenerateDataSolver)solver).getMaxCumulCapacity());
         GridPane.setColumnSpan( cumulCapacityItem, 3 );
 
+        GridPane orderGrid = new GridPane();
+        orderGrid.setVgap(vGap);
+        orderGrid.setHgap(hGap);
+        int ordRow =0;
+        TitledPane orderPane = new TitledPane("Orders",orderGrid);
+        accordion.getPanes().add(orderPane);
 
-        Separator sep5 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep5,0,row++,4,1);
-
-
-        pane.add(new Label("Nr Orders:"), 0, row);
-        pane.add(nrOrdersItem, 1, row++);
+        orderGrid.add(new Label("Nr Orders:"), 0, ordRow);
+        orderGrid.add(nrOrdersItem, 1, ordRow++);
         nrOrdersItem.setText(String.format("%d",((GenerateDataSolver)solver).getNrOrders()));
 
-        pane.add(new Label("Qty Range:"), 0, row);
+        orderGrid.add(new Label("Qty Range:"), 0, ordRow);
         qtyItem.setMajorTickUnit(5);
         qtyItem.setMinorTickCount(4);
         qtyItem.setShowTickMarks(true);
         qtyItem.setShowTickLabels(true);
         qtyItem.setSnapToTicks(true);
-        pane.add(qtyItem,1,row++);
+        qtyItem.setPrefWidth(sliderWidth);
+        orderGrid.add(qtyItem,1,ordRow++);
         qtyItem.setLowValue(((GenerateDataSolver)solver).getMinQty());
         qtyItem.setHighValue(((GenerateDataSolver)solver).getMaxQty());
         GridPane.setColumnSpan( qtyItem, 3 );
 
-        Separator sep6 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep6,0,row++,4,1);
+        GridPane wipGrid = new GridPane();
+        wipGrid.setVgap(vGap);
+        wipGrid.setHgap(hGap);
+        int wRow =0;
+        TitledPane wipPane = new TitledPane("WiP",wipGrid);
+        accordion.getPanes().add(wipPane);
 
-        pane.add(new Label("WiP Probability:"), 0, row);
+        wipGrid.add(new Label("WiP Probability:"), 0, wRow);
         wipProbabilityItem.setMajorTickUnit(0.1);
         wipProbabilityItem.setMinorTickCount(1);
         wipProbabilityItem.setShowTickMarks(true);
         wipProbabilityItem.setShowTickLabels(true);
 //        wipProbabilityItem.setSnapToTicks(true);
-        pane.add(wipProbabilityItem, 1, row++);
+        wipGrid.add(wipProbabilityItem, 1, wRow++);
         wipProbabilityItem.setValue(((GenerateDataSolver)solver).getWipProbability());
         GridPane.setColumnSpan( wipProbabilityItem, 3 );
 
-        pane.add(new Label("WiP Range:"), 0, row);
+        wipGrid.add(new Label("WiP Range:"), 0, wRow);
         wipItem.setMajorTickUnit(10);
         wipItem.setMinorTickCount(0);
         wipItem.setShowTickMarks(true);
         wipItem.setShowTickLabels(true);
 //        wipItem.setSnapToTicks(true);
-        pane.add(wipItem,1,row++);
+        wipItem.setPrefWidth(sliderWidth);
+        wipGrid.add(wipItem,1,wRow++);
         wipItem.setLowValue(((GenerateDataSolver)solver).getMinWip());
         wipItem.setHighValue(((GenerateDataSolver)solver).getMaxWip());
         GridPane.setColumnSpan( wipItem, 3 );
 
-        Separator sep7 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep7,0,row++,4,1);
+        GridPane downGrid = new GridPane();
+        downGrid.setVgap(vGap);
+        downGrid.setHgap(hGap);
+        int dRow =0;
+        TitledPane downPane = new TitledPane("Downtime",downGrid);
+        accordion.getPanes().add(downPane);
 
-
-        pane.add(new Label("Downtime Probability:"), 0, row);
+        downGrid.add(new Label("Downtime Probability:"), 0, dRow);
         downtimeProbabilityItem.setMajorTickUnit(0.1);
         downtimeProbabilityItem.setMinorTickCount(1);
         downtimeProbabilityItem.setShowTickMarks(true);
         downtimeProbabilityItem.setShowTickLabels(true);
 //        downtimeProbabilityItem.setSnapToTicks(true);
-        pane.add(downtimeProbabilityItem, 1, row++);
+        downGrid.add(downtimeProbabilityItem, 1, dRow++);
         downtimeProbabilityItem.setValue(((GenerateDataSolver)solver).getDowntimeProbability());
         GridPane.setColumnSpan( downtimeProbabilityItem, 3 );
 
-        pane.add(new Label("Downtime Range:"), 0, row);
+        downGrid.add(new Label("Downtime Range:"), 0, dRow);
         downtimeItem.setMajorTickUnit(10);
         downtimeItem.setMinorTickCount(0);
         downtimeItem.setShowTickMarks(true);
         downtimeItem.setShowTickLabels(true);
 //        downtimeItem.setSnapToTicks(true);
-        pane.add(downtimeItem,1,row++);
+        downtimeItem.setPrefWidth(sliderWidth);
+        downGrid.add(downtimeItem,1,dRow++);
         downtimeItem.setLowValue(((GenerateDataSolver)solver).getMinDowntime());
         downtimeItem.setHighValue(((GenerateDataSolver)solver).getMaxDowntime());
         GridPane.setColumnSpan( downtimeItem, 3 );
 
-        Separator sep8 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep8,0,row++,4,1);
+        GridPane otherGrid = new GridPane();
+        otherGrid.setVgap(vGap);
+        otherGrid.setHgap(hGap);
+        int oRow =0;
+        TitledPane otherPane = new TitledPane("Other Parameters",otherGrid);
+        accordion.getPanes().add(otherPane);
 
-
-        pane.add(new Label("Earliest Due:"), 0, row);
-        pane.add(earliestDueItem, 1, row++);
+        otherGrid.add(new Label("Earliest Due:"), 0, oRow);
+        otherGrid.add(earliestDueItem, 1, oRow++);
         earliestDueItem.setText(String.format("%d",((GenerateDataSolver)solver).getEarliestDue()));
 
-        pane.add(new Label("Horizon Days:"), 0, row);
-        pane.add(horizonDaysItem, 1, row++);
+        otherGrid.add(new Label("Horizon Days:"), 0, oRow);
+        otherGrid.add(horizonDaysItem, 1, oRow++);
         horizonDaysItem.setText(String.format("%d",((GenerateDataSolver)solver).getHorizonDays()));
 
-        pane.add(new Label("Time Resolution:"), 0, row);
-        pane.add(timeResolutionItem, 1, row++);
+        otherGrid.add(new Label("Time Resolution:"), 0, oRow);
+        otherGrid.add(timeResolutionItem, 1, oRow++);
         timeResolutionItem.setText(String.format("%d",((GenerateDataSolver)solver).getTimeResolution()));
 
-        pane.add(new Label("Random Seed:"), 0, row);
-        pane.add(seedItem, 1, row++);
+        otherGrid.add(new Label("Random Seed:"), 0, oRow);
+        otherGrid.add(seedItem, 1, oRow++);
         seedItem.setText(String.format("%d",((GenerateDataSolver)solver).getSeed()));
+
+        //??? pick the entry with the largest vertical extent to reserve enough space;
+        //??? containing dialog box does not resize
+        accordion.setExpandedPane(cumulPane);
 
 //        pane.setGridLinesVisible(true); //??? debug only
         getDialogPane().setContent(pane);

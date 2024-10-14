@@ -26,7 +26,7 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 
 /**
- * Generated at 05:23:33 on 2024-10-13 */
+ * Generated at 12:43:48 on 2024-10-13 */
 public class ProblemController extends Table3Controller {
 	@FXML
 	private TableView<Problem> table;

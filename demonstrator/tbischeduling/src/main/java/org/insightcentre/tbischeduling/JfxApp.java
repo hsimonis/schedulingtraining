@@ -48,6 +48,8 @@ public class JfxApp extends GeneratedJfxApp {
         public ApplicationDatasetInterface minimalDataset() {
                 Scenario base = new Scenario();
                 IrishCalendar.buildCalendar();
+                //??? initialize for use in controllers
+                basebase = base;
                 // define the format version of the datafiles
                 base.setDataFileVersionNumber(7.0);
                 base.setDataFile("");
@@ -207,6 +209,10 @@ public class JfxApp extends GeneratedJfxApp {
                 }
         }
 
+        @Override
+        public void ganttViewer(Scenario base) {
+                showView("custom/GanttViewer");
+        }
 
         //??? these should check a property file to read persistent property values
         public SolverProperty createSolverProperties(Scenario base){

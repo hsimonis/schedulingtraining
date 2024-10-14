@@ -10,6 +10,7 @@ import org.insightcentre.tbischeduling.reports.RunReport;
 import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -135,31 +136,13 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
                                       int weightMakespan,int weightFlowtime,int weightEarliness,int weightLateness,
                                       int timeout,int nrThreads,int seed,boolean removeSolution,
                                       boolean produceReport,boolean producePDF){
-        SolverRun res = new SolverRun(base);
-        res.setName("Run"+runNr++);
-        res.setLabel(label);
-        res.setDescription(description);
-        res.setModelType(modelType);
-        res.setSolverBackend(solverBackend);
-        res.setObjectiveType(objectiveType);
-        res.setEnforceReleaseDate(enforceReleaseDate);
-        res.setEnforceDueDate(enforceDueDate);
-        res.setEnforceCumulative(enforceCumulative);
-        res.setEnforceWip(enforceWip);
-        res.setEnforceDowntime(enforceDowntime);
-
-        res.setWeightMakespan(weightMakespan);
-        res.setWeightFlowtime(weightFlowtime);
-        res.setWeightEarliness(weightEarliness);
-        res.setWeightLateness(weightLateness);
-
-        res.setTimeout(timeout);
-        res.setNrThreads(nrThreads);
-        res.setSeed(seed);
-        res.setRemoveSolution(removeSolution);
-        res.setProduceReport(produceReport);
-        res.setProducePDF(producePDF);
-        res.setSolverStatus(ToRun);
+        String name = "Run"+runNr++;
+        double time = 0.0;
+        DateTime startDateTime = new DateTime(new Date());
+        SolverRun res = new SolverRun(base,runNr,name,description,enforceCumulative,enforceDowntime,enforceDueDate,
+                enforceReleaseDate,enforceWip,
+                label,modelType,nrThreads,objectiveType,producePDF,produceReport,removeSolution,seed,solverBackend,
+                startDateTime,timeout,weightEarliness,weightFlowtime,weightLateness,weightMakespan,ToRun,time);
         return res;
     }
 
