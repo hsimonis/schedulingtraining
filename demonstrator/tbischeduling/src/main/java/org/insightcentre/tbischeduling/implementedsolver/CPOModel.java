@@ -421,7 +421,7 @@ public class CPOModel extends AbstractModel{
                 sol.setPercentEarly(100.0*sol.getNrEarly()/nrJobs);
                 sol.setPercentLate(100.0*sol.getNrLate()/nrJobs);
                 sol.setStart(jaList.stream().mapToInt(JobAssignment::getStart).min().orElse(0));
-                sol.setEnd(jaList.stream().mapToInt(JobAssignment::getStart).max().orElse(0));
+                sol.setEnd(jaList.stream().mapToInt(JobAssignment::getEnd).max().orElse(0));
                 sol.setStartDate(toDateTime(base,sol.getStart()));
                 sol.setEndDate(toDateTime(base,sol.getEnd()));
                 sol.setDuration(sol.getEnd()-sol.getStart());

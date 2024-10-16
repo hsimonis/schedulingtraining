@@ -172,6 +172,29 @@ public class TypeConverters {
                 return null;
         }
     }
+    public static ResourceZoom toResourceZoom(String name){
+        switch(name){
+            case "Wide":return ResourceZoom.Wide;
+            case "Normal":return ResourceZoom.Normal;
+            case "Dense":return ResourceZoom.Dense;
+            case "FitAll":return ResourceZoom.FitAll;
+            default:
+                severe("Unknown Resource Zoom "+name);
+                assert(false);
+                return null;
+        }
+    }
+
+    public static DatesDisplay toDatesDisplay(String name){
+        switch(name){
+            case "Internal":return DatesDisplay.Internal;
+            case "External": return DatesDisplay.External;
+            default:
+                severe("Unknown DatesDisplay Choice "+name);
+                assert(false);
+                return null;
+        }
+    }
 
 
 }

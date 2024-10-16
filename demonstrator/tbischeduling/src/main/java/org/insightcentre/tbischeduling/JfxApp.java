@@ -51,7 +51,7 @@ public class JfxApp extends GeneratedJfxApp {
                 //??? initialize for use in controllers
                 basebase = base;
                 // define the format version of the datafiles
-                base.setDataFileVersionNumber(7.0);
+                base.setDataFileVersionNumber(8.0);
                 base.setDataFile("");
                 base.setStartDateTime(new DateTime(2024,10,1,0,0));
                 base.setHorizon(2000);

@@ -11,8 +11,11 @@ import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.datamodel.custom.ResizableCanvas;
 
 import static org.insightcentre.tbischeduling.datamodel.ColorBy.Mixed;
+import static org.insightcentre.tbischeduling.datamodel.DatesDisplay.External;
+import static org.insightcentre.tbischeduling.datamodel.DatesDisplay.Internal;
 import static org.insightcentre.tbischeduling.datamodel.JobOrder.Start;
 import static org.insightcentre.tbischeduling.datamodel.ResourceChoice.All;
+import static org.insightcentre.tbischeduling.datamodel.ResourceZoom.Normal;
 import static org.insightcentre.tbischeduling.datamodel.TaskLabel.None;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 
@@ -30,6 +33,8 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 	@FXML
 	protected ScrollBar bottomBar;
 
+	@FXML
+	protected ChoiceBox<String> resourceZoomChoiceBox;
 	@FXML
 	protected ChoiceBox<String> solutionChoiceBox;
 
@@ -52,6 +57,9 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 
 	@FXML
 	protected ChoiceBox<String> jobOrderChoiceBox;
+
+	@FXML
+	protected ChoiceBox<String> datesDisplayChoiceBox;
 
 	@FXML
 	protected Slider alpha;
@@ -164,6 +172,9 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		setChoices(solutionChoiceBox,solutions);
 
 		// set the choice boxes to the feasible values based on the enum types
+		ObservableList<String> resourceZoomChoices = FXCollections.observableArrayList(ResourceZoom.getNames());
+		setChoices(resourceZoomChoiceBox,resourceZoomChoices);
+		resourceZoomChoiceBox.getSelectionModel().select(Normal.toString());
 		ObservableList<String> colorByChoices = FXCollections.observableArrayList(ColorBy.getNames());
 		setChoices(colorByChoiceBox,colorByChoices);
 		colorByChoiceBox.getSelectionModel().select(Mixed.toString());
@@ -179,6 +190,9 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		ObservableList<String> showJobsChoices = FXCollections.observableArrayList(ResourceChoice.getNames());
 		setChoices(showJobsBox,showJobsChoices);
 		showJobsBox.getSelectionModel().select(All.toString());
+		ObservableList<String> datesDisplayChoices = FXCollections.observableArrayList(DatesDisplay.getNames());
+		setChoices(datesDisplayChoiceBox,datesDisplayChoices);
+		datesDisplayChoiceBox.getSelectionModel().select(External.toString());
 
 		contentProvider = new GanttBorderContent(this,canvas,topCanvas,leftCanvas,rightBar,bottomBar);
 		contentProvider.initialize();
@@ -215,7 +229,10 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 					" z "+zoom.getValue()+
 					" Color "+colorByChoiceBox.getSelectionModel().getSelectedItem()+
 					" Label "+taskLabelChoiceBox.getSelectionModel().getSelectedItem()+
-					" Order "+jobOrderChoiceBox.getSelectionModel().getSelectedItem());
+					" Order "+jobOrderChoiceBox.getSelectionModel().getSelectedItem()+
+					" Dates "+datesDisplayChoiceBox.getSelectionModel().getSelectedItem()+
+					" rz "+resourceZoomChoiceBox.getSelectionModel().getSelectedItem());
+			contentProvider.setResourceZoom(resourceZoomChoiceBox.getSelectionModel().getSelectedItem());
 			contentProvider.setSolution(solutionChoiceBox.getSelectionModel().getSelectedItem());
 			contentProvider.setShowMachinesBox(showMachinesBox.getSelectionModel().getSelectedItem());
 			contentProvider.setShowJobsBox(showJobsBox.getSelectionModel().getSelectedItem());
@@ -225,6 +242,7 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 			contentProvider.setColorBy(colorByChoiceBox.getSelectionModel().getSelectedItem());
 			contentProvider.setTaskLabel(taskLabelChoiceBox.getSelectionModel().getSelectedItem());
 			contentProvider.setJobOrder(jobOrderChoiceBox.getSelectionModel().getSelectedItem());
+			contentProvider.setDatesDisplay(datesDisplayChoiceBox.getSelectionModel().getSelectedItem());
 		}
 	}
 
@@ -319,6 +337,11 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		info("Show select choice callback");
 		drawChart();
 	}
+	@FXML
+	public void onResourceZoomSelect() {
+		info("ResourceZoom callback");
+		drawChart();
+	}
 
 	@FXML
 	public void onSolutionSelect() {
@@ -338,22 +361,27 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 	public void onJobOrderSelect() {
 		drawChart();
 	}
+	@FXML
+	public void onDatesDisplaySelect() {
+		drawChart();
+	}
 
 	public void updateDetails(ResourceActivity ra){
+		GanttBorderContent cp = contentProvider;
 		name.setText(ra.getName());
-		start.setText(String.format("%,d",ra.getStart()));
-		end.setText(String.format("%,d",ra.getEnd()));
-		duration.setText(String.format("%,d",ra.getDuration()));
+		start.setText(cp.internalExternalDate(ra.getStart()));
+		end.setText(cp.internalExternalDate(ra.getEnd()));
+		duration.setText(cp.internalExternalPeriod(ra.getDuration()));
 		machine.setText(ra.getDisjunctiveResource().getName());
 		startDate.setText(ra.getStartDate().toString());
 		endDate.setText(ra.getEndDate().toString());
 		if (ra instanceof TaskAssignment t) {
-			wait.setText(String.format("%,d",t.getWaitBefore()));
+			wait.setText(cp.internalExternalPeriod(t.getWaitBefore()));
 			job.setText(t.getJobAssignment().getJob().getName());
-			release.setText(String.format("%,d",t.getJobAssignment().getJob().getOrder().getRelease()));
-			due.setText(String.format("%,d",t.getJobAssignment().getJob().getOrder().getDue()));
-			early.setText(String.format("%,d",t.getJobAssignment().getEarly()));
-			late.setText(String.format("%,d",t.getJobAssignment().getLate()));
+			release.setText(cp.internalExternalDate(t.getJobAssignment().getJob().getOrder().getRelease()));
+			due.setText(cp.internalExternalDate(t.getJobAssignment().getJob().getOrder().getDue()));
+			early.setText(cp.internalExternalPeriod(t.getJobAssignment().getEarly()));
+			late.setText(cp.internalExternalPeriod(t.getJobAssignment().getLate()));
 			order.setText(t.getTask().getJob().getOrder().getName());
 			product.setText(t.getTask().getJob().getOrder().getProduct().getName());
 			qty.setText(String.format("%,d",t.getTask().getJob().getOrder().getQty()));

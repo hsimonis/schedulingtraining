@@ -184,6 +184,26 @@ public LineChoice getLineChoice(String attributeName,
             return LineChoice.valueOf(e);
         }
     }
+public DatesDisplay getDatesDisplay(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("DatesDisplay"+": "+attributeName);
+            return null;
+        } else {
+            return DatesDisplay.valueOf(e);
+        }
+    }
+public ResourceZoom getResourceZoom(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("ResourceZoom"+": "+attributeName);
+            return null;
+        } else {
+            return ResourceZoom.valueOf(e);
+        }
+    }
     public AbstractDataGeneratorProperty getAbstractDataGeneratorProperty(String attributeName,
                                Attributes attributes) {
         return (AbstractDataGeneratorProperty) find(getId(attributeName,attributes));

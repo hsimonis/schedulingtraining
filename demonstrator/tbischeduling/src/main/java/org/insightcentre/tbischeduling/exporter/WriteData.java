@@ -473,10 +473,19 @@ public class WriteData {
         obj.put("objectiveType",run.getObjectiveType().toString());
         obj.put("enforceReleaseDate",run.getEnforceReleaseDate());
         obj.put("enforceDueDate",run.getEnforceDueDate());
+        obj.put("enforceCumulative",run.getEnforceCumulative());
+        obj.put("enforceWip",run.getEnforceWip());
+        obj.put("enforceDowntime",run.getEnforceDowntime());
+        obj.put("weightMakespan",run.getWeightMakespan());
+        obj.put("weightFlowtime",run.getWeightFlowtime());
+        obj.put("weightLateness",run.getWeightLateness());
+        obj.put("weightEarliness",run.getWeightEarliness());
         obj.put("timeout",run.getTimeout());
         obj.put("nrThreads",run.getNrThreads());
         obj.put("seed",run.getSeed());
         obj.put("removeSolution",run.getRemoveSolution());
+        obj.put("produceReport",run.getProduceReport());
+        obj.put("producePDF",run.getProducePDF());
         obj.put("solverStatus",run.getSolverStatus().toString());
         obj.put("time",run.getTime());
         return obj;
@@ -502,21 +511,25 @@ public class WriteData {
         obj.put("gap",sol.getGap());
         obj.put("makespan",sol.getMakespan());
         obj.put("flowtime",sol.getFlowtime());
-        obj.put("totalEarliness",sol.getTotalEarliness());
-        obj.put("maxEarliness",sol.getMaxEarliness());
-        obj.put("nrEarly",sol.getNrEarly());
-        obj.put("weightedEarliness",sol.getWeightedEarliness());
         obj.put("totalLateness",sol.getTotalLateness());
         obj.put("maxLateness",sol.getMaxLateness());
         obj.put("nrLate",sol.getNrLate());
         obj.put("weightedLateness",sol.getWeightedLateness());
+        obj.put("totalEarliness",sol.getTotalEarliness());
+        obj.put("maxEarliness",sol.getMaxEarliness());
+        obj.put("nrEarly",sol.getNrEarly());
+        obj.put("weightedEarliness",sol.getWeightedEarliness());
         obj.put("percentEarly",sol.getPercentEarly());
         obj.put("percentLate",sol.getPercentLate());
+        obj.put("duration",sol.getDuration());
         obj.put("start",sol.getStart());
         obj.put("end",sol.getEnd());
-        obj.put("duration",sol.getDuration());
         obj.put("startDate",sol.getStartDate().toString());
         obj.put("endDate",sol.getEndDate().toString());
+        obj.put("totalWaitBefore",sol.getTotalWaitBefore());
+        obj.put("totalWaitAfter",sol.getTotalWaitAfter());
+        obj.put("maxWaitBefore",sol.getMaxWaitBefore());
+        obj.put("maxWaitAfter",sol.getMaxWaitAfter());
         return obj;
 
     }
@@ -558,14 +571,16 @@ public class WriteData {
     private JSONObject taskAssignment(TaskAssignment ta){
         JSONObject tObj = new JSONObject();
         tObj.put("name",ta.getName());
-        tObj.put("jobAssignment",ta.getJobAssignment().getName());
         tObj.put("disjunctiveResource",ta.getDisjunctiveResource().getName());
-        tObj.put("task",ta.getTask().getName());
+        tObj.put("duration",ta.getDuration());
         tObj.put("start",ta.getStart());
         tObj.put("end",ta.getEnd());
-        tObj.put("duration",ta.getDuration());
         tObj.put("startDate",ta.getStartDate().toString());
         tObj.put("endDate",ta.getEndDate().toString());
+        tObj.put("task",ta.getTask().getName());
+        tObj.put("jobAssignment",ta.getJobAssignment().getName());
+        tObj.put("waitBefore",ta.getWaitBefore());
+        tObj.put("waitAfter",ta.getWaitAfter());
         return tObj;
 
     }

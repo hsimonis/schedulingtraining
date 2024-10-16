@@ -26,6 +26,18 @@ public class CreateData {
         base.setDirty(false);
         summarizeProblem(base);
     }
+
+    public CreateData(Scenario base,List<Order> orders){
+        this.base = base;
+        base.resetListTask();
+        base.resetListJob();
+        int i=0;
+        for(Order ord:orders){
+            scheduleOrder(ord,i++);
+        }
+        base.setDirty(false);
+        summarizeProblem(base);
+    }
     public CreateData(Scenario base,String label,DateTime startDateTime,ResourceModel resourceModel,int nrProducts,
                       int minStages,int maxStages,
                       int nrDisjunctiveResources,
@@ -282,6 +294,8 @@ public class CreateData {
             }
         }
     }
+
+
 
     private void scheduleOrder(Order ord,int i){
         Job j = new Job(base);

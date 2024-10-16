@@ -22,7 +22,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 
 /**
- * Generated at 07:10:18 on 2024-10-16 */
+ * Generated at 14:14:40 on 2024-10-16 */
 public class CumulativeNeedController extends Table3Controller {
 	@FXML
 	private TableView<CumulativeNeed> table;

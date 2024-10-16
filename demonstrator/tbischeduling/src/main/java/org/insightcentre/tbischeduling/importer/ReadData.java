@@ -58,12 +58,14 @@ public class ReadData {
         resetAll(base);
 
         if (!root.has("version")){
-            inputError("root","root","version","n/a","File does not have version field",Fatal);
+            inputError("root","root","version","n/a",
+                    "File does not have version field",Fatal);
         }
         double version = root.getDouble("version");
         // compare to version number defined in minimalData()
         if (version < base.getDataFileVersionNumber()){
-            inputError("root","root","version",String.format("%f",version),"File version outdated",Fatal);
+            inputError("root","root","version",version,
+                    "File version outdated, current version is "+base.getDataFileVersionNumber(),Fatal);
         }
 
         // read the different fields of data, create a hashtable from name to Object
@@ -91,15 +93,63 @@ public class ReadData {
         Hashtable<String, TaskAssignment> taskAssignmentHash = readTaskAssignments(root,jobAssignmentHash,
                 taskHash,disjunctiveResourceHash);
 
-        if (base.getListProblem().size() != 1){
-            inputError("problem","Nr instances","count",String.format("%d",base.getListProblem().size()),
-                    "There must be exactly one Problem instance",Fatal);
-        }
+        extendedConsistencyChecks();
         summarizeProblem(base);
         new CheckSolutions(base,base.getListSolution());
         info("File read, "+base.getListInputError().size()+" input error(s), "+base.getListSolutionError().size()+" solution errors");
 
 
+    }
+
+    private void extendedConsistencyChecks() {
+        seqBelongToSameProcess();
+        processMustBeSingleton();
+        processStepDurationNotZero();
+        processSeqOffsetMustBeZero();
+        scheduleIfRequired();
+    }
+
+    private void seqBelongToSameProcess(){
+        for(ProcessSequence seq:base.getListProcessSequence()){
+            if (seq.getBefore() == null){
+                inputError("processSeq",seq.getName(),"before","null","Before field must refer to a valid ProcessStep",Fatal);
+            } else if (seq.getAfter()==null){
+                inputError("processSeq",seq.getName(),"after","null","After field must refer to a valid ProcessStep",Fatal);
+            } else if (seq.getBefore().getProcess() != seq.getAfter().getProcess()){
+                inputError("processSeq",seq.getName(),"before",seq.getBefore().getName(),"Before and After process Steps must belong to the same process",Fatal);
+            }
+        }
+    }
+
+    private void processMustBeSingleton(){
+        if (base.getListProblem().size() != 1){
+            inputError("problem","Nr instances","count",base.getListProblem().size(),
+                    "There must be exactly one Problem instance",Fatal);
+        }
+
+    }
+
+    private void processStepDurationNotZero(){
+        for(ProcessStep ps:base.getListProcessStep()){
+            if (ps.getDurationPerUnit() == 0 && ps.getDurationFixed() ==0){
+                inputError("processStep",ps.getName(),"durationPerUnit",ps.getDurationPerUnit(),"One of durationPerUnit and durationFixed must be positive",Fatal);
+            }
+        }
+    }
+
+    private void processSeqOffsetMustBeZero(){
+        for(ProcessSequence seq:base.getListProcessSequence()){
+            if (seq.getOffset() != 0){
+                inputError("processSequence",seq.getName(),"offset",seq.getOffset(),"Currently, offset must be zero",Fatal);
+            }
+        }
+    }
+
+    private void scheduleIfRequired(){
+        if (base.getListJob().size()==0 || base.getListTask().size()==0){
+            inputError("job/task","recreated","","","Jobs or Tasks missing, creating them from orders",Major);
+            new CreateData(base,base.getListOrder());
+        }
     }
 
     private void pretty(JSONObject root,String fileName){
@@ -307,10 +357,10 @@ public class ReadData {
                         inputError(key, name, "process", pName, "The required object does not exist", Fatal);
                     }
                     if (durationFixed < 0){
-                        inputError(key,name,"durationFixed",String.format("%d",durationFixed),"Value cannot be negative",Fatal);
+                        inputError(key,name,"durationFixed",durationFixed,"Value cannot be negative",Fatal);
                     }
                     if (durationPerUnit < 0){
-                        inputError(key,name,"durationPerUnit",String.format("%d",durationPerUnit),"Value cannot be negative",Fatal);
+                        inputError(key,name,"durationPerUnit",durationPerUnit,"Value cannot be negative",Fatal);
                     }
                     ProcessStep ps = new ProcessStep(base);
                     ps.setName(name);
@@ -433,7 +483,7 @@ public class ReadData {
                         inputError(key, name, "cumulativeResource", rName, "The required object does not exist", Fatal);
                     }
                     if (demand <= 0 ){
-                        inputError(key,name,"demand",String.format("%d",demand),"Value must be positive",Fatal);
+                        inputError(key,name,"demand",demand,"Value must be positive",Fatal);
                     }
                     CumulativeNeed cn = new CumulativeNeed(base);
                     cn.setName(name);
@@ -471,7 +521,7 @@ public class ReadData {
                         inputError(key, name, "cumulativeResource", rName, "The required object does not exist", Fatal);
                     }
                     if (capacity < 0 ){
-                        inputError(key,name,"capacity",String.format("%d",capacity),"Value cannot be negative",Fatal);
+                        inputError(key,name,"capacity",capacity,"Value cannot be negative",Fatal);
                     }
                     CumulativeProfile cn = new CumulativeProfile(base);
                     cn.setName(name);
@@ -535,16 +585,16 @@ public class ReadData {
                         inputError(key, name, "process", qName, "The required object does not exist", Fatal);
                     }
                     if (qty <= 0 ){
-                        inputError(key,name,"qty",String.format("%d",qty),"Value must be positive",Fatal);
+                        inputError(key,name,"qty",qty,"Value must be positive",Fatal);
                     }
                     if (release > due){
-                        inputError(key,name,"release",String.format("%d",release),"Release date must before due date",Fatal);
+                        inputError(key,name,"release",release,"Release date must before due date",Fatal);
                     }
                     if (latenessWeight < 0.0){
-                        inputError(key,name,"latenessWeight",String.format("%f",latenessWeight),"Value cannot be negative",Fatal);
+                        inputError(key,name,"latenessWeight",latenessWeight,"Value cannot be negative",Fatal);
                     }
                     if (earlinessWeight < 0.0){
-                        inputError(key,name,"earlinessWeight",String.format("%f",earlinessWeight),"Value cannot be negative",Fatal);
+                        inputError(key,name,"earlinessWeight",earlinessWeight,"Value cannot be negative",Fatal);
                     }
                     Order ord = new Order(base);
                     ord.setName(name);
@@ -619,11 +669,11 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","job","processStep","duration"})) {
+                if (requireFields(key,i,item,new String[]{"name","job","processStep"})) {
                     String name = item.getString("name");
                     String jName = item.getString("job");
                     String pName = item.getString("processStep");
-                    int duration = item.getInt("duration");
+                    Integer duration;
                     Job j = jobHash.get(jName);
                     ProcessStep processStep = processStepHash.get(pName);
                     if (j == null) {
@@ -638,6 +688,12 @@ public class ReadData {
                     t.setNr(taskNr++);
                     t.setJob(j);
                     t.setProcessStep(processStep);
+                    if (item.has("duration")) {
+                        duration = item.getInt("duration");
+                    } else {
+                        duration = recalculateDuration(t);
+                        inputError("task",name,"duration",duration,"Task duration not given, recalculating",Minor);
+                    }
                     t.setDuration(duration);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
@@ -650,6 +706,10 @@ public class ReadData {
             inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
         }
         return res;
+    }
+
+    private int recalculateDuration(Task t){
+        return t.getJob().getOrder().getQty()*t.getProcessStep().getDurationPerUnit()+t.getProcessStep().getDurationFixed();
     }
 
     private Hashtable<String,WiP> readWiPs(JSONObject root,
@@ -741,7 +801,10 @@ public class ReadData {
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
                 if (requireFields(key,i,item,new String[]{"name","description","modelType","solverBackend",
-                        "objectiveType","enforceReleaseDate","enforceDueDate","timeout","nrThreads","seed",
+                        "objectiveType",
+                        "enforceReleaseDate","enforceDueDate","enforceCumulative","enforceWip","enforceDowntime",
+                        "weightMakespan","weightFlowtime","weightEarliness","weightLateness",
+                        "timeout","nrThreads","seed",
                         "removeSolution","solverStatus","time"})) {
                     String name = item.getString("name");
                     String label = name;
@@ -754,10 +817,19 @@ public class ReadData {
                     String objectiveType = item.getString("objectiveType");
                     boolean enforceReleaseDate = item.getBoolean("enforceReleaseDate");
                     boolean enforceDueDate = item.getBoolean("enforceDueDate");
+                    boolean enforceCumulative = item.getBoolean("enforceCumulative");
+                    boolean enforceWip = item.getBoolean("enforceWip");
+                    boolean enforceDowntime = item.getBoolean("enforceDowntime");
+                    int weightMakespan = item.getInt("weightMakespan");
+                    int weightFlowtime = item.getInt("weightFlowtime");
+                    int weightEarliness = item.getInt("weightEarliness");
+                    int weightLateness = item.getInt("weightLateness");
                     int timeout = item.getInt("timeout");
                     int nrThreads = item.getInt("nrThreads");
                     int seed = item.getInt("seed");
                     boolean removeSolution = item.getBoolean("removeSolution");
+                    boolean produceReport = item.getBoolean("produceReport");
+                    boolean producePDF = item.getBoolean("producePDF");
                     String solverStatus = item.getString("solverStatus");
                     double time = item.getDouble("time");
                     SolverRun s = new SolverRun(base);
@@ -769,10 +841,19 @@ public class ReadData {
                     s.setObjectiveType(toObjectiveType(objectiveType));
                     s.setEnforceReleaseDate(enforceReleaseDate);
                     s.setEnforceDueDate(enforceDueDate);
+                    s.setEnforceCumulative(enforceCumulative);
+                    s.setEnforceWip(enforceWip);
+                    s.setEnforceDowntime(enforceDowntime);
+                    s.setWeightMakespan(weightMakespan);
+                    s.setWeightFlowtime(weightFlowtime);
+                    s.setWeightEarliness(weightEarliness);
+                    s.setWeightLateness(weightLateness);
                     s.setTimeout(timeout);
                     s.setNrThreads(nrThreads);
                     s.setSeed(seed);
                     s.setRemoveSolution(removeSolution);
+                    s.setProduceReport(produceReport);
+                    s.setProducePDF(producePDF);
                     s.setSolverStatus(toSolverStatus(solverStatus));
                     s.setTime(time);
                     if (res.get(name) != null) {
@@ -798,7 +879,8 @@ public class ReadData {
                 if (requireFields(key,i,item,new String[]{"name","solverRun","objectiveValue","solverStatus","bound","gap",
                         "makespan","flowtime",
                         "totalLateness","maxLateness","weightedLateness",
-                        "totalEarliness","maxEarliness","weightedEarliness","start","end","duration","startDate","endDate"})) {
+                        "totalEarliness","maxEarliness","weightedEarliness","start","end","duration","startDate","endDate",
+                "totalWaitBefore","totalWaitAfter","maxWaitBefore","maxWaitAfter"})) {
                     String name = item.getString("name");
                     String solverRun = item.getString("solverRun");
                     int objectiveValue = item.getInt("objectiveValue");
@@ -822,6 +904,10 @@ public class ReadData {
                     int duration = item.getInt("duration");
                     DateTime startDate = readDateTime(item.getString("startDate"),start);
                     DateTime endDate = readDateTime(item.getString("endDate"),end);
+                    int totalWaitBefore = item.getInt("totalWaitBefore");
+                    int totalWaitAfter = item.getInt("totalWaitAfter");
+                    int maxWaitBefore = item.getInt("maxWaitBefore");
+                    int maxWaitAfter = item.getInt("maxWaitAfter");
 
                     SolverRun sr = solverRunHash.get(solverRun);
                     if (sr == null) {
@@ -852,6 +938,10 @@ public class ReadData {
                     s.setDuration(duration);
                     s.setStartDate(startDate);
                     s.setEndDate(endDate);
+                    s.setTotalWaitBefore(totalWaitBefore);
+                    s.setTotalWaitAfter(totalWaitAfter);
+                    s.setMaxWaitBefore(maxWaitBefore);
+                    s.setMaxWaitAfter(maxWaitAfter);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -926,7 +1016,7 @@ public class ReadData {
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
                 if (requireFields(key,i,item,new String[]{"name","jobAssignment","task","disjunctiveResource",
-                        "start","end","duration","startDate","endDate"})) {
+                        "start","end","duration","startDate","endDate","waitBefore","waitAfter"})) {
                     String name = item.getString("name");
                     String jName = item.getString("jobAssignment");
                     String tName = item.getString("task");
@@ -936,6 +1026,8 @@ public class ReadData {
                     DateTime startDate = readDateTime(item.getString("startDate"),start);
                     DateTime endDate = readDateTime(item.getString("endDate"),end);
                     int duration = item.getInt("duration");
+                    int waitBefore = item.getInt("waitBefore");
+                    int waitAfter = item.getInt("waitAfter");
                     JobAssignment ja = jobAssignmentHash.get(jName);
                     Task t = taskHash.get(tName);
                     DisjunctiveResource r = disjHash.get(rName);
@@ -959,6 +1051,8 @@ public class ReadData {
                     ta.setStartDate(startDate);
                     ta.setEndDate(endDate);
                     ta.setDuration(duration);
+                    ta.setWaitBefore(waitBefore);
+                    ta.setWaitAfter(waitAfter);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -975,6 +1069,11 @@ public class ReadData {
 
 
     int errNr=1;
+    // allow value to be a number
+    private InputError inputError(String classDesc,String item,String field,Number value,String description,Severity severity){
+        return inputError(classDesc,item,field,value.toString(),description,severity);
+    }
+
     private InputError inputError(String classDesc,String item,String field,String value,String description,Severity severity){
         InputError res = new InputError(base);
         res.setName("Err"+errNr++);

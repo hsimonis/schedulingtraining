@@ -1,5 +1,6 @@
 package org.insightcentre.tbischeduling.controller.custom;
 
+import framework.types.TimeOnly;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.canvas.GraphicsContext;
@@ -10,6 +11,8 @@ import javafx.scene.text.TextAlignment;
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.datamodel.custom.ResizableCanvas;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Hashtable;
@@ -17,7 +20,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.insightcentre.tbischeduling.datamodel.ColorBy.Mixed;
+import static org.insightcentre.tbischeduling.datamodel.DatesDisplay.External;
+import static org.insightcentre.tbischeduling.datamodel.DatesDisplay.Internal;
 import static org.insightcentre.tbischeduling.datamodel.ResourceChoice.All;
+import static org.insightcentre.tbischeduling.datamodel.ResourceZoom.Normal;
 import static org.insightcentre.tbischeduling.datamodel.TaskLabel.None;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
@@ -73,6 +79,8 @@ public class GanttBorderContent {
     ResourceChoice showJobsBox= All;
     boolean highlightCritical=false;
 
+    ResourceZoom resourceZoom = Normal;
+
     LineChoice showEarly=LineChoice.Number;
     LineChoice showLate=LineChoice.All;
     LineChoice showRelease=LineChoice.None;
@@ -83,6 +91,8 @@ public class GanttBorderContent {
     ColorBy colorBy;
     TaskLabel taskLabel;
     JobOrder jobOrder;
+
+    DatesDisplay datesDisplay;
 
     double alpha=0.3;
     double zoom=1.0;
@@ -169,6 +179,16 @@ public class GanttBorderContent {
     public void setJobOrder(String v){
         if (v != null) {
             jobOrder = toJobOrder(v);
+        }
+    }
+    public void setDatesDisplay(String v){
+        if (v != null) {
+            datesDisplay = toDatesDisplay(v);
+        }
+    }
+    public void setResourceZoom(String v){
+        if (v != null) {
+            resourceZoom = toResourceZoom(v);
         }
     }
 
@@ -334,67 +354,130 @@ public class GanttBorderContent {
 
     public void drawTimeline() {
         controller.updateParameters();
-        double width = topCanvas.getWidth();
-        double height = topCanvas.getHeight();
+        if (base != null) {
+            double width = topCanvas.getWidth();
+            double height = topCanvas.getHeight();
 
-        GraphicsContext gc = topCanvas.getGraphicsContext2D();
-        mark(drawColor,gc,width,height);
-        String imagePath = "file:images/entire.png";
-        Image image = new Image(imagePath);
-        // Draw the Image
-        gc.drawImage(image, 0, 0, resourceWidth-5,titleHeight);
-        timeline(gc,width,height,getXOffset());
-        if (solution != null) {
-            showMarker(gc, width, height, "Makespan", solution.getMakespan(), makespanColor);
-            showMarker(gc, width, height, "Horizon", base.getHorizon(), horizonColor);
+            GraphicsContext gc = topCanvas.getGraphicsContext2D();
+            mark(drawColor, gc, width, height);
+            String imagePath = "file:images/entire.png";
+            Image image = new Image(imagePath);
+            // Draw the Image
+            gc.drawImage(image, 0, 0, resourceWidth - 5, titleHeight);
+            timeline(gc, width, height, getXOffset());
+            if (solution != null) {
+                showMarker(gc, width, height, "Makespan", solution.getMakespan(), makespanColor);
+                showMarker(gc, width, height, "Horizon", base.getHorizon(), horizonColor);
+            }
         }
     }
 
 
     public void drawResources() {
         controller.updateParameters();
-        double width = leftCanvas.getWidth();
-        double height = leftCanvas.getHeight();
+        if (base != null) {
+            double width = leftCanvas.getWidth();
+            double height = leftCanvas.getHeight();
+            considerResourceZoom(height);
 
-        GraphicsContext gc = leftCanvas.getGraphicsContext2D();
-        mark(drawColor,gc,width,height);
-        if (base != null){
+            GraphicsContext gc = leftCanvas.getGraphicsContext2D();
+            mark(drawColor, gc, width, height);
+            if (base != null) {
 //            info("with scenario ");
-            machinesJobs(gc,width,height);
-        } else {
+                machinesJobs(gc, width, height);
+            } else {
 //            info("without scenario");
-            resources(gc, width, height);
+                resources(gc, width, height);
+            }
         }
 
     }
 
     public void drawCenter() {
         controller.updateParameters();
-        info("Draw center sol "+solution+" M "+showMachinesBox+" J "+showJobsBox);
-        double width = canvas.getWidth();
-        double height = canvas.getHeight();
-        // reset regions as all tasks will have new coordinates
-        regions = new ArrayList<>();
+        if (base != null) {
+            info("Draw center sol " + solution + " M " + showMachinesBox + " J " + showJobsBox);
+            double width = canvas.getWidth();
+            double height = canvas.getHeight();
+            // reset regions as all tasks will have new coordinates
+            regions = new ArrayList<>();
+            considerResourceZoom(height);
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setLineWidth(1.0);
-        mark(drawColor, gc, width, height);
-        if (base == null) {
-            gc.setTextAlign(TextAlignment.LEFT);
-            gc.strokeText(String.format("%5.2f", getStartX()), 0, height / 2);
-            gc.setTextAlign(TextAlignment.RIGHT);
-            gc.strokeText(String.format("%5.2f", getStartX() + width), width, height / 2);
-            gc.setTextAlign(TextAlignment.CENTER);
-            gc.strokeText(String.format("%5.2f", getStartY()), width / 2, indent);
-            gc.setTextAlign(TextAlignment.CENTER);
-            gc.strokeText(String.format("%5.2f", getStartY() + height), width / 2, height - indent);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setLineWidth(1.0);
+            mark(drawColor, gc, width, height);
+
+            centerTimeline(gc, width, height);
+            if (base != null) {
+                tasks(gc, width, height);
+            }
         }
 
-        centerTimeline(gc,width,height);
-        if (base != null){
-            tasks(gc,width,height);
-        }
+    }
 
+    private void considerResourceZoom(double height){
+        switch (resourceZoom){
+            case Wide:
+                itemHeight = 30;
+                itemGap = 8;
+                resourceLabelOffset= itemHeight -10;
+                taskLabelOffset= itemHeight -10;
+                midLine = 1.0*itemHeight/2;
+                lowLine = midLine-7;
+                highLine = midLine+7;
+                break;
+            case Dense:
+                itemHeight = 15;
+                itemGap = 2;
+                resourceLabelOffset= itemHeight -3;
+                taskLabelOffset= itemHeight -3;
+                midLine = 1.0*itemHeight/2;
+                lowLine = midLine-3;
+                highLine = midLine+3;
+                break;
+            case FitAll:
+                int nrResources = nrTotalResources();
+                // each item uses 5 spaces, four for the item itself, and one for the gap
+                double space = height/(nrResources*5);
+                itemHeight = (int) Math.min(30.0,Math.max(5.0,Math.round(4*space)));
+                info("fitAll resources"+nrResources+" space "+space+" itemHeight "+itemHeight);
+                itemGap = (int) Math.round(Math.max(2,Math.min(8,space)));
+                resourceLabelOffset= itemHeight -3;
+                taskLabelOffset= itemHeight -3;
+                midLine = 1.0*itemHeight/2;
+                lowLine = midLine-1.0*itemHeight/4;
+                highLine = midLine+1.0*itemHeight/4;
+                break;
+            case Normal:
+            default:
+                itemHeight = 20;
+                itemGap = 5;
+                resourceLabelOffset= itemHeight -5;
+                taskLabelOffset= itemHeight -5;
+                midLine = 1.0*itemHeight/2;
+                lowLine = midLine-5;
+                highLine = midLine+5;
+        }
+    }
+
+    private int nrTotalResources() {
+        return nrMachines() + nrJobs();
+    }
+
+    // if any machines are shown, we also need a spacer
+    private int nrMachines(){
+        return switch (showMachinesBox) {
+            case All -> base.getListDisjunctiveResource().size() + 1;
+            case Selected -> 2;
+            case None -> 0;
+        };
+    }
+    private int nrJobs(){
+        return switch (showJobsBox) {
+            case All -> base.getListJob().size();
+            case Selected -> 1;
+            case None -> 0;
+        };
     }
 
     public void mark(Color c,GraphicsContext gc,double width,double height) {
@@ -407,19 +490,25 @@ public class GanttBorderContent {
 
     public void timeline(GraphicsContext gc,double width,double height,double xoffset){
         int increment = zoomIncrement(width,zoom);
+        info("increment "+increment);
         int startX = (int) Math.round(getStartX());
-        gc.setTextAlign(TextAlignment.CENTER);
         for(int i=0;i<virtWidth;i+=increment){
             double x = xoffset+xcoor(i,startX);
             gc.setStroke(textColor);
-            gc.strokeText(String.format("%d",i),x,titleLabelOffset);
+            if (datesDisplay == External && startOfDay(i)) {
+                gc.setTextAlign(TextAlignment.LEFT);
+                gc.strokeText(internalExternalddMM(i),x,titleLabelOffset);
+            }
+            gc.setTextAlign(TextAlignment.CENTER);
+            gc.strokeText(internalExternalHHmm(i),x,2*titleLabelOffset);
             gc.setStroke(gridColor);
-            gc.strokeLine(x,titleLabelOffset,x,height);
+            gc.strokeLine(x,2*titleLabelOffset,x,height);
         }
 
     }
     public void centerTimeline(GraphicsContext gc,double width,double height){
         int increment = zoomIncrement(width,zoom);
+        info("center increment "+increment);
         int startX = (int) Math.round(getStartX());
         for(int i=0;i<virtWidth;i+=increment){
             double x = xcoor(i,startX);
@@ -438,7 +527,7 @@ public class GanttBorderContent {
         gc.setTextAlign(TextAlignment.RIGHT);
         double x = xoffset+xcoor(value,startX);
         gc.setStroke(textColor);
-        gc.strokeText(String.format("%s: %d",label,value),x,height-itemGap);
+        gc.strokeText(String.format("%s: %s",label,internalExternalDate(value)),x,height-itemGap);
         gc.setStroke(color);
         gc.strokeLine(x,indent,x,height);
 
@@ -452,25 +541,58 @@ public class GanttBorderContent {
     }
 
     public int zoomIncrement(double width,double zoom) {
-        // how many internal time units will be shown in window width
-        double valueRange = width / zoom;
-        info("timeline " + width + " z " + zoom + " r " + valueRange);
-        if (valueRange > 10000) {
-            return 500;
-        } else if (valueRange > 5000) {
-            return 250;
-        } else if (valueRange > 2000) {
-            return 100;
-        } else if (valueRange > 1000) {
-            return 50;
-        } else if (valueRange > 500) {
-            return 25;
-        } else if (valueRange > 200) {
-            return 10;
-        } else if (valueRange > 100) {
-            return 5;
+        if (datesDisplay == Internal) {
+            // how many internal time units will be shown in window width
+            double valueRange = width / zoom;
+            info("timeline " + width + " z " + zoom + " r " + valueRange);
+            if (valueRange > 10000) {
+                return 500;
+            } else if (valueRange > 5000) {
+                return 250;
+            } else if (valueRange > 2000) {
+                return 100;
+            } else if (valueRange > 1000) {
+                return 50;
+            } else if (valueRange > 500) {
+                return 25;
+            } else if (valueRange > 200) {
+                return 10;
+            } else if (valueRange > 100) {
+                return 5;
+            } else {
+                return 5;
+            }
         } else {
-            return 5;
+            final int minPerDay = 1440;
+            double valueRange = base.getTimeResolution()*width / zoom;
+            if (valueRange >= 30*minPerDay){
+                // 2 days
+                return 2*minPerDay/base.getTimeResolution();
+            } else if (valueRange >= 20*minPerDay){
+                // day
+                return minPerDay/base.getTimeResolution();
+            } else if (valueRange >= 10*minPerDay){
+                // 12 hour
+                return minPerDay/(2*base.getTimeResolution());
+            } else if (valueRange >= 5*minPerDay){
+                // 6 hour
+                return minPerDay/(4*base.getTimeResolution());
+            } else if (valueRange >= 2*minPerDay){
+                // 2 hours
+                return minPerDay/(12*base.getTimeResolution());
+            } else if (valueRange >= minPerDay){
+                // 1 hour
+                return 60/base.getTimeResolution();
+            } else if (valueRange >= 1.0*minPerDay/2){
+                // 30 min
+                return 30/base.getTimeResolution();
+            } else if (valueRange >= 1.0*minPerDay/4){
+                // 15 min
+                return 15/base.getTimeResolution();
+            } else {
+                return 60 / base.getTimeResolution();
+            }
+
         }
     }
 
@@ -497,13 +619,13 @@ public class GanttBorderContent {
         if (showMachinesBox != ResourceChoice.None) {
             for (DisjunctiveResource m : machines) {
                 int y = ycoor(machineHash.get(m), startY);
-                drawResource(gc, y, m.getName(),colorCategory(m,colorBy),alpha(m),null);
+                drawResource(gc, y, m.getName(),colorCategory(m,colorBy),alpha(m),utilization(m),textColor);
             }
         }
         if (showJobsBox != ResourceChoice.None) {
             for(Job j:jobs){
                 int y=ycoor(jobHash.get(j),startY);
-                drawResource(gc,y,j.getName(),colorCategory(j,colorBy),alpha(j),late(j));
+                drawResource(gc,y,j.getName(),colorCategory(j,colorBy),alpha(j),late(j),lateColor);
             }
         }
     }
@@ -533,7 +655,7 @@ public class GanttBorderContent {
 
     }
 
-    private void drawResource(GraphicsContext gc,double y,String name,Color color,double alpha,String extra){
+    private void drawResource(GraphicsContext gc,double y,String name,Color color,double alpha,String extra,Color extraColor){
         gc.setFill(color);
         gc.setGlobalAlpha(alpha);
         gc.fillRect(0,y,resourceWidth, itemHeight);
@@ -543,7 +665,7 @@ public class GanttBorderContent {
         gc.setStroke(textColor);
         gc.strokeText(name, indent, y+resourceLabelOffset);
         if (extra != null) {
-            gc.setStroke(lateColor);
+            gc.setStroke(extraColor);
             gc.setTextAlign(TextAlignment.RIGHT);
             gc.strokeText(extra, resourceWidth-nudge, y + resourceLabelOffset);
             gc.setTextAlign(TextAlignment.LEFT);
@@ -556,8 +678,17 @@ public class GanttBorderContent {
                 filter(x->x.getJob()==j).
                 filter(x->x.getSolution()==solution).
                 filter(x->x.getLate() > 0).
-                map(x->String.format("%d",x.getLate())).
+                map(x->internalExternalPeriodShort(x.getLate())).
                 findAny().orElse(null);
+    }
+
+    private String utilization(DisjunctiveResource m){
+        return base.getListResourceUtilization().stream().
+                filter(x->x.getDisjunctiveResource()==m).
+                filter(x->x.getSolution()==solution).
+                map(x->String.format("%3.0f%%",x.getUtilization())).
+                findAny().orElse(null);
+
     }
 
 
@@ -838,13 +969,13 @@ public class GanttBorderContent {
                 case Task:
                     return task.getName();
                 case Start:
-                    return task.getStart().toString();
+                    return internalExternalHHmm(task.getStart());
                 case End:
-                    return task.getEnd().toString();
+                    return internalExternalHHmm(task.getEnd());
                 case Wait:
-                    return task.getWaitBefore().toString();
+                    return internalExternalPeriod(task.getWaitBefore());
                 case Duration:
-                    return task.getTask().getDuration().toString();
+                    return internalExternalPeriod(task.getTask().getDuration());
                 case None:
                     // unreachable, filtered out before
                     return "";
@@ -855,9 +986,9 @@ public class GanttBorderContent {
         } else {
             return switch (taskLabel) {
                 case Machine -> ra.getDisjunctiveResource().getName();
-                case Start -> ra.getStart().toString();
-                case End -> ra.getEnd().toString();
-                case Duration -> ra.getDuration().toString();
+                case Start -> internalExternalHHmm(ra.getStart());
+                case End -> internalExternalHHmm(ra.getEnd());
+                case Duration -> internalExternalPeriod(ra.getDuration());
                 case None ->
                     // unreachable, filtered out before
                         "";
@@ -979,7 +1110,7 @@ public class GanttBorderContent {
             gc.setStroke(waitColor);
             gc.setTextAlign(TextAlignment.CENTER);
             if (what==LineChoice.All || what==LineChoice.Number){
-                gc.strokeText(String.format("%d",wait),x-xLength(wait)/2,y+midLine);
+                gc.strokeText(internalExternalPeriod(wait),x-xLength(wait)/2,y+midLine);
             }
             if (what==LineChoice.All || what==LineChoice.Line) {
                 lines(gc, x, y, -xLength(wait));
@@ -992,7 +1123,7 @@ public class GanttBorderContent {
             gc.setStroke(lateColor);
             gc.setTextAlign(TextAlignment.LEFT);
             if (what==LineChoice.All || what==LineChoice.Number) {
-                gc.strokeText(String.format("%d", late), x+nudge, y + highLine);
+                gc.strokeText(internalExternalPeriod(late), x+nudge, y + highLine);
             }
             if (what==LineChoice.All || what==LineChoice.Line) {
                 lines(gc, x, y, -xLength(late));
@@ -1004,10 +1135,10 @@ public class GanttBorderContent {
             gc.setStroke(earlyColor);
             gc.setTextAlign(TextAlignment.LEFT);
             if (what==LineChoice.Number) {
-                gc.strokeText(String.format("%d", early), x+nudge, y + highLine);
+                gc.strokeText(internalExternalPeriod(early), x+nudge, y + highLine);
             }
             if (what==LineChoice.All ) {
-                gc.strokeText(String.format("%d", early), x+nudge, y + midLine);
+                gc.strokeText(internalExternalPeriod(early), x+nudge, y + midLine);
             }
             if (what==LineChoice.All || what==LineChoice.Line) {
                 lines(gc, x, y, xLength(early));
@@ -1019,10 +1150,10 @@ public class GanttBorderContent {
             gc.setStroke(releaseColor);
             gc.setTextAlign(TextAlignment.RIGHT);
             if (what==LineChoice.Number) {
-                gc.strokeText(String.format("%d", release), x-nudge, y + highLine);
+                gc.strokeText(internalExternalPeriod(release), x-nudge, y + highLine);
             }
             if (what==LineChoice.All ) {
-                gc.strokeText(String.format("%d", release), x-nudge, y + midLine);
+                gc.strokeText(internalExternalPeriod(release), x-nudge, y + midLine);
             }
             if (what==LineChoice.All || what==LineChoice.Line) {
                 lines(gc, x, y, -xLength(release));
@@ -1035,6 +1166,74 @@ public class GanttBorderContent {
         gc.strokeLine(x, y + lowLine, x, y + highLine);
         gc.strokeLine(x + width, y + lowLine, x + width, y + highLine);
 
+    }
+
+    public String internalExternalDate(int date){
+        if (datesDisplay == Internal){
+            return String .format("%d",date);
+        } else {
+            return base.getStartDateTime().addMinutes(date*base.getTimeResolution()).toString();
+        }
+    }
+    public String internalExternalHHmm(int date){
+        if (datesDisplay == Internal){
+            return String .format("%d",date);
+        } else {
+            return base.getStartDateTime().addMinutes(date*base.getTimeResolution()).timeOnly().toString();
+        }
+    }
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE dd/MM");
+    public String internalExternalddMM(int date){
+        if (datesDisplay == Internal){
+            return String .format("%d",date);
+        } else {
+            return base.getStartDateTime().addMinutes(date*base.getTimeResolution()).asLocalDate().format(formatter);
+        }
+    }
+
+    public String internalExternalPeriod(int period){
+        if (datesDisplay == Internal){
+            return String.format("%d",period);
+        } else {
+            int inMinutes  = period*base.getTimeResolution();
+            int min = inMinutes % 60;
+            int h = inMinutes/60;
+            int hours = h % 24;
+            int days = h/24;
+            if (days == 0 && hours == 0){
+                return String.format("%dm",min);
+            } else if (days ==0){
+                return String.format("%dh%02dm",hours,min);
+            } else {
+                return String.format("%dd%02dh%02dm", days, hours, min);
+            }
+        }
+    }
+
+    // either xxm,xxh,xxd
+    public String internalExternalPeriodShort(int period){
+        if (datesDisplay == Internal){
+            return String.format("%d",period);
+        } else {
+            int inMinutes  = period*base.getTimeResolution();
+            int min = inMinutes % 60;
+            int h = inMinutes/60;
+            int hours = h % 24;
+            int days = h/24;
+            if (days == 0 && hours == 0){
+                return String.format("%dm",min);
+            } else if (days ==0){
+                return String.format("%dh",hours);
+            } else {
+                return String.format("%dd", days);
+            }
+        }
+    }
+
+    private boolean startOfDay(int i){
+        TimeOnly time = base.getStartDateTime().addMinutes(i*base.getTimeResolution()).timeOnly();
+        return time.get24Hour() == 0 && time.getMinute() == 0;
     }
 
 

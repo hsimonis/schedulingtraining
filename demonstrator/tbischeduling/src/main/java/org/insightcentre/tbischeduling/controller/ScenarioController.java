@@ -32,7 +32,7 @@ import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 
 /**
- * Generated at 07:10:18 on 2024-10-16 */
+ * Generated at 14:14:40 on 2024-10-16 */
 public class ScenarioController extends Table3Controller {
 	@FXML
 	private TableView<Scenario> table;

@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 07:10:18 on 2024-10-16 */
+ * Generated at 14:14:40 on 2024-10-16 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
