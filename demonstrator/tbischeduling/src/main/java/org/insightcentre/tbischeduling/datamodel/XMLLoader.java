@@ -134,6 +134,56 @@ public DurationModel getDurationModel(String attributeName,
             return DurationModel.valueOf(e);
         }
     }
+public ColorBy getColorBy(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("ColorBy"+": "+attributeName);
+            return null;
+        } else {
+            return ColorBy.valueOf(e);
+        }
+    }
+public TaskLabel getTaskLabel(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("TaskLabel"+": "+attributeName);
+            return null;
+        } else {
+            return TaskLabel.valueOf(e);
+        }
+    }
+public JobOrder getJobOrder(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("JobOrder"+": "+attributeName);
+            return null;
+        } else {
+            return JobOrder.valueOf(e);
+        }
+    }
+public ResourceChoice getResourceChoice(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("ResourceChoice"+": "+attributeName);
+            return null;
+        } else {
+            return ResourceChoice.valueOf(e);
+        }
+    }
+public LineChoice getLineChoice(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("LineChoice"+": "+attributeName);
+            return null;
+        } else {
+            return LineChoice.valueOf(e);
+        }
+    }
     public AbstractDataGeneratorProperty getAbstractDataGeneratorProperty(String attributeName,
                                Attributes attributes) {
         return (AbstractDataGeneratorProperty) find(getId(attributeName,attributes));

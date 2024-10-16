@@ -326,8 +326,17 @@ public class CreateData {
 
 
     public static void summarizeProblem(Scenario base){
-        assert(base.getListProblem().size()==1);
-        Problem prob = Problem.findFirst(base);
+        Problem prob;
+        if (base.getListProblem().size()==0){
+            severe("There is no Problem instance, creating... ");
+            prob = new Problem(base);
+            prob.setName("TempFix");
+        } else if (base.getListProblem().size()>1){
+            severe("There are too Problem instances, should be only 1.");
+            prob = Problem.findFirst(base);
+        } else {
+            prob = Problem.findFirst(base);
+        }
         assert(prob!=null);
         prob.setNrProducts(base.getListProduct().size());
         prob.setNrProcesses(base.getListProcess().size());

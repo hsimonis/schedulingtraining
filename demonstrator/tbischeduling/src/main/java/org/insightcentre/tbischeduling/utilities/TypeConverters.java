@@ -112,5 +112,66 @@ public class TypeConverters {
 
     }
 
+    public static ColorBy toColorBy(String name){
+        switch(name){
+            case "Mixed": return ColorBy.Mixed;
+            case "Job": return ColorBy.Job;
+            case "Machine": return ColorBy.Machine;
+            case "Product": return ColorBy.Product;
+            case "Process": return ColorBy.Process;
+            case "Stage": return ColorBy.Stage;
+            case "None": return ColorBy.None;
+            default:
+                severe("Unknown ColorBy name "+name);
+                assert(false);
+                return null;
+        }
+    }
+    public static TaskLabel toTaskLabel(String name){
+        switch(name){
+            case "Task": return TaskLabel.Task;
+            case "Start": return TaskLabel.Start;
+            case "End": return TaskLabel.End;
+            case "Duration": return TaskLabel.Duration;
+            case "Wait": return TaskLabel.Wait;
+            case "Job": return TaskLabel.Job;
+            case "Machine": return TaskLabel.Machine;
+            case "Product": return TaskLabel.Product;
+            case "Stage": return TaskLabel.Stage;
+            case "None": return TaskLabel.None;
+            default:
+                severe("Unknown TaskLabel name "+name);
+                assert(false);
+                return null;
+        }
+    }
+    public static JobOrder toJobOrder(String name){
+        switch(name){
+            case "Input": return JobOrder.Input;
+            case "Nr": return JobOrder.Nr;
+            case "Start": return JobOrder.Start;
+            case "End": return JobOrder.End;
+            case "Release": return JobOrder.Release;
+            case "Due": return JobOrder.Due;
+            case "Product": return JobOrder.Product;
+            default:
+                severe("Unknown JobOrder name "+name);
+                assert(false);
+                return null;
+        }
+    }
+
+    public static ResourceChoice toResourceChoice(String name){
+        switch(name){
+            case "All":return ResourceChoice.All;
+            case "None": return ResourceChoice.None;
+            case "Selected":return ResourceChoice.Selected;
+            default:
+                severe("Unknown Resource Choice "+name);
+                assert(false);
+                return null;
+        }
+    }
+
 
 }

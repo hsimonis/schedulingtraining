@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
+import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
@@ -120,7 +121,7 @@ public class GanttViewerController extends JJAbstractChartController {
 
 	public void ganttSelect(double x,double y){
 		info("clicked "+x+" "+y);
-		TaskAssignment selected =contentProvider.insideRegion(x,y);
+		ResourceActivity selected =contentProvider.insideRegion(x,y);
 		if (selected == contentProvider.getSelected()){
 			contentProvider.setSelected(null);
 			contentProvider2.setSelected(null);
@@ -136,7 +137,7 @@ public class GanttViewerController extends JJAbstractChartController {
 	}
 	public void ganttSelectBottom(double x,double y){
 		info("clicked "+x+" "+y);
-		TaskAssignment selected =contentProvider2.insideRegion(x,y);
+		ResourceActivity selected =contentProvider2.insideRegion(x,y);
 		if (selected == contentProvider.getSelected()){
 			contentProvider.setSelected(null);
 			contentProvider2.setSelected(null);

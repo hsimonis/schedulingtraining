@@ -64,6 +64,11 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include ObjectiveType.uml
 !include ResourceModel.uml
 !include DurationModel.uml
+!include ColorBy.uml
+!include TaskLabel.uml
+!include JobOrder.uml
+!include ResourceChoice.uml
+!include LineChoice.uml
 ApplicationObjectInterface <|-- ApplicationObject
 ApplicationDatasetInterface <|-- ApplicationDataset
 ApplicationObjectInterface <|-- ApplicationDatasetInterface

@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 12:43:48 on 2024-10-13 */
+ * Generated at 07:10:18 on 2024-10-16 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;

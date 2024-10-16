@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public abstract class JJAbstractChartController extends ChartController {
     protected void setChoices(ChoiceBox<String> box, ObservableList<String> choices) {
+        box.getSelectionModel().clearSelection();
         box.getItems().clear();
         box.getItems().addAll(choices);
         box.getSelectionModel().selectLast();

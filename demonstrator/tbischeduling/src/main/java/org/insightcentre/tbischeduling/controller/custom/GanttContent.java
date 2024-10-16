@@ -16,7 +16,7 @@ import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
 public class GanttContent extends CanvasContent{
     protected List<GanttRegion> regions;
-    TaskAssignment selected=null;
+    ResourceActivity selected=null;
     Hashtable<DisjunctiveResource,Integer> machineNr = new Hashtable<>();
     Hashtable<Job,Integer> jobNr = new Hashtable<>();
     Hashtable<Product,Integer> productNr = new Hashtable<>();
@@ -50,7 +50,7 @@ public class GanttContent extends CanvasContent{
         info("setSizeBottom "+width+" "+height+" "+xScale+" "+xOffset);
     }
 
-    public TaskAssignment insideRegion(double x,double y){
+    public ResourceActivity insideRegion(double x,double y){
         for(GanttRegion region:regions){
             if (region.isInside(x,y)){
                 return region.task;
@@ -59,7 +59,7 @@ public class GanttContent extends CanvasContent{
         return null;
     }
 
-    public void setSelected(TaskAssignment task){
+    public void setSelected(ResourceActivity task){
         if (selected == task) {
             selected = null;
         } else {
@@ -68,7 +68,7 @@ public class GanttContent extends CanvasContent{
     }
 
     // might be null
-    public TaskAssignment getSelected(){return selected;}
+    public ResourceActivity getSelected(){return selected;}
 
 
     public void draw(Scenario base, Solution sol,boolean showMachines,boolean showJobs,
@@ -132,7 +132,7 @@ public class GanttContent extends CanvasContent{
             int yOffset = 0;
 
             for (Job j : jobs) {
-                    ylabel(yOffset + jobNr.get(j), j.getName(), selected != null && selected.getJobAssignment().getJob() == j);
+                    ylabel(yOffset + jobNr.get(j), j.getName(), sameJob(j,selected));
 //                if (showJobTypes){
 //                    stage(colors[jobNr.get(j) % 26],0,yOffset+jobOrder[j.getNr()], sol.getMakespan(),1,j.getName(),0.2);
 //                }
@@ -281,20 +281,37 @@ public class GanttContent extends CanvasContent{
     private double fullAlpha(boolean highlightCritical,TaskAssignment task,double alpha){
 //        if (highlightCritical && task.getIsCritical()) return 1.0;
         if (task == selected) return 1.0;
-        if (selected != null && task.getJobAssignment() == selected.getJobAssignment()) return 1.0;
-        if (selected != null && task.getDisjunctiveResource() == selected.getDisjunctiveResource()) return 1.0;
+        if (sameJob(task,selected)) return 1.0;
+        if (sameMachine(task,selected)) return 1.0;
         return alpha;
     }
     private Color selectionColor(TaskAssignment task,Color color){
         if (task == selected) {
             return Color.RED;
-        } else if (selected != null && task.getJobAssignment()==selected.getJobAssignment()){
+        } else if (sameJob(task,selected)){
             return Color.YELLOW;
-        } else if (selected != null && task.getDisjunctiveResource()==selected.getDisjunctiveResource()){
+        } else if (sameMachine(task,selected)){
             return Color.GREEN;
         } else {
             return color;
         }
+    }
+
+    private boolean sameJob(TaskAssignment task, ResourceActivity selected){
+        if (selected == null || selected instanceof WiP || selected instanceof Downtime){
+            return false;
+        }
+        return task.getJobAssignment() == ((TaskAssignment)selected).getJobAssignment();
+    }
+    private boolean sameJob(Job j, ResourceActivity selected){
+        if (selected == null || selected instanceof WiP || selected instanceof Downtime){
+            return false;
+        }
+        return j == ((TaskAssignment)selected).getJobAssignment().getJob();
+    }
+
+    private boolean sameMachine(TaskAssignment task,ResourceActivity selected){
+        return selected != null && task.getDisjunctiveResource() == selected.getDisjunctiveResource();
     }
 
     private String label(TaskAssignment task,String taskLabel){

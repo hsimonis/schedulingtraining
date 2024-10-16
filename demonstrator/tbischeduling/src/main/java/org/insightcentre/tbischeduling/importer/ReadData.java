@@ -3,12 +3,14 @@ package org.insightcentre.tbischeduling.importer;
 import framework.types.DateTime;
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.datamodel.Process;
+import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.implementedsolver.CheckSolutions;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.Hashtable;
 
@@ -34,6 +36,7 @@ public class ReadData {
             resetAll(base);
             String contents = new String(Files.readAllBytes(selected.toPath()));
             root = new JSONObject(contents);
+            pretty(root,"exports/pretty.json");
         } catch(IOException e){
             severe("Cannot read file "+selected+", exception "+e.getMessage());
         }
@@ -88,11 +91,25 @@ public class ReadData {
         Hashtable<String, TaskAssignment> taskAssignmentHash = readTaskAssignments(root,jobAssignmentHash,
                 taskHash,disjunctiveResourceHash);
 
+        if (base.getListProblem().size() != 1){
+            inputError("problem","Nr instances","count",String.format("%d",base.getListProblem().size()),
+                    "There must be exactly one Problem instance",Fatal);
+        }
         summarizeProblem(base);
         new CheckSolutions(base,base.getListSolution());
         info("File read, "+base.getListInputError().size()+" input error(s), "+base.getListSolutionError().size()+" solution errors");
 
 
+    }
+
+    private void pretty(JSONObject root,String fileName){
+        try{
+            PrintWriter out = new PrintWriter(fileName);
+            out.printf("%s\n",root.toString(2));
+            out.close();
+        } catch(IOException e){
+            severe("Cannot write file "+fileName+", exception "+e.getMessage());
+        }
     }
 
     private Hashtable<String,InputError> readInputErrors(JSONObject root){

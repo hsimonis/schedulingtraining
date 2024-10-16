@@ -213,6 +213,10 @@ public class JfxApp extends GeneratedJfxApp {
         public void ganttViewer(Scenario base) {
                 showView("custom/GanttViewer");
         }
+        @Override
+        public void ganttBorderViewer(Scenario base) {
+                showView("custom/GanttBorderViewer");
+        }
 
         //??? these should check a property file to read persistent property values
         public SolverProperty createSolverProperties(Scenario base){

@@ -1,5 +1,6 @@
 package org.insightcentre.tbischeduling.controller.custom;
 
+import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 
 public class GanttRegion {
@@ -7,9 +8,9 @@ public class GanttRegion {
     double y;
     double w;
     double h;
-    TaskAssignment task;
+    ResourceActivity task;
 
-    public GanttRegion(double x, double y, double w, double h, TaskAssignment task){
+    public GanttRegion(double x, double y, double w, double h, ResourceActivity task){
         this.x = x;
         this.y = y;
         this.w = w;
