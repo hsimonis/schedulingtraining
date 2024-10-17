@@ -1,7 +1,14 @@
 package org.insightcentre.tbischeduling;
 
+import framework.types.IrishCalendar;
+
 public class Batch {
 
+
+    static {
+        IrishCalendar.initIrishCalendar();
+        IrishCalendar.buildCalendar();
+    }
 
     public static void main(String[] args) {
         System.out.println("hello world");

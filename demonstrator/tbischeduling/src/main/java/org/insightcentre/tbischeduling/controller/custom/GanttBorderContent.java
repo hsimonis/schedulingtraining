@@ -40,8 +40,8 @@ public class GanttBorderContent {
     protected ScrollBar rightBar;
     protected ScrollBar bottomBar;
 
-    double virtHeight = 4000;
-    double virtWidth = 6000;
+    double virtHeight = 10000;
+    double virtWidth = 50000;
     double startX = 0;
     double startY = 0;
     double currentHeight = 800;
@@ -213,6 +213,8 @@ public class GanttBorderContent {
     public void initialize() {
         // mainApp may not be set, avoid data manipulation here
         info("initialize Gantt");
+
+//        virtWidth = Math.max(virtWidth,base.getHorizon());
 
         canvas.setType("Center");
         canvas.setMin(0, 0);

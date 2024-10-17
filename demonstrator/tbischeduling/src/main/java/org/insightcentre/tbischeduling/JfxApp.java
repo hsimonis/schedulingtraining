@@ -54,7 +54,7 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setDataFileVersionNumber(8.0);
                 base.setDataFile("");
                 base.setStartDateTime(new DateTime(2024,10,1,0,0));
-                base.setHorizon(2000);
+                base.setHorizon(20000);
                 base.setTimeResolution(5);
                 base.setGanttWidth(23);
                 base.setGanttLinesPerPage(25);
@@ -75,7 +75,8 @@ public class JfxApp extends GeneratedJfxApp {
                         q.getMinQty(),q.getMaxQty(),
                         q.getWipProbability(),q.getMinWip(),q.getMaxWip(),
                         q.getDowntimeProbability(),q.getMinDowntime(),q.getMaxDowntime(),
-                        q.getEarliestDue(),q.getHorizonDays(),q.getTimeResolution(),q.getSeed());
+                        q.getEarliestDue(),100,q.getTimeResolution(),q.getSeed());
+                base.setHorizon(50000);
                 base.setDirty(false);
 //                setTitle(applicationTitle+" (Generated)");
                 return base;
