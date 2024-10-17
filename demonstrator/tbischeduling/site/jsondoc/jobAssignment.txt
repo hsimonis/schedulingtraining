@@ -83,6 +83,12 @@ FontStyle italic
 #highlight "maxEarliness" <<internaltime>>
 #highlight "totalLateness" <<internaltime>>
 #highlight "maxLateness" <<internaltime>>
+#highlight "waitBefore" <<internaltime>>
+#highlight "waitAfter" <<internaltime>>
+#highlight "maxWaitBefore" <<internaltime>>
+#highlight "maxWaitAfter" <<internaltime>>
+#highlight "totalWaitBefore" <<internaltime>>
+#highlight "totalWaitAfter" <<internaltime>>
 #highlight "earlinessWeight" <<optional>>
 #highlight "latenessWeight" <<optional>>
 #highlight "label" <<optional>>
@@ -90,12 +96,12 @@ FontStyle italic
   "duration": 120,
   "solution": "Sol1",
   "late": 0,
-  "endDate": "17/10/2024 11:39",
+  "endDate": "17/10/2024 20:51",
   "name": "JA0",
   "start": 43,
   "end": 163,
   "job": "J0",
   "early": 1832,
-  "startDate": "17/10/2024 01:39"
+  "startDate": "17/10/2024 10:51"
 }
 @endjson

@@ -83,6 +83,12 @@ FontStyle italic
 #highlight "maxEarliness" <<internaltime>>
 #highlight "totalLateness" <<internaltime>>
 #highlight "maxLateness" <<internaltime>>
+#highlight "waitBefore" <<internaltime>>
+#highlight "waitAfter" <<internaltime>>
+#highlight "maxWaitBefore" <<internaltime>>
+#highlight "maxWaitAfter" <<internaltime>>
+#highlight "totalWaitBefore" <<internaltime>>
+#highlight "totalWaitAfter" <<internaltime>>
 #highlight "earlinessWeight" <<optional>>
 #highlight "latenessWeight" <<optional>>
 #highlight "label" <<optional>>
@@ -91,12 +97,12 @@ FontStyle italic
   "waitAfter": 0,
   "task": "T0PS0/0",
   "disjunctiveResource": "DR0",
-  "endDate": "17/10/2024 06:39",
+  "endDate": "17/10/2024 15:51",
   "name": "TA0",
   "start": 43,
   "end": 103,
   "jobAssignment": "JA0",
   "waitBefore": 0,
-  "startDate": "17/10/2024 01:39"
+  "startDate": "17/10/2024 10:51"
 }
 @endjson

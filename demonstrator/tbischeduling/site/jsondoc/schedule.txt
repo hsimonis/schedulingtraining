@@ -83,6 +83,12 @@ FontStyle italic
 #highlight "maxEarliness" <<internaltime>>
 #highlight "totalLateness" <<internaltime>>
 #highlight "maxLateness" <<internaltime>>
+#highlight "waitBefore" <<internaltime>>
+#highlight "waitAfter" <<internaltime>>
+#highlight "maxWaitBefore" <<internaltime>>
+#highlight "maxWaitAfter" <<internaltime>>
+#highlight "totalWaitBefore" <<internaltime>>
+#highlight "totalWaitAfter" <<internaltime>>
 #highlight "earlinessWeight" <<optional>>
 #highlight "latenessWeight" <<optional>>
 #highlight "label" <<optional>>
@@ -99,11 +105,11 @@ FontStyle italic
   "downtime": [{
     "duration": 32,
     "disjunctiveResource": "DR0",
-    "endDate": "21/10/2024 17:44",
+    "endDate": "22/10/2024 02:56",
     "name": "DDR0",
     "start": 1356,
     "end": 1388,
-    "startDate": "21/10/2024 15:04"
+    "startDate": "22/10/2024 00:16"
   }],
   "cumulativeProfile": [],
   "problem": [],
@@ -136,10 +142,10 @@ FontStyle italic
     "product": "Prod0",
     "process": "Process 0",
     "due": 1995,
-    "releaseDate": "16/10/2024 22:04",
+    "releaseDate": "17/10/2024 07:16",
     "release": 0,
     "qty": 5,
-    "dueDate": "23/10/2024 20:19",
+    "dueDate": "24/10/2024 05:31",
     "name": "Order0",
     "earlinessWeight": 1,
     "latenessWeight": 1
@@ -147,11 +153,11 @@ FontStyle italic
   "wip": [{
     "duration": 43,
     "disjunctiveResource": "DR0",
-    "endDate": "17/10/2024 01:39",
+    "endDate": "17/10/2024 10:51",
     "name": "WDR0",
     "start": 0,
     "end": 43,
-    "startDate": "16/10/2024 22:04"
+    "startDate": "17/10/2024 07:16"
   }]
 }
 @endjson

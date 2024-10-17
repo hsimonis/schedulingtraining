@@ -153,6 +153,7 @@ public class TypeConverters {
             case "End": return JobOrder.End;
             case "Release": return JobOrder.Release;
             case "Due": return JobOrder.Due;
+            case "OnTime": return JobOrder.OnTime;
             case "Product": return JobOrder.Product;
             default:
                 severe("Unknown JobOrder name "+name);
@@ -168,6 +169,18 @@ public class TypeConverters {
             case "Selected":return ResourceChoice.Selected;
             default:
                 severe("Unknown Resource Choice "+name);
+                assert(false);
+                return null;
+        }
+    }
+    public static LineChoice toLineChoice(String name){
+        switch(name){
+            case "None":return LineChoice.None;
+            case "Number":return LineChoice.Number;
+            case "Line":return LineChoice.Line;
+            case "All":return LineChoice.All;
+            default:
+                severe("Unknown Line Choice "+name);
                 assert(false);
                 return null;
         }

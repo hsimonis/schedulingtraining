@@ -83,6 +83,12 @@ FontStyle italic
 #highlight "maxEarliness" <<internaltime>>
 #highlight "totalLateness" <<internaltime>>
 #highlight "maxLateness" <<internaltime>>
+#highlight "waitBefore" <<internaltime>>
+#highlight "waitAfter" <<internaltime>>
+#highlight "maxWaitBefore" <<internaltime>>
+#highlight "maxWaitAfter" <<internaltime>>
+#highlight "totalWaitBefore" <<internaltime>>
+#highlight "totalWaitAfter" <<internaltime>>
 #highlight "earlinessWeight" <<optional>>
 #highlight "latenessWeight" <<optional>>
 #highlight "label" <<optional>>
@@ -104,7 +110,7 @@ FontStyle italic
   "enforceCumulative": true,
   "name": "Run1",
   "weightLateness": 1,
-  "time": 0.096,
+  "time": 0.142,
   "produceReport": false,
   "enforceDowntime": true,
   "removeSolution": false,

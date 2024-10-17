@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
 
 /**
- * Generated at 14:14:40 on 2024-10-16 */
+ * Generated at 07:37:59 on 2024-10-17 */
 public class RootController {
 	private GeneratedJfxApp mainApp;
 

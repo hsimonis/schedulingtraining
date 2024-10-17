@@ -18,6 +18,7 @@ import static org.insightcentre.tbischeduling.datamodel.ResourceChoice.All;
 import static org.insightcentre.tbischeduling.datamodel.ResourceZoom.Normal;
 import static org.insightcentre.tbischeduling.datamodel.TaskLabel.None;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
+import static org.insightcentre.tbischeduling.utilities.TypeConverters.toLineChoice;
 
 
 public class GanttBorderViewerController extends JJAbstractChartController {
@@ -158,6 +159,14 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 	protected IntegerInputField titleHeight;
 	@FXML
 	protected IntegerInputField titleLabelOffset;
+	@FXML
+	protected ChoiceBox<String> lateLineChoiceBox;
+	@FXML
+	protected ChoiceBox<String> earlyLineChoiceBox;
+	@FXML
+	protected ChoiceBox<String> releaseLineChoiceBox;
+	@FXML
+	protected ChoiceBox<String> waitLineChoiceBox;
 
 
 
@@ -271,6 +280,10 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		taskLabelIndent.setValue(c.taskLabelIndent);
 		titleHeight.setValue(c.titleHeight);
 		titleLabelOffset.setValue(c.titleLabelOffset);
+		lateLineChoiceBox.getSelectionModel().select(c.showLate.toString());
+		earlyLineChoiceBox.getSelectionModel().select(c.showEarly.toString());
+		releaseLineChoiceBox.getSelectionModel().select(c.showRelease.toString());
+		waitLineChoiceBox.getSelectionModel().select(c.showWait.toString());
 	}
 
 	private void updateLayout(GanttBorderContent c){
@@ -282,6 +295,10 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		c.taskLabelIndent = taskLabelIndent.getValue();
 		c.titleHeight = titleHeight.getValue();
 		c.titleLabelOffset = titleLabelOffset.getValue();
+		c.showLate = toLineChoice(lateLineChoiceBox.getSelectionModel().getSelectedItem());
+		c.showEarly = toLineChoice(earlyLineChoiceBox.getSelectionModel().getSelectedItem());
+		c.showRelease = toLineChoice(releaseLineChoiceBox.getSelectionModel().getSelectedItem());
+		c.showWait = toLineChoice(waitLineChoiceBox.getSelectionModel().getSelectedItem());
 		// have to reposition the windows as well
 		c.initialize();
 

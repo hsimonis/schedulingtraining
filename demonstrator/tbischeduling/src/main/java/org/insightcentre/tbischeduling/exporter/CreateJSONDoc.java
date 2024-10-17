@@ -126,7 +126,7 @@ public class CreateJSONDoc {
         printAsJSONDoc(solved,docDir,"samplerresult.txt");
 
         // show the details of the result classes
-        printAsJSONDoc(new WriteData(base).asJSON(SolverRun.findFirst(base)),docDir,"solverrun.txt");
+        printAsJSONDoc(new WriteData(base).asJSON(SolverRun.findFirst(base)),docDir,"solverRun.txt");
         printAsJSONDoc(new WriteData(base).asJSON(Solution.findFirst(base)),docDir,"solution.txt");
         printAsJSONDoc(new WriteData(base).asJSON(JobAssignment.findFirst(base)),docDir,"jobAssignment.txt");
         printAsJSONDoc(new WriteData(base).asJSON(TaskAssignment.findFirst(base)),docDir,"taskAssignment.txt");
@@ -325,6 +325,12 @@ public class CreateJSONDoc {
         out.println("#highlight \"maxEarliness\" <<internaltime>>");
         out.println("#highlight \"totalLateness\" <<internaltime>>");
         out.println("#highlight \"maxLateness\" <<internaltime>>");
+        out.println("#highlight \"waitBefore\" <<internaltime>>");
+        out.println("#highlight \"waitAfter\" <<internaltime>>");
+        out.println("#highlight \"maxWaitBefore\" <<internaltime>>");
+        out.println("#highlight \"maxWaitAfter\" <<internaltime>>");
+        out.println("#highlight \"totalWaitBefore\" <<internaltime>>");
+        out.println("#highlight \"totalWaitAfter\" <<internaltime>>");
         out.println("#highlight \"earlinessWeight\" <<optional>>");
         out.println("#highlight \"latenessWeight\" <<optional>>");
         out.println("#highlight \"label\" <<optional>>");

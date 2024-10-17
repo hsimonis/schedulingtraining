@@ -83,13 +83,19 @@ FontStyle italic
 #highlight "maxEarliness" <<internaltime>>
 #highlight "totalLateness" <<internaltime>>
 #highlight "maxLateness" <<internaltime>>
+#highlight "waitBefore" <<internaltime>>
+#highlight "waitAfter" <<internaltime>>
+#highlight "maxWaitBefore" <<internaltime>>
+#highlight "maxWaitAfter" <<internaltime>>
+#highlight "totalWaitBefore" <<internaltime>>
+#highlight "totalWaitAfter" <<internaltime>>
 #highlight "earlinessWeight" <<optional>>
 #highlight "latenessWeight" <<optional>>
 #highlight "label" <<optional>>
 {
   "makespan": 163,
   "totalEarliness": 1832,
-  "endDate": "17/10/2024 11:39",
+  "endDate": "17/10/2024 20:51",
   "totalWaitBefore": 0,
   "nrEarly": 1,
   "percentEarly": 100,
@@ -113,6 +119,6 @@ FontStyle italic
   "name": "Sol1",
   "objectiveValue": 163,
   "flowtime": 163,
-  "startDate": "17/10/2024 01:39"
+  "startDate": "17/10/2024 10:51"
 }
 @endjson

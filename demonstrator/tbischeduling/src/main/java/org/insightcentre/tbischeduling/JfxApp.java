@@ -177,7 +177,8 @@ public class JfxApp extends GeneratedJfxApp {
                         showView("SolutionError");
                 } else {
                         setStatus("Solver finished");
-                        showView("Solution");
+//                        showView("Solution");
+                        showView("custom/GanttBorderViewer");
 
                 }
         }

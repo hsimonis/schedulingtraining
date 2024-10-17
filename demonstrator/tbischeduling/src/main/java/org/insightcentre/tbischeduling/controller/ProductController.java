@@ -20,7 +20,7 @@ import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.Product;
 
 /**
- * Generated at 14:14:40 on 2024-10-16 */
+ * Generated at 07:37:59 on 2024-10-17 */
 public class ProductController extends Table3Controller {
 	@FXML
 	private TableView<Product> table;

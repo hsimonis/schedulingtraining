@@ -3,6 +3,7 @@
 \usepackage{booktabs}
 \usepackage[svgnames]{xcolor}
 \usepackage{colortbl}
+\usepackage{hyperref}
 
 \title{Description of the  JSON Data Format for the \texttt{tbischeduling} Application}
 \author{H. Simonis}
@@ -174,6 +175,8 @@ This section describes the different result types that are stored in the applica
 \caption{\label{fig:samplerresult}JSON Output Format Overview}
 \end{figure}
 
+\subsection{Solution Data}
+
 \clearpage
 \subsubsection{SolverRun}
 
@@ -211,6 +214,8 @@ There is one \emph{JobAssignment} object created for every \emph{Job} and every 
 There is one \emph{TaskAssignment} object created for every \emph{Task} and every \emph{Solution} that is found. This object contains the result values for the task in the given solution. These are \texttt{start}, \texttt{end}, and \texttt{duration} values, as well as the \texttt{disjunctiveResource} on which the task is run.
 
 \includegraphics[width=5cm]{taskAssignment.png}
+
+\subsection{Error Information}
 
 \subsubsection{Input Error}
 

@@ -9,9 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import org.insightcentre.tbischeduling.datamodel.*;
+import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.custom.ResizableCanvas;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -74,6 +74,7 @@ public class GanttBorderContent {
     Hashtable<DisjunctiveResource,Integer> machineNr = new Hashtable<>();
     Hashtable<Job,Integer> jobNr = new Hashtable<>();
     Hashtable<Product,Integer> productNr = new Hashtable<>();
+    Hashtable<Process,Integer> processNr = new Hashtable<>();
 
     ResourceChoice showMachinesBox= All;
     ResourceChoice showJobsBox= All;
@@ -608,7 +609,7 @@ public class GanttBorderContent {
 
     }
     public void machinesJobs(GraphicsContext gc,double width,double height){
-        productNumbering();
+        productProcessNumbering();
         List<DisjunctiveResource> machines = visibleMachines();
         List<Job> jobs = visibleJobs();
         Hashtable<DisjunctiveResource,Integer> machineHash = initMachines(machines,0);
@@ -674,6 +675,9 @@ public class GanttBorderContent {
 
     //??? really tedious way to extract lateness value
     private String late(Job j){
+        if (showLate == LineChoice.None){
+            return null;
+        }
         return base.getListJobAssignment().stream().
                 filter(x->x.getJob()==j).
                 filter(x->x.getSolution()==solution).
@@ -695,7 +699,7 @@ public class GanttBorderContent {
     public void tasks(GraphicsContext gc,double width,double height){
         int startX = (int) Math.round(getStartX());
         int startY = (int) Math.round(getStartY());
-        productNumbering();
+        productProcessNumbering();
         List<DisjunctiveResource> machines = visibleMachines();
         List<Job> jobs = visibleJobs();
         Hashtable<DisjunctiveResource,Integer> machineHash = initMachines(machines,0);
@@ -844,6 +848,8 @@ public class GanttBorderContent {
                     return colors[task.getTask().getStage() % colors.length];
                 case Product:
                     return colors[productNr.get(task.getJobAssignment().getJob().getOrder().getProduct()) % colors.length];
+                case Process:
+                    return colors[processNr.get(task.getJobAssignment().getJob().getOrder().getProcess()) % colors.length];
                 case None:
                     return noneColor;
                 default:
@@ -947,10 +953,14 @@ public class GanttBorderContent {
         }
     }
 
-    private void productNumbering(){
+    private void productProcessNumbering(){
         int i = 0;
         for (Product p : base.getListProduct()) {
             productNr.put(p, i++);
+        }
+        i = 0;
+        for (Process p : base.getListProcess()) {
+            processNr.put(p, i++);
         }
     }
 
@@ -1024,6 +1034,12 @@ public class GanttBorderContent {
                 return base.getListJobAssignment().stream().
                         filter(x->x.getSolution() == sol).
                         sorted(Comparator.comparing(JobAssignment::getEnd)).
+                        map(JobAssignment::getJob).
+                        collect(Collectors.toList());
+            case OnTime:
+                return base.getListJobAssignment().stream().
+                        filter(x->x.getSolution() == sol).
+                        sorted(Comparator.comparing(JobAssignment::getLate).reversed().thenComparing(JobAssignment::getEarly)).
                         map(JobAssignment::getJob).
                         collect(Collectors.toList());
             case Product:
@@ -1110,7 +1126,7 @@ public class GanttBorderContent {
             gc.setStroke(waitColor);
             gc.setTextAlign(TextAlignment.CENTER);
             if (what==LineChoice.All || what==LineChoice.Number){
-                gc.strokeText(internalExternalPeriod(wait),x-xLength(wait)/2,y+midLine);
+                gc.strokeText(internalExternalPeriod(wait),x-xLength(wait)/2,y+midLine-nudge);
             }
             if (what==LineChoice.All || what==LineChoice.Line) {
                 lines(gc, x, y, -xLength(wait));
@@ -1138,7 +1154,7 @@ public class GanttBorderContent {
                 gc.strokeText(internalExternalPeriod(early), x+nudge, y + highLine);
             }
             if (what==LineChoice.All ) {
-                gc.strokeText(internalExternalPeriod(early), x+nudge, y + midLine);
+                gc.strokeText(internalExternalPeriod(early), x+nudge, y + midLine-nudge);
             }
             if (what==LineChoice.All || what==LineChoice.Line) {
                 lines(gc, x, y, xLength(early));
@@ -1153,7 +1169,7 @@ public class GanttBorderContent {
                 gc.strokeText(internalExternalPeriod(release), x-nudge, y + highLine);
             }
             if (what==LineChoice.All ) {
-                gc.strokeText(internalExternalPeriod(release), x-nudge, y + midLine);
+                gc.strokeText(internalExternalPeriod(release), x-nudge, y + midLine-nudge);
             }
             if (what==LineChoice.All || what==LineChoice.Line) {
                 lines(gc, x, y, -xLength(release));
@@ -1204,9 +1220,16 @@ public class GanttBorderContent {
             if (days == 0 && hours == 0){
                 return String.format("%dm",min);
             } else if (days ==0){
-                return String.format("%dh%02dm",hours,min);
+                return String.format("%dh%dm",hours,min);
             } else {
-                return String.format("%dd%02dh%02dm", days, hours, min);
+                //??? should we use %d or %02d for hours and minutes
+                if (min==0){
+                    //??? special case for zero minutes
+                    return String.format("%dd%dh", days, hours);
+
+                } else {
+                    return String.format("%dd%dh%dm", days, hours, min);
+                }
             }
         }
     }

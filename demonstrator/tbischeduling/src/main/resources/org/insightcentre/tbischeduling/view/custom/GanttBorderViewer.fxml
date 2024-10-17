@@ -174,6 +174,50 @@
                         <IntegerInputField  fx:id="titleHeight" GridPane.columnIndex="1" GridPane.rowIndex="6" onAction="#onValueEntered"/>
                         <Label text="Title Label Offset" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
                         <IntegerInputField  fx:id="titleLabelOffset" GridPane.columnIndex="1" GridPane.rowIndex="7" onAction="#onValueEntered"/>
+                        <Label text="Late Line" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
+                        <ChoiceBox fx:id="lateLineChoiceBox" value="None" onAction="#onValueEntered" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="None"/>
+                                    <String fx:value="Number"/>
+                                    <String fx:value="Line"/>
+                                    <String fx:value="All"/>
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                        <Label text="Early Line" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
+                        <ChoiceBox fx:id="earlyLineChoiceBox" value="None" onAction="#onValueEntered" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="None"/>
+                                    <String fx:value="Number"/>
+                                    <String fx:value="Line"/>
+                                    <String fx:value="All"/>
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                        <Label text="Release Line" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
+                        <ChoiceBox fx:id="releaseLineChoiceBox" value="None" onAction="#onValueEntered" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="None"/>
+                                    <String fx:value="Number"/>
+                                    <String fx:value="Line"/>
+                                    <String fx:value="All"/>
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                        <Label text="Wait Line" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
+                        <ChoiceBox fx:id="waitLineChoiceBox" value="None" onAction="#onValueEntered" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="None"/>
+                                    <String fx:value="Number"/>
+                                    <String fx:value="Line"/>
+                                    <String fx:value="All"/>
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
                     </GridPane>
                 </Tab>
             </TabPane>
