@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.BorderPane?>
+
+<!--Generated-->
+
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<Tab text="Gantt Viewer" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+     fx:controller="org.insightcentre.tbischeduling.controller.custom.GanttViewerController">
+   <BorderPane>
+      <top/>
+      <center>
+          <ScrollPane fx:id="scroller" pannable="true">
+              <SplitPane fx:id="splitter" orientation="VERTICAL" dividerPositions="0.5, 0.5" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0">
+                  <items>
+                      <Canvas fx:id="canvas"/>
+                      <Canvas fx:id="canvas2"/>
+                  </items>
+              </SplitPane>
+          </ScrollPane>
+      </center>
+       <bottom>
+           <HBox alignment="center" spacing="5.0">
+               <Label text="Solution:" />
+               <ChoiceBox fx:id="solutionChoiceBox" onAction="#onSolutionSelect" />
+               <Label text="Show Machines:" />
+               <CheckBox fx:id="showMachines" selected="true" onAction="#onShowSelect" />
+               <Label text="Show Jobs:" />
+               <CheckBox fx:id="showJobs" selected="true" onAction="#onShowSelect" />
+               <Label text="Show Early:" />
+               <CheckBox fx:id="showEarly" selected="true" onAction="#onShowSelect" />
+               <Label text="Show Late:" />
+               <CheckBox fx:id="showLate" selected="true" onAction="#onShowSelect" />
+               <Label text="Show Wait:" />
+               <CheckBox fx:id="showWait" selected="true" onAction="#onShowSelect" />
+               <Label text="Show Release:" />
+               <CheckBox fx:id="showRelease" selected="true" onAction="#onShowSelect" />
+               <Label text="Highlight Critical:" />
+               <CheckBox fx:id="highlightCritical" selected="false" onAction="#onShowSelect" />
+               <Label text="Color By"/>
+               <ChoiceBox fx:id="colorByChoiceBox" value="Mixed" onAction="#onColorBySelect">
+                   <items>
+                       <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Mixed"/>
+                           <String fx:value="Job"/>
+                           <String fx:value="Machine"/>
+                           <String fx:value="Product"/>
+                           <String fx:value="Process"/>
+                           <String fx:value="Stage"/>
+                           <String fx:value="None"/>
+                       </FXCollections>
+                   </items>
+               </ChoiceBox>
+               <Label text="Task Label"/>
+               <ChoiceBox fx:id="taskLabelChoiceBox" value="None" onAction="#onTaskLabelSelect">
+                   <items>
+                       <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Task"/>
+                           <String fx:value="Start"/>
+                           <String fx:value="End"/>
+                           <String fx:value="Duration"/>
+                           <String fx:value="Wait"/>
+                           <String fx:value="Job"/>
+                           <String fx:value="Machine"/>
+                           <String fx:value="Product"/>
+                           <String fx:value="Stage"/>
+                           <String fx:value="None"/>
+                       </FXCollections>
+                   </items>
+               </ChoiceBox>
+               <Label text="Sorts Jobs By"/>
+               <ChoiceBox fx:id="jobOrderChoiceBox" value="Input" onAction="#onJobOrderSelect">
+                   <items>
+                       <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Input"/>
+                           <String fx:value="Nr"/>
+                           <String fx:value="Start"/>
+                           <String fx:value="End"/>
+                           <String fx:value="Release"/>
+                           <String fx:value="Due"/>
+                           <String fx:value="Product"/>
+                       </FXCollections>
+                   </items>
+               </ChoiceBox>
+               <Label text="Alpha"/>
+               <Slider fx:id="alpha" min="0.0" max="1.0" value="0.3" />
+
+           </HBox>
+       </bottom>
+
+       <bottom />
+   </BorderPane>
+</Tab>

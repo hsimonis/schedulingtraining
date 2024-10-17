@@ -70,7 +70,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 07:37:59 on 2024-10-17 */
+ * Generated at 10:16:11 on 2024-10-17 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -234,10 +234,6 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	@Override
 	public void setStatus(String text) {
 		controller.setStatus(text);
-	}
-
-	public void setTitle(String text) {
-		if (primaryStage != null) primaryStage.setTitle(text);
 	}
 
 	@Override

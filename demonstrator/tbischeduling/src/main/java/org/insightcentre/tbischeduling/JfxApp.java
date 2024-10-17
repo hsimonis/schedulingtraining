@@ -77,7 +77,7 @@ public class JfxApp extends GeneratedJfxApp {
                         q.getDowntimeProbability(),q.getMinDowntime(),q.getMaxDowntime(),
                         q.getEarliestDue(),q.getHorizonDays(),q.getTimeResolution(),q.getSeed());
                 base.setDirty(false);
-                setTitle(applicationTitle+" (Generated)");
+//                setTitle(applicationTitle+" (Generated)");
                 return base;
         }
 
@@ -103,7 +103,7 @@ public class JfxApp extends GeneratedJfxApp {
                                 info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
                                 base.setDataFile(selected.getName());
                                 new ReadData(base,selected);
-                                setTitle(applicationTitle+" ("+selected.getName()+")");
+//                                setTitle(applicationTitle+" ("+selected.getName()+")");
                         } catch(IOException e){
                                 severe("IOException "+e.getMessage());
                         }
@@ -140,7 +140,7 @@ public class JfxApp extends GeneratedJfxApp {
                                 info("Saving File: " + selected.getCanonicalPath());
                                 new WriteData(base).toFile(selected,2);
                                 setStatus("File saved");
-                                setTitle(applicationTitle+" ("+selected.getName()+")");
+//                                setTitle(applicationTitle+" ("+selected.getName()+")");
                         } catch(IOException e){
                                 severe("IOException "+e.getMessage());
                         }
@@ -164,7 +164,7 @@ public class JfxApp extends GeneratedJfxApp {
         public void generateDataSolverRun(Scenario base) {
                 Optional<Boolean> result = new GenerateDataDialogBoxImpl(this,base,new GenerateDataSolverImpl(base)).showAndWait();
                 setStatus("Data Generated");
-                setTitle(applicationTitle+" (Generated data)");
+//                setTitle(applicationTitle+" (Generated data)");
                 reset();
         }
 

@@ -59,65 +59,65 @@ ReadFromFile&tai20 5 0&true&20&20&5&0&20&20&100\\
 \section{Orders}
 
 \begin{tikzpicture}
-\begin{axis}[title=Number of Orders Per Product,xlabel=Product,ylabel=Nr Orders,ymin=0,width=20cm,height=12cm,ybar,symbolic x coords={product_17,product_19,product_18,product_9,product_6,product_15,product_8,product_13,product_1,product_16,product_0,product_10,product_11,product_2,product_4,product_12,product_7,product_3,product_5,product_14},
+\begin{axis}[title=Number of Orders Per Product,xlabel=Product,ylabel=Nr Orders,ymin=0,width=20cm,height=12cm,ybar,symbolic x coords={product_4,product_6,product_9,product_12,product_14,product_5,product_7,product_16,product_18,product_0,product_8,product_1,product_19,product_15,product_17,product_10,product_13,product_11,product_2,product_3},
     xtick=data,
     nodes near coords, 
     nodes near coords align={rotate=30,anchor=west},
     x tick label style={rotate=30,anchor=east},
 ]
 \addplot+[] coordinates {
-(product_17,1.000000)
-(product_19,1.000000)
-(product_18,1.000000)
-(product_9,1.000000)
+(product_4,1.000000)
 (product_6,1.000000)
-(product_15,1.000000)
-(product_8,1.000000)
-(product_13,1.000000)
-(product_1,1.000000)
+(product_9,1.000000)
+(product_12,1.000000)
+(product_14,1.000000)
+(product_5,1.000000)
+(product_7,1.000000)
 (product_16,1.000000)
+(product_18,1.000000)
 (product_0,1.000000)
+(product_8,1.000000)
+(product_1,1.000000)
+(product_19,1.000000)
+(product_15,1.000000)
+(product_17,1.000000)
 (product_10,1.000000)
+(product_13,1.000000)
 (product_11,1.000000)
 (product_2,1.000000)
-(product_4,1.000000)
-(product_12,1.000000)
-(product_7,1.000000)
 (product_3,1.000000)
-(product_5,1.000000)
-(product_14,1.000000)
 };
 \end{axis}
 \end{tikzpicture}
 
 \begin{tikzpicture}
-\begin{axis}[title=Qty Ordered Per Product,xlabel=Product,ylabel=Qty Ordered,ymin=0,width=20cm,height=12cm,ybar,symbolic x coords={product_17,product_19,product_18,product_9,product_6,product_15,product_8,product_13,product_1,product_16,product_0,product_10,product_11,product_2,product_4,product_12,product_7,product_3,product_5,product_14},
+\begin{axis}[title=Qty Ordered Per Product,xlabel=Product,ylabel=Qty Ordered,ymin=0,width=20cm,height=12cm,ybar,symbolic x coords={product_4,product_6,product_9,product_12,product_14,product_5,product_7,product_16,product_18,product_0,product_8,product_1,product_19,product_15,product_17,product_10,product_13,product_11,product_2,product_3},
     xtick=data,
     nodes near coords, 
     nodes near coords align={rotate=30,anchor=west},
     x tick label style={rotate=30,anchor=east},
 ]
 \addplot+[] coordinates {
-(product_17,1.000000)
-(product_19,1.000000)
-(product_18,1.000000)
-(product_9,1.000000)
+(product_4,1.000000)
 (product_6,1.000000)
-(product_15,1.000000)
-(product_8,1.000000)
-(product_13,1.000000)
-(product_1,1.000000)
+(product_9,1.000000)
+(product_12,1.000000)
+(product_14,1.000000)
+(product_5,1.000000)
+(product_7,1.000000)
 (product_16,1.000000)
+(product_18,1.000000)
 (product_0,1.000000)
+(product_8,1.000000)
+(product_1,1.000000)
+(product_19,1.000000)
+(product_15,1.000000)
+(product_17,1.000000)
 (product_10,1.000000)
+(product_13,1.000000)
 (product_11,1.000000)
 (product_2,1.000000)
-(product_4,1.000000)
-(product_12,1.000000)
-(product_7,1.000000)
 (product_3,1.000000)
-(product_5,1.000000)
-(product_14,1.000000)
 };
 \end{axis}
 \end{tikzpicture}
@@ -235,7 +235,7 @@ symbolic x coords={DR_0,DR_1,DR_2,DR_3,DR_4},
 \centering
 \begin{tabular}{llrrrrrlrrrrrr} \toprule
 Name &Label &\shortstack{Enforce\\Release\\Date} &\shortstack{Enforce\\Due\\Date} &\shortstack{Enforce\\Cumulative} &\shortstack{Enforce\\WiP} &\shortstack{Enforce\\Downtime} &\shortstack{Objective\\Type} &\shortstack{Weight\\Makespan} &\shortstack{Weight\\Flowtime} &\shortstack{Weight\\Lateness} &\shortstack{Weight\\Earliness} &\shortstack{Nr\\Threads} &\shortstack{Timeout\\(s)} \\ \midrule
-Sol2&&\cellcolor{red!30}false&\cellcolor{red!30}false&\cellcolor{red!30}false&\cellcolor{red!30}false&\cellcolor{red!30}false&Makespan&1&1&1&1&2&30\\ 
+Sol4&&\cellcolor{red!30}false&\cellcolor{red!30}false&\cellcolor{red!30}false&\cellcolor{red!30}false&\cellcolor{red!30}false&Makespan&1&1&1&1&2&30\\ 
 \bottomrule
 \end{tabular}
 \end{table}
@@ -245,7 +245,7 @@ Sol2&&\cellcolor{red!30}false&\cellcolor{red!30}false&\cellcolor{red!30}false&\c
 \centering
 \begin{tabular}{lllrrrrrrrrrrrlr} \toprule
 Name &\shortstack{Solver\\Status} &\shortstack{Objective\\Type} &\shortstack{Objective\\Value} &Bound &Gap &Makespan &Flowtime &\shortstack{Total\\Lateness} &\shortstack{Max\\Lateness} &\shortstack{Nr\\Late} &\shortstack{Total\\Earliness} &\shortstack{Max\\Earliness} &\shortstack{Nr\\Early} &\shortstack{Model\\Type} &\shortstack{Time\\(s)} \\ \midrule
-Sol2&Optimal&Makespan&1,278&1278.00& 0.00&1,278&15,717&15,717&1,278&\cellcolor{red!40}20&0&0&0&CPO& 2.67\\ 
+Sol4&Optimal&Makespan&1,278&1278.00& 0.00&1,278&15,096&15,096&1,278&\cellcolor{red!40}20&0&0&0&CPO& 3.82\\ 
 \bottomrule
 \end{tabular}
 \end{table}
@@ -256,26 +256,21 @@ Sol2&Optimal&Makespan&1,278&1278.00& 0.00&1,278&15,717&15,717&1,278&\cellcolor{r
 \begin{tikzpicture}
 \begin{axis}[xlabel=Time (s),ylabel=Cost,,width=23cm,height=12cm]
 \addplot+[] coordinates {
-    (0.0370000,1745.00)
-    (0.0370000,1719.00)
-    (0.0370000,1472.00)
-    (0.0370000,1440.00)
-    (0.0370000,1348.00)
-    (0.0370000,1307.00)
-    (0.0960000,1307.00)
-    (0.127000,1297.00)
-    (0.127000,1296.00)
-    (0.160000,1290.00)
-    (0.464000,1290.00)
-    (0.653000,1290.00)
-    (1.70800,1288.00)
-    (1.76500,1286.00)
-    (1.79300,1284.00)
-    (1.79300,1283.00)
-    (1.87300,1283.00)
-    (1.87300,1283.00)
-    (2.16200,1279.00)
-    (2.55400,1278.00)
+    (0.0600000,1620.00)
+    (0.0600000,1472.00)
+    (0.0610000,1399.00)
+    (0.0610000,1348.00)
+    (0.0610000,1307.00)
+    (0.127000,1307.00)
+    (0.158000,1297.00)
+    (0.158000,1290.00)
+    (0.669000,1290.00)
+    (2.57600,1289.00)
+    (2.61100,1283.00)
+    (2.64800,1283.00)
+    (3.52700,1281.00)
+    (3.77200,1279.00)
+    (3.77300,1278.00)
 };
 \end{axis}
 \end{tikzpicture}
@@ -283,7 +278,7 @@ Sol2&Optimal&Makespan&1,278&1278.00& 0.00&1,278&15,717&15,717&1,278&\cellcolor{r
 \end{figure}
 
 \begin{figure}[htbp]
-\caption{Machine Gantt for Solution Sol2}
+\caption{Machine Gantt for Solution Sol4}
 \label{resourceGantt1}
 \centering
 \begin{tikzpicture}[xscale=1.000000,yscale=1.000000]
@@ -320,101 +315,101 @@ Sol2&Optimal&Makespan&1,278&1278.00& 0.00&1,278&15,717&15,717&1,278&\cellcolor{r
 \node[draw=black,fill=resourcecolor!10,font=\scriptsize,minimum height=0.480000cm,above left] (DR_2) at (0,1.200000) {DR 2};
 \node[draw=black,fill=resourcecolor!10,font=\scriptsize,minimum height=0.480000cm,above left] (DR_1) at (0,1.800000) {DR 1};
 \node[draw=black,fill=resourcecolor!10,font=\scriptsize,minimum height=0.480000cm,above left] (DR_0) at (0,2.400000) {DR 0};
-\draw[draw=latecolor,fill=stagecolor0!10] (4.751174,2.400000) rectangle node {} (5.723005,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (6.586854,1.800000) rectangle node {} (8.008607,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.008607,1.200000) rectangle node {} (8.296557,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.314554,0.600000) rectangle node {} (9.502347,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.520344,0.000000) rectangle node {} (10.564163,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (3.257433,2.400000) rectangle node {} (4.751174,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (4.751174,1.800000) rectangle node {} (4.805164,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (5.327074,1.200000) rectangle node {} (6.928795,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (7.036776,0.600000) rectangle node {} (8.080595,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.512520,0.000000) rectangle node {} (9.520344,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (2.969484,2.400000) rectangle node {} (3.941315,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (5.633020,1.800000) rectangle node {} (7.054773,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.054773,1.200000) rectangle node {} (7.342723,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.702660,0.600000) rectangle node {} (8.890454,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (8.890454,0.000000) rectangle node {} (9.934272,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.898279,2.400000) rectangle node {} (11.392019,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.679969,1.800000) rectangle node {} (11.733959,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.949922,1.200000) rectangle node {} (13.551643,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (14.217527,0.600000) rectangle node {} (15.261346,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.945227,0.000000) rectangle node {} (16.953052,0.480000);
 \draw[draw=latecolor,fill=stagecolor0!10] (0.000000,2.400000) rectangle node {} (0.269953,2.880000);
 \draw[draw=latecolor,fill=stagecolor0!10] (0.269953,1.800000) rectangle node {} (0.467919,2.280000);
 \draw[draw=latecolor,fill=stagecolor0!10] (0.467919,1.200000) rectangle node {} (1.349765,1.680000);
 \draw[draw=latecolor,fill=stagecolor0!10] (1.349765,0.600000) rectangle node {} (1.907668,1.080000);
 \draw[draw=latecolor,fill=stagecolor0!10] (1.907668,0.000000) rectangle node {} (2.267606,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.574335,2.400000) rectangle node {} (10.852113,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (10.924100,1.800000) rectangle node {} (12.705790,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.705790,1.200000) rectangle node {} (12.975743,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (13.407668,0.600000) rectangle node {} (14.631455,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (15.063380,0.000000) rectangle node {} (16.593114,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (6.298905,2.400000) rectangle node {} (7.684664,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.386541,1.800000) rectangle node {} (9.394366,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.574335,1.200000) rectangle node {} (11.176056,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.003912,0.600000) rectangle node {} (13.407668,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (14.109546,0.000000) rectangle node {} (15.063380,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (2.609546,2.400000) rectangle node {} (3.257433,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (3.257433,1.800000) rectangle node {} (4.517214,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (4.517214,1.200000) rectangle node {} (5.327074,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (5.399061,0.600000) rectangle node {} (7.036776,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (7.036776,0.000000) rectangle node {} (7.666667,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (1.655712,2.400000) rectangle node {} (2.609546,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (4.805164,1.800000) rectangle node {} (6.586854,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (6.928795,1.200000) rectangle node {} (8.008607,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.080595,0.600000) rectangle node {} (8.314554,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (11.607981,0.000000) rectangle node {} (12.561815,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (0.971831,2.400000) rectangle node {} (1.655712,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (1.655712,1.800000) rectangle node {} (2.735524,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (2.735524,1.200000) rectangle node {} (3.149452,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (3.329421,0.600000) rectangle node {} (4.391236,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (4.391236,0.000000) rectangle node {} (5.129108,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (8.620501,2.400000) rectangle node {} (9.898279,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.898279,1.800000) rectangle node {} (11.679969,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.679969,1.200000) rectangle node {} (11.949922,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (12.993740,0.600000) rectangle node {} (14.217527,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (14.415493,0.000000) rectangle node {} (15.945227,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.234742,2.400000) rectangle node {} (8.620501,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (8.620501,1.800000) rectangle node {} (9.628326,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.988263,1.200000) rectangle node {} (11.589984,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.589984,0.600000) rectangle node {} (12.993740,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (13.461659,0.000000) rectangle node {} (14.415493,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (2.321596,2.400000) rectangle node {} (2.969484,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (3.023474,1.800000) rectangle node {} (4.283255,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (4.283255,1.200000) rectangle node {} (5.093114,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (5.327074,0.600000) rectangle node {} (6.964789,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (6.964789,0.000000) rectangle node {} (7.594679,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (12.957746,2.400000) rectangle node {} (13.911581,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (14.055556,1.800000) rectangle node {} (15.837246,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.837246,1.200000) rectangle node {} (16.917058,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.492958,0.600000) rectangle node {} (17.726917,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.726917,0.000000) rectangle node {} (18.680751,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (3.941315,2.400000) rectangle node {} (4.625196,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.396714,1.800000) rectangle node {} (8.476526,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.574335,1.200000) rectangle node {} (9.988263,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (10.528169,0.600000) rectangle node {} (11.589984,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (12.723787,0.000000) rectangle node {} (13.461659,0.480000);
 \draw[draw=latecolor,fill=stagecolor0!10] (0.485915,2.400000) rectangle node {} (0.971831,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (1.331768,1.800000) rectangle node {} (1.421753,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (1.421753,1.200000) rectangle node {} (2.447574,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (2.447574,0.600000) rectangle node {} (3.329421,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (5.129108,0.000000) rectangle node {} (6.370892,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (13.893584,2.400000) rectangle node {} (15.459311,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (15.657277,1.800000) rectangle node {} (16.665102,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (17.942879,1.200000) rectangle node {} (19.094679,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (19.112676,0.600000) rectangle node {} (20.642410,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (20.678404,0.000000) rectangle node {} (20.912363,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (7.684664,2.400000) rectangle node {} (9.052426,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.394366,1.800000) rectangle node {} (9.448357,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.448357,1.200000) rectangle node {} (9.574335,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (10.474178,0.600000) rectangle node {} (12.003912,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.561815,0.000000) rectangle node {} (14.109546,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (0.971831,1.800000) rectangle node {} (1.061815,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (1.349765,1.200000) rectangle node {} (2.375587,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (2.375587,0.600000) rectangle node {} (3.257433,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (3.257433,0.000000) rectangle node {} (4.499218,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.392019,2.400000) rectangle node {} (12.957746,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (13.047731,1.800000) rectangle node {} (14.055556,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (14.685446,1.200000) rectangle node {} (15.837246,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.963224,0.600000) rectangle node {} (17.492958,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.492958,0.000000) rectangle node {} (17.726917,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.477308,2.400000) rectangle node {} (16.845070,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.384977,1.800000) rectangle node {} (17.438967,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.438967,1.200000) rectangle node {} (17.564945,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.726917,0.600000) rectangle node {} (19.256651,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (19.256651,0.000000) rectangle node {} (20.804382,0.480000);
 \draw[draw=latecolor,fill=stagecolor0!10] (18.536776,2.400000) rectangle node {} (20.174491,2.880000);
 \draw[draw=latecolor,fill=stagecolor0!10] (20.174491,1.800000) rectangle node {} (21.272300,2.280000);
 \draw[draw=latecolor,fill=stagecolor0!10] (21.272300,1.200000) rectangle node {} (21.290297,1.680000);
 \draw[draw=latecolor,fill=stagecolor0!10] (21.290297,0.600000) rectangle node {} (21.452269,1.080000);
 \draw[draw=latecolor,fill=stagecolor0!10] (21.704225,0.000000) rectangle node {} (23.000000,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.075900,2.400000) rectangle node {} (12.327856,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.795775,1.800000) rectangle node {} (14.109546,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (14.361502,1.200000) rectangle node {} (15.495305,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (16.287167,0.600000) rectangle node {} (16.989045,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (20.912363,0.000000) rectangle node {} (21.056338,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.052426,2.400000) rectangle node {} (9.574335,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.574335,1.800000) rectangle node {} (10.924100,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (11.176056,1.200000) rectangle node {} (11.913928,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (15.549296,0.600000) rectangle node {} (16.287167,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (17.816901,0.000000) rectangle node {} (18.698748,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (0.971831,2.400000) rectangle node {} (1.223787,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.733959,1.800000) rectangle node {} (13.047731,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (13.551643,1.200000) rectangle node {} (14.685446,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.261346,0.600000) rectangle node {} (15.963224,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (18.680751,0.000000) rectangle node {} (18.824726,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (1.799687,2.400000) rectangle node {} (2.321596,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (4.283255,1.800000) rectangle node {} (5.633020,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (5.633020,1.200000) rectangle node {} (6.370892,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (6.964789,0.600000) rectangle node {} (7.702660,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.702660,0.000000) rectangle node {} (8.584507,0.480000);
 \draw[draw=latecolor,fill=stagecolor0!10] (0.269953,2.400000) rectangle node {} (0.485915,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (0.485915,1.800000) rectangle node {} (1.331768,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (3.149452,1.200000) rectangle node {} (4.283255,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (4.391236,0.600000) rectangle node {} (5.399061,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (7.666667,0.000000) rectangle node {} (8.512520,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (15.459311,2.400000) rectangle node {} (16.845070,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (16.845070,1.800000) rectangle node {} (17.097027,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (17.097027,1.200000) rectangle node {} (17.942879,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (18.392801,0.600000) rectangle node {} (19.112676,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (19.112676,0.000000) rectangle node {} (20.678404,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (5.723005,2.400000) rectangle node {} (6.298905,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.008607,1.800000) rectangle node {} (8.386541,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.386541,1.200000) rectangle node {} (8.854460,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.502347,0.600000) rectangle node {} (10.474178,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (10.564163,0.000000) rectangle node {} (11.607981,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.327856,2.400000) rectangle node {} (13.893584,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (14.109546,1.800000) rectangle node {} (15.657277,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (15.657277,1.200000) rectangle node {} (17.007042,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (17.007042,0.600000) rectangle node {} (18.392801,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (18.698748,0.000000) rectangle node {} (19.022692,0.480000);
-\draw[draw=latecolor,fill=stagecolor0!10] (10.852113,2.400000) rectangle node {} (12.075900,2.880000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.705790,1.800000) rectangle node {} (12.795775,2.280000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.975743,1.200000) rectangle node {} (14.361502,1.680000);
-\draw[draw=latecolor,fill=stagecolor0!10] (14.631455,0.600000) rectangle node {} (15.549296,1.080000);
-\draw[draw=latecolor,fill=stagecolor0!10] (16.593114,0.000000) rectangle node {} (17.816901,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (2.177621,1.800000) rectangle node {} (3.023474,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (3.023474,1.200000) rectangle node {} (4.157277,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (4.319249,0.600000) rectangle node {} (5.327074,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (5.543036,0.000000) rectangle node {} (6.388889,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (4.625196,2.400000) rectangle node {} (6.010955,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.054773,1.800000) rectangle node {} (7.306729,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.342723,1.200000) rectangle node {} (8.188576,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (8.890454,0.600000) rectangle node {} (9.610329,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.934272,0.000000) rectangle node {} (11.500000,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (1.223787,2.400000) rectangle node {} (1.799687,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (1.799687,1.800000) rectangle node {} (2.177621,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (2.375587,1.200000) rectangle node {} (2.843505,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (3.347418,0.600000) rectangle node {} (4.319249,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (4.499218,0.000000) rectangle node {} (5.543036,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (13.911581,2.400000) rectangle node {} (15.477308,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.837246,1.800000) rectangle node {} (17.384977,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.564945,1.200000) rectangle node {} (18.914710,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (19.256651,0.600000) rectangle node {} (20.642410,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (20.804382,0.000000) rectangle node {} (21.128326,0.480000);
+\draw[draw=latecolor,fill=stagecolor0!10] (6.010955,2.400000) rectangle node {} (7.234742,2.880000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.306729,1.800000) rectangle node {} (7.396714,2.280000);
+\draw[draw=latecolor,fill=stagecolor0!10] (8.188576,1.200000) rectangle node {} (9.574335,1.680000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.610329,0.600000) rectangle node {} (10.528169,1.080000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.500000,0.000000) rectangle node {} (12.723787,0.480000);
 \draw[draw=latecolor,fill=stagecolor0!10] (16.845070,2.400000) rectangle node {} (18.536776,2.880000);
 \draw[draw=latecolor,fill=stagecolor0!10] (18.536776,1.800000) rectangle node {} (19.922535,2.280000);
 \draw[draw=latecolor,fill=stagecolor0!10] (19.922535,1.200000) rectangle node {} (20.642410,1.680000);
@@ -429,7 +424,7 @@ Sol2&Optimal&Makespan&1,278&1278.00& 0.00&1,278&15,717&15,717&1,278&\cellcolor{r
 \end{tikzpicture}
 \end{figure}
 \begin{figure}[htbp]
-\caption{Job Gantt for Solution Sol2}
+\caption{Job Gantt for Solution Sol4}
 \label{jobGantt1}
 \centering
 \begin{tikzpicture}[xscale=1.000000,yscale=1.000000]
@@ -463,66 +458,66 @@ Sol2&Optimal&Makespan&1,278&1278.00& 0.00&1,278&15,717&15,717&1,278&\cellcolor{r
 \draw[draw=black!20] (23.395931,10.000000) -- (23.395931,-0.050000);
 \node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J11) at (0,0.000000) {J11};
 \node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J19) at (0,0.500000) {J19};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J15) at (0,1.000000) {J15};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J9) at (0,1.500000) {J9};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J17) at (0,2.000000) {J17};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J12) at (0,2.500000) {J12};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J18) at (0,3.000000) {J18};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J10) at (0,1.000000) {J10};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J17) at (0,1.500000) {J17};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J6) at (0,2.000000) {J6};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J9) at (0,2.500000) {J9};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J1) at (0,3.000000) {J1};
 \node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J3) at (0,3.500000) {J3};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J13) at (0,4.000000) {J13};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J10) at (0,4.500000) {J10};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J4) at (0,5.000000) {J4};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J16) at (0,5.500000) {J16};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J4) at (0,4.000000) {J4};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J18) at (0,4.500000) {J18};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J15) at (0,5.000000) {J15};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J7) at (0,5.500000) {J7};
 \node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J0) at (0,6.000000) {J0};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J1) at (0,6.500000) {J1};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J5) at (0,7.000000) {J5};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J6) at (0,7.500000) {J6};
-\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J7) at (0,8.000000) {J7};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J5) at (0,6.500000) {J5};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J13) at (0,7.000000) {J13};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J16) at (0,7.500000) {J16};
+\node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J12) at (0,8.000000) {J12};
 \node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J8) at (0,8.500000) {J8};
 \node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J14) at (0,9.000000) {J14};
 \node[draw=black,fill=jobcolor!10,font=\scriptsize,minimum height=0.400000cm,above left] (J2) at (0,9.500000) {J2};
-\draw[draw=latecolor,fill=stagecolor0!10] (4.751174,6.000000) rectangle node {} (5.723005,6.400000);
-\draw[green,thick] (0.000000,6.200000) -- node[above,black] {\tiny 264} (4.751174,6.200000);
+\draw[draw=latecolor,fill=stagecolor0!10] (2.969484,6.000000) rectangle node {} (3.941315,6.400000);
+\draw[green,thick] (0.000000,6.200000) -- node[above,black] {\tiny 165} (2.969484,6.200000);
 \draw[green,thick] (0.000000,6.000000) -- (0.000000,6.400000);
-\draw[green,thick] (4.751174,6.000000) -- (4.751174,6.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (6.586854,6.000000) rectangle node {} (8.008607,6.400000);
-\draw[cyan,thin] (5.723005,6.200000) -- node[above,black] {\tiny 48} (6.586854,6.200000);
-\draw[cyan,thin] (5.723005,6.000000) -- (5.723005,6.400000);
-\draw[cyan,thin] (6.586854,6.000000) -- (6.586854,6.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.008607,6.000000) rectangle node {} (8.296557,6.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.314554,6.000000) rectangle node {} (9.502347,6.400000);
-\draw[cyan,thin] (8.296557,6.200000) -- node[above,black] {} (8.314554,6.200000);
-\draw[cyan,thin] (8.296557,6.000000) -- (8.296557,6.400000);
-\draw[cyan,thin] (8.314554,6.000000) -- (8.314554,6.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.520344,6.000000) rectangle node {} (10.564163,6.400000);
-\draw[cyan,thin] (9.502347,6.200000) -- node[above,black] {} (9.520344,6.200000);
-\draw[cyan,thin] (9.502347,6.000000) -- (9.502347,6.400000);
-\draw[cyan,thin] (9.520344,6.000000) -- (9.520344,6.400000);
-\draw[red,thick] (0.000000,6.200000) -- (10.564163,6.200000);
-\draw[red,thick] (10.564163,6.000000) -- (10.564163,6.400000);
-\node[right,black] at (10.564163,6.200000) {\scriptsize 587};
+\draw[green,thick] (2.969484,6.000000) -- (2.969484,6.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (5.633020,6.000000) rectangle node {} (7.054773,6.400000);
+\draw[cyan,thin] (3.941315,6.200000) -- node[above,black] {\tiny 94} (5.633020,6.200000);
+\draw[cyan,thin] (3.941315,6.000000) -- (3.941315,6.400000);
+\draw[cyan,thin] (5.633020,6.000000) -- (5.633020,6.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.054773,6.000000) rectangle node {} (7.342723,6.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.702660,6.000000) rectangle node {} (8.890454,6.400000);
+\draw[cyan,thin] (7.342723,6.200000) -- node[above,black] {} (7.702660,6.200000);
+\draw[cyan,thin] (7.342723,6.000000) -- (7.342723,6.400000);
+\draw[cyan,thin] (7.702660,6.000000) -- (7.702660,6.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (8.890454,6.000000) rectangle node {} (9.934272,6.400000);
+\draw[red,thick] (0.000000,6.200000) -- (9.934272,6.200000);
+\draw[red,thick] (9.934272,6.000000) -- (9.934272,6.400000);
+\node[right,black] at (9.934272,6.200000) {\scriptsize 552};
 \draw[red,thick] (0.000000,6.000000) -- (0.000000,6.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (3.257433,6.500000) rectangle node {} (4.751174,6.900000);
-\draw[green,thick] (0.000000,6.700000) -- node[above,black] {\tiny 181} (3.257433,6.700000);
-\draw[green,thick] (0.000000,6.500000) -- (0.000000,6.900000);
-\draw[green,thick] (3.257433,6.500000) -- (3.257433,6.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (4.751174,6.500000) rectangle node {} (4.805164,6.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (5.327074,6.500000) rectangle node {} (6.928795,6.900000);
-\draw[cyan,thin] (4.805164,6.700000) -- node[above,black] {\tiny 29} (5.327074,6.700000);
-\draw[cyan,thin] (4.805164,6.500000) -- (4.805164,6.900000);
-\draw[cyan,thin] (5.327074,6.500000) -- (5.327074,6.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (7.036776,6.500000) rectangle node {} (8.080595,6.900000);
-\draw[cyan,thin] (6.928795,6.700000) -- node[above,black] {} (7.036776,6.700000);
-\draw[cyan,thin] (6.928795,6.500000) -- (6.928795,6.900000);
-\draw[cyan,thin] (7.036776,6.500000) -- (7.036776,6.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.512520,6.500000) rectangle node {} (9.520344,6.900000);
-\draw[cyan,thin] (8.080595,6.700000) -- node[above,black] {} (8.512520,6.700000);
-\draw[cyan,thin] (8.080595,6.500000) -- (8.080595,6.900000);
-\draw[cyan,thin] (8.512520,6.500000) -- (8.512520,6.900000);
-\draw[red,thick] (0.000000,6.700000) -- (9.520344,6.700000);
-\draw[red,thick] (9.520344,6.500000) -- (9.520344,6.900000);
-\node[right,black] at (9.520344,6.700000) {\scriptsize 529};
-\draw[red,thick] (0.000000,6.500000) -- (0.000000,6.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.898279,3.000000) rectangle node {} (11.392019,3.400000);
+\draw[green,thick] (0.000000,3.200000) -- node[above,black] {\tiny 550} (9.898279,3.200000);
+\draw[green,thick] (0.000000,3.000000) -- (0.000000,3.400000);
+\draw[green,thick] (9.898279,3.000000) -- (9.898279,3.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.679969,3.000000) rectangle node {} (11.733959,3.400000);
+\draw[cyan,thin] (11.392019,3.200000) -- node[above,black] {} (11.679969,3.200000);
+\draw[cyan,thin] (11.392019,3.000000) -- (11.392019,3.400000);
+\draw[cyan,thin] (11.679969,3.000000) -- (11.679969,3.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.949922,3.000000) rectangle node {} (13.551643,3.400000);
+\draw[cyan,thin] (11.733959,3.200000) -- node[above,black] {} (11.949922,3.200000);
+\draw[cyan,thin] (11.733959,3.000000) -- (11.733959,3.400000);
+\draw[cyan,thin] (11.949922,3.000000) -- (11.949922,3.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (14.217527,3.000000) rectangle node {} (15.261346,3.400000);
+\draw[cyan,thin] (13.551643,3.200000) -- node[above,black] {\tiny 37} (14.217527,3.200000);
+\draw[cyan,thin] (13.551643,3.000000) -- (13.551643,3.400000);
+\draw[cyan,thin] (14.217527,3.000000) -- (14.217527,3.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.945227,3.000000) rectangle node {} (16.953052,3.400000);
+\draw[cyan,thin] (15.261346,3.200000) -- node[above,black] {\tiny 38} (15.945227,3.200000);
+\draw[cyan,thin] (15.261346,3.000000) -- (15.261346,3.400000);
+\draw[cyan,thin] (15.945227,3.000000) -- (15.945227,3.400000);
+\draw[red,thick] (0.000000,3.200000) -- (16.953052,3.200000);
+\draw[red,thick] (16.953052,3.000000) -- (16.953052,3.400000);
+\node[right,black] at (16.953052,3.200000) {\scriptsize 942};
+\draw[red,thick] (0.000000,3.000000) -- (0.000000,3.400000);
 \draw[draw=latecolor,fill=stagecolor0!10] (0.000000,9.500000) rectangle node {} (0.269953,9.900000);
 \draw[green,thick] (0.000000,9.700000) -- node[above,black] {} (0.000000,9.700000);
 \draw[green,thick] (0.000000,9.500000) -- (0.000000,9.900000);
@@ -535,168 +530,156 @@ Sol2&Optimal&Makespan&1,278&1278.00& 0.00&1,278&15,717&15,717&1,278&\cellcolor{r
 \draw[red,thick] (2.267606,9.500000) -- (2.267606,9.900000);
 \node[right,black] at (2.267606,9.700000) {\scriptsize 126};
 \draw[red,thick] (0.000000,9.500000) -- (0.000000,9.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.574335,3.500000) rectangle node {} (10.852113,3.900000);
-\draw[green,thick] (0.000000,3.700000) -- node[above,black] {\tiny 532} (9.574335,3.700000);
+\draw[draw=latecolor,fill=stagecolor0!10] (8.620501,3.500000) rectangle node {} (9.898279,3.900000);
+\draw[green,thick] (0.000000,3.700000) -- node[above,black] {\tiny 479} (8.620501,3.700000);
 \draw[green,thick] (0.000000,3.500000) -- (0.000000,3.900000);
-\draw[green,thick] (9.574335,3.500000) -- (9.574335,3.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (10.924100,3.500000) rectangle node {} (12.705790,3.900000);
-\draw[cyan,thin] (10.852113,3.700000) -- node[above,black] {} (10.924100,3.700000);
-\draw[cyan,thin] (10.852113,3.500000) -- (10.852113,3.900000);
-\draw[cyan,thin] (10.924100,3.500000) -- (10.924100,3.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.705790,3.500000) rectangle node {} (12.975743,3.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (13.407668,3.500000) rectangle node {} (14.631455,3.900000);
-\draw[cyan,thin] (12.975743,3.700000) -- node[above,black] {} (13.407668,3.700000);
-\draw[cyan,thin] (12.975743,3.500000) -- (12.975743,3.900000);
-\draw[cyan,thin] (13.407668,3.500000) -- (13.407668,3.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (15.063380,3.500000) rectangle node {} (16.593114,3.900000);
-\draw[cyan,thin] (14.631455,3.700000) -- node[above,black] {} (15.063380,3.700000);
-\draw[cyan,thin] (14.631455,3.500000) -- (14.631455,3.900000);
-\draw[cyan,thin] (15.063380,3.500000) -- (15.063380,3.900000);
-\draw[red,thick] (0.000000,3.700000) -- (16.593114,3.700000);
-\draw[red,thick] (16.593114,3.500000) -- (16.593114,3.900000);
-\node[right,black] at (16.593114,3.700000) {\scriptsize 922};
+\draw[green,thick] (8.620501,3.500000) -- (8.620501,3.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.898279,3.500000) rectangle node {} (11.679969,3.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.679969,3.500000) rectangle node {} (11.949922,3.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (12.993740,3.500000) rectangle node {} (14.217527,3.900000);
+\draw[cyan,thin] (11.949922,3.700000) -- node[above,black] {\tiny 58} (12.993740,3.700000);
+\draw[cyan,thin] (11.949922,3.500000) -- (11.949922,3.900000);
+\draw[cyan,thin] (12.993740,3.500000) -- (12.993740,3.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (14.415493,3.500000) rectangle node {} (15.945227,3.900000);
+\draw[cyan,thin] (14.217527,3.700000) -- node[above,black] {} (14.415493,3.700000);
+\draw[cyan,thin] (14.217527,3.500000) -- (14.217527,3.900000);
+\draw[cyan,thin] (14.415493,3.500000) -- (14.415493,3.900000);
+\draw[red,thick] (0.000000,3.700000) -- (15.945227,3.700000);
+\draw[red,thick] (15.945227,3.500000) -- (15.945227,3.900000);
+\node[right,black] at (15.945227,3.700000) {\scriptsize 886};
 \draw[red,thick] (0.000000,3.500000) -- (0.000000,3.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (6.298905,5.000000) rectangle node {} (7.684664,5.400000);
-\draw[green,thick] (0.000000,5.200000) -- node[above,black] {\tiny 350} (6.298905,5.200000);
-\draw[green,thick] (0.000000,5.000000) -- (0.000000,5.400000);
-\draw[green,thick] (6.298905,5.000000) -- (6.298905,5.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.386541,5.000000) rectangle node {} (9.394366,5.400000);
-\draw[cyan,thin] (7.684664,5.200000) -- node[above,black] {\tiny 39} (8.386541,5.200000);
-\draw[cyan,thin] (7.684664,5.000000) -- (7.684664,5.400000);
-\draw[cyan,thin] (8.386541,5.000000) -- (8.386541,5.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.574335,5.000000) rectangle node {} (11.176056,5.400000);
-\draw[cyan,thin] (9.394366,5.200000) -- node[above,black] {} (9.574335,5.200000);
-\draw[cyan,thin] (9.394366,5.000000) -- (9.394366,5.400000);
-\draw[cyan,thin] (9.574335,5.000000) -- (9.574335,5.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.003912,5.000000) rectangle node {} (13.407668,5.400000);
-\draw[cyan,thin] (11.176056,5.200000) -- node[above,black] {\tiny 46} (12.003912,5.200000);
-\draw[cyan,thin] (11.176056,5.000000) -- (11.176056,5.400000);
-\draw[cyan,thin] (12.003912,5.000000) -- (12.003912,5.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (14.109546,5.000000) rectangle node {} (15.063380,5.400000);
-\draw[cyan,thin] (13.407668,5.200000) -- node[above,black] {\tiny 39} (14.109546,5.200000);
-\draw[cyan,thin] (13.407668,5.000000) -- (13.407668,5.400000);
-\draw[cyan,thin] (14.109546,5.000000) -- (14.109546,5.400000);
-\draw[red,thick] (0.000000,5.200000) -- (15.063380,5.200000);
-\draw[red,thick] (15.063380,5.000000) -- (15.063380,5.400000);
-\node[right,black] at (15.063380,5.200000) {\scriptsize 837};
-\draw[red,thick] (0.000000,5.000000) -- (0.000000,5.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (2.609546,7.000000) rectangle node {} (3.257433,7.400000);
-\draw[green,thick] (0.000000,7.200000) -- node[above,black] {\tiny 145} (2.609546,7.200000);
-\draw[green,thick] (0.000000,7.000000) -- (0.000000,7.400000);
-\draw[green,thick] (2.609546,7.000000) -- (2.609546,7.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (3.257433,7.000000) rectangle node {} (4.517214,7.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (4.517214,7.000000) rectangle node {} (5.327074,7.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (5.399061,7.000000) rectangle node {} (7.036776,7.400000);
-\draw[cyan,thin] (5.327074,7.200000) -- node[above,black] {} (5.399061,7.200000);
-\draw[cyan,thin] (5.327074,7.000000) -- (5.327074,7.400000);
-\draw[cyan,thin] (5.399061,7.000000) -- (5.399061,7.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (7.036776,7.000000) rectangle node {} (7.666667,7.400000);
-\draw[red,thick] (0.000000,7.200000) -- (7.666667,7.200000);
-\draw[red,thick] (7.666667,7.000000) -- (7.666667,7.400000);
-\node[right,black] at (7.666667,7.200000) {\scriptsize 426};
-\draw[red,thick] (0.000000,7.000000) -- (0.000000,7.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (1.655712,7.500000) rectangle node {} (2.609546,7.900000);
-\draw[green,thick] (0.000000,7.700000) -- node[above,black] {\tiny 92} (1.655712,7.700000);
-\draw[green,thick] (0.000000,7.500000) -- (0.000000,7.900000);
-\draw[green,thick] (1.655712,7.500000) -- (1.655712,7.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (4.805164,7.500000) rectangle node {} (6.586854,7.900000);
-\draw[cyan,thin] (2.609546,7.700000) -- node[above,black] {\tiny 122} (4.805164,7.700000);
-\draw[cyan,thin] (2.609546,7.500000) -- (2.609546,7.900000);
-\draw[cyan,thin] (4.805164,7.500000) -- (4.805164,7.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (6.928795,7.500000) rectangle node {} (8.008607,7.900000);
-\draw[cyan,thin] (6.586854,7.700000) -- node[above,black] {} (6.928795,7.700000);
-\draw[cyan,thin] (6.586854,7.500000) -- (6.586854,7.900000);
-\draw[cyan,thin] (6.928795,7.500000) -- (6.928795,7.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.080595,7.500000) rectangle node {} (8.314554,7.900000);
-\draw[cyan,thin] (8.008607,7.700000) -- node[above,black] {} (8.080595,7.700000);
-\draw[cyan,thin] (8.008607,7.500000) -- (8.008607,7.900000);
-\draw[cyan,thin] (8.080595,7.500000) -- (8.080595,7.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (11.607981,7.500000) rectangle node {} (12.561815,7.900000);
-\draw[cyan,thin] (8.314554,7.700000) -- node[above,black] {\tiny 183} (11.607981,7.700000);
-\draw[cyan,thin] (8.314554,7.500000) -- (8.314554,7.900000);
-\draw[cyan,thin] (11.607981,7.500000) -- (11.607981,7.900000);
-\draw[red,thick] (0.000000,7.700000) -- (12.561815,7.700000);
-\draw[red,thick] (12.561815,7.500000) -- (12.561815,7.900000);
-\node[right,black] at (12.561815,7.700000) {\scriptsize 698};
-\draw[red,thick] (0.000000,7.500000) -- (0.000000,7.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (0.971831,8.000000) rectangle node {} (1.655712,8.400000);
-\draw[green,thick] (0.000000,8.200000) -- node[above,black] {\tiny 54} (0.971831,8.200000);
-\draw[green,thick] (0.000000,8.000000) -- (0.000000,8.400000);
-\draw[green,thick] (0.971831,8.000000) -- (0.971831,8.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (1.655712,8.000000) rectangle node {} (2.735524,8.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (2.735524,8.000000) rectangle node {} (3.149452,8.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (3.329421,8.000000) rectangle node {} (4.391236,8.400000);
-\draw[cyan,thin] (3.149452,8.200000) -- node[above,black] {} (3.329421,8.200000);
-\draw[cyan,thin] (3.149452,8.000000) -- (3.149452,8.400000);
-\draw[cyan,thin] (3.329421,8.000000) -- (3.329421,8.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (4.391236,8.000000) rectangle node {} (5.129108,8.400000);
-\draw[red,thick] (0.000000,8.200000) -- (5.129108,8.200000);
-\draw[red,thick] (5.129108,8.000000) -- (5.129108,8.400000);
-\node[right,black] at (5.129108,8.200000) {\scriptsize 285};
-\draw[red,thick] (0.000000,8.000000) -- (0.000000,8.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.234742,4.000000) rectangle node {} (8.620501,4.400000);
+\draw[green,thick] (0.000000,4.200000) -- node[above,black] {\tiny 402} (7.234742,4.200000);
+\draw[green,thick] (0.000000,4.000000) -- (0.000000,4.400000);
+\draw[green,thick] (7.234742,4.000000) -- (7.234742,4.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (8.620501,4.000000) rectangle node {} (9.628326,4.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.988263,4.000000) rectangle node {} (11.589984,4.400000);
+\draw[cyan,thin] (9.628326,4.200000) -- node[above,black] {} (9.988263,4.200000);
+\draw[cyan,thin] (9.628326,4.000000) -- (9.628326,4.400000);
+\draw[cyan,thin] (9.988263,4.000000) -- (9.988263,4.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.589984,4.000000) rectangle node {} (12.993740,4.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (13.461659,4.000000) rectangle node {} (14.415493,4.400000);
+\draw[cyan,thin] (12.993740,4.200000) -- node[above,black] {\tiny 26} (13.461659,4.200000);
+\draw[cyan,thin] (12.993740,4.000000) -- (12.993740,4.400000);
+\draw[cyan,thin] (13.461659,4.000000) -- (13.461659,4.400000);
+\draw[red,thick] (0.000000,4.200000) -- (14.415493,4.200000);
+\draw[red,thick] (14.415493,4.000000) -- (14.415493,4.400000);
+\node[right,black] at (14.415493,4.200000) {\scriptsize 801};
+\draw[red,thick] (0.000000,4.000000) -- (0.000000,4.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (2.321596,6.500000) rectangle node {} (2.969484,6.900000);
+\draw[green,thick] (0.000000,6.700000) -- node[above,black] {\tiny 129} (2.321596,6.700000);
+\draw[green,thick] (0.000000,6.500000) -- (0.000000,6.900000);
+\draw[green,thick] (2.321596,6.500000) -- (2.321596,6.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (3.023474,6.500000) rectangle node {} (4.283255,6.900000);
+\draw[cyan,thin] (2.969484,6.700000) -- node[above,black] {} (3.023474,6.700000);
+\draw[cyan,thin] (2.969484,6.500000) -- (2.969484,6.900000);
+\draw[cyan,thin] (3.023474,6.500000) -- (3.023474,6.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (4.283255,6.500000) rectangle node {} (5.093114,6.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (5.327074,6.500000) rectangle node {} (6.964789,6.900000);
+\draw[cyan,thin] (5.093114,6.700000) -- node[above,black] {} (5.327074,6.700000);
+\draw[cyan,thin] (5.093114,6.500000) -- (5.093114,6.900000);
+\draw[cyan,thin] (5.327074,6.500000) -- (5.327074,6.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (6.964789,6.500000) rectangle node {} (7.594679,6.900000);
+\draw[red,thick] (0.000000,6.700000) -- (7.594679,6.700000);
+\draw[red,thick] (7.594679,6.500000) -- (7.594679,6.900000);
+\node[right,black] at (7.594679,6.700000) {\scriptsize 422};
+\draw[red,thick] (0.000000,6.500000) -- (0.000000,6.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (12.957746,2.000000) rectangle node {} (13.911581,2.400000);
+\draw[green,thick] (0.000000,2.200000) -- node[above,black] {\tiny 720} (12.957746,2.200000);
+\draw[green,thick] (0.000000,2.000000) -- (0.000000,2.400000);
+\draw[green,thick] (12.957746,2.000000) -- (12.957746,2.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (14.055556,2.000000) rectangle node {} (15.837246,2.400000);
+\draw[cyan,thin] (13.911581,2.200000) -- node[above,black] {} (14.055556,2.200000);
+\draw[cyan,thin] (13.911581,2.000000) -- (13.911581,2.400000);
+\draw[cyan,thin] (14.055556,2.000000) -- (14.055556,2.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.837246,2.000000) rectangle node {} (16.917058,2.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.492958,2.000000) rectangle node {} (17.726917,2.400000);
+\draw[cyan,thin] (16.917058,2.200000) -- node[above,black] {\tiny 32} (17.492958,2.200000);
+\draw[cyan,thin] (16.917058,2.000000) -- (16.917058,2.400000);
+\draw[cyan,thin] (17.492958,2.000000) -- (17.492958,2.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.726917,2.000000) rectangle node {} (18.680751,2.400000);
+\draw[red,thick] (0.000000,2.200000) -- (18.680751,2.200000);
+\draw[red,thick] (18.680751,2.000000) -- (18.680751,2.400000);
+\node[right,black] at (18.680751,2.200000) {\scriptsize 1,038};
+\draw[red,thick] (0.000000,2.000000) -- (0.000000,2.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (3.941315,5.500000) rectangle node {} (4.625196,5.900000);
+\draw[green,thick] (0.000000,5.700000) -- node[above,black] {\tiny 219} (3.941315,5.700000);
+\draw[green,thick] (0.000000,5.500000) -- (0.000000,5.900000);
+\draw[green,thick] (3.941315,5.500000) -- (3.941315,5.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.396714,5.500000) rectangle node {} (8.476526,5.900000);
+\draw[cyan,thin] (4.625196,5.700000) -- node[above,black] {\tiny 154} (7.396714,5.700000);
+\draw[cyan,thin] (4.625196,5.500000) -- (4.625196,5.900000);
+\draw[cyan,thin] (7.396714,5.500000) -- (7.396714,5.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.574335,5.500000) rectangle node {} (9.988263,5.900000);
+\draw[cyan,thin] (8.476526,5.700000) -- node[above,black] {\tiny 61} (9.574335,5.700000);
+\draw[cyan,thin] (8.476526,5.500000) -- (8.476526,5.900000);
+\draw[cyan,thin] (9.574335,5.500000) -- (9.574335,5.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (10.528169,5.500000) rectangle node {} (11.589984,5.900000);
+\draw[cyan,thin] (9.988263,5.700000) -- node[above,black] {\tiny 30} (10.528169,5.700000);
+\draw[cyan,thin] (9.988263,5.500000) -- (9.988263,5.900000);
+\draw[cyan,thin] (10.528169,5.500000) -- (10.528169,5.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (12.723787,5.500000) rectangle node {} (13.461659,5.900000);
+\draw[cyan,thin] (11.589984,5.700000) -- node[above,black] {\tiny 63} (12.723787,5.700000);
+\draw[cyan,thin] (11.589984,5.500000) -- (11.589984,5.900000);
+\draw[cyan,thin] (12.723787,5.500000) -- (12.723787,5.900000);
+\draw[red,thick] (0.000000,5.700000) -- (13.461659,5.700000);
+\draw[red,thick] (13.461659,5.500000) -- (13.461659,5.900000);
+\node[right,black] at (13.461659,5.700000) {\scriptsize 748};
+\draw[red,thick] (0.000000,5.500000) -- (0.000000,5.900000);
 \draw[draw=latecolor,fill=stagecolor0!10] (0.485915,8.500000) rectangle node {} (0.971831,8.900000);
 \draw[green,thick] (0.000000,8.700000) -- node[above,black] {\tiny 27} (0.485915,8.700000);
 \draw[green,thick] (0.000000,8.500000) -- (0.000000,8.900000);
 \draw[green,thick] (0.485915,8.500000) -- (0.485915,8.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (1.331768,8.500000) rectangle node {} (1.421753,8.900000);
-\draw[cyan,thin] (0.971831,8.700000) -- node[above,black] {} (1.331768,8.700000);
-\draw[cyan,thin] (0.971831,8.500000) -- (0.971831,8.900000);
-\draw[cyan,thin] (1.331768,8.500000) -- (1.331768,8.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (1.421753,8.500000) rectangle node {} (2.447574,8.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (2.447574,8.500000) rectangle node {} (3.329421,8.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (5.129108,8.500000) rectangle node {} (6.370892,8.900000);
-\draw[cyan,thin] (3.329421,8.700000) -- node[above,black] {\tiny 100} (5.129108,8.700000);
-\draw[cyan,thin] (3.329421,8.500000) -- (3.329421,8.900000);
-\draw[cyan,thin] (5.129108,8.500000) -- (5.129108,8.900000);
-\draw[red,thick] (0.000000,8.700000) -- (6.370892,8.700000);
-\draw[red,thick] (6.370892,8.500000) -- (6.370892,8.900000);
-\node[right,black] at (6.370892,8.700000) {\scriptsize 354};
+\draw[draw=latecolor,fill=stagecolor0!10] (0.971831,8.500000) rectangle node {} (1.061815,8.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (1.349765,8.500000) rectangle node {} (2.375587,8.900000);
+\draw[cyan,thin] (1.061815,8.700000) -- node[above,black] {} (1.349765,8.700000);
+\draw[cyan,thin] (1.061815,8.500000) -- (1.061815,8.900000);
+\draw[cyan,thin] (1.349765,8.500000) -- (1.349765,8.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (2.375587,8.500000) rectangle node {} (3.257433,8.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (3.257433,8.500000) rectangle node {} (4.499218,8.900000);
+\draw[red,thick] (0.000000,8.700000) -- (4.499218,8.700000);
+\draw[red,thick] (4.499218,8.500000) -- (4.499218,8.900000);
+\node[right,black] at (4.499218,8.700000) {\scriptsize 250};
 \draw[red,thick] (0.000000,8.500000) -- (0.000000,8.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (13.893584,1.500000) rectangle node {} (15.459311,1.900000);
-\draw[green,thick] (0.000000,1.700000) -- node[above,black] {\tiny 772} (13.893584,1.700000);
-\draw[green,thick] (0.000000,1.500000) -- (0.000000,1.900000);
-\draw[green,thick] (13.893584,1.500000) -- (13.893584,1.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (15.657277,1.500000) rectangle node {} (16.665102,1.900000);
-\draw[cyan,thin] (15.459311,1.700000) -- node[above,black] {} (15.657277,1.700000);
-\draw[cyan,thin] (15.459311,1.500000) -- (15.459311,1.900000);
-\draw[cyan,thin] (15.657277,1.500000) -- (15.657277,1.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (17.942879,1.500000) rectangle node {} (19.094679,1.900000);
-\draw[cyan,thin] (16.665102,1.700000) -- node[above,black] {\tiny 71} (17.942879,1.700000);
-\draw[cyan,thin] (16.665102,1.500000) -- (16.665102,1.900000);
-\draw[cyan,thin] (17.942879,1.500000) -- (17.942879,1.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (19.112676,1.500000) rectangle node {} (20.642410,1.900000);
-\draw[cyan,thin] (19.094679,1.700000) -- node[above,black] {} (19.112676,1.700000);
-\draw[cyan,thin] (19.094679,1.500000) -- (19.094679,1.900000);
-\draw[cyan,thin] (19.112676,1.500000) -- (19.112676,1.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (20.678404,1.500000) rectangle node {} (20.912363,1.900000);
-\draw[cyan,thin] (20.642410,1.700000) -- node[above,black] {} (20.678404,1.700000);
-\draw[cyan,thin] (20.642410,1.500000) -- (20.642410,1.900000);
-\draw[cyan,thin] (20.678404,1.500000) -- (20.678404,1.900000);
-\draw[red,thick] (0.000000,1.700000) -- (20.912363,1.700000);
-\draw[red,thick] (20.912363,1.500000) -- (20.912363,1.900000);
-\node[right,black] at (20.912363,1.700000) {\scriptsize 1,162};
-\draw[red,thick] (0.000000,1.500000) -- (0.000000,1.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (7.684664,4.500000) rectangle node {} (9.052426,4.900000);
-\draw[green,thick] (0.000000,4.700000) -- node[above,black] {\tiny 427} (7.684664,4.700000);
-\draw[green,thick] (0.000000,4.500000) -- (0.000000,4.900000);
-\draw[green,thick] (7.684664,4.500000) -- (7.684664,4.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.394366,4.500000) rectangle node {} (9.448357,4.900000);
-\draw[cyan,thin] (9.052426,4.700000) -- node[above,black] {} (9.394366,4.700000);
-\draw[cyan,thin] (9.052426,4.500000) -- (9.052426,4.900000);
-\draw[cyan,thin] (9.394366,4.500000) -- (9.394366,4.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.448357,4.500000) rectangle node {} (9.574335,4.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (10.474178,4.500000) rectangle node {} (12.003912,4.900000);
-\draw[cyan,thin] (9.574335,4.700000) -- node[above,black] {\tiny 50} (10.474178,4.700000);
-\draw[cyan,thin] (9.574335,4.500000) -- (9.574335,4.900000);
-\draw[cyan,thin] (10.474178,4.500000) -- (10.474178,4.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.561815,4.500000) rectangle node {} (14.109546,4.900000);
-\draw[cyan,thin] (12.003912,4.700000) -- node[above,black] {\tiny 31} (12.561815,4.700000);
-\draw[cyan,thin] (12.003912,4.500000) -- (12.003912,4.900000);
-\draw[cyan,thin] (12.561815,4.500000) -- (12.561815,4.900000);
-\draw[red,thick] (0.000000,4.700000) -- (14.109546,4.700000);
-\draw[red,thick] (14.109546,4.500000) -- (14.109546,4.900000);
-\node[right,black] at (14.109546,4.700000) {\scriptsize 784};
-\draw[red,thick] (0.000000,4.500000) -- (0.000000,4.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.392019,2.500000) rectangle node {} (12.957746,2.900000);
+\draw[green,thick] (0.000000,2.700000) -- node[above,black] {\tiny 633} (11.392019,2.700000);
+\draw[green,thick] (0.000000,2.500000) -- (0.000000,2.900000);
+\draw[green,thick] (11.392019,2.500000) -- (11.392019,2.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (13.047731,2.500000) rectangle node {} (14.055556,2.900000);
+\draw[cyan,thin] (12.957746,2.700000) -- node[above,black] {} (13.047731,2.700000);
+\draw[cyan,thin] (12.957746,2.500000) -- (12.957746,2.900000);
+\draw[cyan,thin] (13.047731,2.500000) -- (13.047731,2.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (14.685446,2.500000) rectangle node {} (15.837246,2.900000);
+\draw[cyan,thin] (14.055556,2.700000) -- node[above,black] {\tiny 35} (14.685446,2.700000);
+\draw[cyan,thin] (14.055556,2.500000) -- (14.055556,2.900000);
+\draw[cyan,thin] (14.685446,2.500000) -- (14.685446,2.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.963224,2.500000) rectangle node {} (17.492958,2.900000);
+\draw[cyan,thin] (15.837246,2.700000) -- node[above,black] {} (15.963224,2.700000);
+\draw[cyan,thin] (15.837246,2.500000) -- (15.837246,2.900000);
+\draw[cyan,thin] (15.963224,2.500000) -- (15.963224,2.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.492958,2.500000) rectangle node {} (17.726917,2.900000);
+\draw[red,thick] (0.000000,2.700000) -- (17.726917,2.700000);
+\draw[red,thick] (17.726917,2.500000) -- (17.726917,2.900000);
+\node[right,black] at (17.726917,2.700000) {\scriptsize 985};
+\draw[red,thick] (0.000000,2.500000) -- (0.000000,2.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.477308,1.000000) rectangle node {} (16.845070,1.400000);
+\draw[green,thick] (0.000000,1.200000) -- node[above,black] {\tiny 860} (15.477308,1.200000);
+\draw[green,thick] (0.000000,1.000000) -- (0.000000,1.400000);
+\draw[green,thick] (15.477308,1.000000) -- (15.477308,1.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.384977,1.000000) rectangle node {} (17.438967,1.400000);
+\draw[cyan,thin] (16.845070,1.200000) -- node[above,black] {\tiny 30} (17.384977,1.200000);
+\draw[cyan,thin] (16.845070,1.000000) -- (16.845070,1.400000);
+\draw[cyan,thin] (17.384977,1.000000) -- (17.384977,1.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.438967,1.000000) rectangle node {} (17.564945,1.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.726917,1.000000) rectangle node {} (19.256651,1.400000);
+\draw[cyan,thin] (17.564945,1.200000) -- node[above,black] {} (17.726917,1.200000);
+\draw[cyan,thin] (17.564945,1.000000) -- (17.564945,1.400000);
+\draw[cyan,thin] (17.726917,1.000000) -- (17.726917,1.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (19.256651,1.000000) rectangle node {} (20.804382,1.400000);
+\draw[red,thick] (0.000000,1.200000) -- (20.804382,1.200000);
+\draw[red,thick] (20.804382,1.000000) -- (20.804382,1.400000);
+\node[right,black] at (20.804382,1.200000) {\scriptsize 1,156};
+\draw[red,thick] (0.000000,1.000000) -- (0.000000,1.400000);
 \draw[draw=latecolor,fill=stagecolor0!10] (18.536776,0.000000) rectangle node {} (20.174491,0.400000);
 \draw[green,thick] (0.000000,0.200000) -- node[above,black] {\tiny 1,030} (18.536776,0.200000);
 \draw[green,thick] (0.000000,0.000000) -- (0.000000,0.400000);
@@ -712,150 +695,162 @@ Sol2&Optimal&Makespan&1,278&1278.00& 0.00&1,278&15,717&15,717&1,278&\cellcolor{r
 \draw[red,thick] (23.000000,0.000000) -- (23.000000,0.400000);
 \node[right,black] at (23.000000,0.200000) {\scriptsize 1,278};
 \draw[red,thick] (0.000000,0.000000) -- (0.000000,0.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.075900,2.500000) rectangle node {} (12.327856,2.900000);
-\draw[green,thick] (0.000000,2.700000) -- node[above,black] {\tiny 671} (12.075900,2.700000);
-\draw[green,thick] (0.000000,2.500000) -- (0.000000,2.900000);
-\draw[green,thick] (12.075900,2.500000) -- (12.075900,2.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.795775,2.500000) rectangle node {} (14.109546,2.900000);
-\draw[cyan,thin] (12.327856,2.700000) -- node[above,black] {\tiny 26} (12.795775,2.700000);
-\draw[cyan,thin] (12.327856,2.500000) -- (12.327856,2.900000);
-\draw[cyan,thin] (12.795775,2.500000) -- (12.795775,2.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (14.361502,2.500000) rectangle node {} (15.495305,2.900000);
-\draw[cyan,thin] (14.109546,2.700000) -- node[above,black] {} (14.361502,2.700000);
-\draw[cyan,thin] (14.109546,2.500000) -- (14.109546,2.900000);
-\draw[cyan,thin] (14.361502,2.500000) -- (14.361502,2.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (16.287167,2.500000) rectangle node {} (16.989045,2.900000);
-\draw[cyan,thin] (15.495305,2.700000) -- node[above,black] {\tiny 44} (16.287167,2.700000);
-\draw[cyan,thin] (15.495305,2.500000) -- (15.495305,2.900000);
-\draw[cyan,thin] (16.287167,2.500000) -- (16.287167,2.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (20.912363,2.500000) rectangle node {} (21.056338,2.900000);
-\draw[cyan,thin] (16.989045,2.700000) -- node[above,black] {\tiny 218} (20.912363,2.700000);
-\draw[cyan,thin] (16.989045,2.500000) -- (16.989045,2.900000);
-\draw[cyan,thin] (20.912363,2.500000) -- (20.912363,2.900000);
-\draw[red,thick] (0.000000,2.700000) -- (21.056338,2.700000);
-\draw[red,thick] (21.056338,2.500000) -- (21.056338,2.900000);
-\node[right,black] at (21.056338,2.700000) {\scriptsize 1,170};
-\draw[red,thick] (0.000000,2.500000) -- (0.000000,2.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.052426,4.000000) rectangle node {} (9.574335,4.400000);
-\draw[green,thick] (0.000000,4.200000) -- node[above,black] {\tiny 503} (9.052426,4.200000);
-\draw[green,thick] (0.000000,4.000000) -- (0.000000,4.400000);
-\draw[green,thick] (9.052426,4.000000) -- (9.052426,4.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.574335,4.000000) rectangle node {} (10.924100,4.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (11.176056,4.000000) rectangle node {} (11.913928,4.400000);
-\draw[cyan,thin] (10.924100,4.200000) -- node[above,black] {} (11.176056,4.200000);
-\draw[cyan,thin] (10.924100,4.000000) -- (10.924100,4.400000);
-\draw[cyan,thin] (11.176056,4.000000) -- (11.176056,4.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (15.549296,4.000000) rectangle node {} (16.287167,4.400000);
-\draw[cyan,thin] (11.913928,4.200000) -- node[above,black] {\tiny 202} (15.549296,4.200000);
-\draw[cyan,thin] (11.913928,4.000000) -- (11.913928,4.400000);
-\draw[cyan,thin] (15.549296,4.000000) -- (15.549296,4.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (17.816901,4.000000) rectangle node {} (18.698748,4.400000);
-\draw[cyan,thin] (16.287167,4.200000) -- node[above,black] {\tiny 85} (17.816901,4.200000);
-\draw[cyan,thin] (16.287167,4.000000) -- (16.287167,4.400000);
-\draw[cyan,thin] (17.816901,4.000000) -- (17.816901,4.400000);
-\draw[red,thick] (0.000000,4.200000) -- (18.698748,4.200000);
-\draw[red,thick] (18.698748,4.000000) -- (18.698748,4.400000);
-\node[right,black] at (18.698748,4.200000) {\scriptsize 1,039};
-\draw[red,thick] (0.000000,4.000000) -- (0.000000,4.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (0.971831,8.000000) rectangle node {} (1.223787,8.400000);
+\draw[green,thick] (0.000000,8.200000) -- node[above,black] {\tiny 54} (0.971831,8.200000);
+\draw[green,thick] (0.000000,8.000000) -- (0.000000,8.400000);
+\draw[green,thick] (0.971831,8.000000) -- (0.971831,8.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.733959,8.000000) rectangle node {} (13.047731,8.400000);
+\draw[cyan,thin] (1.223787,8.200000) -- node[above,black] {\tiny 584} (11.733959,8.200000);
+\draw[cyan,thin] (1.223787,8.000000) -- (1.223787,8.400000);
+\draw[cyan,thin] (11.733959,8.000000) -- (11.733959,8.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (13.551643,8.000000) rectangle node {} (14.685446,8.400000);
+\draw[cyan,thin] (13.047731,8.200000) -- node[above,black] {\tiny 28} (13.551643,8.200000);
+\draw[cyan,thin] (13.047731,8.000000) -- (13.047731,8.400000);
+\draw[cyan,thin] (13.551643,8.000000) -- (13.551643,8.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.261346,8.000000) rectangle node {} (15.963224,8.400000);
+\draw[cyan,thin] (14.685446,8.200000) -- node[above,black] {\tiny 32} (15.261346,8.200000);
+\draw[cyan,thin] (14.685446,8.000000) -- (14.685446,8.400000);
+\draw[cyan,thin] (15.261346,8.000000) -- (15.261346,8.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (18.680751,8.000000) rectangle node {} (18.824726,8.400000);
+\draw[cyan,thin] (15.963224,8.200000) -- node[above,black] {\tiny 151} (18.680751,8.200000);
+\draw[cyan,thin] (15.963224,8.000000) -- (15.963224,8.400000);
+\draw[cyan,thin] (18.680751,8.000000) -- (18.680751,8.400000);
+\draw[red,thick] (0.000000,8.200000) -- (18.824726,8.200000);
+\draw[red,thick] (18.824726,8.000000) -- (18.824726,8.400000);
+\node[right,black] at (18.824726,8.200000) {\scriptsize 1,046};
+\draw[red,thick] (0.000000,8.000000) -- (0.000000,8.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (1.799687,7.000000) rectangle node {} (2.321596,7.400000);
+\draw[green,thick] (0.000000,7.200000) -- node[above,black] {\tiny 100} (1.799687,7.200000);
+\draw[green,thick] (0.000000,7.000000) -- (0.000000,7.400000);
+\draw[green,thick] (1.799687,7.000000) -- (1.799687,7.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (4.283255,7.000000) rectangle node {} (5.633020,7.400000);
+\draw[cyan,thin] (2.321596,7.200000) -- node[above,black] {\tiny 109} (4.283255,7.200000);
+\draw[cyan,thin] (2.321596,7.000000) -- (2.321596,7.400000);
+\draw[cyan,thin] (4.283255,7.000000) -- (4.283255,7.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (5.633020,7.000000) rectangle node {} (6.370892,7.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (6.964789,7.000000) rectangle node {} (7.702660,7.400000);
+\draw[cyan,thin] (6.370892,7.200000) -- node[above,black] {\tiny 33} (6.964789,7.200000);
+\draw[cyan,thin] (6.370892,7.000000) -- (6.370892,7.400000);
+\draw[cyan,thin] (6.964789,7.000000) -- (6.964789,7.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.702660,7.000000) rectangle node {} (8.584507,7.400000);
+\draw[red,thick] (0.000000,7.200000) -- (8.584507,7.200000);
+\draw[red,thick] (8.584507,7.000000) -- (8.584507,7.400000);
+\node[right,black] at (8.584507,7.200000) {\scriptsize 477};
+\draw[red,thick] (0.000000,7.000000) -- (0.000000,7.400000);
 \draw[draw=latecolor,fill=stagecolor0!10] (0.269953,9.000000) rectangle node {} (0.485915,9.400000);
 \draw[green,thick] (0.000000,9.200000) -- node[above,black] {} (0.269953,9.200000);
 \draw[green,thick] (0.000000,9.000000) -- (0.000000,9.400000);
 \draw[green,thick] (0.269953,9.000000) -- (0.269953,9.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (0.485915,9.000000) rectangle node {} (1.331768,9.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (3.149452,9.000000) rectangle node {} (4.283255,9.400000);
-\draw[cyan,thin] (1.331768,9.200000) -- node[above,black] {\tiny 101} (3.149452,9.200000);
-\draw[cyan,thin] (1.331768,9.000000) -- (1.331768,9.400000);
-\draw[cyan,thin] (3.149452,9.000000) -- (3.149452,9.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (4.391236,9.000000) rectangle node {} (5.399061,9.400000);
-\draw[cyan,thin] (4.283255,9.200000) -- node[above,black] {} (4.391236,9.200000);
-\draw[cyan,thin] (4.283255,9.000000) -- (4.283255,9.400000);
-\draw[cyan,thin] (4.391236,9.000000) -- (4.391236,9.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (7.666667,9.000000) rectangle node {} (8.512520,9.400000);
-\draw[cyan,thin] (5.399061,9.200000) -- node[above,black] {\tiny 126} (7.666667,9.200000);
-\draw[cyan,thin] (5.399061,9.000000) -- (5.399061,9.400000);
-\draw[cyan,thin] (7.666667,9.000000) -- (7.666667,9.400000);
-\draw[red,thick] (0.000000,9.200000) -- (8.512520,9.200000);
-\draw[red,thick] (8.512520,9.000000) -- (8.512520,9.400000);
-\node[right,black] at (8.512520,9.200000) {\scriptsize 473};
+\draw[draw=latecolor,fill=stagecolor0!10] (2.177621,9.000000) rectangle node {} (3.023474,9.400000);
+\draw[cyan,thin] (0.485915,9.200000) -- node[above,black] {\tiny 94} (2.177621,9.200000);
+\draw[cyan,thin] (0.485915,9.000000) -- (0.485915,9.400000);
+\draw[cyan,thin] (2.177621,9.000000) -- (2.177621,9.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (3.023474,9.000000) rectangle node {} (4.157277,9.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (4.319249,9.000000) rectangle node {} (5.327074,9.400000);
+\draw[cyan,thin] (4.157277,9.200000) -- node[above,black] {} (4.319249,9.200000);
+\draw[cyan,thin] (4.157277,9.000000) -- (4.157277,9.400000);
+\draw[cyan,thin] (4.319249,9.000000) -- (4.319249,9.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (5.543036,9.000000) rectangle node {} (6.388889,9.400000);
+\draw[cyan,thin] (5.327074,9.200000) -- node[above,black] {} (5.543036,9.200000);
+\draw[cyan,thin] (5.327074,9.000000) -- (5.327074,9.400000);
+\draw[cyan,thin] (5.543036,9.000000) -- (5.543036,9.400000);
+\draw[red,thick] (0.000000,9.200000) -- (6.388889,9.200000);
+\draw[red,thick] (6.388889,9.000000) -- (6.388889,9.400000);
+\node[right,black] at (6.388889,9.200000) {\scriptsize 355};
 \draw[red,thick] (0.000000,9.000000) -- (0.000000,9.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (15.459311,1.000000) rectangle node {} (16.845070,1.400000);
-\draw[green,thick] (0.000000,1.200000) -- node[above,black] {\tiny 859} (15.459311,1.200000);
-\draw[green,thick] (0.000000,1.000000) -- (0.000000,1.400000);
-\draw[green,thick] (15.459311,1.000000) -- (15.459311,1.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (16.845070,1.000000) rectangle node {} (17.097027,1.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (17.097027,1.000000) rectangle node {} (17.942879,1.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (18.392801,1.000000) rectangle node {} (19.112676,1.400000);
-\draw[cyan,thin] (17.942879,1.200000) -- node[above,black] {} (18.392801,1.200000);
-\draw[cyan,thin] (17.942879,1.000000) -- (17.942879,1.400000);
-\draw[cyan,thin] (18.392801,1.000000) -- (18.392801,1.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (19.112676,1.000000) rectangle node {} (20.678404,1.400000);
-\draw[red,thick] (0.000000,1.200000) -- (20.678404,1.200000);
-\draw[red,thick] (20.678404,1.000000) -- (20.678404,1.400000);
-\node[right,black] at (20.678404,1.200000) {\scriptsize 1,149};
-\draw[red,thick] (0.000000,1.000000) -- (0.000000,1.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (5.723005,5.500000) rectangle node {} (6.298905,5.900000);
-\draw[green,thick] (0.000000,5.700000) -- node[above,black] {\tiny 318} (5.723005,5.700000);
-\draw[green,thick] (0.000000,5.500000) -- (0.000000,5.900000);
-\draw[green,thick] (5.723005,5.500000) -- (5.723005,5.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.008607,5.500000) rectangle node {} (8.386541,5.900000);
-\draw[cyan,thin] (6.298905,5.700000) -- node[above,black] {\tiny 95} (8.008607,5.700000);
-\draw[cyan,thin] (6.298905,5.500000) -- (6.298905,5.900000);
-\draw[cyan,thin] (8.008607,5.500000) -- (8.008607,5.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (8.386541,5.500000) rectangle node {} (8.854460,5.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (9.502347,5.500000) rectangle node {} (10.474178,5.900000);
-\draw[cyan,thin] (8.854460,5.700000) -- node[above,black] {\tiny 36} (9.502347,5.700000);
-\draw[cyan,thin] (8.854460,5.500000) -- (8.854460,5.900000);
-\draw[cyan,thin] (9.502347,5.500000) -- (9.502347,5.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (10.564163,5.500000) rectangle node {} (11.607981,5.900000);
-\draw[cyan,thin] (10.474178,5.700000) -- node[above,black] {} (10.564163,5.700000);
-\draw[cyan,thin] (10.474178,5.500000) -- (10.474178,5.900000);
-\draw[cyan,thin] (10.564163,5.500000) -- (10.564163,5.900000);
-\draw[red,thick] (0.000000,5.700000) -- (11.607981,5.700000);
-\draw[red,thick] (11.607981,5.500000) -- (11.607981,5.900000);
-\node[right,black] at (11.607981,5.700000) {\scriptsize 645};
-\draw[red,thick] (0.000000,5.500000) -- (0.000000,5.900000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.327856,2.000000) rectangle node {} (13.893584,2.400000);
-\draw[green,thick] (0.000000,2.200000) -- node[above,black] {\tiny 685} (12.327856,2.200000);
-\draw[green,thick] (0.000000,2.000000) -- (0.000000,2.400000);
-\draw[green,thick] (12.327856,2.000000) -- (12.327856,2.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (14.109546,2.000000) rectangle node {} (15.657277,2.400000);
-\draw[cyan,thin] (13.893584,2.200000) -- node[above,black] {} (14.109546,2.200000);
-\draw[cyan,thin] (13.893584,2.000000) -- (13.893584,2.400000);
-\draw[cyan,thin] (14.109546,2.000000) -- (14.109546,2.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (15.657277,2.000000) rectangle node {} (17.007042,2.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (17.007042,2.000000) rectangle node {} (18.392801,2.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (18.698748,2.000000) rectangle node {} (19.022692,2.400000);
-\draw[cyan,thin] (18.392801,2.200000) -- node[above,black] {} (18.698748,2.200000);
-\draw[cyan,thin] (18.392801,2.000000) -- (18.392801,2.400000);
-\draw[cyan,thin] (18.698748,2.000000) -- (18.698748,2.400000);
-\draw[red,thick] (0.000000,2.200000) -- (19.022692,2.200000);
-\draw[red,thick] (19.022692,2.000000) -- (19.022692,2.400000);
-\node[right,black] at (19.022692,2.200000) {\scriptsize 1,057};
-\draw[red,thick] (0.000000,2.000000) -- (0.000000,2.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (10.852113,3.000000) rectangle node {} (12.075900,3.400000);
-\draw[green,thick] (0.000000,3.200000) -- node[above,black] {\tiny 603} (10.852113,3.200000);
-\draw[green,thick] (0.000000,3.000000) -- (0.000000,3.400000);
-\draw[green,thick] (10.852113,3.000000) -- (10.852113,3.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.705790,3.000000) rectangle node {} (12.795775,3.400000);
-\draw[cyan,thin] (12.075900,3.200000) -- node[above,black] {\tiny 35} (12.705790,3.200000);
-\draw[cyan,thin] (12.075900,3.000000) -- (12.075900,3.400000);
-\draw[cyan,thin] (12.705790,3.000000) -- (12.705790,3.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (12.975743,3.000000) rectangle node {} (14.361502,3.400000);
-\draw[cyan,thin] (12.795775,3.200000) -- node[above,black] {} (12.975743,3.200000);
-\draw[cyan,thin] (12.795775,3.000000) -- (12.795775,3.400000);
-\draw[cyan,thin] (12.975743,3.000000) -- (12.975743,3.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (14.631455,3.000000) rectangle node {} (15.549296,3.400000);
-\draw[cyan,thin] (14.361502,3.200000) -- node[above,black] {} (14.631455,3.200000);
-\draw[cyan,thin] (14.361502,3.000000) -- (14.361502,3.400000);
-\draw[cyan,thin] (14.631455,3.000000) -- (14.631455,3.400000);
-\draw[draw=latecolor,fill=stagecolor0!10] (16.593114,3.000000) rectangle node {} (17.816901,3.400000);
-\draw[cyan,thin] (15.549296,3.200000) -- node[above,black] {\tiny 58} (16.593114,3.200000);
-\draw[cyan,thin] (15.549296,3.000000) -- (15.549296,3.400000);
-\draw[cyan,thin] (16.593114,3.000000) -- (16.593114,3.400000);
-\draw[red,thick] (0.000000,3.200000) -- (17.816901,3.200000);
-\draw[red,thick] (17.816901,3.000000) -- (17.816901,3.400000);
-\node[right,black] at (17.816901,3.200000) {\scriptsize 990};
-\draw[red,thick] (0.000000,3.000000) -- (0.000000,3.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (4.625196,5.000000) rectangle node {} (6.010955,5.400000);
+\draw[green,thick] (0.000000,5.200000) -- node[above,black] {\tiny 257} (4.625196,5.200000);
+\draw[green,thick] (0.000000,5.000000) -- (0.000000,5.400000);
+\draw[green,thick] (4.625196,5.000000) -- (4.625196,5.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.054773,5.000000) rectangle node {} (7.306729,5.400000);
+\draw[cyan,thin] (6.010955,5.200000) -- node[above,black] {\tiny 58} (7.054773,5.200000);
+\draw[cyan,thin] (6.010955,5.000000) -- (6.010955,5.400000);
+\draw[cyan,thin] (7.054773,5.000000) -- (7.054773,5.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.342723,5.000000) rectangle node {} (8.188576,5.400000);
+\draw[cyan,thin] (7.306729,5.200000) -- node[above,black] {} (7.342723,5.200000);
+\draw[cyan,thin] (7.306729,5.000000) -- (7.306729,5.400000);
+\draw[cyan,thin] (7.342723,5.000000) -- (7.342723,5.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (8.890454,5.000000) rectangle node {} (9.610329,5.400000);
+\draw[cyan,thin] (8.188576,5.200000) -- node[above,black] {\tiny 39} (8.890454,5.200000);
+\draw[cyan,thin] (8.188576,5.000000) -- (8.188576,5.400000);
+\draw[cyan,thin] (8.890454,5.000000) -- (8.890454,5.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.934272,5.000000) rectangle node {} (11.500000,5.400000);
+\draw[cyan,thin] (9.610329,5.200000) -- node[above,black] {} (9.934272,5.200000);
+\draw[cyan,thin] (9.610329,5.000000) -- (9.610329,5.400000);
+\draw[cyan,thin] (9.934272,5.000000) -- (9.934272,5.400000);
+\draw[red,thick] (0.000000,5.200000) -- (11.500000,5.200000);
+\draw[red,thick] (11.500000,5.000000) -- (11.500000,5.400000);
+\node[right,black] at (11.500000,5.200000) {\scriptsize 639};
+\draw[red,thick] (0.000000,5.000000) -- (0.000000,5.400000);
+\draw[draw=latecolor,fill=stagecolor0!10] (1.223787,7.500000) rectangle node {} (1.799687,7.900000);
+\draw[green,thick] (0.000000,7.700000) -- node[above,black] {\tiny 68} (1.223787,7.700000);
+\draw[green,thick] (0.000000,7.500000) -- (0.000000,7.900000);
+\draw[green,thick] (1.223787,7.500000) -- (1.223787,7.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (1.799687,7.500000) rectangle node {} (2.177621,7.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (2.375587,7.500000) rectangle node {} (2.843505,7.900000);
+\draw[cyan,thin] (2.177621,7.700000) -- node[above,black] {} (2.375587,7.700000);
+\draw[cyan,thin] (2.177621,7.500000) -- (2.177621,7.900000);
+\draw[cyan,thin] (2.375587,7.500000) -- (2.375587,7.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (3.347418,7.500000) rectangle node {} (4.319249,7.900000);
+\draw[cyan,thin] (2.843505,7.700000) -- node[above,black] {\tiny 28} (3.347418,7.700000);
+\draw[cyan,thin] (2.843505,7.500000) -- (2.843505,7.900000);
+\draw[cyan,thin] (3.347418,7.500000) -- (3.347418,7.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (4.499218,7.500000) rectangle node {} (5.543036,7.900000);
+\draw[cyan,thin] (4.319249,7.700000) -- node[above,black] {} (4.499218,7.700000);
+\draw[cyan,thin] (4.319249,7.500000) -- (4.319249,7.900000);
+\draw[cyan,thin] (4.499218,7.500000) -- (4.499218,7.900000);
+\draw[red,thick] (0.000000,7.700000) -- (5.543036,7.700000);
+\draw[red,thick] (5.543036,7.500000) -- (5.543036,7.900000);
+\node[right,black] at (5.543036,7.700000) {\scriptsize 308};
+\draw[red,thick] (0.000000,7.500000) -- (0.000000,7.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (13.911581,1.500000) rectangle node {} (15.477308,1.900000);
+\draw[green,thick] (0.000000,1.700000) -- node[above,black] {\tiny 773} (13.911581,1.700000);
+\draw[green,thick] (0.000000,1.500000) -- (0.000000,1.900000);
+\draw[green,thick] (13.911581,1.500000) -- (13.911581,1.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (15.837246,1.500000) rectangle node {} (17.384977,1.900000);
+\draw[cyan,thin] (15.477308,1.700000) -- node[above,black] {} (15.837246,1.700000);
+\draw[cyan,thin] (15.477308,1.500000) -- (15.477308,1.900000);
+\draw[cyan,thin] (15.837246,1.500000) -- (15.837246,1.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (17.564945,1.500000) rectangle node {} (18.914710,1.900000);
+\draw[cyan,thin] (17.384977,1.700000) -- node[above,black] {} (17.564945,1.700000);
+\draw[cyan,thin] (17.384977,1.500000) -- (17.384977,1.900000);
+\draw[cyan,thin] (17.564945,1.500000) -- (17.564945,1.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (19.256651,1.500000) rectangle node {} (20.642410,1.900000);
+\draw[cyan,thin] (18.914710,1.700000) -- node[above,black] {} (19.256651,1.700000);
+\draw[cyan,thin] (18.914710,1.500000) -- (18.914710,1.900000);
+\draw[cyan,thin] (19.256651,1.500000) -- (19.256651,1.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (20.804382,1.500000) rectangle node {} (21.128326,1.900000);
+\draw[cyan,thin] (20.642410,1.700000) -- node[above,black] {} (20.804382,1.700000);
+\draw[cyan,thin] (20.642410,1.500000) -- (20.642410,1.900000);
+\draw[cyan,thin] (20.804382,1.500000) -- (20.804382,1.900000);
+\draw[red,thick] (0.000000,1.700000) -- (21.128326,1.700000);
+\draw[red,thick] (21.128326,1.500000) -- (21.128326,1.900000);
+\node[right,black] at (21.128326,1.700000) {\scriptsize 1,174};
+\draw[red,thick] (0.000000,1.500000) -- (0.000000,1.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (6.010955,4.500000) rectangle node {} (7.234742,4.900000);
+\draw[green,thick] (0.000000,4.700000) -- node[above,black] {\tiny 334} (6.010955,4.700000);
+\draw[green,thick] (0.000000,4.500000) -- (0.000000,4.900000);
+\draw[green,thick] (6.010955,4.500000) -- (6.010955,4.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (7.306729,4.500000) rectangle node {} (7.396714,4.900000);
+\draw[cyan,thin] (7.234742,4.700000) -- node[above,black] {} (7.306729,4.700000);
+\draw[cyan,thin] (7.234742,4.500000) -- (7.234742,4.900000);
+\draw[cyan,thin] (7.306729,4.500000) -- (7.306729,4.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (8.188576,4.500000) rectangle node {} (9.574335,4.900000);
+\draw[cyan,thin] (7.396714,4.700000) -- node[above,black] {\tiny 44} (8.188576,4.700000);
+\draw[cyan,thin] (7.396714,4.500000) -- (7.396714,4.900000);
+\draw[cyan,thin] (8.188576,4.500000) -- (8.188576,4.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (9.610329,4.500000) rectangle node {} (10.528169,4.900000);
+\draw[cyan,thin] (9.574335,4.700000) -- node[above,black] {} (9.610329,4.700000);
+\draw[cyan,thin] (9.574335,4.500000) -- (9.574335,4.900000);
+\draw[cyan,thin] (9.610329,4.500000) -- (9.610329,4.900000);
+\draw[draw=latecolor,fill=stagecolor0!10] (11.500000,4.500000) rectangle node {} (12.723787,4.900000);
+\draw[cyan,thin] (10.528169,4.700000) -- node[above,black] {\tiny 54} (11.500000,4.700000);
+\draw[cyan,thin] (10.528169,4.500000) -- (10.528169,4.900000);
+\draw[cyan,thin] (11.500000,4.500000) -- (11.500000,4.900000);
+\draw[red,thick] (0.000000,4.700000) -- (12.723787,4.700000);
+\draw[red,thick] (12.723787,4.500000) -- (12.723787,4.900000);
+\node[right,black] at (12.723787,4.700000) {\scriptsize 707};
+\draw[red,thick] (0.000000,4.500000) -- (0.000000,4.900000);
 \draw[draw=latecolor,fill=stagecolor0!10] (16.845070,0.500000) rectangle node {} (18.536776,0.900000);
 \draw[green,thick] (0.000000,0.700000) -- node[above,black] {\tiny 936} (16.845070,0.700000);
 \draw[green,thick] (0.000000,0.500000) -- (0.000000,0.900000);
@@ -883,7 +878,7 @@ Sol2&Optimal&Makespan&1,278&1278.00& 0.00&1,278&15,717&15,717&1,278&\cellcolor{r
 \end{tikzpicture}
 \end{figure}
 \begin{figure}[htbp]
-\caption{Resource Utilization for Solution Sol2}
+\caption{Resource Utilization for Solution Sol4}
 \centering
 \begin{tikzpicture}
 \begin{axis}[xlabel=Resource,ylabel=Utilization,ymin=0,
@@ -909,23 +904,23 @@ symbolic x coords={DR_0,DR_3,DR_1,DR_4,DR_2},
 \begin{axis}[xlabel=Time,ylabel=Earliness/Lateness,,width=23cm,height=13cm,colorbar]
 \addplot+[only marks,,scatter,point meta=explicit] coordinates {
     (126.000000,126.000000) [126.000000]
-    (285.000000,285.000000) [285.000000]
-    (354.000000,354.000000) [354.000000]
-    (426.000000,426.000000) [426.000000]
-    (473.000000,473.000000) [473.000000]
-    (529.000000,529.000000) [529.000000]
-    (587.000000,587.000000) [587.000000]
-    (645.000000,645.000000) [645.000000]
-    (698.000000,698.000000) [698.000000]
-    (784.000000,784.000000) [784.000000]
-    (837.000000,837.000000) [837.000000]
-    (922.000000,922.000000) [922.000000]
-    (990.000000,990.000000) [990.000000]
-    (1039.000000,1039.000000) [1039.000000]
-    (1057.000000,1057.000000) [1057.000000]
-    (1149.000000,1149.000000) [1149.000000]
-    (1162.000000,1162.000000) [1162.000000]
-    (1170.000000,1170.000000) [1170.000000]
+    (250.000000,250.000000) [250.000000]
+    (308.000000,308.000000) [308.000000]
+    (355.000000,355.000000) [355.000000]
+    (422.000000,422.000000) [422.000000]
+    (477.000000,477.000000) [477.000000]
+    (552.000000,552.000000) [552.000000]
+    (639.000000,639.000000) [639.000000]
+    (707.000000,707.000000) [707.000000]
+    (748.000000,748.000000) [748.000000]
+    (801.000000,801.000000) [801.000000]
+    (886.000000,886.000000) [886.000000]
+    (942.000000,942.000000) [942.000000]
+    (985.000000,985.000000) [985.000000]
+    (1038.000000,1038.000000) [1038.000000]
+    (1046.000000,1046.000000) [1046.000000]
+    (1156.000000,1156.000000) [1156.000000]
+    (1174.000000,1174.000000) [1174.000000]
     (1206.000000,1206.000000) [1206.000000]
     (1278.000000,1278.000000) [1278.000000]
 };
