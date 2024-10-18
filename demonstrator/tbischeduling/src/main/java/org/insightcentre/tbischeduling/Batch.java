@@ -41,7 +41,7 @@ public class Batch {
         info("Nr SolverRun "+base.getListSolverRun().size());
         for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()){
             info("Running "+run.getName());
-            new CPOModel(base, run);
+            new CPOModel(base, run).solve();
         }
         new WriteData(base).toFile(new File("exports/"+outputFile),2);
     }

@@ -15,6 +15,7 @@ public class CPOModel extends AbstractModel{
     static int solNr = 1;
     public CPOModel(Scenario base, SolverRun run){
         super(base,run);
+        info("solver object created");
     }
     static class IntervalVarList extends ArrayList<IloIntervalVar> {
         public IloIntervalVar[] toArray() {
@@ -33,8 +34,10 @@ public class CPOModel extends AbstractModel{
     }
 
     public boolean solve(){
+        info("Starting solver");
         long startTime = System.currentTimeMillis();
         base.resetListIntermediateSolution();
+        info("Starting solver");
 
         int horizon = base.getHorizon();
         // tasks
