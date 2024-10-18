@@ -110,7 +110,7 @@ FontStyle italic
   "solution": [{
     "makespan": 163,
     "totalEarliness": 1832,
-    "endDate": "18/10/2024 03:32",
+    "endDate": "18/10/2024 07:47",
     "totalWaitBefore": 0,
     "nrEarly": 1,
     "percentEarly": 100,
@@ -134,7 +134,7 @@ FontStyle italic
     "name": "Sol1",
     "objectiveValue": 163,
     "flowtime": 163,
-    "startDate": "17/10/2024 17:32"
+    "startDate": "17/10/2024 21:47"
   }],
   "taskAssignment": [
     {
@@ -142,26 +142,26 @@ FontStyle italic
       "waitAfter": 0,
       "task": "T0PS0/0",
       "disjunctiveResource": "DR0",
-      "endDate": "17/10/2024 22:32",
+      "endDate": "18/10/2024 02:47",
       "name": "TA0",
       "start": 43,
       "end": 103,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "17/10/2024 17:32"
+      "startDate": "17/10/2024 21:47"
     },
     {
       "duration": 60,
       "waitAfter": 0,
       "task": "T0PS0/1",
       "disjunctiveResource": "DR0",
-      "endDate": "18/10/2024 03:32",
+      "endDate": "18/10/2024 07:47",
       "name": "TA1",
       "start": 103,
       "end": 163,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "17/10/2024 22:32"
+      "startDate": "18/10/2024 02:47"
     }
   ],
   "processSequence": [],
@@ -183,7 +183,7 @@ FontStyle italic
     "enforceCumulative": true,
     "name": "Run1",
     "weightLateness": 1,
-    "time": 0.12,
+    "time": 0.089,
     "produceReport": false,
     "enforceDowntime": true,
     "removeSolution": false,
@@ -194,13 +194,13 @@ FontStyle italic
     "duration": 120,
     "solution": "Sol1",
     "late": 0,
-    "endDate": "18/10/2024 03:32",
+    "endDate": "18/10/2024 07:47",
     "name": "JA0",
     "start": 43,
     "end": 163,
     "job": "J0",
     "early": 1832,
-    "startDate": "17/10/2024 17:32"
+    "startDate": "17/10/2024 21:47"
   }],
   "job": [],
   "order": [],
