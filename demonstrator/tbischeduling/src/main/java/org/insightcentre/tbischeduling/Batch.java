@@ -1,5 +1,6 @@
 package org.insightcentre.tbischeduling;
 
+import framework.types.DateTime;
 import framework.types.IrishCalendar;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.datamodel.SolverRun;
@@ -26,7 +27,9 @@ public class Batch {
         System.out.println("a");
         base.setDataFileVersionNumber(8.0);
         base.setDataFile("");
-        base.setHorizon(2000);
+        base.setHorizon(20000);
+        base.setTimeResolution(5);
+        base.setStartDateTime(new DateTime(2024,10,1,0,0));
 
 //        IrishCalendar.initIrishCalendar();
 //        IrishCalendar.buildCalendar();
