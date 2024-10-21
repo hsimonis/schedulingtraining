@@ -1,0 +1,30 @@
+\documentclass[a4paper]{article}
+\title{Description of Stryker Problem}
+\author{H. Simonis, A. Visentin}
+\begin{document}
+\maketitle
+\section{Summary}
+The problem arises in a factory making medical devices. There are a significant number of products, and the overall aim is to avoid potential supply problems by keeping sufficient stock of all products.
+
+The products are made in lots, the lot size is fixed for each product. The production process consists of a single step, which must be scheduled on a set of disjunctive machines. The production time is the same on any of the possible machines, and is calculated as a product dependent perUnit time multiplied by the lot size plus a fixed cleaning time. There is no preference for a specific machine. 
+
+There are sequence dependent set-up times on each machine, the setup time depends on the two products involved. There is no setup between lots of the same product. The table of setup times can pre-calculated, the times are symmetrical (Products $A\rightarrow B$ is the same as $B\rightarrow A$).
+
+There is Work in Progress of a specific product on each machine, which limits which new lots we can schedule. That work in progress will release a quantity of product at the end of the WiP.
+
+For each product, we maintain a stock level, we know the initial stock, while every day the stock is reduced by a product specific daily demand (at time HH:mm), and every lot produced makes the quantity made available as stock at the end of the production. There is a required minimum safety stock level. A given stock level divided by the daily demand gives the run-out days value, which tells how many days the stocks will last given the daily demand, if we are not making any new lots of that product. We are interested in the stock at the end, and we want to balance the stocks available, i.e. we want to maximize the minimum of the run-out days for all products.
+
+We work for a given planning period, say a week.
+
+For each product, given the initial stock, plus the stock made by the work in progress, minus the daily consumption multiplied by the planning period, we can
+easily determine the number of lots that are needed to keep the safety stock level at the end of the planning period. We can make additional, optional lots that will increase the stock level, if we can find the time and machine to produce them.
+
+In order to maximize throughput, we usually produce all lots of the same product in one consecutive batch, if there are many lots to be made we might split this to run multiple batches on different machines, increasing production rate. This may be required to satisfy the stock levels, if the initial run-out value is very low.
+
+\section{Solution Approach with Scheduling Tool}
+
+As the user-provided data seem to be mostly concerned with stock-levels, I propose a preprocessing steps which creates a series of scheduling satisfiability problems that can be checked with the scheduling tool. We consider a fixed planning horizon, and ask a question how many lots do we need for each product to reach a certain run-out level. We try to solve the scheduling problem where all of the generated lots are scheduled within the planning period, but no additional lots are made. If we find a solution, we know we can reach that run-out level, and indeed, reach a slightly higher level with that set of lots. We can then ask for another, high level, until we either do not find a solution, or we can convince ourselves that there is insufficient capacity. If we can prove that there is not solution, then the aimed-for run-out level can not be achieved. We may search the range between the best known solution and the current run for a slightly lower run-out objective. 
+
+If at some point we simply do not find a solution then we do not know if that value can be achieved. We either spend more time trying to find the solution, or aim for a lower (or more agressively higher) bound to better understand the boundary between feasible and  
+
+\end{document}

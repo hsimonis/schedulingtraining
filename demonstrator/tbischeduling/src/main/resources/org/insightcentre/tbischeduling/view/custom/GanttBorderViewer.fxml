@@ -22,6 +22,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.ColorPicker?>
 <?import com.dlsc.unitfx.IntegerInputField?>
+<?import org.insightcentre.tbischeduling.controller.custom.RowCounter?>
 <Tab text="Gantt Border Viewer" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
      fx:controller="org.insightcentre.tbischeduling.controller.custom.GanttBorderViewerController">
     <BorderPane fx:id="container">
@@ -68,13 +69,13 @@
             <TabPane>
                 <Tab text="Details">
                     <GridPane alignment="center" hgap="10" vgap="10">
-                        <padding>
+                       <padding>
                             <Insets top="10" bottom="10" left="10" right="10"/>
                         </padding>
-                        <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+<children>              <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                         <TextField fx:id="name" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                         <Label text="Machine" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                        <TextField fx:id="machine" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <TextField fx:id="machine" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="$1"/>
                         <Label text="ProcessStep" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                         <TextField fx:id="processStep" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                         <Label text="Start" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
@@ -105,7 +106,7 @@
                         <TextField fx:id="startDate" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
                         <Label text="End Date" GridPane.columnIndex="0" GridPane.rowIndex="16"/>
                         <TextField fx:id="endDate" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="16"/>
-
+</children>
                     </GridPane>
                 </Tab>
                 <Tab text="Colors">

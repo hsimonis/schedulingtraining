@@ -67,6 +67,18 @@ public class ReadData {
             inputError("root","root","version",version,
                     "File version outdated, current version is "+base.getDataFileVersionNumber(),Fatal);
         }
+        if (root.has("timeResolution")){
+            base.setTimeResolution(root.getInt("timeResolution"));
+            info("Setting timeResolution to "+base.getTimeResolution());
+        }
+        if (root.has("horizon")){
+            base.setHorizon(root.getInt("horizon"));
+            info("setting horizon to "+base.getHorizon());
+        }
+        if(root.has("startDate")){
+            base.setStartDateTime(readDateTime(root.getString("startDate")));
+            info("setting date to "+base.getStartDateTime());
+        }
 
         // read the different fields of data, create a hashtable from name to Object
         Hashtable<String, InputError> inputErrorHash = readInputErrors(root);
@@ -548,6 +560,14 @@ public class ReadData {
         } catch(Exception e){
             severe("Cannot parse DateTime from "+string);
             return toDateTime(base,value);
+        }
+    }
+    private DateTime readDateTime(String string){
+        try{
+            return DateTime.parseDateTime(string,dateTimeFormat);
+        } catch(Exception e){
+            severe("Cannot parse DateTime from "+string);
+            return new DateTime(2024,1,1,0,0);
         }
     }
 

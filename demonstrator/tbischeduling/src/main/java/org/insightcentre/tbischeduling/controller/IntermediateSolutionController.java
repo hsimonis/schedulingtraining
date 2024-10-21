@@ -22,7 +22,7 @@ import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.SolverRun;
 
 /**
- * Generated at 19:11:16 on 2024-10-17 */
+ * Generated at 10:13:47 on 2024-10-19 */
 public class IntermediateSolutionController extends Table3Controller {
 	@FXML
 	private TableView<IntermediateSolution> table;
