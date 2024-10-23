@@ -717,6 +717,63 @@ public ResourceZoom getResourceZoom(String attributeName,
         return res;
     }
 
+    public Setup getSetup(String attributeName,
+                               Attributes attributes) {
+        return (Setup) find(getId(attributeName,attributes));
+    }
+
+    public List<Setup> getSetupCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<Setup> res = new ArrayList<Setup>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((Setup) find(id));
+            }
+        }
+        return res;
+    }
+
+    public SetupMatrix getSetupMatrix(String attributeName,
+                               Attributes attributes) {
+        return (SetupMatrix) find(getId(attributeName,attributes));
+    }
+
+    public List<SetupMatrix> getSetupMatrixCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<SetupMatrix> res = new ArrayList<SetupMatrix>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((SetupMatrix) find(id));
+            }
+        }
+        return res;
+    }
+
+    public SetupType getSetupType(String attributeName,
+                               Attributes attributes) {
+        return (SetupType) find(getId(attributeName,attributes));
+    }
+
+    public List<SetupType> getSetupTypeCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<SetupType> res = new ArrayList<SetupType>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((SetupType) find(id));
+            }
+        }
+        return res;
+    }
+
     public Solution getSolution(String attributeName,
                                Attributes attributes) {
         return (Solution) find(getId(attributeName,attributes));
@@ -882,6 +939,12 @@ public ResourceZoom getResourceZoom(String attributeName,
                         getDouble("ganttLineHeight",attributes,0.0),
                         getInteger("ganttLinesPerPage",attributes,0),
                         getInteger("ganttWidth",attributes,0),
+                        getBoolean("hasCumulative",attributes,false),
+                        getBoolean("hasDowntime",attributes,false),
+                        getBoolean("hasDueDate",attributes,false),
+                        getBoolean("hasReleaseDate",attributes,false),
+                        getBoolean("hasSetupTime",attributes,false),
+                        getBoolean("hasWiP",attributes,false),
                         getInteger("horizon",attributes,0),
                         null,
                         getDateTime("startDateTime",attributes,"2011-01-01"),
@@ -1018,6 +1081,7 @@ public ResourceZoom getResourceZoom(String attributeName,
                 store(id, new DisjunctiveResource(base,
                         id,
                         getString("name", attributes, "dummy"),
+                        null,
                         getString("shortName",attributes,"")
                         ));
             } else if (qname.equals("downtime")) {
@@ -1146,6 +1210,8 @@ public ResourceZoom getResourceZoom(String attributeName,
                         getInteger("durationFixed",attributes,0),
                         getInteger("durationPerUnit",attributes,0),
                         null,
+                        null,
+                        getString("shortName",attributes,""),
                         getInteger("stage",attributes,0)
                         ));
             } else if (qname.equals("product")) {
@@ -1175,10 +1241,44 @@ public ResourceZoom getResourceZoom(String attributeName,
                         getInteger("active",attributes,0),
                         null,
                         getInteger("earliest",attributes,0),
+                        getInteger("idle",attributes,0),
+                        getDouble("idlePercent",attributes,0.0),
                         getInteger("latest",attributes,0),
+                        getInteger("setup",attributes,0),
+                        getDouble("setupPercent",attributes,0.0),
                         null,
                         getInteger("use",attributes,0),
                         getDouble("utilization",attributes,0.0)
+                        ));
+            } else if (qname.equals("setup")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new Setup(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getInteger("defaultValue",attributes,0),
+                        null,
+                        getInteger("sameValue",attributes,0)
+                        ));
+            } else if (qname.equals("setupMatrix")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new SetupMatrix(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        null,
+                        null,
+                        getInteger("value",attributes,0)
+                        ));
+            } else if (qname.equals("setupType")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new SetupType(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getInteger("nr",attributes,0),
+                        null,
+                        null
                         ));
             } else if (qname.equals("solution")) {
                 assert (base != null);
@@ -1186,15 +1286,21 @@ public ResourceZoom getResourceZoom(String attributeName,
                 store(id, new Solution(base,
                         id,
                         getString("name", attributes, "dummy"),
+                        getDouble("activeUtilization",attributes,0.0),
                         getDouble("bound",attributes,0.0),
                         getInteger("duration",attributes,0),
                         getInteger("end",attributes,0),
                         getDateTime("endDate",attributes,"2011-01-01"),
                         getInteger("flowtime",attributes,0),
                         getDouble("gap",attributes,0.0),
+                        getDouble("idlePercent",attributes,0.0),
                         getInteger("makespan",attributes,0),
                         getInteger("maxEarliness",attributes,0),
+                        getInteger("maxIdleAfter",attributes,0),
+                        getInteger("maxIdleBefore",attributes,0),
                         getInteger("maxLateness",attributes,0),
+                        getInteger("maxSetupAfter",attributes,0),
+                        getInteger("maxSetupBefore",attributes,0),
                         getInteger("maxWaitAfter",attributes,0),
                         getInteger("maxWaitBefore",attributes,0),
                         getInteger("nrEarly",attributes,0),
@@ -1202,12 +1308,19 @@ public ResourceZoom getResourceZoom(String attributeName,
                         getInteger("objectiveValue",attributes,0),
                         getDouble("percentEarly",attributes,0.0),
                         getDouble("percentLate",attributes,0.0),
+                        getDouble("setupPercent",attributes,0.0),
                         null,
                         null,
                         getInteger("start",attributes,0),
                         getDateTime("startDate",attributes,"2011-01-01"),
+                        getInteger("totalActiveTime",attributes,0),
                         getInteger("totalEarliness",attributes,0),
+                        getInteger("totalIdleAfter",attributes,0),
+                        getInteger("totalIdleBefore",attributes,0),
                         getInteger("totalLateness",attributes,0),
+                        getInteger("totalProductionTime",attributes,0),
+                        getInteger("totalSetupAfter",attributes,0),
+                        getInteger("totalSetupBefore",attributes,0),
                         getInteger("totalWaitAfter",attributes,0),
                         getInteger("totalWaitBefore",attributes,0),
                         getDouble("weightedEarliness",attributes,0.0),
@@ -1238,6 +1351,7 @@ public ResourceZoom getResourceZoom(String attributeName,
                         getBoolean("enforceDowntime",attributes,false),
                         getBoolean("enforceDueDate",attributes,false),
                         getBoolean("enforceReleaseDate",attributes,false),
+                        getBoolean("enforceSetup",attributes,false),
                         getBoolean("enforceWip",attributes,false),
                         getString("label",attributes,""),
                         null,
@@ -1266,6 +1380,7 @@ public ResourceZoom getResourceZoom(String attributeName,
                         getBoolean("enforceDowntime",attributes,false),
                         getBoolean("enforceDueDate",attributes,false),
                         getBoolean("enforceReleaseDate",attributes,false),
+                        getBoolean("enforceSetup",attributes,false),
                         getBoolean("enforceWip",attributes,false),
                         getString("label",attributes,""),
                         null,
@@ -1313,7 +1428,11 @@ public ResourceZoom getResourceZoom(String attributeName,
                         getDateTime("endDate",attributes,"2011-01-01"),
                         getInteger("start",attributes,0),
                         getDateTime("startDate",attributes,"2011-01-01"),
+                        getInteger("idleAfter",attributes,0),
+                        getInteger("idleBefore",attributes,0),
                         null,
+                        getInteger("setupAfter",attributes,0),
+                        getInteger("setupBefore",attributes,0),
                         null,
                         getInteger("waitAfter",attributes,0),
                         getInteger("waitBefore",attributes,0)
@@ -1405,6 +1524,7 @@ public ResourceZoom getResourceZoom(String attributeName,
                 assert (base != null);
                 int id = getId("id", attributes);
                 DisjunctiveResource item = (DisjunctiveResource) find(id);
+                 item.setSetup(getSetup("setup",attributes));
             } else if (qname.equals("downtime")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1458,6 +1578,7 @@ public ResourceZoom getResourceZoom(String attributeName,
                 int id = getId("id", attributes);
                 ProcessStep item = (ProcessStep) find(id);
                  item.setProcess(getProcess("process",attributes));
+                 item.setSetupType(getSetupType("setupType",attributes));
             } else if (qname.equals("product")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1475,6 +1596,23 @@ public ResourceZoom getResourceZoom(String attributeName,
                 ResourceUtilization item = (ResourceUtilization) find(id);
                  item.setDisjunctiveResource(getDisjunctiveResource("disjunctiveResource",attributes));
                  item.setSolution(getSolution("solution",attributes));
+            } else if (qname.equals("setup")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                Setup item = (Setup) find(id);
+                 item.setDisjunctiveResource(getDisjunctiveResourceCollectionFromIds("disjunctiveResource",attributes));
+            } else if (qname.equals("setupMatrix")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                SetupMatrix item = (SetupMatrix) find(id);
+                 item.setFrom(getSetupType("from",attributes));
+                 item.setTo(getSetupType("to",attributes));
+            } else if (qname.equals("setupType")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                SetupType item = (SetupType) find(id);
+                 item.setProcessStep(getProcessStepCollectionFromIds("processStep",attributes));
+                 item.setSetup(getSetup("setup",attributes));
             } else if (qname.equals("solution")) {
                 assert (base != null);
                 int id = getId("id", attributes);

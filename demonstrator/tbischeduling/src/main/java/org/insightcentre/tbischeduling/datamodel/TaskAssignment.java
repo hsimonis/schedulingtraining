@@ -34,6 +34,9 @@ import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.SolutionError;
+import org.insightcentre.tbischeduling.datamodel.Setup;
+import org.insightcentre.tbischeduling.datamodel.SetupType;
+import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -72,7 +75,35 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
  *
 */
 
+    public Integer idleAfter;
+
+/**
+ *  
+ *
+*/
+
+    public Integer idleBefore;
+
+/**
+ *  
+ *
+*/
+
     public JobAssignment jobAssignment;
+
+/**
+ *  
+ *
+*/
+
+    public Integer setupAfter;
+
+/**
+ *  
+ *
+*/
+
+    public Integer setupBefore;
 
 /**
  *  
@@ -114,7 +145,11 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
 
     public TaskAssignment(ApplicationDataset applicationDataset){
         super(applicationDataset);
+        setIdleAfter(0);
+        setIdleBefore(0);
         setJobAssignment(null);
+        setSetupAfter(0);
+        setSetupBefore(0);
         setTask(null);
         setWaitAfter(0);
         setWaitBefore(0);
@@ -137,7 +172,11 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
             DateTime endDate,
             Integer start,
             DateTime startDate,
+            Integer idleAfter,
+            Integer idleBefore,
             JobAssignment jobAssignment,
+            Integer setupAfter,
+            Integer setupBefore,
             Task task,
             Integer waitAfter,
             Integer waitBefore){
@@ -150,7 +189,11 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
             endDate,
             start,
             startDate);
+        setIdleAfter(idleAfter);
+        setIdleBefore(idleBefore);
         setJobAssignment(jobAssignment);
+        setSetupAfter(setupAfter);
+        setSetupBefore(setupBefore);
         setTask(task);
         setWaitAfter(waitAfter);
         setWaitBefore(waitBefore);
@@ -167,7 +210,11 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
             other.endDate,
             other.start,
             other.startDate,
+            other.idleAfter,
+            other.idleBefore,
             other.jobAssignment,
+            other.setupAfter,
+            other.setupBefore,
             other.task,
             other.waitAfter,
             other.waitBefore);
@@ -185,6 +232,26 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
     }
 
 /**
+ *  get attribute idleAfter
+ *
+ * @return Integer
+*/
+
+    public Integer getIdleAfter(){
+        return this.idleAfter;
+    }
+
+/**
+ *  get attribute idleBefore
+ *
+ * @return Integer
+*/
+
+    public Integer getIdleBefore(){
+        return this.idleBefore;
+    }
+
+/**
  *  get attribute jobAssignment
  *
  * @return JobAssignment
@@ -192,6 +259,26 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
 
     public JobAssignment getJobAssignment(){
         return this.jobAssignment;
+    }
+
+/**
+ *  get attribute setupAfter
+ *
+ * @return Integer
+*/
+
+    public Integer getSetupAfter(){
+        return this.setupAfter;
+    }
+
+/**
+ *  get attribute setupBefore
+ *
+ * @return Integer
+*/
+
+    public Integer getSetupBefore(){
+        return this.setupBefore;
     }
 
 /**
@@ -225,6 +312,30 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
     }
 
 /**
+ *  set attribute idleAfter, mark dataset as dirty, mark dataset as not valid
+@param idleAfter Integer
+ *
+*/
+
+    public void setIdleAfter(Integer idleAfter){
+        this.idleAfter = idleAfter;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute idleBefore, mark dataset as dirty, mark dataset as not valid
+@param idleBefore Integer
+ *
+*/
+
+    public void setIdleBefore(Integer idleBefore){
+        this.idleBefore = idleBefore;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute jobAssignment, mark dataset as dirty, mark dataset as not valid
 @param jobAssignment JobAssignment
  *
@@ -232,6 +343,30 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
 
     public void setJobAssignment(JobAssignment jobAssignment){
         this.jobAssignment = jobAssignment;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute setupAfter, mark dataset as dirty, mark dataset as not valid
+@param setupAfter Integer
+ *
+*/
+
+    public void setSetupAfter(Integer setupAfter){
+        this.setupAfter = setupAfter;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute setupBefore, mark dataset as dirty, mark dataset as not valid
+@param setupBefore Integer
+ *
+*/
+
+    public void setSetupBefore(Integer setupBefore){
+        this.setupBefore = setupBefore;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -268,6 +403,50 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
 
     public void setWaitBefore(Integer waitBefore){
         this.waitBefore = waitBefore;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute idleAfter, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incIdleAfter(){
+        this.idleAfter++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute idleBefore, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incIdleBefore(){
+        this.idleBefore++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute setupAfter, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incSetupAfter(){
+        this.setupAfter++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute setupBefore, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incSetupBefore(){
+        this.setupBefore++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -311,7 +490,7 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getStart()+ " " +getStartDate()+ " " +getJobAssignment().toColumnString()+ " " +getTask().toColumnString()+ " " +getWaitAfter()+ " " +getWaitBefore();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getStart()+ " " +getStartDate()+ " " +getIdleAfter()+ " " +getIdleBefore()+ " " +getJobAssignment().toColumnString()+ " " +getSetupAfter()+ " " +getSetupBefore()+ " " +getTask().toColumnString()+ " " +getWaitAfter()+ " " +getWaitBefore();
     }
 
 /**
@@ -341,7 +520,11 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
             " endDate=\""+toXMLEndDate()+"\""+
             " start=\""+toXMLStart()+"\""+
             " startDate=\""+toXMLStartDate()+"\""+
+            " idleAfter=\""+toXMLIdleAfter()+"\""+
+            " idleBefore=\""+toXMLIdleBefore()+"\""+
             " jobAssignment=\""+toXMLJobAssignment()+"\""+
+            " setupAfter=\""+toXMLSetupAfter()+"\""+
+            " setupBefore=\""+toXMLSetupBefore()+"\""+
             " task=\""+toXMLTask()+"\""+
             " waitAfter=\""+toXMLWaitAfter()+"\""+
             " waitBefore=\""+toXMLWaitBefore()+"\""+" />");
@@ -353,8 +536,48 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
  * @return String
 */
 
+    String toXMLIdleAfter(){
+        return this.getIdleAfter().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLIdleBefore(){
+        return this.getIdleBefore().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLJobAssignment(){
         return "ID_"+this.getJobAssignment().getId().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLSetupAfter(){
+        return this.getSetupAfter().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLSetupBefore(){
+        return this.getSetupBefore().toString();
     }
 
 /**
@@ -394,11 +617,11 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>TaskAssignment</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"<th>Task</th>"+"<th>JobAssignment</th>"+"<th>WaitBefore</th>"+"<th>WaitAfter</th>"+"</tr>";
+        return "<tr><th>TaskAssignment</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"<th>Task</th>"+"<th>JobAssignment</th>"+"<th>WaitBefore</th>"+"<th>WaitAfter</th>"+"<th>IdleBefore</th>"+"<th>IdleAfter</th>"+"<th>SetupBefore</th>"+"<th>SetupAfter</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+ " " +"<td>"+getTask().toColumnString()+"</td>"+ " " +"<td>"+getJobAssignment().toColumnString()+"</td>"+ " " +"<td>"+getWaitBefore()+"</td>"+ " " +"<td>"+getWaitAfter()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+ " " +"<td>"+getTask().toColumnString()+"</td>"+ " " +"<td>"+getJobAssignment().toColumnString()+"</td>"+ " " +"<td>"+getWaitBefore()+"</td>"+ " " +"<td>"+getWaitAfter()+"</td>"+ " " +"<td>"+getIdleBefore()+"</td>"+ " " +"<td>"+getIdleAfter()+"</td>"+ " " +"<td>"+getSetupBefore()+"</td>"+ " " +"<td>"+getSetupAfter()+"</td>"+"</tr>";
     }
 
 /**
@@ -527,11 +750,23 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
       if(!this.getEndDate().applicationEqual(b.getEndDate())){
          System.out.println("EndDate");
         }
+      if(!this.getIdleAfter().equals(b.getIdleAfter())){
+         System.out.println("IdleAfter");
+        }
+      if(!this.getIdleBefore().equals(b.getIdleBefore())){
+         System.out.println("IdleBefore");
+        }
       if(!this.getJobAssignment().applicationSame(b.getJobAssignment())){
          System.out.println("JobAssignment");
         }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
+        }
+      if(!this.getSetupAfter().equals(b.getSetupAfter())){
+         System.out.println("SetupAfter");
+        }
+      if(!this.getSetupBefore().equals(b.getSetupBefore())){
+         System.out.println("SetupBefore");
         }
       if(!this.getStart().equals(b.getStart())){
          System.out.println("Start");
@@ -552,8 +787,12 @@ public  class TaskAssignment extends ResourceActivity implements SolutionHierarc
           this.getDuration().equals(b.getDuration()) &&
           this.getEnd().equals(b.getEnd()) &&
           this.getEndDate().applicationEqual(b.getEndDate()) &&
+          this.getIdleAfter().equals(b.getIdleAfter()) &&
+          this.getIdleBefore().equals(b.getIdleBefore()) &&
           this.getJobAssignment().applicationSame(b.getJobAssignment()) &&
           this.getName().equals(b.getName()) &&
+          this.getSetupAfter().equals(b.getSetupAfter()) &&
+          this.getSetupBefore().equals(b.getSetupBefore()) &&
           this.getStart().equals(b.getStart()) &&
           this.getStartDate().applicationEqual(b.getStartDate()) &&
           this.getTask().applicationSame(b.getTask()) &&

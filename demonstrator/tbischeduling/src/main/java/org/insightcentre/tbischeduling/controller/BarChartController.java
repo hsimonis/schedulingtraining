@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:05 on 2024-10-22 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -232,6 +232,19 @@ public class BarChartController extends ChartController {
 		attributeNames.add("totalWaitAfter");
 		attributeNames.add("maxWaitBefore");
 		attributeNames.add("maxWaitAfter");
+		attributeNames.add("totalIdleBefore");
+		attributeNames.add("totalIdleAfter");
+		attributeNames.add("maxIdleBefore");
+		attributeNames.add("maxIdleAfter");
+		attributeNames.add("totalSetupBefore");
+		attributeNames.add("totalSetupAfter");
+		attributeNames.add("maxSetupBefore");
+		attributeNames.add("maxSetupAfter");
+		attributeNames.add("totalActiveTime");
+		attributeNames.add("totalProductionTime");
+		attributeNames.add("activeUtilization");
+		attributeNames.add("setupPercent");
+		attributeNames.add("idlePercent");
 		attributeNames.add("solverRun.weightMakespan");
 		attributeNames.add("solverRun.weightFlowtime");
 		attributeNames.add("solverRun.weightEarliness");
@@ -257,6 +270,10 @@ public class BarChartController extends ChartController {
 		attributeNames.add("end");
 		attributeNames.add("waitBefore");
 		attributeNames.add("waitAfter");
+		attributeNames.add("idleBefore");
+		attributeNames.add("idleAfter");
+		attributeNames.add("setupBefore");
+		attributeNames.add("setupAfter");
 		attributeNames.add("task.job.order.release");
 		attributeNames.add("task.job.order.due");
 		attributeNames.add("task.job.order.qty");
@@ -268,7 +285,11 @@ public class BarChartController extends ChartController {
 		attributeNames.add("latest");
 		attributeNames.add("active");
 		attributeNames.add("use");
+		attributeNames.add("setup");
+		attributeNames.add("idle");
 		attributeNames.add("utilization");
+		attributeNames.add("setupPercent");
+		attributeNames.add("idlePercent");
 		choicesMap.put("ResourceUtilization", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("nr");
@@ -277,6 +298,16 @@ public class BarChartController extends ChartController {
 		attributeNames.add("time");
 		attributeNames.add("gapPercent");
 		choicesMap.put("IntermediateSolution", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("defaultValue");
+		attributeNames.add("sameValue");
+		choicesMap.put("Setup", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("nr");
+		choicesMap.put("SetupType", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("value");
+		choicesMap.put("SetupMatrix", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
@@ -388,6 +419,15 @@ public class BarChartController extends ChartController {
 			}
 			else if (className.equals("SolutionError")) {
 				objectList = mainApp.getSolutionErrorData();
+			}
+			else if (className.equals("Setup")) {
+				objectList = mainApp.getSetupData();
+			}
+			else if (className.equals("SetupType")) {
+				objectList = mainApp.getSetupTypeData();
+			}
+			else if (className.equals("SetupMatrix")) {
+				objectList = mainApp.getSetupMatrixData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 10:13:47 on 2024-10-19-->
+<!--Generated at 22:14:06 on 2024-10-22-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -103,6 +103,13 @@
                         <MenuItem id="cumulativeProfilePage" onAction="#handle" text="CumulativeProfile" />
                      </items>
                   </Menu>
+                  <Menu text="_Setup">
+                     <items>
+                        <MenuItem id="setupPage" onAction="#handle" text="Setup" />
+                        <MenuItem id="setupTypePage" onAction="#handle" text="SetupType" />
+                        <MenuItem id="setupMatrixPage" onAction="#handle" text="SetupMatrix" />
+                     </items>
+                  </Menu>
                   <Menu text="_Schedule">
                      <items>
                         <MenuItem id="orderPage" onAction="#handle" text="Order" />
@@ -142,8 +149,8 @@
                         <MenuItem id="solverPropertyPage" onAction="#handle" text="SolverProperty" />
                      </items>
                   </Menu>
-                  <SeparatorMenuItem />
                   <MenuItem id="scenarioPage" onAction="#handle" text="Scenario" />
+                  <SeparatorMenuItem />
                   <Menu text="_Others">
                      <items>
                         <MenuItem id="abstractSolverPropertyPage" onAction="#handle" text="AbstractSolverProperty" />

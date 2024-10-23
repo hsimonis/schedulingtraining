@@ -34,6 +34,9 @@ import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.SolutionError;
+import org.insightcentre.tbischeduling.datamodel.Setup;
+import org.insightcentre.tbischeduling.datamodel.SetupType;
+import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -109,6 +112,15 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
     public Boolean enforceReleaseDate;
 
     private transient BooleanProperty enforceReleaseDateWrapper;
+
+/**
+ *  
+ *
+*/
+
+    public Boolean enforceSetup;
+
+    private transient BooleanProperty enforceSetupWrapper;
 
 /**
  *  
@@ -254,6 +266,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
         setEnforceDowntime(true);
         setEnforceDueDate(false);
         setEnforceReleaseDate(true);
+        setEnforceSetup(false);
         setEnforceWip(true);
         setLabel("");
         setModelType(ModelType.CPO);
@@ -288,6 +301,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
             Boolean enforceDowntime,
             Boolean enforceDueDate,
             Boolean enforceReleaseDate,
+            Boolean enforceSetup,
             Boolean enforceWip,
             String label,
             ModelType modelType,
@@ -312,6 +326,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
         setEnforceDowntime(enforceDowntime);
         setEnforceDueDate(enforceDueDate);
         setEnforceReleaseDate(enforceReleaseDate);
+        setEnforceSetup(enforceSetup);
         setEnforceWip(enforceWip);
         setLabel(label);
         setModelType(modelType);
@@ -340,6 +355,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
             other.enforceDowntime,
             other.enforceDueDate,
             other.enforceReleaseDate,
+            other.enforceSetup,
             other.enforceWip,
             other.label,
             other.modelType,
@@ -449,6 +465,24 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
         }
         enforceReleaseDateWrapper.set(enforceReleaseDate);
         return enforceReleaseDateWrapper;
+    }
+
+/**
+ *  get attribute enforceSetup
+ *
+ * @return Boolean
+*/
+
+    public Boolean getEnforceSetup(){
+        return this.enforceSetup;
+    }
+
+    public BooleanProperty enforceSetupWrapperProperty() {
+        if (enforceSetupWrapper == null) {
+            enforceSetupWrapper = new SimpleBooleanProperty();
+        }
+        enforceSetupWrapper.set(enforceSetup);
+        return enforceSetupWrapper;
     }
 
 /**
@@ -699,6 +733,18 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 
     public void setEnforceReleaseDate(Boolean enforceReleaseDate){
         this.enforceReleaseDate = enforceReleaseDate;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute enforceSetup, mark dataset as dirty, mark dataset as not valid
+@param enforceSetup Boolean
+ *
+*/
+
+    public void setEnforceSetup(Boolean enforceSetup){
+        this.enforceSetup = enforceSetup;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -989,7 +1035,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getStartDateTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceSetup()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getStartDateTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan();
     }
 
 /**
@@ -1018,6 +1064,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
             " enforceDowntime=\""+toXMLEnforceDowntime()+"\""+
             " enforceDueDate=\""+toXMLEnforceDueDate()+"\""+
             " enforceReleaseDate=\""+toXMLEnforceReleaseDate()+"\""+
+            " enforceSetup=\""+toXMLEnforceSetup()+"\""+
             " enforceWip=\""+toXMLEnforceWip()+"\""+
             " label=\""+toXMLLabel()+"\""+
             " modelType=\""+toXMLModelType()+"\""+
@@ -1084,6 +1131,16 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 
     String toXMLEnforceReleaseDate(){
         return this.getEnforceReleaseDate().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLEnforceSetup(){
+        return this.getEnforceSetup().toString();
     }
 
 /**
@@ -1355,6 +1412,9 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
       if(!this.getEnforceReleaseDate().equals(b.getEnforceReleaseDate())){
          System.out.println("EnforceReleaseDate");
         }
+      if(!this.getEnforceSetup().equals(b.getEnforceSetup())){
+         System.out.println("EnforceSetup");
+        }
       if(!this.getEnforceWip().equals(b.getEnforceWip())){
          System.out.println("EnforceWip");
         }
@@ -1411,6 +1471,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
           this.getEnforceDowntime().equals(b.getEnforceDowntime()) &&
           this.getEnforceDueDate().equals(b.getEnforceDueDate()) &&
           this.getEnforceReleaseDate().equals(b.getEnforceReleaseDate()) &&
+          this.getEnforceSetup().equals(b.getEnforceSetup()) &&
           this.getEnforceWip().equals(b.getEnforceWip()) &&
           this.getLabel().equals(b.getLabel()) &&
           this.getModelType().equals(b.getModelType()) &&

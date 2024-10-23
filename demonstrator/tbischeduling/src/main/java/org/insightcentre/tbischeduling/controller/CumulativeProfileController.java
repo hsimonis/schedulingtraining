@@ -23,7 +23,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:05 on 2024-10-22 */
 public class CumulativeProfileController extends Table3Controller {
 	@FXML
 	private TableView<CumulativeProfile> table;

@@ -47,6 +47,9 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include ResourceNeed.uml
 !include ResourceUtilization.uml
 !include Scenario.uml
+!include Setup.uml
+!include SetupMatrix.uml
+!include SetupType.uml
 !include Solution.uml
 !include SolutionError.uml
 !include SolverProperty.uml
@@ -87,8 +90,10 @@ SolverProperty  *-- Scenario
 DataGeneratorProperty  *-- Scenario 
 Process  *-- Product : defaultProcess
 Process  *-- ProcessStep 
+SetupType "0..1" *-- ProcessStep 
 ProcessStep  *-- ProcessSequence : before
 ProcessStep  *-- ProcessSequence : after
+Setup "0..1" *-- DisjunctiveResource 
 DisjunctiveResource  *-- ResourceNeed 
 ProcessStep  *-- ResourceNeed 
 CumulativeResource  *-- CumulativeNeed 
@@ -113,6 +118,11 @@ DisjunctiveResource  *-- ResourceUtilization
 Solution  *-- ResourceUtilization 
 SolverRun  *-- IntermediateSolution 
 Solution  *-- SolutionError 
+DisjunctiveResource "1..*" *-- Setup 
+Setup  *-- SetupType 
+ProcessStep "0..*" *-- SetupType 
+SetupType  *-- SetupMatrix : from
+SetupType  *-- SetupMatrix : to
 header
 Datamodel of Application tbischeduling
 endheader

@@ -34,6 +34,9 @@ import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.SolutionError;
+import org.insightcentre.tbischeduling.datamodel.Setup;
+import org.insightcentre.tbischeduling.datamodel.SetupType;
+import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -66,7 +69,7 @@ import framework.AppearInCollection;
  * @author generated
 */
 
-public  class ProcessStep extends ApplicationObject{
+public  class ProcessStep extends ApplicationObject implements AppearInCollection{
 /**
  *  
  *
@@ -87,6 +90,20 @@ public  class ProcessStep extends ApplicationObject{
 */
 
     public Process process;
+
+/**
+ *  
+ *
+*/
+
+    public SetupType setupType;
+
+/**
+ *  
+ *
+*/
+
+    public String shortName;
 
 /**
  *  
@@ -117,6 +134,8 @@ public  class ProcessStep extends ApplicationObject{
         setDurationFixed(0);
         setDurationPerUnit(0);
         setProcess(null);
+        setSetupType(null);
+        setShortName("");
         setStage(0);
         applicationDataset.addProcessStep(this);
     }
@@ -134,6 +153,8 @@ public  class ProcessStep extends ApplicationObject{
             Integer durationFixed,
             Integer durationPerUnit,
             Process process,
+            SetupType setupType,
+            String shortName,
             Integer stage){
         super(applicationDataset,
             id,
@@ -141,6 +162,8 @@ public  class ProcessStep extends ApplicationObject{
         setDurationFixed(durationFixed);
         setDurationPerUnit(durationPerUnit);
         setProcess(process);
+        setSetupType(setupType);
+        setShortName(shortName);
         setStage(stage);
         applicationDataset.addProcessStep(this);
     }
@@ -152,6 +175,8 @@ public  class ProcessStep extends ApplicationObject{
             other.durationFixed,
             other.durationPerUnit,
             other.process,
+            other.setupType,
+            other.shortName,
             other.stage);
     }
 
@@ -168,7 +193,21 @@ public  class ProcessStep extends ApplicationObject{
         getApplicationDataset().cascadeResourceNeedProcessStep(this);
         getApplicationDataset().cascadeCumulativeNeedProcessStep(this);
         getApplicationDataset().cascadeTaskProcessStep(this);
+        getApplicationDataset().cascadeSetupTypeProcessStep(this);
         return getApplicationDataset().removeProcessStep(this) && getApplicationDataset().removeApplicationObject(this);
+    }
+
+/**
+ *  (varargs) build list of items of type ProcessStep
+ *
+ * @param pList multiple items of type ProcessStep
+ * @return List<ProcessStep>
+*/
+
+    static public List<ProcessStep> buildList(ProcessStep... pList){
+        List<ProcessStep> l = new ArrayList<ProcessStep>();
+        l.addAll(Arrays.asList(pList));
+        return l;
     }
 
 /**
@@ -199,6 +238,26 @@ public  class ProcessStep extends ApplicationObject{
 
     public Process getProcess(){
         return this.process;
+    }
+
+/**
+ *  get attribute setupType
+ *
+ * @return SetupType
+*/
+
+    public SetupType getSetupType(){
+        return this.setupType;
+    }
+
+/**
+ *  get attribute shortName
+ *
+ * @return String
+*/
+
+    public String getShortName(){
+        return this.shortName;
     }
 
 /**
@@ -243,6 +302,30 @@ public  class ProcessStep extends ApplicationObject{
 
     public void setProcess(Process process){
         this.process = process;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute setupType, mark dataset as dirty, mark dataset as not valid
+@param setupType SetupType
+ *
+*/
+
+    public void setSetupType(SetupType setupType){
+        this.setupType = setupType;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute shortName, mark dataset as dirty, mark dataset as not valid
+@param shortName String
+ *
+*/
+
+    public void setShortName(String shortName){
+        this.shortName = shortName;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -309,7 +392,7 @@ public  class ProcessStep extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDurationFixed()+ " " +getDurationPerUnit()+ " " +getProcess().toColumnString()+ " " +getStage();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDurationFixed()+ " " +getDurationPerUnit()+ " " +getProcess().toColumnString()+ " " +(getSetupType() == null ? "" : getSetupType().toColumnString())+ " " +getShortName()+ " " +getStage();
     }
 
 /**
@@ -336,6 +419,8 @@ public  class ProcessStep extends ApplicationObject{
             " durationFixed=\""+toXMLDurationFixed()+"\""+
             " durationPerUnit=\""+toXMLDurationPerUnit()+"\""+
             " process=\""+toXMLProcess()+"\""+
+            " setupType=\""+toXMLSetupType()+"\""+
+            " shortName=\""+toXMLShortName()+"\""+
             " stage=\""+toXMLStage()+"\""+" />");
      }
 
@@ -375,6 +460,29 @@ public  class ProcessStep extends ApplicationObject{
  * @return String
 */
 
+    String toXMLSetupType(){
+        if (getSetupType() == null){
+             return "";
+        }
+        return "ID_"+this.getSetupType().getId().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLShortName(){
+        return this.safeXML(getShortName());
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLStage(){
         return this.getStage().toString();
     }
@@ -386,11 +494,11 @@ public  class ProcessStep extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>ProcessStep</th>"+"<th>Name</th>"+"<th>Process</th>"+"<th>Stage</th>"+"<th>DurationFixed</th>"+"<th>DurationPerUnit</th>"+"</tr>";
+        return "<tr><th>ProcessStep</th>"+"<th>Name</th>"+"<th>ShortName</th>"+"<th>Process</th>"+"<th>Stage</th>"+"<th>DurationFixed</th>"+"<th>DurationPerUnit</th>"+"<th>SetupType</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getStage()+"</td>"+ " " +"<td>"+getDurationFixed()+"</td>"+ " " +"<td>"+getDurationPerUnit()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getShortName()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getStage()+"</td>"+ " " +"<td>"+getDurationFixed()+"</td>"+ " " +"<td>"+getDurationPerUnit()+"</td>"+ " " +"<td>"+(getSetupType() == null ? "" : getSetupType().toColumnString())+"</td>"+"</tr>";
     }
 
 /**
@@ -519,6 +627,12 @@ public  class ProcessStep extends ApplicationObject{
       if(!this.getProcess().applicationSame(b.getProcess())){
          System.out.println("Process");
         }
+      if(!(getSetupType() == null ? b.getSetupType() == null:this.getSetupType().applicationSame(b.getSetupType()))){
+         System.out.println("SetupType");
+        }
+      if(!this.getShortName().equals(b.getShortName())){
+         System.out.println("ShortName");
+        }
       if(!this.getStage().equals(b.getStage())){
          System.out.println("Stage");
         }
@@ -526,6 +640,8 @@ public  class ProcessStep extends ApplicationObject{
           this.getDurationPerUnit().equals(b.getDurationPerUnit()) &&
           this.getName().equals(b.getName()) &&
           this.getProcess().applicationSame(b.getProcess()) &&
+          (this.getSetupType() == null ? b.getSetupType() == null : this.getSetupType().applicationSame(b.getSetupType())) &&
+          this.getShortName().equals(b.getShortName()) &&
           this.getStage().equals(b.getStage());
     }
 
@@ -559,6 +675,9 @@ public  class ProcessStep extends ApplicationObject{
    public List<ApplicationObjectInterface> getFeasibleValues(ApplicationDatasetInterface base,String attrName){
       if (attrName.equals("process")){
          return (List) ((Scenario)base).getListProcess();
+      }
+      if (attrName.equals("setupType")){
+         return (List) ((Scenario)base).getListSetupType();
       }
       return null;
    }

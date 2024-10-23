@@ -25,6 +25,9 @@
 				<xs:element ref="resourceNeed" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="resourceUtilization" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="scenario" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="setup" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="setupMatrix" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="setupType" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="solution" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="solutionError" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="solverProperty" minOccurs="0" maxOccurs="unbounded"/>
@@ -165,6 +168,7 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="setup" use="required" type="xs:IDREF"/>
 			<xs:attribute name="shortName" use="required" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
@@ -293,6 +297,8 @@
 			<xs:attribute name="durationFixed" use="required" type="xs:integer"/>
 			<xs:attribute name="durationPerUnit" use="required" type="xs:integer"/>
 			<xs:attribute name="process" use="required" type="xs:IDREF"/>
+			<xs:attribute name="setupType" use="required" type="xs:IDREF"/>
+			<xs:attribute name="shortName" use="required" type="xs:string"/>
 			<xs:attribute name="stage" use="required" type="xs:integer"/>
 		</xs:complexType>
 	</xs:element>
@@ -322,7 +328,11 @@
 			<xs:attribute name="active" use="required" type="xs:integer"/>
 			<xs:attribute name="disjunctiveResource" use="required" type="xs:IDREF"/>
 			<xs:attribute name="earliest" use="required" type="xs:integer"/>
+			<xs:attribute name="idle" use="required" type="xs:integer"/>
+			<xs:attribute name="idlePercent" use="required" type="xs:double"/>
 			<xs:attribute name="latest" use="required" type="xs:integer"/>
+			<xs:attribute name="setup" use="required" type="xs:integer"/>
+			<xs:attribute name="setupPercent" use="required" type="xs:double"/>
 			<xs:attribute name="solution" use="required" type="xs:IDREF"/>
 			<xs:attribute name="use" use="required" type="xs:integer"/>
 			<xs:attribute name="utilization" use="required" type="xs:double"/>
@@ -340,10 +350,46 @@
 			<xs:attribute name="ganttLineHeight" use="required" type="xs:double"/>
 			<xs:attribute name="ganttLinesPerPage" use="required" type="xs:integer"/>
 			<xs:attribute name="ganttWidth" use="required" type="xs:integer"/>
+			<xs:attribute name="hasCumulative" use="required" type="xs:boolean"/>
+			<xs:attribute name="hasDowntime" use="required" type="xs:boolean"/>
+			<xs:attribute name="hasDueDate" use="required" type="xs:boolean"/>
+			<xs:attribute name="hasReleaseDate" use="required" type="xs:boolean"/>
+			<xs:attribute name="hasSetupTime" use="required" type="xs:boolean"/>
+			<xs:attribute name="hasWiP" use="required" type="xs:boolean"/>
 			<xs:attribute name="horizon" use="required" type="xs:integer"/>
 			<xs:attribute name="solverProperty" use="required" type="xs:IDREF"/>
 			<xs:attribute name="startDateTime" use="required" type="xs:dateTime"/>
 			<xs:attribute name="timeResolution" use="required" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="setup">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="defaultValue" use="required" type="xs:integer"/>
+			<xs:attribute name="disjunctiveResource" use="required" type="xs:IDREFS"/>
+			<xs:attribute name="sameValue" use="required" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="setupMatrix">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="from" use="required" type="xs:IDREF"/>
+			<xs:attribute name="to" use="required" type="xs:IDREF"/>
+			<xs:attribute name="value" use="required" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="setupType">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="nr" use="required" type="xs:integer"/>
+			<xs:attribute name="processStep" use="required" type="xs:IDREFS"/>
+			<xs:attribute name="setup" use="required" type="xs:IDREF"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="solution">
@@ -351,15 +397,21 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="activeUtilization" use="required" type="xs:double"/>
 			<xs:attribute name="bound" use="required" type="xs:double"/>
 			<xs:attribute name="duration" use="required" type="xs:integer"/>
 			<xs:attribute name="end" use="required" type="xs:integer"/>
 			<xs:attribute name="endDate" use="required" type="xs:dateTime"/>
 			<xs:attribute name="flowtime" use="required" type="xs:integer"/>
 			<xs:attribute name="gap" use="required" type="xs:double"/>
+			<xs:attribute name="idlePercent" use="required" type="xs:double"/>
 			<xs:attribute name="makespan" use="required" type="xs:integer"/>
 			<xs:attribute name="maxEarliness" use="required" type="xs:integer"/>
+			<xs:attribute name="maxIdleAfter" use="required" type="xs:integer"/>
+			<xs:attribute name="maxIdleBefore" use="required" type="xs:integer"/>
 			<xs:attribute name="maxLateness" use="required" type="xs:integer"/>
+			<xs:attribute name="maxSetupAfter" use="required" type="xs:integer"/>
+			<xs:attribute name="maxSetupBefore" use="required" type="xs:integer"/>
 			<xs:attribute name="maxWaitAfter" use="required" type="xs:integer"/>
 			<xs:attribute name="maxWaitBefore" use="required" type="xs:integer"/>
 			<xs:attribute name="nrEarly" use="required" type="xs:integer"/>
@@ -367,12 +419,19 @@
 			<xs:attribute name="objectiveValue" use="required" type="xs:integer"/>
 			<xs:attribute name="percentEarly" use="required" type="xs:double"/>
 			<xs:attribute name="percentLate" use="required" type="xs:double"/>
+			<xs:attribute name="setupPercent" use="required" type="xs:double"/>
 			<xs:attribute name="solverRun" use="required" type="xs:IDREF"/>
 			<xs:attribute name="solverStatus" use="required" type="xs:string"/>
 			<xs:attribute name="start" use="required" type="xs:integer"/>
 			<xs:attribute name="startDate" use="required" type="xs:dateTime"/>
+			<xs:attribute name="totalActiveTime" use="required" type="xs:integer"/>
 			<xs:attribute name="totalEarliness" use="required" type="xs:integer"/>
+			<xs:attribute name="totalIdleAfter" use="required" type="xs:integer"/>
+			<xs:attribute name="totalIdleBefore" use="required" type="xs:integer"/>
 			<xs:attribute name="totalLateness" use="required" type="xs:integer"/>
+			<xs:attribute name="totalProductionTime" use="required" type="xs:integer"/>
+			<xs:attribute name="totalSetupAfter" use="required" type="xs:integer"/>
+			<xs:attribute name="totalSetupBefore" use="required" type="xs:integer"/>
 			<xs:attribute name="totalWaitAfter" use="required" type="xs:integer"/>
 			<xs:attribute name="totalWaitBefore" use="required" type="xs:integer"/>
 			<xs:attribute name="weightedEarliness" use="required" type="xs:double"/>
@@ -403,6 +462,7 @@
 			<xs:attribute name="enforceDowntime" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceDueDate" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceReleaseDate" use="required" type="xs:boolean"/>
+			<xs:attribute name="enforceSetup" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceWip" use="required" type="xs:boolean"/>
 			<xs:attribute name="label" use="required" type="xs:string"/>
 			<xs:attribute name="modelType" use="required" type="xs:string"/>
@@ -431,6 +491,7 @@
 			<xs:attribute name="enforceDowntime" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceDueDate" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceReleaseDate" use="required" type="xs:boolean"/>
+			<xs:attribute name="enforceSetup" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceWip" use="required" type="xs:boolean"/>
 			<xs:attribute name="label" use="required" type="xs:string"/>
 			<xs:attribute name="modelType" use="required" type="xs:string"/>
@@ -478,7 +539,11 @@
 			<xs:attribute name="endDate" use="required" type="xs:dateTime"/>
 			<xs:attribute name="start" use="required" type="xs:integer"/>
 			<xs:attribute name="startDate" use="required" type="xs:dateTime"/>
+			<xs:attribute name="idleAfter" use="required" type="xs:integer"/>
+			<xs:attribute name="idleBefore" use="required" type="xs:integer"/>
 			<xs:attribute name="jobAssignment" use="required" type="xs:IDREF"/>
+			<xs:attribute name="setupAfter" use="required" type="xs:integer"/>
+			<xs:attribute name="setupBefore" use="required" type="xs:integer"/>
 			<xs:attribute name="task" use="required" type="xs:IDREF"/>
 			<xs:attribute name="waitAfter" use="required" type="xs:integer"/>
 			<xs:attribute name="waitBefore" use="required" type="xs:integer"/>

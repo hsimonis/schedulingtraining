@@ -34,7 +34,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:05 on 2024-10-22 */
 public class SolutionController extends Table3Controller {
 	@FXML
 	private TableView<Solution> table;
@@ -121,6 +121,45 @@ public class SolutionController extends Table3Controller {
 	private TableColumn<Solution, Integer> maxWaitAfter;
 
 	@FXML
+	private TableColumn<Solution, Integer> totalIdleBefore;
+
+	@FXML
+	private TableColumn<Solution, Integer> totalIdleAfter;
+
+	@FXML
+	private TableColumn<Solution, Integer> maxIdleBefore;
+
+	@FXML
+	private TableColumn<Solution, Integer> maxIdleAfter;
+
+	@FXML
+	private TableColumn<Solution, Integer> totalSetupBefore;
+
+	@FXML
+	private TableColumn<Solution, Integer> totalSetupAfter;
+
+	@FXML
+	private TableColumn<Solution, Integer> maxSetupBefore;
+
+	@FXML
+	private TableColumn<Solution, Integer> maxSetupAfter;
+
+	@FXML
+	private TableColumn<Solution, Integer> totalActiveTime;
+
+	@FXML
+	private TableColumn<Solution, Integer> totalProductionTime;
+
+	@FXML
+	private TableColumn<Solution, Double> activeUtilization;
+
+	@FXML
+	private TableColumn<Solution, Double> setupPercent;
+
+	@FXML
+	private TableColumn<Solution, Double> idlePercent;
+
+	@FXML
 	private TableColumn<Solution, ModelType> modelType;
 
 	@FXML
@@ -143,6 +182,9 @@ public class SolutionController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Solution, Boolean> enforceDowntime;
+
+	@FXML
+	private TableColumn<Solution, Boolean> enforceSetup;
 
 	@FXML
 	private TableColumn<Solution, Integer> weightMakespan;
@@ -298,6 +340,58 @@ public class SolutionController extends Table3Controller {
 		maxWaitAfter.setCellValueFactory(new PropertyValueFactory<>("maxWaitAfter"));
 		maxWaitAfter.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		maxWaitAfter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setMaxWaitAfter(event.getNewValue()); mainApp.reset();});
+		choices.add("totalIdleBefore");
+		totalIdleBefore.setCellValueFactory(new PropertyValueFactory<>("totalIdleBefore"));
+		totalIdleBefore.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		totalIdleBefore.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalIdleBefore(event.getNewValue()); mainApp.reset();});
+		choices.add("totalIdleAfter");
+		totalIdleAfter.setCellValueFactory(new PropertyValueFactory<>("totalIdleAfter"));
+		totalIdleAfter.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		totalIdleAfter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalIdleAfter(event.getNewValue()); mainApp.reset();});
+		choices.add("maxIdleBefore");
+		maxIdleBefore.setCellValueFactory(new PropertyValueFactory<>("maxIdleBefore"));
+		maxIdleBefore.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		maxIdleBefore.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setMaxIdleBefore(event.getNewValue()); mainApp.reset();});
+		choices.add("maxIdleAfter");
+		maxIdleAfter.setCellValueFactory(new PropertyValueFactory<>("maxIdleAfter"));
+		maxIdleAfter.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		maxIdleAfter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setMaxIdleAfter(event.getNewValue()); mainApp.reset();});
+		choices.add("totalSetupBefore");
+		totalSetupBefore.setCellValueFactory(new PropertyValueFactory<>("totalSetupBefore"));
+		totalSetupBefore.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		totalSetupBefore.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalSetupBefore(event.getNewValue()); mainApp.reset();});
+		choices.add("totalSetupAfter");
+		totalSetupAfter.setCellValueFactory(new PropertyValueFactory<>("totalSetupAfter"));
+		totalSetupAfter.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		totalSetupAfter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalSetupAfter(event.getNewValue()); mainApp.reset();});
+		choices.add("maxSetupBefore");
+		maxSetupBefore.setCellValueFactory(new PropertyValueFactory<>("maxSetupBefore"));
+		maxSetupBefore.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		maxSetupBefore.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setMaxSetupBefore(event.getNewValue()); mainApp.reset();});
+		choices.add("maxSetupAfter");
+		maxSetupAfter.setCellValueFactory(new PropertyValueFactory<>("maxSetupAfter"));
+		maxSetupAfter.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		maxSetupAfter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setMaxSetupAfter(event.getNewValue()); mainApp.reset();});
+		choices.add("totalActiveTime");
+		totalActiveTime.setCellValueFactory(new PropertyValueFactory<>("totalActiveTime"));
+		totalActiveTime.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		totalActiveTime.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalActiveTime(event.getNewValue()); mainApp.reset();});
+		choices.add("totalProductionTime");
+		totalProductionTime.setCellValueFactory(new PropertyValueFactory<>("totalProductionTime"));
+		totalProductionTime.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		totalProductionTime.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setTotalProductionTime(event.getNewValue()); mainApp.reset();});
+		choices.add("activeUtilization");
+		activeUtilization.setCellValueFactory(new PropertyValueFactory<>("activeUtilization"));
+		activeUtilization.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		activeUtilization.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setActiveUtilization(event.getNewValue()); mainApp.reset();});
+		choices.add("setupPercent");
+		setupPercent.setCellValueFactory(new PropertyValueFactory<>("setupPercent"));
+		setupPercent.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		setupPercent.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSetupPercent(event.getNewValue()); mainApp.reset();});
+		choices.add("idlePercent");
+		idlePercent.setCellValueFactory(new PropertyValueFactory<>("idlePercent"));
+		idlePercent.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		idlePercent.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setIdlePercent(event.getNewValue()); mainApp.reset();});
 		choices.add("solverRun.modelType");
 		try {
 			modelType.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getModelType()));
@@ -350,6 +444,13 @@ public class SolutionController extends Table3Controller {
 		choices.add("solverRun.enforceDowntime");
 		try {
 			enforceDowntime.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getEnforceDowntime()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.enforceSetup");
+		try {
+			enforceSetup.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getEnforceSetup()));
 		}
 		catch (NullPointerException e) {
 			System.err.println(e);

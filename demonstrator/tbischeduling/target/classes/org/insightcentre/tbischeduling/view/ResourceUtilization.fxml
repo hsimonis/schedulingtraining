@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 10:13:47 on 2024-10-19-->
+<!--Generated at 21:09:58 on 2024-10-22-->
 
 
 <Tab text="ResourceUtilization" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.ResourceUtilizationController">
@@ -25,7 +25,11 @@
                <TableColumn fx:id="latest" styleClass="right-aligned" text="Latest" />
                <TableColumn fx:id="active" styleClass="right-aligned" text="Active" />
                <TableColumn fx:id="use" styleClass="right-aligned" text="Use" />
+               <TableColumn fx:id="setup" styleClass="right-aligned" text="Setup" />
+               <TableColumn fx:id="idle" styleClass="right-aligned" text="Idle" />
                <TableColumn fx:id="utilization" styleClass="right-aligned" text="Utilization" />
+               <TableColumn fx:id="setupPercent" styleClass="right-aligned" text="SetupPercent" />
+               <TableColumn fx:id="idlePercent" styleClass="right-aligned" text="IdlePercent" />
             </columns>
          </TableView>
       </center>

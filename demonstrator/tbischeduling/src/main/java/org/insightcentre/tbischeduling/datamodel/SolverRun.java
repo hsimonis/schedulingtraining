@@ -34,6 +34,9 @@ import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.SolutionError;
+import org.insightcentre.tbischeduling.datamodel.Setup;
+import org.insightcentre.tbischeduling.datamodel.SetupType;
+import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -120,6 +123,7 @@ public  class SolverRun extends AbstractSolverProperty{
             Boolean enforceDowntime,
             Boolean enforceDueDate,
             Boolean enforceReleaseDate,
+            Boolean enforceSetup,
             Boolean enforceWip,
             String label,
             ModelType modelType,
@@ -146,6 +150,7 @@ public  class SolverRun extends AbstractSolverProperty{
             enforceDowntime,
             enforceDueDate,
             enforceReleaseDate,
+            enforceSetup,
             enforceWip,
             label,
             modelType,
@@ -176,6 +181,7 @@ public  class SolverRun extends AbstractSolverProperty{
             other.enforceDowntime,
             other.enforceDueDate,
             other.enforceReleaseDate,
+            other.enforceSetup,
             other.enforceWip,
             other.label,
             other.modelType,
@@ -270,7 +276,7 @@ public  class SolverRun extends AbstractSolverProperty{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getStartDateTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan()+ " " +getSolverStatus()+ " " +getTime();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceSetup()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getStartDateTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan()+ " " +getSolverStatus()+ " " +getTime();
     }
 
 /**
@@ -299,6 +305,7 @@ public  class SolverRun extends AbstractSolverProperty{
             " enforceDowntime=\""+toXMLEnforceDowntime()+"\""+
             " enforceDueDate=\""+toXMLEnforceDueDate()+"\""+
             " enforceReleaseDate=\""+toXMLEnforceReleaseDate()+"\""+
+            " enforceSetup=\""+toXMLEnforceSetup()+"\""+
             " enforceWip=\""+toXMLEnforceWip()+"\""+
             " label=\""+toXMLLabel()+"\""+
             " modelType=\""+toXMLModelType()+"\""+
@@ -346,11 +353,11 @@ public  class SolverRun extends AbstractSolverProperty{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>SolverRun</th>"+"<th>Name</th>"+"<th>Label</th>"+"<th>Description</th>"+"<th>StartDateTime</th>"+"<th>EnforceReleaseDate</th>"+"<th>EnforceDueDate</th>"+"<th>EnforceCumulative</th>"+"<th>EnforceWip</th>"+"<th>EnforceDowntime</th>"+"<th>ModelType</th>"+"<th>SolverBackend</th>"+"<th>ObjectiveType</th>"+"<th>WeightMakespan</th>"+"<th>WeightFlowtime</th>"+"<th>WeightLateness</th>"+"<th>WeightEarliness</th>"+"<th>Timeout</th>"+"<th>NrThreads</th>"+"<th>Seed</th>"+"<th>RemoveSolution</th>"+"<th>ProduceReport</th>"+"<th>ProducePDF</th>"+"<th>SolverStatus</th>"+"<th>Time</th>"+"</tr>";
+        return "<tr><th>SolverRun</th>"+"<th>Name</th>"+"<th>Label</th>"+"<th>Description</th>"+"<th>StartDateTime</th>"+"<th>EnforceReleaseDate</th>"+"<th>EnforceDueDate</th>"+"<th>EnforceCumulative</th>"+"<th>EnforceWip</th>"+"<th>EnforceDowntime</th>"+"<th>EnforceSetup</th>"+"<th>ModelType</th>"+"<th>SolverBackend</th>"+"<th>ObjectiveType</th>"+"<th>WeightMakespan</th>"+"<th>WeightFlowtime</th>"+"<th>WeightLateness</th>"+"<th>WeightEarliness</th>"+"<th>Timeout</th>"+"<th>NrThreads</th>"+"<th>Seed</th>"+"<th>RemoveSolution</th>"+"<th>ProduceReport</th>"+"<th>ProducePDF</th>"+"<th>SolverStatus</th>"+"<th>Time</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getLabel()+"</td>"+ " " +"<td>"+getDescription()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getEnforceReleaseDate()+"</td>"+ " " +"<td>"+getEnforceDueDate()+"</td>"+ " " +"<td>"+getEnforceCumulative()+"</td>"+ " " +"<td>"+getEnforceWip()+"</td>"+ " " +"<td>"+getEnforceDowntime()+"</td>"+ " " +"<td>"+getModelType()+"</td>"+ " " +"<td>"+getSolverBackend()+"</td>"+ " " +"<td>"+getObjectiveType()+"</td>"+ " " +"<td>"+getWeightMakespan()+"</td>"+ " " +"<td>"+getWeightFlowtime()+"</td>"+ " " +"<td>"+getWeightLateness()+"</td>"+ " " +"<td>"+getWeightEarliness()+"</td>"+ " " +"<td>"+getTimeout()+"</td>"+ " " +"<td>"+getNrThreads()+"</td>"+ " " +"<td>"+getSeed()+"</td>"+ " " +"<td>"+getRemoveSolution()+"</td>"+ " " +"<td>"+getProduceReport()+"</td>"+ " " +"<td>"+getProducePDF()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getTime()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getLabel()+"</td>"+ " " +"<td>"+getDescription()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getEnforceReleaseDate()+"</td>"+ " " +"<td>"+getEnforceDueDate()+"</td>"+ " " +"<td>"+getEnforceCumulative()+"</td>"+ " " +"<td>"+getEnforceWip()+"</td>"+ " " +"<td>"+getEnforceDowntime()+"</td>"+ " " +"<td>"+getEnforceSetup()+"</td>"+ " " +"<td>"+getModelType()+"</td>"+ " " +"<td>"+getSolverBackend()+"</td>"+ " " +"<td>"+getObjectiveType()+"</td>"+ " " +"<td>"+getWeightMakespan()+"</td>"+ " " +"<td>"+getWeightFlowtime()+"</td>"+ " " +"<td>"+getWeightLateness()+"</td>"+ " " +"<td>"+getWeightEarliness()+"</td>"+ " " +"<td>"+getTimeout()+"</td>"+ " " +"<td>"+getNrThreads()+"</td>"+ " " +"<td>"+getSeed()+"</td>"+ " " +"<td>"+getRemoveSolution()+"</td>"+ " " +"<td>"+getProduceReport()+"</td>"+ " " +"<td>"+getProducePDF()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getTime()+"</td>"+"</tr>";
     }
 
 /**
@@ -482,6 +489,9 @@ public  class SolverRun extends AbstractSolverProperty{
       if(!this.getEnforceReleaseDate().equals(b.getEnforceReleaseDate())){
          System.out.println("EnforceReleaseDate");
         }
+      if(!this.getEnforceSetup().equals(b.getEnforceSetup())){
+         System.out.println("EnforceSetup");
+        }
       if(!this.getEnforceWip().equals(b.getEnforceWip())){
          System.out.println("EnforceWip");
         }
@@ -544,6 +554,7 @@ public  class SolverRun extends AbstractSolverProperty{
           this.getEnforceDowntime().equals(b.getEnforceDowntime()) &&
           this.getEnforceDueDate().equals(b.getEnforceDueDate()) &&
           this.getEnforceReleaseDate().equals(b.getEnforceReleaseDate()) &&
+          this.getEnforceSetup().equals(b.getEnforceSetup()) &&
           this.getEnforceWip().equals(b.getEnforceWip()) &&
           this.getLabel().equals(b.getLabel()) &&
           this.getModelType().equals(b.getModelType()) &&

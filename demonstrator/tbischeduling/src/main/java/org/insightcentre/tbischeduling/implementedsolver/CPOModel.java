@@ -182,11 +182,13 @@ public class CPOModel extends AbstractModel{
             // create disjunctive constraints
             for(int k=0;k<nrDisjunctiveResources;k++){
                 DisjunctiveResource r = disjRes[k];
+                List<Task> tasksOnThisMachine =  new ArrayList<>();
                 IntervalVarList disjunctive = new IntervalVarList();
                 for(int i=0;i<nrTasks;i++){
                     // most z entries are null as machine is not allowed
                     if (z[i][k] != null){
                         disjunctive.add(z[i][k]);
+                        tasksOnThisMachine.add(tasks[i]);
                     }
                 }
                 if (run.getEnforceWip()){
@@ -222,7 +224,39 @@ public class CPOModel extends AbstractModel{
                         }
                     }
                 }
-                cp.add(cp.noOverlap(disjunctive.toArray()));
+                if (run.getEnforceSetup() && r.getSetup() != null){
+                    Setup setup = r.getSetup();
+                    info("Creating setup "+r.getSetup()+" for machine "+r);
+                    List<SetupType> types = base.getListSetupType().stream().filter(xx->xx.getSetup()==setup).toList();
+                    // renumbering the types
+                    int typeNr=0;
+                    for(SetupType type:types){
+                        type.setNr(typeNr++);
+                    }
+
+                    int n = disjunctive.size();
+                    int nrTypes = types.size();
+                    info("Nr Types "+nrTypes+" nr tasks "+n+" properTasks "+tasksOnThisMachine.size());
+                    IloTransitionDistance setupMatrix = createSetupMatrix(cp,setup,types);
+                    int[] typeValues = new int[n];
+                    int i=0;
+                    for(Task t:tasksOnThisMachine) {
+                        SetupType st = t.getProcessStep().getSetupType();
+                        if (st == null || !types.contains(st)){
+                            severe("Task "+i+" step "+t.getProcessStep().getName()+" "+st);
+                            assert(false);
+                        }
+                        typeValues[i] = st.getNr();
+                        i++;
+                    }
+                    info("Types "+ Arrays.toString(typeValues));
+                    IloIntervalSequenceVar seq = cp.intervalSequenceVar(disjunctive.toArray(), typeValues);
+
+                    cp.add(cp.noOverlap(seq,setupMatrix));
+
+                } else {
+                    cp.add(cp.noOverlap(disjunctive.toArray()));
+                }
             }
             // create alternative constraints
             for(int i=0;i<nrTasks;i++){
@@ -401,6 +435,7 @@ public class CPOModel extends AbstractModel{
                     assert(cnt==1);
                 }
                 Collection<TaskAssignment> taList = assignHash.values();
+                // calculate waitBefore and waitAfter for each task
                 for(int i=0;i<nrTasks;i++){
                     Task t = tasks[i];
                     TaskAssignment ta = assignHash.get(t);
@@ -409,6 +444,29 @@ public class CPOModel extends AbstractModel{
                     int waitAfter = t.getPrecedes().stream().mapToInt(xx->assignHash.get(xx).getStart()-ta.getEnd()).min().orElse(0);
                     ta.setWaitBefore(waitBefore);
                     ta.setWaitAfter(waitAfter);
+                }
+                // calculate setup and idle times for each task
+                Map<DisjunctiveResource,List<TaskAssignment>> mapAssignment = taList.stream().collect(groupingBy(TaskAssignment::getDisjunctiveResource));
+                for(DisjunctiveResource r:mapAssignment.keySet()){
+                    List<TaskAssignment> orderedInTime = mapAssignment.get(r).stream().sorted(Comparator.comparing(TaskAssignment::getStart)).toList();
+                    TaskAssignment prev = null;
+                    for(TaskAssignment t:orderedInTime){
+                        if (prev != null) {
+                            int totalGap = t.getStart() - prev.getEnd();
+                            int setup = calculateSetupTime(r,prev.getTask(),t.getTask());
+                            int idle = totalGap-setup;
+                            prev.setIdleAfter(idle);
+                            prev.setSetupAfter(setup);
+                            t.setIdleBefore(idle);
+                            t.setSetupBefore(setup);
+                        } else {
+                            t.setIdleBefore(0);
+                            t.setSetupBefore(0);
+                        }
+                        prev = t;
+                    }
+                    prev.setIdleAfter(0);
+                    prev.setSetupAfter(0);
                 }
 
                 sol.setMakespan(jaList.stream().mapToInt(JobAssignment::getEnd).max().orElse(0));
@@ -432,6 +490,14 @@ public class CPOModel extends AbstractModel{
                 sol.setMaxWaitBefore(taList.stream().mapToInt(TaskAssignment::getWaitBefore).max().orElse(0));
                 sol.setTotalWaitAfter(taList.stream().mapToInt(TaskAssignment::getWaitAfter).sum());
                 sol.setMaxWaitAfter(taList.stream().mapToInt(TaskAssignment::getWaitAfter).max().orElse(0));
+                sol.setTotalSetupBefore(taList.stream().mapToInt(TaskAssignment::getSetupBefore).sum());
+                sol.setMaxSetupBefore(taList.stream().mapToInt(TaskAssignment::getSetupBefore).max().orElse(0));
+                sol.setTotalSetupAfter(taList.stream().mapToInt(TaskAssignment::getSetupAfter).sum());
+                sol.setMaxSetupAfter(taList.stream().mapToInt(TaskAssignment::getSetupAfter).max().orElse(0));
+                sol.setTotalIdleBefore(taList.stream().mapToInt(TaskAssignment::getIdleBefore).sum());
+                sol.setMaxIdleBefore(taList.stream().mapToInt(TaskAssignment::getIdleBefore).max().orElse(0));
+                sol.setTotalIdleAfter(taList.stream().mapToInt(TaskAssignment::getIdleAfter).sum());
+                sol.setMaxIdleAfter(taList.stream().mapToInt(TaskAssignment::getIdleAfter).max().orElse(0));
                 // to capture previously unseen solver status strings
                 assert(run.getSolverStatus() != null);
                 return true;
@@ -512,5 +578,43 @@ public class CPOModel extends AbstractModel{
     }
 
 
+    private IloTransitionDistance createSetupMatrix(IloCP cp,Setup setup,List<SetupType> types) throws IloException{
+        int nrTypes = types.size();
+        IloTransitionDistance res = cp.transitionDistance(nrTypes);
+        for(int i=0;i<nrTypes;i++){
+            for(int j=0;j<nrTypes;j++){
+                if (i==j && setup.getSameValue() != null){
+                    res.setValue(i,j,setup.getSameValue());
+                } else if (setup.getDefaultValue() != null){
+                    res.setValue(i,j,setup.getDefaultValue());
+                }
+
+            }
+        }
+        for(SetupMatrix entry:base.getListSetupMatrix().stream().filter(x->x.getFrom().getSetup()==setup).toList()){
+            res.setValue(entry.getFrom().getNr(),entry.getTo().getNr(),entry.getValue());
+        }
+        return res;
+
+    }
+
+    private int calculateSetupTime(DisjunctiveResource r,Task before, Task after){
+        if (r.getSetup()==null){
+            return 0;
+        } else {
+            Setup setup = r.getSetup();
+            SetupMatrix entry = base.getListSetupMatrix().stream().
+                    filter(x->x.getFrom()==before.getProcessStep().getSetupType()).
+                    filter(x->x.getTo()==after.getProcessStep().getSetupType()).
+                    findAny().orElse(null);
+            if (entry != null){
+                return entry.getValue();
+            } else if (before.getProcessStep().getSetupType() == after.getProcessStep().getSetupType()){
+                return setup.getSameValue();
+            } else {
+                return setup.getDefaultValue();
+            }
+        }
+    }
 
 }

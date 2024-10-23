@@ -9,10 +9,7 @@ import org.insightcentre.tbischeduling.importer.Reset;
 import org.insightcentre.tbischeduling.reports.RunReport;
 import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.stream.Collectors.groupingBy;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
@@ -37,6 +34,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
                 base.getSolverProperty().getEnforceCumulative(),
                 base.getSolverProperty().getEnforceWip(),
                 base.getSolverProperty().getEnforceDowntime(),
+                base.getSolverProperty().getEnforceSetup(),
                 base.getSolverProperty().getModelType().toString(),
                 base.getSolverProperty().getSolverBackend().toString(),
                 base.getSolverProperty().getObjectiveType().toString(),
@@ -66,6 +64,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         p.setEnforceCumulative(getEnforceCumulative());
         p.setEnforceWip(getEnforceWip());
         p.setEnforceDowntime(getEnforceDowntime());
+        p.setEnforceSetup(getEnforceSetup());
         p.setModelType(toModelType(getModelType()));
         p.setSolverBackend(toSolverBackend(getSolverBackend()));
         p.setObjectiveType(toObjectiveType(getObjectiveType()));
@@ -90,7 +89,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         saveProperties();
         SolverRun run = createSolverRun(getLabel(),getDescription(),toModelType(getModelType()),
                 toSolverBackend(getSolverBackend()),toObjectiveType(getObjectiveType()),
-                getEnforceReleaseDate(),getEnforceDueDate(),getEnforceCumulative(),getEnforceWip(),getEnforceDowntime(),
+                getEnforceReleaseDate(),getEnforceDueDate(),getEnforceCumulative(),getEnforceWip(),getEnforceDowntime(),getEnforceSetup(),
                 getWeightMakespan(),getWeightFlowtime(),getWeightEarliness(),getWeightLateness(),
                 getTimeout(),getNrThreads(),getSeed(),
                 getRemoveSolution(),getProduceReport(),getProducePDF());
@@ -132,7 +131,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
 
     private SolverRun createSolverRun(String label,String description,ModelType modelType,SolverBackend solverBackend,
                                       ObjectiveType objectiveType,boolean enforceReleaseDate,boolean enforceDueDate,
-                                      boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,
+                                      boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,boolean enforceSetup,
                                       int weightMakespan,int weightFlowtime,int weightEarliness,int weightLateness,
                                       int timeout,int nrThreads,int seed,boolean removeSolution,
                                       boolean produceReport,boolean producePDF){
@@ -140,7 +139,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         double time = 0.0;
         DateTime startDateTime = new DateTime(new Date());
         SolverRun res = new SolverRun(base,runNr,name,description,enforceCumulative,enforceDowntime,enforceDueDate,
-                enforceReleaseDate,enforceWip,
+                enforceReleaseDate,enforceSetup,enforceWip,
                 label,modelType,nrThreads,objectiveType,producePDF,produceReport,removeSolution,seed,solverBackend,
                 startDateTime,timeout,weightEarliness,weightFlowtime,weightLateness,weightMakespan,ToRun,time);
         return res;
@@ -150,13 +149,18 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         List<TaskAssignment> list = base.getListTaskAssignment().stream().filter(x->x.getJobAssignment().getSolution()==sol).toList();
         Map<DisjunctiveResource,List<TaskAssignment>> map = list.stream().collect(groupingBy(TaskAssignment::getDisjunctiveResource));
         // create entries in a given order
+        List<ResourceUtilization> ruList = new ArrayList<>();
         for(DisjunctiveResource r:map.keySet().stream().sorted(Comparator.comparing(DisjunctiveResource::getName)).toList()){
             List<TaskAssignment> current = map.get(r);
             int earliest = current.stream().mapToInt(TaskAssignment::getStart).min().orElse(0);
             int latest = current.stream().mapToInt(TaskAssignment::getEnd).max().orElse(0);
             int active = latest-earliest;
             int use = current.stream().mapToInt(TaskAssignment::getDuration).sum();
+            int setup = current.stream().mapToInt(TaskAssignment::getSetupBefore).sum();
+            int idle = current.stream().mapToInt(TaskAssignment::getIdleBefore).sum();
             double utilization = 100.0*use/active;
+            double setupPercent = 100.0*setup/active;
+            double idlePercent = 100.0*idle/active;
             ResourceUtilization ru = new ResourceUtilization(base);
             ru.setName(r.getName());
             ru.setDisjunctiveResource(r);
@@ -165,7 +169,17 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
             ru.setLatest(latest);
             ru.setActive(active);
             ru.setUse(use);
+            ru.setSetup(setup);
+            ru.setIdle(idle);
             ru.setUtilization(utilization);
+            ru.setSetupPercent(setupPercent);
+            ru.setIdlePercent(idlePercent);
+            ruList.add(ru);
         }
+        sol.setTotalActiveTime(ruList.stream().mapToInt(ResourceUtilization::getActive).sum());
+        sol.setTotalProductionTime(ruList.stream().mapToInt(ResourceUtilization::getUse).sum());
+        sol.setActiveUtilization(100.0*sol.getTotalProductionTime()/sol.getTotalActiveTime());
+        sol.setSetupPercent(100.0*sol.getTotalSetupBefore()/sol.getTotalActiveTime());
+        sol.setIdlePercent(100.0*sol.getTotalIdleBefore()/sol.getTotalActiveTime());
     }
 }

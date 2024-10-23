@@ -12,19 +12,24 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
+import org.insightcentre.tbischeduling.datamodel.Setup;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:05 on 2024-10-22 */
 public class DisjunctiveResourceController extends Table3Controller {
 	@FXML
 	private TableView<DisjunctiveResource> table;
 
 	@FXML
 	private TableColumn<DisjunctiveResource, String> name;
+
+	@FXML
+	private TableColumn<DisjunctiveResource, Setup> setup;
 
 	@FXML
 	private TableColumn<DisjunctiveResource, String> shortName;
@@ -35,6 +40,8 @@ public class DisjunctiveResourceController extends Table3Controller {
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
 		table.setItems(mainApp.getDisjunctiveResourceData());
+		setup.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getSetupData()));
+		setup.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSetup(event.getNewValue()); mainApp.reset();});
 	}
 
 	public TableView<DisjunctiveResource> getTable() {
@@ -50,6 +57,8 @@ public class DisjunctiveResourceController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
+		choices.add("setup");
+		setup.setCellValueFactory(new PropertyValueFactory<>("setup"));
 		choices.add("shortName");
 		shortName.setCellValueFactory(new PropertyValueFactory<>("shortName"));
 		shortName.setCellFactory(TextFieldTableCell.forTableColumn());

@@ -68,6 +68,7 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 	@FXML
 	protected Slider zoom;
 
+	/* test fields for details tab */
 	@FXML
 	protected TextField name;
 	@FXML
@@ -102,6 +103,13 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 	protected TextField startDate;
 	@FXML
 	protected TextField endDate;
+	@FXML
+	protected TextField setup;
+	@FXML
+	protected TextField idle;
+
+
+	/* Colors for color tab */
 	@FXML
 	protected ColorPicker machineColor;
 	@FXML
@@ -140,7 +148,12 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 	protected ColorPicker noneColor;
 	@FXML
 	protected ColorPicker defaultColor;
+	@FXML
+	protected ColorPicker setupColor;
+	@FXML
+	protected ColorPicker idleColor;
 
+	/*   fields for layout tab */
 	@FXML
 	protected IntegerInputField resourceWidth;
 
@@ -167,6 +180,10 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 	protected ChoiceBox<String> releaseLineChoiceBox;
 	@FXML
 	protected ChoiceBox<String> waitLineChoiceBox;
+	@FXML
+	protected ChoiceBox<String> setupLineChoiceBox;
+	@FXML
+	protected ChoiceBox<String> idleLineChoiceBox;
 
 
 
@@ -284,6 +301,8 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		earlyLineChoiceBox.getSelectionModel().select(c.showEarly.toString());
 		releaseLineChoiceBox.getSelectionModel().select(c.showRelease.toString());
 		waitLineChoiceBox.getSelectionModel().select(c.showWait.toString());
+		setupLineChoiceBox.getSelectionModel().select(c.showSetup.toString());
+		idleLineChoiceBox.getSelectionModel().select(c.showIdle.toString());
 	}
 
 	private void updateLayout(GanttBorderContent c){
@@ -299,6 +318,8 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		c.showEarly = toLineChoice(earlyLineChoiceBox.getSelectionModel().getSelectedItem());
 		c.showRelease = toLineChoice(releaseLineChoiceBox.getSelectionModel().getSelectedItem());
 		c.showWait = toLineChoice(waitLineChoiceBox.getSelectionModel().getSelectedItem());
+		c.showSetup = toLineChoice(setupLineChoiceBox.getSelectionModel().getSelectedItem());
+		c.showIdle = toLineChoice(idleLineChoiceBox.getSelectionModel().getSelectedItem());
 		// have to reposition the windows as well
 		c.initialize();
 
@@ -325,6 +346,8 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		gridColor.setValue(c.gridColor);
 		noneColor.setValue(c.noneColor);
 		defaultColor.setValue(c.defaultColor);
+		setupColor.setValue(c.setupColor);
+		idleColor.setValue(c.idleColor);
 
 	}
 
@@ -348,6 +371,8 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		c.gridColor = gridColor.getValue();
 		c.noneColor = noneColor.getValue();
 		c.defaultColor = defaultColor.getValue();
+		c.setupColor = setupColor.getValue();
+		c.idleColor = idleColor.getValue();
 	}
 	@FXML
 	public void onShowSelect() {
@@ -403,6 +428,22 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 			product.setText(t.getTask().getJob().getOrder().getProduct().getName());
 			qty.setText(String.format("%,d",t.getTask().getJob().getOrder().getQty()));
 			processStep.setText(t.getTask().getProcessStep().getName());
+			setup.setText(cp.internalExternalPeriod(t.getSetupBefore()));
+			idle.setText(cp.internalExternalPeriod(t.getIdleBefore()));
+		} else {
+			wait.setText("");
+			job.setText("");
+			release.setText("");
+			due.setText("");
+			early.setText("");
+			late.setText("");
+			order.setText("");
+			product.setText("");
+			qty.setText("");
+			processStep.setText("");
+			setup.setText("");
+			idle.setText("");
+
 		}
 	}
 	public void resetDetails(){
@@ -423,6 +464,8 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		qty.setText("");
 		startDate.setText("");
 		endDate.setText("");
+		setup.setText("");
+		idle.setText("");
 	}
 
 

@@ -34,6 +34,9 @@ import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.SolutionError;
+import org.insightcentre.tbischeduling.datamodel.Setup;
+import org.insightcentre.tbischeduling.datamodel.SetupType;
+import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -338,6 +341,27 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<SolutionError> listSolutionError = new ArrayList<SolutionError>();
 
 /**
+ *  This lists holds all items of class Setup and its subclasses
+ *
+*/
+
+    List<Setup> listSetup = new ArrayList<Setup>();
+
+/**
+ *  This lists holds all items of class SetupType and its subclasses
+ *
+*/
+
+    List<SetupType> listSetupType = new ArrayList<SetupType>();
+
+/**
+ *  This lists holds all items of class SetupMatrix and its subclasses
+ *
+*/
+
+    List<SetupMatrix> listSetupMatrix = new ArrayList<SetupMatrix>();
+
+/**
  *  This is the static counter from which all id numbers are generated.It is used by all classes, so that ids are unique over all objects.
  *
 */
@@ -482,6 +506,9 @@ public int compareTo(ApplicationDataset ds2){
                              "ResourceNeed",
                              "ResourceUtilization",
                              "Scenario",
+                             "Setup",
+                             "SetupMatrix",
+                             "SetupType",
                              "Solution",
                              "SolutionError",
                              "SolverProperty",
@@ -575,6 +602,9 @@ public int compareTo(ApplicationDataset ds2){
         resetListResourceUtilization();
         resetListIntermediateSolution();
         resetListSolutionError();
+        resetListSetup();
+        resetListSetupType();
+        resetListSetupMatrix();
     }
 
 /**
@@ -1722,6 +1752,108 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Iterator for list of class Setup
+ *
+*/
+
+    public Iterator<Setup> getIteratorSetup(){
+        return listSetup.iterator();
+    }
+
+/**
+ *  Getter for list of class Setup
+ *
+*/
+
+    public List<Setup> getListSetup(){
+        return listSetup;
+    }
+
+/**
+ *  reset the list of class Setup; use with care, does not call cascades
+ *
+*/
+
+    public void resetListSetup(){
+        listSetup = new ArrayList<Setup>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof Setup)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class SetupType
+ *
+*/
+
+    public Iterator<SetupType> getIteratorSetupType(){
+        return listSetupType.iterator();
+    }
+
+/**
+ *  Getter for list of class SetupType
+ *
+*/
+
+    public List<SetupType> getListSetupType(){
+        return listSetupType;
+    }
+
+/**
+ *  reset the list of class SetupType; use with care, does not call cascades
+ *
+*/
+
+    public void resetListSetupType(){
+        listSetupType = new ArrayList<SetupType>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof SetupType)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class SetupMatrix
+ *
+*/
+
+    public Iterator<SetupMatrix> getIteratorSetupMatrix(){
+        return listSetupMatrix.iterator();
+    }
+
+/**
+ *  Getter for list of class SetupMatrix
+ *
+*/
+
+    public List<SetupMatrix> getListSetupMatrix(){
+        return listSetupMatrix;
+    }
+
+/**
+ *  reset the list of class SetupMatrix; use with care, does not call cascades
+ *
+*/
+
+    public void resetListSetupMatrix(){
+        listSetupMatrix = new ArrayList<SetupMatrix>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof SetupMatrix)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
  *  Generate a new id number, used in constructor calls
  *
 */
@@ -1888,6 +2020,24 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Removing object item of class SetupType; remove all dependent objects of class ProcessStep which refer to item through their attribute setupType
+ *
+*/
+
+    public void cascadeProcessStepSetupType(SetupType item){
+        assert item != null;
+        List<ProcessStep> toRemove = new ArrayList<ProcessStep>();
+        for(ProcessStep a:getListProcessStep()) {
+         if (a.getSetupType() == item) {
+            a.setSetupType(null);
+         }
+        }
+        for(ProcessStep b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
  *  Removing object item of class ProcessStep; remove all dependent objects of class ProcessSequence which refer to item through their attribute before
  *
 */
@@ -1919,6 +2069,24 @@ public int compareTo(ApplicationDataset ds2){
          }
         }
         for(ProcessSequence b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class Setup; remove all dependent objects of class DisjunctiveResource which refer to item through their attribute setup
+ *
+*/
+
+    public void cascadeDisjunctiveResourceSetup(Setup item){
+        assert item != null;
+        List<DisjunctiveResource> toRemove = new ArrayList<DisjunctiveResource>();
+        for(DisjunctiveResource a:getListDisjunctiveResource()) {
+         if (a.getSetup() == item) {
+            a.setSetup(null);
+         }
+        }
+        for(DisjunctiveResource b:toRemove) {
             b.remove();
         }
     }
@@ -2354,6 +2522,99 @@ public int compareTo(ApplicationDataset ds2){
          }
         }
         for(SolutionError b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class DisjunctiveResource; remove all dependent objects of class Setup which refer to item through their attribute disjunctiveResource
+ *
+*/
+
+    public void cascadeSetupDisjunctiveResource(DisjunctiveResource item){
+        assert item != null;
+        List<Setup> toRemove = new ArrayList<Setup>();
+        for(Setup a:getListSetup()) {
+         if (a.getDisjunctiveResource().contains(item)) {
+            a.getDisjunctiveResource().remove(item);
+            if (a.getDisjunctiveResource().isEmpty()) {
+               toRemove.add(a);
+            }
+         }
+        }
+        for(Setup b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class Setup; remove all dependent objects of class SetupType which refer to item through their attribute setup
+ *
+*/
+
+    public void cascadeSetupTypeSetup(Setup item){
+        assert item != null;
+        List<SetupType> toRemove = new ArrayList<SetupType>();
+        for(SetupType a:getListSetupType()) {
+         if (a.getSetup() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(SetupType b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class ProcessStep; remove all dependent objects of class SetupType which refer to item through their attribute processStep
+ *
+*/
+
+    public void cascadeSetupTypeProcessStep(ProcessStep item){
+        assert item != null;
+        List<SetupType> toRemove = new ArrayList<SetupType>();
+        for(SetupType a:getListSetupType()) {
+         if (a.getProcessStep().contains(item)) {
+            a.getProcessStep().remove(item);
+         }
+        }
+        for(SetupType b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class SetupType; remove all dependent objects of class SetupMatrix which refer to item through their attribute from
+ *
+*/
+
+    public void cascadeSetupMatrixFrom(SetupType item){
+        assert item != null;
+        List<SetupMatrix> toRemove = new ArrayList<SetupMatrix>();
+        for(SetupMatrix a:getListSetupMatrix()) {
+         if (a.getFrom() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(SetupMatrix b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class SetupType; remove all dependent objects of class SetupMatrix which refer to item through their attribute to
+ *
+*/
+
+    public void cascadeSetupMatrixTo(SetupType item){
+        assert item != null;
+        List<SetupMatrix> toRemove = new ArrayList<SetupMatrix>();
+        for(SetupMatrix a:getListSetupMatrix()) {
+         if (a.getTo() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(SetupMatrix b:toRemove) {
             b.remove();
         }
     }
@@ -3039,6 +3300,66 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class Setup
+ *
+*/
+
+    public void addSetup(Setup setup){
+        assert setup != null;
+        this.listSetup.add(setup);
+    }
+
+/**
+ *  remove an item from the list for class Setup
+ *
+*/
+
+    public Boolean removeSetup(Setup setup){
+        assert setup != null;
+        return this.listSetup.remove(setup);
+    }
+
+/**
+ *  add an item to the list for class SetupType
+ *
+*/
+
+    public void addSetupType(SetupType setupType){
+        assert setupType != null;
+        this.listSetupType.add(setupType);
+    }
+
+/**
+ *  remove an item from the list for class SetupType
+ *
+*/
+
+    public Boolean removeSetupType(SetupType setupType){
+        assert setupType != null;
+        return this.listSetupType.remove(setupType);
+    }
+
+/**
+ *  add an item to the list for class SetupMatrix
+ *
+*/
+
+    public void addSetupMatrix(SetupMatrix setupMatrix){
+        assert setupMatrix != null;
+        this.listSetupMatrix.add(setupMatrix);
+    }
+
+/**
+ *  remove an item from the list for class SetupMatrix
+ *
+*/
+
+    public Boolean removeSetupMatrix(SetupMatrix setupMatrix){
+        assert setupMatrix != null;
+        return this.listSetupMatrix.remove(setupMatrix);
+    }
+
+/**
  *  dump all items on the console for debugging
  *
 */
@@ -3108,6 +3429,15 @@ public int compareTo(ApplicationDataset ds2){
             System.out.println(x);
         }
         for(Scenario x:getListScenario()){
+            System.out.println(x);
+        }
+        for(Setup x:getListSetup()){
+            System.out.println(x);
+        }
+        for(SetupMatrix x:getListSetupMatrix()){
+            System.out.println(x);
+        }
+        for(SetupType x:getListSetupType()){
             System.out.println(x);
         }
         for(Solution x:getListSolution()){
@@ -3229,6 +3559,15 @@ public int compareTo(ApplicationDataset ds2){
         }
         for(ResourceUtilization x:getListResourceUtilization()){
             if (x.getClass().equals(ResourceUtilization.class)) x.toXML(out);
+        }
+        for(Setup x:getListSetup()){
+            if (x.getClass().equals(Setup.class)) x.toXML(out);
+        }
+        for(SetupMatrix x:getListSetupMatrix()){
+            if (x.getClass().equals(SetupMatrix.class)) x.toXML(out);
+        }
+        for(SetupType x:getListSetupType()){
+            if (x.getClass().equals(SetupType.class)) x.toXML(out);
         }
         for(Solution x:getListSolution()){
             if (x.getClass().equals(Solution.class)) x.toXML(out);
@@ -3366,6 +3705,9 @@ public int compareTo(ApplicationDataset ds2){
         compareProduct(this.getListProduct(),compare.getListProduct());
         compareResourceNeed(this.getListResourceNeed(),compare.getListResourceNeed());
         compareResourceUtilization(this.getListResourceUtilization(),compare.getListResourceUtilization());
+        compareSetup(this.getListSetup(),compare.getListSetup());
+        compareSetupMatrix(this.getListSetupMatrix(),compare.getListSetupMatrix());
+        compareSetupType(this.getListSetupType(),compare.getListSetupType());
         compareSolution(this.getListSolution(),compare.getListSolution());
         compareSolutionError(this.getListSolutionError(),compare.getListSolutionError());
         compareSolverProperty(this.getListSolverProperty(),compare.getListSolverProperty());
@@ -3857,6 +4199,78 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ * compare two lists of types Setup, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareSetup(List<Setup> aList,List<Setup> bList){
+        System.out.println("Comparing Setup");
+        for(Setup a:aList){
+            Setup b= Setup.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Setup A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Setup A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Setup B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(Setup b: bList){
+            Setup a = Setup.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Setup B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types SetupMatrix, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareSetupMatrix(List<SetupMatrix> aList,List<SetupMatrix> bList){
+        System.out.println("Comparing SetupMatrix");
+        for(SetupMatrix a:aList){
+            SetupMatrix b= SetupMatrix.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SetupMatrix A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SetupMatrix A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SetupMatrix B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(SetupMatrix b: bList){
+            SetupMatrix a = SetupMatrix.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SetupMatrix B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types SetupType, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareSetupType(List<SetupType> aList,List<SetupType> bList){
+        System.out.println("Comparing SetupType");
+        for(SetupType a:aList){
+            SetupType b= SetupType.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SetupType A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SetupType A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SetupType B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(SetupType b: bList){
+            SetupType a = SetupType.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SetupType B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
  * compare two lists of types Solution, create AppplicationWarnings for items which are in only one of the lists
  * or for items which are applicationSame(), but not applicationEqual()
 */
@@ -4051,6 +4465,9 @@ public int compareTo(ApplicationDataset ds2){
         checkResourceNeed(this.getListResourceNeed());
         checkResourceUtilization(this.getListResourceUtilization());
         checkScenario(this.getListScenario());
+        checkSetup(this.getListSetup());
+        checkSetupMatrix(this.getListSetupMatrix());
+        checkSetupType(this.getListSetupType());
         checkSolution(this.getListSolution());
         checkSolutionError(this.getListSolutionError());
         checkSolverProperty(this.getListSolverProperty());
@@ -4293,6 +4710,39 @@ public int compareTo(ApplicationDataset ds2){
 
 /**
  * helper method for checkAll()
+ * @param list List<Setup> dataset list of all items of type Setup
+*/
+
+    public void checkSetup(List<Setup> list){
+        for(Setup a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<SetupMatrix> dataset list of all items of type SetupMatrix
+*/
+
+    public void checkSetupMatrix(List<SetupMatrix> list){
+        for(SetupMatrix a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<SetupType> dataset list of all items of type SetupType
+*/
+
+    public void checkSetupType(List<SetupType> list){
+        for(SetupType a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
  * @param list List<Solution> dataset list of all items of type Solution
 */
 
@@ -4391,6 +4841,9 @@ public int compareTo(ApplicationDataset ds2){
         ResourceNeed.dummy(this);
         ResourceUtilization.dummy(this);
         Scenario.dummy(this);
+        Setup.dummy(this);
+        SetupMatrix.dummy(this);
+        SetupType.dummy(this);
         Solution.dummy(this);
         SolutionError.dummy(this);
         SolverProperty.dummy(this);

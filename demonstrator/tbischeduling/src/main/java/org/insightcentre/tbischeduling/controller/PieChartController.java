@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:05 on 2024-10-22 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -40,6 +40,12 @@ public class PieChartController extends ChartController {
 		attributeNames.add("ganttLineHeight");
 		attributeNames.add("solverProperty");
 		attributeNames.add("dataGeneratorProperty");
+		attributeNames.add("hasReleaseDate");
+		attributeNames.add("hasDueDate");
+		attributeNames.add("hasCumulative");
+		attributeNames.add("hasWiP");
+		attributeNames.add("hasDowntime");
+		attributeNames.add("hasSetupTime");
 		choicesMap.put("Scenario", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
@@ -64,6 +70,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceCumulative");
 		attributeNames.add("enforceWip");
 		attributeNames.add("enforceDowntime");
+		attributeNames.add("enforceSetup");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");
@@ -88,6 +95,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceCumulative");
 		attributeNames.add("enforceWip");
 		attributeNames.add("enforceDowntime");
+		attributeNames.add("enforceSetup");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");
@@ -112,6 +120,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceCumulative");
 		attributeNames.add("enforceWip");
 		attributeNames.add("enforceDowntime");
+		attributeNames.add("enforceSetup");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");
@@ -260,10 +269,12 @@ public class PieChartController extends ChartController {
 		choicesMap.put("Process", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
+		attributeNames.add("shortName");
 		attributeNames.add("process");
 		attributeNames.add("stage");
 		attributeNames.add("durationFixed");
 		attributeNames.add("durationPerUnit");
+		attributeNames.add("setupType");
 		choicesMap.put("ProcessStep", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
@@ -293,6 +304,7 @@ public class PieChartController extends ChartController {
 		choicesMap.put("CumulativeProfile", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
+		attributeNames.add("setup");
 		attributeNames.add("shortName");
 		choicesMap.put("DisjunctiveResource", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -396,6 +408,19 @@ public class PieChartController extends ChartController {
 		attributeNames.add("totalWaitAfter");
 		attributeNames.add("maxWaitBefore");
 		attributeNames.add("maxWaitAfter");
+		attributeNames.add("totalIdleBefore");
+		attributeNames.add("totalIdleAfter");
+		attributeNames.add("maxIdleBefore");
+		attributeNames.add("maxIdleAfter");
+		attributeNames.add("totalSetupBefore");
+		attributeNames.add("totalSetupAfter");
+		attributeNames.add("maxSetupBefore");
+		attributeNames.add("maxSetupAfter");
+		attributeNames.add("totalActiveTime");
+		attributeNames.add("totalProductionTime");
+		attributeNames.add("activeUtilization");
+		attributeNames.add("setupPercent");
+		attributeNames.add("idlePercent");
 		attributeNames.add("solverRun.modelType");
 		attributeNames.add("solverRun.solverBackend");
 		attributeNames.add("solverRun.objectiveType");
@@ -404,6 +429,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("solverRun.enforceCumulative");
 		attributeNames.add("solverRun.enforceWip");
 		attributeNames.add("solverRun.enforceDowntime");
+		attributeNames.add("solverRun.enforceSetup");
 		attributeNames.add("solverRun.weightMakespan");
 		attributeNames.add("solverRun.weightFlowtime");
 		attributeNames.add("solverRun.weightEarliness");
@@ -446,6 +472,10 @@ public class PieChartController extends ChartController {
 		attributeNames.add("jobAssignment");
 		attributeNames.add("waitBefore");
 		attributeNames.add("waitAfter");
+		attributeNames.add("idleBefore");
+		attributeNames.add("idleAfter");
+		attributeNames.add("setupBefore");
+		attributeNames.add("setupAfter");
 		attributeNames.add("jobAssignment.solution");
 		attributeNames.add("task.job.order");
 		attributeNames.add("task.job.order.release");
@@ -466,7 +496,11 @@ public class PieChartController extends ChartController {
 		attributeNames.add("latest");
 		attributeNames.add("active");
 		attributeNames.add("use");
+		attributeNames.add("setup");
+		attributeNames.add("idle");
 		attributeNames.add("utilization");
+		attributeNames.add("setupPercent");
+		attributeNames.add("idlePercent");
 		choicesMap.put("ResourceUtilization", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
@@ -487,6 +521,24 @@ public class PieChartController extends ChartController {
 		attributeNames.add("description");
 		attributeNames.add("severity");
 		choicesMap.put("SolutionError", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("defaultValue");
+		attributeNames.add("sameValue");
+		attributeNames.add("disjunctiveResource");
+		choicesMap.put("Setup", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("setup");
+		attributeNames.add("nr");
+		attributeNames.add("processStep");
+		choicesMap.put("SetupType", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("from");
+		attributeNames.add("to");
+		attributeNames.add("value");
+		choicesMap.put("SetupMatrix", attributeNames);
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -597,6 +649,15 @@ public class PieChartController extends ChartController {
 			}
 			else if (className.equals("SolutionError")) {
 				objectList = mainApp.getSolutionErrorData();
+			}
+			else if (className.equals("Setup")) {
+				objectList = mainApp.getSetupData();
+			}
+			else if (className.equals("SetupType")) {
+				objectList = mainApp.getSetupTypeData();
+			}
+			else if (className.equals("SetupMatrix")) {
+				objectList = mainApp.getSetupMatrixData();
 			}
 			if (objectList != null) {
 				Map<String, Integer> countMap = new HashMap<String, Integer>();
