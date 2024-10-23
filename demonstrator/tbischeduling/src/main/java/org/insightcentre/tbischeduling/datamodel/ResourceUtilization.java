@@ -34,6 +34,9 @@ import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.SolutionError;
+import org.insightcentre.tbischeduling.datamodel.Setup;
+import org.insightcentre.tbischeduling.datamodel.SetupType;
+import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -93,7 +96,35 @@ public  class ResourceUtilization extends ApplicationObject{
  *
 */
 
+    public Integer idle;
+
+/**
+ *  
+ *
+*/
+
+    public Double idlePercent;
+
+/**
+ *  
+ *
+*/
+
     public Integer latest;
+
+/**
+ *  
+ *
+*/
+
+    public Integer setup;
+
+/**
+ *  
+ *
+*/
+
+    public Double setupPercent;
 
 /**
  *  
@@ -138,7 +169,11 @@ public  class ResourceUtilization extends ApplicationObject{
         setActive(0);
         setDisjunctiveResource(null);
         setEarliest(0);
+        setIdle(0);
+        setIdlePercent(0.0);
         setLatest(0);
+        setSetup(0);
+        setSetupPercent(0.0);
         setSolution(null);
         setUse(0);
         setUtilization(0.0);
@@ -158,7 +193,11 @@ public  class ResourceUtilization extends ApplicationObject{
             Integer active,
             DisjunctiveResource disjunctiveResource,
             Integer earliest,
+            Integer idle,
+            Double idlePercent,
             Integer latest,
+            Integer setup,
+            Double setupPercent,
             Solution solution,
             Integer use,
             Double utilization){
@@ -168,7 +207,11 @@ public  class ResourceUtilization extends ApplicationObject{
         setActive(active);
         setDisjunctiveResource(disjunctiveResource);
         setEarliest(earliest);
+        setIdle(idle);
+        setIdlePercent(idlePercent);
         setLatest(latest);
+        setSetup(setup);
+        setSetupPercent(setupPercent);
         setSolution(solution);
         setUse(use);
         setUtilization(utilization);
@@ -182,7 +225,11 @@ public  class ResourceUtilization extends ApplicationObject{
             other.active,
             other.disjunctiveResource,
             other.earliest,
+            other.idle,
+            other.idlePercent,
             other.latest,
+            other.setup,
+            other.setupPercent,
             other.solution,
             other.use,
             other.utilization);
@@ -230,6 +277,26 @@ public  class ResourceUtilization extends ApplicationObject{
     }
 
 /**
+ *  get attribute idle
+ *
+ * @return Integer
+*/
+
+    public Integer getIdle(){
+        return this.idle;
+    }
+
+/**
+ *  get attribute idlePercent
+ *
+ * @return Double
+*/
+
+    public Double getIdlePercent(){
+        return this.idlePercent;
+    }
+
+/**
  *  get attribute latest
  *
  * @return Integer
@@ -237,6 +304,26 @@ public  class ResourceUtilization extends ApplicationObject{
 
     public Integer getLatest(){
         return this.latest;
+    }
+
+/**
+ *  get attribute setup
+ *
+ * @return Integer
+*/
+
+    public Integer getSetup(){
+        return this.setup;
+    }
+
+/**
+ *  get attribute setupPercent
+ *
+ * @return Double
+*/
+
+    public Double getSetupPercent(){
+        return this.setupPercent;
     }
 
 /**
@@ -306,6 +393,30 @@ public  class ResourceUtilization extends ApplicationObject{
     }
 
 /**
+ *  set attribute idle, mark dataset as dirty, mark dataset as not valid
+@param idle Integer
+ *
+*/
+
+    public void setIdle(Integer idle){
+        this.idle = idle;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute idlePercent, mark dataset as dirty, mark dataset as not valid
+@param idlePercent Double
+ *
+*/
+
+    public void setIdlePercent(Double idlePercent){
+        this.idlePercent = idlePercent;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute latest, mark dataset as dirty, mark dataset as not valid
 @param latest Integer
  *
@@ -313,6 +424,30 @@ public  class ResourceUtilization extends ApplicationObject{
 
     public void setLatest(Integer latest){
         this.latest = latest;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute setup, mark dataset as dirty, mark dataset as not valid
+@param setup Integer
+ *
+*/
+
+    public void setSetup(Integer setup){
+        this.setup = setup;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute setupPercent, mark dataset as dirty, mark dataset as not valid
+@param setupPercent Double
+ *
+*/
+
+    public void setSetupPercent(Double setupPercent){
+        this.setupPercent = setupPercent;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -376,12 +511,34 @@ public  class ResourceUtilization extends ApplicationObject{
     }
 
 /**
+ *  inc attribute idle, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incIdle(){
+        this.idle++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute latest, mark dataset as dirty, mark dataset as not valid
  *
 */
 
     public void incLatest(){
         this.latest++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute setup, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incSetup(){
+        this.setup++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -414,7 +571,7 @@ public  class ResourceUtilization extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getActive()+ " " +getDisjunctiveResource().toColumnString()+ " " +getEarliest()+ " " +getLatest()+ " " +getSolution().toColumnString()+ " " +getUse()+ " " +getUtilization();
+        return ""+ " " +getId()+ " " +getName()+ " " +getActive()+ " " +getDisjunctiveResource().toColumnString()+ " " +getEarliest()+ " " +getIdle()+ " " +getIdlePercent()+ " " +getLatest()+ " " +getSetup()+ " " +getSetupPercent()+ " " +getSolution().toColumnString()+ " " +getUse()+ " " +getUtilization();
     }
 
 /**
@@ -441,7 +598,11 @@ public  class ResourceUtilization extends ApplicationObject{
             " active=\""+toXMLActive()+"\""+
             " disjunctiveResource=\""+toXMLDisjunctiveResource()+"\""+
             " earliest=\""+toXMLEarliest()+"\""+
+            " idle=\""+toXMLIdle()+"\""+
+            " idlePercent=\""+toXMLIdlePercent()+"\""+
             " latest=\""+toXMLLatest()+"\""+
+            " setup=\""+toXMLSetup()+"\""+
+            " setupPercent=\""+toXMLSetupPercent()+"\""+
             " solution=\""+toXMLSolution()+"\""+
             " use=\""+toXMLUse()+"\""+
             " utilization=\""+toXMLUtilization()+"\""+" />");
@@ -483,8 +644,48 @@ public  class ResourceUtilization extends ApplicationObject{
  * @return String
 */
 
+    String toXMLIdle(){
+        return this.getIdle().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLIdlePercent(){
+        return this.getIdlePercent().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLLatest(){
         return this.getLatest().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLSetup(){
+        return this.getSetup().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLSetupPercent(){
+        return this.getSetupPercent().toString();
     }
 
 /**
@@ -524,11 +725,11 @@ public  class ResourceUtilization extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>ResourceUtilization</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>Solution</th>"+"<th>Earliest</th>"+"<th>Latest</th>"+"<th>Active</th>"+"<th>Use</th>"+"<th>Utilization</th>"+"</tr>";
+        return "<tr><th>ResourceUtilization</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>Solution</th>"+"<th>Earliest</th>"+"<th>Latest</th>"+"<th>Active</th>"+"<th>Use</th>"+"<th>Setup</th>"+"<th>Idle</th>"+"<th>Utilization</th>"+"<th>SetupPercent</th>"+"<th>IdlePercent</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getSolution().toColumnString()+"</td>"+ " " +"<td>"+getEarliest()+"</td>"+ " " +"<td>"+getLatest()+"</td>"+ " " +"<td>"+getActive()+"</td>"+ " " +"<td>"+getUse()+"</td>"+ " " +"<td>"+getUtilization()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getSolution().toColumnString()+"</td>"+ " " +"<td>"+getEarliest()+"</td>"+ " " +"<td>"+getLatest()+"</td>"+ " " +"<td>"+getActive()+"</td>"+ " " +"<td>"+getUse()+"</td>"+ " " +"<td>"+getSetup()+"</td>"+ " " +"<td>"+getIdle()+"</td>"+ " " +"<td>"+getUtilization()+"</td>"+ " " +"<td>"+getSetupPercent()+"</td>"+ " " +"<td>"+getIdlePercent()+"</td>"+"</tr>";
     }
 
 /**
@@ -654,11 +855,23 @@ public  class ResourceUtilization extends ApplicationObject{
       if(!this.getEarliest().equals(b.getEarliest())){
          System.out.println("Earliest");
         }
+      if(!this.getIdle().equals(b.getIdle())){
+         System.out.println("Idle");
+        }
+      if(!this.getIdlePercent().equals(b.getIdlePercent())){
+         System.out.println("IdlePercent");
+        }
       if(!this.getLatest().equals(b.getLatest())){
          System.out.println("Latest");
         }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
+        }
+      if(!this.getSetup().equals(b.getSetup())){
+         System.out.println("Setup");
+        }
+      if(!this.getSetupPercent().equals(b.getSetupPercent())){
+         System.out.println("SetupPercent");
         }
       if(!this.getSolution().applicationSame(b.getSolution())){
          System.out.println("Solution");
@@ -672,8 +885,12 @@ public  class ResourceUtilization extends ApplicationObject{
         return  this.getActive().equals(b.getActive()) &&
           this.getDisjunctiveResource().applicationSame(b.getDisjunctiveResource()) &&
           this.getEarliest().equals(b.getEarliest()) &&
+          this.getIdle().equals(b.getIdle()) &&
+          this.getIdlePercent().equals(b.getIdlePercent()) &&
           this.getLatest().equals(b.getLatest()) &&
           this.getName().equals(b.getName()) &&
+          this.getSetup().equals(b.getSetup()) &&
+          this.getSetupPercent().equals(b.getSetupPercent()) &&
           this.getSolution().applicationSame(b.getSolution()) &&
           this.getUse().equals(b.getUse()) &&
           this.getUtilization().equals(b.getUtilization());

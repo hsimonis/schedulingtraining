@@ -12,7 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
 import static org.insightcentre.tbischeduling.datamodel.ObjectiveType.*;
@@ -36,7 +38,7 @@ public class ReadData {
             resetAll(base);
             String contents = new String(Files.readAllBytes(selected.toPath()));
             root = new JSONObject(contents);
-            pretty(root,"exports/pretty.json");
+//            pretty(root,"exports/pretty.json");
         } catch(IOException e){
             severe("Cannot read file "+selected+", exception "+e.getMessage());
         }
@@ -79,7 +81,36 @@ public class ReadData {
             base.setStartDateTime(readDateTime(root.getString("startDate")));
             info("setting date to "+base.getStartDateTime());
         }
-
+        if(root.has("hasReleaseDate")){
+            base.setHasReleaseDate(root.getBoolean("hasReleaseDate"));
+        } else {
+            base.setHasReleaseDate(false);
+        }
+        if(root.has("hasDueDate")){
+            base.setHasDueDate(root.getBoolean("hasDueDate"));
+        } else {
+            base.setHasDueDate(false);
+        }
+        if(root.has("hasCumulative")){
+            base.setHasCumulative(root.getBoolean("hasCumulative"));
+        } else {
+            base.setHasCumulative(false);
+        }
+        if(root.has("hasWiP")){
+            base.setHasWiP(root.getBoolean("hasWiP"));
+        } else {
+            base.setHasWiP(false);
+        }
+        if(root.has("hasDowntime")){
+            base.setHasDowntime(root.getBoolean("hasDowntime"));
+        } else {
+            base.setHasDowntime(false);
+        }
+        if(root.has("hasSetupTime")){
+            base.setHasSetupTime(root.getBoolean("hasSetupTime"));
+        } else {
+            base.setHasSetupTime(false);
+        }
         // read the different fields of data, create a hashtable from name to Object
         Hashtable<String, InputError> inputErrorHash = readInputErrors(root);
         Hashtable<String, Problem> problemHash = readProblems(root);
@@ -104,6 +135,12 @@ public class ReadData {
         Hashtable<String, JobAssignment> jobAssignmentHash = readJobAssignments(root,jobHash,solutionHash);
         Hashtable<String, TaskAssignment> taskAssignmentHash = readTaskAssignments(root,jobAssignmentHash,
                 taskHash,disjunctiveResourceHash);
+        if (base.getHasSetupTime()){
+            Hashtable<String, Setup> setupHash = readSetup(root,disjunctiveResourceHash);
+            Hashtable<String, SetupType> setupTypeHash = readSetupType(root,setupHash,processStepHash);
+            Hashtable<String, SetupMatrix> setupMatrixHash = readSetupMatrix(root,setupTypeHash);
+
+        }
 
         extendedConsistencyChecks();
         summarizeProblem(base);
@@ -376,6 +413,7 @@ public class ReadData {
                     }
                     ProcessStep ps = new ProcessStep(base);
                     ps.setName(name);
+                    ps.setShortName(name);
                     ps.setProcess(process);
                     ps.setDurationFixed(durationFixed);
                     ps.setDurationPerUnit(durationPerUnit);
@@ -1113,6 +1151,142 @@ public class ReadData {
         }
         return res;
     }
+
+
+    private Hashtable<String,Setup> readSetup(JSONObject root,Hashtable<String,DisjunctiveResource> disjunctiveResourceHash){
+        String key = "setup";
+        Hashtable<String,Setup> res = new Hashtable<>();
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
+            for(int i=0;i<arr.length();i++){
+                JSONObject item = arr.getJSONObject(i);
+                if (requireFields(key,i,item,new String[]{"name","disjunctiveResource"})) {
+                    String name = item.getString("name");
+                    List<String> resources = stringsList(item.getJSONArray("disjunctiveResource"));
+                    Integer defaultValue = optionalInteger(item,"defaultValue");
+                    Integer sameValue = optionalInteger(item,"sameValue");
+                    Setup p = new Setup(base);
+                    p.setName(name);
+                    p.setDisjunctiveResource(resourcesFromNames(resources,disjunctiveResourceHash));
+                    p.setDefaultValue(defaultValue);
+                    p.setSameValue(sameValue);
+                    for(DisjunctiveResource r:p.getDisjunctiveResource()){
+                        if (r.getSetup() == null){
+                            r.setSetup(p);
+                        } else {
+                            inputError(key,"disjunctiveResource","setup",name,"Resource defined in two setups, also "+r.getSetup().getName(),Fatal);
+                        }
+                    }
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, p);
+                }
+
+            }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
+        }
+        return res;
+    }
+
+    private Hashtable<String,SetupType> readSetupType(JSONObject root,Hashtable<String,Setup> setupHash,Hashtable<String,ProcessStep> processStepHash){
+        String key = "setupType";
+        Hashtable<String,SetupType> res = new Hashtable<>();
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
+            for(int i=0;i<arr.length();i++){
+                JSONObject item = arr.getJSONObject(i);
+                if (requireFields(key,i,item,new String[]{"name","setup","processStep"})) {
+                    String name = item.getString("name");
+                    String setup = item.getString("setup");
+                    List<String> steps = stringsList(item.getJSONArray("processStep"));
+                    SetupType p = new SetupType(base);
+                    p.setName(name);
+                    p.setNr(i);
+                    p.setSetup(setupHash.get(setup));
+                    p.setProcessStep(processStepsFromNames(steps,processStepHash));
+                    for(ProcessStep s:p.getProcessStep()){
+                        if (s.getSetupType()== null){
+                            s.setSetupType(p);
+                        } else {
+                            inputError(key,"processStep","setupType",name,"ProcessStep also has setupType "+s.getSetupType(),Fatal);
+                        }
+                    }
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, p);
+                }
+
+            }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
+        }
+        return res;
+    }
+
+    private Hashtable<String,SetupMatrix> readSetupMatrix(JSONObject root,Hashtable<String,SetupType> setupTypeHash){
+        String key = "setupMatrix";
+        Hashtable<String,SetupMatrix> res = new Hashtable<>();
+        if (root.has(key)){
+            JSONArray arr = root.getJSONArray(key);
+            for(int i=0;i<arr.length();i++){
+                JSONObject item = arr.getJSONObject(i);
+                if (requireFields(key,i,item,new String[]{"name","from","to","value"})) {
+                    String name = item.getString("name");
+                    String from = item.getString("from");
+                    String to = item.getString("to");
+                    int value = item.getInt("value");
+                     SetupMatrix p = new SetupMatrix(base);
+                    p.setName(name);
+                    p.setFrom(setupTypeHash.get(from));
+                    p.setTo(setupTypeHash.get(to));
+                    if (p.getFrom()==null){
+                        inputError(key,name,"from",from,"No such SetupType",Fatal);
+                    } else if (p.getTo()==null){
+                        inputError(key,name,"to",to,"No such SetupType",Fatal);
+                    } else if (p.getFrom().getSetup() != p.getTo().getSetup()){
+                        inputError(key,name,"setup", p.getFrom().getSetup().getName(),
+                                "Setup of from and to Types are different, also "+p.getTo().getSetup().getName(),
+                                Fatal);
+                    }
+                    p.setValue(value);
+                    if (res.get(name) != null) {
+                        inputError(key, name, "name", name, "Duplicate name", Fatal);
+                    }
+                    res.put(name, p);
+                }
+
+            }
+        } else {
+            inputError("root","root",key,"n/a","File does not have "+key+" data",Fatal);
+        }
+        return res;
+    }
+
+    private List<String> stringsList(JSONArray arr){
+        List<String> res = new ArrayList<>();
+        for(int i=0;i<arr.length();i++){
+            res.add(arr.getString(i));
+        }
+        return res;
+    }
+
+    private List<DisjunctiveResource> resourcesFromNames(List<String> names, Hashtable<String,DisjunctiveResource> hash){
+        return names.stream().map(hash::get).toList();
+    }
+    private List<ProcessStep> processStepsFromNames(List<String> names, Hashtable<String,ProcessStep> hash){
+        return names.stream().map(hash::get).toList();
+    }
+
+    private Integer optionalInteger(JSONObject item,String key){
+        if (item.has(key)){
+            return item.getInt(key);
+        }
+        return null;
+    }
+
 
     /*
     returns true if all fields are present

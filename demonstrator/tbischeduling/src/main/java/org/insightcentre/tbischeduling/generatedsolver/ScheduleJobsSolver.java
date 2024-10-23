@@ -20,6 +20,7 @@ public class ScheduleJobsSolver extends DefaultSolver{
     protected boolean enforceCumulative=true;
     protected boolean enforceWip=true;
     protected boolean enforceDowntime=true;
+    protected boolean enforceSetup=false;
     protected String modelType="CPO";
     protected String solverBackend="None";
     protected String objectiveType="Makespan";
@@ -37,7 +38,7 @@ public class ScheduleJobsSolver extends DefaultSolver{
     public ScheduleJobsSolver(Scenario base){
         super(base,new String[] {});
     }
-    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarliness,int timeout,int nrThreads,int seed,boolean removeSolution,boolean produceReport,boolean producePDF){
+    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,boolean enforceSetup,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarliness,int timeout,int nrThreads,int seed,boolean removeSolution,boolean produceReport,boolean producePDF){
         super(base,new String[] {});
         this.label=label;
         this.description=description;
@@ -48,6 +49,7 @@ public class ScheduleJobsSolver extends DefaultSolver{
         this.enforceCumulative=enforceCumulative;
         this.enforceWip=enforceWip;
         this.enforceDowntime=enforceDowntime;
+        this.enforceSetup=enforceSetup;
         this.modelType=modelType;
         this.solverBackend=solverBackend;
         this.objectiveType=objectiveType;
@@ -97,6 +99,10 @@ public boolean getEnforceWip(){
 
 public boolean getEnforceDowntime(){
  return enforceDowntime;
+}
+
+public boolean getEnforceSetup(){
+ return enforceSetup;
 }
 
 public String getModelType(){
@@ -193,6 +199,11 @@ public ScheduleJobsSolver setEnforceWip(boolean v){
 
 public ScheduleJobsSolver setEnforceDowntime(boolean v){
  enforceDowntime = v;
+ return this;
+}
+
+public ScheduleJobsSolver setEnforceSetup(boolean v){
+ enforceSetup = v;
  return this;
 }
 

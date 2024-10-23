@@ -41,7 +41,7 @@
     <bottom>
         <HBox alignment="center" spacing="5.0">
             <Label text="Time Zoom"/>
-            <Slider fx:id="zoom" min="0.1" max="5.0" value="1.0" />
+            <Slider fx:id="zoom" min="0.1" max="5.0" value="1.0" showTickMarks="true" showTickLabels="true" majorTickUnit="1" prefWidth="350"/>
             <Label text="Resource Zoom:" />
             <ChoiceBox fx:id="resourceZoomChoiceBox" onAction="#onResourceZoomSelect" />
             <Label text="Solution:" />
@@ -69,44 +69,49 @@
             <TabPane>
                 <Tab text="Details">
                     <GridPane alignment="center" hgap="10" vgap="10">
-                       <padding>
+                        <padding>
                             <Insets top="10" bottom="10" left="10" right="10"/>
                         </padding>
-<children>              <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                        <TextField fx:id="name" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                        <Label text="Machine" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                        <TextField fx:id="machine" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                        <Label text="ProcessStep" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                        <TextField fx:id="processStep" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <Label text="Start" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                        <TextField fx:id="start" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                        <Label text="End" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                        <TextField fx:id="end" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                        <Label text="Duration" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-                        <TextField fx:id="duration" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                        <Label text="Wait Before" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-                        <TextField fx:id="wait" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                        <Label text="Job" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-                        <TextField fx:id="job"  disable="true" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                        <Label text="Release" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
-                        <TextField fx:id="release"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-                        <Label text="Due" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
-                        <TextField fx:id="due" disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                        <Label text="Late" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
-                        <TextField fx:id="late"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-                        <Label text="Early" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
-                        <TextField fx:id="early" disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
-                        <Label text="Order" GridPane.columnIndex="0" GridPane.rowIndex="12"/>
-                        <TextField fx:id="order" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
-                        <Label text="Product" GridPane.columnIndex="0" GridPane.rowIndex="13"/>
-                        <TextField fx:id="product" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
-                        <Label text="Qty" GridPane.columnIndex="0" GridPane.rowIndex="14"/>
-                        <TextField fx:id="qty"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
-                        <Label text="Start Date" GridPane.columnIndex="0" GridPane.rowIndex="15"/>
-                        <TextField fx:id="startDate" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
-                        <Label text="End Date" GridPane.columnIndex="0" GridPane.rowIndex="16"/>
-                        <TextField fx:id="endDate" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="16"/>
-</children>
+                        <children>
+                            <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <TextField fx:id="name" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                            <Label text="Machine" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <TextField fx:id="machine" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                            <Label text="ProcessStep" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                            <TextField fx:id="processStep" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                            <Label text="Start" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                            <TextField fx:id="start" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                            <Label text="End" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                            <TextField fx:id="end" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                            <Label text="Duration" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                            <TextField fx:id="duration" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                            <Label text="Wait Before" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                            <TextField fx:id="wait" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                            <Label text="Job" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+                            <TextField fx:id="job"  disable="true" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                            <Label text="Release" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
+                            <TextField fx:id="release"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                            <Label text="Due" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
+                            <TextField fx:id="due" disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                            <Label text="Late" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
+                            <TextField fx:id="late"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+                            <Label text="Early" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
+                            <TextField fx:id="early" disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
+                            <Label text="Order" GridPane.columnIndex="0" GridPane.rowIndex="12"/>
+                            <TextField fx:id="order" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
+                            <Label text="Product" GridPane.columnIndex="0" GridPane.rowIndex="13"/>
+                            <TextField fx:id="product" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
+                            <Label text="Qty" GridPane.columnIndex="0" GridPane.rowIndex="14"/>
+                            <TextField fx:id="qty"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
+                            <Label text="Start Date" GridPane.columnIndex="0" GridPane.rowIndex="15"/>
+                            <TextField fx:id="startDate" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
+                            <Label text="End Date" GridPane.columnIndex="0" GridPane.rowIndex="16"/>
+                            <TextField fx:id="endDate" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="16"/>
+                            <Label text="Setup" GridPane.columnIndex="0" GridPane.rowIndex="17"/>
+                            <TextField fx:id="setup"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="17"/>
+                            <Label text="Idle" GridPane.columnIndex="0" GridPane.rowIndex="18"/>
+                            <TextField fx:id="idle"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="18"/>
+                        </children>
                     </GridPane>
                 </Tab>
                 <Tab text="Colors">
@@ -152,6 +157,10 @@
                         <ColorPicker fx:id="noneColor" onAction="#onColorPicked" GridPane.columnIndex="1" GridPane.rowIndex="17"/>
                         <Label text="Default" GridPane.columnIndex="0" GridPane.rowIndex="18"/>
                         <ColorPicker fx:id="defaultColor" onAction="#onColorPicked" GridPane.columnIndex="1" GridPane.rowIndex="18"/>
+                        <Label text="Setup" GridPane.columnIndex="0" GridPane.rowIndex="19"/>
+                        <ColorPicker fx:id="setupColor" onAction="#onColorPicked" GridPane.columnIndex="1" GridPane.rowIndex="19"/>
+                        <Label text="Idle" GridPane.columnIndex="0" GridPane.rowIndex="20"/>
+                        <ColorPicker fx:id="idleColor" onAction="#onColorPicked" GridPane.columnIndex="1" GridPane.rowIndex="20"/>
                     </GridPane>
                 </Tab>
                 <Tab text="Layout">
@@ -210,6 +219,28 @@
                         </ChoiceBox>
                         <Label text="Wait Line" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
                         <ChoiceBox fx:id="waitLineChoiceBox" value="None" onAction="#onValueEntered" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="None"/>
+                                    <String fx:value="Number"/>
+                                    <String fx:value="Line"/>
+                                    <String fx:value="All"/>
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                        <Label text="Setup Line" GridPane.columnIndex="0" GridPane.rowIndex="12"/>
+                        <ChoiceBox fx:id="setupLineChoiceBox" value="None" onAction="#onValueEntered" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="None"/>
+                                    <String fx:value="Number"/>
+                                    <String fx:value="Line"/>
+                                    <String fx:value="All"/>
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                        <Label text="Idle Line" GridPane.columnIndex="0" GridPane.rowIndex="13"/>
+                        <ChoiceBox fx:id="idleLineChoiceBox" value="None" onAction="#onValueEntered" GridPane.columnIndex="1" GridPane.rowIndex="13">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="None"/>

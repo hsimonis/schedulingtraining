@@ -52,6 +52,9 @@ import org.insightcentre.tbischeduling.datamodel.ResourceActivity;
 import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.Setup;
+import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
+import org.insightcentre.tbischeduling.datamodel.SetupType;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.SolverProperty;
@@ -70,7 +73,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:05 on 2024-10-22 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -146,6 +149,12 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<SolutionError> solutionErrorData = FXCollections.observableArrayList();
 
+	private ObservableList<Setup> setupData = FXCollections.observableArrayList();
+
+	private ObservableList<SetupType> setupTypeData = FXCollections.observableArrayList();
+
+	private ObservableList<SetupMatrix> setupMatrixData = FXCollections.observableArrayList();
+
 	public GeneratedJfxApp() {
 		super("tbischeduling", "ENTIRE EDIH Test Before Invest - Scheduling - University College Cork", "*.data", "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling");
 		fs = minimalDataset();
@@ -164,6 +173,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		tableViews.put("ResourceNeed", "ResourceNeed");
 		tableViews.put("CumulativeNeed", "CumulativeNeed");
 		tableViews.put("CumulativeProfile", "CumulativeProfile");
+		tableViews.put("Setup", "Setup");
+		tableViews.put("SetupType", "SetupType");
+		tableViews.put("SetupMatrix", "SetupMatrix");
 		tableViews.put("Order", "Order");
 		tableViews.put("Job", "Job");
 		tableViews.put("Task", "Task");
@@ -319,6 +331,12 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		intermediateSolutionData.addAll(base.getListIntermediateSolution());
 		solutionErrorData.clear();
 		solutionErrorData.addAll(base.getListSolutionError());
+		setupData.clear();
+		setupData.addAll(base.getListSetup());
+		setupTypeData.clear();
+		setupTypeData.addAll(base.getListSetupType());
+		setupMatrixData.clear();
+		setupMatrixData.addAll(base.getListSetupMatrix());
 		for (BaseController controller : controllers) {
 			controller.setMainApp(this);
 		}
@@ -571,5 +589,17 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public ObservableList<SolutionError> getSolutionErrorData() {
 		return solutionErrorData;
+	}
+
+	public ObservableList<Setup> getSetupData() {
+		return setupData;
+	}
+
+	public ObservableList<SetupType> getSetupTypeData() {
+		return setupTypeData;
+	}
+
+	public ObservableList<SetupMatrix> getSetupMatrixData() {
+		return setupMatrixData;
 	}
 }

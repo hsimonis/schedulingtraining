@@ -30,6 +30,7 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
    private CheckBox enforceCumulativeItem = new CheckBox();
    private CheckBox enforceWipItem = new CheckBox();
    private CheckBox enforceDowntimeItem = new CheckBox();
+   private CheckBox enforceSetupItem = new CheckBox();
    private TextField modelTypeItem = new TextField();
    private TextField solverBackendItem = new TextField();
    private TextField objectiveTypeItem = new TextField();
@@ -77,6 +78,9 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
         pane.add(new Label("Enforce Downtime:"), 0, row);
         pane.add(enforceDowntimeItem, 1, row++);
         enforceDowntimeItem.setSelected(((ScheduleJobsSolver)solver).getEnforceDowntime());
+        pane.add(new Label("Enforce Setup Times:"), 0, row);
+        pane.add(enforceSetupItem, 1, row++);
+        enforceSetupItem.setSelected(((ScheduleJobsSolver)solver).getEnforceSetup());
         pane.add(new Label("Model Type:"), 0, row);
         pane.add(modelTypeItem, 1, row++);
         modelTypeItem.setText(((ScheduleJobsSolver)solver).getModelType());
@@ -134,6 +138,7 @@ public void handle(InputEvent event) {
         boolean enforceCumulativeValue = enforceCumulativeItem.isSelected();
         boolean enforceWipValue = enforceWipItem.isSelected();
         boolean enforceDowntimeValue = enforceDowntimeItem.isSelected();
+        boolean enforceSetupValue = enforceSetupItem.isSelected();
         String modelTypeValue = modelTypeItem.getText();
         String solverBackendValue = solverBackendItem.getText();
         String objectiveTypeValue = objectiveTypeItem.getText();
@@ -157,6 +162,7 @@ public void handle(InputEvent event) {
             .setEnforceCumulative(enforceCumulativeValue)
             .setEnforceWip(enforceWipValue)
             .setEnforceDowntime(enforceDowntimeValue)
+            .setEnforceSetup(enforceSetupValue)
             .setModelType(modelTypeValue)
             .setSolverBackend(solverBackendValue)
             .setObjectiveType(objectiveTypeValue)

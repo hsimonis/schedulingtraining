@@ -32,7 +32,7 @@ import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:05 on 2024-10-22 */
 public class ScenarioController extends Table3Controller {
 	@FXML
 	private TableView<Scenario> table;
@@ -75,6 +75,24 @@ public class ScenarioController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Scenario, DataGeneratorProperty> dataGeneratorProperty;
+
+	@FXML
+	private TableColumn<Scenario, Boolean> hasReleaseDate;
+
+	@FXML
+	private TableColumn<Scenario, Boolean> hasDueDate;
+
+	@FXML
+	private TableColumn<Scenario, Boolean> hasCumulative;
+
+	@FXML
+	private TableColumn<Scenario, Boolean> hasWiP;
+
+	@FXML
+	private TableColumn<Scenario, Boolean> hasDowntime;
+
+	@FXML
+	private TableColumn<Scenario, Boolean> hasSetupTime;
 
 	private GeneratedJfxApp mainApp;
 
@@ -143,6 +161,24 @@ public class ScenarioController extends Table3Controller {
 		solverProperty.setCellValueFactory(new PropertyValueFactory<>("solverProperty"));
 		choices.add("dataGeneratorProperty");
 		dataGeneratorProperty.setCellValueFactory(new PropertyValueFactory<>("dataGeneratorProperty"));
+		choices.add("hasReleaseDate");
+		hasReleaseDate.setCellValueFactory(new HasReleaseDateCallback());
+		hasReleaseDate.setCellFactory(CheckBoxTableCell.forTableColumn(hasReleaseDate));
+		choices.add("hasDueDate");
+		hasDueDate.setCellValueFactory(new HasDueDateCallback());
+		hasDueDate.setCellFactory(CheckBoxTableCell.forTableColumn(hasDueDate));
+		choices.add("hasCumulative");
+		hasCumulative.setCellValueFactory(new HasCumulativeCallback());
+		hasCumulative.setCellFactory(CheckBoxTableCell.forTableColumn(hasCumulative));
+		choices.add("hasWiP");
+		hasWiP.setCellValueFactory(new HasWiPCallback());
+		hasWiP.setCellFactory(CheckBoxTableCell.forTableColumn(hasWiP));
+		choices.add("hasDowntime");
+		hasDowntime.setCellValueFactory(new HasDowntimeCallback());
+		hasDowntime.setCellFactory(CheckBoxTableCell.forTableColumn(hasDowntime));
+		choices.add("hasSetupTime");
+		hasSetupTime.setCellValueFactory(new HasSetupTimeCallback());
+		hasSetupTime.setCellFactory(CheckBoxTableCell.forTableColumn(hasSetupTime));
 		initialize(choices);
 	}
 
@@ -223,6 +259,96 @@ public class ScenarioController extends Table3Controller {
 				@SuppressWarnings("rawtypes")
 				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
 					cellData.getValue().setValid(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class HasReleaseDateCallback implements Callback<TableColumn.CellDataFeatures<Scenario, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Scenario, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().hasReleaseDateWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setHasReleaseDate(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class HasDueDateCallback implements Callback<TableColumn.CellDataFeatures<Scenario, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Scenario, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().hasDueDateWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setHasDueDate(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class HasCumulativeCallback implements Callback<TableColumn.CellDataFeatures<Scenario, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Scenario, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().hasCumulativeWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setHasCumulative(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class HasWiPCallback implements Callback<TableColumn.CellDataFeatures<Scenario, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Scenario, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().hasWiPWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setHasWiP(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class HasDowntimeCallback implements Callback<TableColumn.CellDataFeatures<Scenario, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Scenario, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().hasDowntimeWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setHasDowntime(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class HasSetupTimeCallback implements Callback<TableColumn.CellDataFeatures<Scenario, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Scenario, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().hasSetupTimeWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setHasSetupTime(newValue);
 				}
 			});
 			return prop;

@@ -121,6 +121,7 @@ public class CreateData {
                 ProcessStep ps = new ProcessStep(base);
                 ps.setProcess(pp);
                 ps.setName("PS"+i+"/"+j);
+                ps.setShortName("PS"+i+"/"+j);
                 ps.setStage(j);
                 switch(durationModel){
                     case Random:

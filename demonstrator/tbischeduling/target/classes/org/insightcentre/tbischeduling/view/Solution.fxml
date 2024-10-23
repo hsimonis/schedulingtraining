@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 10:13:47 on 2024-10-19-->
+<!--Generated at 21:09:58 on 2024-10-22-->
 
 
 <Tab text="Solution" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.SolutionController">
@@ -45,6 +45,14 @@
                <TableColumn fx:id="totalWaitAfter" styleClass="right-aligned" text="TotalWaitAfter" />
                <TableColumn fx:id="maxWaitBefore" styleClass="right-aligned" text="MaxWaitBefore" />
                <TableColumn fx:id="maxWaitAfter" styleClass="right-aligned" text="MaxWaitAfter" />
+               <TableColumn fx:id="totalIdleBefore" styleClass="right-aligned" text="TotalIdleBefore" />
+               <TableColumn fx:id="totalIdleAfter" styleClass="right-aligned" text="TotalIdleAfter" />
+               <TableColumn fx:id="maxIdleBefore" styleClass="right-aligned" text="MaxIdleBefore" />
+               <TableColumn fx:id="maxIdleAfter" styleClass="right-aligned" text="MaxIdleAfter" />
+               <TableColumn fx:id="totalSetupBefore" styleClass="right-aligned" text="TotalSetupBefore" />
+               <TableColumn fx:id="totalSetupAfter" styleClass="right-aligned" text="TotalSetupAfter" />
+               <TableColumn fx:id="maxSetupBefore" styleClass="right-aligned" text="MaxSetupBefore" />
+               <TableColumn fx:id="maxSetupAfter" styleClass="right-aligned" text="MaxSetupAfter" />
                <TableColumn fx:id="modelType" styleClass="right-aligned,disabled-column" text="ModelType" />
                <TableColumn fx:id="solverBackend" styleClass="right-aligned,disabled-column" text="SolverBackend" />
                <TableColumn fx:id="objectiveType" styleClass="right-aligned,disabled-column" text="ObjectiveType" />
@@ -53,6 +61,7 @@
                <TableColumn fx:id="enforceCumulative" styleClass="right-aligned,disabled-column" text="EnforceCumulative" />
                <TableColumn fx:id="enforceWip" styleClass="right-aligned,disabled-column" text="EnforceWip" />
                <TableColumn fx:id="enforceDowntime" styleClass="right-aligned,disabled-column" text="EnforceDowntime" />
+               <TableColumn fx:id="enforceSetup" styleClass="right-aligned,disabled-column" text="EnforceSetup" />
                <TableColumn fx:id="weightMakespan" styleClass="right-aligned,disabled-column" text="WeightMakespan" />
                <TableColumn fx:id="weightFlowtime" styleClass="right-aligned,disabled-column" text="WeightFlowtime" />
                <TableColumn fx:id="weightEarliness" styleClass="right-aligned,disabled-column" text="WeightEarliness" />

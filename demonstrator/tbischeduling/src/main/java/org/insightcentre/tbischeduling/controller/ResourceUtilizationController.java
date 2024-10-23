@@ -23,7 +23,7 @@ import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:05 on 2024-10-22 */
 public class ResourceUtilizationController extends Table3Controller {
 	@FXML
 	private TableView<ResourceUtilization> table;
@@ -50,7 +50,19 @@ public class ResourceUtilizationController extends Table3Controller {
 	private TableColumn<ResourceUtilization, Integer> use;
 
 	@FXML
+	private TableColumn<ResourceUtilization, Integer> setup;
+
+	@FXML
+	private TableColumn<ResourceUtilization, Integer> idle;
+
+	@FXML
 	private TableColumn<ResourceUtilization, Double> utilization;
+
+	@FXML
+	private TableColumn<ResourceUtilization, Double> setupPercent;
+
+	@FXML
+	private TableColumn<ResourceUtilization, Double> idlePercent;
 
 	private GeneratedJfxApp mainApp;
 
@@ -97,10 +109,26 @@ public class ResourceUtilizationController extends Table3Controller {
 		use.setCellValueFactory(new PropertyValueFactory<>("use"));
 		use.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		use.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setUse(event.getNewValue()); mainApp.reset();});
+		choices.add("setup");
+		setup.setCellValueFactory(new PropertyValueFactory<>("setup"));
+		setup.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		setup.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSetup(event.getNewValue()); mainApp.reset();});
+		choices.add("idle");
+		idle.setCellValueFactory(new PropertyValueFactory<>("idle"));
+		idle.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		idle.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setIdle(event.getNewValue()); mainApp.reset();});
 		choices.add("utilization");
 		utilization.setCellValueFactory(new PropertyValueFactory<>("utilization"));
 		utilization.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
 		utilization.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setUtilization(event.getNewValue()); mainApp.reset();});
+		choices.add("setupPercent");
+		setupPercent.setCellValueFactory(new PropertyValueFactory<>("setupPercent"));
+		setupPercent.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		setupPercent.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSetupPercent(event.getNewValue()); mainApp.reset();});
+		choices.add("idlePercent");
+		idlePercent.setCellValueFactory(new PropertyValueFactory<>("idlePercent"));
+		idlePercent.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		idlePercent.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setIdlePercent(event.getNewValue()); mainApp.reset();});
 		initialize(choices);
 	}
 

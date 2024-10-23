@@ -62,8 +62,8 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setSolverProperty(createSolverProperties(base));
                 DataGeneratorProperty q = createDataGeneratorProperties(base);
                 base.setDataGeneratorProperty(q);
-                info("Create JSON doc");
-                new CreateJSONDoc(base,"site/jsonDoc/");
+//                info("Create JSON doc");
+//                new CreateJSONDoc(base,"site/jsonDoc/");
                 info("Creating default data");
                 new CreateData(base,q.getLabel(),q.getStartDateTime(),q.getResourceModel(),q.getNrProducts(),
                         q.getMinStages(),q.getMaxStages(),q.getNrDisjunctiveResources(),

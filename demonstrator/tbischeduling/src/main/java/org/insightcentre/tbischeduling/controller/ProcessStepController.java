@@ -19,15 +19,19 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
+import org.insightcentre.tbischeduling.datamodel.SetupType;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:05 on 2024-10-22 */
 public class ProcessStepController extends Table3Controller {
 	@FXML
 	private TableView<ProcessStep> table;
 
 	@FXML
 	private TableColumn<ProcessStep, String> name;
+
+	@FXML
+	private TableColumn<ProcessStep, String> shortName;
 
 	@FXML
 	private TableColumn<ProcessStep, Process> process;
@@ -41,6 +45,9 @@ public class ProcessStepController extends Table3Controller {
 	@FXML
 	private TableColumn<ProcessStep, Integer> durationPerUnit;
 
+	@FXML
+	private TableColumn<ProcessStep, SetupType> setupType;
+
 	private GeneratedJfxApp mainApp;
 
 	@Override
@@ -49,6 +56,8 @@ public class ProcessStepController extends Table3Controller {
 		table.setItems(mainApp.getProcessStepData());
 		process.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getProcessData()));
 		process.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setProcess(event.getNewValue()); mainApp.reset();});
+		setupType.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getSetupTypeData()));
+		setupType.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSetupType(event.getNewValue()); mainApp.reset();});
 	}
 
 	public TableView<ProcessStep> getTable() {
@@ -64,6 +73,10 @@ public class ProcessStepController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
+		choices.add("shortName");
+		shortName.setCellValueFactory(new PropertyValueFactory<>("shortName"));
+		shortName.setCellFactory(TextFieldTableCell.forTableColumn());
+		shortName.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setShortName(event.getNewValue()); mainApp.reset();});
 		choices.add("process");
 		process.setCellValueFactory(new PropertyValueFactory<>("process"));
 		choices.add("stage");
@@ -78,6 +91,8 @@ public class ProcessStepController extends Table3Controller {
 		durationPerUnit.setCellValueFactory(new PropertyValueFactory<>("durationPerUnit"));
 		durationPerUnit.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		durationPerUnit.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDurationPerUnit(event.getNewValue()); mainApp.reset();});
+		choices.add("setupType");
+		setupType.setCellValueFactory(new PropertyValueFactory<>("setupType"));
 		initialize(choices);
 	}
 

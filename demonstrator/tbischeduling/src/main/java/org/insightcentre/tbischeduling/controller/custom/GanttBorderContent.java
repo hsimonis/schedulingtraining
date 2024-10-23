@@ -86,6 +86,8 @@ public class GanttBorderContent {
     LineChoice showLate=LineChoice.All;
     LineChoice showRelease=LineChoice.None;
     LineChoice showWait=LineChoice.Line;
+    LineChoice showSetup=LineChoice.Line;
+    LineChoice showIdle=LineChoice.None;
 
     int xoffset;
 
@@ -121,6 +123,8 @@ public class GanttBorderContent {
     Color earlyColor = Color.BLUE;
     Color releaseColor = Color.DARKGREEN;
     Color waitColor = Color.SANDYBROWN;
+    Color setupColor = Color.RED;
+    Color idleColor = Color.LIGHTSALMON;
 
     public double getStartX() {
         return startX;
@@ -730,6 +734,12 @@ public class GanttBorderContent {
                 double taHeight = itemHeight;
                 double taWidth = xcoor(ra.getEnd(), startX) - x1;
                 drawTask(gc,x1,y1,taWidth,taHeight,label(ra,taskLabel),colorResourceActivity(ra),alpha(ra),ra);
+                if (showSetup != LineChoice.None && ra instanceof TaskAssignment ta) {
+                    setup(gc,showSetup,x1, y1, ta.getSetupBefore());
+                }
+                if (showIdle != LineChoice.None && ra instanceof TaskAssignment ta) {
+                    idle(gc,showIdle,x1, y1, ta.getIdleBefore());
+                }
                 if (ra == selected && ra instanceof TaskAssignment task) {
                     highlightAlternativeMachines(gc, task, x1, y1, taWidth, taHeight, machineHash,startY);
                 }
@@ -1126,6 +1136,30 @@ public class GanttBorderContent {
     private void wait(GraphicsContext gc,LineChoice what,double x, double y,int wait){
         if (wait != 0) {
             gc.setStroke(waitColor);
+            gc.setTextAlign(TextAlignment.CENTER);
+            if (what==LineChoice.All || what==LineChoice.Number){
+                gc.strokeText(internalExternalPeriod(wait),x-xLength(wait)/2,y+midLine-nudge);
+            }
+            if (what==LineChoice.All || what==LineChoice.Line) {
+                lines(gc, x, y, -xLength(wait));
+            }
+        }
+    }
+    private void setup(GraphicsContext gc,LineChoice what,double x, double y,int wait){
+        if (wait != 0) {
+            gc.setStroke(setupColor);
+            gc.setTextAlign(TextAlignment.CENTER);
+            if (what==LineChoice.All || what==LineChoice.Number){
+                gc.strokeText(internalExternalPeriod(wait),x-xLength(wait)/2,y+midLine-nudge);
+            }
+            if (what==LineChoice.All || what==LineChoice.Line) {
+                lines(gc, x, y, -xLength(wait));
+            }
+        }
+    }
+    private void idle(GraphicsContext gc,LineChoice what,double x, double y,int wait){
+        if (wait != 0) {
+            gc.setStroke(idleColor);
             gc.setTextAlign(TextAlignment.CENTER);
             if (what==LineChoice.All || what==LineChoice.Number){
                 gc.strokeText(internalExternalPeriod(wait),x-xLength(wait)/2,y+midLine-nudge);

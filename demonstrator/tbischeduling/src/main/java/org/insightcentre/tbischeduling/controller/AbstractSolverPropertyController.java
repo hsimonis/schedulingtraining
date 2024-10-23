@@ -32,7 +32,7 @@ import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.SolverBackend;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:05 on 2024-10-22 */
 public class AbstractSolverPropertyController extends Table3Controller {
 	@FXML
 	private TableView<AbstractSolverProperty> table;
@@ -63,6 +63,9 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	@FXML
 	private TableColumn<AbstractSolverProperty, Boolean> enforceDowntime;
+
+	@FXML
+	private TableColumn<AbstractSolverProperty, Boolean> enforceSetup;
 
 	@FXML
 	private TableColumn<AbstractSolverProperty, ModelType> modelType;
@@ -160,6 +163,9 @@ public class AbstractSolverPropertyController extends Table3Controller {
 		choices.add("enforceDowntime");
 		enforceDowntime.setCellValueFactory(new EnforceDowntimeCallback());
 		enforceDowntime.setCellFactory(CheckBoxTableCell.forTableColumn(enforceDowntime));
+		choices.add("enforceSetup");
+		enforceSetup.setCellValueFactory(new EnforceSetupCallback());
+		enforceSetup.setCellFactory(CheckBoxTableCell.forTableColumn(enforceSetup));
 		choices.add("modelType");
 		modelType.setCellValueFactory(new PropertyValueFactory<>("modelType"));
 		choices.add("solverBackend");
@@ -328,6 +334,21 @@ public class AbstractSolverPropertyController extends Table3Controller {
 				@SuppressWarnings("rawtypes")
 				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
 					cellData.getValue().setEnforceDowntime(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class EnforceSetupCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().enforceSetupWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setEnforceSetup(newValue);
 				}
 			});
 			return prop;

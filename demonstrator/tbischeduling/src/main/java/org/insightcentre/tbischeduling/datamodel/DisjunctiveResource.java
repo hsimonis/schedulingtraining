@@ -34,6 +34,9 @@ import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.SolutionError;
+import org.insightcentre.tbischeduling.datamodel.Setup;
+import org.insightcentre.tbischeduling.datamodel.SetupType;
+import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -72,6 +75,13 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
  *
 */
 
+    public Setup setup;
+
+/**
+ *  
+ *
+*/
+
     public String shortName;
 
 /**
@@ -93,6 +103,7 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
 
     public DisjunctiveResource(ApplicationDataset applicationDataset){
         super(applicationDataset);
+        setSetup(null);
         setShortName("");
         applicationDataset.addDisjunctiveResource(this);
     }
@@ -107,10 +118,12 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
     public DisjunctiveResource(ApplicationDataset applicationDataset,
             Integer id,
             String name,
+            Setup setup,
             String shortName){
         super(applicationDataset,
             id,
             name);
+        setSetup(setup);
         setShortName(shortName);
         applicationDataset.addDisjunctiveResource(this);
     }
@@ -119,6 +132,7 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
         this(other.applicationDataset,
             other.id,
             other.name,
+            other.setup,
             other.shortName);
     }
 
@@ -134,6 +148,7 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
         getApplicationDataset().cascadeResourceActivityDisjunctiveResource(this);
         getApplicationDataset().cascadeTaskMachines(this);
         getApplicationDataset().cascadeResourceUtilizationDisjunctiveResource(this);
+        getApplicationDataset().cascadeSetupDisjunctiveResource(this);
         return getApplicationDataset().removeDisjunctiveResource(this) && getApplicationDataset().removeApplicationObject(this);
     }
 
@@ -151,6 +166,16 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
     }
 
 /**
+ *  get attribute setup
+ *
+ * @return Setup
+*/
+
+    public Setup getSetup(){
+        return this.setup;
+    }
+
+/**
  *  get attribute shortName
  *
  * @return String
@@ -158,6 +183,18 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
 
     public String getShortName(){
         return this.shortName;
+    }
+
+/**
+ *  set attribute setup, mark dataset as dirty, mark dataset as not valid
+@param setup Setup
+ *
+*/
+
+    public void setSetup(Setup setup){
+        this.setup = setup;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -189,7 +226,7 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getShortName();
+        return ""+ " " +getId()+ " " +getName()+ " " +(getSetup() == null ? "" : getSetup().toColumnString())+ " " +getShortName();
     }
 
 /**
@@ -213,8 +250,22 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
          out.println("<disjunctiveResource "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
+            " setup=\""+toXMLSetup()+"\""+
             " shortName=\""+toXMLShortName()+"\""+" />");
      }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLSetup(){
+        if (getSetup() == null){
+             return "";
+        }
+        return "ID_"+this.getSetup().getId().toString();
+    }
 
 /**
  * helper method for toXML(), prcess one attribute
@@ -233,11 +284,11 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>DisjunctiveResource</th>"+"<th>Name</th>"+"<th>ShortName</th>"+"</tr>";
+        return "<tr><th>DisjunctiveResource</th>"+"<th>Name</th>"+"<th>Setup</th>"+"<th>ShortName</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getShortName()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+(getSetup() == null ? "" : getSetup().toColumnString())+"</td>"+ " " +"<td>"+getShortName()+"</td>"+"</tr>";
     }
 
 /**
@@ -357,10 +408,14 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
+      if(!(getSetup() == null ? b.getSetup() == null:this.getSetup().applicationSame(b.getSetup()))){
+         System.out.println("Setup");
+        }
       if(!this.getShortName().equals(b.getShortName())){
          System.out.println("ShortName");
         }
         return  this.getName().equals(b.getName()) &&
+          (this.getSetup() == null ? b.getSetup() == null : this.getSetup().applicationSame(b.getSetup())) &&
           this.getShortName().equals(b.getShortName());
     }
 
@@ -389,6 +444,9 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
     }
 
    public List<ApplicationObjectInterface> getFeasibleValues(ApplicationDatasetInterface base,String attrName){
+      if (attrName.equals("setup")){
+         return (List) ((Scenario)base).getListSetup();
+      }
       return null;
    }
 

@@ -54,6 +54,7 @@ $\square$\ & enforceDueDate &  \\
 $\square$\ & enforceCumulative &  \\
 $\square$\ & enforceWip &  \\
 $\square$\ & enforceDowntime &  \\
+$\square$\ & enforceSetup &  \\
 $\square$\ & modelType &  \\
 $\square$\ & solverBackend &  \\
 $\square$\ & objectiveType &  \\
@@ -129,6 +130,7 @@ $\square$\ & capacity &  \\
 
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
+$\square$\ & setup &  \\
 $\square$\ & shortName &  \\
 \end{longtable}
 \label{attr:DisjunctiveResource}
@@ -270,10 +272,12 @@ $\square$\ & offset &  \\
 
 \begin{longtable}{llp{8cm}}
 & Attribute & Description \\
+$\square$\ & shortName &  \\
 $\square$\ & process &  \\
 $\square$\ & stage &  \\
 $\square$\ & durationFixed &  \\
 $\square$\ & durationPerUnit &  \\
+$\square$\ & setupType &  \\
 \end{longtable}
 \label{attr:ProcessStep}
 \end{table}
@@ -327,7 +331,11 @@ $\square$\ & earliest &  \\
 $\square$\ & latest &  \\
 $\square$\ & active &  \\
 $\square$\ & use &  \\
+$\square$\ & setup &  \\
+$\square$\ & idle &  \\
 $\square$\ & utilization &  \\
+$\square$\ & setupPercent &  \\
+$\square$\ & idlePercent &  \\
 \end{longtable}
 \label{attr:ResourceUtilization}
 \end{table}
@@ -347,10 +355,53 @@ $\square$\ & ganttLinesPerPage &  \\
 $\square$\ & ganttLineHeight &  \\
 $\square$\ & solverProperty &  \\
 $\square$\ & dataGeneratorProperty &  \\
+$\square$\ & hasReleaseDate &  \\
+$\square$\ & hasDueDate &  \\
+$\square$\ & hasCumulative &  \\
+$\square$\ & hasWiP &  \\
+$\square$\ & hasDowntime &  \\
+$\square$\ & hasSetupTime &  \\
 \end{longtable}
 \label{attr:Scenario}
 \end{table}
 
+\begin{table}
+\caption{Setup  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & defaultValue &  \\
+$\square$\ & sameValue &  \\
+$\square$\ & disjunctiveResource &  \\
+\end{longtable}
+\label{attr:Setup}
+\end{table}
+
+\begin{table}
+\caption{SetupMatrix  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & from &  \\
+$\square$\ & to &  \\
+$\square$\ & value &  \\
+\end{longtable}
+\label{attr:SetupMatrix}
+\end{table}
+
+\begin{table}
+\caption{SetupType  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & setup &  \\
+$\square$\ & nr &  \\
+$\square$\ & processStep &  \\
+\end{longtable}
+\label{attr:SetupType}
+\end{table}
+
+\clearpage
 \begin{table}
 \caption{Solution  }
 
@@ -382,6 +433,19 @@ $\square$\ & totalWaitBefore &  \\
 $\square$\ & totalWaitAfter &  \\
 $\square$\ & maxWaitBefore &  \\
 $\square$\ & maxWaitAfter &  \\
+$\square$\ & totalIdleBefore &  \\
+$\square$\ & totalIdleAfter &  \\
+$\square$\ & maxIdleBefore &  \\
+$\square$\ & maxIdleAfter &  \\
+$\square$\ & totalSetupBefore &  \\
+$\square$\ & totalSetupAfter &  \\
+$\square$\ & maxSetupBefore &  \\
+$\square$\ & maxSetupAfter &  \\
+$\square$\ & totalActiveTime &  \\
+$\square$\ & totalProductionTime &  \\
+$\square$\ & activeUtilization &  \\
+$\square$\ & setupPercent &  \\
+$\square$\ & idlePercent &  \\
 \end{longtable}
 \label{attr:Solution}
 \end{table}
@@ -411,7 +475,6 @@ $\square$\ & severity &  \\
 \label{attr:SolverProperty}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{SolverRun  }
 
@@ -441,6 +504,7 @@ $\square$\ & follows &  \\
 \label{attr:Task}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{TaskAssignment  }
 
@@ -450,6 +514,10 @@ $\square$\ & task &  \\
 $\square$\ & jobAssignment &  \\
 $\square$\ & waitBefore &  \\
 $\square$\ & waitAfter &  \\
+$\square$\ & idleBefore &  \\
+$\square$\ & idleAfter &  \\
+$\square$\ & setupBefore &  \\
+$\square$\ & setupAfter &  \\
 \end{longtable}
 \label{attr:TaskAssignment}
 \end{table}

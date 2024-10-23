@@ -33,7 +33,7 @@ import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:05 on 2024-10-22 */
 public class TaskAssignmentController extends Table3Controller {
 	@FXML
 	private TableView<TaskAssignment> table;
@@ -70,6 +70,18 @@ public class TaskAssignmentController extends Table3Controller {
 
 	@FXML
 	private TableColumn<TaskAssignment, Integer> waitAfter;
+
+	@FXML
+	private TableColumn<TaskAssignment, Integer> idleBefore;
+
+	@FXML
+	private TableColumn<TaskAssignment, Integer> idleAfter;
+
+	@FXML
+	private TableColumn<TaskAssignment, Integer> setupBefore;
+
+	@FXML
+	private TableColumn<TaskAssignment, Integer> setupAfter;
 
 	@FXML
 	private TableColumn<TaskAssignment, Solution> solution;
@@ -166,6 +178,22 @@ public class TaskAssignmentController extends Table3Controller {
 		waitAfter.setCellValueFactory(new PropertyValueFactory<>("waitAfter"));
 		waitAfter.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		waitAfter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setWaitAfter(event.getNewValue()); mainApp.reset();});
+		choices.add("idleBefore");
+		idleBefore.setCellValueFactory(new PropertyValueFactory<>("idleBefore"));
+		idleBefore.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		idleBefore.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setIdleBefore(event.getNewValue()); mainApp.reset();});
+		choices.add("idleAfter");
+		idleAfter.setCellValueFactory(new PropertyValueFactory<>("idleAfter"));
+		idleAfter.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		idleAfter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setIdleAfter(event.getNewValue()); mainApp.reset();});
+		choices.add("setupBefore");
+		setupBefore.setCellValueFactory(new PropertyValueFactory<>("setupBefore"));
+		setupBefore.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		setupBefore.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSetupBefore(event.getNewValue()); mainApp.reset();});
+		choices.add("setupAfter");
+		setupAfter.setCellValueFactory(new PropertyValueFactory<>("setupAfter"));
+		setupAfter.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		setupAfter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSetupAfter(event.getNewValue()); mainApp.reset();});
 		choices.add("jobAssignment.solution");
 		try {
 			solution.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getJobAssignment().getSolution()));

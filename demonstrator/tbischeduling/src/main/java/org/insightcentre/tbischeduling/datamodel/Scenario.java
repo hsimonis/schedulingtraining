@@ -34,6 +34,9 @@ import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.SolutionError;
+import org.insightcentre.tbischeduling.datamodel.Setup;
+import org.insightcentre.tbischeduling.datamodel.SetupType;
+import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -114,6 +117,60 @@ public  class Scenario extends ApplicationDataset{
  *
 */
 
+    public Boolean hasCumulative;
+
+    private transient BooleanProperty hasCumulativeWrapper;
+
+/**
+ *  
+ *
+*/
+
+    public Boolean hasDowntime;
+
+    private transient BooleanProperty hasDowntimeWrapper;
+
+/**
+ *  
+ *
+*/
+
+    public Boolean hasDueDate;
+
+    private transient BooleanProperty hasDueDateWrapper;
+
+/**
+ *  
+ *
+*/
+
+    public Boolean hasReleaseDate;
+
+    private transient BooleanProperty hasReleaseDateWrapper;
+
+/**
+ *  
+ *
+*/
+
+    public Boolean hasSetupTime;
+
+    private transient BooleanProperty hasSetupTimeWrapper;
+
+/**
+ *  
+ *
+*/
+
+    public Boolean hasWiP;
+
+    private transient BooleanProperty hasWiPWrapper;
+
+/**
+ *  
+ *
+*/
+
     public Integer horizon;
 
 /**
@@ -162,6 +219,12 @@ public  class Scenario extends ApplicationDataset{
         setGanttLineHeight(0.0);
         setGanttLinesPerPage(0);
         setGanttWidth(0);
+        setHasCumulative(true);
+        setHasDowntime(true);
+        setHasDueDate(true);
+        setHasReleaseDate(true);
+        setHasSetupTime(true);
+        setHasWiP(true);
         setHorizon(0);
         setSolverProperty(null);
         setStartDateTime(new DateTime());
@@ -186,6 +249,12 @@ public  class Scenario extends ApplicationDataset{
             Double ganttLineHeight,
             Integer ganttLinesPerPage,
             Integer ganttWidth,
+            Boolean hasCumulative,
+            Boolean hasDowntime,
+            Boolean hasDueDate,
+            Boolean hasReleaseDate,
+            Boolean hasSetupTime,
+            Boolean hasWiP,
             Integer horizon,
             SolverProperty solverProperty,
             DateTime startDateTime,
@@ -200,6 +269,12 @@ public  class Scenario extends ApplicationDataset{
         setGanttLineHeight(ganttLineHeight);
         setGanttLinesPerPage(ganttLinesPerPage);
         setGanttWidth(ganttWidth);
+        setHasCumulative(hasCumulative);
+        setHasDowntime(hasDowntime);
+        setHasDueDate(hasDueDate);
+        setHasReleaseDate(hasReleaseDate);
+        setHasSetupTime(hasSetupTime);
+        setHasWiP(hasWiP);
         setHorizon(horizon);
         setSolverProperty(solverProperty);
         setStartDateTime(startDateTime);
@@ -218,6 +293,12 @@ public  class Scenario extends ApplicationDataset{
             other.ganttLineHeight,
             other.ganttLinesPerPage,
             other.ganttWidth,
+            other.hasCumulative,
+            other.hasDowntime,
+            other.hasDueDate,
+            other.hasReleaseDate,
+            other.hasSetupTime,
+            other.hasWiP,
             other.horizon,
             other.solverProperty,
             other.startDateTime,
@@ -287,6 +368,114 @@ public  class Scenario extends ApplicationDataset{
 
     public Integer getGanttWidth(){
         return this.ganttWidth;
+    }
+
+/**
+ *  get attribute hasCumulative
+ *
+ * @return Boolean
+*/
+
+    public Boolean getHasCumulative(){
+        return this.hasCumulative;
+    }
+
+    public BooleanProperty hasCumulativeWrapperProperty() {
+        if (hasCumulativeWrapper == null) {
+            hasCumulativeWrapper = new SimpleBooleanProperty();
+        }
+        hasCumulativeWrapper.set(hasCumulative);
+        return hasCumulativeWrapper;
+    }
+
+/**
+ *  get attribute hasDowntime
+ *
+ * @return Boolean
+*/
+
+    public Boolean getHasDowntime(){
+        return this.hasDowntime;
+    }
+
+    public BooleanProperty hasDowntimeWrapperProperty() {
+        if (hasDowntimeWrapper == null) {
+            hasDowntimeWrapper = new SimpleBooleanProperty();
+        }
+        hasDowntimeWrapper.set(hasDowntime);
+        return hasDowntimeWrapper;
+    }
+
+/**
+ *  get attribute hasDueDate
+ *
+ * @return Boolean
+*/
+
+    public Boolean getHasDueDate(){
+        return this.hasDueDate;
+    }
+
+    public BooleanProperty hasDueDateWrapperProperty() {
+        if (hasDueDateWrapper == null) {
+            hasDueDateWrapper = new SimpleBooleanProperty();
+        }
+        hasDueDateWrapper.set(hasDueDate);
+        return hasDueDateWrapper;
+    }
+
+/**
+ *  get attribute hasReleaseDate
+ *
+ * @return Boolean
+*/
+
+    public Boolean getHasReleaseDate(){
+        return this.hasReleaseDate;
+    }
+
+    public BooleanProperty hasReleaseDateWrapperProperty() {
+        if (hasReleaseDateWrapper == null) {
+            hasReleaseDateWrapper = new SimpleBooleanProperty();
+        }
+        hasReleaseDateWrapper.set(hasReleaseDate);
+        return hasReleaseDateWrapper;
+    }
+
+/**
+ *  get attribute hasSetupTime
+ *
+ * @return Boolean
+*/
+
+    public Boolean getHasSetupTime(){
+        return this.hasSetupTime;
+    }
+
+    public BooleanProperty hasSetupTimeWrapperProperty() {
+        if (hasSetupTimeWrapper == null) {
+            hasSetupTimeWrapper = new SimpleBooleanProperty();
+        }
+        hasSetupTimeWrapper.set(hasSetupTime);
+        return hasSetupTimeWrapper;
+    }
+
+/**
+ *  get attribute hasWiP
+ *
+ * @return Boolean
+*/
+
+    public Boolean getHasWiP(){
+        return this.hasWiP;
+    }
+
+    public BooleanProperty hasWiPWrapperProperty() {
+        if (hasWiPWrapper == null) {
+            hasWiPWrapper = new SimpleBooleanProperty();
+        }
+        hasWiPWrapper.set(hasWiP);
+        return hasWiPWrapper;
     }
 
 /**
@@ -402,6 +591,78 @@ public  class Scenario extends ApplicationDataset{
     }
 
 /**
+ *  set attribute hasCumulative, mark dataset as dirty, mark dataset as not valid
+@param hasCumulative Boolean
+ *
+*/
+
+    public void setHasCumulative(Boolean hasCumulative){
+        this.hasCumulative = hasCumulative;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute hasDowntime, mark dataset as dirty, mark dataset as not valid
+@param hasDowntime Boolean
+ *
+*/
+
+    public void setHasDowntime(Boolean hasDowntime){
+        this.hasDowntime = hasDowntime;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute hasDueDate, mark dataset as dirty, mark dataset as not valid
+@param hasDueDate Boolean
+ *
+*/
+
+    public void setHasDueDate(Boolean hasDueDate){
+        this.hasDueDate = hasDueDate;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute hasReleaseDate, mark dataset as dirty, mark dataset as not valid
+@param hasReleaseDate Boolean
+ *
+*/
+
+    public void setHasReleaseDate(Boolean hasReleaseDate){
+        this.hasReleaseDate = hasReleaseDate;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute hasSetupTime, mark dataset as dirty, mark dataset as not valid
+@param hasSetupTime Boolean
+ *
+*/
+
+    public void setHasSetupTime(Boolean hasSetupTime){
+        this.hasSetupTime = hasSetupTime;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute hasWiP, mark dataset as dirty, mark dataset as not valid
+@param hasWiP Boolean
+ *
+*/
+
+    public void setHasWiP(Boolean hasWiP){
+        this.hasWiP = hasWiP;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute horizon, mark dataset as dirty, mark dataset as not valid
 @param horizon Integer
  *
@@ -510,7 +771,7 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public String prettyString(){
-        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getDataGeneratorProperty().toColumnString()+ " " +getGanttLineHeight()+ " " +getGanttLinesPerPage()+ " " +getGanttWidth()+ " " +getHorizon()+ " " +getSolverProperty().toColumnString()+ " " +getStartDateTime()+ " " +getTimeResolution();
+        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getDataGeneratorProperty().toColumnString()+ " " +getGanttLineHeight()+ " " +getGanttLinesPerPage()+ " " +getGanttWidth()+ " " +getHasCumulative()+ " " +getHasDowntime()+ " " +getHasDueDate()+ " " +getHasReleaseDate()+ " " +getHasSetupTime()+ " " +getHasWiP()+ " " +getHorizon()+ " " +getSolverProperty().toColumnString()+ " " +getStartDateTime()+ " " +getTimeResolution();
     }
 
 /**
@@ -541,6 +802,12 @@ public  class Scenario extends ApplicationDataset{
             " ganttLineHeight=\""+toXMLGanttLineHeight()+"\""+
             " ganttLinesPerPage=\""+toXMLGanttLinesPerPage()+"\""+
             " ganttWidth=\""+toXMLGanttWidth()+"\""+
+            " hasCumulative=\""+toXMLHasCumulative()+"\""+
+            " hasDowntime=\""+toXMLHasDowntime()+"\""+
+            " hasDueDate=\""+toXMLHasDueDate()+"\""+
+            " hasReleaseDate=\""+toXMLHasReleaseDate()+"\""+
+            " hasSetupTime=\""+toXMLHasSetupTime()+"\""+
+            " hasWiP=\""+toXMLHasWiP()+"\""+
             " horizon=\""+toXMLHorizon()+"\""+
             " solverProperty=\""+toXMLSolverProperty()+"\""+
             " startDateTime=\""+toXMLStartDateTime()+"\""+
@@ -613,6 +880,66 @@ public  class Scenario extends ApplicationDataset{
  * @return String
 */
 
+    String toXMLHasCumulative(){
+        return this.getHasCumulative().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLHasDowntime(){
+        return this.getHasDowntime().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLHasDueDate(){
+        return this.getHasDueDate().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLHasReleaseDate(){
+        return this.getHasReleaseDate().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLHasSetupTime(){
+        return this.getHasSetupTime().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLHasWiP(){
+        return this.getHasWiP().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLHorizon(){
         return this.getHorizon().toString();
     }
@@ -654,11 +981,11 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>StartDateTime</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"<th>GanttWidth</th>"+"<th>GanttLinesPerPage</th>"+"<th>GanttLineHeight</th>"+"<th>SolverProperty</th>"+"<th>DataGeneratorProperty</th>"+"</tr>";
+        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>StartDateTime</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"<th>GanttWidth</th>"+"<th>GanttLinesPerPage</th>"+"<th>GanttLineHeight</th>"+"<th>SolverProperty</th>"+"<th>DataGeneratorProperty</th>"+"<th>HasReleaseDate</th>"+"<th>HasDueDate</th>"+"<th>HasCumulative</th>"+"<th>HasWiP</th>"+"<th>HasDowntime</th>"+"<th>HasSetupTime</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+ " " +"<td>"+getGanttWidth()+"</td>"+ " " +"<td>"+getGanttLinesPerPage()+"</td>"+ " " +"<td>"+getGanttLineHeight()+"</td>"+ " " +"<td>"+getSolverProperty().toColumnString()+"</td>"+ " " +"<td>"+getDataGeneratorProperty().toColumnString()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+ " " +"<td>"+getGanttWidth()+"</td>"+ " " +"<td>"+getGanttLinesPerPage()+"</td>"+ " " +"<td>"+getGanttLineHeight()+"</td>"+ " " +"<td>"+getSolverProperty().toColumnString()+"</td>"+ " " +"<td>"+getDataGeneratorProperty().toColumnString()+"</td>"+ " " +"<td>"+getHasReleaseDate()+"</td>"+ " " +"<td>"+getHasDueDate()+"</td>"+ " " +"<td>"+getHasCumulative()+"</td>"+ " " +"<td>"+getHasWiP()+"</td>"+ " " +"<td>"+getHasDowntime()+"</td>"+ " " +"<td>"+getHasSetupTime()+"</td>"+"</tr>";
     }
 
 /**
@@ -715,6 +1042,24 @@ public  class Scenario extends ApplicationDataset{
       if(!this.getGanttWidth().equals(b.getGanttWidth())){
          System.out.println("GanttWidth");
         }
+      if(!this.getHasCumulative().equals(b.getHasCumulative())){
+         System.out.println("HasCumulative");
+        }
+      if(!this.getHasDowntime().equals(b.getHasDowntime())){
+         System.out.println("HasDowntime");
+        }
+      if(!this.getHasDueDate().equals(b.getHasDueDate())){
+         System.out.println("HasDueDate");
+        }
+      if(!this.getHasReleaseDate().equals(b.getHasReleaseDate())){
+         System.out.println("HasReleaseDate");
+        }
+      if(!this.getHasSetupTime().equals(b.getHasSetupTime())){
+         System.out.println("HasSetupTime");
+        }
+      if(!this.getHasWiP().equals(b.getHasWiP())){
+         System.out.println("HasWiP");
+        }
       if(!this.getHorizon().equals(b.getHorizon())){
          System.out.println("Horizon");
         }
@@ -736,6 +1081,12 @@ public  class Scenario extends ApplicationDataset{
           this.getGanttLineHeight().equals(b.getGanttLineHeight()) &&
           this.getGanttLinesPerPage().equals(b.getGanttLinesPerPage()) &&
           this.getGanttWidth().equals(b.getGanttWidth()) &&
+          this.getHasCumulative().equals(b.getHasCumulative()) &&
+          this.getHasDowntime().equals(b.getHasDowntime()) &&
+          this.getHasDueDate().equals(b.getHasDueDate()) &&
+          this.getHasReleaseDate().equals(b.getHasReleaseDate()) &&
+          this.getHasSetupTime().equals(b.getHasSetupTime()) &&
+          this.getHasWiP().equals(b.getHasWiP()) &&
           this.getHorizon().equals(b.getHorizon()) &&
           this.getName().equals(b.getName()) &&
           this.getSolverProperty().applicationSame(b.getSolverProperty()) &&

@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 10:13:47 on 2024-10-19 */
+ * Generated at 22:14:06 on 2024-10-22 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -42,6 +42,12 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("ganttLineHeight");
 		filterNames.add("solverProperty");
 		filterNames.add("dataGeneratorProperty");
+		filterNames.add("hasReleaseDate");
+		filterNames.add("hasDueDate");
+		filterNames.add("hasCumulative");
+		filterNames.add("hasWiP");
+		filterNames.add("hasDowntime");
+		filterNames.add("hasSetupTime");
 		choicesMap.put("Scenario", attributeNames);
 		filterMap.put("Scenario", filterNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -65,6 +71,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceCumulative");
 		filterNames.add("enforceWip");
 		filterNames.add("enforceDowntime");
+		filterNames.add("enforceSetup");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");
@@ -99,6 +106,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceCumulative");
 		filterNames.add("enforceWip");
 		filterNames.add("enforceDowntime");
+		filterNames.add("enforceSetup");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");
@@ -133,6 +141,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceCumulative");
 		filterNames.add("enforceWip");
 		filterNames.add("enforceDowntime");
+		filterNames.add("enforceSetup");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");
@@ -386,6 +395,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("defaultProcess");
 		filterNames.add("name");
 		filterNames.add("name");
+		filterNames.add("shortName");
 		filterNames.add("process");
 		attributeNames.add("stage");
 		filterNames.add("stage");
@@ -393,6 +403,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("durationFixed");
 		attributeNames.add("durationPerUnit");
 		filterNames.add("durationPerUnit");
+		filterNames.add("setupType");
 		choicesMap.put("ProcessStep", attributeNames);
 		filterMap.put("ProcessStep", filterNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -442,6 +453,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
 		filterNames.add("name");
+		filterNames.add("setup");
 		filterNames.add("shortName");
 		filterNames.add("name");
 		filterNames.add("name");
@@ -607,6 +619,32 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("maxWaitBefore");
 		attributeNames.add("maxWaitAfter");
 		filterNames.add("maxWaitAfter");
+		attributeNames.add("totalIdleBefore");
+		filterNames.add("totalIdleBefore");
+		attributeNames.add("totalIdleAfter");
+		filterNames.add("totalIdleAfter");
+		attributeNames.add("maxIdleBefore");
+		filterNames.add("maxIdleBefore");
+		attributeNames.add("maxIdleAfter");
+		filterNames.add("maxIdleAfter");
+		attributeNames.add("totalSetupBefore");
+		filterNames.add("totalSetupBefore");
+		attributeNames.add("totalSetupAfter");
+		filterNames.add("totalSetupAfter");
+		attributeNames.add("maxSetupBefore");
+		filterNames.add("maxSetupBefore");
+		attributeNames.add("maxSetupAfter");
+		filterNames.add("maxSetupAfter");
+		attributeNames.add("totalActiveTime");
+		filterNames.add("totalActiveTime");
+		attributeNames.add("totalProductionTime");
+		filterNames.add("totalProductionTime");
+		attributeNames.add("activeUtilization");
+		filterNames.add("activeUtilization");
+		attributeNames.add("setupPercent");
+		filterNames.add("setupPercent");
+		attributeNames.add("idlePercent");
+		filterNames.add("idlePercent");
 		filterNames.add("solverRun.modelType");
 		filterNames.add("solverRun.solverBackend");
 		filterNames.add("solverRun.objectiveType");
@@ -615,6 +653,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("solverRun.enforceCumulative");
 		filterNames.add("solverRun.enforceWip");
 		filterNames.add("solverRun.enforceDowntime");
+		filterNames.add("solverRun.enforceSetup");
 		attributeNames.add("solverRun.weightMakespan");
 		filterNames.add("solverRun.weightMakespan");
 		attributeNames.add("solverRun.weightFlowtime");
@@ -684,6 +723,14 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("waitBefore");
 		attributeNames.add("waitAfter");
 		filterNames.add("waitAfter");
+		attributeNames.add("idleBefore");
+		filterNames.add("idleBefore");
+		attributeNames.add("idleAfter");
+		filterNames.add("idleAfter");
+		attributeNames.add("setupBefore");
+		filterNames.add("setupBefore");
+		attributeNames.add("setupAfter");
+		filterNames.add("setupAfter");
 		filterNames.add("jobAssignment.solution");
 		filterNames.add("task.job.order");
 		attributeNames.add("task.job.order.release");
@@ -716,8 +763,16 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("active");
 		attributeNames.add("use");
 		filterNames.add("use");
+		attributeNames.add("setup");
+		filterNames.add("setup");
+		attributeNames.add("idle");
+		filterNames.add("idle");
 		attributeNames.add("utilization");
 		filterNames.add("utilization");
+		attributeNames.add("setupPercent");
+		filterNames.add("setupPercent");
+		attributeNames.add("idlePercent");
+		filterNames.add("idlePercent");
 		choicesMap.put("ResourceUtilization", attributeNames);
 		filterMap.put("ResourceUtilization", filterNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -748,6 +803,37 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("value");
 		filterNames.add("description");
 		filterNames.add("severity");
+		filterNames.add("name");
+		attributeNames.add("defaultValue");
+		filterNames.add("defaultValue");
+		attributeNames.add("sameValue");
+		filterNames.add("sameValue");
+		filterNames.add("disjunctiveResource");
+		choicesMap.put("Setup", attributeNames);
+		filterMap.put("Setup", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("setup");
+		attributeNames.add("nr");
+		filterNames.add("nr");
+		filterNames.add("processStep");
+		choicesMap.put("SetupType", attributeNames);
+		filterMap.put("SetupType", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("from");
+		filterNames.add("to");
+		attributeNames.add("value");
+		filterNames.add("value");
+		choicesMap.put("SetupMatrix", attributeNames);
+		filterMap.put("SetupMatrix", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -866,6 +952,15 @@ public class ScatterChartController extends ChartXYFilterController {
 			}
 			else if (className.equals("SolutionError")) {
 				objectList = mainApp.getSolutionErrorData();
+			}
+			else if (className.equals("Setup")) {
+				objectList = mainApp.getSetupData();
+			}
+			else if (className.equals("SetupType")) {
+				objectList = mainApp.getSetupTypeData();
+			}
+			else if (className.equals("SetupMatrix")) {
+				objectList = mainApp.getSetupMatrixData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();
