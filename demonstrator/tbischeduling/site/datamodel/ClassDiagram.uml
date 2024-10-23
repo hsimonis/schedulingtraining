@@ -21,6 +21,7 @@ interface ApplicationObjectComperator{
 int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 }
 !include AbstractDataGeneratorProperty.uml
+!include AbstractGanttProperty.uml
 !include AbstractSolverProperty.uml
 !include ApplicationDataset.uml
 !include ApplicationDifference.uml
@@ -33,6 +34,7 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include DataGeneratorRun.uml
 !include DisjunctiveResource.uml
 !include Downtime.uml
+!include GanttProperty.uml
 !include InputError.uml
 !include IntermediateSolution.uml
 !include Job.uml
@@ -82,12 +84,14 @@ AbstractSolverProperty <|-- SolverProperty
 AbstractSolverProperty <|-- SolverRun
 AbstractDataGeneratorProperty <|-- DataGeneratorProperty
 AbstractDataGeneratorProperty <|-- DataGeneratorRun
+AbstractGanttProperty <|-- GanttProperty
 ResourceActivity <|-- WiP
 ResourceActivity <|-- Downtime
 ResourceActivity <|-- TaskAssignment
 ApplicationDataset  *-- ApplicationObject 
 SolverProperty  *-- Scenario 
 DataGeneratorProperty  *-- Scenario 
+GanttProperty  *-- Scenario 
 Process  *-- Product : defaultProcess
 Process  *-- ProcessStep 
 SetupType "0..1" *-- ProcessStep 

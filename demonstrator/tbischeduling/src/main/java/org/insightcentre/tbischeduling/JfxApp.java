@@ -62,6 +62,7 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setSolverProperty(createSolverProperties(base));
                 DataGeneratorProperty q = createDataGeneratorProperties(base);
                 base.setDataGeneratorProperty(q);
+                base.setGanttProperty(createGanttProperties(base));
 //                info("Create JSON doc");
 //                new CreateJSONDoc(base,"site/jsonDoc/");
                 info("Creating default data");
@@ -234,6 +235,13 @@ public class JfxApp extends GeneratedJfxApp {
                 res.setStartDateTime(base.getStartDateTime());
                 info("DateGenerator startDate "+res.getStartDateTime());
                 return res;
+        }
+
+        public GanttProperty createGanttProperties(Scenario base){
+                GanttProperty res = new GanttProperty(base);
+                res.setName("Default Gantt Properties");
+                return res;
+
         }
 
 }

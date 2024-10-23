@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 21:09:58 on 2024-10-22-->
+<!--Generated at 11:30:11 on 2024-10-23-->
 
 
 <Tab text="Solution" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.SolutionController">
@@ -53,6 +53,11 @@
                <TableColumn fx:id="totalSetupAfter" styleClass="right-aligned" text="TotalSetupAfter" />
                <TableColumn fx:id="maxSetupBefore" styleClass="right-aligned" text="MaxSetupBefore" />
                <TableColumn fx:id="maxSetupAfter" styleClass="right-aligned" text="MaxSetupAfter" />
+               <TableColumn fx:id="totalActiveTime" styleClass="right-aligned" text="TotalActiveTime" />
+               <TableColumn fx:id="totalProductionTime" styleClass="right-aligned" text="TotalProductionTime" />
+               <TableColumn fx:id="activeUtilization" styleClass="right-aligned" text="ActiveUtilization" />
+               <TableColumn fx:id="setupPercent" styleClass="right-aligned" text="SetupPercent" />
+               <TableColumn fx:id="idlePercent" styleClass="right-aligned" text="IdlePercent" />
                <TableColumn fx:id="modelType" styleClass="right-aligned,disabled-column" text="ModelType" />
                <TableColumn fx:id="solverBackend" styleClass="right-aligned,disabled-column" text="SolverBackend" />
                <TableColumn fx:id="objectiveType" styleClass="right-aligned,disabled-column" text="ObjectiveType" />

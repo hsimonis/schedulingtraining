@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 22:14:05 on 2024-10-22 */
+ * Generated at 11:30:11 on 2024-10-23 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -40,6 +40,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("ganttLineHeight");
 		attributeNames.add("solverProperty");
 		attributeNames.add("dataGeneratorProperty");
+		attributeNames.add("ganttProperty");
 		attributeNames.add("hasReleaseDate");
 		attributeNames.add("hasDueDate");
 		attributeNames.add("hasCumulative");
@@ -239,6 +240,26 @@ public class PieChartController extends ChartController {
 		attributeNames.add("timeResolution");
 		attributeNames.add("seed");
 		choicesMap.put("DataGeneratorRun", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("showLate");
+		attributeNames.add("showEarly");
+		attributeNames.add("showRelease");
+		attributeNames.add("showWait");
+		attributeNames.add("showSetup");
+		attributeNames.add("showIdle");
+		attributeNames.add("datesDisplay");
+		choicesMap.put("AbstractGanttProperty", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("showLate");
+		attributeNames.add("showEarly");
+		attributeNames.add("showRelease");
+		attributeNames.add("showWait");
+		attributeNames.add("showSetup");
+		attributeNames.add("showIdle");
+		attributeNames.add("datesDisplay");
+		choicesMap.put("GanttProperty", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
 		attributeNames.add("classDesc");
@@ -580,6 +601,12 @@ public class PieChartController extends ChartController {
 			}
 			else if (className.equals("DataGeneratorRun")) {
 				objectList = mainApp.getDataGeneratorRunData();
+			}
+			else if (className.equals("AbstractGanttProperty")) {
+				objectList = mainApp.getAbstractGanttPropertyData();
+			}
+			else if (className.equals("GanttProperty")) {
+				objectList = mainApp.getGanttPropertyData();
 			}
 			else if (className.equals("InputError")) {
 				objectList = mainApp.getInputErrorData();

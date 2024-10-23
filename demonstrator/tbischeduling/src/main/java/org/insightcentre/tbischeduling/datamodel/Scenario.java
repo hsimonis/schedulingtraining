@@ -11,6 +11,8 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
 import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
 import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractGanttProperty;
+import org.insightcentre.tbischeduling.datamodel.GanttProperty;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -104,6 +106,13 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public Integer ganttLinesPerPage;
+
+/**
+ *  
+ *
+*/
+
+    public GanttProperty ganttProperty;
 
 /**
  *  
@@ -218,6 +227,7 @@ public  class Scenario extends ApplicationDataset{
         setDataGeneratorProperty(null);
         setGanttLineHeight(0.0);
         setGanttLinesPerPage(0);
+        setGanttProperty(null);
         setGanttWidth(0);
         setHasCumulative(true);
         setHasDowntime(true);
@@ -248,6 +258,7 @@ public  class Scenario extends ApplicationDataset{
             DataGeneratorProperty dataGeneratorProperty,
             Double ganttLineHeight,
             Integer ganttLinesPerPage,
+            GanttProperty ganttProperty,
             Integer ganttWidth,
             Boolean hasCumulative,
             Boolean hasDowntime,
@@ -268,6 +279,7 @@ public  class Scenario extends ApplicationDataset{
         setDataGeneratorProperty(dataGeneratorProperty);
         setGanttLineHeight(ganttLineHeight);
         setGanttLinesPerPage(ganttLinesPerPage);
+        setGanttProperty(ganttProperty);
         setGanttWidth(ganttWidth);
         setHasCumulative(hasCumulative);
         setHasDowntime(hasDowntime);
@@ -292,6 +304,7 @@ public  class Scenario extends ApplicationDataset{
             other.dataGeneratorProperty,
             other.ganttLineHeight,
             other.ganttLinesPerPage,
+            other.ganttProperty,
             other.ganttWidth,
             other.hasCumulative,
             other.hasDowntime,
@@ -358,6 +371,16 @@ public  class Scenario extends ApplicationDataset{
 
     public Integer getGanttLinesPerPage(){
         return this.ganttLinesPerPage;
+    }
+
+/**
+ *  get attribute ganttProperty
+ *
+ * @return GanttProperty
+*/
+
+    public GanttProperty getGanttProperty(){
+        return this.ganttProperty;
     }
 
 /**
@@ -579,6 +602,18 @@ public  class Scenario extends ApplicationDataset{
     }
 
 /**
+ *  set attribute ganttProperty, mark dataset as dirty, mark dataset as not valid
+@param ganttProperty GanttProperty
+ *
+*/
+
+    public void setGanttProperty(GanttProperty ganttProperty){
+        this.ganttProperty = ganttProperty;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute ganttWidth, mark dataset as dirty, mark dataset as not valid
 @param ganttWidth Integer
  *
@@ -771,7 +806,7 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public String prettyString(){
-        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getDataGeneratorProperty().toColumnString()+ " " +getGanttLineHeight()+ " " +getGanttLinesPerPage()+ " " +getGanttWidth()+ " " +getHasCumulative()+ " " +getHasDowntime()+ " " +getHasDueDate()+ " " +getHasReleaseDate()+ " " +getHasSetupTime()+ " " +getHasWiP()+ " " +getHorizon()+ " " +getSolverProperty().toColumnString()+ " " +getStartDateTime()+ " " +getTimeResolution();
+        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getDataGeneratorProperty().toColumnString()+ " " +getGanttLineHeight()+ " " +getGanttLinesPerPage()+ " " +getGanttProperty().toColumnString()+ " " +getGanttWidth()+ " " +getHasCumulative()+ " " +getHasDowntime()+ " " +getHasDueDate()+ " " +getHasReleaseDate()+ " " +getHasSetupTime()+ " " +getHasWiP()+ " " +getHorizon()+ " " +getSolverProperty().toColumnString()+ " " +getStartDateTime()+ " " +getTimeResolution();
     }
 
 /**
@@ -801,6 +836,7 @@ public  class Scenario extends ApplicationDataset{
             " dataGeneratorProperty=\""+toXMLDataGeneratorProperty()+"\""+
             " ganttLineHeight=\""+toXMLGanttLineHeight()+"\""+
             " ganttLinesPerPage=\""+toXMLGanttLinesPerPage()+"\""+
+            " ganttProperty=\""+toXMLGanttProperty()+"\""+
             " ganttWidth=\""+toXMLGanttWidth()+"\""+
             " hasCumulative=\""+toXMLHasCumulative()+"\""+
             " hasDowntime=\""+toXMLHasDowntime()+"\""+
@@ -862,6 +898,16 @@ public  class Scenario extends ApplicationDataset{
 
     String toXMLGanttLinesPerPage(){
         return this.getGanttLinesPerPage().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLGanttProperty(){
+        return "ID_"+this.getGanttProperty().getId().toString();
     }
 
 /**
@@ -981,11 +1027,11 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>StartDateTime</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"<th>GanttWidth</th>"+"<th>GanttLinesPerPage</th>"+"<th>GanttLineHeight</th>"+"<th>SolverProperty</th>"+"<th>DataGeneratorProperty</th>"+"<th>HasReleaseDate</th>"+"<th>HasDueDate</th>"+"<th>HasCumulative</th>"+"<th>HasWiP</th>"+"<th>HasDowntime</th>"+"<th>HasSetupTime</th>"+"</tr>";
+        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>StartDateTime</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"<th>GanttWidth</th>"+"<th>GanttLinesPerPage</th>"+"<th>GanttLineHeight</th>"+"<th>SolverProperty</th>"+"<th>DataGeneratorProperty</th>"+"<th>GanttProperty</th>"+"<th>HasReleaseDate</th>"+"<th>HasDueDate</th>"+"<th>HasCumulative</th>"+"<th>HasWiP</th>"+"<th>HasDowntime</th>"+"<th>HasSetupTime</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+ " " +"<td>"+getGanttWidth()+"</td>"+ " " +"<td>"+getGanttLinesPerPage()+"</td>"+ " " +"<td>"+getGanttLineHeight()+"</td>"+ " " +"<td>"+getSolverProperty().toColumnString()+"</td>"+ " " +"<td>"+getDataGeneratorProperty().toColumnString()+"</td>"+ " " +"<td>"+getHasReleaseDate()+"</td>"+ " " +"<td>"+getHasDueDate()+"</td>"+ " " +"<td>"+getHasCumulative()+"</td>"+ " " +"<td>"+getHasWiP()+"</td>"+ " " +"<td>"+getHasDowntime()+"</td>"+ " " +"<td>"+getHasSetupTime()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+ " " +"<td>"+getGanttWidth()+"</td>"+ " " +"<td>"+getGanttLinesPerPage()+"</td>"+ " " +"<td>"+getGanttLineHeight()+"</td>"+ " " +"<td>"+getSolverProperty().toColumnString()+"</td>"+ " " +"<td>"+getDataGeneratorProperty().toColumnString()+"</td>"+ " " +"<td>"+getGanttProperty().toColumnString()+"</td>"+ " " +"<td>"+getHasReleaseDate()+"</td>"+ " " +"<td>"+getHasDueDate()+"</td>"+ " " +"<td>"+getHasCumulative()+"</td>"+ " " +"<td>"+getHasWiP()+"</td>"+ " " +"<td>"+getHasDowntime()+"</td>"+ " " +"<td>"+getHasSetupTime()+"</td>"+"</tr>";
     }
 
 /**
@@ -1039,6 +1085,9 @@ public  class Scenario extends ApplicationDataset{
       if(!this.getGanttLinesPerPage().equals(b.getGanttLinesPerPage())){
          System.out.println("GanttLinesPerPage");
         }
+      if(!this.getGanttProperty().applicationSame(b.getGanttProperty())){
+         System.out.println("GanttProperty");
+        }
       if(!this.getGanttWidth().equals(b.getGanttWidth())){
          System.out.println("GanttWidth");
         }
@@ -1080,6 +1129,7 @@ public  class Scenario extends ApplicationDataset{
           this.getDataGeneratorProperty().applicationSame(b.getDataGeneratorProperty()) &&
           this.getGanttLineHeight().equals(b.getGanttLineHeight()) &&
           this.getGanttLinesPerPage().equals(b.getGanttLinesPerPage()) &&
+          this.getGanttProperty().applicationSame(b.getGanttProperty()) &&
           this.getGanttWidth().equals(b.getGanttWidth()) &&
           this.getHasCumulative().equals(b.getHasCumulative()) &&
           this.getHasDowntime().equals(b.getHasDowntime()) &&
@@ -1106,6 +1156,9 @@ public  class Scenario extends ApplicationDataset{
         if (getDataGeneratorProperty() == null){
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"dataGeneratorProperty","Scenario",(getDataGeneratorProperty()==null?"null":getDataGeneratorProperty().toString()),"",WarningType.NOTNULL);
         }
+        if (getGanttProperty() == null){
+         new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"ganttProperty","Scenario",(getGanttProperty()==null?"null":getGanttProperty().toString()),"",WarningType.NOTNULL);
+        }
         if (getSolverProperty() == null){
          new ApplicationWarning(getApplicationDataset(),ApplicationDataset.getIdNr(),toColumnString(),"solverProperty","Scenario",(getSolverProperty()==null?"null":getSolverProperty().toString()),"",WarningType.NOTNULL);
         }
@@ -1127,6 +1180,9 @@ public  class Scenario extends ApplicationDataset{
    public List<ApplicationObjectInterface> getFeasibleValues(ApplicationDatasetInterface base,String attrName){
       if (attrName.equals("dataGeneratorProperty")){
          return (List) ((Scenario)base).getListDataGeneratorProperty();
+      }
+      if (attrName.equals("ganttProperty")){
+         return (List) ((Scenario)base).getListGanttProperty();
       }
       if (attrName.equals("solverProperty")){
          return (List) ((Scenario)base).getListSolverProperty();

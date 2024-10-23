@@ -11,8 +11,6 @@ import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.datamodel.custom.ResizableCanvas;
 
 import static org.insightcentre.tbischeduling.datamodel.ColorBy.Mixed;
-import static org.insightcentre.tbischeduling.datamodel.DatesDisplay.External;
-import static org.insightcentre.tbischeduling.datamodel.DatesDisplay.Internal;
 import static org.insightcentre.tbischeduling.datamodel.JobOrder.Start;
 import static org.insightcentre.tbischeduling.datamodel.ResourceChoice.All;
 import static org.insightcentre.tbischeduling.datamodel.ResourceZoom.Normal;
@@ -96,17 +94,13 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 	@FXML
 	protected TextField wait;
 	@FXML
-	protected TextField machine;
-	@FXML
-	protected TextField qty;
-	@FXML
-	protected TextField startDate;
-	@FXML
-	protected TextField endDate;
-	@FXML
 	protected TextField setup;
 	@FXML
 	protected TextField idle;
+	@FXML
+	protected TextField machine;
+	@FXML
+	protected TextField qty;
 
 
 	/* Colors for color tab */
@@ -192,6 +186,7 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 	public void setMainApp(AbstractJfxMainWindow mainApp) {
 		info("setMainApp");
 		this.mainApp = (GeneratedJfxApp) mainApp;
+		Scenario base = this.mainApp.basebase;
 
 		ObservableList<String> solutions = FXCollections.observableArrayList();
 		solutions.addAll(solutions());
@@ -218,9 +213,10 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		showJobsBox.getSelectionModel().select(All.toString());
 		ObservableList<String> datesDisplayChoices = FXCollections.observableArrayList(DatesDisplay.getNames());
 		setChoices(datesDisplayChoiceBox,datesDisplayChoices);
-		datesDisplayChoiceBox.getSelectionModel().select(External.toString());
+		info("Initialize datesDisplay "+base.getGanttProperty().getDatesDisplay());
+		datesDisplayChoiceBox.getSelectionModel().select(base.getGanttProperty().getDatesDisplay().toString());
 
-		contentProvider = new GanttBorderContent(this,canvas,topCanvas,leftCanvas,rightBar,bottomBar);
+		contentProvider = new GanttBorderContent(this,canvas,topCanvas,leftCanvas,rightBar,bottomBar,base.getGanttProperty());
 		contentProvider.initialize();
 		contentProvider.setSolution(solutionChoiceBox.getSelectionModel().getSelectedItem());
 		contentProvider.setShowMachinesBox(showMachinesBox.getSelectionModel().getSelectedItem());
@@ -297,12 +293,14 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		taskLabelIndent.setValue(c.taskLabelIndent);
 		titleHeight.setValue(c.titleHeight);
 		titleLabelOffset.setValue(c.titleLabelOffset);
-		lateLineChoiceBox.getSelectionModel().select(c.showLate.toString());
-		earlyLineChoiceBox.getSelectionModel().select(c.showEarly.toString());
-		releaseLineChoiceBox.getSelectionModel().select(c.showRelease.toString());
-		waitLineChoiceBox.getSelectionModel().select(c.showWait.toString());
-		setupLineChoiceBox.getSelectionModel().select(c.showSetup.toString());
-		idleLineChoiceBox.getSelectionModel().select(c.showIdle.toString());
+		GanttProperty gp=c.getGanttProperty();
+		lateLineChoiceBox.getSelectionModel().select(gp.getShowLate().toString());
+		earlyLineChoiceBox.getSelectionModel().select(gp.getShowEarly().toString());
+		releaseLineChoiceBox.getSelectionModel().select(gp.getShowRelease().toString());
+		waitLineChoiceBox.getSelectionModel().select(gp.getShowWait().toString());
+		setupLineChoiceBox.getSelectionModel().select(gp.getShowSetup().toString());
+		info("Setting idle "+gp.getShowIdle().toString());
+		idleLineChoiceBox.getSelectionModel().select(gp.getShowIdle().toString());
 	}
 
 	private void updateLayout(GanttBorderContent c){
@@ -314,12 +312,14 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		c.taskLabelIndent = taskLabelIndent.getValue();
 		c.titleHeight = titleHeight.getValue();
 		c.titleLabelOffset = titleLabelOffset.getValue();
-		c.showLate = toLineChoice(lateLineChoiceBox.getSelectionModel().getSelectedItem());
-		c.showEarly = toLineChoice(earlyLineChoiceBox.getSelectionModel().getSelectedItem());
-		c.showRelease = toLineChoice(releaseLineChoiceBox.getSelectionModel().getSelectedItem());
-		c.showWait = toLineChoice(waitLineChoiceBox.getSelectionModel().getSelectedItem());
-		c.showSetup = toLineChoice(setupLineChoiceBox.getSelectionModel().getSelectedItem());
-		c.showIdle = toLineChoice(idleLineChoiceBox.getSelectionModel().getSelectedItem());
+		GanttProperty gp=c.getGanttProperty();
+		gp.setShowLate(toLineChoice(lateLineChoiceBox.getSelectionModel().getSelectedItem()));
+		gp.setShowEarly(toLineChoice(earlyLineChoiceBox.getSelectionModel().getSelectedItem()));
+		gp.setShowRelease(toLineChoice(releaseLineChoiceBox.getSelectionModel().getSelectedItem()));
+		gp.setShowWait(toLineChoice(waitLineChoiceBox.getSelectionModel().getSelectedItem()));
+		gp.setShowSetup(toLineChoice(setupLineChoiceBox.getSelectionModel().getSelectedItem()));
+		gp.setShowIdle(toLineChoice(idleLineChoiceBox.getSelectionModel().getSelectedItem()));
+		info("IdleUpdate "+idleLineChoiceBox.getSelectionModel().getSelectedItem());
 		// have to reposition the windows as well
 		c.initialize();
 
@@ -415,8 +415,6 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		end.setText(cp.internalExternalDate(ra.getEnd()));
 		duration.setText(cp.internalExternalPeriod(ra.getDuration()));
 		machine.setText(ra.getDisjunctiveResource().getName());
-		startDate.setText(ra.getStartDate().toString());
-		endDate.setText(ra.getEndDate().toString());
 		if (ra instanceof TaskAssignment t) {
 			wait.setText(cp.internalExternalPeriod(t.getWaitBefore()));
 			job.setText(t.getJobAssignment().getJob().getName());
@@ -460,12 +458,10 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		end.setText("");
 		duration.setText("");
 		wait.setText("");
-		machine.setText("");
-		qty.setText("");
-		startDate.setText("");
-		endDate.setText("");
 		setup.setText("");
 		idle.setText("");
+		machine.setText("");
+		qty.setText("");
 	}
 
 

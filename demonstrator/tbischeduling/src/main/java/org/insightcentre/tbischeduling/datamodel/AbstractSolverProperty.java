@@ -11,6 +11,8 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
 import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
 import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractGanttProperty;
+import org.insightcentre.tbischeduling.datamodel.GanttProperty;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -273,7 +275,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
         setNrThreads(2);
         setObjectiveType(ObjectiveType.Makespan);
         setProducePDF(false);
-        setProduceReport(true);
+        setProduceReport(false);
         setRemoveSolution(false);
         setSeed(42);
         setSolverBackend(SolverBackend.None);

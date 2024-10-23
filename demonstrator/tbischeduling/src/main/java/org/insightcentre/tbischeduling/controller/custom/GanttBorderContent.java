@@ -82,12 +82,7 @@ public class GanttBorderContent {
 
     ResourceZoom resourceZoom = Normal;
 
-    LineChoice showEarly=LineChoice.Number;
-    LineChoice showLate=LineChoice.All;
-    LineChoice showRelease=LineChoice.None;
-    LineChoice showWait=LineChoice.Line;
-    LineChoice showSetup=LineChoice.Line;
-    LineChoice showIdle=LineChoice.None;
+    GanttProperty gp;
 
     int xoffset;
 
@@ -95,7 +90,6 @@ public class GanttBorderContent {
     TaskLabel taskLabel;
     JobOrder jobOrder;
 
-    DatesDisplay datesDisplay;
 
     double alpha=0.3;
     double zoom=1.0;
@@ -188,13 +182,18 @@ public class GanttBorderContent {
     }
     public void setDatesDisplay(String v){
         if (v != null) {
-            datesDisplay = toDatesDisplay(v);
+            info("update datesDisplay "+toDatesDisplay(v));
+            gp.setDatesDisplay(toDatesDisplay(v));
         }
     }
     public void setResourceZoom(String v){
         if (v != null) {
             resourceZoom = toResourceZoom(v);
         }
+    }
+
+    public GanttProperty getGanttProperty(){
+        return gp;
     }
 
     public void setAlpha(double v){
@@ -204,19 +203,23 @@ public class GanttBorderContent {
         zoom = v;
     }
 
-    public GanttBorderContent(GanttBorderViewerController controller,ResizableCanvas canvas, ResizableCanvas topCanvas, ResizableCanvas leftCanvas, ScrollBar rightBar, ScrollBar bottomBar) {
+    public GanttBorderContent(GanttBorderViewerController controller,ResizableCanvas canvas,
+                              ResizableCanvas topCanvas, ResizableCanvas leftCanvas,
+                              ScrollBar rightBar, ScrollBar bottomBar,
+                              GanttProperty gp) {
         this.controller =controller;
         this.canvas = canvas;
         this.leftCanvas = leftCanvas;
         this.topCanvas = topCanvas;
         this.rightBar = rightBar;
         this.bottomBar = bottomBar;
+        this.gp = gp;
 
     }
 
     public void initialize() {
         // mainApp may not be set, avoid data manipulation here
-        info("initialize Gantt");
+        info("initialize Gantt "+gp.getDatesDisplay());
 
 //        virtWidth = Math.max(virtWidth,base.getHorizon());
 
@@ -502,7 +505,7 @@ public class GanttBorderContent {
         for(int i=0;i<virtWidth;i+=increment){
             double x = xoffset+xcoor(i,startX);
             gc.setStroke(textColor);
-            if (datesDisplay == External && startOfDay(i)) {
+            if (gp.getDatesDisplay() == External && startOfDay(i)) {
                 gc.setTextAlign(TextAlignment.LEFT);
                 gc.strokeText(internalExternalddMM(i),x,titleLabelOffset);
             }
@@ -548,7 +551,7 @@ public class GanttBorderContent {
     }
 
     public int zoomIncrement(double width,double zoom) {
-        if (datesDisplay == Internal) {
+        if (gp.getDatesDisplay() == Internal) {
             // how many internal time units will be shown in window width
             double valueRange = width / zoom;
             info("timeline " + width + " z " + zoom + " r " + valueRange);
@@ -681,7 +684,7 @@ public class GanttBorderContent {
 
     //??? really tedious way to extract lateness value
     private String late(Job j){
-        if (showLate == LineChoice.None){
+        if (gp.getShowLate() == LineChoice.None){
             return null;
         }
         return base.getListJobAssignment().stream().
@@ -734,11 +737,11 @@ public class GanttBorderContent {
                 double taHeight = itemHeight;
                 double taWidth = xcoor(ra.getEnd(), startX) - x1;
                 drawTask(gc,x1,y1,taWidth,taHeight,label(ra,taskLabel),colorResourceActivity(ra),alpha(ra),ra);
-                if (showSetup != LineChoice.None && ra instanceof TaskAssignment ta) {
-                    setup(gc,showSetup,x1, y1, ta.getSetupBefore());
+                if (gp.getShowSetup() != LineChoice.None && ra instanceof TaskAssignment ta) {
+                    setup(gc,gp.getShowSetup(),x1, y1, ta.getSetupBefore());
                 }
-                if (showIdle != LineChoice.None && ra instanceof TaskAssignment ta) {
-                    idle(gc,showIdle,x1, y1, ta.getIdleBefore());
+                if (gp.getShowIdle() != LineChoice.None && ra instanceof TaskAssignment ta) {
+                    idle(gc,gp.getShowIdle(),x1, y1, ta.getIdleBefore());
                 }
                 if (ra == selected && ra instanceof TaskAssignment task) {
                     highlightAlternativeMachines(gc, task, x1, y1, taWidth, taHeight, machineHash,startY);
@@ -755,17 +758,17 @@ public class GanttBorderContent {
                 double taHeight = itemHeight;
                 double taWidth = xcoor(ta.getEnd(), startX) - x1;
                 drawTask(gc,x1,y1,taWidth,taHeight,label(ta,taskLabel),colorJobTask(ta),alpha(ta),ta);
-                if (showWait != LineChoice.None) {
-                    wait(gc,showWait,x1, y1, ta.getWaitBefore());
+                if (gp.getShowWait() != LineChoice.None) {
+                    wait(gc,gp.getShowWait(),x1, y1, ta.getWaitBefore());
                 }
-                if (showEarly != LineChoice.None && ta.getTask().getPrecedes().size() == 0) {
-                    early(gc,showEarly,x2, y1, ta.getJobAssignment().getEarly());
+                if (gp.getShowEarly() != LineChoice.None && ta.getTask().getPrecedes().size() == 0) {
+                    early(gc,gp.getShowEarly(),x2, y1, ta.getJobAssignment().getEarly());
                 }
-                if (showLate != LineChoice.None && ta.getTask().getPrecedes().size() == 0) {
-                    late(gc,showLate,x2, y1, ta.getJobAssignment().getLate());
+                if (gp.getShowLate() != LineChoice.None && ta.getTask().getPrecedes().size() == 0) {
+                    late(gc,gp.getShowLate(),x2, y1, ta.getJobAssignment().getLate());
                 }
-                if (showRelease != LineChoice.None && ta.getTask().getFollows().size() == 0) {
-                    release(gc,showRelease,x1, y1, ta.getStart()-ta.getJobAssignment().getJob().getOrder().getRelease());
+                if (gp.getShowRelease() != LineChoice.None && ta.getTask().getFollows().size() == 0) {
+                    release(gc,gp.getShowRelease(),x1, y1, ta.getStart()-ta.getJobAssignment().getJob().getOrder().getRelease());
                 }
 
             }
@@ -1221,14 +1224,14 @@ public class GanttBorderContent {
     }
 
     public String internalExternalDate(int date){
-        if (datesDisplay == Internal){
+        if (gp.getDatesDisplay() == Internal){
             return String .format("%d",date);
         } else {
             return base.getStartDateTime().addMinutes(date*base.getTimeResolution()).toString();
         }
     }
     public String internalExternalHHmm(int date){
-        if (datesDisplay == Internal){
+        if (gp.getDatesDisplay() == Internal){
             return String .format("%d",date);
         } else {
             return base.getStartDateTime().addMinutes(date*base.getTimeResolution()).timeOnly().toString();
@@ -1237,7 +1240,7 @@ public class GanttBorderContent {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE dd/MM");
     public String internalExternalddMM(int date){
-        if (datesDisplay == Internal){
+        if (gp.getDatesDisplay() == Internal){
             return String .format("%d",date);
         } else {
             return base.getStartDateTime().addMinutes(date*base.getTimeResolution()).asLocalDate().format(formatter);
@@ -1245,7 +1248,7 @@ public class GanttBorderContent {
     }
 
     public String internalExternalPeriod(int period){
-        if (datesDisplay == Internal){
+        if (gp.getDatesDisplay() == Internal){
             return String.format("%d",period);
         } else {
             int inMinutes  = period*base.getTimeResolution();
@@ -1272,7 +1275,7 @@ public class GanttBorderContent {
 
     // either xxm,xxh,xxd
     public String internalExternalPeriodShort(int period){
-        if (datesDisplay == Internal){
+        if (gp.getDatesDisplay() == Internal){
             return String.format("%d",period);
         } else {
             int inMinutes  = period*base.getTimeResolution();

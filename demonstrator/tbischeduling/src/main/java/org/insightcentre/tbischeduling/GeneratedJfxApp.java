@@ -28,6 +28,7 @@ import org.insightcentre.tbischeduling.controller.CumulativeNeedsMatrixDraw;
 import org.insightcentre.tbischeduling.controller.DisjunctiveNeedsMatrixDraw;
 import org.insightcentre.tbischeduling.controller.RootController;
 import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.AbstractGanttProperty;
 import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
@@ -38,6 +39,7 @@ import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
 import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
+import org.insightcentre.tbischeduling.datamodel.GanttProperty;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.Job;
@@ -73,7 +75,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 22:14:05 on 2024-10-22 */
+ * Generated at 11:30:11 on 2024-10-23 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -102,6 +104,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	private ObservableList<DataGeneratorProperty> dataGeneratorPropertyData = FXCollections.observableArrayList();
 
 	private ObservableList<DataGeneratorRun> dataGeneratorRunData = FXCollections.observableArrayList();
+
+	private ObservableList<AbstractGanttProperty> abstractGanttPropertyData = FXCollections.observableArrayList();
+
+	private ObservableList<GanttProperty> ganttPropertyData = FXCollections.observableArrayList();
 
 	private ObservableList<InputError> inputErrorData = FXCollections.observableArrayList();
 
@@ -190,8 +196,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		tableViews.put("IntermediateSolution", "IntermediateSolution");
 		tableViews.put("DataGeneratorProperty", "DataGeneratorProperty");
 		tableViews.put("SolverProperty", "SolverProperty");
+		tableViews.put("GanttProperty", "GanttProperty");
 		tableViews.put("AbstractSolverProperty", "AbstractSolverProperty");
 		tableViews.put("AbstractDataGeneratorProperty", "AbstractDataGeneratorProperty");
+		tableViews.put("AbstractGanttProperty", "AbstractGanttProperty");
 		tableViews.put("DataGeneratorRun", "DataGeneratorRun");
 		tableViews.put("ResourceActivity", "ResourceActivity");
 	}
@@ -285,6 +293,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		dataGeneratorPropertyData.addAll(base.getListDataGeneratorProperty());
 		dataGeneratorRunData.clear();
 		dataGeneratorRunData.addAll(base.getListDataGeneratorRun());
+		abstractGanttPropertyData.clear();
+		abstractGanttPropertyData.addAll(base.getListAbstractGanttProperty());
+		ganttPropertyData.clear();
+		ganttPropertyData.addAll(base.getListGanttProperty());
 		inputErrorData.clear();
 		inputErrorData.addAll(base.getListInputError());
 		problemData.clear();
@@ -497,6 +509,14 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public ObservableList<DataGeneratorRun> getDataGeneratorRunData() {
 		return dataGeneratorRunData;
+	}
+
+	public ObservableList<AbstractGanttProperty> getAbstractGanttPropertyData() {
+		return abstractGanttPropertyData;
+	}
+
+	public ObservableList<GanttProperty> getGanttPropertyData() {
+		return ganttPropertyData;
 	}
 
 	public ObservableList<InputError> getInputErrorData() {

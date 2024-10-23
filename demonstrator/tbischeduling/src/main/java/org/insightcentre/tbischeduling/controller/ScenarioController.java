@@ -28,11 +28,12 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
+import org.insightcentre.tbischeduling.datamodel.GanttProperty;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 
 /**
- * Generated at 22:14:05 on 2024-10-22 */
+ * Generated at 11:30:11 on 2024-10-23 */
 public class ScenarioController extends Table3Controller {
 	@FXML
 	private TableView<Scenario> table;
@@ -77,6 +78,9 @@ public class ScenarioController extends Table3Controller {
 	private TableColumn<Scenario, DataGeneratorProperty> dataGeneratorProperty;
 
 	@FXML
+	private TableColumn<Scenario, GanttProperty> ganttProperty;
+
+	@FXML
 	private TableColumn<Scenario, Boolean> hasReleaseDate;
 
 	@FXML
@@ -104,6 +108,8 @@ public class ScenarioController extends Table3Controller {
 		solverProperty.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSolverProperty(event.getNewValue()); mainApp.reset();});
 		dataGeneratorProperty.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getDataGeneratorPropertyData()));
 		dataGeneratorProperty.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDataGeneratorProperty(event.getNewValue()); mainApp.reset();});
+		ganttProperty.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getGanttPropertyData()));
+		ganttProperty.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setGanttProperty(event.getNewValue()); mainApp.reset();});
 	}
 
 	public TableView<Scenario> getTable() {
@@ -161,6 +167,8 @@ public class ScenarioController extends Table3Controller {
 		solverProperty.setCellValueFactory(new PropertyValueFactory<>("solverProperty"));
 		choices.add("dataGeneratorProperty");
 		dataGeneratorProperty.setCellValueFactory(new PropertyValueFactory<>("dataGeneratorProperty"));
+		choices.add("ganttProperty");
+		ganttProperty.setCellValueFactory(new PropertyValueFactory<>("ganttProperty"));
 		choices.add("hasReleaseDate");
 		hasReleaseDate.setCellValueFactory(new HasReleaseDateCallback());
 		hasReleaseDate.setCellFactory(CheckBoxTableCell.forTableColumn(hasReleaseDate));

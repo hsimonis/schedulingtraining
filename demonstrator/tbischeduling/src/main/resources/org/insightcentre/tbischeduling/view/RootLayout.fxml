@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 22:14:06 on 2024-10-22-->
+<!--Generated at 11:30:11 on 2024-10-23-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -147,6 +147,7 @@
                      <items>
                         <MenuItem id="dataGeneratorPropertyPage" onAction="#handle" text="DataGeneratorProperty" />
                         <MenuItem id="solverPropertyPage" onAction="#handle" text="SolverProperty" />
+                        <MenuItem id="ganttPropertyPage" onAction="#handle" text="GanttProperty" />
                      </items>
                   </Menu>
                   <MenuItem id="scenarioPage" onAction="#handle" text="Scenario" />
@@ -155,6 +156,7 @@
                      <items>
                         <MenuItem id="abstractSolverPropertyPage" onAction="#handle" text="AbstractSolverProperty" />
                         <MenuItem id="abstractDataGeneratorPropertyPage" onAction="#handle" text="AbstractDataGeneratorProperty" />
+                        <MenuItem id="abstractGanttPropertyPage" onAction="#handle" text="AbstractGanttProperty" />
                         <MenuItem id="dataGeneratorRunPage" onAction="#handle" text="DataGeneratorRun" />
                         <MenuItem id="resourceActivityPage" onAction="#handle" text="ResourceActivity" />
                      </items>

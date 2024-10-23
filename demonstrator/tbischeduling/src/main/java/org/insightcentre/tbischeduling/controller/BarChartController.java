@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 22:14:05 on 2024-10-22 */
+ * Generated at 11:30:11 on 2024-10-23 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -350,6 +350,12 @@ public class BarChartController extends ChartController {
 			}
 			else if (className.equals("DataGeneratorRun")) {
 				objectList = mainApp.getDataGeneratorRunData();
+			}
+			else if (className.equals("AbstractGanttProperty")) {
+				objectList = mainApp.getAbstractGanttPropertyData();
+			}
+			else if (className.equals("GanttProperty")) {
+				objectList = mainApp.getGanttPropertyData();
 			}
 			else if (className.equals("InputError")) {
 				objectList = mainApp.getInputErrorData();

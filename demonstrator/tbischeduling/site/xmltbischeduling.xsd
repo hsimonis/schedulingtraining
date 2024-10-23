@@ -12,6 +12,7 @@
 				<xs:element ref="dataGeneratorRun" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="disjunctiveResource" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="downtime" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ganttProperty" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="inputError" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="intermediateSolution" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="job" minOccurs="0" maxOccurs="unbounded"/>
@@ -185,6 +186,20 @@
 			<xs:attribute name="startDate" use="required" type="xs:dateTime"/>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="ganttProperty">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="datesDisplay" use="required" type="xs:string"/>
+			<xs:attribute name="showEarly" use="required" type="xs:string"/>
+			<xs:attribute name="showIdle" use="required" type="xs:string"/>
+			<xs:attribute name="showLate" use="required" type="xs:string"/>
+			<xs:attribute name="showRelease" use="required" type="xs:string"/>
+			<xs:attribute name="showSetup" use="required" type="xs:string"/>
+			<xs:attribute name="showWait" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="inputError">
 		<xs:complexType>
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
@@ -349,6 +364,7 @@
 			<xs:attribute name="dataGeneratorProperty" use="required" type="xs:IDREF"/>
 			<xs:attribute name="ganttLineHeight" use="required" type="xs:double"/>
 			<xs:attribute name="ganttLinesPerPage" use="required" type="xs:integer"/>
+			<xs:attribute name="ganttProperty" use="required" type="xs:IDREF"/>
 			<xs:attribute name="ganttWidth" use="required" type="xs:integer"/>
 			<xs:attribute name="hasCumulative" use="required" type="xs:boolean"/>
 			<xs:attribute name="hasDowntime" use="required" type="xs:boolean"/>

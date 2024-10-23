@@ -51,15 +51,15 @@
             <Label text="Show Jobs:" />
             <ChoiceBox fx:id="showJobsBox" onAction="#onShowSelect" />
             <Label text="Highlight Critical:" />
-            <CheckBox fx:id="highlightCritical" selected="false" onAction="#onShowSelect" />
+            <CheckBox fx:id="highlightCritical" onAction="#onShowSelect" />
             <Label text="Color By"/>
-            <ChoiceBox fx:id="colorByChoiceBox" value="Mixed" onAction="#onColorBySelect"/>
+            <ChoiceBox fx:id="colorByChoiceBox" onAction="#onColorBySelect"/>
             <Label text="Task Label"/>
-            <ChoiceBox fx:id="taskLabelChoiceBox" value="None" onAction="#onTaskLabelSelect"/>
+            <ChoiceBox fx:id="taskLabelChoiceBox" onAction="#onTaskLabelSelect"/>
             <Label text="Sorts Jobs By"/>
-            <ChoiceBox fx:id="jobOrderChoiceBox" value="Input" onAction="#onJobOrderSelect"/>
+            <ChoiceBox fx:id="jobOrderChoiceBox" onAction="#onJobOrderSelect"/>
             <Label text="Display Dates"/>
-            <ChoiceBox fx:id="datesDisplayChoiceBox" value="Input" onAction="#onDatesDisplaySelect"/>
+            <ChoiceBox fx:id="datesDisplayChoiceBox" onAction="#onDatesDisplaySelect"/>
             <Label text="Alpha"/>
             <Slider fx:id="alpha" min="0.0" max="1.0" value="0.3" />
 
@@ -67,7 +67,7 @@
     </bottom>
         <right>
             <TabPane>
-                <Tab text="Details">
+                <Tab text="Details"  closable="false">
                     <GridPane alignment="center" hgap="10" vgap="10">
                         <padding>
                             <Insets top="10" bottom="10" left="10" right="10"/>
@@ -97,24 +97,20 @@
                             <TextField fx:id="late"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
                             <Label text="Early" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
                             <TextField fx:id="early" disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
-                            <Label text="Order" GridPane.columnIndex="0" GridPane.rowIndex="12"/>
-                            <TextField fx:id="order" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
-                            <Label text="Product" GridPane.columnIndex="0" GridPane.rowIndex="13"/>
-                            <TextField fx:id="product" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
-                            <Label text="Qty" GridPane.columnIndex="0" GridPane.rowIndex="14"/>
-                            <TextField fx:id="qty"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
-                            <Label text="Start Date" GridPane.columnIndex="0" GridPane.rowIndex="15"/>
-                            <TextField fx:id="startDate" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
-                            <Label text="End Date" GridPane.columnIndex="0" GridPane.rowIndex="16"/>
-                            <TextField fx:id="endDate" disable="true" alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="16"/>
-                            <Label text="Setup" GridPane.columnIndex="0" GridPane.rowIndex="17"/>
-                            <TextField fx:id="setup"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="17"/>
-                            <Label text="Idle" GridPane.columnIndex="0" GridPane.rowIndex="18"/>
-                            <TextField fx:id="idle"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="18"/>
-                        </children>
+                            <Label text="Setup" GridPane.columnIndex="0" GridPane.rowIndex="12"/>
+                            <TextField fx:id="setup"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
+                            <Label text="Idle" GridPane.columnIndex="0" GridPane.rowIndex="13"/>
+                            <TextField fx:id="idle"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
+                            <Label text="Order" GridPane.columnIndex="0" GridPane.rowIndex="14"/>
+                            <TextField fx:id="order" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
+                            <Label text="Product" GridPane.columnIndex="0" GridPane.rowIndex="15"/>
+                            <TextField fx:id="product" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
+                            <Label text="Qty" GridPane.columnIndex="0" GridPane.rowIndex="16"/>
+                            <TextField fx:id="qty"  disable="true"  alignment="BASELINE_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="16"/>
+                       </children>
                     </GridPane>
                 </Tab>
-                <Tab text="Colors">
+                <Tab text="Colors"  closable="false">
                     <GridPane alignment="center" hgap="10" vgap="10">
                         <padding>
                             <Insets top="10" bottom="10" left="10" right="10"/>
@@ -163,7 +159,7 @@
                         <ColorPicker fx:id="idleColor" onAction="#onColorPicked" GridPane.columnIndex="1" GridPane.rowIndex="20"/>
                     </GridPane>
                 </Tab>
-                <Tab text="Layout">
+                <Tab text="Layout" closable="false">
                     <GridPane alignment="center" hgap="10" vgap="10">
                         <padding>
                             <Insets top="10" bottom="10" left="10" right="10"/>

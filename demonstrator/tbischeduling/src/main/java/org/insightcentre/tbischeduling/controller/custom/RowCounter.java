@@ -2,6 +2,9 @@ package org.insightcentre.tbischeduling.controller.custom;
 
 import javafx.fxml.FXML;
 
+/*
+this was intended to help with row counters in FXML, but I did not get it to work
+ */
 public class RowCounter {
     private int currentRowIndex = 0;
 

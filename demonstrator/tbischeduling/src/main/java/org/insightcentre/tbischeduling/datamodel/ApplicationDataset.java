@@ -11,6 +11,8 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
 import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
 import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
+import org.insightcentre.tbischeduling.datamodel.AbstractGanttProperty;
+import org.insightcentre.tbischeduling.datamodel.GanttProperty;
 import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Product;
@@ -178,6 +180,20 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
 */
 
     List<DataGeneratorRun> listDataGeneratorRun = new ArrayList<DataGeneratorRun>();
+
+/**
+ *  This lists holds all items of class AbstractGanttProperty and its subclasses
+ *
+*/
+
+    List<AbstractGanttProperty> listAbstractGanttProperty = new ArrayList<AbstractGanttProperty>();
+
+/**
+ *  This lists holds all items of class GanttProperty and its subclasses
+ *
+*/
+
+    List<GanttProperty> listGanttProperty = new ArrayList<GanttProperty>();
 
 /**
  *  This lists holds all items of class InputError and its subclasses
@@ -493,6 +509,7 @@ public int compareTo(ApplicationDataset ds2){
                              "DataGeneratorRun",
                              "DisjunctiveResource",
                              "Downtime",
+                             "GanttProperty",
                              "InputError",
                              "IntermediateSolution",
                              "Job",
@@ -579,6 +596,8 @@ public int compareTo(ApplicationDataset ds2){
         resetListAbstractDataGeneratorProperty();
         resetListDataGeneratorProperty();
         resetListDataGeneratorRun();
+        resetListAbstractGanttProperty();
+        resetListGanttProperty();
         resetListInputError();
         resetListProblem();
         resetListProduct();
@@ -939,6 +958,82 @@ public int compareTo(ApplicationDataset ds2){
         List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
         for(ApplicationObject a:listApplicationObject){
             if (!(a instanceof DataGeneratorRun)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class AbstractGanttProperty
+ *
+*/
+
+    public Iterator<AbstractGanttProperty> getIteratorAbstractGanttProperty(){
+        return listAbstractGanttProperty.iterator();
+    }
+
+/**
+ *  Getter for list of class AbstractGanttProperty
+ *
+*/
+
+    public List<AbstractGanttProperty> getListAbstractGanttProperty(){
+        return listAbstractGanttProperty;
+    }
+
+/**
+ *  reset the list of class AbstractGanttProperty; use with care, does not call cascades
+ *
+*/
+
+    public void resetListAbstractGanttProperty(){
+        listAbstractGanttProperty = new ArrayList<AbstractGanttProperty>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof AbstractGanttProperty)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+        resetListGanttProperty();
+    }
+
+/**
+ *  Iterator for list of class GanttProperty
+ *
+*/
+
+    public Iterator<GanttProperty> getIteratorGanttProperty(){
+        return listGanttProperty.iterator();
+    }
+
+/**
+ *  Getter for list of class GanttProperty
+ *
+*/
+
+    public List<GanttProperty> getListGanttProperty(){
+        return listGanttProperty;
+    }
+
+/**
+ *  reset the list of class GanttProperty; use with care, does not call cascades
+ *
+*/
+
+    public void resetListGanttProperty(){
+        listGanttProperty = new ArrayList<GanttProperty>();
+        List<AbstractGanttProperty> newListAbstractGanttProperty = new ArrayList<AbstractGanttProperty>();
+        for(AbstractGanttProperty a:listAbstractGanttProperty){
+            if (!(a instanceof GanttProperty)){
+                newListAbstractGanttProperty.add(a);
+            }
+        }
+       listAbstractGanttProperty = newListAbstractGanttProperty;
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof GanttProperty)){
                 newListApplicationObject.add(a);
             }
         }
@@ -1984,6 +2079,24 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Removing object item of class GanttProperty; remove all dependent objects of class Scenario which refer to item through their attribute ganttProperty
+ *
+*/
+
+    public void cascadeScenarioGanttProperty(GanttProperty item){
+        assert item != null;
+        List<Scenario> toRemove = new ArrayList<Scenario>();
+        for(Scenario a:getListScenario()) {
+         if (a.getGanttProperty() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(Scenario b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
  *  Removing object item of class Process; remove all dependent objects of class Product which refer to item through their attribute defaultProcess
  *
 */
@@ -2840,6 +2953,46 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class AbstractGanttProperty
+ *
+*/
+
+    public void addAbstractGanttProperty(AbstractGanttProperty abstractGanttProperty){
+        assert abstractGanttProperty != null;
+        this.listAbstractGanttProperty.add(abstractGanttProperty);
+    }
+
+/**
+ *  remove an item from the list for class AbstractGanttProperty
+ *
+*/
+
+    public Boolean removeAbstractGanttProperty(AbstractGanttProperty abstractGanttProperty){
+        assert abstractGanttProperty != null;
+        return this.listAbstractGanttProperty.remove(abstractGanttProperty);
+    }
+
+/**
+ *  add an item to the list for class GanttProperty
+ *
+*/
+
+    public void addGanttProperty(GanttProperty ganttProperty){
+        assert ganttProperty != null;
+        this.listGanttProperty.add(ganttProperty);
+    }
+
+/**
+ *  remove an item from the list for class GanttProperty
+ *
+*/
+
+    public Boolean removeGanttProperty(GanttProperty ganttProperty){
+        assert ganttProperty != null;
+        return this.listGanttProperty.remove(ganttProperty);
+    }
+
+/**
  *  add an item to the list for class InputError
  *
 */
@@ -3392,6 +3545,9 @@ public int compareTo(ApplicationDataset ds2){
         for(Downtime x:getListDowntime()){
             System.out.println(x);
         }
+        for(GanttProperty x:getListGanttProperty()){
+            System.out.println(x);
+        }
         for(InputError x:getListInputError()){
             System.out.println(x);
         }
@@ -3523,6 +3679,9 @@ public int compareTo(ApplicationDataset ds2){
         }
         for(Downtime x:getListDowntime()){
             if (x.getClass().equals(Downtime.class)) x.toXML(out);
+        }
+        for(GanttProperty x:getListGanttProperty()){
+            if (x.getClass().equals(GanttProperty.class)) x.toXML(out);
         }
         for(InputError x:getListInputError()){
             if (x.getClass().equals(InputError.class)) x.toXML(out);
@@ -3693,6 +3852,7 @@ public int compareTo(ApplicationDataset ds2){
         compareDataGeneratorRun(this.getListDataGeneratorRun(),compare.getListDataGeneratorRun());
         compareDisjunctiveResource(this.getListDisjunctiveResource(),compare.getListDisjunctiveResource());
         compareDowntime(this.getListDowntime(),compare.getListDowntime());
+        compareGanttProperty(this.getListGanttProperty(),compare.getListGanttProperty());
         compareInputError(this.getListInputError(),compare.getListInputError());
         compareIntermediateSolution(this.getListIntermediateSolution(),compare.getListIntermediateSolution());
         compareJob(this.getListJob(),compare.getListJob());
@@ -3906,6 +4066,30 @@ public int compareTo(ApplicationDataset ds2){
             Downtime a = Downtime.find(b,aList);
             if (a == null) {
                 new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Downtime B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types GanttProperty, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareGanttProperty(List<GanttProperty> aList,List<GanttProperty> bList){
+        System.out.println("Comparing GanttProperty");
+        for(GanttProperty a:aList){
+            GanttProperty b= GanttProperty.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"GanttProperty A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"GanttProperty A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"GanttProperty B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(GanttProperty b: bList){
+            GanttProperty a = GanttProperty.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"GanttProperty B",b.toString(),DifferenceType.ONLYB);
             }
         }
     }
@@ -4452,6 +4636,7 @@ public int compareTo(ApplicationDataset ds2){
         checkDataGeneratorRun(this.getListDataGeneratorRun());
         checkDisjunctiveResource(this.getListDisjunctiveResource());
         checkDowntime(this.getListDowntime());
+        checkGanttProperty(this.getListGanttProperty());
         checkInputError(this.getListInputError());
         checkIntermediateSolution(this.getListIntermediateSolution());
         checkJob(this.getListJob());
@@ -4561,6 +4746,17 @@ public int compareTo(ApplicationDataset ds2){
 
     public void checkDowntime(List<Downtime> list){
         for(Downtime a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<GanttProperty> dataset list of all items of type GanttProperty
+*/
+
+    public void checkGanttProperty(List<GanttProperty> list){
+        for(GanttProperty a:list){
             a.check();
         }
     }
@@ -4828,6 +5024,7 @@ public int compareTo(ApplicationDataset ds2){
         DataGeneratorRun.dummy(this);
         DisjunctiveResource.dummy(this);
         Downtime.dummy(this);
+        GanttProperty.dummy(this);
         InputError.dummy(this);
         IntermediateSolution.dummy(this);
         Job.dummy(this);

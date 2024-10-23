@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 22:14:06 on 2024-10-22 */
+ * Generated at 11:30:11 on 2024-10-23 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -42,6 +42,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("ganttLineHeight");
 		filterNames.add("solverProperty");
 		filterNames.add("dataGeneratorProperty");
+		filterNames.add("ganttProperty");
 		filterNames.add("hasReleaseDate");
 		filterNames.add("hasDueDate");
 		filterNames.add("hasCumulative");
@@ -362,6 +363,22 @@ public class ScatterChartController extends ChartXYFilterController {
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("showLate");
+		filterNames.add("showEarly");
+		filterNames.add("showRelease");
+		filterNames.add("showWait");
+		filterNames.add("showSetup");
+		filterNames.add("showIdle");
+		filterNames.add("datesDisplay");
+		filterNames.add("name");
+		filterNames.add("showLate");
+		filterNames.add("showEarly");
+		filterNames.add("showRelease");
+		filterNames.add("showWait");
+		filterNames.add("showSetup");
+		filterNames.add("showIdle");
+		filterNames.add("datesDisplay");
 		filterNames.add("name");
 		filterNames.add("classDesc");
 		filterNames.add("item");
@@ -883,6 +900,12 @@ public class ScatterChartController extends ChartXYFilterController {
 			}
 			else if (className.equals("DataGeneratorRun")) {
 				objectList = mainApp.getDataGeneratorRunData();
+			}
+			else if (className.equals("AbstractGanttProperty")) {
+				objectList = mainApp.getAbstractGanttPropertyData();
+			}
+			else if (className.equals("GanttProperty")) {
+				objectList = mainApp.getGanttPropertyData();
 			}
 			else if (className.equals("InputError")) {
 				objectList = mainApp.getInputErrorData();

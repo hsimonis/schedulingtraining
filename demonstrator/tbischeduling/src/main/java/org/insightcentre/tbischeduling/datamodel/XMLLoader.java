@@ -223,6 +223,25 @@ public ResourceZoom getResourceZoom(String attributeName,
         return res;
     }
 
+    public AbstractGanttProperty getAbstractGanttProperty(String attributeName,
+                               Attributes attributes) {
+        return (AbstractGanttProperty) find(getId(attributeName,attributes));
+    }
+
+    public List<AbstractGanttProperty> getAbstractGanttPropertyCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<AbstractGanttProperty> res = new ArrayList<AbstractGanttProperty>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((AbstractGanttProperty) find(id));
+            }
+        }
+        return res;
+    }
+
     public AbstractSolverProperty getAbstractSolverProperty(String attributeName,
                                Attributes attributes) {
         return (AbstractSolverProperty) find(getId(attributeName,attributes));
@@ -446,6 +465,25 @@ public ResourceZoom getResourceZoom(String attributeName,
             if (words[i].length() > 0) {
                 int id = Integer.parseInt(words[i].substring(3));
                 res.add((Downtime) find(id));
+            }
+        }
+        return res;
+    }
+
+    public GanttProperty getGanttProperty(String attributeName,
+                               Attributes attributes) {
+        return (GanttProperty) find(getId(attributeName,attributes));
+    }
+
+    public List<GanttProperty> getGanttPropertyCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<GanttProperty> res = new ArrayList<GanttProperty>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((GanttProperty) find(id));
             }
         }
         return res;
@@ -938,6 +976,7 @@ public ResourceZoom getResourceZoom(String attributeName,
                         null,
                         getDouble("ganttLineHeight",attributes,0.0),
                         getInteger("ganttLinesPerPage",attributes,0),
+                        null,
                         getInteger("ganttWidth",attributes,0),
                         getBoolean("hasCumulative",attributes,false),
                         getBoolean("hasDowntime",attributes,false),
@@ -1096,6 +1135,20 @@ public ResourceZoom getResourceZoom(String attributeName,
                         getDateTime("endDate",attributes,"2011-01-01"),
                         getInteger("start",attributes,0),
                         getDateTime("startDate",attributes,"2011-01-01")
+                        ));
+            } else if (qname.equals("ganttProperty")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new GanttProperty(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
                         ));
             } else if (qname.equals("inputError")) {
                 assert (base != null);
@@ -1482,6 +1535,7 @@ public ResourceZoom getResourceZoom(String attributeName,
                 int id = getId("id", attributes);
                 Scenario item = (Scenario) base;
                  item.setDataGeneratorProperty(getDataGeneratorProperty("dataGeneratorProperty",attributes));
+                 item.setGanttProperty(getGanttProperty("ganttProperty",attributes));
                  item.setSolverProperty(getSolverProperty("solverProperty",attributes));
             } else if (qname.equals("applicationDifference")) {
                 assert (base != null);
@@ -1530,6 +1584,17 @@ public ResourceZoom getResourceZoom(String attributeName,
                 int id = getId("id", attributes);
                 Downtime item = (Downtime) find(id);
                  item.setDisjunctiveResource(getDisjunctiveResource("disjunctiveResource",attributes));
+            } else if (qname.equals("ganttProperty")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                GanttProperty item = (GanttProperty) find(id);
+                 item.setDatesDisplay(getDatesDisplay("datesDisplay",attributes));
+                 item.setShowEarly(getLineChoice("showEarly",attributes));
+                 item.setShowIdle(getLineChoice("showIdle",attributes));
+                 item.setShowLate(getLineChoice("showLate",attributes));
+                 item.setShowRelease(getLineChoice("showRelease",attributes));
+                 item.setShowSetup(getLineChoice("showSetup",attributes));
+                 item.setShowWait(getLineChoice("showWait",attributes));
             } else if (qname.equals("inputError")) {
                 assert (base != null);
                 int id = getId("id", attributes);
