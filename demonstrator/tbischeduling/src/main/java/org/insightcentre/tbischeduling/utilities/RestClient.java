@@ -16,17 +16,17 @@ public class RestClient {
 	private Client client;
 	
 	public RestClient() {
-		restUri = System.getProperty("tbi.rest.uri", "http://4c108.ucc.ie:8080/tbi-ws/api/");
+		restUri = System.getProperty("tbi.rest.uri", "http://4c108.ucc.ie:8080/tbi-ws/api");
 		client = buildClient();
 	}
 	
 	public String ping() {
-		Response response = client.target(restUri + "ping").request().get();
+		Response response = client.target(restUri + "/ping").request().get();
 		return response.readEntity(String.class);
 	}
 
 	public String solve(String input) {
-		Response response = client.target(restUri + "solve")
+		Response response = client.target(restUri + "/solve")
 				.request(MediaType.APPLICATION_JSON)
 				.post(Entity.entity(input, MediaType.APPLICATION_JSON));				
 		return response.readEntity(String.class);
