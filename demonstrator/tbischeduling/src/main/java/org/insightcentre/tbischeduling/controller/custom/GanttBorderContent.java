@@ -376,8 +376,8 @@ public class GanttBorderContent {
             gc.drawImage(image, 0, 0, resourceWidth - 5, titleHeight);
             timeline(gc, width, height, getXOffset());
             if (solution != null) {
-                showMarker(gc, width, height, "Makespan", solution.getMakespan(), makespanColor);
-                showMarker(gc, width, height, "Horizon", base.getHorizon(), horizonColor);
+                showMarker(gc, width, height, "Makespan", solution.getMakespan(), makespanColor,TextAlignment.RIGHT);
+                showMarker(gc, width, height, "Horizon", base.getHorizon(), horizonColor,TextAlignment.LEFT);
             }
         }
     }
@@ -532,9 +532,9 @@ public class GanttBorderContent {
 
     }
 
-    private void showMarker(GraphicsContext gc,double width,double height,String label,int value,Color color){
+    private void showMarker(GraphicsContext gc,double width,double height,String label,int value,Color color,TextAlignment alignment){
         int startX = (int) Math.round(getStartX());
-        gc.setTextAlign(TextAlignment.RIGHT);
+        gc.setTextAlign(alignment);
         double x = xoffset+xcoor(value,startX);
         gc.setStroke(textColor);
         gc.strokeText(String.format("%s: %s",label,internalExternalDate(value)),x,height-itemGap);
@@ -1264,7 +1264,13 @@ public class GanttBorderContent {
                 //??? should we use %d or %02d for hours and minutes
                 if (min==0){
                     //??? special case for zero minutes
-                    return String.format("%dd%dh", days, hours);
+                    if (days == 0) {
+                        // even more special case for zero days, zero minutes
+                        return String.format("%dh", hours);
+                    } else {
+                        return String.format("%dd%dh", days, hours);
+
+                    }
 
                 } else {
                     return String.format("%dd%dh%dm", days, hours, min);

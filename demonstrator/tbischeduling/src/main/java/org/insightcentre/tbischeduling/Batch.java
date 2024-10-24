@@ -37,7 +37,7 @@ public class Batch {
         info("Starting");
         assert (args.length == 2);
         String inputFile = args[0];
-        String outputFile = args[0];
+        String outputFile = args[1];
         info("Input "+inputFile);
         // define the format version of the datafiles
         new ReadData(base, new File("imports/" + inputFile));

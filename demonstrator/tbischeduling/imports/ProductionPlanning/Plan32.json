@@ -11573,12 +11573,12 @@
   "problem": [{
     "timePointsAsDate": true,
     "nrDisjunctiveResources": 15,
-    "nrOrders": 30,
+    "nrOrders": 35,
     "nrProcesses": 125,
-    "nrJobs": 30,
+    "nrJobs": 35,
     "nrProducts": 125,
     "name": "p1",
-    "nrTasks": 30,
+    "nrTasks": 35,
     "label": "label",
     "nrCumulativeResources": 0
   }],
@@ -11618,9 +11618,21 @@
       "due": 10080,
       "releaseDate": "1/10/2024 00:00",
       "release": 0,
-      "qty": 10,
+      "qty": 6,
       "dueDate": "8/10/2024 00:00",
       "name": "order3_0",
+      "earlinessWeight": "1.0",
+      "latenessWeight": "1.0"
+    },
+    {
+      "product": "P3",
+      "process": "process3",
+      "due": 10080,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 6,
+      "dueDate": "8/10/2024 00:00",
+      "name": "order3_1",
       "earlinessWeight": "1.0",
       "latenessWeight": "1.0"
     },
@@ -11642,7 +11654,7 @@
       "due": 10080,
       "releaseDate": "1/10/2024 00:00",
       "release": 0,
-      "qty": 9,
+      "qty": 10,
       "dueDate": "8/10/2024 00:00",
       "name": "order5_0",
       "earlinessWeight": "1.0",
@@ -11654,7 +11666,7 @@
       "due": 10080,
       "releaseDate": "1/10/2024 00:00",
       "release": 0,
-      "qty": 12,
+      "qty": 7,
       "dueDate": "8/10/2024 00:00",
       "name": "order6_0",
       "earlinessWeight": "1.0",
@@ -11666,7 +11678,7 @@
       "due": 10080,
       "releaseDate": "1/10/2024 00:00",
       "release": 0,
-      "qty": 1,
+      "qty": 8,
       "dueDate": "8/10/2024 00:00",
       "name": "order6_1",
       "earlinessWeight": "1.0",
@@ -11714,9 +11726,21 @@
       "due": 10080,
       "releaseDate": "1/10/2024 00:00",
       "release": 0,
-      "qty": 1,
+      "qty": 2,
       "dueDate": "8/10/2024 00:00",
       "name": "order10_0",
+      "earlinessWeight": "1.0",
+      "latenessWeight": "1.0"
+    },
+    {
+      "product": "P11",
+      "process": "process11",
+      "due": 10080,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "8/10/2024 00:00",
+      "name": "order11_0",
       "earlinessWeight": "1.0",
       "latenessWeight": "1.0"
     },
@@ -11769,12 +11793,24 @@
       "latenessWeight": "1.0"
     },
     {
+      "product": "P17",
+      "process": "process17",
+      "due": 10080,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "8/10/2024 00:00",
+      "name": "order17_0",
+      "earlinessWeight": "1.0",
+      "latenessWeight": "1.0"
+    },
+    {
       "product": "P18",
       "process": "process18",
       "due": 10080,
       "releaseDate": "1/10/2024 00:00",
       "release": 0,
-      "qty": 8,
+      "qty": 9,
       "dueDate": "8/10/2024 00:00",
       "name": "order18_0",
       "earlinessWeight": "1.0",
@@ -11798,7 +11834,7 @@
       "due": 10080,
       "releaseDate": "1/10/2024 00:00",
       "release": 0,
-      "qty": 6,
+      "qty": 7,
       "dueDate": "8/10/2024 00:00",
       "name": "order23_0",
       "earlinessWeight": "1.0",
@@ -11853,12 +11889,24 @@
       "latenessWeight": "1.0"
     },
     {
+      "product": "P46",
+      "process": "process46",
+      "due": 10080,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "8/10/2024 00:00",
+      "name": "order46_0",
+      "earlinessWeight": "1.0",
+      "latenessWeight": "1.0"
+    },
+    {
       "product": "P53",
       "process": "process53",
       "due": 10080,
       "releaseDate": "1/10/2024 00:00",
       "release": 0,
-      "qty": 4,
+      "qty": 5,
       "dueDate": "8/10/2024 00:00",
       "name": "order53_0",
       "earlinessWeight": "1.0",
@@ -11937,6 +11985,18 @@
       "latenessWeight": "1.0"
     },
     {
+      "product": "P78",
+      "process": "process78",
+      "due": 10080,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "8/10/2024 00:00",
+      "name": "order78_0",
+      "earlinessWeight": "1.0",
+      "latenessWeight": "1.0"
+    },
+    {
       "product": "P100",
       "process": "process100",
       "due": 10080,
@@ -11966,7 +12026,7 @@
       "due": 10080,
       "releaseDate": "1/10/2024 00:00",
       "release": 0,
-      "qty": 2,
+      "qty": 3,
       "dueDate": "8/10/2024 00:00",
       "name": "order123_0",
       "earlinessWeight": "1.0",
@@ -12629,10 +12689,16 @@
   "downtime": [],
   "task": [
     {
-      "duration": 8820,
+      "duration": 5292,
       "name": "task3_0",
       "processStep": "step 3_1",
       "job": "job3_0"
+    },
+    {
+      "duration": 5292,
+      "name": "task3_1",
+      "processStep": "step 3_1",
+      "job": "job3_1"
     },
     {
       "duration": 2520,
@@ -12641,19 +12707,19 @@
       "job": "job4_0"
     },
     {
-      "duration": 7245,
+      "duration": 8050,
       "name": "task5_0",
       "processStep": "step 5_1",
       "job": "job5_0"
     },
     {
-      "duration": 9660,
+      "duration": 5635,
       "name": "task6_0",
       "processStep": "step 6_1",
       "job": "job6_0"
     },
     {
-      "duration": 805,
+      "duration": 6440,
       "name": "task6_1",
       "processStep": "step 6_1",
       "job": "job6_1"
@@ -12677,10 +12743,16 @@
       "job": "job9_0"
     },
     {
-      "duration": 882,
+      "duration": 1764,
       "name": "task10_0",
       "processStep": "step 10_1",
       "job": "job10_0"
+    },
+    {
+      "duration": 882,
+      "name": "task11_0",
+      "processStep": "step 11_1",
+      "job": "job11_0"
     },
     {
       "duration": 805,
@@ -12707,7 +12779,13 @@
       "job": "job15_0"
     },
     {
-      "duration": 5376,
+      "duration": 840,
+      "name": "task17_0",
+      "processStep": "step 17_1",
+      "job": "job17_0"
+    },
+    {
+      "duration": 6048,
       "name": "task18_0",
       "processStep": "step 18_1",
       "job": "job18_0"
@@ -12719,7 +12797,7 @@
       "job": "job20_0"
     },
     {
-      "duration": 4968,
+      "duration": 5796,
       "name": "task23_0",
       "processStep": "step 23_1",
       "job": "job23_0"
@@ -12749,7 +12827,13 @@
       "job": "job44_0"
     },
     {
-      "duration": 2420,
+      "duration": 805,
+      "name": "task46_0",
+      "processStep": "step 46_1",
+      "job": "job46_0"
+    },
+    {
+      "duration": 3025,
       "name": "task53_0",
       "processStep": "step 53_1",
       "job": "job53_0"
@@ -12791,6 +12875,12 @@
       "job": "job77_0"
     },
     {
+      "duration": 647,
+      "name": "task78_0",
+      "processStep": "step 78_1",
+      "job": "job78_0"
+    },
+    {
       "duration": 1118,
       "name": "task100_0",
       "processStep": "step 100_1",
@@ -12803,7 +12893,7 @@
       "job": "job122_0"
     },
     {
-      "duration": 2284,
+      "duration": 3426,
       "name": "task123_0",
       "processStep": "step 123_1",
       "job": "job123_0"
@@ -13254,6 +13344,11 @@
       "order": "order3_0"
     },
     {
+      "process": "process3",
+      "name": "job3_1",
+      "order": "order3_1"
+    },
+    {
       "process": "process4",
       "name": "job4_0",
       "order": "order4_0"
@@ -13294,6 +13389,11 @@
       "order": "order10_0"
     },
     {
+      "process": "process11",
+      "name": "job11_0",
+      "order": "order11_0"
+    },
+    {
       "process": "process12",
       "name": "job12_0",
       "order": "order12_0"
@@ -13312,6 +13412,11 @@
       "process": "process15",
       "name": "job15_0",
       "order": "order15_0"
+    },
+    {
+      "process": "process17",
+      "name": "job17_0",
+      "order": "order17_0"
     },
     {
       "process": "process18",
@@ -13349,6 +13454,11 @@
       "order": "order44_0"
     },
     {
+      "process": "process46",
+      "name": "job46_0",
+      "order": "order46_0"
+    },
+    {
       "process": "process53",
       "name": "job53_0",
       "order": "order53_0"
@@ -13382,6 +13492,11 @@
       "process": "process77",
       "name": "job77_0",
       "order": "order77_0"
+    },
+    {
+      "process": "process78",
+      "name": "job78_0",
+      "order": "order78_0"
     },
     {
       "process": "process100",
