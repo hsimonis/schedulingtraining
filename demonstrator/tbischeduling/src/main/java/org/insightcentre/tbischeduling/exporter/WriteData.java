@@ -225,6 +225,7 @@ public class WriteData {
     private JSONObject process(Process p){
         JSONObject obj = new JSONObject();
         obj.put("name",p.getName());
+        obj.put("noOverlap",p.getNoOverlap());
         return obj;
     }
     private JSONArray disjunctiveResources(){
@@ -386,6 +387,7 @@ public class WriteData {
         obj.put("name",p.getName());
         obj.put("process",p.getProcess().getName());
         obj.put("order",p.getOrder().getName());
+        obj.put("noOverlap",p.getNoOverlap());
         return obj;
     }
     private JSONArray tasks(){
@@ -476,6 +478,9 @@ public class WriteData {
         obj.put("enforceCumulative",run.getEnforceCumulative());
         obj.put("enforceWip",run.getEnforceWip());
         obj.put("enforceDowntime",run.getEnforceDowntime());
+        obj.put("enforceSetup",run.getEnforceSetup());
+        obj.put("enforceTransportTime",run.getEnforceTransportTime());
+        obj.put("relaxSequence",run.getRelaxSequence());
         obj.put("weightMakespan",run.getWeightMakespan());
         obj.put("weightFlowtime",run.getWeightFlowtime());
         obj.put("weightLateness",run.getWeightLateness());

@@ -89,6 +89,12 @@ JobShop,
  *
 */
 
+OpenShop,
+    /**
+ *  
+ *
+*/
+
 HybridFlowShop,
     /**
  *  
@@ -96,6 +102,12 @@ HybridFlowShop,
 */
 
 HybridJobShop,
+    /**
+ *  
+ *
+*/
+
+HybridOpenShop,
     /**
  *  
  *

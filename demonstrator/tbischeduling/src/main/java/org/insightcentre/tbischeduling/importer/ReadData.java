@@ -197,6 +197,7 @@ public class ReadData {
     private void scheduleIfRequired(){
         if (base.getListJob().size()==0 || base.getListTask().size()==0){
             inputError("job/task","recreated","","","Jobs or Tasks missing, creating them from orders",Major);
+            //??? we do not know the exact resourceModel to use, but we need to know if there is a noOverlap on the Job
             new CreateData(base,base.getListOrder());
         }
     }
@@ -345,8 +346,10 @@ public class ReadData {
                 JSONObject item = arr.getJSONObject(i);
                 if (requireFields(key,i,item,new String[]{"name"})) {
                     String name = item.getString("name");
+                    boolean noOverlap = optionalBoolean(item,"noOverlap",false);
                     Process p = new Process(base);
                     p.setName(name);
+                    p.setNoOverlap(noOverlap);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -690,6 +693,7 @@ public class ReadData {
                     String name = item.getString("name");
                     String oName = item.getString("order");
                     String pName = item.getString("process");
+                    boolean noOverlap = optionalBoolean(item,"noOverlap",false);
                     Order order = orderHash.get(oName);
                     Process process = processHash.get(pName);
                     if (order == null) {
@@ -878,6 +882,9 @@ public class ReadData {
                     boolean enforceCumulative = item.getBoolean("enforceCumulative");
                     boolean enforceWip = item.getBoolean("enforceWip");
                     boolean enforceDowntime = item.getBoolean("enforceDowntime");
+                    boolean enforceSetup = optionalBoolean(item,"enforceSetup",false);
+                    boolean enforceTransportTime = optionalBoolean(item,"enforceTransportTime",false);
+                    boolean relaxSequence = optionalBoolean(item,"relaxSequence",false);
                     int weightMakespan = item.getInt("weightMakespan");
                     int weightFlowtime = item.getInt("weightFlowtime");
                     int weightEarliness = item.getInt("weightEarliness");
@@ -902,6 +909,9 @@ public class ReadData {
                     s.setEnforceCumulative(enforceCumulative);
                     s.setEnforceWip(enforceWip);
                     s.setEnforceDowntime(enforceDowntime);
+                    s.setEnforceSetup(enforceSetup);
+                    s.setEnforceTransportTime(enforceTransportTime);
+                    s.setRelaxSequence(relaxSequence);
                     s.setWeightMakespan(weightMakespan);
                     s.setWeightFlowtime(weightFlowtime);
                     s.setWeightEarliness(weightEarliness);
@@ -1285,6 +1295,12 @@ public class ReadData {
             return item.getInt(key);
         }
         return null;
+    }
+    private Boolean optionalBoolean(JSONObject item,String key,boolean v){
+        if (item.has(key)){
+            return item.getBoolean(key);
+        }
+        return v;
     }
 
 

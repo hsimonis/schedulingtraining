@@ -31,6 +31,8 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
    private CheckBox enforceWipItem = new CheckBox();
    private CheckBox enforceDowntimeItem = new CheckBox();
    private CheckBox enforceSetupItem = new CheckBox();
+   private CheckBox enforceTransportTimeItem = new CheckBox();
+   private CheckBox relaxSequenceItem = new CheckBox();
    private TextField modelTypeItem = new TextField();
    private TextField solverBackendItem = new TextField();
    private TextField objectiveTypeItem = new TextField();
@@ -81,6 +83,12 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
         pane.add(new Label("Enforce Setup Times:"), 0, row);
         pane.add(enforceSetupItem, 1, row++);
         enforceSetupItem.setSelected(((ScheduleJobsSolver)solver).getEnforceSetup());
+        pane.add(new Label("Enforce Transport Times:"), 0, row);
+        pane.add(enforceTransportTimeItem, 1, row++);
+        enforceTransportTimeItem.setSelected(((ScheduleJobsSolver)solver).getEnforceTransportTime());
+        pane.add(new Label("Relax Temporal Sequence:"), 0, row);
+        pane.add(relaxSequenceItem, 1, row++);
+        relaxSequenceItem.setSelected(((ScheduleJobsSolver)solver).getRelaxSequence());
         pane.add(new Label("Model Type:"), 0, row);
         pane.add(modelTypeItem, 1, row++);
         modelTypeItem.setText(((ScheduleJobsSolver)solver).getModelType());
@@ -139,6 +147,8 @@ public void handle(InputEvent event) {
         boolean enforceWipValue = enforceWipItem.isSelected();
         boolean enforceDowntimeValue = enforceDowntimeItem.isSelected();
         boolean enforceSetupValue = enforceSetupItem.isSelected();
+        boolean enforceTransportTimeValue = enforceTransportTimeItem.isSelected();
+        boolean relaxSequenceValue = relaxSequenceItem.isSelected();
         String modelTypeValue = modelTypeItem.getText();
         String solverBackendValue = solverBackendItem.getText();
         String objectiveTypeValue = objectiveTypeItem.getText();
@@ -163,6 +173,8 @@ public void handle(InputEvent event) {
             .setEnforceWip(enforceWipValue)
             .setEnforceDowntime(enforceDowntimeValue)
             .setEnforceSetup(enforceSetupValue)
+            .setEnforceTransportTime(enforceTransportTimeValue)
+            .setRelaxSequence(relaxSequenceValue)
             .setModelType(modelTypeValue)
             .setSolverBackend(solverBackendValue)
             .setObjectiveType(objectiveTypeValue)

@@ -34,6 +34,7 @@ public class CheckSolutions {
 
     private void checkSolution(Solution sol){
         info("Checking solution "+sol.getName());
+        SolverRun run = sol.getSolverRun();
         List<JobAssignment> jaList = base.getListJobAssignment().stream().
                 filter(x->x.getSolution()==sol).
                 toList();
@@ -88,7 +89,7 @@ public class CheckSolutions {
                 TaskAssignment ta = taskHash.get(t);
                 for (Task a : t.getPrecedes()) {
                     TaskAssignment after = taskHash.get(a);
-                    if (after.getStart() < ta.getEnd()) {
+                    if (!run.getRelaxSequence() && after.getStart() < ta.getEnd()) {
                         newError(sol, "Task", t.getName(), "precedes", a.getName(),
                                 "Precedence not respected", Fatal);
                     }
@@ -99,37 +100,54 @@ public class CheckSolutions {
                             "Machine not in allowed list " + machineNames(t.getMachines()), Fatal);
                 }
                 if (ta.getDuration() != ta.getEnd() - ta.getStart()) {
-                    newError(sol, "TaskAssignment", ta.getName(), "duration", String.format("%d", ta.getDuration()),
+                    newError(sol, "TaskAssignment", ta.getName(), "duration", ta.getDuration(),
                             "Duration is wrong, should be " + (ta.getEnd() - ta.getStart()), Fatal);
                 }
 
             }
             for (Job j : base.getListJob()) {
                 JobAssignment ja = jobHash.get(j);
+                List<TaskAssignment> tasksOfJob = base.getListTaskAssignment().stream().
+                        filter(x->x.getJobAssignment()==ja).
+                        sorted(Comparator.comparing(TaskAssignment::getStart)).
+                        toList();
+                if (ja.getStart() != tasksOfJob.stream().mapToInt(TaskAssignment::getStart).min().orElse(0)){
+                    newError(sol,"JobAssignment",ja.getName(),"start",ja.getStart(),"Job start must be minimum of its task starts",Fatal);
+                }
+                if (ja.getEnd() != tasksOfJob.stream().mapToInt(TaskAssignment::getEnd).max().orElse(0)){
+                    newError(sol,"JobAssignment",ja.getName(),"end",ja.getEnd(),"Job end must be maximum of its task ends",Fatal);
+                }
+                TaskAssignment prev = null;
+                for(TaskAssignment t:tasksOfJob){
+                    if ((j.getNoOverlap()||run.getRelaxSequence()) && prev != null && prev.getEnd() > t.getStart()){
+                        newError(sol,"Job",ja.getName(),"start",t.getStart(),"Tasks of job overlap at this time",Fatal);
+                    }
+                    prev= t;
+                }
                 if (ja.getDuration() != ja.getEnd()-ja.getStart()){
-                    newError(sol,"JobAssignment",ja.getName(),"duration",String.format("%d",ja.getDuration()),
+                    newError(sol,"JobAssignment",ja.getName(),"duration",ja.getDuration(),
                             "Duration is wrong, should be "+(ja.getEnd()-ja.getStart()),Fatal);
                 }
                 if (ja.getStart() < j.getOrder().getRelease()) {
                     // release date violations are only fatal if they are enforced
-                    newError(sol, "JobAssignment", ja.getName(), "start", String.format("%d", ja.getStart()),
+                    newError(sol, "JobAssignment", ja.getName(), "start", ja.getStart(),
                             "Job starts before release " + j.getOrder().getRelease() + ", early " + ja.getEarly(),
                             (sol.getSolverRun().getEnforceReleaseDate() ? Fatal : Minor));
                 }
 
                 if (ja.getEnd() > j.getOrder().getDue()) {
                     // due date violation are only fatal if the constraint is enforced
-                    newError(sol, "JobAssignment", ja.getName(), "end", String.format("%d", ja.getEnd()),
+                    newError(sol, "JobAssignment", ja.getName(), "end", ja.getEnd(),
                             "Job ends after due " + j.getOrder().getDue() + ", late " + ja.getLate(),
                             (sol.getSolverRun().getEnforceDueDate() ? Fatal : Minor));
                 }
                 if (ja.getLate() != Math.max(0, ja.getEnd() - j.getOrder().getDue())) {
-                    newError(sol, "JobAssignment", ja.getName(), "late", String.format("%d", ja.getLate()),
+                    newError(sol, "JobAssignment", ja.getName(), "late", ja.getLate(),
                             "Job lateness incorrect, should be " + Math.max(0, ja.getEnd() - j.getOrder().getDue()),
                             Fatal);
                 }
                 if (ja.getEarly() != Math.max(0, j.getOrder().getDue() - ja.getEnd())) {
-                    newError(sol, "JobAssignment", ja.getName(), "early", String.format("%d", ja.getEarly()),
+                    newError(sol, "JobAssignment", ja.getName(), "early", ja.getEarly(),
                             "Job earliness incorrect, should be " + Math.max(0, j.getOrder().getDue() - ja.getEnd()),
                             Fatal);
                 }
@@ -191,37 +209,37 @@ public class CheckSolutions {
 
         int makespan = jaList.stream().mapToInt(JobAssignment::getEnd).max().orElse(0);
         if (sol.getMakespan() != makespan){
-            newError(sol,"Solution",sol.getName(),"makespan",String.format("%d",sol.getMakespan()),
+            newError(sol,"Solution",sol.getName(),"makespan",sol.getMakespan(),
                     "Makespan given is wrong, should be "+makespan,Fatal);
         }
         int flowtime = jaList.stream().mapToInt(JobAssignment::getEnd).sum();
         if (sol.getFlowtime() != flowtime){
-            newError(sol,"Solution",sol.getName(),"flowtime",String.format("%d",sol.getFlowtime()),
+            newError(sol,"Solution",sol.getName(),"flowtime",sol.getFlowtime(),
                     "Flowtime given is wrong, should be "+flowtime,Fatal);
         }
         int totalLateness = jaList.stream().mapToInt(JobAssignment::getLate).sum();
         if (sol.getTotalLateness() != totalLateness){
-            newError(sol,"Solution",sol.getName(),"totalLateness",String.format("%d",sol.getTotalLateness()),
+            newError(sol,"Solution",sol.getName(),"totalLateness",sol.getTotalLateness(),
                     "Total Lateness given is wrong, should be "+totalLateness,Fatal);
         }
         double weightedLateness = jaList.stream().mapToDouble(this::weightedLateness).sum();
         if (Math.abs(sol.getWeightedLateness()-weightedLateness)> accuracy){
-            newError(sol,"Solution",sol.getName(),"weightedLateness",String.format("%f",sol.getWeightedLateness()),
+            newError(sol,"Solution",sol.getName(),"weightedLateness",sol.getWeightedLateness(),
                     "Weighted Lateness given is wrong, should be "+weightedLateness,Fatal);
         }
         int maxLateness = jaList.stream().mapToInt(JobAssignment::getLate).max().orElse(0);
         if (sol.getMaxLateness() != maxLateness){
-            newError(sol,"Solution",sol.getName(),"maxLateness",String.format("%d",sol.getMaxLateness()),
+            newError(sol,"Solution",sol.getName(),"maxLateness",sol.getMaxLateness(),
                     "Max Lateness given is wrong, should be "+maxLateness,Fatal);
         }
         int nrLate = (int) jaList.stream().filter(x->x.getLate()> 0).count();
         if (sol.getNrLate() != nrLate){
-            newError(sol,"Solution",sol.getName(),"nrLate",String.format("%d",sol.getNrLate()),
+            newError(sol,"Solution",sol.getName(),"nrLate",sol.getNrLate(),
                     "Nr Late value given is wrong, should be "+nrLate,Fatal);
         }
         double percentLate = 100.0*nrLate/jaList.size();
         if (Math.abs(sol.getPercentLate()-percentLate)> accuracy){
-            newError(sol,"Solution",sol.getName(),"percentLate",String.format("%5.2f",sol.getPercentLate()),
+            newError(sol,"Solution",sol.getName(),"percentLate",sol.getPercentLate(),
                     "Percent jobs late value given is wrong, should be "+percentLate,Fatal);
         }
     }
@@ -238,8 +256,16 @@ public class CheckSolutions {
         return list.stream().map(ApplicationObject::getName).collect(Collectors.joining(","));
     }
 
-    private void newError(Solution sol,String classDesc,String item,String attr,String value,
+    private void newError(Solution sol,String classDesc,String item,String attr,Integer value,
                           String description,Severity severity){
+        newError(sol,classDesc,item,attr,String.format("%d",value),description,severity);
+    }
+    private void newError(Solution sol,String classDesc,String item,String attr,Double value,
+                          String description,Severity severity){
+        newError(sol,classDesc,item,attr,String.format("%f",value),description,severity);
+    }
+    private void newError(Solution sol,String classDesc,String item,String attr,String value,
+                String description,Severity severity){
         SolutionError se= new SolutionError(base);
         se.setName("SE"+solutionError++);
         se.setSolution(sol);

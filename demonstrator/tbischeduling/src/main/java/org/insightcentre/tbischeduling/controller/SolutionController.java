@@ -34,7 +34,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 11:30:11 on 2024-10-23 */
+ * Generated at 20:37:39 on 2024-10-24 */
 public class SolutionController extends Table3Controller {
 	@FXML
 	private TableView<Solution> table;
@@ -185,6 +185,12 @@ public class SolutionController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Solution, Boolean> enforceSetup;
+
+	@FXML
+	private TableColumn<Solution, Boolean> enforceTransportTime;
+
+	@FXML
+	private TableColumn<Solution, Boolean> relaxSequence;
 
 	@FXML
 	private TableColumn<Solution, Integer> weightMakespan;
@@ -451,6 +457,20 @@ public class SolutionController extends Table3Controller {
 		choices.add("solverRun.enforceSetup");
 		try {
 			enforceSetup.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getEnforceSetup()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.enforceTransportTime");
+		try {
+			enforceTransportTime.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getEnforceTransportTime()));
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("solverRun.relaxSequence");
+		try {
+			relaxSequence.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSolverRun().getRelaxSequence()));
 		}
 		catch (NullPointerException e) {
 			System.err.println(e);

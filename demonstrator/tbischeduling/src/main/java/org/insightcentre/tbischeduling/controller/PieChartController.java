@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 11:30:11 on 2024-10-23 */
+ * Generated at 20:37:39 on 2024-10-24 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -72,6 +72,8 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceWip");
 		attributeNames.add("enforceDowntime");
 		attributeNames.add("enforceSetup");
+		attributeNames.add("enforceTransportTime");
+		attributeNames.add("relaxSequence");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");
@@ -97,6 +99,8 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceWip");
 		attributeNames.add("enforceDowntime");
 		attributeNames.add("enforceSetup");
+		attributeNames.add("enforceTransportTime");
+		attributeNames.add("relaxSequence");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");
@@ -122,6 +126,8 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceWip");
 		attributeNames.add("enforceDowntime");
 		attributeNames.add("enforceSetup");
+		attributeNames.add("enforceTransportTime");
+		attributeNames.add("relaxSequence");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");
@@ -287,6 +293,7 @@ public class PieChartController extends ChartController {
 		choicesMap.put("Product", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
+		attributeNames.add("noOverlap");
 		choicesMap.put("Process", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
@@ -359,6 +366,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("order");
 		attributeNames.add("process");
 		attributeNames.add("nr");
+		attributeNames.add("noOverlap");
 		attributeNames.add("order.product");
 		attributeNames.add("order.release");
 		attributeNames.add("order.due");
@@ -451,6 +459,8 @@ public class PieChartController extends ChartController {
 		attributeNames.add("solverRun.enforceWip");
 		attributeNames.add("solverRun.enforceDowntime");
 		attributeNames.add("solverRun.enforceSetup");
+		attributeNames.add("solverRun.enforceTransportTime");
+		attributeNames.add("solverRun.relaxSequence");
 		attributeNames.add("solverRun.weightMakespan");
 		attributeNames.add("solverRun.weightFlowtime");
 		attributeNames.add("solverRun.weightEarliness");

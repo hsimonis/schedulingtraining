@@ -32,7 +32,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverBackend;
 import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 
 /**
- * Generated at 11:30:11 on 2024-10-23 */
+ * Generated at 20:37:39 on 2024-10-24 */
 public class SolverPropertyController extends Table3Controller {
 	@FXML
 	private TableView<SolverProperty> table;
@@ -66,6 +66,12 @@ public class SolverPropertyController extends Table3Controller {
 
 	@FXML
 	private TableColumn<SolverProperty, Boolean> enforceSetup;
+
+	@FXML
+	private TableColumn<SolverProperty, Boolean> enforceTransportTime;
+
+	@FXML
+	private TableColumn<SolverProperty, Boolean> relaxSequence;
 
 	@FXML
 	private TableColumn<SolverProperty, ModelType> modelType;
@@ -166,6 +172,12 @@ public class SolverPropertyController extends Table3Controller {
 		choices.add("enforceSetup");
 		enforceSetup.setCellValueFactory(new EnforceSetupCallback());
 		enforceSetup.setCellFactory(CheckBoxTableCell.forTableColumn(enforceSetup));
+		choices.add("enforceTransportTime");
+		enforceTransportTime.setCellValueFactory(new EnforceTransportTimeCallback());
+		enforceTransportTime.setCellFactory(CheckBoxTableCell.forTableColumn(enforceTransportTime));
+		choices.add("relaxSequence");
+		relaxSequence.setCellValueFactory(new RelaxSequenceCallback());
+		relaxSequence.setCellFactory(CheckBoxTableCell.forTableColumn(relaxSequence));
 		choices.add("modelType");
 		modelType.setCellValueFactory(new PropertyValueFactory<>("modelType"));
 		choices.add("solverBackend");
@@ -349,6 +361,36 @@ public class SolverPropertyController extends Table3Controller {
 				@SuppressWarnings("rawtypes")
 				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
 					cellData.getValue().setEnforceSetup(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class EnforceTransportTimeCallback implements Callback<TableColumn.CellDataFeatures<SolverProperty, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SolverProperty, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().enforceTransportTimeWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setEnforceTransportTime(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class RelaxSequenceCallback implements Callback<TableColumn.CellDataFeatures<SolverProperty, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SolverProperty, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().relaxSequenceWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setRelaxSequence(newValue);
 				}
 			});
 			return prop;

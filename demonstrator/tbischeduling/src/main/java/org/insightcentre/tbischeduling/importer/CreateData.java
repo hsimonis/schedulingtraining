@@ -10,6 +10,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
+import static org.insightcentre.tbischeduling.datamodel.ResourceModel.HybridOpenShop;
+import static org.insightcentre.tbischeduling.datamodel.ResourceModel.OpenShop;
 import static org.insightcentre.tbischeduling.importer.Reset.resetAll;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
@@ -111,6 +113,7 @@ public class CreateData {
             p.setName("Prod"+i);
             Process pp = new Process(base);
             pp.setName("Process "+i);
+            pp.setNoOverlap(resourceModel == OpenShop || resourceModel == HybridOpenShop);
             p.setDefaultProcess(pp);
             ProcessStep before = null;
             int[] permutation = permuteArray(maxStages);
@@ -123,34 +126,35 @@ public class CreateData {
                 ps.setName("PS"+i+"/"+j);
                 ps.setShortName("PS"+i+"/"+j);
                 ps.setStage(j);
-                switch(durationModel){
-                    case Random:
-                        ps.setDurationFixed(durationFixedFactor*randomDuration(minDuration,maxDuration));
-                        ps.setDurationPerUnit(randomDuration(minDuration,maxDuration));
-                        break;
-                    case RandomByStage:
-                        ps.setDurationFixed(durationFixedFactor*randomDuration(minDuration,stageDurationDefault[j]));
-                        ps.setDurationPerUnit(randomDuration(minDuration,stageDurationDefault[j]));
-                        break;
-                    case Uniform:
-                        ps.setDurationFixed(durationFixedFactor*stageDurationDefault[j]);
+                switch (durationModel) {
+                    case Random -> {
+                        ps.setDurationFixed(durationFixedFactor * randomDuration(minDuration, maxDuration));
+                        ps.setDurationPerUnit(randomDuration(minDuration, maxDuration));
+                    }
+                    case RandomByStage -> {
+                        ps.setDurationFixed(durationFixedFactor * randomDuration(minDuration, stageDurationDefault[j]));
+                        ps.setDurationPerUnit(randomDuration(minDuration, stageDurationDefault[j]));
+                    }
+                    case Uniform -> {
+                        ps.setDurationFixed(durationFixedFactor * stageDurationDefault[j]);
                         ps.setDurationPerUnit(stageDurationDefault[j]);
-                        break;
-                    case UniformByStage:
-                        ps.setDurationFixed(durationFixedFactor*stageDurationDefault[0]);
+                    }
+                    case UniformByStage -> {
+                        ps.setDurationFixed(durationFixedFactor * stageDurationDefault[0]);
                         ps.setDurationPerUnit(stageDurationDefault[0]);
-                        break;
-                    case Unitary:
+                    }
+                    case Unitary -> {
                         ps.setDurationFixed(1);
                         ps.setDurationPerUnit(0);
-                        break;
-                    default:
-                        severe("durationModel value not handled "+durationModel);
-                        assert(false);
+                    }
+                    default -> {
+                        severe("durationModel value not handled " + durationModel);
+                        assert (false);
                         ps.setDurationFixed(1);
                         ps.setDurationPerUnit(0);
+                    }
                 }
-                if (before!=null) {
+                if (before!=null && resourceModel != ResourceModel.OpenShop && resourceModel != ResourceModel.HybridOpenShop) {
                     ProcessSequence seq = new ProcessSequence(base);
                     seq.setName("Seq " + i + "/" + j);
                     seq.setBefore(before);
@@ -171,7 +175,7 @@ public class CreateData {
                         }
                         break;
                     }
-                    case HybridJobShop: {
+                    case HybridOpenShop,HybridJobShop: {
                         int nrMachinesPerStage = nrDisjunctiveResources / nrStages;
                         assert (nrDisjunctiveResources >= nrStages * nrMachinesPerStage);
                         for (int k = 0; k < nrMachinesPerStage; k++) {
@@ -191,7 +195,7 @@ public class CreateData {
                         rnf.setDisjunctiveResource(resources[j]);
                         break;
                     }
-                    case JobShop: {
+                    case OpenShop,JobShop: {
                         assert (nrDisjunctiveResources >= nrStages);
                         ResourceNeed rnf = new ResourceNeed(base);
                         int k = permutation[j];
@@ -304,6 +308,7 @@ public class CreateData {
         j.setNr(i);
         j.setOrder(ord);
         j.setProcess(ord.getProcess());
+        j.setNoOverlap(ord.getProcess().getNoOverlap());
         for(ProcessStep ps:processSteps(j.getProcess())){
             Task t = new Task(base);
             t.setName("T"+i+ps.getName());

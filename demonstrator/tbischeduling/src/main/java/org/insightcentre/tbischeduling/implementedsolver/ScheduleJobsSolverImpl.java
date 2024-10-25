@@ -35,6 +35,8 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
                 base.getSolverProperty().getEnforceWip(),
                 base.getSolverProperty().getEnforceDowntime(),
                 base.getSolverProperty().getEnforceSetup(),
+                base.getSolverProperty().getEnforceTransportTime(),
+                base.getSolverProperty().getRelaxSequence(),
                 base.getSolverProperty().getModelType().toString(),
                 base.getSolverProperty().getSolverBackend().toString(),
                 base.getSolverProperty().getObjectiveType().toString(),
@@ -65,6 +67,8 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         p.setEnforceWip(getEnforceWip());
         p.setEnforceDowntime(getEnforceDowntime());
         p.setEnforceSetup(getEnforceSetup());
+        p.setEnforceTransportTime(getEnforceTransportTime());
+        p.setRelaxSequence(getRelaxSequence());
         p.setModelType(toModelType(getModelType()));
         p.setSolverBackend(toSolverBackend(getSolverBackend()));
         p.setObjectiveType(toObjectiveType(getObjectiveType()));
@@ -89,7 +93,8 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         saveProperties();
         SolverRun run = createSolverRun(getLabel(),getDescription(),toModelType(getModelType()),
                 toSolverBackend(getSolverBackend()),toObjectiveType(getObjectiveType()),
-                getEnforceReleaseDate(),getEnforceDueDate(),getEnforceCumulative(),getEnforceWip(),getEnforceDowntime(),getEnforceSetup(),
+                getEnforceReleaseDate(),getEnforceDueDate(),getEnforceCumulative(),getEnforceWip(),
+                getEnforceDowntime(),getEnforceSetup(),getEnforceTransportTime(),getRelaxSequence(),
                 getWeightMakespan(),getWeightFlowtime(),getWeightEarliness(),getWeightLateness(),
                 getTimeout(),getNrThreads(),getSeed(),
                 getRemoveSolution(),getProduceReport(),getProducePDF());
@@ -132,6 +137,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
     private SolverRun createSolverRun(String label,String description,ModelType modelType,SolverBackend solverBackend,
                                       ObjectiveType objectiveType,boolean enforceReleaseDate,boolean enforceDueDate,
                                       boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,boolean enforceSetup,
+                                      boolean enforceTransportTime,boolean relaxSequence,
                                       int weightMakespan,int weightFlowtime,int weightEarliness,int weightLateness,
                                       int timeout,int nrThreads,int seed,boolean removeSolution,
                                       boolean produceReport,boolean producePDF){
@@ -139,8 +145,8 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         double time = 0.0;
         DateTime startDateTime = new DateTime(new Date());
         SolverRun res = new SolverRun(base,runNr,name,description,enforceCumulative,enforceDowntime,enforceDueDate,
-                enforceReleaseDate,enforceSetup,enforceWip,
-                label,modelType,nrThreads,objectiveType,producePDF,produceReport,removeSolution,seed,solverBackend,
+                enforceReleaseDate,enforceSetup,enforceTransportTime,enforceWip,
+                label,modelType,nrThreads,objectiveType,producePDF,produceReport,relaxSequence,removeSolution,seed,solverBackend,
                 startDateTime,timeout,weightEarliness,weightFlowtime,weightLateness,weightMakespan,ToRun,time);
         return res;
     }

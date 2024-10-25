@@ -64,7 +64,7 @@ public class CPOModel extends AbstractModel{
             jobHash.put(j,ii);
             ii++;
         }
-        // disjunctive reosurces
+        // disjunctive resources
         int nrDisjunctiveResources = base.getListDisjunctiveResource().size();
         DisjunctiveResource[] disjRes = new DisjunctiveResource[nrDisjunctiveResources];
         ii =0;
@@ -154,13 +154,22 @@ public class CPOModel extends AbstractModel{
                     spans.add(x[taskHash.get(t)]);
                 }
                 cp.add(cp.span(y[jobHash.get(job)],spans.toArray()));
+                if (job.getNoOverlap() || run.getRelaxSequence()){
+                    // create a noOverlap constraint for all tasks belonging to a job
+                    // only do this if we need to
+                    // normally the temporal constraints handle this
+                    info("Added noOverlap for job "+job.getName());
+                    cp.add(cp.noOverlap(spans.toArray()));
+                }
             }
             // create temporal constraints between tasks; only precedences at this point
-            for(Task before:tasks){
-                int beforeIndex = taskHash.get(before);
-                for(Task after:before.getPrecedes()){
-                    int afterIndex=taskHash.get(after);
-                    cp.add(cp.endBeforeStart(x[beforeIndex], x[afterIndex]));
+            if (!run.getRelaxSequence()) {
+                for (Task before : tasks) {
+                    int beforeIndex = taskHash.get(before);
+                    for (Task after : before.getPrecedes()) {
+                        int afterIndex = taskHash.get(after);
+                        cp.add(cp.endBeforeStart(x[beforeIndex], x[afterIndex]));
+                    }
                 }
             }
             // this is more complex code to compute the precedences from the processSequence data

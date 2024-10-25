@@ -77,6 +77,15 @@ public  class Job extends ApplicationObject{
  *
 */
 
+    public Boolean noOverlap;
+
+    private transient BooleanProperty noOverlapWrapper;
+
+/**
+ *  
+ *
+*/
+
     public Integer nr;
 
 /**
@@ -112,6 +121,7 @@ public  class Job extends ApplicationObject{
 
     public Job(ApplicationDataset applicationDataset){
         super(applicationDataset);
+        setNoOverlap(false);
         setNr(0);
         setOrder(null);
         setProcess(null);
@@ -128,12 +138,14 @@ public  class Job extends ApplicationObject{
     public Job(ApplicationDataset applicationDataset,
             Integer id,
             String name,
+            Boolean noOverlap,
             Integer nr,
             Order order,
             Process process){
         super(applicationDataset,
             id,
             name);
+        setNoOverlap(noOverlap);
         setNr(nr);
         setOrder(order);
         setProcess(process);
@@ -144,6 +156,7 @@ public  class Job extends ApplicationObject{
         this(other.applicationDataset,
             other.id,
             other.name,
+            other.noOverlap,
             other.nr,
             other.order,
             other.process);
@@ -160,6 +173,24 @@ public  class Job extends ApplicationObject{
         getApplicationDataset().cascadeTaskJob(this);
         getApplicationDataset().cascadeJobAssignmentJob(this);
         return getApplicationDataset().removeJob(this) && getApplicationDataset().removeApplicationObject(this);
+    }
+
+/**
+ *  get attribute noOverlap
+ *
+ * @return Boolean
+*/
+
+    public Boolean getNoOverlap(){
+        return this.noOverlap;
+    }
+
+    public BooleanProperty noOverlapWrapperProperty() {
+        if (noOverlapWrapper == null) {
+            noOverlapWrapper = new SimpleBooleanProperty();
+        }
+        noOverlapWrapper.set(noOverlap);
+        return noOverlapWrapper;
     }
 
 /**
@@ -190,6 +221,18 @@ public  class Job extends ApplicationObject{
 
     public Process getProcess(){
         return this.process;
+    }
+
+/**
+ *  set attribute noOverlap, mark dataset as dirty, mark dataset as not valid
+@param noOverlap Boolean
+ *
+*/
+
+    public void setNoOverlap(Boolean noOverlap){
+        this.noOverlap = noOverlap;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -256,7 +299,7 @@ public  class Job extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getNr()+ " " +getOrder().toColumnString()+ " " +getProcess().toColumnString();
+        return ""+ " " +getId()+ " " +getName()+ " " +getNoOverlap()+ " " +getNr()+ " " +getOrder().toColumnString()+ " " +getProcess().toColumnString();
     }
 
 /**
@@ -280,10 +323,21 @@ public  class Job extends ApplicationObject{
          out.println("<job "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
+            " noOverlap=\""+toXMLNoOverlap()+"\""+
             " nr=\""+toXMLNr()+"\""+
             " order=\""+toXMLOrder()+"\""+
             " process=\""+toXMLProcess()+"\""+" />");
      }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNoOverlap(){
+        return this.getNoOverlap().toString();
+    }
 
 /**
  * helper method for toXML(), prcess one attribute
@@ -322,11 +376,11 @@ public  class Job extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Job</th>"+"<th>Name</th>"+"<th>Order</th>"+"<th>Process</th>"+"<th>Nr</th>"+"</tr>";
+        return "<tr><th>Job</th>"+"<th>Name</th>"+"<th>Order</th>"+"<th>Process</th>"+"<th>Nr</th>"+"<th>NoOverlap</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getOrder().toColumnString()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getNr()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getOrder().toColumnString()+"</td>"+ " " +"<td>"+getProcess().toColumnString()+"</td>"+ " " +"<td>"+getNr()+"</td>"+ " " +"<td>"+getNoOverlap()+"</td>"+"</tr>";
     }
 
 /**
@@ -446,6 +500,9 @@ public  class Job extends ApplicationObject{
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
+      if(!this.getNoOverlap().equals(b.getNoOverlap())){
+         System.out.println("NoOverlap");
+        }
       if(!this.getNr().equals(b.getNr())){
          System.out.println("Nr");
         }
@@ -456,6 +513,7 @@ public  class Job extends ApplicationObject{
          System.out.println("Process");
         }
         return  this.getName().equals(b.getName()) &&
+          this.getNoOverlap().equals(b.getNoOverlap()) &&
           this.getNr().equals(b.getNr()) &&
           this.getOrder().applicationSame(b.getOrder()) &&
           this.getProcess().applicationSame(b.getProcess());

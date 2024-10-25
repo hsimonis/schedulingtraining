@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 11:30:11 on 2024-10-23 */
+ * Generated at 20:37:39 on 2024-10-24 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -73,6 +73,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceWip");
 		filterNames.add("enforceDowntime");
 		filterNames.add("enforceSetup");
+		filterNames.add("enforceTransportTime");
+		filterNames.add("relaxSequence");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");
@@ -108,6 +110,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceWip");
 		filterNames.add("enforceDowntime");
 		filterNames.add("enforceSetup");
+		filterNames.add("enforceTransportTime");
+		filterNames.add("relaxSequence");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");
@@ -143,6 +147,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceWip");
 		filterNames.add("enforceDowntime");
 		filterNames.add("enforceSetup");
+		filterNames.add("enforceTransportTime");
+		filterNames.add("relaxSequence");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");
@@ -411,6 +417,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("name");
 		filterNames.add("defaultProcess");
 		filterNames.add("name");
+		filterNames.add("noOverlap");
 		filterNames.add("name");
 		filterNames.add("shortName");
 		filterNames.add("process");
@@ -517,6 +524,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("process");
 		attributeNames.add("nr");
 		filterNames.add("nr");
+		filterNames.add("noOverlap");
 		filterNames.add("order.product");
 		attributeNames.add("order.release");
 		filterNames.add("order.release");
@@ -671,6 +679,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("solverRun.enforceWip");
 		filterNames.add("solverRun.enforceDowntime");
 		filterNames.add("solverRun.enforceSetup");
+		filterNames.add("solverRun.enforceTransportTime");
+		filterNames.add("solverRun.relaxSequence");
 		attributeNames.add("solverRun.weightMakespan");
 		filterNames.add("solverRun.weightMakespan");
 		attributeNames.add("solverRun.weightFlowtime");

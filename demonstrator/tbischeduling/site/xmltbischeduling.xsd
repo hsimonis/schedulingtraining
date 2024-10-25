@@ -231,6 +231,7 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="noOverlap" use="required" type="xs:boolean"/>
 			<xs:attribute name="nr" use="required" type="xs:integer"/>
 			<xs:attribute name="order" use="required" type="xs:IDREF"/>
 			<xs:attribute name="process" use="required" type="xs:IDREF"/>
@@ -291,6 +292,7 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="noOverlap" use="required" type="xs:boolean"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="processSequence">
@@ -479,6 +481,7 @@
 			<xs:attribute name="enforceDueDate" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceReleaseDate" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceSetup" use="required" type="xs:boolean"/>
+			<xs:attribute name="enforceTransportTime" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceWip" use="required" type="xs:boolean"/>
 			<xs:attribute name="label" use="required" type="xs:string"/>
 			<xs:attribute name="modelType" use="required" type="xs:string"/>
@@ -486,6 +489,7 @@
 			<xs:attribute name="objectiveType" use="required" type="xs:string"/>
 			<xs:attribute name="producePDF" use="required" type="xs:boolean"/>
 			<xs:attribute name="produceReport" use="required" type="xs:boolean"/>
+			<xs:attribute name="relaxSequence" use="required" type="xs:boolean"/>
 			<xs:attribute name="removeSolution" use="required" type="xs:boolean"/>
 			<xs:attribute name="seed" use="required" type="xs:integer"/>
 			<xs:attribute name="solverBackend" use="required" type="xs:string"/>
@@ -508,6 +512,7 @@
 			<xs:attribute name="enforceDueDate" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceReleaseDate" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceSetup" use="required" type="xs:boolean"/>
+			<xs:attribute name="enforceTransportTime" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceWip" use="required" type="xs:boolean"/>
 			<xs:attribute name="label" use="required" type="xs:string"/>
 			<xs:attribute name="modelType" use="required" type="xs:string"/>
@@ -515,6 +520,7 @@
 			<xs:attribute name="objectiveType" use="required" type="xs:string"/>
 			<xs:attribute name="producePDF" use="required" type="xs:boolean"/>
 			<xs:attribute name="produceReport" use="required" type="xs:boolean"/>
+			<xs:attribute name="relaxSequence" use="required" type="xs:boolean"/>
 			<xs:attribute name="removeSolution" use="required" type="xs:boolean"/>
 			<xs:attribute name="seed" use="required" type="xs:integer"/>
 			<xs:attribute name="solverBackend" use="required" type="xs:string"/>

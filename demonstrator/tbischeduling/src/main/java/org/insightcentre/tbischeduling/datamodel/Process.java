@@ -73,6 +73,15 @@ import framework.AppearInCollection;
 
 public  class Process extends ApplicationObject{
 /**
+ *  
+ *
+*/
+
+    public Boolean noOverlap;
+
+    private transient BooleanProperty noOverlapWrapper;
+
+/**
  *  No-arg constructor for use in TableView
  *
 */
@@ -91,6 +100,7 @@ public  class Process extends ApplicationObject{
 
     public Process(ApplicationDataset applicationDataset){
         super(applicationDataset);
+        setNoOverlap(false);
         applicationDataset.addProcess(this);
     }
 
@@ -103,17 +113,20 @@ public  class Process extends ApplicationObject{
 
     public Process(ApplicationDataset applicationDataset,
             Integer id,
-            String name){
+            String name,
+            Boolean noOverlap){
         super(applicationDataset,
             id,
             name);
+        setNoOverlap(noOverlap);
         applicationDataset.addProcess(this);
     }
 
     public Process(Process other){
         this(other.applicationDataset,
             other.id,
-            other.name);
+            other.name,
+            other.noOverlap);
     }
 
 /**
@@ -129,6 +142,36 @@ public  class Process extends ApplicationObject{
         getApplicationDataset().cascadeOrderProcess(this);
         getApplicationDataset().cascadeJobProcess(this);
         return getApplicationDataset().removeProcess(this) && getApplicationDataset().removeApplicationObject(this);
+    }
+
+/**
+ *  get attribute noOverlap
+ *
+ * @return Boolean
+*/
+
+    public Boolean getNoOverlap(){
+        return this.noOverlap;
+    }
+
+    public BooleanProperty noOverlapWrapperProperty() {
+        if (noOverlapWrapper == null) {
+            noOverlapWrapper = new SimpleBooleanProperty();
+        }
+        noOverlapWrapper.set(noOverlap);
+        return noOverlapWrapper;
+    }
+
+/**
+ *  set attribute noOverlap, mark dataset as dirty, mark dataset as not valid
+@param noOverlap Boolean
+ *
+*/
+
+    public void setNoOverlap(Boolean noOverlap){
+        this.noOverlap = noOverlap;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -148,7 +191,7 @@ public  class Process extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName();
+        return ""+ " " +getId()+ " " +getName()+ " " +getNoOverlap();
     }
 
 /**
@@ -171,8 +214,19 @@ public  class Process extends ApplicationObject{
      public void toXML(PrintWriter out){
          out.println("<process "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
-            " name=\""+toXMLName()+"\""+" />");
+            " name=\""+toXMLName()+"\""+
+            " noOverlap=\""+toXMLNoOverlap()+"\""+" />");
      }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLNoOverlap(){
+        return this.getNoOverlap().toString();
+    }
 
 /**
  * show object as one row in an HTML table
@@ -181,11 +235,11 @@ public  class Process extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Process</th>"+"<th>Name</th>"+"</tr>";
+        return "<tr><th>Process</th>"+"<th>Name</th>"+"<th>NoOverlap</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getNoOverlap()+"</td>"+"</tr>";
     }
 
 /**
@@ -305,7 +359,11 @@ public  class Process extends ApplicationObject{
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
         }
-        return  this.getName().equals(b.getName());
+      if(!this.getNoOverlap().equals(b.getNoOverlap())){
+         System.out.println("NoOverlap");
+        }
+        return  this.getName().equals(b.getName()) &&
+          this.getNoOverlap().equals(b.getNoOverlap());
     }
 
 /**

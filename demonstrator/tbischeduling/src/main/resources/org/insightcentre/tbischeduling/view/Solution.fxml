@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 11:30:11 on 2024-10-23-->
+<!--Generated at 20:37:39 on 2024-10-24-->
 
 
 <Tab text="Solution" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.SolutionController">
@@ -67,6 +67,8 @@
                <TableColumn fx:id="enforceWip" styleClass="right-aligned,disabled-column" text="EnforceWip" />
                <TableColumn fx:id="enforceDowntime" styleClass="right-aligned,disabled-column" text="EnforceDowntime" />
                <TableColumn fx:id="enforceSetup" styleClass="right-aligned,disabled-column" text="EnforceSetup" />
+               <TableColumn fx:id="enforceTransportTime" styleClass="right-aligned,disabled-column" text="EnforceTransportTime" />
+               <TableColumn fx:id="relaxSequence" styleClass="right-aligned,disabled-column" text="RelaxSequence" />
                <TableColumn fx:id="weightMakespan" styleClass="right-aligned,disabled-column" text="WeightMakespan" />
                <TableColumn fx:id="weightFlowtime" styleClass="right-aligned,disabled-column" text="WeightFlowtime" />
                <TableColumn fx:id="weightEarliness" styleClass="right-aligned,disabled-column" text="WeightEarliness" />

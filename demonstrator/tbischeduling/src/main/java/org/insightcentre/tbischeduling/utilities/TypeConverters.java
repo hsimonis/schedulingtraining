@@ -82,8 +82,10 @@ public class TypeConverters {
         switch(name){
             case "FlowShop": return FlowShop;
             case "JobShop": return JobShop;
+            case "OpenShop": return OpenShop;
             case "HybridFlowShop": return HybridFlowShop;
             case "HybridJobShop": return HybridJobShop;
+            case "HybridOpenShop": return HybridOpenShop;
             case "Random": return ResourceModel.Random;
             case "All": return All;
             default:

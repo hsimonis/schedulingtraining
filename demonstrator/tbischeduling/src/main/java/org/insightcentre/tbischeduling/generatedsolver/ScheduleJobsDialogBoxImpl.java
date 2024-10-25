@@ -30,6 +30,8 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
     private final CheckBox enforceWipItem = new CheckBox();
     private final CheckBox enforceDowntimeItem = new CheckBox();
     private final CheckBox enforceSetupItem = new CheckBox();
+    private final CheckBox enforceTransportTimeItem = new CheckBox();
+    private final CheckBox relaxSequenceItem = new CheckBox();
     private final ChoiceBox modelTypeItem = new ChoiceBox();
     private final ChoiceBox solverBackendItem = new ChoiceBox();
     private final ChoiceBox objectiveTypeItem = new ChoiceBox();
@@ -102,6 +104,14 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(new Label("Enforce Setup:"), 0, row);
         pane.add(enforceSetupItem, 1, row++);
         enforceSetupItem.setSelected(((ScheduleJobsSolver)solver).getEnforceSetup());
+
+        pane.add(new Label("Enforce Transport Time:"), 0, row);
+        pane.add(enforceTransportTimeItem, 1, row++);
+        enforceTransportTimeItem.setSelected(((ScheduleJobsSolver)solver).getEnforceTransportTime());
+
+        pane.add(new Label("Relax Sequence:"), 0, row);
+        pane.add(relaxSequenceItem, 1, row++);
+        relaxSequenceItem.setSelected(((ScheduleJobsSolver)solver).getRelaxSequence());
 
         Separator sep3 = new Separator(Orientation.HORIZONTAL);
         pane.add(sep3,0,row++,2,1);
@@ -220,6 +230,8 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
             boolean enforceWipValue = enforceWipItem.isSelected();
             boolean enforceDowntimeValue = enforceDowntimeItem.isSelected();
             boolean enforceSetupValue = enforceSetupItem.isSelected();
+            boolean enforceTransportTimeValue = enforceTransportTimeItem.isSelected();
+            boolean relaxSequenceValue = relaxSequenceItem.isSelected();
 
             String modelTypeValue = modelTypeItem.getValue().toString();
             String solverBackendValue = solverBackendItem.getValue().toString();
@@ -245,6 +257,8 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
                     .setEnforceWip(enforceWipValue)
                     .setEnforceDowntime(enforceDowntimeValue)
                     .setEnforceSetup(enforceSetupValue)
+                    .setEnforceTransportTime(enforceTransportTimeValue)
+                    .setRelaxSequence(relaxSequenceValue)
                     .setModelType(modelTypeValue)
                     .setSolverBackend(solverBackendValue)
                     .setObjectiveType(objectiveTypeValue)

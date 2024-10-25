@@ -5,6 +5,7 @@ Boolean enforceDowntime
 Boolean enforceDueDate
 Boolean enforceReleaseDate
 Boolean enforceSetup
+Boolean enforceTransportTime
 Boolean enforceWip
 String label
 ModelType modelType
@@ -12,6 +13,7 @@ Integer nrThreads
 ObjectiveType objectiveType
 Boolean producePDF
 Boolean produceReport
+Boolean relaxSequence
 Boolean removeSolution
 Integer seed
 SolverBackend solverBackend

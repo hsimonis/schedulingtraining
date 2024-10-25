@@ -3,6 +3,7 @@ package org.insightcentre.tbischeduling.controller;
 import framework.gui.AbstractJfxMainWindow;
 import framework.gui.Table3Controller;
 import framework.types.DateTime;
+import java.lang.Boolean;
 import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.NullPointerException;
@@ -11,16 +12,21 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.lang.reflect.Field;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.Callback;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.Order;
@@ -28,7 +34,7 @@ import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.Product;
 
 /**
- * Generated at 11:30:11 on 2024-10-23 */
+ * Generated at 20:37:39 on 2024-10-24 */
 public class JobController extends Table3Controller {
 	@FXML
 	private TableView<Job> table;
@@ -44,6 +50,9 @@ public class JobController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Job, Integer> nr;
+
+	@FXML
+	private TableColumn<Job, Boolean> noOverlap;
 
 	@FXML
 	private TableColumn<Job, Product> product;
@@ -97,6 +106,9 @@ public class JobController extends Table3Controller {
 		nr.setCellValueFactory(new PropertyValueFactory<>("nr"));
 		nr.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		nr.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setNr(event.getNewValue()); mainApp.reset();});
+		choices.add("noOverlap");
+		noOverlap.setCellValueFactory(new NoOverlapCallback());
+		noOverlap.setCellFactory(CheckBoxTableCell.forTableColumn(noOverlap));
 		choices.add("order.product");
 		try {
 			product.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getOrder().getProduct()));
@@ -192,6 +204,21 @@ public class JobController extends Table3Controller {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	class NoOverlapCallback implements Callback<TableColumn.CellDataFeatures<Job, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Job, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().noOverlapWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setNoOverlap(newValue);
+				}
+			});
+			return prop;
 		}
 	}
 }

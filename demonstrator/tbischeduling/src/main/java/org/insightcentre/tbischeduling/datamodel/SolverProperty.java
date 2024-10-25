@@ -110,6 +110,7 @@ public  class SolverProperty extends AbstractSolverProperty{
             Boolean enforceDueDate,
             Boolean enforceReleaseDate,
             Boolean enforceSetup,
+            Boolean enforceTransportTime,
             Boolean enforceWip,
             String label,
             ModelType modelType,
@@ -117,6 +118,7 @@ public  class SolverProperty extends AbstractSolverProperty{
             ObjectiveType objectiveType,
             Boolean producePDF,
             Boolean produceReport,
+            Boolean relaxSequence,
             Boolean removeSolution,
             Integer seed,
             SolverBackend solverBackend,
@@ -135,6 +137,7 @@ public  class SolverProperty extends AbstractSolverProperty{
             enforceDueDate,
             enforceReleaseDate,
             enforceSetup,
+            enforceTransportTime,
             enforceWip,
             label,
             modelType,
@@ -142,6 +145,7 @@ public  class SolverProperty extends AbstractSolverProperty{
             objectiveType,
             producePDF,
             produceReport,
+            relaxSequence,
             removeSolution,
             seed,
             solverBackend,
@@ -164,6 +168,7 @@ public  class SolverProperty extends AbstractSolverProperty{
             other.enforceDueDate,
             other.enforceReleaseDate,
             other.enforceSetup,
+            other.enforceTransportTime,
             other.enforceWip,
             other.label,
             other.modelType,
@@ -171,6 +176,7 @@ public  class SolverProperty extends AbstractSolverProperty{
             other.objectiveType,
             other.producePDF,
             other.produceReport,
+            other.relaxSequence,
             other.removeSolution,
             other.seed,
             other.solverBackend,
@@ -211,7 +217,7 @@ public  class SolverProperty extends AbstractSolverProperty{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceSetup()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getStartDateTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceSetup()+ " " +getEnforceTransportTime()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRelaxSequence()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getStartDateTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan();
     }
 
 /**
@@ -241,6 +247,7 @@ public  class SolverProperty extends AbstractSolverProperty{
             " enforceDueDate=\""+toXMLEnforceDueDate()+"\""+
             " enforceReleaseDate=\""+toXMLEnforceReleaseDate()+"\""+
             " enforceSetup=\""+toXMLEnforceSetup()+"\""+
+            " enforceTransportTime=\""+toXMLEnforceTransportTime()+"\""+
             " enforceWip=\""+toXMLEnforceWip()+"\""+
             " label=\""+toXMLLabel()+"\""+
             " modelType=\""+toXMLModelType()+"\""+
@@ -248,6 +255,7 @@ public  class SolverProperty extends AbstractSolverProperty{
             " objectiveType=\""+toXMLObjectiveType()+"\""+
             " producePDF=\""+toXMLProducePDF()+"\""+
             " produceReport=\""+toXMLProduceReport()+"\""+
+            " relaxSequence=\""+toXMLRelaxSequence()+"\""+
             " removeSolution=\""+toXMLRemoveSolution()+"\""+
             " seed=\""+toXMLSeed()+"\""+
             " solverBackend=\""+toXMLSolverBackend()+"\""+
@@ -266,11 +274,11 @@ public  class SolverProperty extends AbstractSolverProperty{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>SolverProperty</th>"+"<th>Name</th>"+"<th>Label</th>"+"<th>Description</th>"+"<th>StartDateTime</th>"+"<th>EnforceReleaseDate</th>"+"<th>EnforceDueDate</th>"+"<th>EnforceCumulative</th>"+"<th>EnforceWip</th>"+"<th>EnforceDowntime</th>"+"<th>EnforceSetup</th>"+"<th>ModelType</th>"+"<th>SolverBackend</th>"+"<th>ObjectiveType</th>"+"<th>WeightMakespan</th>"+"<th>WeightFlowtime</th>"+"<th>WeightLateness</th>"+"<th>WeightEarliness</th>"+"<th>Timeout</th>"+"<th>NrThreads</th>"+"<th>Seed</th>"+"<th>RemoveSolution</th>"+"<th>ProduceReport</th>"+"<th>ProducePDF</th>"+"</tr>";
+        return "<tr><th>SolverProperty</th>"+"<th>Name</th>"+"<th>Label</th>"+"<th>Description</th>"+"<th>StartDateTime</th>"+"<th>EnforceReleaseDate</th>"+"<th>EnforceDueDate</th>"+"<th>EnforceCumulative</th>"+"<th>EnforceWip</th>"+"<th>EnforceDowntime</th>"+"<th>EnforceSetup</th>"+"<th>EnforceTransportTime</th>"+"<th>RelaxSequence</th>"+"<th>ModelType</th>"+"<th>SolverBackend</th>"+"<th>ObjectiveType</th>"+"<th>WeightMakespan</th>"+"<th>WeightFlowtime</th>"+"<th>WeightLateness</th>"+"<th>WeightEarliness</th>"+"<th>Timeout</th>"+"<th>NrThreads</th>"+"<th>Seed</th>"+"<th>RemoveSolution</th>"+"<th>ProduceReport</th>"+"<th>ProducePDF</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getLabel()+"</td>"+ " " +"<td>"+getDescription()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getEnforceReleaseDate()+"</td>"+ " " +"<td>"+getEnforceDueDate()+"</td>"+ " " +"<td>"+getEnforceCumulative()+"</td>"+ " " +"<td>"+getEnforceWip()+"</td>"+ " " +"<td>"+getEnforceDowntime()+"</td>"+ " " +"<td>"+getEnforceSetup()+"</td>"+ " " +"<td>"+getModelType()+"</td>"+ " " +"<td>"+getSolverBackend()+"</td>"+ " " +"<td>"+getObjectiveType()+"</td>"+ " " +"<td>"+getWeightMakespan()+"</td>"+ " " +"<td>"+getWeightFlowtime()+"</td>"+ " " +"<td>"+getWeightLateness()+"</td>"+ " " +"<td>"+getWeightEarliness()+"</td>"+ " " +"<td>"+getTimeout()+"</td>"+ " " +"<td>"+getNrThreads()+"</td>"+ " " +"<td>"+getSeed()+"</td>"+ " " +"<td>"+getRemoveSolution()+"</td>"+ " " +"<td>"+getProduceReport()+"</td>"+ " " +"<td>"+getProducePDF()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getLabel()+"</td>"+ " " +"<td>"+getDescription()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getEnforceReleaseDate()+"</td>"+ " " +"<td>"+getEnforceDueDate()+"</td>"+ " " +"<td>"+getEnforceCumulative()+"</td>"+ " " +"<td>"+getEnforceWip()+"</td>"+ " " +"<td>"+getEnforceDowntime()+"</td>"+ " " +"<td>"+getEnforceSetup()+"</td>"+ " " +"<td>"+getEnforceTransportTime()+"</td>"+ " " +"<td>"+getRelaxSequence()+"</td>"+ " " +"<td>"+getModelType()+"</td>"+ " " +"<td>"+getSolverBackend()+"</td>"+ " " +"<td>"+getObjectiveType()+"</td>"+ " " +"<td>"+getWeightMakespan()+"</td>"+ " " +"<td>"+getWeightFlowtime()+"</td>"+ " " +"<td>"+getWeightLateness()+"</td>"+ " " +"<td>"+getWeightEarliness()+"</td>"+ " " +"<td>"+getTimeout()+"</td>"+ " " +"<td>"+getNrThreads()+"</td>"+ " " +"<td>"+getSeed()+"</td>"+ " " +"<td>"+getRemoveSolution()+"</td>"+ " " +"<td>"+getProduceReport()+"</td>"+ " " +"<td>"+getProducePDF()+"</td>"+"</tr>";
     }
 
 /**
@@ -405,6 +413,9 @@ public  class SolverProperty extends AbstractSolverProperty{
       if(!this.getEnforceSetup().equals(b.getEnforceSetup())){
          System.out.println("EnforceSetup");
         }
+      if(!this.getEnforceTransportTime().equals(b.getEnforceTransportTime())){
+         System.out.println("EnforceTransportTime");
+        }
       if(!this.getEnforceWip().equals(b.getEnforceWip())){
          System.out.println("EnforceWip");
         }
@@ -428,6 +439,9 @@ public  class SolverProperty extends AbstractSolverProperty{
         }
       if(!this.getProduceReport().equals(b.getProduceReport())){
          System.out.println("ProduceReport");
+        }
+      if(!this.getRelaxSequence().equals(b.getRelaxSequence())){
+         System.out.println("RelaxSequence");
         }
       if(!this.getRemoveSolution().equals(b.getRemoveSolution())){
          System.out.println("RemoveSolution");
@@ -462,6 +476,7 @@ public  class SolverProperty extends AbstractSolverProperty{
           this.getEnforceDueDate().equals(b.getEnforceDueDate()) &&
           this.getEnforceReleaseDate().equals(b.getEnforceReleaseDate()) &&
           this.getEnforceSetup().equals(b.getEnforceSetup()) &&
+          this.getEnforceTransportTime().equals(b.getEnforceTransportTime()) &&
           this.getEnforceWip().equals(b.getEnforceWip()) &&
           this.getLabel().equals(b.getLabel()) &&
           this.getModelType().equals(b.getModelType()) &&
@@ -470,6 +485,7 @@ public  class SolverProperty extends AbstractSolverProperty{
           this.getObjectiveType().equals(b.getObjectiveType()) &&
           this.getProducePDF().equals(b.getProducePDF()) &&
           this.getProduceReport().equals(b.getProduceReport()) &&
+          this.getRelaxSequence().equals(b.getRelaxSequence()) &&
           this.getRemoveSolution().equals(b.getRemoveSolution()) &&
           this.getSeed().equals(b.getSeed()) &&
           this.getSolverBackend().equals(b.getSolverBackend()) &&

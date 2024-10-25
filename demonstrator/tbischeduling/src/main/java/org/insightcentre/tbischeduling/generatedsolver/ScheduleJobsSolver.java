@@ -21,6 +21,8 @@ public class ScheduleJobsSolver extends DefaultSolver{
     protected boolean enforceWip=true;
     protected boolean enforceDowntime=true;
     protected boolean enforceSetup=false;
+    protected boolean enforceTransportTime=false;
+    protected boolean relaxSequence=false;
     protected String modelType="CPO";
     protected String solverBackend="None";
     protected String objectiveType="Makespan";
@@ -38,7 +40,7 @@ public class ScheduleJobsSolver extends DefaultSolver{
     public ScheduleJobsSolver(Scenario base){
         super(base,new String[] {});
     }
-    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,boolean enforceSetup,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarliness,int timeout,int nrThreads,int seed,boolean removeSolution,boolean produceReport,boolean producePDF){
+    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,boolean enforceSetup,boolean enforceTransportTime,boolean relaxSequence,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarliness,int timeout,int nrThreads,int seed,boolean removeSolution,boolean produceReport,boolean producePDF){
         super(base,new String[] {});
         this.label=label;
         this.description=description;
@@ -50,6 +52,8 @@ public class ScheduleJobsSolver extends DefaultSolver{
         this.enforceWip=enforceWip;
         this.enforceDowntime=enforceDowntime;
         this.enforceSetup=enforceSetup;
+        this.enforceTransportTime=enforceTransportTime;
+        this.relaxSequence=relaxSequence;
         this.modelType=modelType;
         this.solverBackend=solverBackend;
         this.objectiveType=objectiveType;
@@ -103,6 +107,14 @@ public boolean getEnforceDowntime(){
 
 public boolean getEnforceSetup(){
  return enforceSetup;
+}
+
+public boolean getEnforceTransportTime(){
+ return enforceTransportTime;
+}
+
+public boolean getRelaxSequence(){
+ return relaxSequence;
 }
 
 public String getModelType(){
@@ -204,6 +216,16 @@ public ScheduleJobsSolver setEnforceDowntime(boolean v){
 
 public ScheduleJobsSolver setEnforceSetup(boolean v){
  enforceSetup = v;
+ return this;
+}
+
+public ScheduleJobsSolver setEnforceTransportTime(boolean v){
+ enforceTransportTime = v;
+ return this;
+}
+
+public ScheduleJobsSolver setRelaxSequence(boolean v){
+ relaxSequence = v;
  return this;
 }
 

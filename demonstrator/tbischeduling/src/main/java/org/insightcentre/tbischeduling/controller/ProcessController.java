@@ -2,29 +2,39 @@ package org.insightcentre.tbischeduling.controller;
 
 import framework.gui.AbstractJfxMainWindow;
 import framework.gui.Table3Controller;
+import java.lang.Boolean;
 import java.lang.Exception;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.lang.reflect.Field;
+import javafx.beans.property.Property;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.Callback;
 import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Process;
 
 /**
- * Generated at 11:30:11 on 2024-10-23 */
+ * Generated at 20:37:39 on 2024-10-24 */
 public class ProcessController extends Table3Controller {
 	@FXML
 	private TableView<Process> table;
 
 	@FXML
 	private TableColumn<Process, String> name;
+
+	@FXML
+	private TableColumn<Process, Boolean> noOverlap;
 
 	private GeneratedJfxApp mainApp;
 
@@ -47,6 +57,9 @@ public class ProcessController extends Table3Controller {
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		name.setCellFactory(TextFieldTableCell.forTableColumn());
 		name.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setName(event.getNewValue()); mainApp.reset();});
+		choices.add("noOverlap");
+		noOverlap.setCellValueFactory(new NoOverlapCallback());
+		noOverlap.setCellFactory(CheckBoxTableCell.forTableColumn(noOverlap));
 		initialize(choices);
 	}
 
@@ -100,6 +113,21 @@ public class ProcessController extends Table3Controller {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	class NoOverlapCallback implements Callback<TableColumn.CellDataFeatures<Process, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Process, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().noOverlapWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setNoOverlap(newValue);
+				}
+			});
+			return prop;
 		}
 	}
 }

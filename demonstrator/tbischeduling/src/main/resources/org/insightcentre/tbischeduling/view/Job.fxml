@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 11:30:11 on 2024-10-23-->
+<!--Generated at 20:37:39 on 2024-10-24-->
 
 
 <Tab text="Job" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.JobController">
@@ -22,6 +22,7 @@
                <TableColumn fx:id="order" styleClass="right-aligned" text="Order" />
                <TableColumn fx:id="process" styleClass="right-aligned" text="Process" />
                <TableColumn fx:id="nr" editable="false" styleClass="right-aligned,disabled-column" text="Nr" />
+               <TableColumn fx:id="noOverlap" styleClass="right-aligned" text="NoOverlap" />
                <TableColumn fx:id="product" styleClass="right-aligned,disabled-column" text="Product" />
                <TableColumn fx:id="release" styleClass="right-aligned,disabled-column" text="Release" />
                <TableColumn fx:id="due" styleClass="right-aligned,disabled-column" text="Due" />

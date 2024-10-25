@@ -2,6 +2,7 @@ package org.insightcentre.tbischeduling.implementedsolver;
 
 import org.insightcentre.tbischeduling.datamodel.Order;
 import org.insightcentre.tbischeduling.datamodel.Product;
+import org.insightcentre.tbischeduling.datamodel.ResourceModel;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.generatedsolver.NewOrderSolver;
 import org.insightcentre.tbischeduling.importer.CreateData;

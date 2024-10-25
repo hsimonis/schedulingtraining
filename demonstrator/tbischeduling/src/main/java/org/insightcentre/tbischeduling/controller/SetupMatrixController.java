@@ -21,7 +21,7 @@ import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.SetupType;
 
 /**
- * Generated at 11:30:11 on 2024-10-23 */
+ * Generated at 20:37:39 on 2024-10-24 */
 public class SetupMatrixController extends Table3Controller {
 	@FXML
 	private TableView<SetupMatrix> table;
