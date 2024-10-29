@@ -58,6 +58,8 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include SolverRun.uml
 !include Task.uml
 !include TaskAssignment.uml
+!include Transport.uml
+!include TransportMatrix.uml
 !include WiP.uml
 !include DifferenceType.uml
 !include WarningType.uml
@@ -127,6 +129,8 @@ Setup  *-- SetupType
 ProcessStep "0..*" *-- SetupType 
 SetupType  *-- SetupMatrix : from
 SetupType  *-- SetupMatrix : to
+DisjunctiveResource  *-- TransportMatrix : from
+DisjunctiveResource  *-- TransportMatrix : to
 header
 Datamodel of Application tbischeduling
 endheader

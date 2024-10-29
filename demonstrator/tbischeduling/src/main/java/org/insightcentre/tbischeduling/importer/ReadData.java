@@ -81,36 +81,14 @@ public class ReadData {
             base.setStartDateTime(readDateTime(root.getString("startDate")));
             info("setting date to "+base.getStartDateTime());
         }
-        if(root.has("hasReleaseDate")){
-            base.setHasReleaseDate(root.getBoolean("hasReleaseDate"));
-        } else {
-            base.setHasReleaseDate(false);
-        }
-        if(root.has("hasDueDate")){
-            base.setHasDueDate(root.getBoolean("hasDueDate"));
-        } else {
-            base.setHasDueDate(false);
-        }
-        if(root.has("hasCumulative")){
-            base.setHasCumulative(root.getBoolean("hasCumulative"));
-        } else {
-            base.setHasCumulative(false);
-        }
-        if(root.has("hasWiP")){
-            base.setHasWiP(root.getBoolean("hasWiP"));
-        } else {
-            base.setHasWiP(false);
-        }
-        if(root.has("hasDowntime")){
-            base.setHasDowntime(root.getBoolean("hasDowntime"));
-        } else {
-            base.setHasDowntime(false);
-        }
-        if(root.has("hasSetupTime")){
-            base.setHasSetupTime(root.getBoolean("hasSetupTime"));
-        } else {
-            base.setHasSetupTime(false);
-        }
+        base.setHasReleaseDate(optionalBoolean(root,"hasReleaseDate",false));
+        base.setHasDueDate(optionalBoolean(root,"hasDueDate",false));
+        base.setHasCumulative(optionalBoolean(root,"hasCumulative",false));
+        base.setHasWiP(optionalBoolean(root,"hasWiP",false));
+        base.setHasDowntime(optionalBoolean(root,"hasDowntime",false));
+        base.setHasSetupTime(optionalBoolean(root,"hasSetupTime",false));
+        base.setHasTransportTime(optionalBoolean(root,"hasTransportTime",false));
+
         // read the different fields of data, create a hashtable from name to Object
         Hashtable<String, InputError> inputErrorHash = readInputErrors(root);
         Hashtable<String, Problem> problemHash = readProblems(root);

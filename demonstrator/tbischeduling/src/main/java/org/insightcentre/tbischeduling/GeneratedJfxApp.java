@@ -27,6 +27,8 @@ import javafx.stage.Stage;
 import org.insightcentre.tbischeduling.controller.CumulativeNeedsMatrixDraw;
 import org.insightcentre.tbischeduling.controller.DisjunctiveNeedsMatrixDraw;
 import org.insightcentre.tbischeduling.controller.RootController;
+import org.insightcentre.tbischeduling.controller.SetupDisplayMatrixDraw;
+import org.insightcentre.tbischeduling.controller.TransportDisplayMatrixDraw;
 import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
 import org.insightcentre.tbischeduling.datamodel.AbstractGanttProperty;
 import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
@@ -63,6 +65,8 @@ import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
+import org.insightcentre.tbischeduling.datamodel.Transport;
+import org.insightcentre.tbischeduling.datamodel.TransportMatrix;
 import org.insightcentre.tbischeduling.datamodel.WiP;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import org.insightcentre.tbischeduling.generatedsolver.GenerateDataDialogBox;
@@ -75,7 +79,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 20:37:38 on 2024-10-24 */
+ * Generated at 11:45:38 on 2024-10-28 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -161,6 +165,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<SetupMatrix> setupMatrixData = FXCollections.observableArrayList();
 
+	private ObservableList<Transport> transportData = FXCollections.observableArrayList();
+
+	private ObservableList<TransportMatrix> transportMatrixData = FXCollections.observableArrayList();
+
 	public GeneratedJfxApp() {
 		super("tbischeduling", "ENTIRE EDIH Test Before Invest - Scheduling - University College Cork", "*.data", "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling");
 		fs = minimalDataset();
@@ -182,6 +190,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		tableViews.put("Setup", "Setup");
 		tableViews.put("SetupType", "SetupType");
 		tableViews.put("SetupMatrix", "SetupMatrix");
+		tableViews.put("Transport", "Transport");
+		tableViews.put("TransportMatrix", "TransportMatrix");
 		tableViews.put("Order", "Order");
 		tableViews.put("Job", "Job");
 		tableViews.put("Task", "Task");
@@ -349,6 +359,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		setupTypeData.addAll(base.getListSetupType());
 		setupMatrixData.clear();
 		setupMatrixData.addAll(base.getListSetupMatrix());
+		transportData.clear();
+		transportData.addAll(base.getListTransport());
+		transportMatrixData.clear();
+		transportMatrixData.addAll(base.getListTransportMatrix());
 		for (BaseController controller : controllers) {
 			controller.setMainApp(this);
 		}
@@ -420,6 +434,16 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		showContent("Cumulative Resource Needs Matrix",CumulativeNeedsMatrixDraw.createContent(base,"Cumulative Resource Needs Matrix"));
 	}
 
+	public void setupDisplayMatrixMatrixViewer(Scenario base) {
+		new SetupDisplayMatrixDraw(base,"maps/tree.html","Setup Display Matrix");
+		showContent("Setup Display Matrix",SetupDisplayMatrixDraw.createContent(base,"Setup Display Matrix"));
+	}
+
+	public void transportDisplayMatrixMatrixViewer(Scenario base) {
+		new TransportDisplayMatrixDraw(base,"maps/tree.html","Transport Display Matrix");
+		showContent("Transport Display Matrix",TransportDisplayMatrixDraw.createContent(base,"Transport Display Matrix"));
+	}
+
 	@Override
 	public void handle(ActionEvent event) throws StatusException {
 		setStatus(null);
@@ -451,6 +475,12 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		}
 		else if (id.equals("cumulativeNeedsMatrixMatrixViewer")) {
 			cumulativeNeedsMatrixMatrixViewer((Scenario) fs);
+		}
+		else if (id.equals("setupDisplayMatrixMatrixViewer")) {
+			setupDisplayMatrixMatrixViewer((Scenario) fs);
+		}
+		else if (id.equals("transportDisplayMatrixMatrixViewer")) {
+			transportDisplayMatrixMatrixViewer((Scenario) fs);
 		}
 		else if (id.equals("ganttBorderViewer")) {
 			ganttBorderViewer((Scenario) fs);
@@ -621,5 +651,13 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public ObservableList<SetupMatrix> getSetupMatrixData() {
 		return setupMatrixData;
+	}
+
+	public ObservableList<Transport> getTransportData() {
+		return transportData;
+	}
+
+	public ObservableList<TransportMatrix> getTransportMatrixData() {
+		return transportMatrixData;
 	}
 }

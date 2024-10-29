@@ -39,6 +39,8 @@ import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.Setup;
 import org.insightcentre.tbischeduling.datamodel.SetupType;
 import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
+import org.insightcentre.tbischeduling.datamodel.Transport;
+import org.insightcentre.tbischeduling.datamodel.TransportMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -171,6 +173,15 @@ public  class Scenario extends ApplicationDataset{
  *
 */
 
+    public Boolean hasTransportTime;
+
+    private transient BooleanProperty hasTransportTimeWrapper;
+
+/**
+ *  
+ *
+*/
+
     public Boolean hasWiP;
 
     private transient BooleanProperty hasWiPWrapper;
@@ -234,6 +245,7 @@ public  class Scenario extends ApplicationDataset{
         setHasDueDate(true);
         setHasReleaseDate(true);
         setHasSetupTime(true);
+        setHasTransportTime(true);
         setHasWiP(true);
         setHorizon(0);
         setSolverProperty(null);
@@ -265,6 +277,7 @@ public  class Scenario extends ApplicationDataset{
             Boolean hasDueDate,
             Boolean hasReleaseDate,
             Boolean hasSetupTime,
+            Boolean hasTransportTime,
             Boolean hasWiP,
             Integer horizon,
             SolverProperty solverProperty,
@@ -286,6 +299,7 @@ public  class Scenario extends ApplicationDataset{
         setHasDueDate(hasDueDate);
         setHasReleaseDate(hasReleaseDate);
         setHasSetupTime(hasSetupTime);
+        setHasTransportTime(hasTransportTime);
         setHasWiP(hasWiP);
         setHorizon(horizon);
         setSolverProperty(solverProperty);
@@ -311,6 +325,7 @@ public  class Scenario extends ApplicationDataset{
             other.hasDueDate,
             other.hasReleaseDate,
             other.hasSetupTime,
+            other.hasTransportTime,
             other.hasWiP,
             other.horizon,
             other.solverProperty,
@@ -481,6 +496,24 @@ public  class Scenario extends ApplicationDataset{
         }
         hasSetupTimeWrapper.set(hasSetupTime);
         return hasSetupTimeWrapper;
+    }
+
+/**
+ *  get attribute hasTransportTime
+ *
+ * @return Boolean
+*/
+
+    public Boolean getHasTransportTime(){
+        return this.hasTransportTime;
+    }
+
+    public BooleanProperty hasTransportTimeWrapperProperty() {
+        if (hasTransportTimeWrapper == null) {
+            hasTransportTimeWrapper = new SimpleBooleanProperty();
+        }
+        hasTransportTimeWrapper.set(hasTransportTime);
+        return hasTransportTimeWrapper;
     }
 
 /**
@@ -686,6 +719,18 @@ public  class Scenario extends ApplicationDataset{
     }
 
 /**
+ *  set attribute hasTransportTime, mark dataset as dirty, mark dataset as not valid
+@param hasTransportTime Boolean
+ *
+*/
+
+    public void setHasTransportTime(Boolean hasTransportTime){
+        this.hasTransportTime = hasTransportTime;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute hasWiP, mark dataset as dirty, mark dataset as not valid
 @param hasWiP Boolean
  *
@@ -806,7 +851,7 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public String prettyString(){
-        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getDataGeneratorProperty().toColumnString()+ " " +getGanttLineHeight()+ " " +getGanttLinesPerPage()+ " " +getGanttProperty().toColumnString()+ " " +getGanttWidth()+ " " +getHasCumulative()+ " " +getHasDowntime()+ " " +getHasDueDate()+ " " +getHasReleaseDate()+ " " +getHasSetupTime()+ " " +getHasWiP()+ " " +getHorizon()+ " " +getSolverProperty().toColumnString()+ " " +getStartDateTime()+ " " +getTimeResolution();
+        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getDataGeneratorProperty().toColumnString()+ " " +getGanttLineHeight()+ " " +getGanttLinesPerPage()+ " " +getGanttProperty().toColumnString()+ " " +getGanttWidth()+ " " +getHasCumulative()+ " " +getHasDowntime()+ " " +getHasDueDate()+ " " +getHasReleaseDate()+ " " +getHasSetupTime()+ " " +getHasTransportTime()+ " " +getHasWiP()+ " " +getHorizon()+ " " +getSolverProperty().toColumnString()+ " " +getStartDateTime()+ " " +getTimeResolution();
     }
 
 /**
@@ -843,6 +888,7 @@ public  class Scenario extends ApplicationDataset{
             " hasDueDate=\""+toXMLHasDueDate()+"\""+
             " hasReleaseDate=\""+toXMLHasReleaseDate()+"\""+
             " hasSetupTime=\""+toXMLHasSetupTime()+"\""+
+            " hasTransportTime=\""+toXMLHasTransportTime()+"\""+
             " hasWiP=\""+toXMLHasWiP()+"\""+
             " horizon=\""+toXMLHorizon()+"\""+
             " solverProperty=\""+toXMLSolverProperty()+"\""+
@@ -976,6 +1022,16 @@ public  class Scenario extends ApplicationDataset{
  * @return String
 */
 
+    String toXMLHasTransportTime(){
+        return this.getHasTransportTime().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLHasWiP(){
         return this.getHasWiP().toString();
     }
@@ -1027,11 +1083,11 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>StartDateTime</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"<th>GanttWidth</th>"+"<th>GanttLinesPerPage</th>"+"<th>GanttLineHeight</th>"+"<th>SolverProperty</th>"+"<th>DataGeneratorProperty</th>"+"<th>GanttProperty</th>"+"<th>HasReleaseDate</th>"+"<th>HasDueDate</th>"+"<th>HasCumulative</th>"+"<th>HasWiP</th>"+"<th>HasDowntime</th>"+"<th>HasSetupTime</th>"+"</tr>";
+        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>StartDateTime</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"<th>GanttWidth</th>"+"<th>GanttLinesPerPage</th>"+"<th>GanttLineHeight</th>"+"<th>SolverProperty</th>"+"<th>DataGeneratorProperty</th>"+"<th>GanttProperty</th>"+"<th>HasReleaseDate</th>"+"<th>HasDueDate</th>"+"<th>HasCumulative</th>"+"<th>HasWiP</th>"+"<th>HasDowntime</th>"+"<th>HasSetupTime</th>"+"<th>HasTransportTime</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+ " " +"<td>"+getGanttWidth()+"</td>"+ " " +"<td>"+getGanttLinesPerPage()+"</td>"+ " " +"<td>"+getGanttLineHeight()+"</td>"+ " " +"<td>"+getSolverProperty().toColumnString()+"</td>"+ " " +"<td>"+getDataGeneratorProperty().toColumnString()+"</td>"+ " " +"<td>"+getGanttProperty().toColumnString()+"</td>"+ " " +"<td>"+getHasReleaseDate()+"</td>"+ " " +"<td>"+getHasDueDate()+"</td>"+ " " +"<td>"+getHasCumulative()+"</td>"+ " " +"<td>"+getHasWiP()+"</td>"+ " " +"<td>"+getHasDowntime()+"</td>"+ " " +"<td>"+getHasSetupTime()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+ " " +"<td>"+getGanttWidth()+"</td>"+ " " +"<td>"+getGanttLinesPerPage()+"</td>"+ " " +"<td>"+getGanttLineHeight()+"</td>"+ " " +"<td>"+getSolverProperty().toColumnString()+"</td>"+ " " +"<td>"+getDataGeneratorProperty().toColumnString()+"</td>"+ " " +"<td>"+getGanttProperty().toColumnString()+"</td>"+ " " +"<td>"+getHasReleaseDate()+"</td>"+ " " +"<td>"+getHasDueDate()+"</td>"+ " " +"<td>"+getHasCumulative()+"</td>"+ " " +"<td>"+getHasWiP()+"</td>"+ " " +"<td>"+getHasDowntime()+"</td>"+ " " +"<td>"+getHasSetupTime()+"</td>"+ " " +"<td>"+getHasTransportTime()+"</td>"+"</tr>";
     }
 
 /**
@@ -1106,6 +1162,9 @@ public  class Scenario extends ApplicationDataset{
       if(!this.getHasSetupTime().equals(b.getHasSetupTime())){
          System.out.println("HasSetupTime");
         }
+      if(!this.getHasTransportTime().equals(b.getHasTransportTime())){
+         System.out.println("HasTransportTime");
+        }
       if(!this.getHasWiP().equals(b.getHasWiP())){
          System.out.println("HasWiP");
         }
@@ -1136,6 +1195,7 @@ public  class Scenario extends ApplicationDataset{
           this.getHasDueDate().equals(b.getHasDueDate()) &&
           this.getHasReleaseDate().equals(b.getHasReleaseDate()) &&
           this.getHasSetupTime().equals(b.getHasSetupTime()) &&
+          this.getHasTransportTime().equals(b.getHasTransportTime()) &&
           this.getHasWiP().equals(b.getHasWiP()) &&
           this.getHorizon().equals(b.getHorizon()) &&
           this.getName().equals(b.getName()) &&

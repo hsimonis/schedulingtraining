@@ -926,6 +926,44 @@ public ResourceZoom getResourceZoom(String attributeName,
         return res;
     }
 
+    public Transport getTransport(String attributeName,
+                               Attributes attributes) {
+        return (Transport) find(getId(attributeName,attributes));
+    }
+
+    public List<Transport> getTransportCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<Transport> res = new ArrayList<Transport>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((Transport) find(id));
+            }
+        }
+        return res;
+    }
+
+    public TransportMatrix getTransportMatrix(String attributeName,
+                               Attributes attributes) {
+        return (TransportMatrix) find(getId(attributeName,attributes));
+    }
+
+    public List<TransportMatrix> getTransportMatrixCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<TransportMatrix> res = new ArrayList<TransportMatrix>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((TransportMatrix) find(id));
+            }
+        }
+        return res;
+    }
+
     public WiP getWiP(String attributeName,
                                Attributes attributes) {
         return (WiP) find(getId(attributeName,attributes));
@@ -983,6 +1021,7 @@ public ResourceZoom getResourceZoom(String attributeName,
                         getBoolean("hasDueDate",attributes,false),
                         getBoolean("hasReleaseDate",attributes,false),
                         getBoolean("hasSetupTime",attributes,false),
+                        getBoolean("hasTransportTime",attributes,false),
                         getBoolean("hasWiP",attributes,false),
                         getInteger("horizon",attributes,0),
                         null,
@@ -1496,6 +1535,24 @@ public ResourceZoom getResourceZoom(String attributeName,
                         getInteger("waitAfter",attributes,0),
                         getInteger("waitBefore",attributes,0)
                         ));
+            } else if (qname.equals("transport")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new Transport(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getInteger("defaultValue",attributes,0)
+                        ));
+            } else if (qname.equals("transportMatrix")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new TransportMatrix(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        null,
+                        null,
+                        getInteger("value",attributes,0)
+                        ));
             } else if (qname.equals("wiP")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1727,6 +1784,16 @@ public ResourceZoom getResourceZoom(String attributeName,
                  item.setDisjunctiveResource(getDisjunctiveResource("disjunctiveResource",attributes));
                  item.setJobAssignment(getJobAssignment("jobAssignment",attributes));
                  item.setTask(getTask("task",attributes));
+            } else if (qname.equals("transport")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                Transport item = (Transport) find(id);
+            } else if (qname.equals("transportMatrix")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                TransportMatrix item = (TransportMatrix) find(id);
+                 item.setFrom(getDisjunctiveResource("from",attributes));
+                 item.setTo(getDisjunctiveResource("to",attributes));
             } else if (qname.equals("wiP")) {
                 assert (base != null);
                 int id = getId("id", attributes);

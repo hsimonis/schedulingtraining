@@ -39,6 +39,8 @@ import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.Setup;
 import org.insightcentre.tbischeduling.datamodel.SetupType;
 import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
+import org.insightcentre.tbischeduling.datamodel.Transport;
+import org.insightcentre.tbischeduling.datamodel.TransportMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -378,6 +380,20 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<SetupMatrix> listSetupMatrix = new ArrayList<SetupMatrix>();
 
 /**
+ *  This lists holds all items of class Transport and its subclasses
+ *
+*/
+
+    List<Transport> listTransport = new ArrayList<Transport>();
+
+/**
+ *  This lists holds all items of class TransportMatrix and its subclasses
+ *
+*/
+
+    List<TransportMatrix> listTransportMatrix = new ArrayList<TransportMatrix>();
+
+/**
  *  This is the static counter from which all id numbers are generated.It is used by all classes, so that ids are unique over all objects.
  *
 */
@@ -532,6 +548,8 @@ public int compareTo(ApplicationDataset ds2){
                              "SolverRun",
                              "Task",
                              "TaskAssignment",
+                             "Transport",
+                             "TransportMatrix",
                              "WiP");
     }
 
@@ -624,6 +642,8 @@ public int compareTo(ApplicationDataset ds2){
         resetListSetup();
         resetListSetupType();
         resetListSetupMatrix();
+        resetListTransport();
+        resetListTransportMatrix();
     }
 
 /**
@@ -1949,6 +1969,74 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Iterator for list of class Transport
+ *
+*/
+
+    public Iterator<Transport> getIteratorTransport(){
+        return listTransport.iterator();
+    }
+
+/**
+ *  Getter for list of class Transport
+ *
+*/
+
+    public List<Transport> getListTransport(){
+        return listTransport;
+    }
+
+/**
+ *  reset the list of class Transport; use with care, does not call cascades
+ *
+*/
+
+    public void resetListTransport(){
+        listTransport = new ArrayList<Transport>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof Transport)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class TransportMatrix
+ *
+*/
+
+    public Iterator<TransportMatrix> getIteratorTransportMatrix(){
+        return listTransportMatrix.iterator();
+    }
+
+/**
+ *  Getter for list of class TransportMatrix
+ *
+*/
+
+    public List<TransportMatrix> getListTransportMatrix(){
+        return listTransportMatrix;
+    }
+
+/**
+ *  reset the list of class TransportMatrix; use with care, does not call cascades
+ *
+*/
+
+    public void resetListTransportMatrix(){
+        listTransportMatrix = new ArrayList<TransportMatrix>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof TransportMatrix)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
  *  Generate a new id number, used in constructor calls
  *
 */
@@ -2728,6 +2816,42 @@ public int compareTo(ApplicationDataset ds2){
          }
         }
         for(SetupMatrix b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class DisjunctiveResource; remove all dependent objects of class TransportMatrix which refer to item through their attribute from
+ *
+*/
+
+    public void cascadeTransportMatrixFrom(DisjunctiveResource item){
+        assert item != null;
+        List<TransportMatrix> toRemove = new ArrayList<TransportMatrix>();
+        for(TransportMatrix a:getListTransportMatrix()) {
+         if (a.getFrom() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(TransportMatrix b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class DisjunctiveResource; remove all dependent objects of class TransportMatrix which refer to item through their attribute to
+ *
+*/
+
+    public void cascadeTransportMatrixTo(DisjunctiveResource item){
+        assert item != null;
+        List<TransportMatrix> toRemove = new ArrayList<TransportMatrix>();
+        for(TransportMatrix a:getListTransportMatrix()) {
+         if (a.getTo() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(TransportMatrix b:toRemove) {
             b.remove();
         }
     }
@@ -3513,6 +3637,46 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class Transport
+ *
+*/
+
+    public void addTransport(Transport transport){
+        assert transport != null;
+        this.listTransport.add(transport);
+    }
+
+/**
+ *  remove an item from the list for class Transport
+ *
+*/
+
+    public Boolean removeTransport(Transport transport){
+        assert transport != null;
+        return this.listTransport.remove(transport);
+    }
+
+/**
+ *  add an item to the list for class TransportMatrix
+ *
+*/
+
+    public void addTransportMatrix(TransportMatrix transportMatrix){
+        assert transportMatrix != null;
+        this.listTransportMatrix.add(transportMatrix);
+    }
+
+/**
+ *  remove an item from the list for class TransportMatrix
+ *
+*/
+
+    public Boolean removeTransportMatrix(TransportMatrix transportMatrix){
+        assert transportMatrix != null;
+        return this.listTransportMatrix.remove(transportMatrix);
+    }
+
+/**
  *  dump all items on the console for debugging
  *
 */
@@ -3612,6 +3776,12 @@ public int compareTo(ApplicationDataset ds2){
             System.out.println(x);
         }
         for(TaskAssignment x:getListTaskAssignment()){
+            System.out.println(x);
+        }
+        for(Transport x:getListTransport()){
+            System.out.println(x);
+        }
+        for(TransportMatrix x:getListTransportMatrix()){
             System.out.println(x);
         }
         for(WiP x:getListWiP()){
@@ -3746,6 +3916,12 @@ public int compareTo(ApplicationDataset ds2){
         for(TaskAssignment x:getListTaskAssignment()){
             if (x.getClass().equals(TaskAssignment.class)) x.toXML(out);
         }
+        for(Transport x:getListTransport()){
+            if (x.getClass().equals(Transport.class)) x.toXML(out);
+        }
+        for(TransportMatrix x:getListTransportMatrix()){
+            if (x.getClass().equals(TransportMatrix.class)) x.toXML(out);
+        }
         for(WiP x:getListWiP()){
             if (x.getClass().equals(WiP.class)) x.toXML(out);
         }
@@ -3874,6 +4050,8 @@ public int compareTo(ApplicationDataset ds2){
         compareSolverRun(this.getListSolverRun(),compare.getListSolverRun());
         compareTask(this.getListTask(),compare.getListTask());
         compareTaskAssignment(this.getListTaskAssignment(),compare.getListTaskAssignment());
+        compareTransport(this.getListTransport(),compare.getListTransport());
+        compareTransportMatrix(this.getListTransportMatrix(),compare.getListTransportMatrix());
         compareWiP(this.getListWiP(),compare.getListWiP());
         System.out.println("Done Comparing ApplicationDataset");
     }
@@ -4599,6 +4777,54 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ * compare two lists of types Transport, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareTransport(List<Transport> aList,List<Transport> bList){
+        System.out.println("Comparing Transport");
+        for(Transport a:aList){
+            Transport b= Transport.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Transport A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Transport A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Transport B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(Transport b: bList){
+            Transport a = Transport.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Transport B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types TransportMatrix, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareTransportMatrix(List<TransportMatrix> aList,List<TransportMatrix> bList){
+        System.out.println("Comparing TransportMatrix");
+        for(TransportMatrix a:aList){
+            TransportMatrix b= TransportMatrix.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"TransportMatrix A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"TransportMatrix A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"TransportMatrix B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(TransportMatrix b: bList){
+            TransportMatrix a = TransportMatrix.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"TransportMatrix B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
  * compare two lists of types WiP, create AppplicationWarnings for items which are in only one of the lists
  * or for items which are applicationSame(), but not applicationEqual()
 */
@@ -4659,6 +4885,8 @@ public int compareTo(ApplicationDataset ds2){
         checkSolverRun(this.getListSolverRun());
         checkTask(this.getListTask());
         checkTaskAssignment(this.getListTaskAssignment());
+        checkTransport(this.getListTransport());
+        checkTransportMatrix(this.getListTransportMatrix());
         checkWiP(this.getListWiP());
     }
 
@@ -5005,6 +5233,28 @@ public int compareTo(ApplicationDataset ds2){
 
 /**
  * helper method for checkAll()
+ * @param list List<Transport> dataset list of all items of type Transport
+*/
+
+    public void checkTransport(List<Transport> list){
+        for(Transport a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<TransportMatrix> dataset list of all items of type TransportMatrix
+*/
+
+    public void checkTransportMatrix(List<TransportMatrix> list){
+        for(TransportMatrix a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
  * @param list List<WiP> dataset list of all items of type WiP
 */
 
@@ -5047,6 +5297,8 @@ public int compareTo(ApplicationDataset ds2){
         SolverRun.dummy(this);
         Task.dummy(this);
         TaskAssignment.dummy(this);
+        Transport.dummy(this);
+        TransportMatrix.dummy(this);
         WiP.dummy(this);
    }
 

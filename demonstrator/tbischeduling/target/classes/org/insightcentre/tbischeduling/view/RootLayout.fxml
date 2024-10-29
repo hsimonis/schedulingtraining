@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 20:37:39 on 2024-10-24-->
+<!--Generated at 11:33:30 on 2024-10-28-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -108,6 +108,14 @@
                         <MenuItem id="setupPage" onAction="#handle" text="Setup" />
                         <MenuItem id="setupTypePage" onAction="#handle" text="SetupType" />
                         <MenuItem id="setupMatrixPage" onAction="#handle" text="SetupMatrix" />
+                        <MenuItem id="setupDisplayMatrixMatrixViewer" onAction="#handle" text="SetupDisplayMatrix" />
+                     </items>
+                  </Menu>
+                  <Menu text="_Transport">
+                     <items>
+                        <MenuItem id="transportPage" onAction="#handle" text="Transport" />
+                        <MenuItem id="transportMatrixPage" onAction="#handle" text="TransportMatrix" />
+                        <MenuItem id="transportDisplayMatrixMatrixViewer" onAction="#handle" text="TransportDisplayMatrix" />
                      </items>
                   </Menu>
                   <Menu text="_Schedule">
@@ -143,6 +151,7 @@
                      </items>
                   </Menu>
                   <SeparatorMenuItem />
+                  <MenuItem id="scenarioPage" onAction="#handle" text="Scenario" />
                   <Menu text="_Properties">
                      <items>
                         <MenuItem id="dataGeneratorPropertyPage" onAction="#handle" text="DataGeneratorProperty" />
@@ -150,7 +159,6 @@
                         <MenuItem id="ganttPropertyPage" onAction="#handle" text="GanttProperty" />
                      </items>
                   </Menu>
-                  <MenuItem id="scenarioPage" onAction="#handle" text="Scenario" />
                   <SeparatorMenuItem />
                   <Menu text="_Others">
                      <items>

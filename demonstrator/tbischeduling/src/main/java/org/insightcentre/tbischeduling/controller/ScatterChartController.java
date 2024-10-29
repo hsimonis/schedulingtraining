@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 20:37:39 on 2024-10-24 */
+ * Generated at 11:45:38 on 2024-10-28 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -49,6 +49,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("hasWiP");
 		filterNames.add("hasDowntime");
 		filterNames.add("hasSetupTime");
+		filterNames.add("hasTransportTime");
 		choicesMap.put("Scenario", attributeNames);
 		filterMap.put("Scenario", filterNames);
 		attributeNames = FXCollections.observableArrayList();
@@ -861,6 +862,24 @@ public class ScatterChartController extends ChartXYFilterController {
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
+		filterNames.add("name");
+		attributeNames.add("defaultValue");
+		filterNames.add("defaultValue");
+		choicesMap.put("Transport", attributeNames);
+		filterMap.put("Transport", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("from");
+		filterNames.add("to");
+		attributeNames.add("value");
+		filterNames.add("value");
+		choicesMap.put("TransportMatrix", attributeNames);
+		filterMap.put("TransportMatrix", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -994,6 +1013,12 @@ public class ScatterChartController extends ChartXYFilterController {
 			}
 			else if (className.equals("SetupMatrix")) {
 				objectList = mainApp.getSetupMatrixData();
+			}
+			else if (className.equals("Transport")) {
+				objectList = mainApp.getTransportData();
+			}
+			else if (className.equals("TransportMatrix")) {
+				objectList = mainApp.getTransportMatrixData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

@@ -11573,12 +11573,12 @@
   "problem": [{
     "timePointsAsDate": true,
     "nrDisjunctiveResources": 15,
-    "nrOrders": 35,
+    "nrOrders": 36,
     "nrProcesses": 125,
-    "nrJobs": 35,
+    "nrJobs": 36,
     "nrProducts": 125,
     "name": "p1",
-    "nrTasks": 35,
+    "nrTasks": 36,
     "label": "label",
     "nrCumulativeResources": 0
   }],
@@ -11586,25 +11586,28 @@
   "processSequence": [],
   "timeResolution": 1,
   "solverRun": [{
-    "nrThreads": 2,
     "seed": 1,
-    "weightEarliness": 1,
     "solverBackend": "CPSat",
     "weightMakespan": 1,
     "producePDF": false,
-    "solverStatus": "ToRun",
+    "enforceSetup": true,
     "description": "",
+    "enforceTransportTime": false,
+    "enforceWip": false,
+    "timeout": 60,
+    "weightLateness": 1,
+    "produceReport": false,
+    "nrThreads": 2,
+    "weightEarliness": 1,
+    "solverStatus": "ToRun",
     "label": "test",
     "modelType": "CPO",
-    "enforceWip": false,
-    "objectiveType": "Makespan",
-    "timeout": 60,
+    "relaxSequence": false,
+    "objectiveType": "TotalLateness",
     "weightFlowtime": 1,
     "enforceCumulative": false,
     "name": "Run1",
     "time": 0,
-    "weightLateness": 1,
-    "produceReport": false,
     "removeSolution": false,
     "enforceDowntime": false,
     "enforceReleaseDate": true,
@@ -11855,7 +11858,7 @@
     {
       "product": "P35",
       "process": "process35",
-      "due": 10080,
+      "due": 0,
       "releaseDate": "1/10/2024 00:00",
       "release": 0,
       "qty": 1,
@@ -11901,6 +11904,18 @@
       "latenessWeight": "1.0"
     },
     {
+      "product": "P51",
+      "process": "process51",
+      "due": 6064,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "8/10/2024 00:00",
+      "name": "order51_0",
+      "earlinessWeight": "1.0",
+      "latenessWeight": "1.0"
+    },
+    {
       "product": "P53",
       "process": "process53",
       "due": 10080,
@@ -11939,7 +11954,7 @@
     {
       "product": "P58",
       "process": "process58",
-      "due": 10080,
+      "due": 10002,
       "releaseDate": "1/10/2024 00:00",
       "release": 0,
       "qty": 2,
@@ -12683,7 +12698,7 @@
   ],
   "inputError": [],
   "cumulativeNeed": [],
-  "label": "Stryker Generated Scheduling problem",
+  "label": "ProductionPlanning Generated Scheduling Problem",
   "version": 9,
   "horizon": 10080,
   "downtime": [],
@@ -12831,6 +12846,12 @@
       "name": "task46_0",
       "processStep": "step 46_1",
       "job": "job46_0"
+    },
+    {
+      "duration": 630,
+      "name": "task51_0",
+      "processStep": "step 51_1",
+      "job": "job51_0"
     },
     {
       "duration": 3025,
@@ -13457,6 +13478,11 @@
       "process": "process46",
       "name": "job46_0",
       "order": "order46_0"
+    },
+    {
+      "process": "process51",
+      "name": "job51_0",
+      "order": "order51_0"
     },
     {
       "process": "process53",

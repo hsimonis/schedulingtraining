@@ -35,6 +35,8 @@
 				<xs:element ref="solverRun" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="task" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="taskAssignment" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="transport" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="transportMatrix" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="wiP" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -373,6 +375,7 @@
 			<xs:attribute name="hasDueDate" use="required" type="xs:boolean"/>
 			<xs:attribute name="hasReleaseDate" use="required" type="xs:boolean"/>
 			<xs:attribute name="hasSetupTime" use="required" type="xs:boolean"/>
+			<xs:attribute name="hasTransportTime" use="required" type="xs:boolean"/>
 			<xs:attribute name="hasWiP" use="required" type="xs:boolean"/>
 			<xs:attribute name="horizon" use="required" type="xs:integer"/>
 			<xs:attribute name="solverProperty" use="required" type="xs:IDREF"/>
@@ -569,6 +572,24 @@
 			<xs:attribute name="task" use="required" type="xs:IDREF"/>
 			<xs:attribute name="waitAfter" use="required" type="xs:integer"/>
 			<xs:attribute name="waitBefore" use="required" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="transport">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="defaultValue" use="required" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="transportMatrix">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="from" use="required" type="xs:IDREF"/>
+			<xs:attribute name="to" use="required" type="xs:IDREF"/>
+			<xs:attribute name="value" use="required" type="xs:integer"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="wiP">

@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 20:37:39 on 2024-10-24 */
+ * Generated at 11:45:38 on 2024-10-28 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -47,6 +47,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("hasWiP");
 		attributeNames.add("hasDowntime");
 		attributeNames.add("hasSetupTime");
+		attributeNames.add("hasTransportTime");
 		choicesMap.put("Scenario", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");
@@ -570,6 +571,16 @@ public class PieChartController extends ChartController {
 		attributeNames.add("to");
 		attributeNames.add("value");
 		choicesMap.put("SetupMatrix", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("defaultValue");
+		choicesMap.put("Transport", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("from");
+		attributeNames.add("to");
+		attributeNames.add("value");
+		choicesMap.put("TransportMatrix", attributeNames);
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -695,6 +706,12 @@ public class PieChartController extends ChartController {
 			}
 			else if (className.equals("SetupMatrix")) {
 				objectList = mainApp.getSetupMatrixData();
+			}
+			else if (className.equals("Transport")) {
+				objectList = mainApp.getTransportData();
+			}
+			else if (className.equals("TransportMatrix")) {
+				objectList = mainApp.getTransportMatrixData();
 			}
 			if (objectList != null) {
 				Map<String, Integer> countMap = new HashMap<String, Integer>();

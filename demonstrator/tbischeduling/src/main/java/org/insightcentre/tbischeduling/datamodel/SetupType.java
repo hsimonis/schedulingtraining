@@ -39,6 +39,8 @@ import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.Setup;
 import org.insightcentre.tbischeduling.datamodel.SetupType;
 import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
+import org.insightcentre.tbischeduling.datamodel.Transport;
+import org.insightcentre.tbischeduling.datamodel.TransportMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;

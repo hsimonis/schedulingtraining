@@ -20,6 +20,7 @@ import org.insightcentre.tbischeduling.implementedsolver.NewOrderSolverImpl;
 import org.insightcentre.tbischeduling.implementedsolver.ScheduleJobsSolverImpl;
 import org.insightcentre.tbischeduling.importer.CreateData;
 import org.insightcentre.tbischeduling.importer.ReadData;
+import org.insightcentre.tbischeduling.importer.ReadJJFlatFile;
 import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
 import java.io.File;
@@ -80,6 +81,8 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setHorizon(50000);
                 base.setDirty(false);
                 setTitle(applicationTitle+" (Generated)");
+                new ReadJJFlatFile(base,"transport/instance400_1.txt");
+                setTitle(applicationTitle+" ("+base.getDataFile()+")");
                 return base;
         }
 

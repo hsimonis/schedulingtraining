@@ -39,6 +39,8 @@ import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.Setup;
 import org.insightcentre.tbischeduling.datamodel.SetupType;
 import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
+import org.insightcentre.tbischeduling.datamodel.Transport;
+import org.insightcentre.tbischeduling.datamodel.TransportMatrix;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -151,6 +153,8 @@ public  class DisjunctiveResource extends ApplicationObject implements AppearInC
         getApplicationDataset().cascadeTaskMachines(this);
         getApplicationDataset().cascadeResourceUtilizationDisjunctiveResource(this);
         getApplicationDataset().cascadeSetupDisjunctiveResource(this);
+        getApplicationDataset().cascadeTransportMatrixFrom(this);
+        getApplicationDataset().cascadeTransportMatrixTo(this);
         return getApplicationDataset().removeDisjunctiveResource(this) && getApplicationDataset().removeApplicationObject(this);
     }
 

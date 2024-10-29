@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 20:37:39 on 2024-10-24 */
+ * Generated at 11:45:38 on 2024-10-28 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -309,6 +309,12 @@ public class BarChartController extends ChartController {
 		attributeNames.add("value");
 		choicesMap.put("SetupMatrix", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("defaultValue");
+		choicesMap.put("Transport", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("value");
+		choicesMap.put("TransportMatrix", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -434,6 +440,12 @@ public class BarChartController extends ChartController {
 			}
 			else if (className.equals("SetupMatrix")) {
 				objectList = mainApp.getSetupMatrixData();
+			}
+			else if (className.equals("Transport")) {
+				objectList = mainApp.getTransportData();
+			}
+			else if (className.equals("TransportMatrix")) {
+				objectList = mainApp.getTransportMatrixData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

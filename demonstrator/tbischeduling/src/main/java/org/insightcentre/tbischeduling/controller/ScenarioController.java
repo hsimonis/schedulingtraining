@@ -33,7 +33,7 @@ import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 
 /**
- * Generated at 20:37:38 on 2024-10-24 */
+ * Generated at 11:45:38 on 2024-10-28 */
 public class ScenarioController extends Table3Controller {
 	@FXML
 	private TableView<Scenario> table;
@@ -97,6 +97,9 @@ public class ScenarioController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Scenario, Boolean> hasSetupTime;
+
+	@FXML
+	private TableColumn<Scenario, Boolean> hasTransportTime;
 
 	private GeneratedJfxApp mainApp;
 
@@ -187,6 +190,9 @@ public class ScenarioController extends Table3Controller {
 		choices.add("hasSetupTime");
 		hasSetupTime.setCellValueFactory(new HasSetupTimeCallback());
 		hasSetupTime.setCellFactory(CheckBoxTableCell.forTableColumn(hasSetupTime));
+		choices.add("hasTransportTime");
+		hasTransportTime.setCellValueFactory(new HasTransportTimeCallback());
+		hasTransportTime.setCellFactory(CheckBoxTableCell.forTableColumn(hasTransportTime));
 		initialize(choices);
 	}
 
@@ -357,6 +363,21 @@ public class ScenarioController extends Table3Controller {
 				@SuppressWarnings("rawtypes")
 				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
 					cellData.getValue().setHasSetupTime(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class HasTransportTimeCallback implements Callback<TableColumn.CellDataFeatures<Scenario, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Scenario, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().hasTransportTimeWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setHasTransportTime(newValue);
 				}
 			});
 			return prop;

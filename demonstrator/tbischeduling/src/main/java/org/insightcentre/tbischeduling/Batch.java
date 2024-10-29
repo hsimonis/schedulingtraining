@@ -7,18 +7,49 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.implementedsolver.CPOModel;
 import org.insightcentre.tbischeduling.importer.ReadData;
+import org.json.JSONObject;
 
 import java.io.File;
 
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.ToRun;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 
+/*
+this class serves two purposes
+a) run main on the command line with two arguments, an input and output file
+b) run as a subroutine in other application by calling new Batch().query(inputJSON), return the result as a JSON object
+ */
 public class Batch {
 
 
     static {
         IrishCalendar.initIrishCalendar();
         IrishCalendar.buildCalendar();
+    }
+
+    public Batch(){}
+
+    public JSONObject query(JSONObject queryInput){
+        Scenario base = new Scenario();
+        System.out.println("a");
+        base.setDataFileVersionNumber(8.0);
+        base.setDataFile("");
+        base.setHorizon(20000);
+        base.setTimeResolution(5);
+        base.setStartDateTime(new DateTime(2024,10,1,0,0));
+
+
+        info("Starting");
+        // define the format version of the datafiles
+        new ReadData(base, queryInput);
+        info("Nr SolverRun "+base.getListSolverRun().size());
+        for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()){
+            info("Running "+run.getName());
+            new CPOModel(base, run).solve();
+        }
+        info("runs scheduled");
+        return new WriteData(base).toJSON();
+
     }
 
     public static void main(String[] args) {
@@ -30,9 +61,6 @@ public class Batch {
         base.setHorizon(20000);
         base.setTimeResolution(5);
         base.setStartDateTime(new DateTime(2024,10,1,0,0));
-
-//        IrishCalendar.initIrishCalendar();
-//        IrishCalendar.buildCalendar();
 
         info("Starting");
         assert (args.length == 2);
