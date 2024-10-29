@@ -1,0 +1,93 @@
+Script for 
+Production Planning Case Study
+
+Title slide
+As part of the skills development program on scheduling we look at a number of industrial case studies. Here we will briefly present a production planning and scheduling problem from a medical devices manufacturing company in Cork.
+
+Key Points
+This is a case study from industry, combining production planning and detailed scheduling. It is based on a project that some of my colleagues were working on for a local medical devices company. 
+
+The overall problem is to decide which products to make in which quantities over the planning horizon, so that we have enough stock to satisfy thee customer orders, and make sure that we have some safety margin if the demand suddenly increases.
+
+The company uses two main concepts for production planning:
+The run-out days for each product state how long the current stock will last, given a projected customer demand profile. We try to achieve the same run-out days value for all products, this works well for fast and slow moving products.
+
+The safety stock values says how much stock we should have for each product. This gives us more control over the stock levels, this works better if the demand cannot be predicted as accurately as we would like, but it ismore difficult to compare the stock levels for  different products.
+
+The production planning part of the application decides how much to produce for which product, but this is based on a an estimate of the production capacity for the planning period. We use the detailed scheduling part of the application to validate the plan generated, and make sure that we can really produce the required capacities in the given planning period.
+
+Application View Products
+
+This tables shows use the basic input data for the application. We have one entry for each product, which describes the different feature values that are given. The main features are:
+
+Daily sales: the number of units sold per day. We can see that there are some fast-moving products, Like P3, and many more slow moving products
+
+InventoryAtStart: the number of pieces held in stock at the start of the analysis
+
+DaysCover: how many days the stock will last given the initial stock and the daily consumption, assuming we do not make any more of this product. Again we can see a wide range of value, depending on the product.
+
+LotSize: The products are made in lots, the size of the lot depends on the product, and how the products held in the production process. We often make more than one lot of the same product in a production run, as this increases productivity an reduces the setup time when changing products.
+
+Cycle Time: How long does it take to make on item of this product. This value is in minutes.
+
+LotDuration: How long does it take to produce one lot of this product. This is derived from the previous values.
+
+Not all products can be made on all possible machines. Some products must be made on one specific machine, for others we can choose one of the possible machines. We can also make multiple production runs of the same product on different machines, if we need to make a large quantity.
+
+Product Type: The product types of two consecutive products made on the same machines determine the time needed to setup the machine between the two runs. This is typically based on some properties of the products: Similar products require less setup time, very different products require a much longer time to switch the machine one one configuration to another.
+
+Safety stock: How much stock we would like to have in stock during the planning period. This value can be set by hand, or can be calculated by a more complex prediction model looking at the uncertainty of the demand prediction.
+
+Safety alert: Derived value saying at which point we reach the safety margin, given the initial stock and the predicted consumption. A low value  indicates that we need to make the product urgently, a value of zero states that even at the initial time we are already below the safety stock margin.
+
+
+Running planner
+
+We now run the production planning tool, this brings up the following dialogue box.
+
+We can decide on the value of the planning horizon, the period for which we are making the planning decisions. The further we look into the future, the more freedom we have in our planning process. At the same time, the uncertainty about future demands and other events limit the accuracy that we can achieve with the planning tool. We use seven days as our default planning horizon.
+
+The second parameter is the maximal run-out target value. We would like to achieve a high value, but our limited production capacity will limit what can be achieved in the given period. 
+
+The last parameter lets us choose the sizing strategy if we need more than one production run. By default, we attempt to make the required quantity of the product in a single run, thi reduces the setup time needed, and improves product quality. If the time needed to make the product exceeds the planning period, we need to make multiple, parallel runs to achieve the required quantity. In a balanced mode, we try to make the runs roughly the same length, in the Largest Possible mode we make some runs as long as possible, and then have a shorter run to achieve the remaining lots. 
+
+When we run the planner, the system performs three steps:
+- For each product, it analyses the stock situation, and determines the product need to achieve a given target.
+- The planner then considers the demand for each product, and estimates which target we can achieve in a given planning period. It uses a model of the production capacity to make an accurate estimate.
+- It then runs a detailed scheduling model to validate the plan, and see if the given target really can be achieved in the planning period. This more is much more detailed than the capacity model, and determines the precise start and end times for each production run.
+
+
+Planner result
+
+When the production planning module has finished, we present an overview of the results in the form of some charts. In each we see one of the KPIs of the planner as a function of the target run-out value. We only show those target values that the planner estimates can be achieved. 
+
+In our example,we see that the planner thinks that a target of 32 days can be achieved for all products. It shows
+
+Achieved Days Cover
+A value of nineteen days can be achieved just by respecting the safety stock foreach product during the planning period. As the aim for a specific target value, the actual achieved run-out target might be slightly higher than planned, as we make the products in fixed lot sizes.
+
+Lots required
+How many lots to we need to make to achieve the target value. Initially, there are only a few lots that need to be made to satisfy the safety margin, but then we need a rapidly increasing number of lots to achieve the target run-out value for all products.
+
+Production Time Required
+As the lot size and cycle time vary between the products, the number of lots is perhaps not the most accurate prediction of the effort required to achieve the target value. Here we express the production time needed to make all lots. At some point the total exceeds the capacity of the machines during the planning period, and we know that that target cannot be reached.
+
+Worst Group Utilization
+We were not discussing the details of the planning process, but one way of checking the production capacity is to identify a group of machines that acts as a bottleneck. In this plot we show the utilization of the bottleneck group for a given target, any value above 100% cannot be achieved. For 32 days, the required utilization is over 90%. 
+
+Products Needing Production
+It is also interesting how many different product we need to produce during the planning period. Initially, there are only three products that require production runs to satisfy the safety stock constraint. This value increases rapidly as the target value increases. 
+
+Production Runs
+
+We have seen that for fast moving products, wee may need more than one run during the planning period to make the needed quantity. The last plot shows use how many runs will be needed over all products.
+
+View Product Level Chart
+
+The product level chart shows the analysis we perform for each of the products. We initially look at a fast moving product, P3.
+
+At the start of the planning period, we have the initial stock for the product. Over time, the stock available drops due to the daily demand. We hit the safety stock level after 17 days, and run out of product completely after 33 days. This is not enough to achieve our target of 32 days after the planning period 7+32 = 39 days.
+
+In order to make the target, we need to make the product in ourr planning period. THe quantity required  
+
+

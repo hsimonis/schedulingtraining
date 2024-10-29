@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+
+<!--Generated at 11:45:38 on 2024-10-28-->
+
+
+<Tab text="TransportMatrix" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.TransportMatrixController">
+   <BorderPane>
+      <center>
+         <TableView fx:id="table" editable="true">
+            <columns>
+               <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
+               <TableColumn fx:id="from" styleClass="right-aligned" text="From" />
+               <TableColumn fx:id="to" styleClass="right-aligned" text="To" />
+               <TableColumn fx:id="value" styleClass="right-aligned" text="Value" />
+            </columns>
+         </TableView>
+      </center>
+      <bottom>
+         <TitledPane fx:id="filterPane" expanded="false" text="Filter">
+            <content>
+               <HBox alignment="center" spacing="5.0">
+                  <ChoiceBox fx:id="filterChoiceBox" />
+                  <ChoiceBox fx:id="filterComparisonBox" />
+                  <TextField fx:id="filterTextField" />
+               </HBox>
+            </content>
+         </TitledPane>
+      </bottom>
+   </BorderPane>
+</Tab>

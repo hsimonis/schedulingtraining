@@ -58,6 +58,7 @@ org\insightcentre\tbischeduling\controller\ProblemController$TimePointsAsDateCal
 org\insightcentre\tbischeduling\controller\CumulativeProfileController.class
 org\insightcentre\tbischeduling\controller\SolverPropertyController$ProduceReportCallback.class
 org\insightcentre\tbischeduling\datamodel\ProcessSequence.class
+org\insightcentre\tbischeduling\controller\TransportMatrixController.class
 org\insightcentre\tbischeduling\datamodel\Task.class
 org\insightcentre\tbischeduling\controller\ScenarioController$HasWiPCallback$1.class
 org\insightcentre\tbischeduling\controller\SolverPropertyController$ProducePDFCallback.class
@@ -144,6 +145,7 @@ org\insightcentre\tbischeduling\datamodel\custom\ResizableCanvas.class
 org\insightcentre\tbischeduling\controller\AbstractSolverPropertyController$EnforceTransportTimeCallback$1.class
 org\insightcentre\tbischeduling\datamodel\ProcessStep.class
 org\insightcentre\tbischeduling\controller\SolverPropertyController$RemoveSolutionCallback$1.class
+org\insightcentre\tbischeduling\controller\SetupDisplayMatrixDraw.class
 org\insightcentre\tbischeduling\generatedsolver\NewDowntimeSolver.class
 org\insightcentre\tbischeduling\reports\Level.class
 org\insightcentre\tbischeduling\implementedsolver\GenerateDataSolverImpl.class
@@ -161,6 +163,7 @@ org\insightcentre\tbischeduling\controller\AbstractSolverPropertyController$Enfo
 org\insightcentre\tbischeduling\controller\ProcessSequenceController.class
 org\insightcentre\tbischeduling\controller\ScenarioController$ValidCallback$1.class
 org\insightcentre\tbischeduling\controller\SolverRunController$EnforceWipCallback.class
+org\insightcentre\tbischeduling\controller\ScenarioController$HasTransportTimeCallback.class
 org\insightcentre\tbischeduling\controller\SolverRunController$EnforceSetupCallback$1.class
 org\insightcentre\tbischeduling\controller\TaskController.class
 org\insightcentre\tbischeduling\controller\ScenarioController$HasReleaseDateCallback$1.class
@@ -169,6 +172,7 @@ org\insightcentre\tbischeduling\controller\AbstractSolverPropertyController$Rela
 org\insightcentre\tbischeduling\controller\ProductController.class
 org\insightcentre\tbischeduling\datamodel\SolverProperty.class
 org\insightcentre\tbischeduling\controller\OrderController.class
+org\insightcentre\tbischeduling\datamodel\Transport.class
 org\insightcentre\tbischeduling\exporter\CreateJSONDoc.class
 org\insightcentre\tbischeduling\controller\JobController$NoOverlapCallback$1.class
 org\insightcentre\tbischeduling\controller\ScatterChartController.class
@@ -224,12 +228,16 @@ org\insightcentre\tbischeduling\controller\SolverRunController$ProducePDFCallbac
 org\insightcentre\tbischeduling\datamodel\TaskLabel.class
 org\insightcentre\tbischeduling\controller\AbstractSolverPropertyController$EnforceTransportTimeCallback.class
 org\insightcentre\tbischeduling\JfxApp.class
+org\insightcentre\tbischeduling\controller\TransportDisplayMatrixDraw.class
 org\insightcentre\tbischeduling\datamodel\InputError.class
 org\insightcentre\tbischeduling\controller\SolverPropertyController$EnforceDowntimeCallback.class
 org\insightcentre\tbischeduling\controller\SolverPropertyController$EnforceWipCallback$1.class
+org\insightcentre\tbischeduling\importer\ReadJJFlatFile.class
+org\insightcentre\tbischeduling\controller\ScenarioController$HasTransportTimeCallback$1.class
 org\insightcentre\tbischeduling\controller\AbstractGanttPropertyController.class
 org\insightcentre\tbischeduling\datamodel\AbstractSolverProperty.class
 org\insightcentre\tbischeduling\implementedsolver\MiniZincTaskModel.class
+org\insightcentre\tbischeduling\controller\TransportController.class
 org\insightcentre\tbischeduling\controller\ScenarioController$HasReleaseDateCallback.class
 org\insightcentre\tbischeduling\controller\SolverRunController$EnforceWipCallback$1.class
 org\insightcentre\tbischeduling\reports\Color.class
@@ -256,4 +264,5 @@ org\insightcentre\tbischeduling\controller\ResourceActivityController.class
 org\insightcentre\tbischeduling\implementedsolver\ScheduleJobsSolverImpl$1.class
 org\insightcentre\tbischeduling\controller\SolverPropertyController$RelaxSequenceCallback$1.class
 org\insightcentre\tbischeduling\controller\BarChartController.class
+org\insightcentre\tbischeduling\datamodel\TransportMatrix.class
 org\insightcentre\tbischeduling\controller\AbstractSolverPropertyController$ProducePDFCallback.class

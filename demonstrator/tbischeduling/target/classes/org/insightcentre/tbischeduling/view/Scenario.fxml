@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 11:33:30 on 2024-10-28-->
+<!--Generated at 11:45:38 on 2024-10-28-->
 
 
 <Tab text="Scenario" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.ScenarioController">
@@ -38,6 +38,7 @@
                <TableColumn fx:id="hasWiP" styleClass="right-aligned" text="HasWiP" />
                <TableColumn fx:id="hasDowntime" styleClass="right-aligned" text="HasDowntime" />
                <TableColumn fx:id="hasSetupTime" styleClass="right-aligned" text="HasSetupTime" />
+               <TableColumn fx:id="hasTransportTime" styleClass="right-aligned" text="HasTransportTime" />
             </columns>
          </TableView>
       </center>
