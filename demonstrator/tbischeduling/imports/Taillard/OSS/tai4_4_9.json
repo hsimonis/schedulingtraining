@@ -1,0 +1,311 @@
+{
+    "product": [
+        {
+            "name": "product_0",
+            "defaultProcess": "process_0"
+        },
+        {
+            "name": "product_1",
+            "defaultProcess": "process_1"
+        },
+        {
+            "name": "product_2",
+            "defaultProcess": "process_2"
+        },
+        {
+            "name": "product_3",
+            "defaultProcess": "process_3"
+        }
+    ],
+    "process": [
+        {
+            "name": "process_0",
+            "noOverlap": true
+        },
+        {
+            "name": "process_1",
+            "noOverlap": true
+        },
+        {
+            "name": "process_2",
+            "noOverlap": true
+        },
+        {
+            "name": "process_3",
+            "noOverlap": true
+        }
+    ],
+    "disjunctiveResource": [
+        {
+            "name": "DR_0"
+        },
+        {
+            "name": "DR_1"
+        },
+        {
+            "name": "DR_2"
+        },
+        {
+            "name": "DR_3"
+        }
+    ],
+    "inputError": [],
+    "cumulativeNeed": [],
+    "processStep": [
+        {
+            "process": "process_0",
+            "name": "PS_0_0",
+            "durationFixed": 0,
+            "durationPerUnit": 4
+        },
+        {
+            "process": "process_0",
+            "name": "PS_0_1",
+            "durationFixed": 0,
+            "durationPerUnit": 40
+        },
+        {
+            "process": "process_0",
+            "name": "PS_0_2",
+            "durationFixed": 0,
+            "durationPerUnit": 1
+        },
+        {
+            "process": "process_0",
+            "name": "PS_0_3",
+            "durationFixed": 0,
+            "durationPerUnit": 97
+        },
+        {
+            "process": "process_1",
+            "name": "PS_1_0",
+            "durationFixed": 0,
+            "durationPerUnit": 49
+        },
+        {
+            "process": "process_1",
+            "name": "PS_1_1",
+            "durationFixed": 0,
+            "durationPerUnit": 36
+        },
+        {
+            "process": "process_1",
+            "name": "PS_1_2",
+            "durationFixed": 0,
+            "durationPerUnit": 75
+        },
+        {
+            "process": "process_1",
+            "name": "PS_1_3",
+            "durationFixed": 0,
+            "durationPerUnit": 52
+        },
+        {
+            "process": "process_2",
+            "name": "PS_2_0",
+            "durationFixed": 0,
+            "durationPerUnit": 70
+        },
+        {
+            "process": "process_2",
+            "name": "PS_2_1",
+            "durationFixed": 0,
+            "durationPerUnit": 53
+        },
+        {
+            "process": "process_2",
+            "name": "PS_2_2",
+            "durationFixed": 0,
+            "durationPerUnit": 27
+        },
+        {
+            "process": "process_2",
+            "name": "PS_2_3",
+            "durationFixed": 0,
+            "durationPerUnit": 63
+        },
+        {
+            "process": "process_3",
+            "name": "PS_3_0",
+            "durationFixed": 0,
+            "durationPerUnit": 16
+        },
+        {
+            "process": "process_3",
+            "name": "PS_3_1",
+            "durationFixed": 0,
+            "durationPerUnit": 33
+        },
+        {
+            "process": "process_3",
+            "name": "PS_3_2",
+            "durationFixed": 0,
+            "durationPerUnit": 92
+        },
+        {
+            "process": "process_3",
+            "name": "PS_3_3",
+            "durationFixed": 0,
+            "durationPerUnit": 16
+        }
+    ],
+    "label": "tai4_4_9",
+    "version": 8,
+    "resourceNeed": [
+        {
+            "disjunctiveResource": "DR_1",
+            "name": "RN_0_0",
+            "processStep": "PS_0_0"
+        },
+        {
+            "disjunctiveResource": "DR_2",
+            "name": "RN_0_1",
+            "processStep": "PS_0_1"
+        },
+        {
+            "disjunctiveResource": "DR_3",
+            "name": "RN_0_2",
+            "processStep": "PS_0_2"
+        },
+        {
+            "disjunctiveResource": "DR_0",
+            "name": "RN_0_3",
+            "processStep": "PS_0_3"
+        },
+        {
+            "disjunctiveResource": "DR_1",
+            "name": "RN_1_0",
+            "processStep": "PS_1_0"
+        },
+        {
+            "disjunctiveResource": "DR_0",
+            "name": "RN_1_1",
+            "processStep": "PS_1_1"
+        },
+        {
+            "disjunctiveResource": "DR_3",
+            "name": "RN_1_2",
+            "processStep": "PS_1_2"
+        },
+        {
+            "disjunctiveResource": "DR_2",
+            "name": "RN_1_3",
+            "processStep": "PS_1_3"
+        },
+        {
+            "disjunctiveResource": "DR_3",
+            "name": "RN_2_0",
+            "processStep": "PS_2_0"
+        },
+        {
+            "disjunctiveResource": "DR_0",
+            "name": "RN_2_1",
+            "processStep": "PS_2_1"
+        },
+        {
+            "disjunctiveResource": "DR_2",
+            "name": "RN_2_2",
+            "processStep": "PS_2_2"
+        },
+        {
+            "disjunctiveResource": "DR_1",
+            "name": "RN_2_3",
+            "processStep": "PS_2_3"
+        },
+        {
+            "disjunctiveResource": "DR_1",
+            "name": "RN_3_0",
+            "processStep": "PS_3_0"
+        },
+        {
+            "disjunctiveResource": "DR_3",
+            "name": "RN_3_1",
+            "processStep": "PS_3_1"
+        },
+        {
+            "disjunctiveResource": "DR_2",
+            "name": "RN_3_2",
+            "processStep": "PS_3_2"
+        },
+        {
+            "disjunctiveResource": "DR_0",
+            "name": "RN_3_3",
+            "processStep": "PS_3_3"
+        }
+    ],
+    "downtime": [],
+    "cumulativeProfile": [],
+    "problem": [
+        {
+            "timePointsAsDate": true,
+            "nrDisjunctiveResources": 4,
+            "nrOrders": 4,
+            "nrProcesses": 4,
+            "nrJobs": 0,
+            "nrProducts": 4,
+            "name": "Generated",
+            "nrTasks": 0,
+            "label": "tai4_4_9",
+            "nrCumulativeResources": 0
+        }
+    ],
+    "cumulativeResource": [],
+    "task": [],
+    "solution": [],
+    "taskAssignment": [],
+    "processSequence": [],
+    "solverRun": [],
+    "jobAssignment": [],
+    "job": [],
+    "order": [
+        {
+            "product": "product_0",
+            "process": "process_0",
+            "due": 0,
+            "releaseDate": "1/10/2024 00:00",
+            "release": 0,
+            "qty": 1,
+            "dueDate": "1/10/2024 00:00",
+            "name": "order_0",
+            "earlinessWeight": 1,
+            "latenessWeight": 1
+        },
+        {
+            "product": "product_1",
+            "process": "process_1",
+            "due": 0,
+            "releaseDate": "1/10/2024 00:00",
+            "release": 0,
+            "qty": 1,
+            "dueDate": "1/10/2024 00:00",
+            "name": "order_1",
+            "earlinessWeight": 1,
+            "latenessWeight": 1
+        },
+        {
+            "product": "product_2",
+            "process": "process_2",
+            "due": 0,
+            "releaseDate": "1/10/2024 00:00",
+            "release": 0,
+            "qty": 1,
+            "dueDate": "1/10/2024 00:00",
+            "name": "order_2",
+            "earlinessWeight": 1,
+            "latenessWeight": 1
+        },
+        {
+            "product": "product_3",
+            "process": "process_3",
+            "due": 0,
+            "releaseDate": "1/10/2024 00:00",
+            "release": 0,
+            "qty": 1,
+            "dueDate": "1/10/2024 00:00",
+            "name": "order_3",
+            "earlinessWeight": 1,
+            "latenessWeight": 1
+        }
+    ],
+    "wip": []
+}
