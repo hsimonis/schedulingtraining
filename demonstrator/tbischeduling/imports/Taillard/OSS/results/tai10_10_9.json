@@ -1,0 +1,3498 @@
+{
+  "product": [
+    {
+      "name": "product_0",
+      "defaultProcess": "process_0"
+    },
+    {
+      "name": "product_1",
+      "defaultProcess": "process_1"
+    },
+    {
+      "name": "product_2",
+      "defaultProcess": "process_2"
+    },
+    {
+      "name": "product_3",
+      "defaultProcess": "process_3"
+    },
+    {
+      "name": "product_4",
+      "defaultProcess": "process_4"
+    },
+    {
+      "name": "product_5",
+      "defaultProcess": "process_5"
+    },
+    {
+      "name": "product_6",
+      "defaultProcess": "process_6"
+    },
+    {
+      "name": "product_7",
+      "defaultProcess": "process_7"
+    },
+    {
+      "name": "product_8",
+      "defaultProcess": "process_8"
+    },
+    {
+      "name": "product_9",
+      "defaultProcess": "process_9"
+    }
+  ],
+  "process": [
+    {
+      "noOverlap": true,
+      "name": "process_0"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_1"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_2"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_3"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_4"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_5"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_6"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_7"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_8"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_9"
+    }
+  ],
+  "disjunctiveResource": [
+    {"name": "DR_0"},
+    {"name": "DR_1"},
+    {"name": "DR_2"},
+    {"name": "DR_3"},
+    {"name": "DR_4"},
+    {"name": "DR_5"},
+    {"name": "DR_6"},
+    {"name": "DR_7"},
+    {"name": "DR_8"},
+    {"name": "DR_9"}
+  ],
+  "inputError": [{
+    "severity": "Major",
+    "item": "recreated",
+    "field": "",
+    "name": "Err1",
+    "description": "Jobs or Tasks missing, creating them from orders",
+    "classDesc": "job/task",
+    "value": ""
+  }],
+  "cumulativeNeed": [],
+  "processStep": [
+    {
+      "process": "process_0",
+      "name": "PS_0_0",
+      "durationFixed": 0,
+      "durationPerUnit": 8
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_1",
+      "durationFixed": 0,
+      "durationPerUnit": 48
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_2",
+      "durationFixed": 0,
+      "durationPerUnit": 10
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_3",
+      "durationFixed": 0,
+      "durationPerUnit": 76
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_4",
+      "durationFixed": 0,
+      "durationPerUnit": 64
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_5",
+      "durationFixed": 0,
+      "durationPerUnit": 35
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_6",
+      "durationFixed": 0,
+      "durationPerUnit": 51
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_7",
+      "durationFixed": 0,
+      "durationPerUnit": 34
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_8",
+      "durationFixed": 0,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_9",
+      "durationFixed": 0,
+      "durationPerUnit": 4
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_0",
+      "durationFixed": 0,
+      "durationPerUnit": 90
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_1",
+      "durationFixed": 0,
+      "durationPerUnit": 98
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_2",
+      "durationFixed": 0,
+      "durationPerUnit": 9
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_3",
+      "durationFixed": 0,
+      "durationPerUnit": 67
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_4",
+      "durationFixed": 0,
+      "durationPerUnit": 44
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_5",
+      "durationFixed": 0,
+      "durationPerUnit": 39
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_6",
+      "durationFixed": 0,
+      "durationPerUnit": 46
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_7",
+      "durationFixed": 0,
+      "durationPerUnit": 93
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_8",
+      "durationFixed": 0,
+      "durationPerUnit": 12
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_9",
+      "durationFixed": 0,
+      "durationPerUnit": 71
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_0",
+      "durationFixed": 0,
+      "durationPerUnit": 95
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_1",
+      "durationFixed": 0,
+      "durationPerUnit": 32
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_2",
+      "durationFixed": 0,
+      "durationPerUnit": 50
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_3",
+      "durationFixed": 0,
+      "durationPerUnit": 32
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_4",
+      "durationFixed": 0,
+      "durationPerUnit": 97
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_5",
+      "durationFixed": 0,
+      "durationPerUnit": 73
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_6",
+      "durationFixed": 0,
+      "durationPerUnit": 30
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_7",
+      "durationFixed": 0,
+      "durationPerUnit": 26
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_8",
+      "durationFixed": 0,
+      "durationPerUnit": 33
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_9",
+      "durationFixed": 0,
+      "durationPerUnit": 13
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_0",
+      "durationFixed": 0,
+      "durationPerUnit": 19
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_1",
+      "durationFixed": 0,
+      "durationPerUnit": 47
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_2",
+      "durationFixed": 0,
+      "durationPerUnit": 22
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_3",
+      "durationFixed": 0,
+      "durationPerUnit": 34
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_4",
+      "durationFixed": 0,
+      "durationPerUnit": 36
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_5",
+      "durationFixed": 0,
+      "durationPerUnit": 2
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_6",
+      "durationFixed": 0,
+      "durationPerUnit": 3
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_7",
+      "durationFixed": 0,
+      "durationPerUnit": 63
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_8",
+      "durationFixed": 0,
+      "durationPerUnit": 64
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_9",
+      "durationFixed": 0,
+      "durationPerUnit": 78
+    },
+    {
+      "process": "process_4",
+      "name": "PS_4_0",
+      "durationFixed": 0,
+      "durationPerUnit": 64
+    },
+    {
+      "process": "process_4",
+      "name": "PS_4_1",
+      "durationFixed": 0,
+      "durationPerUnit": 40
+    },
+    {
+      "process": "process_4",
+      "name": "PS_4_2",
+      "durationFixed": 0,
+      "durationPerUnit": 1
+    },
+    {
+      "process": "process_4",
+      "name": "PS_4_3",
+      "durationFixed": 0,
+      "durationPerUnit": 77
+    },
+    {
+      "process": "process_4",
+      "name": "PS_4_4",
+      "durationFixed": 0,
+      "durationPerUnit": 65
+    },
+    {
+      "process": "process_4",
+      "name": "PS_4_5",
+      "durationFixed": 0,
+      "durationPerUnit": 67
+    },
+    {
+      "process": "process_4",
+      "name": "PS_4_6",
+      "durationFixed": 0,
+      "durationPerUnit": 25
+    },
+    {
+      "process": "process_4",
+      "name": "PS_4_7",
+      "durationFixed": 0,
+      "durationPerUnit": 20
+    },
+    {
+      "process": "process_4",
+      "name": "PS_4_8",
+      "durationFixed": 0,
+      "durationPerUnit": 95
+    },
+    {
+      "process": "process_4",
+      "name": "PS_4_9",
+      "durationFixed": 0,
+      "durationPerUnit": 69
+    },
+    {
+      "process": "process_5",
+      "name": "PS_5_0",
+      "durationFixed": 0,
+      "durationPerUnit": 45
+    },
+    {
+      "process": "process_5",
+      "name": "PS_5_1",
+      "durationFixed": 0,
+      "durationPerUnit": 64
+    },
+    {
+      "process": "process_5",
+      "name": "PS_5_2",
+      "durationFixed": 0,
+      "durationPerUnit": 19
+    },
+    {
+      "process": "process_5",
+      "name": "PS_5_3",
+      "durationFixed": 0,
+      "durationPerUnit": 85
+    },
+    {
+      "process": "process_5",
+      "name": "PS_5_4",
+      "durationFixed": 0,
+      "durationPerUnit": 14
+    },
+    {
+      "process": "process_5",
+      "name": "PS_5_5",
+      "durationFixed": 0,
+      "durationPerUnit": 66
+    },
+    {
+      "process": "process_5",
+      "name": "PS_5_6",
+      "durationFixed": 0,
+      "durationPerUnit": 73
+    },
+    {
+      "process": "process_5",
+      "name": "PS_5_7",
+      "durationFixed": 0,
+      "durationPerUnit": 22
+    },
+    {
+      "process": "process_5",
+      "name": "PS_5_8",
+      "durationFixed": 0,
+      "durationPerUnit": 88
+    },
+    {
+      "process": "process_5",
+      "name": "PS_5_9",
+      "durationFixed": 0,
+      "durationPerUnit": 24
+    },
+    {
+      "process": "process_6",
+      "name": "PS_6_0",
+      "durationFixed": 0,
+      "durationPerUnit": 44
+    },
+    {
+      "process": "process_6",
+      "name": "PS_6_1",
+      "durationFixed": 0,
+      "durationPerUnit": 91
+    },
+    {
+      "process": "process_6",
+      "name": "PS_6_2",
+      "durationFixed": 0,
+      "durationPerUnit": 39
+    },
+    {
+      "process": "process_6",
+      "name": "PS_6_3",
+      "durationFixed": 0,
+      "durationPerUnit": 93
+    },
+    {
+      "process": "process_6",
+      "name": "PS_6_4",
+      "durationFixed": 0,
+      "durationPerUnit": 46
+    },
+    {
+      "process": "process_6",
+      "name": "PS_6_5",
+      "durationFixed": 0,
+      "durationPerUnit": 38
+    },
+    {
+      "process": "process_6",
+      "name": "PS_6_6",
+      "durationFixed": 0,
+      "durationPerUnit": 79
+    },
+    {
+      "process": "process_6",
+      "name": "PS_6_7",
+      "durationFixed": 0,
+      "durationPerUnit": 65
+    },
+    {
+      "process": "process_6",
+      "name": "PS_6_8",
+      "durationFixed": 0,
+      "durationPerUnit": 91
+    },
+    {
+      "process": "process_6",
+      "name": "PS_6_9",
+      "durationFixed": 0,
+      "durationPerUnit": 2
+    },
+    {
+      "process": "process_7",
+      "name": "PS_7_0",
+      "durationFixed": 0,
+      "durationPerUnit": 94
+    },
+    {
+      "process": "process_7",
+      "name": "PS_7_1",
+      "durationFixed": 0,
+      "durationPerUnit": 87
+    },
+    {
+      "process": "process_7",
+      "name": "PS_7_2",
+      "durationFixed": 0,
+      "durationPerUnit": 60
+    },
+    {
+      "process": "process_7",
+      "name": "PS_7_3",
+      "durationFixed": 0,
+      "durationPerUnit": 29
+    },
+    {
+      "process": "process_7",
+      "name": "PS_7_4",
+      "durationFixed": 0,
+      "durationPerUnit": 9
+    },
+    {
+      "process": "process_7",
+      "name": "PS_7_5",
+      "durationFixed": 0,
+      "durationPerUnit": 33
+    },
+    {
+      "process": "process_7",
+      "name": "PS_7_6",
+      "durationFixed": 0,
+      "durationPerUnit": 69
+    },
+    {
+      "process": "process_7",
+      "name": "PS_7_7",
+      "durationFixed": 0,
+      "durationPerUnit": 72
+    },
+    {
+      "process": "process_7",
+      "name": "PS_7_8",
+      "durationFixed": 0,
+      "durationPerUnit": 91
+    },
+    {
+      "process": "process_7",
+      "name": "PS_7_9",
+      "durationFixed": 0,
+      "durationPerUnit": 37
+    },
+    {
+      "process": "process_8",
+      "name": "PS_8_0",
+      "durationFixed": 0,
+      "durationPerUnit": 68
+    },
+    {
+      "process": "process_8",
+      "name": "PS_8_1",
+      "durationFixed": 0,
+      "durationPerUnit": 28
+    },
+    {
+      "process": "process_8",
+      "name": "PS_8_2",
+      "durationFixed": 0,
+      "durationPerUnit": 67
+    },
+    {
+      "process": "process_8",
+      "name": "PS_8_3",
+      "durationFixed": 0,
+      "durationPerUnit": 68
+    },
+    {
+      "process": "process_8",
+      "name": "PS_8_4",
+      "durationFixed": 0,
+      "durationPerUnit": 47
+    },
+    {
+      "process": "process_8",
+      "name": "PS_8_5",
+      "durationFixed": 0,
+      "durationPerUnit": 84
+    },
+    {
+      "process": "process_8",
+      "name": "PS_8_6",
+      "durationFixed": 0,
+      "durationPerUnit": 70
+    },
+    {
+      "process": "process_8",
+      "name": "PS_8_7",
+      "durationFixed": 0,
+      "durationPerUnit": 84
+    },
+    {
+      "process": "process_8",
+      "name": "PS_8_8",
+      "durationFixed": 0,
+      "durationPerUnit": 53
+    },
+    {
+      "process": "process_8",
+      "name": "PS_8_9",
+      "durationFixed": 0,
+      "durationPerUnit": 16
+    },
+    {
+      "process": "process_9",
+      "name": "PS_9_0",
+      "durationFixed": 0,
+      "durationPerUnit": 41
+    },
+    {
+      "process": "process_9",
+      "name": "PS_9_1",
+      "durationFixed": 0,
+      "durationPerUnit": 42
+    },
+    {
+      "process": "process_9",
+      "name": "PS_9_2",
+      "durationFixed": 0,
+      "durationPerUnit": 42
+    },
+    {
+      "process": "process_9",
+      "name": "PS_9_3",
+      "durationFixed": 0,
+      "durationPerUnit": 64
+    },
+    {
+      "process": "process_9",
+      "name": "PS_9_4",
+      "durationFixed": 0,
+      "durationPerUnit": 89
+    },
+    {
+      "process": "process_9",
+      "name": "PS_9_5",
+      "durationFixed": 0,
+      "durationPerUnit": 34
+    },
+    {
+      "process": "process_9",
+      "name": "PS_9_6",
+      "durationFixed": 0,
+      "durationPerUnit": 10
+    },
+    {
+      "process": "process_9",
+      "name": "PS_9_7",
+      "durationFixed": 0,
+      "durationPerUnit": 67
+    },
+    {
+      "process": "process_9",
+      "name": "PS_9_8",
+      "durationFixed": 0,
+      "durationPerUnit": 7
+    },
+    {
+      "process": "process_9",
+      "name": "PS_9_9",
+      "durationFixed": 0,
+      "durationPerUnit": 50
+    }
+  ],
+  "label": "TbIScheduling data file",
+  "version": 8,
+  "resourceNeed": [
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_0_0",
+      "processStep": "PS_0_0"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_0_1",
+      "processStep": "PS_0_1"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_0_2",
+      "processStep": "PS_0_2"
+    },
+    {
+      "disjunctiveResource": "DR_5",
+      "name": "RN_0_3",
+      "processStep": "PS_0_3"
+    },
+    {
+      "disjunctiveResource": "DR_6",
+      "name": "RN_0_4",
+      "processStep": "PS_0_4"
+    },
+    {
+      "disjunctiveResource": "DR_4",
+      "name": "RN_0_5",
+      "processStep": "PS_0_5"
+    },
+    {
+      "disjunctiveResource": "DR_7",
+      "name": "RN_0_6",
+      "processStep": "PS_0_6"
+    },
+    {
+      "disjunctiveResource": "DR_9",
+      "name": "RN_0_7",
+      "processStep": "PS_0_7"
+    },
+    {
+      "disjunctiveResource": "DR_8",
+      "name": "RN_0_8",
+      "processStep": "PS_0_8"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_0_9",
+      "processStep": "PS_0_9"
+    },
+    {
+      "disjunctiveResource": "DR_6",
+      "name": "RN_1_0",
+      "processStep": "PS_1_0"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_1_1",
+      "processStep": "PS_1_1"
+    },
+    {
+      "disjunctiveResource": "DR_7",
+      "name": "RN_1_2",
+      "processStep": "PS_1_2"
+    },
+    {
+      "disjunctiveResource": "DR_9",
+      "name": "RN_1_3",
+      "processStep": "PS_1_3"
+    },
+    {
+      "disjunctiveResource": "DR_8",
+      "name": "RN_1_4",
+      "processStep": "PS_1_4"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_1_5",
+      "processStep": "PS_1_5"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_1_6",
+      "processStep": "PS_1_6"
+    },
+    {
+      "disjunctiveResource": "DR_5",
+      "name": "RN_1_7",
+      "processStep": "PS_1_7"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_1_8",
+      "processStep": "PS_1_8"
+    },
+    {
+      "disjunctiveResource": "DR_4",
+      "name": "RN_1_9",
+      "processStep": "PS_1_9"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_2_0",
+      "processStep": "PS_2_0"
+    },
+    {
+      "disjunctiveResource": "DR_5",
+      "name": "RN_2_1",
+      "processStep": "PS_2_1"
+    },
+    {
+      "disjunctiveResource": "DR_6",
+      "name": "RN_2_2",
+      "processStep": "PS_2_2"
+    },
+    {
+      "disjunctiveResource": "DR_8",
+      "name": "RN_2_3",
+      "processStep": "PS_2_3"
+    },
+    {
+      "disjunctiveResource": "DR_9",
+      "name": "RN_2_4",
+      "processStep": "PS_2_4"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_2_5",
+      "processStep": "PS_2_5"
+    },
+    {
+      "disjunctiveResource": "DR_4",
+      "name": "RN_2_6",
+      "processStep": "PS_2_6"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_2_7",
+      "processStep": "PS_2_7"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_2_8",
+      "processStep": "PS_2_8"
+    },
+    {
+      "disjunctiveResource": "DR_7",
+      "name": "RN_2_9",
+      "processStep": "PS_2_9"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_3_0",
+      "processStep": "PS_3_0"
+    },
+    {
+      "disjunctiveResource": "DR_4",
+      "name": "RN_3_1",
+      "processStep": "PS_3_1"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_3_2",
+      "processStep": "PS_3_2"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_3_3",
+      "processStep": "PS_3_3"
+    },
+    {
+      "disjunctiveResource": "DR_8",
+      "name": "RN_3_4",
+      "processStep": "PS_3_4"
+    },
+    {
+      "disjunctiveResource": "DR_5",
+      "name": "RN_3_5",
+      "processStep": "PS_3_5"
+    },
+    {
+      "disjunctiveResource": "DR_9",
+      "name": "RN_3_6",
+      "processStep": "PS_3_6"
+    },
+    {
+      "disjunctiveResource": "DR_6",
+      "name": "RN_3_7",
+      "processStep": "PS_3_7"
+    },
+    {
+      "disjunctiveResource": "DR_7",
+      "name": "RN_3_8",
+      "processStep": "PS_3_8"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_3_9",
+      "processStep": "PS_3_9"
+    },
+    {
+      "disjunctiveResource": "DR_4",
+      "name": "RN_4_0",
+      "processStep": "PS_4_0"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_4_1",
+      "processStep": "PS_4_1"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_4_2",
+      "processStep": "PS_4_2"
+    },
+    {
+      "disjunctiveResource": "DR_6",
+      "name": "RN_4_3",
+      "processStep": "PS_4_3"
+    },
+    {
+      "disjunctiveResource": "DR_7",
+      "name": "RN_4_4",
+      "processStep": "PS_4_4"
+    },
+    {
+      "disjunctiveResource": "DR_9",
+      "name": "RN_4_5",
+      "processStep": "PS_4_5"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_4_6",
+      "processStep": "PS_4_6"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_4_7",
+      "processStep": "PS_4_7"
+    },
+    {
+      "disjunctiveResource": "DR_5",
+      "name": "RN_4_8",
+      "processStep": "PS_4_8"
+    },
+    {
+      "disjunctiveResource": "DR_8",
+      "name": "RN_4_9",
+      "processStep": "PS_4_9"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_5_0",
+      "processStep": "PS_5_0"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_5_1",
+      "processStep": "PS_5_1"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_5_2",
+      "processStep": "PS_5_2"
+    },
+    {
+      "disjunctiveResource": "DR_5",
+      "name": "RN_5_3",
+      "processStep": "PS_5_3"
+    },
+    {
+      "disjunctiveResource": "DR_8",
+      "name": "RN_5_4",
+      "processStep": "PS_5_4"
+    },
+    {
+      "disjunctiveResource": "DR_7",
+      "name": "RN_5_5",
+      "processStep": "PS_5_5"
+    },
+    {
+      "disjunctiveResource": "DR_4",
+      "name": "RN_5_6",
+      "processStep": "PS_5_6"
+    },
+    {
+      "disjunctiveResource": "DR_9",
+      "name": "RN_5_7",
+      "processStep": "PS_5_7"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_5_8",
+      "processStep": "PS_5_8"
+    },
+    {
+      "disjunctiveResource": "DR_6",
+      "name": "RN_5_9",
+      "processStep": "PS_5_9"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_6_0",
+      "processStep": "PS_6_0"
+    },
+    {
+      "disjunctiveResource": "DR_5",
+      "name": "RN_6_1",
+      "processStep": "PS_6_1"
+    },
+    {
+      "disjunctiveResource": "DR_6",
+      "name": "RN_6_2",
+      "processStep": "PS_6_2"
+    },
+    {
+      "disjunctiveResource": "DR_8",
+      "name": "RN_6_3",
+      "processStep": "PS_6_3"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_6_4",
+      "processStep": "PS_6_4"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_6_5",
+      "processStep": "PS_6_5"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_6_6",
+      "processStep": "PS_6_6"
+    },
+    {
+      "disjunctiveResource": "DR_9",
+      "name": "RN_6_7",
+      "processStep": "PS_6_7"
+    },
+    {
+      "disjunctiveResource": "DR_4",
+      "name": "RN_6_8",
+      "processStep": "PS_6_8"
+    },
+    {
+      "disjunctiveResource": "DR_7",
+      "name": "RN_6_9",
+      "processStep": "PS_6_9"
+    },
+    {
+      "disjunctiveResource": "DR_6",
+      "name": "RN_7_0",
+      "processStep": "PS_7_0"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_7_1",
+      "processStep": "PS_7_1"
+    },
+    {
+      "disjunctiveResource": "DR_8",
+      "name": "RN_7_2",
+      "processStep": "PS_7_2"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_7_3",
+      "processStep": "PS_7_3"
+    },
+    {
+      "disjunctiveResource": "DR_9",
+      "name": "RN_7_4",
+      "processStep": "PS_7_4"
+    },
+    {
+      "disjunctiveResource": "DR_5",
+      "name": "RN_7_5",
+      "processStep": "PS_7_5"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_7_6",
+      "processStep": "PS_7_6"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_7_7",
+      "processStep": "PS_7_7"
+    },
+    {
+      "disjunctiveResource": "DR_7",
+      "name": "RN_7_8",
+      "processStep": "PS_7_8"
+    },
+    {
+      "disjunctiveResource": "DR_4",
+      "name": "RN_7_9",
+      "processStep": "PS_7_9"
+    },
+    {
+      "disjunctiveResource": "DR_9",
+      "name": "RN_8_0",
+      "processStep": "PS_8_0"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_8_1",
+      "processStep": "PS_8_1"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_8_2",
+      "processStep": "PS_8_2"
+    },
+    {
+      "disjunctiveResource": "DR_8",
+      "name": "RN_8_3",
+      "processStep": "PS_8_3"
+    },
+    {
+      "disjunctiveResource": "DR_5",
+      "name": "RN_8_4",
+      "processStep": "PS_8_4"
+    },
+    {
+      "disjunctiveResource": "DR_7",
+      "name": "RN_8_5",
+      "processStep": "PS_8_5"
+    },
+    {
+      "disjunctiveResource": "DR_6",
+      "name": "RN_8_6",
+      "processStep": "PS_8_6"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_8_7",
+      "processStep": "PS_8_7"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_8_8",
+      "processStep": "PS_8_8"
+    },
+    {
+      "disjunctiveResource": "DR_4",
+      "name": "RN_8_9",
+      "processStep": "PS_8_9"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_9_0",
+      "processStep": "PS_9_0"
+    },
+    {
+      "disjunctiveResource": "DR_5",
+      "name": "RN_9_1",
+      "processStep": "PS_9_1"
+    },
+    {
+      "disjunctiveResource": "DR_4",
+      "name": "RN_9_2",
+      "processStep": "PS_9_2"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_9_3",
+      "processStep": "PS_9_3"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_9_4",
+      "processStep": "PS_9_4"
+    },
+    {
+      "disjunctiveResource": "DR_9",
+      "name": "RN_9_5",
+      "processStep": "PS_9_5"
+    },
+    {
+      "disjunctiveResource": "DR_7",
+      "name": "RN_9_6",
+      "processStep": "PS_9_6"
+    },
+    {
+      "disjunctiveResource": "DR_8",
+      "name": "RN_9_7",
+      "processStep": "PS_9_7"
+    },
+    {
+      "disjunctiveResource": "DR_6",
+      "name": "RN_9_8",
+      "processStep": "PS_9_8"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_9_9",
+      "processStep": "PS_9_9"
+    }
+  ],
+  "downtime": [],
+  "cumulativeProfile": [],
+  "problem": [{
+    "timePointsAsDate": true,
+    "nrDisjunctiveResources": 10,
+    "nrOrders": 10,
+    "nrProcesses": 10,
+    "nrJobs": 10,
+    "nrProducts": 10,
+    "name": "ReadFromFile",
+    "nrTasks": 100,
+    "label": "tai10_10_9",
+    "nrCumulativeResources": 0
+  }],
+  "cumulativeResource": [],
+  "task": [
+    {
+      "duration": 8,
+      "name": "T0PS_0_0",
+      "processStep": "PS_0_0",
+      "job": "J0"
+    },
+    {
+      "duration": 48,
+      "name": "T0PS_0_1",
+      "processStep": "PS_0_1",
+      "job": "J0"
+    },
+    {
+      "duration": 10,
+      "name": "T0PS_0_2",
+      "processStep": "PS_0_2",
+      "job": "J0"
+    },
+    {
+      "duration": 76,
+      "name": "T0PS_0_3",
+      "processStep": "PS_0_3",
+      "job": "J0"
+    },
+    {
+      "duration": 64,
+      "name": "T0PS_0_4",
+      "processStep": "PS_0_4",
+      "job": "J0"
+    },
+    {
+      "duration": 35,
+      "name": "T0PS_0_5",
+      "processStep": "PS_0_5",
+      "job": "J0"
+    },
+    {
+      "duration": 51,
+      "name": "T0PS_0_6",
+      "processStep": "PS_0_6",
+      "job": "J0"
+    },
+    {
+      "duration": 34,
+      "name": "T0PS_0_7",
+      "processStep": "PS_0_7",
+      "job": "J0"
+    },
+    {
+      "duration": 1,
+      "name": "T0PS_0_8",
+      "processStep": "PS_0_8",
+      "job": "J0"
+    },
+    {
+      "duration": 4,
+      "name": "T0PS_0_9",
+      "processStep": "PS_0_9",
+      "job": "J0"
+    },
+    {
+      "duration": 90,
+      "name": "T1PS_1_0",
+      "processStep": "PS_1_0",
+      "job": "J1"
+    },
+    {
+      "duration": 98,
+      "name": "T1PS_1_1",
+      "processStep": "PS_1_1",
+      "job": "J1"
+    },
+    {
+      "duration": 9,
+      "name": "T1PS_1_2",
+      "processStep": "PS_1_2",
+      "job": "J1"
+    },
+    {
+      "duration": 67,
+      "name": "T1PS_1_3",
+      "processStep": "PS_1_3",
+      "job": "J1"
+    },
+    {
+      "duration": 44,
+      "name": "T1PS_1_4",
+      "processStep": "PS_1_4",
+      "job": "J1"
+    },
+    {
+      "duration": 39,
+      "name": "T1PS_1_5",
+      "processStep": "PS_1_5",
+      "job": "J1"
+    },
+    {
+      "duration": 46,
+      "name": "T1PS_1_6",
+      "processStep": "PS_1_6",
+      "job": "J1"
+    },
+    {
+      "duration": 93,
+      "name": "T1PS_1_7",
+      "processStep": "PS_1_7",
+      "job": "J1"
+    },
+    {
+      "duration": 12,
+      "name": "T1PS_1_8",
+      "processStep": "PS_1_8",
+      "job": "J1"
+    },
+    {
+      "duration": 71,
+      "name": "T1PS_1_9",
+      "processStep": "PS_1_9",
+      "job": "J1"
+    },
+    {
+      "duration": 95,
+      "name": "T2PS_2_0",
+      "processStep": "PS_2_0",
+      "job": "J2"
+    },
+    {
+      "duration": 32,
+      "name": "T2PS_2_1",
+      "processStep": "PS_2_1",
+      "job": "J2"
+    },
+    {
+      "duration": 50,
+      "name": "T2PS_2_2",
+      "processStep": "PS_2_2",
+      "job": "J2"
+    },
+    {
+      "duration": 32,
+      "name": "T2PS_2_3",
+      "processStep": "PS_2_3",
+      "job": "J2"
+    },
+    {
+      "duration": 97,
+      "name": "T2PS_2_4",
+      "processStep": "PS_2_4",
+      "job": "J2"
+    },
+    {
+      "duration": 73,
+      "name": "T2PS_2_5",
+      "processStep": "PS_2_5",
+      "job": "J2"
+    },
+    {
+      "duration": 30,
+      "name": "T2PS_2_6",
+      "processStep": "PS_2_6",
+      "job": "J2"
+    },
+    {
+      "duration": 26,
+      "name": "T2PS_2_7",
+      "processStep": "PS_2_7",
+      "job": "J2"
+    },
+    {
+      "duration": 33,
+      "name": "T2PS_2_8",
+      "processStep": "PS_2_8",
+      "job": "J2"
+    },
+    {
+      "duration": 13,
+      "name": "T2PS_2_9",
+      "processStep": "PS_2_9",
+      "job": "J2"
+    },
+    {
+      "duration": 19,
+      "name": "T3PS_3_0",
+      "processStep": "PS_3_0",
+      "job": "J3"
+    },
+    {
+      "duration": 47,
+      "name": "T3PS_3_1",
+      "processStep": "PS_3_1",
+      "job": "J3"
+    },
+    {
+      "duration": 22,
+      "name": "T3PS_3_2",
+      "processStep": "PS_3_2",
+      "job": "J3"
+    },
+    {
+      "duration": 34,
+      "name": "T3PS_3_3",
+      "processStep": "PS_3_3",
+      "job": "J3"
+    },
+    {
+      "duration": 36,
+      "name": "T3PS_3_4",
+      "processStep": "PS_3_4",
+      "job": "J3"
+    },
+    {
+      "duration": 2,
+      "name": "T3PS_3_5",
+      "processStep": "PS_3_5",
+      "job": "J3"
+    },
+    {
+      "duration": 3,
+      "name": "T3PS_3_6",
+      "processStep": "PS_3_6",
+      "job": "J3"
+    },
+    {
+      "duration": 63,
+      "name": "T3PS_3_7",
+      "processStep": "PS_3_7",
+      "job": "J3"
+    },
+    {
+      "duration": 64,
+      "name": "T3PS_3_8",
+      "processStep": "PS_3_8",
+      "job": "J3"
+    },
+    {
+      "duration": 78,
+      "name": "T3PS_3_9",
+      "processStep": "PS_3_9",
+      "job": "J3"
+    },
+    {
+      "duration": 64,
+      "name": "T4PS_4_0",
+      "processStep": "PS_4_0",
+      "job": "J4"
+    },
+    {
+      "duration": 40,
+      "name": "T4PS_4_1",
+      "processStep": "PS_4_1",
+      "job": "J4"
+    },
+    {
+      "duration": 1,
+      "name": "T4PS_4_2",
+      "processStep": "PS_4_2",
+      "job": "J4"
+    },
+    {
+      "duration": 77,
+      "name": "T4PS_4_3",
+      "processStep": "PS_4_3",
+      "job": "J4"
+    },
+    {
+      "duration": 65,
+      "name": "T4PS_4_4",
+      "processStep": "PS_4_4",
+      "job": "J4"
+    },
+    {
+      "duration": 67,
+      "name": "T4PS_4_5",
+      "processStep": "PS_4_5",
+      "job": "J4"
+    },
+    {
+      "duration": 25,
+      "name": "T4PS_4_6",
+      "processStep": "PS_4_6",
+      "job": "J4"
+    },
+    {
+      "duration": 20,
+      "name": "T4PS_4_7",
+      "processStep": "PS_4_7",
+      "job": "J4"
+    },
+    {
+      "duration": 95,
+      "name": "T4PS_4_8",
+      "processStep": "PS_4_8",
+      "job": "J4"
+    },
+    {
+      "duration": 69,
+      "name": "T4PS_4_9",
+      "processStep": "PS_4_9",
+      "job": "J4"
+    },
+    {
+      "duration": 45,
+      "name": "T5PS_5_0",
+      "processStep": "PS_5_0",
+      "job": "J5"
+    },
+    {
+      "duration": 64,
+      "name": "T5PS_5_1",
+      "processStep": "PS_5_1",
+      "job": "J5"
+    },
+    {
+      "duration": 19,
+      "name": "T5PS_5_2",
+      "processStep": "PS_5_2",
+      "job": "J5"
+    },
+    {
+      "duration": 85,
+      "name": "T5PS_5_3",
+      "processStep": "PS_5_3",
+      "job": "J5"
+    },
+    {
+      "duration": 14,
+      "name": "T5PS_5_4",
+      "processStep": "PS_5_4",
+      "job": "J5"
+    },
+    {
+      "duration": 66,
+      "name": "T5PS_5_5",
+      "processStep": "PS_5_5",
+      "job": "J5"
+    },
+    {
+      "duration": 73,
+      "name": "T5PS_5_6",
+      "processStep": "PS_5_6",
+      "job": "J5"
+    },
+    {
+      "duration": 22,
+      "name": "T5PS_5_7",
+      "processStep": "PS_5_7",
+      "job": "J5"
+    },
+    {
+      "duration": 88,
+      "name": "T5PS_5_8",
+      "processStep": "PS_5_8",
+      "job": "J5"
+    },
+    {
+      "duration": 24,
+      "name": "T5PS_5_9",
+      "processStep": "PS_5_9",
+      "job": "J5"
+    },
+    {
+      "duration": 44,
+      "name": "T6PS_6_0",
+      "processStep": "PS_6_0",
+      "job": "J6"
+    },
+    {
+      "duration": 91,
+      "name": "T6PS_6_1",
+      "processStep": "PS_6_1",
+      "job": "J6"
+    },
+    {
+      "duration": 39,
+      "name": "T6PS_6_2",
+      "processStep": "PS_6_2",
+      "job": "J6"
+    },
+    {
+      "duration": 93,
+      "name": "T6PS_6_3",
+      "processStep": "PS_6_3",
+      "job": "J6"
+    },
+    {
+      "duration": 46,
+      "name": "T6PS_6_4",
+      "processStep": "PS_6_4",
+      "job": "J6"
+    },
+    {
+      "duration": 38,
+      "name": "T6PS_6_5",
+      "processStep": "PS_6_5",
+      "job": "J6"
+    },
+    {
+      "duration": 79,
+      "name": "T6PS_6_6",
+      "processStep": "PS_6_6",
+      "job": "J6"
+    },
+    {
+      "duration": 65,
+      "name": "T6PS_6_7",
+      "processStep": "PS_6_7",
+      "job": "J6"
+    },
+    {
+      "duration": 91,
+      "name": "T6PS_6_8",
+      "processStep": "PS_6_8",
+      "job": "J6"
+    },
+    {
+      "duration": 2,
+      "name": "T6PS_6_9",
+      "processStep": "PS_6_9",
+      "job": "J6"
+    },
+    {
+      "duration": 94,
+      "name": "T7PS_7_0",
+      "processStep": "PS_7_0",
+      "job": "J7"
+    },
+    {
+      "duration": 87,
+      "name": "T7PS_7_1",
+      "processStep": "PS_7_1",
+      "job": "J7"
+    },
+    {
+      "duration": 60,
+      "name": "T7PS_7_2",
+      "processStep": "PS_7_2",
+      "job": "J7"
+    },
+    {
+      "duration": 29,
+      "name": "T7PS_7_3",
+      "processStep": "PS_7_3",
+      "job": "J7"
+    },
+    {
+      "duration": 9,
+      "name": "T7PS_7_4",
+      "processStep": "PS_7_4",
+      "job": "J7"
+    },
+    {
+      "duration": 33,
+      "name": "T7PS_7_5",
+      "processStep": "PS_7_5",
+      "job": "J7"
+    },
+    {
+      "duration": 69,
+      "name": "T7PS_7_6",
+      "processStep": "PS_7_6",
+      "job": "J7"
+    },
+    {
+      "duration": 72,
+      "name": "T7PS_7_7",
+      "processStep": "PS_7_7",
+      "job": "J7"
+    },
+    {
+      "duration": 91,
+      "name": "T7PS_7_8",
+      "processStep": "PS_7_8",
+      "job": "J7"
+    },
+    {
+      "duration": 37,
+      "name": "T7PS_7_9",
+      "processStep": "PS_7_9",
+      "job": "J7"
+    },
+    {
+      "duration": 68,
+      "name": "T8PS_8_0",
+      "processStep": "PS_8_0",
+      "job": "J8"
+    },
+    {
+      "duration": 28,
+      "name": "T8PS_8_1",
+      "processStep": "PS_8_1",
+      "job": "J8"
+    },
+    {
+      "duration": 67,
+      "name": "T8PS_8_2",
+      "processStep": "PS_8_2",
+      "job": "J8"
+    },
+    {
+      "duration": 68,
+      "name": "T8PS_8_3",
+      "processStep": "PS_8_3",
+      "job": "J8"
+    },
+    {
+      "duration": 47,
+      "name": "T8PS_8_4",
+      "processStep": "PS_8_4",
+      "job": "J8"
+    },
+    {
+      "duration": 84,
+      "name": "T8PS_8_5",
+      "processStep": "PS_8_5",
+      "job": "J8"
+    },
+    {
+      "duration": 70,
+      "name": "T8PS_8_6",
+      "processStep": "PS_8_6",
+      "job": "J8"
+    },
+    {
+      "duration": 84,
+      "name": "T8PS_8_7",
+      "processStep": "PS_8_7",
+      "job": "J8"
+    },
+    {
+      "duration": 53,
+      "name": "T8PS_8_8",
+      "processStep": "PS_8_8",
+      "job": "J8"
+    },
+    {
+      "duration": 16,
+      "name": "T8PS_8_9",
+      "processStep": "PS_8_9",
+      "job": "J8"
+    },
+    {
+      "duration": 41,
+      "name": "T9PS_9_0",
+      "processStep": "PS_9_0",
+      "job": "J9"
+    },
+    {
+      "duration": 42,
+      "name": "T9PS_9_1",
+      "processStep": "PS_9_1",
+      "job": "J9"
+    },
+    {
+      "duration": 42,
+      "name": "T9PS_9_2",
+      "processStep": "PS_9_2",
+      "job": "J9"
+    },
+    {
+      "duration": 64,
+      "name": "T9PS_9_3",
+      "processStep": "PS_9_3",
+      "job": "J9"
+    },
+    {
+      "duration": 89,
+      "name": "T9PS_9_4",
+      "processStep": "PS_9_4",
+      "job": "J9"
+    },
+    {
+      "duration": 34,
+      "name": "T9PS_9_5",
+      "processStep": "PS_9_5",
+      "job": "J9"
+    },
+    {
+      "duration": 10,
+      "name": "T9PS_9_6",
+      "processStep": "PS_9_6",
+      "job": "J9"
+    },
+    {
+      "duration": 67,
+      "name": "T9PS_9_7",
+      "processStep": "PS_9_7",
+      "job": "J9"
+    },
+    {
+      "duration": 7,
+      "name": "T9PS_9_8",
+      "processStep": "PS_9_8",
+      "job": "J9"
+    },
+    {
+      "duration": 50,
+      "name": "T9PS_9_9",
+      "processStep": "PS_9_9",
+      "job": "J9"
+    }
+  ],
+  "solution": [{
+    "makespan": 596,
+    "totalEarliness": 0,
+    "endDate": "3/10/2024 01:40",
+    "totalWaitBefore": 0,
+    "nrEarly": 0,
+    "percentEarly": 0,
+    "duration": 596,
+    "maxLateness": 596,
+    "maxWaitAfter": 0,
+    "nrLate": 10,
+    "gap": 0,
+    "solverRun": "tai10_10_9.json",
+    "end": 596,
+    "weightedEarliness": 0,
+    "totalLateness": 5759,
+    "maxWaitBefore": 0,
+    "bound": 596,
+    "solverStatus": "Optimal",
+    "start": 0,
+    "totalWaitAfter": 0,
+    "percentLate": 100,
+    "weightedLateness": 5759,
+    "maxEarliness": 0,
+    "name": "Sol10",
+    "objectiveValue": 596,
+    "flowtime": 5759,
+    "startDate": "1/10/2024 00:00"
+  }],
+  "taskAssignment": [
+    {
+      "duration": 8,
+      "waitAfter": 0,
+      "task": "T0PS_0_0",
+      "disjunctiveResource": "DR_1",
+      "endDate": "2/10/2024 13:05",
+      "name": "TA0",
+      "start": 437,
+      "end": 445,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 12:25"
+    },
+    {
+      "duration": 48,
+      "waitAfter": 0,
+      "task": "T0PS_0_1",
+      "disjunctiveResource": "DR_0",
+      "endDate": "1/10/2024 11:25",
+      "name": "TA1",
+      "start": 89,
+      "end": 137,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 07:25"
+    },
+    {
+      "duration": 10,
+      "waitAfter": 0,
+      "task": "T0PS_0_2",
+      "disjunctiveResource": "DR_3",
+      "endDate": "1/10/2024 00:50",
+      "name": "TA2",
+      "start": 0,
+      "end": 10,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 76,
+      "waitAfter": 0,
+      "task": "T0PS_0_3",
+      "disjunctiveResource": "DR_5",
+      "endDate": "2/10/2024 00:00",
+      "name": "TA3",
+      "start": 212,
+      "end": 288,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 17:40"
+    },
+    {
+      "duration": 64,
+      "waitAfter": 0,
+      "task": "T0PS_0_4",
+      "disjunctiveResource": "DR_6",
+      "endDate": "2/10/2024 10:30",
+      "name": "TA4",
+      "start": 350,
+      "end": 414,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 05:10"
+    },
+    {
+      "duration": 35,
+      "waitAfter": 0,
+      "task": "T0PS_0_5",
+      "disjunctiveResource": "DR_4",
+      "endDate": "1/10/2024 06:50",
+      "name": "TA5",
+      "start": 47,
+      "end": 82,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 03:55"
+    },
+    {
+      "duration": 51,
+      "waitAfter": 0,
+      "task": "T0PS_0_6",
+      "disjunctiveResource": "DR_7",
+      "endDate": "2/10/2024 05:10",
+      "name": "TA6",
+      "start": 299,
+      "end": 350,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 00:55"
+    },
+    {
+      "duration": 34,
+      "waitAfter": 0,
+      "task": "T0PS_0_7",
+      "disjunctiveResource": "DR_9",
+      "endDate": "1/10/2024 16:35",
+      "name": "TA7",
+      "start": 165,
+      "end": 199,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 13:45"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 0,
+      "task": "T0PS_0_8",
+      "disjunctiveResource": "DR_8",
+      "endDate": "1/10/2024 13:25",
+      "name": "TA8",
+      "start": 160,
+      "end": 161,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 13:20"
+    },
+    {
+      "duration": 4,
+      "waitAfter": 0,
+      "task": "T0PS_0_9",
+      "disjunctiveResource": "DR_2",
+      "endDate": "2/10/2024 17:15",
+      "name": "TA9",
+      "start": 491,
+      "end": 495,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 16:55"
+    },
+    {
+      "duration": 90,
+      "waitAfter": 0,
+      "task": "T1PS_1_0",
+      "disjunctiveResource": "DR_6",
+      "endDate": "3/10/2024 00:25",
+      "name": "TA10",
+      "start": 491,
+      "end": 581,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 16:55"
+    },
+    {
+      "duration": 98,
+      "waitAfter": 0,
+      "task": "T1PS_1_1",
+      "disjunctiveResource": "DR_1",
+      "endDate": "1/10/2024 08:10",
+      "name": "TA11",
+      "start": 0,
+      "end": 98,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 9,
+      "waitAfter": 0,
+      "task": "T1PS_1_2",
+      "disjunctiveResource": "DR_7",
+      "endDate": "2/10/2024 12:10",
+      "name": "TA12",
+      "start": 425,
+      "end": 434,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 11:25"
+    },
+    {
+      "duration": 67,
+      "waitAfter": 0,
+      "task": "T1PS_1_3",
+      "disjunctiveResource": "DR_9",
+      "endDate": "1/10/2024 13:45",
+      "name": "TA13",
+      "start": 98,
+      "end": 165,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 08:10"
+    },
+    {
+      "duration": 44,
+      "waitAfter": 0,
+      "task": "T1PS_1_4",
+      "disjunctiveResource": "DR_8",
+      "endDate": "2/10/2024 11:25",
+      "name": "TA14",
+      "start": 381,
+      "end": 425,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 07:45"
+    },
+    {
+      "duration": 39,
+      "waitAfter": 0,
+      "task": "T1PS_1_5",
+      "disjunctiveResource": "DR_0",
+      "endDate": "1/10/2024 17:00",
+      "name": "TA15",
+      "start": 165,
+      "end": 204,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 13:45"
+    },
+    {
+      "duration": 46,
+      "waitAfter": 0,
+      "task": "T1PS_1_6",
+      "disjunctiveResource": "DR_2",
+      "endDate": "2/10/2024 16:55",
+      "name": "TA16",
+      "start": 445,
+      "end": 491,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 13:05"
+    },
+    {
+      "duration": 93,
+      "waitAfter": 0,
+      "task": "T1PS_1_7",
+      "disjunctiveResource": "DR_5",
+      "endDate": "2/10/2024 07:45",
+      "name": "TA17",
+      "start": 288,
+      "end": 381,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 00:00"
+    },
+    {
+      "duration": 12,
+      "waitAfter": 0,
+      "task": "T1PS_1_8",
+      "disjunctiveResource": "DR_3",
+      "endDate": "3/10/2024 01:35",
+      "name": "TA18",
+      "start": 583,
+      "end": 595,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "3/10/2024 00:35"
+    },
+    {
+      "duration": 71,
+      "waitAfter": 0,
+      "task": "T1PS_1_9",
+      "disjunctiveResource": "DR_4",
+      "endDate": "1/10/2024 22:55",
+      "name": "TA19",
+      "start": 204,
+      "end": 275,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 17:00"
+    },
+    {
+      "duration": 95,
+      "waitAfter": 0,
+      "task": "T2PS_2_0",
+      "disjunctiveResource": "DR_3",
+      "endDate": "2/10/2024 06:35",
+      "name": "TA20",
+      "start": 272,
+      "end": 367,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 22:40"
+    },
+    {
+      "duration": 32,
+      "waitAfter": 0,
+      "task": "T2PS_2_1",
+      "disjunctiveResource": "DR_5",
+      "endDate": "1/10/2024 17:40",
+      "name": "TA21",
+      "start": 180,
+      "end": 212,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 15:00"
+    },
+    {
+      "duration": 50,
+      "waitAfter": 0,
+      "task": "T2PS_2_2",
+      "disjunctiveResource": "DR_6",
+      "endDate": "2/10/2024 14:40",
+      "name": "TA22",
+      "start": 414,
+      "end": 464,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 10:30"
+    },
+    {
+      "duration": 32,
+      "waitAfter": 0,
+      "task": "T2PS_2_3",
+      "disjunctiveResource": "DR_8",
+      "endDate": "1/10/2024 22:20",
+      "name": "TA23",
+      "start": 236,
+      "end": 268,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 19:40"
+    },
+    {
+      "duration": 97,
+      "waitAfter": 0,
+      "task": "T2PS_2_4",
+      "disjunctiveResource": "DR_9",
+      "endDate": "1/10/2024 08:05",
+      "name": "TA24",
+      "start": 0,
+      "end": 97,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 73,
+      "waitAfter": 0,
+      "task": "T2PS_2_5",
+      "disjunctiveResource": "DR_1",
+      "endDate": "1/10/2024 14:15",
+      "name": "TA25",
+      "start": 98,
+      "end": 171,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 08:10"
+    },
+    {
+      "duration": 30,
+      "waitAfter": 0,
+      "task": "T2PS_2_6",
+      "disjunctiveResource": "DR_4",
+      "endDate": "3/10/2024 00:20",
+      "name": "TA26",
+      "start": 550,
+      "end": 580,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 21:50"
+    },
+    {
+      "duration": 26,
+      "waitAfter": 0,
+      "task": "T2PS_2_7",
+      "disjunctiveResource": "DR_2",
+      "endDate": "2/10/2024 19:35",
+      "name": "TA27",
+      "start": 497,
+      "end": 523,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 17:25"
+    },
+    {
+      "duration": 33,
+      "waitAfter": 0,
+      "task": "T2PS_2_8",
+      "disjunctiveResource": "DR_0",
+      "endDate": "2/10/2024 17:25",
+      "name": "TA28",
+      "start": 464,
+      "end": 497,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 14:40"
+    },
+    {
+      "duration": 13,
+      "waitAfter": 0,
+      "task": "T2PS_2_9",
+      "disjunctiveResource": "DR_7",
+      "endDate": "1/10/2024 18:45",
+      "name": "TA29",
+      "start": 212,
+      "end": 225,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 17:40"
+    },
+    {
+      "duration": 19,
+      "waitAfter": 0,
+      "task": "T3PS_3_0",
+      "disjunctiveResource": "DR_1",
+      "endDate": "2/10/2024 08:40",
+      "name": "TA30",
+      "start": 373,
+      "end": 392,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 07:05"
+    },
+    {
+      "duration": 47,
+      "waitAfter": 0,
+      "task": "T3PS_3_1",
+      "disjunctiveResource": "DR_4",
+      "endDate": "1/10/2024 03:55",
+      "name": "TA31",
+      "start": 0,
+      "end": 47,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 22,
+      "waitAfter": 0,
+      "task": "T3PS_3_2",
+      "disjunctiveResource": "DR_0",
+      "endDate": "2/10/2024 02:45",
+      "name": "TA32",
+      "start": 299,
+      "end": 321,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 00:55"
+    },
+    {
+      "duration": 34,
+      "waitAfter": 0,
+      "task": "T3PS_3_3",
+      "disjunctiveResource": "DR_3",
+      "endDate": "1/10/2024 06:45",
+      "name": "TA33",
+      "start": 47,
+      "end": 81,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 03:55"
+    },
+    {
+      "duration": 36,
+      "waitAfter": 0,
+      "task": "T3PS_3_4",
+      "disjunctiveResource": "DR_8",
+      "endDate": "2/10/2024 07:05",
+      "name": "TA34",
+      "start": 337,
+      "end": 373,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 04:05"
+    },
+    {
+      "duration": 2,
+      "waitAfter": 0,
+      "task": "T3PS_3_5",
+      "disjunctiveResource": "DR_5",
+      "endDate": "3/10/2024 01:40",
+      "name": "TA35",
+      "start": 594,
+      "end": 596,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "3/10/2024 01:30"
+    },
+    {
+      "duration": 3,
+      "waitAfter": 0,
+      "task": "T3PS_3_6",
+      "disjunctiveResource": "DR_9",
+      "endDate": "2/10/2024 03:00",
+      "name": "TA36",
+      "start": 321,
+      "end": 324,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 02:45"
+    },
+    {
+      "duration": 63,
+      "waitAfter": 0,
+      "task": "T3PS_3_7",
+      "disjunctiveResource": "DR_6",
+      "endDate": "1/10/2024 19:35",
+      "name": "TA37",
+      "start": 172,
+      "end": 235,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 14:20"
+    },
+    {
+      "duration": 64,
+      "waitAfter": 0,
+      "task": "T3PS_3_8",
+      "disjunctiveResource": "DR_7",
+      "endDate": "2/10/2024 00:55",
+      "name": "TA38",
+      "start": 235,
+      "end": 299,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 19:35"
+    },
+    {
+      "duration": 78,
+      "waitAfter": 0,
+      "task": "T3PS_3_9",
+      "disjunctiveResource": "DR_2",
+      "endDate": "1/10/2024 13:50",
+      "name": "TA39",
+      "start": 88,
+      "end": 166,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 07:20"
+    },
+    {
+      "duration": 64,
+      "waitAfter": 0,
+      "task": "T4PS_4_0",
+      "disjunctiveResource": "DR_4",
+      "endDate": "2/10/2024 10:20",
+      "name": "TA40",
+      "start": 348,
+      "end": 412,
+      "jobAssignment": "JA4",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 05:00"
+    },
+    {
+      "duration": 40,
+      "waitAfter": 0,
+      "task": "T4PS_4_1",
+      "disjunctiveResource": "DR_2",
+      "endDate": "2/10/2024 22:55",
+      "name": "TA41",
+      "start": 523,
+      "end": 563,
+      "jobAssignment": "JA4",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 19:35"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 0,
+      "task": "T4PS_4_2",
+      "disjunctiveResource": "DR_0",
+      "endDate": "2/10/2024 04:10",
+      "name": "TA42",
+      "start": 337,
+      "end": 338,
+      "jobAssignment": "JA4",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 04:05"
+    },
+    {
+      "duration": 77,
+      "waitAfter": 0,
+      "task": "T4PS_4_3",
+      "disjunctiveResource": "DR_6",
+      "endDate": "1/10/2024 14:20",
+      "name": "TA43",
+      "start": 95,
+      "end": 172,
+      "jobAssignment": "JA4",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 07:55"
+    },
+    {
+      "duration": 65,
+      "waitAfter": 0,
+      "task": "T4PS_4_4",
+      "disjunctiveResource": "DR_7",
+      "endDate": "2/10/2024 17:50",
+      "name": "TA44",
+      "start": 437,
+      "end": 502,
+      "jobAssignment": "JA4",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 12:25"
+    },
+    {
+      "duration": 67,
+      "waitAfter": 0,
+      "task": "T4PS_4_5",
+      "disjunctiveResource": "DR_9",
+      "endDate": "1/10/2024 22:10",
+      "name": "TA45",
+      "start": 199,
+      "end": 266,
+      "jobAssignment": "JA4",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 16:35"
+    },
+    {
+      "duration": 25,
+      "waitAfter": 0,
+      "task": "T4PS_4_6",
+      "disjunctiveResource": "DR_1",
+      "endDate": "2/10/2024 12:25",
+      "name": "TA46",
+      "start": 412,
+      "end": 437,
+      "jobAssignment": "JA4",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 10:20"
+    },
+    {
+      "duration": 20,
+      "waitAfter": 0,
+      "task": "T4PS_4_7",
+      "disjunctiveResource": "DR_3",
+      "endDate": "3/10/2024 00:35",
+      "name": "TA47",
+      "start": 563,
+      "end": 583,
+      "jobAssignment": "JA4",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 22:55"
+    },
+    {
+      "duration": 95,
+      "waitAfter": 0,
+      "task": "T4PS_4_8",
+      "disjunctiveResource": "DR_5",
+      "endDate": "1/10/2024 07:55",
+      "name": "TA48",
+      "start": 0,
+      "end": 95,
+      "jobAssignment": "JA4",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 69,
+      "waitAfter": 0,
+      "task": "T4PS_4_9",
+      "disjunctiveResource": "DR_8",
+      "endDate": "2/10/2024 04:05",
+      "name": "TA49",
+      "start": 268,
+      "end": 337,
+      "jobAssignment": "JA4",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 22:20"
+    },
+    {
+      "duration": 45,
+      "waitAfter": 0,
+      "task": "T5PS_5_0",
+      "disjunctiveResource": "DR_3",
+      "endDate": "2/10/2024 14:25",
+      "name": "TA50",
+      "start": 416,
+      "end": 461,
+      "jobAssignment": "JA5",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 10:40"
+    },
+    {
+      "duration": 64,
+      "waitAfter": 0,
+      "task": "T5PS_5_1",
+      "disjunctiveResource": "DR_0",
+      "endDate": "1/10/2024 22:20",
+      "name": "TA51",
+      "start": 204,
+      "end": 268,
+      "jobAssignment": "JA5",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 17:00"
+    },
+    {
+      "duration": 19,
+      "waitAfter": 0,
+      "task": "T5PS_5_2",
+      "disjunctiveResource": "DR_1",
+      "endDate": "2/10/2024 18:15",
+      "name": "TA52",
+      "start": 488,
+      "end": 507,
+      "jobAssignment": "JA5",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 16:40"
+    },
+    {
+      "duration": 85,
+      "waitAfter": 0,
+      "task": "T5PS_5_3",
+      "disjunctiveResource": "DR_5",
+      "endDate": "1/10/2024 15:00",
+      "name": "TA53",
+      "start": 95,
+      "end": 180,
+      "jobAssignment": "JA5",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 07:55"
+    },
+    {
+      "duration": 14,
+      "waitAfter": 0,
+      "task": "T5PS_5_4",
+      "disjunctiveResource": "DR_8",
+      "endDate": "2/10/2024 21:15",
+      "name": "TA54",
+      "start": 529,
+      "end": 543,
+      "jobAssignment": "JA5",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 20:05"
+    },
+    {
+      "duration": 66,
+      "waitAfter": 0,
+      "task": "T5PS_5_5",
+      "disjunctiveResource": "DR_7",
+      "endDate": "2/10/2024 10:40",
+      "name": "TA55",
+      "start": 350,
+      "end": 416,
+      "jobAssignment": "JA5",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 05:10"
+    },
+    {
+      "duration": 73,
+      "waitAfter": 0,
+      "task": "T5PS_5_6",
+      "disjunctiveResource": "DR_4",
+      "endDate": "2/10/2024 05:00",
+      "name": "TA56",
+      "start": 275,
+      "end": 348,
+      "jobAssignment": "JA5",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 22:55"
+    },
+    {
+      "duration": 22,
+      "waitAfter": 0,
+      "task": "T5PS_5_7",
+      "disjunctiveResource": "DR_9",
+      "endDate": "2/10/2024 20:05",
+      "name": "TA57",
+      "start": 507,
+      "end": 529,
+      "jobAssignment": "JA5",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 18:15"
+    },
+    {
+      "duration": 88,
+      "waitAfter": 0,
+      "task": "T5PS_5_8",
+      "disjunctiveResource": "DR_2",
+      "endDate": "1/10/2024 07:20",
+      "name": "TA58",
+      "start": 0,
+      "end": 88,
+      "jobAssignment": "JA5",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 24,
+      "waitAfter": 0,
+      "task": "T5PS_5_9",
+      "disjunctiveResource": "DR_6",
+      "endDate": "2/10/2024 16:40",
+      "name": "TA59",
+      "start": 464,
+      "end": 488,
+      "jobAssignment": "JA5",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 14:40"
+    },
+    {
+      "duration": 44,
+      "waitAfter": 0,
+      "task": "T6PS_6_0",
+      "disjunctiveResource": "DR_3",
+      "endDate": "2/10/2024 22:30",
+      "name": "TA60",
+      "start": 514,
+      "end": 558,
+      "jobAssignment": "JA6",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 18:50"
+    },
+    {
+      "duration": 91,
+      "waitAfter": 0,
+      "task": "T6PS_6_1",
+      "disjunctiveResource": "DR_5",
+      "endDate": "2/10/2024 18:50",
+      "name": "TA61",
+      "start": 423,
+      "end": 514,
+      "jobAssignment": "JA6",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 11:15"
+    },
+    {
+      "duration": 39,
+      "waitAfter": 0,
+      "task": "T6PS_6_2",
+      "disjunctiveResource": "DR_6",
+      "endDate": "2/10/2024 05:00",
+      "name": "TA62",
+      "start": 309,
+      "end": 348,
+      "jobAssignment": "JA6",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 01:45"
+    },
+    {
+      "duration": 93,
+      "waitAfter": 0,
+      "task": "T6PS_6_3",
+      "disjunctiveResource": "DR_8",
+      "endDate": "1/10/2024 07:45",
+      "name": "TA63",
+      "start": 0,
+      "end": 93,
+      "jobAssignment": "JA6",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 46,
+      "waitAfter": 0,
+      "task": "T6PS_6_4",
+      "disjunctiveResource": "DR_2",
+      "endDate": "2/10/2024 01:45",
+      "name": "TA64",
+      "start": 263,
+      "end": 309,
+      "jobAssignment": "JA6",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 21:55"
+    },
+    {
+      "duration": 38,
+      "waitAfter": 0,
+      "task": "T6PS_6_5",
+      "disjunctiveResource": "DR_0",
+      "endDate": "3/10/2024 01:40",
+      "name": "TA65",
+      "start": 558,
+      "end": 596,
+      "jobAssignment": "JA6",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 22:30"
+    },
+    {
+      "duration": 79,
+      "waitAfter": 0,
+      "task": "T6PS_6_6",
+      "disjunctiveResource": "DR_1",
+      "endDate": "1/10/2024 21:55",
+      "name": "TA66",
+      "start": 184,
+      "end": 263,
+      "jobAssignment": "JA6",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 15:20"
+    },
+    {
+      "duration": 65,
+      "waitAfter": 0,
+      "task": "T6PS_6_7",
+      "disjunctiveResource": "DR_9",
+      "endDate": "2/10/2024 10:25",
+      "name": "TA67",
+      "start": 348,
+      "end": 413,
+      "jobAssignment": "JA6",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 05:00"
+    },
+    {
+      "duration": 91,
+      "waitAfter": 0,
+      "task": "T6PS_6_8",
+      "disjunctiveResource": "DR_4",
+      "endDate": "1/10/2024 15:20",
+      "name": "TA68",
+      "start": 93,
+      "end": 184,
+      "jobAssignment": "JA6",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 07:45"
+    },
+    {
+      "duration": 2,
+      "waitAfter": 0,
+      "task": "T6PS_6_9",
+      "disjunctiveResource": "DR_7",
+      "endDate": "2/10/2024 10:50",
+      "name": "TA69",
+      "start": 416,
+      "end": 418,
+      "jobAssignment": "JA6",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 10:40"
+    },
+    {
+      "duration": 94,
+      "waitAfter": 0,
+      "task": "T7PS_7_0",
+      "disjunctiveResource": "DR_6",
+      "endDate": "1/10/2024 07:50",
+      "name": "TA70",
+      "start": 0,
+      "end": 94,
+      "jobAssignment": "JA7",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 87,
+      "waitAfter": 0,
+      "task": "T7PS_7_1",
+      "disjunctiveResource": "DR_3",
+      "endDate": "1/10/2024 22:40",
+      "name": "TA71",
+      "start": 185,
+      "end": 272,
+      "jobAssignment": "JA7",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 15:25"
+    },
+    {
+      "duration": 60,
+      "waitAfter": 0,
+      "task": "T7PS_7_2",
+      "disjunctiveResource": "DR_8",
+      "endDate": "2/10/2024 18:05",
+      "name": "TA72",
+      "start": 445,
+      "end": 505,
+      "jobAssignment": "JA7",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 13:05"
+    },
+    {
+      "duration": 29,
+      "waitAfter": 0,
+      "task": "T7PS_7_3",
+      "disjunctiveResource": "DR_0",
+      "endDate": "2/10/2024 07:05",
+      "name": "TA73",
+      "start": 344,
+      "end": 373,
+      "jobAssignment": "JA7",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 04:40"
+    },
+    {
+      "duration": 9,
+      "waitAfter": 0,
+      "task": "T7PS_7_4",
+      "disjunctiveResource": "DR_9",
+      "endDate": "2/10/2024 22:35",
+      "name": "TA74",
+      "start": 550,
+      "end": 559,
+      "jobAssignment": "JA7",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 21:50"
+    },
+    {
+      "duration": 33,
+      "waitAfter": 0,
+      "task": "T7PS_7_5",
+      "disjunctiveResource": "DR_5",
+      "endDate": "3/10/2024 01:30",
+      "name": "TA75",
+      "start": 561,
+      "end": 594,
+      "jobAssignment": "JA7",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 22:45"
+    },
+    {
+      "duration": 69,
+      "waitAfter": 0,
+      "task": "T7PS_7_6",
+      "disjunctiveResource": "DR_2",
+      "endDate": "2/10/2024 13:05",
+      "name": "TA76",
+      "start": 376,
+      "end": 445,
+      "jobAssignment": "JA7",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 07:20"
+    },
+    {
+      "duration": 72,
+      "waitAfter": 0,
+      "task": "T7PS_7_7",
+      "disjunctiveResource": "DR_1",
+      "endDate": "2/10/2024 04:40",
+      "name": "TA77",
+      "start": 272,
+      "end": 344,
+      "jobAssignment": "JA7",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 22:40"
+    },
+    {
+      "duration": 91,
+      "waitAfter": 0,
+      "task": "T7PS_7_8",
+      "disjunctiveResource": "DR_7",
+      "endDate": "1/10/2024 15:25",
+      "name": "TA78",
+      "start": 94,
+      "end": 185,
+      "jobAssignment": "JA7",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 07:50"
+    },
+    {
+      "duration": 37,
+      "waitAfter": 0,
+      "task": "T7PS_7_9",
+      "disjunctiveResource": "DR_4",
+      "endDate": "2/10/2024 21:50",
+      "name": "TA79",
+      "start": 513,
+      "end": 550,
+      "jobAssignment": "JA7",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 18:45"
+    },
+    {
+      "duration": 68,
+      "waitAfter": 0,
+      "task": "T8PS_8_0",
+      "disjunctiveResource": "DR_9",
+      "endDate": "2/10/2024 17:25",
+      "name": "TA80",
+      "start": 429,
+      "end": 497,
+      "jobAssignment": "JA8",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 11:45"
+    },
+    {
+      "duration": 28,
+      "waitAfter": 0,
+      "task": "T8PS_8_1",
+      "disjunctiveResource": "DR_1",
+      "endDate": "3/10/2024 01:05",
+      "name": "TA81",
+      "start": 561,
+      "end": 589,
+      "jobAssignment": "JA8",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 22:45"
+    },
+    {
+      "duration": 67,
+      "waitAfter": 0,
+      "task": "T8PS_8_2",
+      "disjunctiveResource": "DR_2",
+      "endDate": "2/10/2024 07:20",
+      "name": "TA82",
+      "start": 309,
+      "end": 376,
+      "jobAssignment": "JA8",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 01:45"
+    },
+    {
+      "duration": 68,
+      "waitAfter": 0,
+      "task": "T8PS_8_3",
+      "disjunctiveResource": "DR_8",
+      "endDate": "1/10/2024 19:40",
+      "name": "TA83",
+      "start": 168,
+      "end": 236,
+      "jobAssignment": "JA8",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 14:00"
+    },
+    {
+      "duration": 47,
+      "waitAfter": 0,
+      "task": "T8PS_8_4",
+      "disjunctiveResource": "DR_5",
+      "endDate": "2/10/2024 22:45",
+      "name": "TA84",
+      "start": 514,
+      "end": 561,
+      "jobAssignment": "JA8",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 18:50"
+    },
+    {
+      "duration": 84,
+      "waitAfter": 0,
+      "task": "T8PS_8_5",
+      "disjunctiveResource": "DR_7",
+      "endDate": "1/10/2024 07:00",
+      "name": "TA85",
+      "start": 0,
+      "end": 84,
+      "jobAssignment": "JA8",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 70,
+      "waitAfter": 0,
+      "task": "T8PS_8_6",
+      "disjunctiveResource": "DR_6",
+      "endDate": "2/10/2024 01:30",
+      "name": "TA86",
+      "start": 236,
+      "end": 306,
+      "jobAssignment": "JA8",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 19:40"
+    },
+    {
+      "duration": 84,
+      "waitAfter": 0,
+      "task": "T8PS_8_7",
+      "disjunctiveResource": "DR_3",
+      "endDate": "1/10/2024 14:00",
+      "name": "TA87",
+      "start": 84,
+      "end": 168,
+      "jobAssignment": "JA8",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 07:00"
+    },
+    {
+      "duration": 53,
+      "waitAfter": 0,
+      "task": "T8PS_8_8",
+      "disjunctiveResource": "DR_0",
+      "endDate": "2/10/2024 11:45",
+      "name": "TA88",
+      "start": 376,
+      "end": 429,
+      "jobAssignment": "JA8",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 07:20"
+    },
+    {
+      "duration": 16,
+      "waitAfter": 0,
+      "task": "T8PS_8_9",
+      "disjunctiveResource": "DR_4",
+      "endDate": "2/10/2024 18:45",
+      "name": "TA89",
+      "start": 497,
+      "end": 513,
+      "jobAssignment": "JA8",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 17:25"
+    },
+    {
+      "duration": 41,
+      "waitAfter": 0,
+      "task": "T9PS_9_0",
+      "disjunctiveResource": "DR_3",
+      "endDate": "2/10/2024 18:10",
+      "name": "TA90",
+      "start": 465,
+      "end": 506,
+      "jobAssignment": "JA9",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 14:45"
+    },
+    {
+      "duration": 42,
+      "waitAfter": 0,
+      "task": "T9PS_9_1",
+      "disjunctiveResource": "DR_5",
+      "endDate": "2/10/2024 11:15",
+      "name": "TA91",
+      "start": 381,
+      "end": 423,
+      "jobAssignment": "JA9",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 07:45"
+    },
+    {
+      "duration": 42,
+      "waitAfter": 0,
+      "task": "T9PS_9_2",
+      "disjunctiveResource": "DR_4",
+      "endDate": "2/10/2024 14:45",
+      "name": "TA92",
+      "start": 423,
+      "end": 465,
+      "jobAssignment": "JA9",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 11:15"
+    },
+    {
+      "duration": 64,
+      "waitAfter": 0,
+      "task": "T9PS_9_3",
+      "disjunctiveResource": "DR_2",
+      "endDate": "1/10/2024 19:10",
+      "name": "TA93",
+      "start": 166,
+      "end": 230,
+      "jobAssignment": "JA9",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 13:50"
+    },
+    {
+      "duration": 89,
+      "waitAfter": 0,
+      "task": "T9PS_9_4",
+      "disjunctiveResource": "DR_0",
+      "endDate": "1/10/2024 07:25",
+      "name": "TA94",
+      "start": 0,
+      "end": 89,
+      "jobAssignment": "JA9",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 34,
+      "waitAfter": 0,
+      "task": "T9PS_9_5",
+      "disjunctiveResource": "DR_9",
+      "endDate": "2/10/2024 01:00",
+      "name": "TA95",
+      "start": 266,
+      "end": 300,
+      "jobAssignment": "JA9",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 22:10"
+    },
+    {
+      "duration": 10,
+      "waitAfter": 0,
+      "task": "T9PS_9_6",
+      "disjunctiveResource": "DR_7",
+      "endDate": "2/10/2024 23:15",
+      "name": "TA96",
+      "start": 557,
+      "end": 567,
+      "jobAssignment": "JA9",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 22:25"
+    },
+    {
+      "duration": 67,
+      "waitAfter": 0,
+      "task": "T9PS_9_7",
+      "disjunctiveResource": "DR_8",
+      "endDate": "1/10/2024 13:20",
+      "name": "TA97",
+      "start": 93,
+      "end": 160,
+      "jobAssignment": "JA9",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 07:45"
+    },
+    {
+      "duration": 7,
+      "waitAfter": 0,
+      "task": "T9PS_9_8",
+      "disjunctiveResource": "DR_6",
+      "endDate": "3/10/2024 01:00",
+      "name": "TA98",
+      "start": 581,
+      "end": 588,
+      "jobAssignment": "JA9",
+      "waitBefore": 0,
+      "startDate": "3/10/2024 00:25"
+    },
+    {
+      "duration": 50,
+      "waitAfter": 0,
+      "task": "T9PS_9_9",
+      "disjunctiveResource": "DR_1",
+      "endDate": "2/10/2024 22:25",
+      "name": "TA99",
+      "start": 507,
+      "end": 557,
+      "jobAssignment": "JA9",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 18:15"
+    }
+  ],
+  "processSequence": [],
+  "solverRun": [{
+    "seed": 42,
+    "solverBackend": "None",
+    "weightMakespan": 1,
+    "producePDF": false,
+    "enforceSetup": false,
+    "description": "",
+    "enforceTransportTime": false,
+    "enforceWip": false,
+    "timeout": 60,
+    "weightLateness": 1,
+    "produceReport": false,
+    "nrThreads": 2,
+    "weightEarliness": 1,
+    "solverStatus": "Optimal",
+    "label": "",
+    "modelType": "CPO",
+    "relaxSequence": false,
+    "objectiveType": "Makespan",
+    "weightFlowtime": 1,
+    "enforceCumulative": false,
+    "name": "tai10_10_9.json",
+    "time": 0.078,
+    "enforceDowntime": false,
+    "removeSolution": false,
+    "enforceReleaseDate": false,
+    "enforceDueDate": false
+  }],
+  "jobAssignment": [
+    {
+      "duration": 495,
+      "solution": "Sol10",
+      "late": 495,
+      "endDate": "2/10/2024 17:15",
+      "name": "JA0",
+      "start": 0,
+      "end": 495,
+      "job": "J0",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 595,
+      "solution": "Sol10",
+      "late": 595,
+      "endDate": "3/10/2024 01:35",
+      "name": "JA1",
+      "start": 0,
+      "end": 595,
+      "job": "J1",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 580,
+      "solution": "Sol10",
+      "late": 580,
+      "endDate": "3/10/2024 00:20",
+      "name": "JA2",
+      "start": 0,
+      "end": 580,
+      "job": "J2",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 596,
+      "solution": "Sol10",
+      "late": 596,
+      "endDate": "3/10/2024 01:40",
+      "name": "JA3",
+      "start": 0,
+      "end": 596,
+      "job": "J3",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 583,
+      "solution": "Sol10",
+      "late": 583,
+      "endDate": "3/10/2024 00:35",
+      "name": "JA4",
+      "start": 0,
+      "end": 583,
+      "job": "J4",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 543,
+      "solution": "Sol10",
+      "late": 543,
+      "endDate": "2/10/2024 21:15",
+      "name": "JA5",
+      "start": 0,
+      "end": 543,
+      "job": "J5",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 596,
+      "solution": "Sol10",
+      "late": 596,
+      "endDate": "3/10/2024 01:40",
+      "name": "JA6",
+      "start": 0,
+      "end": 596,
+      "job": "J6",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 594,
+      "solution": "Sol10",
+      "late": 594,
+      "endDate": "3/10/2024 01:30",
+      "name": "JA7",
+      "start": 0,
+      "end": 594,
+      "job": "J7",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 589,
+      "solution": "Sol10",
+      "late": 589,
+      "endDate": "3/10/2024 01:05",
+      "name": "JA8",
+      "start": 0,
+      "end": 589,
+      "job": "J8",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 588,
+      "solution": "Sol10",
+      "late": 588,
+      "endDate": "3/10/2024 01:00",
+      "name": "JA9",
+      "start": 0,
+      "end": 588,
+      "job": "J9",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    }
+  ],
+  "job": [
+    {
+      "noOverlap": true,
+      "process": "process_0",
+      "name": "J0",
+      "order": "order_0"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_1",
+      "name": "J1",
+      "order": "order_1"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_2",
+      "name": "J2",
+      "order": "order_2"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_3",
+      "name": "J3",
+      "order": "order_3"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_4",
+      "name": "J4",
+      "order": "order_4"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_5",
+      "name": "J5",
+      "order": "order_5"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_6",
+      "name": "J6",
+      "order": "order_6"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_7",
+      "name": "J7",
+      "order": "order_7"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_8",
+      "name": "J8",
+      "order": "order_8"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_9",
+      "name": "J9",
+      "order": "order_9"
+    }
+  ],
+  "order": [
+    {
+      "product": "product_0",
+      "process": "process_0",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_0",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_1",
+      "process": "process_1",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_1",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_2",
+      "process": "process_2",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_2",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_3",
+      "process": "process_3",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_3",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_4",
+      "process": "process_4",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_4",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_5",
+      "process": "process_5",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_5",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_6",
+      "process": "process_6",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_6",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_7",
+      "process": "process_7",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_7",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_8",
+      "process": "process_8",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_8",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_9",
+      "process": "process_9",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_9",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    }
+  ],
+  "wip": []
+}

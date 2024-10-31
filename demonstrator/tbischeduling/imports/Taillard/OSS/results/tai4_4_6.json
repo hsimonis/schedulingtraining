@@ -1,0 +1,744 @@
+{
+  "product": [
+    {
+      "name": "product_0",
+      "defaultProcess": "process_0"
+    },
+    {
+      "name": "product_1",
+      "defaultProcess": "process_1"
+    },
+    {
+      "name": "product_2",
+      "defaultProcess": "process_2"
+    },
+    {
+      "name": "product_3",
+      "defaultProcess": "process_3"
+    }
+  ],
+  "process": [
+    {
+      "noOverlap": true,
+      "name": "process_0"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_1"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_2"
+    },
+    {
+      "noOverlap": true,
+      "name": "process_3"
+    }
+  ],
+  "disjunctiveResource": [
+    {"name": "DR_0"},
+    {"name": "DR_1"},
+    {"name": "DR_2"},
+    {"name": "DR_3"}
+  ],
+  "inputError": [{
+    "severity": "Major",
+    "item": "recreated",
+    "field": "",
+    "name": "Err1",
+    "description": "Jobs or Tasks missing, creating them from orders",
+    "classDesc": "job/task",
+    "value": ""
+  }],
+  "cumulativeNeed": [],
+  "processStep": [
+    {
+      "process": "process_0",
+      "name": "PS_0_0",
+      "durationFixed": 0,
+      "durationPerUnit": 9
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_1",
+      "durationFixed": 0,
+      "durationPerUnit": 83
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_2",
+      "durationFixed": 0,
+      "durationPerUnit": 17
+    },
+    {
+      "process": "process_0",
+      "name": "PS_0_3",
+      "durationFixed": 0,
+      "durationPerUnit": 57
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_0",
+      "durationFixed": 0,
+      "durationPerUnit": 78
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_1",
+      "durationFixed": 0,
+      "durationPerUnit": 30
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_2",
+      "durationFixed": 0,
+      "durationPerUnit": 43
+    },
+    {
+      "process": "process_1",
+      "name": "PS_1_3",
+      "durationFixed": 0,
+      "durationPerUnit": 40
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_0",
+      "durationFixed": 0,
+      "durationPerUnit": 57
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_1",
+      "durationFixed": 0,
+      "durationPerUnit": 8
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_2",
+      "durationFixed": 0,
+      "durationPerUnit": 56
+    },
+    {
+      "process": "process_2",
+      "name": "PS_2_3",
+      "durationFixed": 0,
+      "durationPerUnit": 19
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_0",
+      "durationFixed": 0,
+      "durationPerUnit": 66
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_1",
+      "durationFixed": 0,
+      "durationPerUnit": 5
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_2",
+      "durationFixed": 0,
+      "durationPerUnit": 64
+    },
+    {
+      "process": "process_3",
+      "name": "PS_3_3",
+      "durationFixed": 0,
+      "durationPerUnit": 62
+    }
+  ],
+  "label": "TbIScheduling data file",
+  "version": 8,
+  "resourceNeed": [
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_0_0",
+      "processStep": "PS_0_0"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_0_1",
+      "processStep": "PS_0_1"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_0_2",
+      "processStep": "PS_0_2"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_0_3",
+      "processStep": "PS_0_3"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_1_0",
+      "processStep": "PS_1_0"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_1_1",
+      "processStep": "PS_1_1"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_1_2",
+      "processStep": "PS_1_2"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_1_3",
+      "processStep": "PS_1_3"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_2_0",
+      "processStep": "PS_2_0"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_2_1",
+      "processStep": "PS_2_1"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_2_2",
+      "processStep": "PS_2_2"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_2_3",
+      "processStep": "PS_2_3"
+    },
+    {
+      "disjunctiveResource": "DR_0",
+      "name": "RN_3_0",
+      "processStep": "PS_3_0"
+    },
+    {
+      "disjunctiveResource": "DR_3",
+      "name": "RN_3_1",
+      "processStep": "PS_3_1"
+    },
+    {
+      "disjunctiveResource": "DR_1",
+      "name": "RN_3_2",
+      "processStep": "PS_3_2"
+    },
+    {
+      "disjunctiveResource": "DR_2",
+      "name": "RN_3_3",
+      "processStep": "PS_3_3"
+    }
+  ],
+  "downtime": [],
+  "cumulativeProfile": [],
+  "problem": [{
+    "timePointsAsDate": true,
+    "nrDisjunctiveResources": 4,
+    "nrOrders": 4,
+    "nrProcesses": 4,
+    "nrJobs": 4,
+    "nrProducts": 4,
+    "name": "ReadFromFile",
+    "nrTasks": 16,
+    "label": "tai4_4_6",
+    "nrCumulativeResources": 0
+  }],
+  "cumulativeResource": [],
+  "task": [
+    {
+      "duration": 9,
+      "name": "T0PS_0_0",
+      "processStep": "PS_0_0",
+      "job": "J0"
+    },
+    {
+      "duration": 83,
+      "name": "T0PS_0_1",
+      "processStep": "PS_0_1",
+      "job": "J0"
+    },
+    {
+      "duration": 17,
+      "name": "T0PS_0_2",
+      "processStep": "PS_0_2",
+      "job": "J0"
+    },
+    {
+      "duration": 57,
+      "name": "T0PS_0_3",
+      "processStep": "PS_0_3",
+      "job": "J0"
+    },
+    {
+      "duration": 78,
+      "name": "T1PS_1_0",
+      "processStep": "PS_1_0",
+      "job": "J1"
+    },
+    {
+      "duration": 30,
+      "name": "T1PS_1_1",
+      "processStep": "PS_1_1",
+      "job": "J1"
+    },
+    {
+      "duration": 43,
+      "name": "T1PS_1_2",
+      "processStep": "PS_1_2",
+      "job": "J1"
+    },
+    {
+      "duration": 40,
+      "name": "T1PS_1_3",
+      "processStep": "PS_1_3",
+      "job": "J1"
+    },
+    {
+      "duration": 57,
+      "name": "T2PS_2_0",
+      "processStep": "PS_2_0",
+      "job": "J2"
+    },
+    {
+      "duration": 8,
+      "name": "T2PS_2_1",
+      "processStep": "PS_2_1",
+      "job": "J2"
+    },
+    {
+      "duration": 56,
+      "name": "T2PS_2_2",
+      "processStep": "PS_2_2",
+      "job": "J2"
+    },
+    {
+      "duration": 19,
+      "name": "T2PS_2_3",
+      "processStep": "PS_2_3",
+      "job": "J2"
+    },
+    {
+      "duration": 66,
+      "name": "T3PS_3_0",
+      "processStep": "PS_3_0",
+      "job": "J3"
+    },
+    {
+      "duration": 5,
+      "name": "T3PS_3_1",
+      "processStep": "PS_3_1",
+      "job": "J3"
+    },
+    {
+      "duration": 64,
+      "name": "T3PS_3_2",
+      "processStep": "PS_3_2",
+      "job": "J3"
+    },
+    {
+      "duration": 62,
+      "name": "T3PS_3_3",
+      "processStep": "PS_3_3",
+      "job": "J3"
+    }
+  ],
+  "solution": [{
+    "makespan": 201,
+    "totalEarliness": 0,
+    "endDate": "1/10/2024 16:45",
+    "totalWaitBefore": 0,
+    "nrEarly": 0,
+    "percentEarly": 0,
+    "duration": 201,
+    "maxLateness": 201,
+    "maxWaitAfter": 0,
+    "nrLate": 4,
+    "gap": 0,
+    "solverRun": "tai4_4_6.json",
+    "end": 201,
+    "weightedEarliness": 0,
+    "totalLateness": 763,
+    "maxWaitBefore": 0,
+    "bound": 201,
+    "solverStatus": "Optimal",
+    "start": 0,
+    "totalWaitAfter": 0,
+    "percentLate": 100,
+    "weightedLateness": 763,
+    "maxEarliness": 0,
+    "name": "Sol37",
+    "objectiveValue": 201,
+    "flowtime": 763,
+    "startDate": "1/10/2024 00:00"
+  }],
+  "taskAssignment": [
+    {
+      "duration": 9,
+      "waitAfter": 0,
+      "task": "T0PS_0_0",
+      "disjunctiveResource": "DR_2",
+      "endDate": "1/10/2024 00:45",
+      "name": "TA0",
+      "start": 0,
+      "end": 9,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 83,
+      "waitAfter": 0,
+      "task": "T0PS_0_1",
+      "disjunctiveResource": "DR_3",
+      "endDate": "1/10/2024 12:00",
+      "name": "TA1",
+      "start": 61,
+      "end": 144,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 05:05"
+    },
+    {
+      "duration": 17,
+      "waitAfter": 0,
+      "task": "T0PS_0_2",
+      "disjunctiveResource": "DR_1",
+      "endDate": "1/10/2024 02:10",
+      "name": "TA2",
+      "start": 9,
+      "end": 26,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:45"
+    },
+    {
+      "duration": 57,
+      "waitAfter": 0,
+      "task": "T0PS_0_3",
+      "disjunctiveResource": "DR_0",
+      "endDate": "1/10/2024 16:45",
+      "name": "TA3",
+      "start": 144,
+      "end": 201,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 12:00"
+    },
+    {
+      "duration": 78,
+      "waitAfter": 0,
+      "task": "T1PS_1_0",
+      "disjunctiveResource": "DR_2",
+      "endDate": "1/10/2024 12:35",
+      "name": "TA4",
+      "start": 73,
+      "end": 151,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 06:05"
+    },
+    {
+      "duration": 30,
+      "waitAfter": 0,
+      "task": "T1PS_1_1",
+      "disjunctiveResource": "DR_0",
+      "endDate": "1/10/2024 02:30",
+      "name": "TA5",
+      "start": 0,
+      "end": 30,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 43,
+      "waitAfter": 0,
+      "task": "T1PS_1_2",
+      "disjunctiveResource": "DR_1",
+      "endDate": "1/10/2024 06:05",
+      "name": "TA6",
+      "start": 30,
+      "end": 73,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 02:30"
+    },
+    {
+      "duration": 40,
+      "waitAfter": 0,
+      "task": "T1PS_1_3",
+      "disjunctiveResource": "DR_3",
+      "endDate": "1/10/2024 15:55",
+      "name": "TA7",
+      "start": 151,
+      "end": 191,
+      "jobAssignment": "JA1",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 12:35"
+    },
+    {
+      "duration": 57,
+      "waitAfter": 0,
+      "task": "T2PS_2_0",
+      "disjunctiveResource": "DR_1",
+      "endDate": "1/10/2024 10:50",
+      "name": "TA8",
+      "start": 73,
+      "end": 130,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 06:05"
+    },
+    {
+      "duration": 8,
+      "waitAfter": 0,
+      "task": "T2PS_2_1",
+      "disjunctiveResource": "DR_0",
+      "endDate": "1/10/2024 05:45",
+      "name": "TA9",
+      "start": 61,
+      "end": 69,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 05:05"
+    },
+    {
+      "duration": 56,
+      "waitAfter": 0,
+      "task": "T2PS_2_2",
+      "disjunctiveResource": "DR_3",
+      "endDate": "1/10/2024 05:05",
+      "name": "TA10",
+      "start": 5,
+      "end": 61,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:25"
+    },
+    {
+      "duration": 19,
+      "waitAfter": 0,
+      "task": "T2PS_2_3",
+      "disjunctiveResource": "DR_2",
+      "endDate": "1/10/2024 14:10",
+      "name": "TA11",
+      "start": 151,
+      "end": 170,
+      "jobAssignment": "JA2",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 12:35"
+    },
+    {
+      "duration": 66,
+      "waitAfter": 0,
+      "task": "T3PS_3_0",
+      "disjunctiveResource": "DR_0",
+      "endDate": "1/10/2024 11:25",
+      "name": "TA12",
+      "start": 71,
+      "end": 137,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 05:55"
+    },
+    {
+      "duration": 5,
+      "waitAfter": 0,
+      "task": "T3PS_3_1",
+      "disjunctiveResource": "DR_3",
+      "endDate": "1/10/2024 00:25",
+      "name": "TA13",
+      "start": 0,
+      "end": 5,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 64,
+      "waitAfter": 0,
+      "task": "T3PS_3_2",
+      "disjunctiveResource": "DR_1",
+      "endDate": "1/10/2024 16:45",
+      "name": "TA14",
+      "start": 137,
+      "end": 201,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 11:25"
+    },
+    {
+      "duration": 62,
+      "waitAfter": 0,
+      "task": "T3PS_3_3",
+      "disjunctiveResource": "DR_2",
+      "endDate": "1/10/2024 05:55",
+      "name": "TA15",
+      "start": 9,
+      "end": 71,
+      "jobAssignment": "JA3",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 00:45"
+    }
+  ],
+  "processSequence": [],
+  "solverRun": [{
+    "seed": 42,
+    "solverBackend": "None",
+    "weightMakespan": 1,
+    "producePDF": false,
+    "enforceSetup": false,
+    "description": "",
+    "enforceTransportTime": false,
+    "enforceWip": false,
+    "timeout": 60,
+    "weightLateness": 1,
+    "produceReport": false,
+    "nrThreads": 2,
+    "weightEarliness": 1,
+    "solverStatus": "Optimal",
+    "label": "",
+    "modelType": "CPO",
+    "relaxSequence": false,
+    "objectiveType": "Makespan",
+    "weightFlowtime": 1,
+    "enforceCumulative": false,
+    "name": "tai4_4_6.json",
+    "time": 0.095,
+    "enforceDowntime": false,
+    "removeSolution": false,
+    "enforceReleaseDate": false,
+    "enforceDueDate": false
+  }],
+  "jobAssignment": [
+    {
+      "duration": 201,
+      "solution": "Sol37",
+      "late": 201,
+      "endDate": "1/10/2024 16:45",
+      "name": "JA0",
+      "start": 0,
+      "end": 201,
+      "job": "J0",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 191,
+      "solution": "Sol37",
+      "late": 191,
+      "endDate": "1/10/2024 15:55",
+      "name": "JA1",
+      "start": 0,
+      "end": 191,
+      "job": "J1",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    },
+    {
+      "duration": 165,
+      "solution": "Sol37",
+      "late": 170,
+      "endDate": "1/10/2024 14:10",
+      "name": "JA2",
+      "start": 5,
+      "end": 170,
+      "job": "J2",
+      "early": 0,
+      "startDate": "1/10/2024 00:25"
+    },
+    {
+      "duration": 201,
+      "solution": "Sol37",
+      "late": 201,
+      "endDate": "1/10/2024 16:45",
+      "name": "JA3",
+      "start": 0,
+      "end": 201,
+      "job": "J3",
+      "early": 0,
+      "startDate": "1/10/2024 00:00"
+    }
+  ],
+  "job": [
+    {
+      "noOverlap": true,
+      "process": "process_0",
+      "name": "J0",
+      "order": "order_0"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_1",
+      "name": "J1",
+      "order": "order_1"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_2",
+      "name": "J2",
+      "order": "order_2"
+    },
+    {
+      "noOverlap": true,
+      "process": "process_3",
+      "name": "J3",
+      "order": "order_3"
+    }
+  ],
+  "order": [
+    {
+      "product": "product_0",
+      "process": "process_0",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_0",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_1",
+      "process": "process_1",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_1",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_2",
+      "process": "process_2",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_2",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    },
+    {
+      "product": "product_3",
+      "process": "process_3",
+      "due": 0,
+      "releaseDate": "1/10/2024 00:00",
+      "release": 0,
+      "qty": 1,
+      "dueDate": "1/10/2024 00:00",
+      "name": "order_3",
+      "earlinessWeight": 1,
+      "latenessWeight": 1
+    }
+  ],
+  "wip": []
+}

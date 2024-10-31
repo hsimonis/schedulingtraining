@@ -81,8 +81,8 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setHorizon(50000);
                 base.setDirty(false);
                 setTitle(applicationTitle+" (Generated)");
-                new ReadJJFlatFile(base,"transport/instance400_1.txt");
-                setTitle(applicationTitle+" ("+base.getDataFile()+")");
+//                new ReadJJFlatFile(base,"transport/instance400_1.txt");
+//                setTitle(applicationTitle+" ("+base.getDataFile()+")");
                 return base;
         }
 

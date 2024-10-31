@@ -1,0 +1,268 @@
+\documentclass[a4paper]{article}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Script for Production Planning Case Study}
+\author{Helmut Simonis}
+\begin{document}
+\maketitle
+
+\section{Meta Information}
+\label{sec:introduction}
+
+This document contains the script to be used for a demo of the production planning case study of the ENTIRE EDIH skill development program on scheduling. The case study is based on a project with a local Cork medical devices company some time ago, but is using a different solution approach that is exploiting the scheduling tool at the core of this course. 
+
+\emph{N.B. The formatting of the slides is preliminary, I'm still waiting for the correct ENTIRE branded slide format.}   
+
+\section{Title Slide}
+\label{sec:titleslide}
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/titleslide}
+\caption{\label{fig:titleslide}Title Slide}
+\end{figure}
+
+As part of the skills development program on scheduling we look at a number of industrial case studies. Here we will briefly present a production planning and scheduling problem from a medical devices manufacturing company in Cork.
+
+\section{Key Points}
+\label{sec:keypoints}
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/keypointsslide}
+\caption{\label{fig:keypointsslide}Key Points}
+\end{figure}
+
+This is a case study from industry, combining production planning and detailed scheduling. It is based on a project that some of my colleagues were working on for a local medical devices company. 
+
+The overall problem is to decide which products to make in which quantities over the planning horizon, so that we have enough stock to satisfy any customer demand, and make sure that we have some safety margin if the demand suddenly increases. At the same time we do not want to create inventory in products that we will not sell in the near future, as this increases our inventory carrying cost.
+
+The company uses two main concepts for production planning:
+The run-out days for each product state how long the current stock will last, given a projected customer demand profile. We try to achieve the same run-out days value for all products, this works well for fast and slow moving products.
+
+The safety stock values says how much stock we should have for each product. This gives us more control over the stock levels, this works better if the demand cannot be predicted as accurately as we would like, but it is more difficult to compare the stock levels for  different products.
+
+The production planning part of the application decides how much to produce for which product, but this is based on a an estimate of the production capacity for the planning period. We use the detailed scheduling part of the application to validate the plan generated, and make sure that we can really produce the required capacities in the given planning period.
+
+\section{Application View: Products}
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/products}
+\caption{\label{fig:products}Products List View}
+\end{figure}
+
+
+This tables shows use the basic input data for the application. We have one entry for each product, which describes the different feature values that are given. The main features are:
+
+\begin{description}
+\item[Daily Sales] the number of units sold per day. We can see that there are some fast-moving products, Like P3, and many more slow moving products.
+
+\item[Inventory at Start] the number of pieces held in stock at the start of the analysis.
+
+\item[Days Cover] how many days the stock will last given the initial stock and the daily consumption, assuming we do not make any more of this product. Again we can see a wide range of value, depending on the product.
+
+\item[Lot Size] The products are made in lots, the size of the lot depends on the product, and how the products held in the production process. We often make more than one lot of the same product in a production run, as this increases productivity an reduces the setup time when changing products.
+
+\item[Cycle Time] How long does it take to make on item of this product. This value is in minutes.
+
+\item[Lot Duration] How long does it take to produce one lot of this product. This is derived from the previous values.
+
+Not all products can be made on all possible machines. Some products must be made on one specific machine, for others we can choose one of the possible machines. We can also make multiple production runs of the same product on different machines, if we need to make a large quantity.
+
+\item[Product Type] The product types of two consecutive products made on the same machines determine the time needed to setup the machine between the two runs. This is typically based on some properties of the products: Similar products require less setup time, very different products require a much longer time to switch the machine one one configuration to another.
+
+\item[Safety Stock] How much stock we would like to have in stock during the planning period. This value can be set by hand, or can be calculated by a more complex prediction model looking at the uncertainty of the demand prediction.
+
+\item[Safety Alert] Derived value saying at which point we reach the safety margin, given the initial stock and the predicted consumption. A low value  indicates that we need to make the product urgently, a value of zero states that even at the initial time we are already below the safety stock margin.
+\end{description}
+
+We can sort the products based on their feature values, to identify products with specific properties we want to watch.
+
+If we sort products by decreasing sales \emph{(Figure~\ref{fig:productsbydailysales})}, we see that product P3 is the fastest moving of the products. We will use P3 as a running example in this section.
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/productssortedbysales}
+\caption{\label{fig:productsbydailysales}Products Sorted by Decreasing Daily Sales}
+\end{figure}
+
+If we sort the products by increasing safety alert \emph{(Figure~\ref{fig:productsbysafetyalert})}, we see that product P35 has the lowest value, its stock is already below the safety level at the start of the planning period. We will check later on how the planner works for this product.
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/productssortedbysafetyalert}
+\caption{\label{fig:productsbysafetyalert}Products Sorted by Safety Alert Value }
+\end{figure}
+
+Finally, if we sort the products by the initial run-out days \emph{(Figure~\ref{fig:productsbydayscover})}, we see that the lowest value (20.0 days) is for product P35, but there are a number of other products that have run-out values below 30. In our solution we hope to maximize the worst case value over all products.
+ 
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/productssortedbydayscover}
+\caption{\label{fig:productsbydayscover}Products Sorted by Initial Run-Out Days}
+\end{figure}
+
+\clearpage
+\section{View: Setup Matrix}
+\label{sec:setupmatrix}
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/setupmatrix}
+\caption{\label{fig:setupmatrix}Setup Time Matrix Between Different Product Types}
+\end{figure}
+
+We have seen that each product has a product type, which in this case is derived from different product features. When changing from one product type to another on a machine, we have to spend the setup time, which is larger if the two products involved are more different from each other. We can have a look at the setup matrix generated, this is used in the detailed scheduling to determine the minimum time between to consecutive tasks on a machine. In our example, the times vary between zero and 90 minutes, with zero minutes used if the product types of the products are the same.
+
+
+\section{Running Planner}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.5\textwidth]{images/runningplanner}
+\caption{\label{fig:runningplanner}Running Planner Dialog Box}
+\end{figure}
+
+
+We now run the production planning tool, this brings up the following dialogue box \emph{(Figure~\ref{fig:runningplanner})}.
+
+We can decide on the value of the planning horizon, the period for which we are making the planning decisions. The further we look into the future, the more freedom we have in our planning process. At the same time, the uncertainty about future demands and other events limit the accuracy that we can achieve with the planning tool. We use seven days as our default planning horizon.
+
+The second parameter is the maximal run-out target value. We would like to achieve a high value, but our limited production capacity will limit what can be achieved in the given period. 
+
+The last parameter lets us choose the sizing strategy if we need more than one production run. By default, we attempt to make the required quantity of the product in a single run, thi reduces the setup time needed, and improves product quality. If the time needed to make the product exceeds the planning period, we need to make multiple, parallel runs to achieve the required quantity. In a balanced mode, we try to make the runs roughly the same length, in the Largest Possible mode we make some runs as long as possible, and then have a shorter run to achieve the remaining lots. 
+
+When we run the planner, the system performs three steps:
+\begin{enumerate}
+\item For each product, it analyses the stock situation, and determines the product need to achieve a given target.
+\item The planner then considers the demand for each product, and estimates which target we can achieve in a given planning period. It uses a model of the production capacity to make an accurate estimate.
+\item It then runs a detailed scheduling model to validate the plan, and see if the given target really can be achieved in the planning period. This more is much more detailed than the capacity model, and determines the precise start and end times for each production run.
+\end{enumerate}
+
+\section{Planner Results}
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/plannerresults}
+\caption{\label{fig:plannerresults}Planner Results}
+\end{figure}
+
+
+When the production planning module has finished, we present an overview of the results in the form of some charts. In each we see one of the KPIs of the planner as a function of the target run-out value. We only show those target values that the planner estimates can be achieved. 
+
+In our example,we see that the planner thinks that a target of 32 days can be achieved for all products. It shows
+
+\begin{description}
+\item[Achieved Days Cover]
+A value of nineteen days can be achieved just by respecting the safety stock foreach product during the planning period. As the aim for a specific target value, the actual achieved run-out target might be slightly higher than planned, as we make the products in fixed lot sizes.
+
+\item[Lots required]
+How many lots to we need to make to achieve the target value. Initially, there are only a few lots that need to be made to satisfy the safety margin, but then we need a rapidly increasing number of lots to achieve the target run-out value for all products.
+
+\item[Production Time Required]
+As the lot size and cycle time vary between the products, the number of lots is perhaps not the most accurate prediction of the effort required to achieve the target value. Here we express the production time needed to make all lots. At some point the total exceeds the capacity of the machines during the planning period, and we know that that target cannot be reached.
+
+\item[Worst Group Utilization]
+We were not discussing the details of the planning process, but one way of checking the production capacity is to identify a group of machines that acts as a bottleneck. In this plot we show the utilization of the bottleneck group for a given target, any value above 100\% cannot be achieved. For 32 days, the required utilization is over 90\%. 
+
+\item[Products Needing Production]
+It is also interesting how many different product we need to produce during the planning period. Initially, there are only three products that require production runs to satisfy the safety stock constraint. This value increases rapidly as the target value increases. 
+
+\item[Production Runs]
+We have seen that for fast moving products, wee may need more than one run during the planning period to make the needed quantity. The last plot shows use how many runs will be needed over all products.
+\end{description}
+
+\section{View: Product Level Chart}
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/productlevelchart}
+\caption{\label{fig:productlevelchart}Product Level Chart for Product P3}
+\end{figure}
+
+
+
+The product level chart shows the analysis we perform for each of the products. We initially look at a fast moving product, P3.
+
+At the start of the planning period, we have the initial stock for the product. Over time, the stock available drops due to the daily demand. We hit the safety stock level after 17 days, and run out of product completely after 33 days. This is not enough to achieve our target of 32 days after the planning period 7+32 = 39 days.
+
+In order to reach the target, we need to make the product within planning period. The quantity required can be calculated by shifting the consumption curve up to reach the target horizon. The increase compared to the stock at the horizon date gives us the required production during the planning period. As we make each products in lots, we may have to overshoot the required stock a bit to account for an integer number of lots. The size of a lot for this product is indicated on the plot. We also show the production time needed to make the required number of of lots, we also indicate if we need one or multiple production runs.
+
+The display is interactive, as we change the target value with the slider, we see how the target moves in time, resulting in more or less production need for a product. For some products, or when the target is small enough, the need for production disappears completely, we can reach the target value with the initial stock. In that case, we do not ask to make any lots of the product in our plan.
+
+We can see that for each product, we can come up with the way of achieving any wished for run-out target by increasing the number of lots to be made. But when considering all products together, this may require too much production time to fit into the planning period, given the number of machines that are available, and the restrictions on which product can be made on which machines. 
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/productlevelp35}
+\caption{\label{fig:productlevelp35}Product Level Chart for Product P35}
+\end{figure}
+
+If we analyze the product levels for the different products, we find some products that require additional attention. If we look at product P35 for example, we see that the initial stock is already below the safety stock level. We plan to make a single lot of this product, as this is enough to push the stock up well beyond the required target run-out date. But we also want to make sure that we achieve the safety stock level as quickly as possible. For the detailed scheduling problem, we set the due date of the production run to the time when the safety stock level is reached. In this case, it will be at time zero. As we cannot start the run before time zero, we will not achieve the safety stock at all times. But the due date will force this run to be scheduled as early as possible, reducing the time that the safety stock level is not reached.
+
+
+The planning module has its own capacity model, which we will not discuss in detail. But that capacity model is only an approximation of the actual production capacity of the factory. To really validate the plan, we need to schedule all requested runs on the machines in a detailed schedule. Our tool calls the scheduling tool as a sub-routine to do this, starting with the most promising candidate. If we can find a schedule where all tasks can be produced in the planning period, then that plan is workable and will be published as our result. If the due dates can be achieved, then the safety stock will be satisfied as well, but as we have seen before, this may not be possible for all products.
+
+\section{View: Production Runs}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.7\textwidth]{images/productionruns}
+\caption{\label{fig:productionruns}Production Runs for Validated Schedule}
+\end{figure}
+
+When we have run the detailed schedule, we import the information about the schedule of the production runs back into the planner. This gives us the list of the production runs, which show the start and end dates that were set in the scheduler for each run. We can compare this to the due dates of the runs, which were set to achieve the required safety stock for the product in the planning period.
+
+
+\section{View: Production Level Chart}
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/productionlevelchart}
+\caption{\label{fig:productionlevelchart}Production Level Chart for Product P3}
+\end{figure}
+
+We can visualize the stock levels of each product in the validated schedule, we here see the chart for product P3. The plot is very similar to the chart of the product levels used in the planning process, but now shows how the stock level increases at the end of each production run with the full quantity produced. The plot shows that we now reach the target run-out date for this product, while also satisfying the safety stock level during hte planning period. 
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/productionlevelp35}
+\caption{\label{fig:productionlevelp35}Production Level Chart for Product P35}
+\end{figure}
+
+If we select product P35 in the tree view on the left, we see the production level chart for that product. The initial stock is below the safety level, but we make one lot immediately at the start, that quantity is large enough to provide stock for much longer than our target rout-out date, as the daily demand is quite low.
+
+
+\section{Detailed Schedule}
+
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/detailedschedule}
+\caption{\label{fig:detailedschedule}Detailed Schedule for Target 32 Days}
+\end{figure}
+
+In the planning application itself, the scheduling tool is running as a sub-routine, with data and results exchanged between planner and scheduler without human intervention. But we can also look at the schedule results inside the scheduling tool. If we look at the Gantt chart of the validated schedule for the 32 day target, we can see the production runs scheduled on the machines, and the initial jobs being scheduled. Each job only consists of a single task, the production run itself, which makes the required number of lots.
+
+In the Machine Gantt at the top, we see the production runs together with the setup time needed between the tasks. All tasks finish before the end of the planning horizon, and only one task does not achieve its due date. For P35, the due date is zero, as the stock is already below the safety level at the start of the planning period. We schedule the required production run as early as possible, but the end of the run cannot be at time zero, so that order is late.
+
+We see that some machines are not utilized at all in this schedule, we do not need a production run of any of the products that can use these machines. On the other hands, many machines are utilized more than 90\%, as predicted by the production planning tool. If we select a task on one of those machines, for example one of the runs of product P3 \emph{(Figure~\ref{fig:alternativemachines})}, the system highlights the alternative machines on which this task could be run. We see that all the alternatives are also highly utilized, indicating that these machines form a production bottleneck in the factory.
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/alternativemachines}
+\caption{\label{fig:alternativemachines}Alternative Machines for Production Run of Product P3}
+\end{figure}
+
+The result means that this is a valid schedule. We can further optimize the schedule by trying to find a better solution, by selecting a slightly different objective function, but we will not explore this here.
+
+\section{Summary Slide}
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/summaryslide}
+\caption{\label{fig:summaryslide}Summary Slide}
+\end{figure}
+
+In this demonstration of a industrial use case, we have shown how the scheduling tool can help to solve a production planning problem from industry. The overall solution consists of two parts.
+\begin{itemize}
+\item The production planning part decides which products to make in which quantity, by analyzing the stock levels of each product, and the required demand for the product over time. The capacity model of the planner can identify a promising production plan.
+\item The scheduling tool is used to validate the plan by generating a detailed schedule satisfying all constraints of the factory. If we find a feasible solution, then the generated plan is valid. If we do not find a solution, then we need to relax some constraints or reduce the desired target run-out value.
+\end{itemize}
+
+
+
+\end{document} 
+
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{images/}
+\caption{\label{fig:}}
+\end{figure}

@@ -605,6 +605,7 @@ public class ReadData {
                     int qty = item.getInt("qty");
                     int due = item.getInt("due");
                     int release = item.getInt("release");
+                    int nr = optionalInteger(item,"nr",i);
                     DateTime dueDate = readDateTime(item.getString("dueDate"),due);
                     DateTime releaseDate = readDateTime(item.getString("releaseDate"),release);
                     double latenessWeight = 1.0;
@@ -646,6 +647,7 @@ public class ReadData {
                     ord.setRelease(release);
                     ord.setLatenessWeight(latenessWeight);
                     ord.setEarlinessWeight(earlinessWeight);
+                    ord.setNr(nr);
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -1273,6 +1275,12 @@ public class ReadData {
             return item.getInt(key);
         }
         return null;
+    }
+    private int optionalInteger(JSONObject item,String key,int v){
+        if (item.has(key)){
+            return item.getInt(key);
+        }
+        return v;
     }
     private Boolean optionalBoolean(JSONObject item,String key,boolean v){
         if (item.has(key)){

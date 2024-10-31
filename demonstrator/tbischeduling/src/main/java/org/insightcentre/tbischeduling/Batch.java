@@ -31,7 +31,6 @@ public class Batch {
 
     public JSONObject query(JSONObject queryInput){
         Scenario base = new Scenario();
-        System.out.println("a");
         base.setDataFileVersionNumber(8.0);
         base.setDataFile("");
         base.setHorizon(20000);
@@ -53,16 +52,13 @@ public class Batch {
     }
 
     public static void main(String[] args) {
-        System.out.println("hello world");
         Scenario base = new Scenario();
-        System.out.println("a");
         base.setDataFileVersionNumber(8.0);
         base.setDataFile("");
         base.setHorizon(20000);
         base.setTimeResolution(5);
         base.setStartDateTime(new DateTime(2024,10,1,0,0));
 
-        info("Starting");
         assert (args.length == 2);
         String inputFile = args[0];
         String outputFile = args[1];
