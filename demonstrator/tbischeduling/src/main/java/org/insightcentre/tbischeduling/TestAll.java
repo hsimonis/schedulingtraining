@@ -44,8 +44,8 @@ public class TestAll {
 //        testAll("imports/Taillard/OSS/");
 //        analyzeAll("imports/Taillard/OSS/","Taillard OpenShop","oss");
 //        testAll("imports/Taillard/JSS/");
-        analyzeAll("imports/Taillard/JSS/","Taillard JobShop","jss");
-//        testAll("imports/Taillard/FSS/");
+//        analyzeAll("imports/Taillard/JSS/","Taillard JobShop","jss");
+        testAll("imports/Taillard/FSS/");
 //        analyzeAll("imports/Taillard/FSS/","Taillard Flowshop","fss");
     }
 
@@ -77,7 +77,7 @@ public class TestAll {
             test.setEnforceSetup(false);
             test.setEnforceTransportTime(false);
             test.setRelaxSequence(false);
-            test.setTimeout(300);
+            test.setTimeout(600);
             test.setModelType(CPO);
             test.setObjectiveType(ObjectiveType.Makespan);
             test.setNrThreads(2);
