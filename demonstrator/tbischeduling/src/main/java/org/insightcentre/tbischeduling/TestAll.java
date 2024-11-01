@@ -45,8 +45,8 @@ public class TestAll {
 //        analyzeAll("imports/Taillard/OSS/","Taillard OpenShop","oss");
 //        testAll("imports/Taillard/JSS/");
 //        analyzeAll("imports/Taillard/JSS/","Taillard JobShop","jss");
-        testAll("imports/Taillard/FSS/");
-//        analyzeAll("imports/Taillard/FSS/","Taillard Flowshop","fss");
+//        testAll("imports/Taillard/FSS/");
+        analyzeAll("imports/Taillard/FSS/","Taillard Flowshop","fss");
     }
 
     private static void testAll(String importDir){
