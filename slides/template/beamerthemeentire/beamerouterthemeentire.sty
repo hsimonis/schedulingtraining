@@ -5,7 +5,7 @@
 
 
 \pgfdeclareimage[width=\paperwidth]{entireTitleBackground}{../template/beamerthemeentire/entire_title_slide_background.png}
-\pgfdeclareimage[width=\paperwidth]{entireSlideBackground}{../template/beamerthemeentire/entire_slide_background.png}
+\pgfdeclareimage[width=\paperwidth]{entireSlideBackground}{../template/beamerthemeentire/entire_slide_background.pdf}
 
 
 \defbeamertemplate*{navigation symbols}{}  %remove navigation symbols
@@ -16,15 +16,15 @@
     \usebeamercolor[fg]{footer}
     \vspace{20px}  % Specify gap for the Entire footer background
 
-    \pgftext[left,bottom,at=\pgfpoint{0.05\paperwidth}{0.005\paperwidth}]{
+    \pgftext[left,bottom,at=\pgfpoint{0.05\paperwidth}{0.01\paperwidth}]{
       ENTIRE EDIH
     }
 
     % Slide number and date on the bottom right
-    \pgftext[right,bottom,at=\pgfpoint{0.95\paperwidth}{0.005\paperwidth}]{
+    \pgftext[right,bottom,at=\pgfpoint{0.95\paperwidth}{0.01\paperwidth}]{
       Slide \insertframenumber
     }
-    \pgftext[bottom,at=\pgfpoint{0.5\paperwidth}{0.005\paperwidth}]{
+    \pgftext[bottom,at=\pgfpoint{0.5\paperwidth}{0.01\paperwidth}]{
       \insertshortdate
     }
   \fi

@@ -44,9 +44,9 @@ public class TestAll {
 //        testAll("imports/Taillard/OSS/");
 //        analyzeAll("imports/Taillard/OSS/","Taillard OpenShop","oss");
 //        testAll("imports/Taillard/JSS/");
-//        analyzeAll("imports/Taillard/JSS/","Taillard JobShop","jss");
+        analyzeAll("imports/Taillard/JSS/","Taillard JobShop","jss");
 //        testAll("imports/Taillard/FSS/");
-        analyzeAll("imports/Taillard/FSS/","Taillard Flowshop","fss");
+//        analyzeAll("imports/Taillard/FSS/","Taillard Flowshop","fss");
     }
 
     private static void testAll(String importDir){
@@ -97,6 +97,7 @@ public class TestAll {
                 .filter(file -> !file.isDirectory())
                 .map(File::getName)
                 .filter(x->x.endsWith(".json"))
+                .sorted() //to get a standard order
 //                .limit(2)
                 .collect(Collectors.toList());
     }
