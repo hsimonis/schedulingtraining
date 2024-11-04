@@ -1,0 +1,57 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "vmArgs": "-ea -Xms64m -Xmx2g --module-path=/Users/lquesada/javafx-sdk-20.0.2/lib --add-modules=javafx.controls,javafx.fxml,javafx.web -classpath /Applications/CPLEX_Studio2211/cpoptimizer/lib/ILOG.CP.jar -Djava.library.path=/Applications/CPLEX_Studio2211/cpoptimizer/bin/arm64_osx/:/Applications/CPLEX_Studio2211/opl/bin/arm64_osx/",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Batch",
+            "request": "launch",
+            "mainClass": "org.insightcentre.tbischeduling.Batch",
+            "projectName": "tbischeduling"
+        },
+        {
+            "type": "java",
+            "name": "GeneratedJfxApp",
+            "request": "launch",
+            "mainClass": "org.insightcentre.tbischeduling.GeneratedJfxApp",
+            "projectName": "tbischeduling"
+        },
+        {
+            "type": "java",
+            "name": "JfxApp",
+            "request": "launch",
+            "mainClass": "org.insightcentre.tbischeduling.JfxApp",
+            "projectName": "tbischeduling"
+        },
+        {
+            "type": "java",
+            "name": "TestAll",
+            "request": "launch",
+            "mainClass": "org.insightcentre.tbischeduling.TestAll",
+            "projectName": "tbischeduling"
+        },
+        {
+            "type": "java",
+            "name": "lqTestAll",
+            "request": "launch",
+            "mainClass": "org.insightcentre.tbischeduling.lqTestAll",
+            "projectName": "tbischeduling"
+        },
+        {
+            "type": "java",
+            "name": "RestClient",
+            "request": "launch",
+            "mainClass": "org.insightcentre.tbischeduling.utilities.RestClient",
+            "projectName": "tbischeduling"
+        }
+    ]
+}
