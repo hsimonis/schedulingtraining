@@ -1,0 +1,554 @@
+\documentclass[dvipsnames,aspectratio=169]{beamer}
+\usepackage{beamerthemeinsight/insight}
+% Insight branding requires Ubuntu fonts, not possible with overleaf 
+\usepackage[medium]{ubuntu}  % this defines ubuntu fonts for all elements of presentation
+
+\usepackage{qrcode}
+
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+\usetikzlibrary{shadows}
+\usetikzlibrary{arrows.meta}
+\tikzset{modelling/.style={fill=insight-royalblue!20,draw=black!40}}
+\tikzset{stakeholder/.style={fill=insight-lime!20,draw=black!40}}
+\tikzset{technology/.style={fill=insight-maroon!20,draw=black!40}}
+\tikzset{papers/.style={fill=insight-yellow,opacity=0.1,draw=black!40}}
+
+\usepackage{pdfpages}
+
+\usepackage{pgfplots}
+\pgfplotsset{width=7cm,compat=1.15}
+\usepackage{booktabs}
+%\usepackage[absolute,overlay,showboxes]{textpos}
+\usepackage[absolute,overlay]{textpos}
+
+\usepackage{amssymb}
+\usepackage{pifont}
+
+\usepackage{adjustbox}
+\usepackage{array}
+
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{R{45}{1em}}}% no optional argument here, please!
+\usepackage{listings}
+\usepackage{colortbl}
+\usepackage{mdframed}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{pifont}
+\newcommand{\greentick}{{\color{insight-lime}\checkmark}}
+\newcommand{\orangetick}{{\color{orange}(\checkmark)}}
+\newcommand{\redx}{{\color{red}\ding{55}}}
+\usepackage{MnSymbol,wasysym}
+
+\renewcommand<>\cellcolor[1]{\only#2{\beameroriginal\cellcolor{#1}}}
+%\renewcommand<>\rowcolor[1]{\only#2{\beameroriginal\rowcolor{#1}}}
+
+
+\usepackage{adjustbox}
+\usepackage{array}
+
+\definecolor{eclipseStrings}{RGB}{42,0.0,255}
+\definecolor{eclipseKeywords}{RGB}{127,0,85}
+\colorlet{numb}{magenta!60!black}
+\newcommand{\best}{\cellcolor{green!10}}
+\newcommand{\ccg}{\cellcolor{green!10}}
+\newcommand{\ccr}{\cellcolor{red!10}}
+\newcommand{\ccb}{\cellcolor{blue!10}}
+\newcommand{\ccy}{\cellcolor{yellow!10}}
+\newcommand{\gray}{\cellcolor{black!10}}
+
+\usepackage{hyperref}
+
+\AtBeginSection[]{
+  \begin{frame}
+ \tableofcontents[sections=\value{section},currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]{
+  \begin{frame}
+\tableofcontents[sections=\value{section},currentsection,currentsubsection]
+  \end{frame}
+}
+  
+\author{Helmut Simonis}
+\institute{Insight SFI Centre for Data Analytics, UCC, Ireland}
+\title{\small Approximating a Global Objective by Solving
+Repeated\\ Sub-problems for an Oven Scheduling
+Problem} 
+\date{DecisionCamp 2024, September 2024}
+
+\begin{document}
+
+ %Title page
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Key Points}
+\begin{itemize}
+\item Discusses two topics:
+\begin{itemize}
+\item Solve a very specific industrial scheduling problem from the ASSISTANT EU project
+\item Discuss the general issue of short-term scheduling vs. long-term objectives
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%\includepdf[pages={2},frame=true,pagecommand={\thispagestyle{empty}}]{InsightOneSlide}
+\begin{frame}
+\frametitle{Insight is one of the largest data research and innovation centres in Europe...}
+\includegraphics[width=.95\textwidth]{onepage}
+\end{frame}
+
+\begin{frame}
+\frametitle{Research Challenge}
+\begin{itemize}
+\item Often the long-term business objectives are not visible in the operational decision problem
+\item We optimize a short-term objective without understanding the impact in the long term
+\item What choices should we make in short-term to improve overall result?
+\item Especially important when future data not yet visible
+\item Surprisingly, this problem is rarely discussed in literature
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Examples}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Production Scheduling
+\item Nearly all scheduling benchmarks use $c_{max}$ (makespan) as objective
+\item Why?
+\item Do we want to close factory as rapidly as possible?
+\end{itemize}
+\includegraphics[width=7cm]{scheduling}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Car Sequencing
+\item The best heuristics push difficult cars to the edge of schedule
+\item Because they are easier to schedule this way
+\item But: It makes it hard to schedule next day
+\end{itemize}
+\includegraphics[width=7cm]{carseq}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Examples}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Personnel Rostering
+\item Satisfy working rules and demands for period
+\item But: rules apply on a rolling horizon
+\item Easy to over-constrain problem for next period
+\end{itemize}
+\includegraphics[width=4cm]{rfo}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Transportation Planning
+\item Build daily delivery tours, optimizing cost
+\item Where are your trucks at 10PM?
+\item Also, avoid cherry-picking at start of week
+\end{itemize}
+\includegraphics[width=5.5cm,angle=180]{metagointago}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problem Studied Here}
+\begin{itemize}
+\item Example from the ASSISTANT EU project (ended last year)
+\item Oven schedule for one of the industrial partners
+\item Schedule tasks on a set of ovens
+\item Tasks can share oven only if they are compatible
+\item Conflicting objectives
+\begin{itemize}
+\item Energy use of ovens very significant, reduce when ovens are used
+\item Waiting for an oven affects quality of product
+\end{itemize}
+\item Jobs only visible when previous process step starts
+\item Currently scheduled by hand, industry partner expressed strong need for change
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{What does this look like in the real world?}
+\begin{tabular}{cc}
+\includegraphics[width=5cm]{../images/oven}
+&
+\includegraphics[width=7cm]{../images/compressor}
+\\
+Industrial Oven & Rotors in Compressor
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution Approach: Constraint Programming}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Declarative modelling approach for combinatorial problems
+\begin{itemize}
+\item Problem expressed in terms of variables and constraints
+\end{itemize}
+\item Global constraints
+\begin{itemize}
+\item Combines expressive modelling abstractions and powerful reasoning
+\item Examples: disjunctive, cumulative, global\_cardinality
+\end{itemize}
+\item Compositional: Add constraints as required
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Main application areas
+\begin{itemize}
+\item Scheduling, rostering, transportation
+\item Also: test generation, verification, configuration
+\end{itemize}
+\end{itemize}
+
+\includegraphics[width=.9\textwidth]{wordcloud}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Overall Decomposition (Standard)}
+\begin{itemize}
+\item We can only see that far into future
+\item We do not want to take decisions now that we might regret later
+\item We have to make some decisions now otherwise we never do anything
+\item \emph{Rolling horizon} decomposition
+\begin{itemize}
+\item We schedule up to \emph{lookahead horizon} units into the future
+\item We commit to implement resulting schedule only to up \emph{commitHorizon}
+\item We reschedule when we receive new information, or we reach the end of commitment 
+\item We solve each short-term sub problem based on short-term objectives
+\end{itemize}
+\end{itemize}
+\input{decomposition}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Short-Term Schedule Modelling}
+\begin{itemize}
+\item Challenge: There is no global constraint to express the oven resource constraint
+\item We are not able to invest a lot of time/resources to develop such a constraint
+\item Two choices:
+\begin{itemize}
+\item Two traditional models with variables linking them (Lackner et al, Constraints 2023)
+\item Direct model expressing conditions as disjunctions of basic constraints
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The Standard Pieces}
+\begin{itemize}
+\item Jobs $N$ consisting of multiple stages $Q$, tasks for each stage of each job, running on machines $M$
+\item Release dates $r_{i}$ of jobs given by up-stream schedule
+\item WiP $w_{k}$ on certain machines resulting from earlier schedule
+\item Machine $m_{ij}$ and start variables $s_{ij}$ for each task
+\item Precedence constraints between tasks of each jobs, with total waiting time $c_{i}$ when waiting for resource
+\item Total number of ovens used in schedule \emph{nrOvens} by \emph{nvalue} constraint
+\end{itemize}
+\begin{equation*}
+\textrm{nvalue}(\textrm{nrOvens},[m_{ij} | i \in N, j \in Q] \textrm{++} [k | k \in M \textrm{ s.t. } w_{k} > 0])
+\end{equation*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Resource Constraints}
+We start from the basic decomposition of the disjunctive machine choice constraint
+\begin{align*}
+\forall_{i_{1},i_{2} \in N}\forall_{j_{1},j_{2} \in Q \textrm{ s.t. } <i_{1},j_{1}> \neq <i_{2},j_{2}>}:\quad m_{i_{1}j_{1}} \neq m_{i_{2}j_{2}} \lor&\\
+ s_{i_{1}j_{1}} \geq s_{i_{2}j_{2}} + d_{i_{2}j_{2}} \lor& \\
+ s_{i_{2}j_{2}} \geq s_{i_{1}j_{1}} + d_{i_{1}j_{1}}
+\end{align*}
+Express case where tasks share an oven (only when types and stages are the same)
+\begin{align*}
+\forall_{i_{1},i_{2} \in N \textrm{ s.t. } i_{1} \neq i_{2}}\forall_{j \in Q}:\quad m_{i_{1}j} \neq m_{i_{2}j} \lor & \\
+s_{i_{1}j} \geq s_{i_{2}j} + d_{i_{2}j} \lor& \\
+ s_{i_{2}j} \geq s_{i_{1}j} + d_{i_{1}j} \lor& \\
+ (t_{i_{1}j_{1}} = t_{i_{2}j_{2}} \land m_{i_{1}j} = m_{i_{2}j} \land s_{i_{1}j} = s_{i_{2}j})
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Limit stacking}
+Need binary variables $b_{i_1i_2j}$ to state that two jobs $i_1$ and $i_2$ share oven in stage $j$
+\begin{align*}
+\forall_{i_{1},i_{2} \in N \textrm{ s.t. } i_{1} < i_{2}}\forall_{j \in Q}:\quad (b_{i_{1}i_{2}j} = 0 \land (m_{i_{1}j} \neq m_{i_{2}j} \lor & \\
+s_{i_{1}j} \geq s_{i_{2}j} + d_{i_{2}j} \lor& \\
+ s_{i_{2}j} \geq s_{i_{1}j} + d_{i_{1}j}) \lor& \\
+ (b_{i_{1}i_{2}j} = 1 \land t_{i_{1}j_{1}} = t_{i_{2}j_{2}} \land m_{i_{1}j} = m_{i_{2}j} \land s_{i_{1}j} = s_{i_{2}j})
+\end{align*}
+Count how many jobs share stage $j$ with job $i$
+\begin{equation*}
+\forall_{i \in N}\forall_{j \in Q}:\quad z_{ij} = \sum_{i_{1} = 1}^{i-1} b_{i_{1}ij} + \sum_{i2 = i+1}^{n} b_{ii_{i2}j}
+\end{equation*}
+Limit how many tasks can be stacked together
+\begin{equation*}
+\forall_{i \in N}\forall_{j \in Q}:\quad z_{ij} < \textrm{maxStacked}
+\end{equation*}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{This should not work!}
+\begin{itemize}
+\item Weakness of basic decomposition model was the reason to develop the scheduling constraints in the first place
+\item Does not scale well to thousands of tasks
+\item But model is well suited to some solvers
+\begin{itemize}
+\item SAT based solvers, Chuffed, CP-SAT (OR-Tools)
+\item MIP solvers
+\end{itemize} 
+\item This works (only) as long as problem size stays manageable
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Compound Objective}
+\begin{equation*}
+\min \alpha_{1}\sum_{i \in N} c_{i} + \alpha_{2} \textrm{nrOvens} +\alpha_{3}\sum_{i \in N, j \in Q} z_{ij} \label{obj}
+\end{equation*}
+\begin{itemize}
+\item Three conflicting elements
+\begin{itemize}
+\item Total waiting time for jobs
+\item Number of ovens used
+\item Number of tasks stacked (negative coefficient)
+\end{itemize}
+\item Reducing waiting time requires using more ovens
+\item Improved stacking will require for one job to wait until second is ready
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Short-Term Schedule: Job View}
+\includegraphics[width=.8\textwidth]{../images/jobgantt}
+\end{frame}
+
+\begin{frame}
+\frametitle{Short Term Schedule: Resource View}
+\includegraphics[width=.8\textwidth]{../images/ovengantt}
+\end{frame}
+
+\begin{frame}
+\frametitle{Are the short-term solutions good?}
+\begin{itemize}
+\item We solve many problems to optimality, depending on solver
+\item Optimality gap is small, increasing search time helps a bit
+\item But are we optimizing the best possible objective?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Long Term Schedule: Detailed Schedule}
+\includegraphics[width=.8\textwidth]{../images/ovenschedule}
+\end{frame}
+
+\begin{frame}
+\frametitle{Long Term Schedule: Abstracted Machine Runs}
+\includegraphics[width=.8\textwidth]{../images/ovenruns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Is that a good global schedule? KPIs}
+\scalebox{0.6}{
+\begin{tabular}{llp{6cm}}\toprule
+Name & Unit & Explanation \\\midrule
+Global Time & Seconds & Total time for solving all sub problems\\
+Nr Jobs & -& Total number of jobs scheduled\\
+Nr Tasks & -& Total number of tasks scheduled\\
+Percent Optimal & Percentage (0-100) & How many sub problems were solved to optimality\\
+Percent Stacked Tasks & Percentage (0-100) & Percentage of all tasks scheduled that were stacked\\
+Percent Jobs No Wait & Percentage (0-100) & Percentage of jobs that were scheduled without any waiting time\\
+Job Average Wait & Minutes & Average wait time over all jobs \\
+Job Maximal Wait & Minutes & Largest waiting time for any job scheduled\\
+Ovens Used & - & Total number of ovens used during period\\
+Avg Task Duration & Minutes & Average tasks duration (influenced by stacking)\\
+Oven Runs & - & Number of oven runs over total horizon\\
+Run Overhead Percent & Percentage (0-100) & Overhead during oven runs when machine is idle\\
+Avg Runs per Oven Used & - & Average number of oven runs per oven used\\ 
+\bottomrule
+\end{tabular}
+}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Impact of Lookahead Parameter}
+\includegraphics[width=.8\textwidth]{../images/lookahead}
+\end{frame}
+
+\begin{frame}
+\frametitle{Impact of CommitHorizon Parameter}
+\includegraphics[width=.8\textwidth]{../images/commithorizon}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Comparing Different Solvers}
+% \includegraphics[width=.8\textwidth]{../images/solvertype}
+% \end{frame}
+
+\begin{frame}
+\frametitle{Is the global solution really good?}
+\begin{itemize}
+\item We schedule with limited information
+\item Hindsight is 20/20, we cannot expect best possible solution from partial information
+\item Process Challenge: Can we improve data visibility?
+\item Demand is variable over time, no steady-state solution
+\item Modelling Challenge: Can we define a short-term objective that produces better long-term solutions?
+\item Algorithm Challenge: Can we solve the global problem to optimality?
+\begin{itemize}
+\item Assumes "a priori" visibility of data
+\item This would provide a lower bound 
+\item But we need optimality to use as bound
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{To Learn More}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item \href{https://modref.github.io/papers/ModRef2024_ApproximatingaGlobalObjectivebySolvingRepeatedSubproblems.pdf}{Paper on this problem (ModRef2024)} \qrcode[link,height=1.2cm]{https://modref.github.io/papers/ModRef2024_ApproximatingaGlobalObjectivebySolvingRepeatedSubproblems.pdf}
+\item \href{https://arxiv.org/abs/2403.12717}{Overview of Teaching of Constraint Programming (Preprint)} \qrcode[link,height=1.2cm]{https://arxiv.org/abs/2403.12717}
+\item \href{https://hsimonis.github.io/pthg24/}{Large survey on Constraint Programming and Scheduling (under development)} \qrcode[link,height=1.2cm]{https://hsimonis.github.io/pthg24/}
+\end{itemize}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+From Survey: Nr of Works by Year
+\includegraphics[width=\textwidth]{surveybyyear}
+Sample: Works on Application Areas
+\includegraphics[width=\textwidth]{applicationareas}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Training Course on Constraint-Based Production Scheduling}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Training Course as part of ENTIRE project
+\item European Digital Innovation Hub
+\item Munster region, Ireland
+\item For Irish SMEs, public sector
+\item Two day course on 21/22 Nov 2024
+\item Modelling focus
+\item \href{https://entire-edih.ie/ai-fundamentals-constraint-based-production-scheduling/}{Link} \qrcode[link,height=1.2cm]{https://entire-edih.ie/ai-fundamentals-constraint-based-production-scheduling/}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\href{https://entire-edih.ie/}{About ENTIRE}
+
+\vspace{0.5cm}
+
+\includegraphics[width=.4\textwidth]{entirelogo}
+
+\vspace{0.5cm}
+
+\includegraphics[width=\textwidth]{entirepartners}
+
+\vspace{0.5cm}
+
+\includegraphics[width=.3\textwidth]{entirefunders}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item Discussed a non-standard oven scheduling problem from industry
+\item Models with decomposition of resource constraints
+\item Good/very good short-term solutions
+\item But is the overall schedule close to the global optimum?
+\item In any case, industry partner was happy with solution and analysis
+\end{itemize}
+\end{frame}
+
+
+\end{document}
+
+\begin{frame}
+\frametitle{}
+\begin{itemize}
+\item
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Real-World Problem
+\begin{itemize}
+\item 
+\end{itemize}
+\item Status
+\begin{itemize}
+\item 
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Research Challenges
+\begin{itemize}
+\item 
+\end{itemize}
+\item Solution Approach
+\begin{itemize}
+\item 
+\end{itemize}
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+
