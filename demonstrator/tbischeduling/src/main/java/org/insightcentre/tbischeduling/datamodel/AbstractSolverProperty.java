@@ -58,6 +58,8 @@ import org.insightcentre.tbischeduling.datamodel.ResourceChoice;
 import org.insightcentre.tbischeduling.datamodel.LineChoice;
 import org.insightcentre.tbischeduling.datamodel.DatesDisplay;
 import org.insightcentre.tbischeduling.datamodel.ResourceZoom;
+import org.insightcentre.tbischeduling.datamodel.TimingDisplay;
+import org.insightcentre.tbischeduling.datamodel.DurationDisplay;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;
@@ -74,6 +76,15 @@ import framework.AppearInCollection;
 */
 
 public abstract class AbstractSolverProperty extends ApplicationObject{
+/**
+ *  
+ *
+*/
+
+    public Boolean addSameOrder;
+
+    private transient BooleanProperty addSameOrderWrapper;
+
 /**
  *  
  *
@@ -283,6 +294,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 
     public AbstractSolverProperty(ApplicationDataset applicationDataset){
         super(applicationDataset);
+        setAddSameOrder(false);
         setDescription("");
         setEnforceCumulative(true);
         setEnforceDowntime(true);
@@ -320,6 +332,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
     public AbstractSolverProperty(ApplicationDataset applicationDataset,
             Integer id,
             String name,
+            Boolean addSameOrder,
             String description,
             Boolean enforceCumulative,
             Boolean enforceDowntime,
@@ -347,6 +360,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
         super(applicationDataset,
             id,
             name);
+        setAddSameOrder(addSameOrder);
         setDescription(description);
         setEnforceCumulative(enforceCumulative);
         setEnforceDowntime(enforceDowntime);
@@ -378,6 +392,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
         this(other.applicationDataset,
             other.id,
             other.name,
+            other.addSameOrder,
             other.description,
             other.enforceCumulative,
             other.enforceDowntime,
@@ -413,6 +428,24 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 
     public Boolean remove(){
         return getApplicationDataset().removeAbstractSolverProperty(this) && getApplicationDataset().removeApplicationObject(this);
+    }
+
+/**
+ *  get attribute addSameOrder
+ *
+ * @return Boolean
+*/
+
+    public Boolean getAddSameOrder(){
+        return this.addSameOrder;
+    }
+
+    public BooleanProperty addSameOrderWrapperProperty() {
+        if (addSameOrderWrapper == null) {
+            addSameOrderWrapper = new SimpleBooleanProperty();
+        }
+        addSameOrderWrapper.set(addSameOrder);
+        return addSameOrderWrapper;
     }
 
 /**
@@ -741,6 +774,18 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 
     public Integer getWeightMakespan(){
         return this.weightMakespan;
+    }
+
+/**
+ *  set attribute addSameOrder, mark dataset as dirty, mark dataset as not valid
+@param addSameOrder Boolean
+ *
+*/
+
+    public void setAddSameOrder(Boolean addSameOrder){
+        this.addSameOrder = addSameOrder;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -1125,7 +1170,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceSetup()+ " " +getEnforceTransportTime()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRelaxSequence()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getStartDateTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan();
+        return ""+ " " +getId()+ " " +getName()+ " " +getAddSameOrder()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceSetup()+ " " +getEnforceTransportTime()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRelaxSequence()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getStartDateTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan();
     }
 
 /**
@@ -1149,6 +1194,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
          out.println("<abstractSolverProperty "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
+            " addSameOrder=\""+toXMLAddSameOrder()+"\""+
             " description=\""+toXMLDescription()+"\""+
             " enforceCumulative=\""+toXMLEnforceCumulative()+"\""+
             " enforceDowntime=\""+toXMLEnforceDowntime()+"\""+
@@ -1174,6 +1220,16 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
             " weightLateness=\""+toXMLWeightLateness()+"\""+
             " weightMakespan=\""+toXMLWeightMakespan()+"\""+" />");
      }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLAddSameOrder(){
+        return this.getAddSameOrder().toString();
+    }
 
 /**
  * helper method for toXML(), prcess one attribute
@@ -1509,6 +1565,9 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 */
 
     public Boolean applicationEqual(AbstractSolverProperty b){
+      if(!this.getAddSameOrder().equals(b.getAddSameOrder())){
+         System.out.println("AddSameOrder");
+        }
       if(!this.getDescription().equals(b.getDescription())){
          System.out.println("Description");
         }
@@ -1584,7 +1643,8 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
       if(!this.getWeightMakespan().equals(b.getWeightMakespan())){
          System.out.println("WeightMakespan");
         }
-        return  this.getDescription().equals(b.getDescription()) &&
+        return  this.getAddSameOrder().equals(b.getAddSameOrder()) &&
+          this.getDescription().equals(b.getDescription()) &&
           this.getEnforceCumulative().equals(b.getEnforceCumulative()) &&
           this.getEnforceDowntime().equals(b.getEnforceDowntime()) &&
           this.getEnforceDueDate().equals(b.getEnforceDueDate()) &&

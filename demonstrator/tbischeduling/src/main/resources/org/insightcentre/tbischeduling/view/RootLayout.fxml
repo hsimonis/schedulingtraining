@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 11:45:38 on 2024-10-28-->
+<!--Generated at 21:07:30 on 2024-11-05-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -28,6 +28,10 @@
                   <MenuItem id="LoadDataFileAction" accelerator="Shortcut+g" onAction="#handle" text="Load DataFile..." />
                   <MenuItem id="SaveDataFileAction" onAction="#handle" text="Save DataFile..." />
                   <MenuItem id="GenerateReportAction" onAction="#handle" text="Generate Report..." />
+                  <SeparatorMenuItem />
+                  <MenuItem id="LoadJJFileAction" onAction="#handle" text="Load J&amp;J Problem..." />
+                  <MenuItem id="LoadSALBPFileAction" onAction="#handle" text="Load SALBP Problem..." />
+                  <MenuItem id="LoadTestFileAction" onAction="#handle" text="Load Test Scheduling Problem..." />
                   <SeparatorMenuItem />
                   <MenuItem id="Print" accelerator="Shortcut+P" onAction="#handle" text="Print..." />
                   <SeparatorMenuItem />
@@ -89,6 +93,8 @@
                         <MenuItem id="processPage" onAction="#handle" text="Process" />
                         <MenuItem id="processStepPage" onAction="#handle" text="ProcessStep" />
                         <MenuItem id="processSequencePage" onAction="#handle" text="ProcessSequence" />
+                        <SeparatorMenuItem />
+                        <MenuItem id="diagramViewer" onAction="#handle" text="Process Diagram" />
                      </items>
                   </Menu>
                   <Menu text="_Resource">
@@ -134,15 +140,15 @@
                      <items>
                         <MenuItem id="solutionErrorPage" onAction="#handle" text="SolutionError" />
                         <SeparatorMenuItem />
-                        <MenuItem id="ganttBorderViewer" onAction="#handle" text="Gantt Border" />
-                        <MenuItem id="ganttViewer" onAction="#handle" text="Gantt Viewer" />
-                        <MenuItem id="showSolutionReport" onAction="#handle" text="SolutionReport" />
-                        <MenuItem id="solutionTreeTreeTable" onAction="#handle" text="SolutionTree" />
+                        <MenuItem id="ganttBorderViewer" onAction="#handle" text="Gantt Chart" />
+                        <MenuItem id="pertViewer" onAction="#handle" text="PERT Chart" />
                         <MenuItem id="solverRunPage" onAction="#handle" text="SolverRun" />
                         <MenuItem id="solutionPage" onAction="#handle" text="Solution" />
                         <MenuItem id="jobAssignmentPage" onAction="#handle" text="JobAssignment" />
                         <MenuItem id="taskAssignmentPage" onAction="#handle" text="TaskAssignment" />
                         <SeparatorMenuItem />
+                        <MenuItem id="disjunctiveResourceViewer" onAction="#handle" text="Disjunctive Resource Chart" />
+                        <MenuItem id="cumulativeResourceViewer" onAction="#handle" text="Cumulative Resource Chart" />
                         <MenuItem id="resourceUtilizationPage" onAction="#handle" text="ResourceUtilization" />
                         <MenuItem id="resourceUtilization0BarChart" onAction="#handle" text="ResourceUtilizationBarChart0" />
                         <SeparatorMenuItem />

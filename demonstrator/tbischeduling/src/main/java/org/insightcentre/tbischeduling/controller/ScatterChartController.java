@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 11:45:38 on 2024-10-28 */
+ * Generated at 21:07:30 on 2024-11-05 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -45,6 +45,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("ganttProperty");
 		filterNames.add("hasReleaseDate");
 		filterNames.add("hasDueDate");
+		filterNames.add("hasDisjunctive");
 		filterNames.add("hasCumulative");
 		filterNames.add("hasWiP");
 		filterNames.add("hasDowntime");
@@ -76,6 +77,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceSetup");
 		filterNames.add("enforceTransportTime");
 		filterNames.add("relaxSequence");
+		filterNames.add("addSameOrder");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");
@@ -113,6 +115,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceSetup");
 		filterNames.add("enforceTransportTime");
 		filterNames.add("relaxSequence");
+		filterNames.add("addSameOrder");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");
@@ -150,6 +153,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceSetup");
 		filterNames.add("enforceTransportTime");
 		filterNames.add("relaxSequence");
+		filterNames.add("addSameOrder");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");

@@ -481,6 +481,7 @@ public class WriteData {
         obj.put("enforceSetup",run.getEnforceSetup());
         obj.put("enforceTransportTime",run.getEnforceTransportTime());
         obj.put("relaxSequence",run.getRelaxSequence());
+        obj.put("addSameOrder",run.getAddSameOrder());
         obj.put("weightMakespan",run.getWeightMakespan());
         obj.put("weightFlowtime",run.getWeightFlowtime());
         obj.put("weightLateness",run.getWeightLateness());
@@ -576,7 +577,9 @@ public class WriteData {
     private JSONObject taskAssignment(TaskAssignment ta){
         JSONObject tObj = new JSONObject();
         tObj.put("name",ta.getName());
-        tObj.put("disjunctiveResource",ta.getDisjunctiveResource().getName());
+        if (ta.getDisjunctiveResource()!=null) {
+            tObj.put("disjunctiveResource", ta.getDisjunctiveResource().getName());
+        }
         tObj.put("duration",ta.getDuration());
         tObj.put("start",ta.getStart());
         tObj.put("end",ta.getEnd());

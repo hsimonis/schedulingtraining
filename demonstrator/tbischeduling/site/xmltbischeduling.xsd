@@ -371,6 +371,7 @@
 			<xs:attribute name="ganttProperty" use="required" type="xs:IDREF"/>
 			<xs:attribute name="ganttWidth" use="required" type="xs:integer"/>
 			<xs:attribute name="hasCumulative" use="required" type="xs:boolean"/>
+			<xs:attribute name="hasDisjunctive" use="required" type="xs:boolean"/>
 			<xs:attribute name="hasDowntime" use="required" type="xs:boolean"/>
 			<xs:attribute name="hasDueDate" use="required" type="xs:boolean"/>
 			<xs:attribute name="hasReleaseDate" use="required" type="xs:boolean"/>
@@ -478,6 +479,7 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="addSameOrder" use="required" type="xs:boolean"/>
 			<xs:attribute name="description" use="required" type="xs:string"/>
 			<xs:attribute name="enforceCumulative" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceDowntime" use="required" type="xs:boolean"/>
@@ -509,6 +511,7 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="addSameOrder" use="required" type="xs:boolean"/>
 			<xs:attribute name="description" use="required" type="xs:string"/>
 			<xs:attribute name="enforceCumulative" use="required" type="xs:boolean"/>
 			<xs:attribute name="enforceDowntime" use="required" type="xs:boolean"/>

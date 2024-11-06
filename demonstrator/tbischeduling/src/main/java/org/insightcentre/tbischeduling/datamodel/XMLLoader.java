@@ -204,6 +204,26 @@ public ResourceZoom getResourceZoom(String attributeName,
             return ResourceZoom.valueOf(e);
         }
     }
+public TimingDisplay getTimingDisplay(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("TimingDisplay"+": "+attributeName);
+            return null;
+        } else {
+            return TimingDisplay.valueOf(e);
+        }
+    }
+public DurationDisplay getDurationDisplay(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("DurationDisplay"+": "+attributeName);
+            return null;
+        } else {
+            return DurationDisplay.valueOf(e);
+        }
+    }
     public AbstractDataGeneratorProperty getAbstractDataGeneratorProperty(String attributeName,
                                Attributes attributes) {
         return (AbstractDataGeneratorProperty) find(getId(attributeName,attributes));
@@ -1017,6 +1037,7 @@ public ResourceZoom getResourceZoom(String attributeName,
                         null,
                         getInteger("ganttWidth",attributes,0),
                         getBoolean("hasCumulative",attributes,false),
+                        getBoolean("hasDisjunctive",attributes,false),
                         getBoolean("hasDowntime",attributes,false),
                         getBoolean("hasDueDate",attributes,false),
                         getBoolean("hasReleaseDate",attributes,false),
@@ -1440,6 +1461,7 @@ public ResourceZoom getResourceZoom(String attributeName,
                 store(id, new SolverProperty(base,
                         id,
                         getString("name", attributes, "dummy"),
+                        getBoolean("addSameOrder",attributes,false),
                         getString("description",attributes,""),
                         getBoolean("enforceCumulative",attributes,false),
                         getBoolean("enforceDowntime",attributes,false),
@@ -1471,6 +1493,7 @@ public ResourceZoom getResourceZoom(String attributeName,
                 store(id, new SolverRun(base,
                         id,
                         getString("name", attributes, "dummy"),
+                        getBoolean("addSameOrder",attributes,false),
                         getString("description",attributes,""),
                         getBoolean("enforceCumulative",attributes,false),
                         getBoolean("enforceDowntime",attributes,false),

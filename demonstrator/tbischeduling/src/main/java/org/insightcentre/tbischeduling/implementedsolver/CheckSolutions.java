@@ -85,16 +85,36 @@ public class CheckSolutions {
         if (nrStructuralProblems == 0) {
             // structurally sound, one assignment per task and job
             // we can proceed with the actual tests
+            Hashtable<String,ProcessSequence> sequenceHash = new Hashtable<>();
+            for(ProcessSequence seq:base.getListProcessSequence()){
+                sequenceHash.put(sequenceKey(seq),seq);
+            }
             for (Task t : base.getListTask()) {
                 TaskAssignment ta = taskHash.get(t);
                 for (Task a : t.getPrecedes()) {
                     TaskAssignment after = taskHash.get(a);
-                    if (!run.getRelaxSequence() && after.getStart() < ta.getEnd()) {
-                        newError(sol, "Task", t.getName(), "precedes", a.getName(),
-                                "Precedence not respected", Fatal);
+                    ProcessSequence seq = sequenceHash.get(sequenceKey(ta,after));
+                    switch(seq.getSequenceType()) {
+                        case EndBeforeStart:
+
+                            if (!run.getRelaxSequence() && after.getStart() < ta.getEnd()) {
+                                newError(sol, "Task", t.getName(), "precedes", a.getName(),
+                                        "Precedence EndBeforeStart not respected", Fatal);
+                            }
+                            break;
+                        case StartBeforeStart:
+                            if (!run.getRelaxSequence() && after.getStart() < ta.getStart()) {
+                                newError(sol, "Task", t.getName(), "precedes", a.getName(),
+                                        "Precedence StartBeforeStart not respected", Fatal);
+                            }
+                            break;
+                        default:
+                            severe("Bad sequence type "+seq.getSequenceType());
+                            assert(false);
                     }
+
                 }
-                if (!t.getMachines().contains(ta.getDisjunctiveResource())) {
+                if (ta.getDisjunctiveResource() != null && !t.getMachines().contains(ta.getDisjunctiveResource())) {
                     newError(sol, "TaskAssignment", ta.getName(), "disjunctiveResource",
                             ta.getDisjunctiveResource().getName(),
                             "Machine not in allowed list " + machineNames(t.getMachines()), Fatal);
@@ -153,6 +173,7 @@ public class CheckSolutions {
                 }
             }
             Map<DisjunctiveResource, List<TaskAssignment>> map = taList.stream().
+                    filter(x->x.getDisjunctiveResource()!= null).
                     collect(groupingBy(TaskAssignment::getDisjunctiveResource));
             for (DisjunctiveResource m : map.keySet()) {
                 List<ResourceActivity> list = new ArrayList<>(map.get(m));
@@ -277,5 +298,12 @@ public class CheckSolutions {
         se.setSeverity(severity);
 
 
+    }
+
+    private String sequenceKey(TaskAssignment before,TaskAssignment after){
+        return before.getTask().getProcessStep().getName()+"/"+after.getTask().getProcessStep().getName();
+    }
+    private String sequenceKey(ProcessSequence seq){
+        return seq.getBefore().getName()+"/"+seq.getAfter().getName();
     }
 }

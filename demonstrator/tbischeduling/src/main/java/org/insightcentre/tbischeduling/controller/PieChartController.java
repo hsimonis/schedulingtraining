@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 11:45:38 on 2024-10-28 */
+ * Generated at 21:07:30 on 2024-11-05 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -43,6 +43,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("ganttProperty");
 		attributeNames.add("hasReleaseDate");
 		attributeNames.add("hasDueDate");
+		attributeNames.add("hasDisjunctive");
 		attributeNames.add("hasCumulative");
 		attributeNames.add("hasWiP");
 		attributeNames.add("hasDowntime");
@@ -75,6 +76,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceSetup");
 		attributeNames.add("enforceTransportTime");
 		attributeNames.add("relaxSequence");
+		attributeNames.add("addSameOrder");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");
@@ -102,6 +104,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceSetup");
 		attributeNames.add("enforceTransportTime");
 		attributeNames.add("relaxSequence");
+		attributeNames.add("addSameOrder");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");
@@ -129,6 +132,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceSetup");
 		attributeNames.add("enforceTransportTime");
 		attributeNames.add("relaxSequence");
+		attributeNames.add("addSameOrder");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");

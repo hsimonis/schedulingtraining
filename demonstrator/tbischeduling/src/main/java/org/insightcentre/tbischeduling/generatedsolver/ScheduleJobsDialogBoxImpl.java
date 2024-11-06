@@ -32,6 +32,7 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
     private final CheckBox enforceSetupItem = new CheckBox();
     private final CheckBox enforceTransportTimeItem = new CheckBox();
     private final CheckBox relaxSequenceItem = new CheckBox();
+    private final CheckBox addSameOrderItem = new CheckBox();
     private final ChoiceBox modelTypeItem = new ChoiceBox();
     private final ChoiceBox solverBackendItem = new ChoiceBox();
     private final ChoiceBox objectiveTypeItem = new ChoiceBox();
@@ -112,6 +113,10 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(new Label("Relax Sequence:"), 0, row);
         pane.add(relaxSequenceItem, 1, row++);
         relaxSequenceItem.setSelected(((ScheduleJobsSolver)solver).getRelaxSequence());
+
+        pane.add(new Label("Add Same Order:"), 0, row);
+        pane.add(addSameOrderItem, 1, row++);
+        addSameOrderItem.setSelected(((ScheduleJobsSolver)solver).getAddSameOrder());
 
         Separator sep3 = new Separator(Orientation.HORIZONTAL);
         pane.add(sep3,0,row++,2,1);
@@ -232,6 +237,7 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
             boolean enforceSetupValue = enforceSetupItem.isSelected();
             boolean enforceTransportTimeValue = enforceTransportTimeItem.isSelected();
             boolean relaxSequenceValue = relaxSequenceItem.isSelected();
+            boolean addSameOrderValue = addSameOrderItem.isSelected();
 
             String modelTypeValue = modelTypeItem.getValue().toString();
             String solverBackendValue = solverBackendItem.getValue().toString();
@@ -259,6 +265,7 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
                     .setEnforceSetup(enforceSetupValue)
                     .setEnforceTransportTime(enforceTransportTimeValue)
                     .setRelaxSequence(relaxSequenceValue)
+                    .setAddSameOrder(addSameOrderValue)
                     .setModelType(modelTypeValue)
                     .setSolverBackend(solverBackendValue)
                     .setObjectiveType(objectiveTypeValue)

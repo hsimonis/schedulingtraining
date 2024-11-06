@@ -11,6 +11,7 @@ import org.insightcentre.tbischeduling.datamodel.*;
 import framework.ApplicationDatasetInterface;
 import framework.ApplicationObjectInterface;
 import framework.types.IrishCalendar;
+import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.exporter.CreateJSONDoc;
 import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.generatedsolver.*;
@@ -21,14 +22,18 @@ import org.insightcentre.tbischeduling.implementedsolver.ScheduleJobsSolverImpl;
 import org.insightcentre.tbischeduling.importer.CreateData;
 import org.insightcentre.tbischeduling.importer.ReadData;
 import org.insightcentre.tbischeduling.importer.ReadJJFlatFile;
+import org.insightcentre.tbischeduling.importer.ReadSALBPFile;
+import org.insightcentre.tbischeduling.reports.ProcessDiagram;
 import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 
+import static org.insightcentre.tbischeduling.datamodel.ColorBy.Process;
 import static org.insightcentre.tbischeduling.datamodel.ResourceModel.*;
 import static org.insightcentre.tbischeduling.datamodel.Severity.Minor;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
@@ -64,6 +69,7 @@ public class JfxApp extends GeneratedJfxApp {
                 DataGeneratorProperty q = createDataGeneratorProperties(base);
                 base.setDataGeneratorProperty(q);
                 base.setGanttProperty(createGanttProperties(base));
+                base.setHasDisjunctive(true);
 //                info("Create JSON doc");
 //                new CreateJSONDoc(base,"site/jsonDoc/");
                 info("Creating default data");
@@ -83,6 +89,8 @@ public class JfxApp extends GeneratedJfxApp {
                 setTitle(applicationTitle+" (Generated)");
 //                new ReadJJFlatFile(base,"transport/instance400_1.txt");
 //                setTitle(applicationTitle+" ("+base.getDataFile()+")");
+//                new ReadSALBPFile(base,new File("salbp/instance_n=50_1.alb"));
+//                new ProcessDiagram(base, Objects.requireNonNull(org.insightcentre.tbischeduling.datamodel.Process.findFirst(base)));
                 return base;
         }
 
@@ -166,6 +174,81 @@ public class JfxApp extends GeneratedJfxApp {
         }
 
         @Override
+        public void LoadJJFileAction(Scenario base) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Load Datafile");
+                fileChooser.setInitialDirectory(new File("transport/"));
+                fileChooser.getExtensionFilters().add(
+                        new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+                fileChooser.setInitialFileName("instance20_1.txt");
+                // allow to enter new file
+                File selected = fileChooser.showOpenDialog(primaryStage);
+                if (selected != null){
+                        try {
+                                setStatus("Reading file "+selected.getName());
+                                info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
+                                base.setDataFile(selected.getName());
+                                new ReadJJFlatFile(base,selected);
+                                setTitle(applicationTitle+" ("+selected.getName()+")");
+                        } catch(IOException e){
+                                severe("IOException "+e.getMessage());
+                        }
+                } else {
+                        warning("File null");
+                }
+                // re-adjust the user interface to reflect the modified data
+                reset();
+                // if any errors were found, show them in the GUI
+                if (base.getListInputError().size() > 0){
+                        setStatus("File read with "+base.getListInputError().size()+" input data errors");
+                        showView("InputError");
+                } else if (base.getListSolutionError().size() > 0){
+                        setStatus("File read with "+base.getListSolutionError().size()+" solution errors");
+                        showView("SolutionError");
+                } else {
+                        setStatus("File read");
+                }
+        }
+        @Override
+        public void LoadSALBPFileAction(Scenario base) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Load Datafile");
+                fileChooser.setInitialDirectory(new File("salbp/"));
+                fileChooser.getExtensionFilters().add(
+                        new FileChooser.ExtensionFilter("ALB Files", "*.alb"));
+                fileChooser.setInitialFileName("instance+n=20_1.alb");
+                // allow to enter new file
+                File selected = fileChooser.showOpenDialog(primaryStage);
+                if (selected != null){
+                        try {
+                                setStatus("Reading file "+selected.getName());
+                                info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
+                                base.setDataFile(selected.getName());
+                                new ReadSALBPFile(base,selected);
+                                setTitle(applicationTitle+" ("+selected.getName()+")");
+                        } catch(IOException e){
+                                severe("IOException "+e.getMessage());
+                        }
+                } else {
+                        warning("File null");
+                }
+                // re-adjust the user interface to reflect the modified data
+                reset();
+                // if any errors were found, show them in the GUI
+                if (base.getListInputError().size() > 0){
+                        setStatus("File read with "+base.getListInputError().size()+" input data errors");
+                        showView("InputError");
+                } else if (base.getListSolutionError().size() > 0){
+                        setStatus("File read with "+base.getListSolutionError().size()+" solution errors");
+                        showView("SolutionError");
+                } else {
+                        showView("custom/DiagramViewer");
+                        setStatus("File read");
+                }
+        }
+
+
+        @Override
         public void generateDataSolverRun(Scenario base) {
                 Optional<Boolean> result = new GenerateDataDialogBoxImpl(this,base,new GenerateDataSolverImpl(base)).showAndWait();
                 setStatus("Data Generated");
@@ -182,8 +265,13 @@ public class JfxApp extends GeneratedJfxApp {
                         showView("SolutionError");
                 } else {
                         setStatus("Solver finished");
-//                        showView("Solution");
-                        showView("custom/GanttBorderViewer");
+                        if (base.getHasDisjunctive()) {
+                                showView("custom/GanttBorderViewer");
+                        } else if (base.getHasCumulative()){
+                                showView("custom/CumulativeResourceViewer");
+                        } else {
+                                showView("Solution");
+                        }
 
                 }
         }
@@ -205,24 +293,42 @@ public class JfxApp extends GeneratedJfxApp {
                 reset();
         }
 
-        @Override
-        public void showSolutionReport(Scenario base) {
-                try {
-                        showUrl("Solution Report",new File("reports/html/schedulingreport.html").getAbsoluteFile().toURI().toURL());
-//                        showUrlInBrowser(new File("reports/html/schedulingreport.html").getAbsoluteFile().toURI().toURL());
-                } catch(Exception e){
-                        severe("Cannot show report "+e.getMessage());
-                }
-        }
+//        @Override
+//        public void showSolutionReport(Scenario base) {
+//                try {
+//                        showUrl("Solution Report",new File("reports/html/schedulingreport.html").getAbsoluteFile().toURI().toURL());
+////                        showUrlInBrowser(new File("reports/html/schedulingreport.html").getAbsoluteFile().toURI().toURL());
+//                } catch(Exception e){
+//                        severe("Cannot show report "+e.getMessage());
+//                }
+//        }
 
         @Override
-        public void ganttViewer(Scenario base) {
-                showView("custom/GanttViewer");
+        public void diagramViewer(Scenario base) {
+                showView("custom/DiagramViewer");
         }
+
+
         @Override
         public void ganttBorderViewer(Scenario base) {
                 showView("custom/GanttBorderViewer");
         }
+
+        @Override
+        public void pertViewer(Scenario base) {
+                showView("custom/PertViewer");
+        }
+
+        @Override
+        public void disjunctiveResourceViewer(Scenario base) {
+                showView("custom/DisjunctiveResourceViewer");
+        }
+
+        @Override
+        public void cumulativeResourceViewer(Scenario base) {
+                showView("custom/CumulativeResourceViewer");
+        }
+
 
         //??? these should check a property file to read persistent property values
         public SolverProperty createSolverProperties(Scenario base){

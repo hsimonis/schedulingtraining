@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 11:45:38 on 2024-10-28-->
+<!--Generated at 21:07:30 on 2024-11-05-->
 
 
 <Tab text="Scenario" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.ScenarioController">
@@ -34,6 +34,7 @@
                <TableColumn fx:id="ganttProperty" styleClass="right-aligned" text="GanttProperty" />
                <TableColumn fx:id="hasReleaseDate" styleClass="right-aligned" text="HasReleaseDate" />
                <TableColumn fx:id="hasDueDate" styleClass="right-aligned" text="HasDueDate" />
+               <TableColumn fx:id="hasDisjunctive" styleClass="right-aligned" text="HasDisjunctive" />
                <TableColumn fx:id="hasCumulative" styleClass="right-aligned" text="HasCumulative" />
                <TableColumn fx:id="hasWiP" styleClass="right-aligned" text="HasWiP" />
                <TableColumn fx:id="hasDowntime" styleClass="right-aligned" text="HasDowntime" />

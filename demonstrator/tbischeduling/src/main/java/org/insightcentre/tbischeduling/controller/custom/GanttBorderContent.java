@@ -858,7 +858,7 @@ public class GanttBorderContent {
                 case Job:
                     return colors[jobNr.get(task.getJobAssignment().getJob()) % colors.length];
                 case Machine:
-                    return colors[machineNr.get(task.getDisjunctiveResource()) % colors.length];
+                    return task.getDisjunctiveResource() == null?noneColor:colors[machineNr.get(task.getDisjunctiveResource()) % colors.length];
                 case Stage:
                     return colors[task.getTask().getStage() % colors.length];
                 case Product:

@@ -79,7 +79,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 11:45:38 on 2024-10-28 */
+ * Generated at 21:07:30 on 2024-11-05 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -380,16 +380,36 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		alert(Alert.AlertType.WARNING, "Action GenerateReportAction is not yet implemented!");
 	}
 
+	public void LoadJJFileAction(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action LoadJJFileAction is not yet implemented!");
+	}
+
+	public void LoadSALBPFileAction(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action LoadSALBPFileAction is not yet implemented!");
+	}
+
+	public void LoadTestFileAction(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action LoadTestFileAction is not yet implemented!");
+	}
+
+	public void diagramViewer(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action diagramViewer is not yet implemented!");
+	}
+
 	public void ganttBorderViewer(Scenario base) {
 		alert(Alert.AlertType.WARNING, "Action ganttBorderViewer is not yet implemented!");
 	}
 
-	public void ganttViewer(Scenario base) {
-		alert(Alert.AlertType.WARNING, "Action ganttViewer is not yet implemented!");
+	public void pertViewer(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action pertViewer is not yet implemented!");
 	}
 
-	public void showSolutionReport(Scenario base) {
-		alert(Alert.AlertType.WARNING, "Action showSolutionReport is not yet implemented!");
+	public void disjunctiveResourceViewer(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action disjunctiveResourceViewer is not yet implemented!");
+	}
+
+	public void cumulativeResourceViewer(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action cumulativeResourceViewer is not yet implemented!");
 	}
 
 	public void resourceUtilization0BarChart(Scenario base) {
@@ -398,10 +418,6 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public void intermediateSolutionTimeCostLineChart(Scenario base) {
 		showView("IntermediateSolutionTimeCostLineChartLayout");
-	}
-
-	public void solutionTreeTreeTable(Scenario base) {
-		showView("SolutionTreeTreeTableLayout");
 	}
 
 	public void newOrderSolverRun(Scenario base) {
@@ -458,6 +474,15 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		else if (id.equals("GenerateReportAction")) {
 			GenerateReportAction((Scenario) fs);
 		}
+		else if (id.equals("LoadJJFileAction")) {
+			LoadJJFileAction((Scenario) fs);
+		}
+		else if (id.equals("LoadSALBPFileAction")) {
+			LoadSALBPFileAction((Scenario) fs);
+		}
+		else if (id.equals("LoadTestFileAction")) {
+			LoadTestFileAction((Scenario) fs);
+		}
 		else if (id.equals("newOrderSolverRun")) {
 			newOrderSolverRun((Scenario) fs);
 		}
@@ -469,6 +494,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		}
 		else if (id.equals("scheduleJobsSolverRun")) {
 			scheduleJobsSolverRun((Scenario) fs);
+		}
+		else if (id.equals("diagramViewer")) {
+			diagramViewer((Scenario) fs);
 		}
 		else if (id.equals("disjunctiveNeedsMatrixMatrixViewer")) {
 			disjunctiveNeedsMatrixMatrixViewer((Scenario) fs);
@@ -485,14 +513,14 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		else if (id.equals("ganttBorderViewer")) {
 			ganttBorderViewer((Scenario) fs);
 		}
-		else if (id.equals("ganttViewer")) {
-			ganttViewer((Scenario) fs);
+		else if (id.equals("pertViewer")) {
+			pertViewer((Scenario) fs);
 		}
-		else if (id.equals("showSolutionReport")) {
-			showSolutionReport((Scenario) fs);
+		else if (id.equals("disjunctiveResourceViewer")) {
+			disjunctiveResourceViewer((Scenario) fs);
 		}
-		else if (id.equals("solutionTreeTreeTable")) {
-			solutionTreeTreeTable((Scenario) fs);
+		else if (id.equals("cumulativeResourceViewer")) {
+			cumulativeResourceViewer((Scenario) fs);
 		}
 		else if (id.equals("resourceUtilization0BarChart")) {
 			resourceUtilization0BarChart((Scenario) fs);

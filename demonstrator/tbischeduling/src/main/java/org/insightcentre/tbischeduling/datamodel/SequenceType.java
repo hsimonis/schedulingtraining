@@ -58,6 +58,8 @@ import org.insightcentre.tbischeduling.datamodel.ResourceChoice;
 import org.insightcentre.tbischeduling.datamodel.LineChoice;
 import org.insightcentre.tbischeduling.datamodel.DatesDisplay;
 import org.insightcentre.tbischeduling.datamodel.ResourceZoom;
+import org.insightcentre.tbischeduling.datamodel.TimingDisplay;
+import org.insightcentre.tbischeduling.datamodel.DurationDisplay;
 import org.insightcentre.tbischeduling.datamodel.XMLLoader;
 import java.util.*;
 import java.io.*;
@@ -79,7 +81,13 @@ public enum SequenceType{
  *
 */
 
-EndBeforeStart;
+EndBeforeStart,
+    /**
+ *  
+ *
+*/
+
+StartBeforeStart;
 private static SequenceType[] cache = null;
 
 public static SequenceType[] cachedValues(){

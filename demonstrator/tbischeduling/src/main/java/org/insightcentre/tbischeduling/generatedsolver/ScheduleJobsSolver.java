@@ -23,6 +23,7 @@ public class ScheduleJobsSolver extends DefaultSolver{
     protected boolean enforceSetup=false;
     protected boolean enforceTransportTime=false;
     protected boolean relaxSequence=false;
+    protected boolean addSameOrder=false;
     protected String modelType="CPO";
     protected String solverBackend="None";
     protected String objectiveType="Makespan";
@@ -40,7 +41,7 @@ public class ScheduleJobsSolver extends DefaultSolver{
     public ScheduleJobsSolver(Scenario base){
         super(base,new String[] {});
     }
-    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,boolean enforceSetup,boolean enforceTransportTime,boolean relaxSequence,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarliness,int timeout,int nrThreads,int seed,boolean removeSolution,boolean produceReport,boolean producePDF){
+    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,boolean enforceSetup,boolean enforceTransportTime,boolean relaxSequence,boolean addSameOrder,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarliness,int timeout,int nrThreads,int seed,boolean removeSolution,boolean produceReport,boolean producePDF){
         super(base,new String[] {});
         this.label=label;
         this.description=description;
@@ -54,6 +55,7 @@ public class ScheduleJobsSolver extends DefaultSolver{
         this.enforceSetup=enforceSetup;
         this.enforceTransportTime=enforceTransportTime;
         this.relaxSequence=relaxSequence;
+        this.addSameOrder=addSameOrder;
         this.modelType=modelType;
         this.solverBackend=solverBackend;
         this.objectiveType=objectiveType;
@@ -115,6 +117,10 @@ public boolean getEnforceTransportTime(){
 
 public boolean getRelaxSequence(){
  return relaxSequence;
+}
+
+public boolean getAddSameOrder(){
+ return addSameOrder;
 }
 
 public String getModelType(){
@@ -226,6 +232,11 @@ public ScheduleJobsSolver setEnforceTransportTime(boolean v){
 
 public ScheduleJobsSolver setRelaxSequence(boolean v){
  relaxSequence = v;
+ return this;
+}
+
+public ScheduleJobsSolver setAddSameOrder(boolean v){
+ addSameOrder = v;
  return this;
 }
 

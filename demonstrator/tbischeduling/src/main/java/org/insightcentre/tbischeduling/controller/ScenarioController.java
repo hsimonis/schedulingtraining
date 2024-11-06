@@ -33,7 +33,7 @@ import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 
 /**
- * Generated at 11:45:38 on 2024-10-28 */
+ * Generated at 21:07:30 on 2024-11-05 */
 public class ScenarioController extends Table3Controller {
 	@FXML
 	private TableView<Scenario> table;
@@ -85,6 +85,9 @@ public class ScenarioController extends Table3Controller {
 
 	@FXML
 	private TableColumn<Scenario, Boolean> hasDueDate;
+
+	@FXML
+	private TableColumn<Scenario, Boolean> hasDisjunctive;
 
 	@FXML
 	private TableColumn<Scenario, Boolean> hasCumulative;
@@ -178,6 +181,9 @@ public class ScenarioController extends Table3Controller {
 		choices.add("hasDueDate");
 		hasDueDate.setCellValueFactory(new HasDueDateCallback());
 		hasDueDate.setCellFactory(CheckBoxTableCell.forTableColumn(hasDueDate));
+		choices.add("hasDisjunctive");
+		hasDisjunctive.setCellValueFactory(new HasDisjunctiveCallback());
+		hasDisjunctive.setCellFactory(CheckBoxTableCell.forTableColumn(hasDisjunctive));
 		choices.add("hasCumulative");
 		hasCumulative.setCellValueFactory(new HasCumulativeCallback());
 		hasCumulative.setCellFactory(CheckBoxTableCell.forTableColumn(hasCumulative));
@@ -303,6 +309,21 @@ public class ScenarioController extends Table3Controller {
 				@SuppressWarnings("rawtypes")
 				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
 					cellData.getValue().setHasDueDate(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class HasDisjunctiveCallback implements Callback<TableColumn.CellDataFeatures<Scenario, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Scenario, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().hasDisjunctiveWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setHasDisjunctive(newValue);
 				}
 			});
 			return prop;

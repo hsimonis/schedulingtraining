@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.BorderPane?>
+
+<!--Generated-->
+
+
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ColorPicker?>
+<?import com.dlsc.unitfx.IntegerInputField?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.control.TreeItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.ScrollPane?>
+<Tab text="Process Diagram View" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+     fx:controller="org.insightcentre.tbischeduling.controller.custom.DiagramViewerController">
+    <BorderPane fx:id="container">
+        <center>
+            <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
+            <ImageView fx:id="diagramImage" pickOnBounds="true" preserveRatio="true">
+            </ImageView>
+            </ScrollPane>
+        </center>
+        <left>
+            <TreeView fx:id="treeView" prefWidth="100" >
+                <TreeItem fx:id="treeRoot" value = "Processes" expanded="true">
+                    <children>
+                    </children>
+                </TreeItem>
+            </TreeView>
+        </left>
+        <bottom>
+            <HBox alignment="center" spacing="5.0">
+                <Label text="Show Duration:" />
+                <ChoiceBox fx:id="showDurationBox" onAction="#onShowSelect" />
+                <Label text="Show Process:" />
+                <CheckBox fx:id="showProcess" onAction="#onShowSelect" />
+                <Label text="Show Stage:" />
+                <CheckBox fx:id="showStage" onAction="#onShowSelect" />
+                <Label text="Show Machines:" />
+                <CheckBox fx:id="showMachines" onAction="#onShowSelect" />
+                <Label text="Show Cumulative:" />
+                <CheckBox fx:id="showCumulative" onAction="#onShowSelect" />
+
+            </HBox>
+        </bottom>
+
+    </BorderPane>
+</Tab>

@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 11:45:38 on 2024-10-28-->
+<!--Generated at 21:07:30 on 2024-11-05-->
 
 
 <Tab text="AbstractSolverProperty" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.AbstractSolverPropertyController">
@@ -30,6 +30,7 @@
                <TableColumn fx:id="enforceSetup" styleClass="right-aligned" text="EnforceSetup" />
                <TableColumn fx:id="enforceTransportTime" styleClass="right-aligned" text="EnforceTransportTime" />
                <TableColumn fx:id="relaxSequence" styleClass="right-aligned" text="RelaxSequence" />
+               <TableColumn fx:id="addSameOrder" styleClass="right-aligned" text="AddSameOrder" />
                <TableColumn fx:id="modelType" styleClass="right-aligned" text="ModelType" />
                <TableColumn fx:id="solverBackend" styleClass="right-aligned" text="SolverBackend" />
                <TableColumn fx:id="objectiveType" styleClass="right-aligned" text="ObjectiveType" />

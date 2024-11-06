@@ -865,6 +865,7 @@ public class ReadData {
                     boolean enforceSetup = optionalBoolean(item,"enforceSetup",false);
                     boolean enforceTransportTime = optionalBoolean(item,"enforceTransportTime",false);
                     boolean relaxSequence = optionalBoolean(item,"relaxSequence",false);
+                    boolean addSameOrder = optionalBoolean(item,"addSameOrder",false);
                     int weightMakespan = item.getInt("weightMakespan");
                     int weightFlowtime = item.getInt("weightFlowtime");
                     int weightEarliness = item.getInt("weightEarliness");
@@ -892,6 +893,7 @@ public class ReadData {
                     s.setEnforceSetup(enforceSetup);
                     s.setEnforceTransportTime(enforceTransportTime);
                     s.setRelaxSequence(relaxSequence);
+                    s.setAddSameOrder(addSameOrder);
                     s.setWeightMakespan(weightMakespan);
                     s.setWeightFlowtime(weightFlowtime);
                     s.setWeightEarliness(weightEarliness);

@@ -17,13 +17,13 @@ import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
 public class ReadJJFlatFile {
-    public ReadJJFlatFile(Scenario base, String fileName){
+    public ReadJJFlatFile(Scenario base, File file){
         Reset.resetData(base);
         DateTime startDate = new DateTime(2024,10,1,0,0);
         base.setStartDateTime(startDate);
         base.setTimeResolution(60);
         base.setHorizon(2000);
-        base.setDataFile(fileName);
+        base.setDataFile(file.getName());
         base.setHasReleaseDate(false);
         base.setHasCumulative(false);
         base.setHasDueDate(false);
@@ -33,7 +33,7 @@ public class ReadJJFlatFile {
         base.setHasTransportTime(true);
 
         try {
-            Scanner scanner = new Scanner(new File(fileName));
+            Scanner scanner = new Scanner(file);
             int nrProcesses = scanner.nextInt();
             int nrStages = scanner.nextInt();
             int[] nrOrders = new int[nrProcesses];
@@ -171,7 +171,7 @@ public class ReadJJFlatFile {
             info("File read, "+base.getListInputError().size()+" input error(s), "+base.getListSolutionError().size()+" solution errors");
 
         } catch(IOException e){
-            severe("Cannot read file "+fileName+", exception "+e.getMessage());
+            severe("Cannot read file "+file+", exception "+e.getMessage());
         }
 
 

@@ -37,6 +37,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
                 base.getSolverProperty().getEnforceSetup(),
                 base.getSolverProperty().getEnforceTransportTime(),
                 base.getSolverProperty().getRelaxSequence(),
+                base.getSolverProperty().getAddSameOrder(),
                 base.getSolverProperty().getModelType().toString(),
                 base.getSolverProperty().getSolverBackend().toString(),
                 base.getSolverProperty().getObjectiveType().toString(),
@@ -69,6 +70,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         p.setEnforceSetup(getEnforceSetup());
         p.setEnforceTransportTime(getEnforceTransportTime());
         p.setRelaxSequence(getRelaxSequence());
+        p.setAddSameOrder(getAddSameOrder());
         p.setModelType(toModelType(getModelType()));
         p.setSolverBackend(toSolverBackend(getSolverBackend()));
         p.setObjectiveType(toObjectiveType(getObjectiveType()));
@@ -95,6 +97,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
                 toSolverBackend(getSolverBackend()),toObjectiveType(getObjectiveType()),
                 getEnforceReleaseDate(),getEnforceDueDate(),getEnforceCumulative(),getEnforceWip(),
                 getEnforceDowntime(),getEnforceSetup(),getEnforceTransportTime(),getRelaxSequence(),
+                getAddSameOrder(),
                 getWeightMakespan(),getWeightFlowtime(),getWeightEarliness(),getWeightLateness(),
                 getTimeout(),getNrThreads(),getSeed(),
                 getRemoveSolution(),getProduceReport(),getProducePDF());
@@ -137,14 +140,14 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
     private SolverRun createSolverRun(String label,String description,ModelType modelType,SolverBackend solverBackend,
                                       ObjectiveType objectiveType,boolean enforceReleaseDate,boolean enforceDueDate,
                                       boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,boolean enforceSetup,
-                                      boolean enforceTransportTime,boolean relaxSequence,
+                                      boolean enforceTransportTime,boolean relaxSequence,boolean addSameOrder,
                                       int weightMakespan,int weightFlowtime,int weightEarliness,int weightLateness,
                                       int timeout,int nrThreads,int seed,boolean removeSolution,
                                       boolean produceReport,boolean producePDF){
         String name = "Run"+runNr++;
         double time = 0.0;
         DateTime startDateTime = new DateTime(new Date());
-        SolverRun res = new SolverRun(base,runNr,name,description,enforceCumulative,enforceDowntime,enforceDueDate,
+        SolverRun res = new SolverRun(base,runNr,name,addSameOrder,description,enforceCumulative,enforceDowntime,enforceDueDate,
                 enforceReleaseDate,enforceSetup,enforceTransportTime,enforceWip,
                 label,modelType,nrThreads,objectiveType,producePDF,produceReport,relaxSequence,removeSolution,seed,solverBackend,
                 startDateTime,timeout,weightEarliness,weightFlowtime,weightLateness,weightMakespan,ToRun,time);
@@ -152,8 +155,12 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
     }
 
     private void kpiCalc(Solution sol){
-        List<TaskAssignment> list = base.getListTaskAssignment().stream().filter(x->x.getJobAssignment().getSolution()==sol).toList();
-        Map<DisjunctiveResource,List<TaskAssignment>> map = list.stream().collect(groupingBy(TaskAssignment::getDisjunctiveResource));
+        List<TaskAssignment> list = base.getListTaskAssignment().stream().
+                filter(x->x.getJobAssignment().getSolution()==sol).
+                toList();
+        Map<DisjunctiveResource,List<TaskAssignment>> map = list.stream().
+                filter(x->x.getDisjunctiveResource()!=null).
+                collect(groupingBy(TaskAssignment::getDisjunctiveResource));
         // create entries in a given order
         List<ResourceUtilization> ruList = new ArrayList<>();
         for(DisjunctiveResource r:map.keySet().stream().sorted(Comparator.comparing(DisjunctiveResource::getName)).toList()){

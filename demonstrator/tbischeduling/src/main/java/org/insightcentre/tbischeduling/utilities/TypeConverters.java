@@ -3,27 +3,33 @@ package org.insightcentre.tbischeduling.utilities;
 import framework.types.DateTime;
 import org.insightcentre.tbischeduling.datamodel.*;
 
+import static org.insightcentre.tbischeduling.datamodel.DurationDisplay.*;
+import static org.insightcentre.tbischeduling.datamodel.DurationDisplay.None;
 import static org.insightcentre.tbischeduling.datamodel.DurationModel.*;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.REST;
 import static org.insightcentre.tbischeduling.datamodel.ObjectiveType.*;
 import static org.insightcentre.tbischeduling.datamodel.ResourceModel.*;
+import static org.insightcentre.tbischeduling.datamodel.SequenceType.EndBeforeStart;
+import static org.insightcentre.tbischeduling.datamodel.SequenceType.StartBeforeStart;
 import static org.insightcentre.tbischeduling.datamodel.Severity.*;
 import static org.insightcentre.tbischeduling.datamodel.Severity.Minor;
 import static org.insightcentre.tbischeduling.datamodel.SolverBackend.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverBackend.Cplex;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.Error;
+import static org.insightcentre.tbischeduling.datamodel.TimingDisplay.*;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
 public class TypeConverters {
     public static  SequenceType toSequenceType(String name){
-        if ("EndBeforeStart".equals(name)) {
-            return SequenceType.EndBeforeStart;
-        }
-        return null;
-    }
+        return switch(name) {
+            case "EndBeforeStart" -> EndBeforeStart;
+            case "StartBeforeStart" -> StartBeforeStart;
+            default -> null;
 
+        };
+    }
     public static  Severity toSeverity(String name){
         return switch (name) {
             case "Fatal" -> Fatal;
@@ -44,7 +50,7 @@ public class TypeConverters {
     }
     public static  SolverBackend toSolverBackend(String name){
         return switch (name) {
-            case "None" -> None;
+            case "None" -> SolverBackend.None;
             case "Chuffed" -> Chuffed;
             case "Gecode" -> Gecode;
             case "CPSat" -> CPSat;
@@ -60,6 +66,24 @@ public class TypeConverters {
             case "Infeasible" -> Infeasible;
             case "Unknown" -> Unknown;
             case "Error" -> Error;
+            default -> null;
+        };
+    }
+    public static  TimingDisplay toTimingDisplay(String name){
+        return switch (name) {
+            case "Start" -> Start;
+            case "StartDuration" -> StartDuration;
+            case "StartEnd" -> StartEnd;
+            case "StartDurationEnd" -> StartDurationEnd;
+            default -> null;
+        };
+    }
+    public static  DurationDisplay toDurationDisplay(String name){
+        return switch (name) {
+            case "Fixed" -> Fixed;
+            case "PerUnit" -> PerUnit;
+            case "FixedPerUnit" -> FixedPerUnit;
+            case "None" -> None;
             default -> null;
         };
     }

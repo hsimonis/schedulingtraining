@@ -139,8 +139,10 @@ public class CPOModel extends AbstractModel{
                         z[i][k].setOptional();
                     }
                 } else {
-                    severe("No possible machine for task "+i+" "+tasks[i].getName());
-                    assert(false);
+                    if (base.getHasDisjunctive()) {
+                        severe("No possible disjunctive machine for task " + i + " " + tasks[i].getName());
+                        assert(false);
+                    }
                 }
             }
 
@@ -162,32 +164,37 @@ public class CPOModel extends AbstractModel{
                     cp.add(cp.noOverlap(spans.toArray()));
                 }
             }
-            // create temporal constraints between tasks; only precedences at this point
-            if (!run.getRelaxSequence()) {
-                for (Task before : tasks) {
-                    int beforeIndex = taskHash.get(before);
-                    for (Task after : before.getPrecedes()) {
-                        int afterIndex = taskHash.get(after);
-                        cp.add(cp.endBeforeStart(x[beforeIndex], x[afterIndex]));
-                    }
-                }
-            }
-            // this is more complex code to compute the precedences from the processSequence data
-//            for(Job job:mapTask.keySet()){
-//                Hashtable<ProcessStep,Task> processStepHash = new Hashtable<>();
-//                for(Task t:mapTask.get(job)){
-//                    processStepHash.put(t.getProcessStep(),t);
-//                }
-//                for(ProcessSequence seq:base.getListProcessSequence().stream().filter(xx->xx.getBefore().getProcess()==job.getProcess()).toList()){
-//                    int beforeIndex = taskHash.get(processStepHash.get(seq.getBefore()));
-//                    int afterIndex = taskHash.get(processStepHash.get(seq.getAfter()));
-//                    if (seq.getSequenceType()==SequenceType.EndBeforeStart) {
+//            // create temporal constraints between tasks; only precedences at this point
+//            if (!run.getRelaxSequence()) {
+//                for (Task before : tasks) {
+//                    int beforeIndex = taskHash.get(before);
+//                    for (Task after : before.getPrecedes()) {
+//                        int afterIndex = taskHash.get(after);
 //                        cp.add(cp.endBeforeStart(x[beforeIndex], x[afterIndex]));
-//                    } else {
-//                        severe("Bad precedence type "+seq.getSequenceType()+" ignored!");
 //                    }
 //                }
 //            }
+            // this is more complex code to compute the precedences from the processSequence data
+            for(Job job:mapTask.keySet()){
+                Hashtable<ProcessStep,Task> processStepHash = new Hashtable<>();
+                for(Task t:mapTask.get(job)){
+                    processStepHash.put(t.getProcessStep(),t);
+                }
+                for(ProcessSequence seq:base.getListProcessSequence().stream().filter(xx->xx.getBefore().getProcess()==job.getProcess()).toList()){
+                    int beforeIndex = taskHash.get(processStepHash.get(seq.getBefore()));
+                    int afterIndex = taskHash.get(processStepHash.get(seq.getAfter()));
+                    if (seq.getSequenceType()==SequenceType.EndBeforeStart) {
+                        cp.add(cp.endBeforeStart(x[beforeIndex], x[afterIndex]));
+                    } else if (seq.getSequenceType()==SequenceType.StartBeforeStart) {
+                        cp.add(cp.startBeforeStart(x[beforeIndex], x[afterIndex]));
+//                        info("start before start");
+                    } else {
+                        severe("Bad precedence type "+seq.getSequenceType()+" ignored!");
+                    }
+                }
+            }
+            // remember the sequence of jobs on tasks if we add the sameOrder constraint for flowshop
+            IloIntervalSequenceVar seq0=null;
             // create disjunctive constraints
             for(int k=0;k<nrDisjunctiveResources;k++){
                 DisjunctiveResource r = disjRes[k];
@@ -262,9 +269,22 @@ public class CPOModel extends AbstractModel{
                     IloIntervalSequenceVar seq = cp.intervalSequenceVar(disjunctive.toArray(), typeValues);
 
                     cp.add(cp.noOverlap(seq,setupMatrix));
+                    if (k==0) {
+                        seq0 = seq;
+                    } else if (run.getAddSameOrder()){
+                        cp.add(cp.sameSequence(seq0, seq));
+                    }
 
                 } else {
-                    cp.add(cp.noOverlap(disjunctive.toArray()));
+                    IloIntervalSequenceVar seq = cp.intervalSequenceVar(disjunctive.toArray());
+                    cp.add(cp.noOverlap(seq));
+                    if (k==0) {
+                        seq0 = seq;
+                    } else if (run.getAddSameOrder()){
+                        cp.add(cp.sameSequence(seq0, seq));
+                    }
+                    //??? we use the sequence var version of this instead
+                    //cp.add(cp.noOverlap(disjunctive.toArray()));
                 }
             }
             // create alternative constraints
@@ -279,6 +299,7 @@ public class CPOModel extends AbstractModel{
                     }
                     assert(alternatives.size()==tasks[i].getMachines().size());
                     cp.add(cp.alternative(x[i],alternatives.toArray()));
+
                 }
             }
             // cumulative constraints
@@ -441,7 +462,8 @@ public class CPOModel extends AbstractModel{
                             cnt++;
                         }
                     }
-                    assert(cnt==1);
+                    // allow for tasks without disjunctive need
+                    assert(cnt<=1);
                 }
                 Collection<TaskAssignment> taList = assignHash.values();
                 // calculate waitBefore and waitAfter for each task
@@ -455,7 +477,9 @@ public class CPOModel extends AbstractModel{
                     ta.setWaitAfter(waitAfter);
                 }
                 // calculate setup and idle times for each task
-                Map<DisjunctiveResource,List<TaskAssignment>> mapAssignment = taList.stream().collect(groupingBy(TaskAssignment::getDisjunctiveResource));
+                Map<DisjunctiveResource,List<TaskAssignment>> mapAssignment = taList.stream().
+                        filter(xx->xx.getDisjunctiveResource()!= null).
+                        collect(groupingBy(TaskAssignment::getDisjunctiveResource));
                 for(DisjunctiveResource r:mapAssignment.keySet()){
                     List<TaskAssignment> orderedInTime = mapAssignment.get(r).stream().sorted(Comparator.comparing(TaskAssignment::getStart)).toList();
                     TaskAssignment prev = null;

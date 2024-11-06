@@ -32,7 +32,7 @@ import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.SolverBackend;
 
 /**
- * Generated at 11:45:38 on 2024-10-28 */
+ * Generated at 21:07:30 on 2024-11-05 */
 public class AbstractSolverPropertyController extends Table3Controller {
 	@FXML
 	private TableView<AbstractSolverProperty> table;
@@ -72,6 +72,9 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	@FXML
 	private TableColumn<AbstractSolverProperty, Boolean> relaxSequence;
+
+	@FXML
+	private TableColumn<AbstractSolverProperty, Boolean> addSameOrder;
 
 	@FXML
 	private TableColumn<AbstractSolverProperty, ModelType> modelType;
@@ -178,6 +181,9 @@ public class AbstractSolverPropertyController extends Table3Controller {
 		choices.add("relaxSequence");
 		relaxSequence.setCellValueFactory(new RelaxSequenceCallback());
 		relaxSequence.setCellFactory(CheckBoxTableCell.forTableColumn(relaxSequence));
+		choices.add("addSameOrder");
+		addSameOrder.setCellValueFactory(new AddSameOrderCallback());
+		addSameOrder.setCellFactory(CheckBoxTableCell.forTableColumn(addSameOrder));
 		choices.add("modelType");
 		modelType.setCellValueFactory(new PropertyValueFactory<>("modelType"));
 		choices.add("solverBackend");
@@ -391,6 +397,21 @@ public class AbstractSolverPropertyController extends Table3Controller {
 				@SuppressWarnings("rawtypes")
 				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
 					cellData.getValue().setRelaxSequence(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class AddSameOrderCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().addSameOrderWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setAddSameOrder(newValue);
 				}
 			});
 			return prop;

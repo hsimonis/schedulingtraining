@@ -33,6 +33,7 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
    private CheckBox enforceSetupItem = new CheckBox();
    private CheckBox enforceTransportTimeItem = new CheckBox();
    private CheckBox relaxSequenceItem = new CheckBox();
+   private CheckBox addSameOrderItem = new CheckBox();
    private TextField modelTypeItem = new TextField();
    private TextField solverBackendItem = new TextField();
    private TextField objectiveTypeItem = new TextField();
@@ -89,6 +90,9 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
         pane.add(new Label("Relax Temporal Sequence:"), 0, row);
         pane.add(relaxSequenceItem, 1, row++);
         relaxSequenceItem.setSelected(((ScheduleJobsSolver)solver).getRelaxSequence());
+        pane.add(new Label("Add Same Order:"), 0, row);
+        pane.add(addSameOrderItem, 1, row++);
+        addSameOrderItem.setSelected(((ScheduleJobsSolver)solver).getAddSameOrder());
         pane.add(new Label("Model Type:"), 0, row);
         pane.add(modelTypeItem, 1, row++);
         modelTypeItem.setText(((ScheduleJobsSolver)solver).getModelType());
@@ -149,6 +153,7 @@ public void handle(InputEvent event) {
         boolean enforceSetupValue = enforceSetupItem.isSelected();
         boolean enforceTransportTimeValue = enforceTransportTimeItem.isSelected();
         boolean relaxSequenceValue = relaxSequenceItem.isSelected();
+        boolean addSameOrderValue = addSameOrderItem.isSelected();
         String modelTypeValue = modelTypeItem.getText();
         String solverBackendValue = solverBackendItem.getText();
         String objectiveTypeValue = objectiveTypeItem.getText();
@@ -175,6 +180,7 @@ public void handle(InputEvent event) {
             .setEnforceSetup(enforceSetupValue)
             .setEnforceTransportTime(enforceTransportTimeValue)
             .setRelaxSequence(relaxSequenceValue)
+            .setAddSameOrder(addSameOrderValue)
             .setModelType(modelTypeValue)
             .setSolverBackend(solverBackendValue)
             .setObjectiveType(objectiveTypeValue)
