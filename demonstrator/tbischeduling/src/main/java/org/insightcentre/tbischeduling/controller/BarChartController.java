@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 21:07:30 on 2024-11-05 */
+ * Generated at 23:36:18 on 2024-11-06 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -166,6 +166,8 @@ public class BarChartController extends ChartController {
 		choicesMap.put("ResourceNeed", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("demand");
+		attributeNames.add("processStep.durationFixed");
+		attributeNames.add("processStep.durationPerUnit");
 		choicesMap.put("CumulativeNeed", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("from");

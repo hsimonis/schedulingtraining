@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 21:07:30 on 2024-11-05 */
+ * Generated at 23:36:18 on 2024-11-06 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -464,6 +464,10 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("processStep");
 		attributeNames.add("demand");
 		filterNames.add("demand");
+		attributeNames.add("processStep.durationFixed");
+		filterNames.add("processStep.durationFixed");
+		attributeNames.add("processStep.durationPerUnit");
+		filterNames.add("processStep.durationPerUnit");
 		choicesMap.put("CumulativeNeed", attributeNames);
 		filterMap.put("CumulativeNeed", filterNames);
 		attributeNames = FXCollections.observableArrayList();

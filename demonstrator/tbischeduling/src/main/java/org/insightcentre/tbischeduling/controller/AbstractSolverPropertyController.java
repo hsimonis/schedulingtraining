@@ -32,7 +32,7 @@ import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.SolverBackend;
 
 /**
- * Generated at 21:07:30 on 2024-11-05 */
+ * Generated at 23:36:17 on 2024-11-06 */
 public class AbstractSolverPropertyController extends Table3Controller {
 	@FXML
 	private TableView<AbstractSolverProperty> table;

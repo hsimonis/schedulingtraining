@@ -4,10 +4,12 @@ import framework.gui.AbstractJfxMainWindow;
 import framework.gui.Table3Controller;
 import java.lang.Exception;
 import java.lang.Integer;
+import java.lang.NullPointerException;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.reflect.Field;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,7 +24,7 @@ import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
 import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 
 /**
- * Generated at 21:07:30 on 2024-11-05 */
+ * Generated at 23:36:18 on 2024-11-06 */
 public class CumulativeNeedController extends Table3Controller {
 	@FXML
 	private TableView<CumulativeNeed> table;
@@ -38,6 +40,12 @@ public class CumulativeNeedController extends Table3Controller {
 
 	@FXML
 	private TableColumn<CumulativeNeed, Integer> demand;
+
+	@FXML
+	private TableColumn<CumulativeNeed, Integer> durationFixed;
+
+	@FXML
+	private TableColumn<CumulativeNeed, Integer> durationPerUnit;
 
 	private GeneratedJfxApp mainApp;
 
@@ -72,6 +80,20 @@ public class CumulativeNeedController extends Table3Controller {
 		demand.setCellValueFactory(new PropertyValueFactory<>("demand"));
 		demand.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
 		demand.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDemand(event.getNewValue()); mainApp.reset();});
+		choices.add("processStep.durationFixed");
+		try {
+			durationFixed.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getProcessStep().getDurationFixed()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
+		choices.add("processStep.durationPerUnit");
+		try {
+			durationPerUnit.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getProcessStep().getDurationPerUnit()).asObject());
+		}
+		catch (NullPointerException e) {
+			System.err.println(e);
+		}
 		initialize(choices);
 	}
 

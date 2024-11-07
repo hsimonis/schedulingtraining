@@ -9,6 +9,7 @@ import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.implementedsolver.CPOModel;
 import org.insightcentre.tbischeduling.importer.ReadData;
 import org.insightcentre.tbischeduling.importer.ReadSALBPFile;
+import org.insightcentre.tbischeduling.importer.ReadTestSchedulingFile;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -46,63 +47,79 @@ public class TestAll {
 //        analyzeAll("imports/Taillard/OSS/results/","Taillard OpenShop","oss");
 //        testAll("imports/Taillard/JSS/");
 //        analyzeAll("imports/Taillard/JSS/results/","Taillard JobShop","jss");
-        testAll("imports/Taillard/FSS/");
-        analyzeAll("imports/Taillard/FSS/results/","Taillard Flowshop","fss");
+//        testAll("imports/Taillard/FSS/");
+//        analyzeAll("imports/Taillard/FSS/results/","Taillard Flowshop","fss");
 //        testSALBP("salbp/");
 //        analyzeAll("salbp/results/","SALBP-1 Problems","salbp");
+//        testTestScheduling("testscheduling/");
+        analyzeAll("testscheduling/results/","Test Scheduling Problems","tsched");
     }
 
+    /*
+    test a directory of files in the correct JSON format
+    read each file, create a SolverRun to run it, run the test and write the result in the results subdirectory under the same name
+    important: check the SolverRun for the correct test settings
+     */
     private static void testAll(String importDir){
         assert(importDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(importDir,".json");
 
         for(String fileName:list) {
             info("trying file " + fileName);
-            String outputFile = "results/" + fileName;
+            String outputFile = importDir + "results/" + fileName;
+            if (!new File(outputFile).exists()) {
 
-            Scenario base = new Scenario();
-            base.setDataFileVersionNumber(8.0);
-            base.setDataFile("");
-            base.setHorizon(50000);
-            base.setTimeResolution(5);
-            base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
+                Scenario base = new Scenario();
+                base.setDataFileVersionNumber(8.0);
+                base.setDataFile("");
+                base.setHorizon(50000);
+                base.setTimeResolution(5);
+                base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
 
-            // define the format version of the datafiles
-            new ReadData(base, new File(importDir + fileName));
-            SolverRun test = new SolverRun(base);
-            test.setName(fileName);
-            test.setSolverStatus(ToRun);
-            test.setEnforceReleaseDate(false);
-            test.setEnforceDueDate(false);
-            test.setEnforceCumulative(false);
-            test.setEnforceWip(false);
-            test.setEnforceDowntime(false);
-            test.setEnforceSetup(false);
-            test.setEnforceTransportTime(false);
-            test.setRelaxSequence(false);
-            test.setAddSameOrder(false);
-            test.setTimeout(600);
-            test.setModelType(CPO);
-            test.setObjectiveType(ObjectiveType.Makespan);
-            test.setNrThreads(2);
+                // define the format version of the datafiles
+                new ReadData(base, new File(importDir + fileName));
+                SolverRun test = new SolverRun(base);
+                test.setName(fileName);
+                test.setSolverStatus(ToRun);
+                test.setEnforceReleaseDate(true);
+                test.setEnforceDueDate(false);
+                test.setEnforceCumulative(true);
+                test.setEnforceWip(false);
+                test.setEnforceDowntime(false);
+                test.setEnforceSetup(false);
+                test.setEnforceTransportTime(false);
+                test.setRelaxSequence(false);
+                //??? we did run some experiments on flow shop to turn this on
+                //??? save the results in a different directory
+                test.setAddSameOrder(false);
+                test.setTimeout(600);
+                test.setModelType(CPO);
+                test.setObjectiveType(ObjectiveType.Makespan);
+                test.setNrThreads(2);
 
 //            info("Nr SolverRun " + base.getListSolverRun().size());
-            for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
-                info("Running " + run.getName());
-                new CPOModel(base, run).solve();
+                for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
+                    info("Running " + run.getName());
+                    new CPOModel(base, run).solve();
+                }
+                new WriteData(base).toFile(new File(outputFile), 2);
             }
-            new WriteData(base).toFile(new File(importDir + outputFile), 2);
         }
 
     }
+    /*
+    test a directory of SALBP instances, read each instance, run it and create a JSON result file
+    there is no JSON file of the created input data
+    this needs enforceCumulative true and enforceDueDate false
+     */
     private static void testSALBP(String importDir){
         assert(importDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(importDir,".alb");
 
         for(String fileName:list) {
-            if (!fileName.contains("=100")) {
-                info("trying file " + fileName);
-                String outputFile = "results/" + fileName.replaceAll(".alb",".json");
+            info("trying file " + fileName);
+            String outputFile = importDir+"results/" + fileName.replaceAll(".alb",".json");
+            if (!new File(outputFile).exists()) {
 
                 Scenario base = new Scenario();
                 base.setDataFileVersionNumber(8.0);
@@ -135,21 +152,64 @@ public class TestAll {
                     info("Running " + run.getName());
                     new CPOModel(base, run).solve();
                 }
-                new WriteData(base).toFile(new File(importDir + outputFile), 2);
+                new WriteData(base).toFile(new File(outputFile), 2);
             }
+
+        }
+
+    }
+    /*
+    read a directory of TestScheduling instances in its own JSON format, create a SolverRun, and write the results in the results subdirectory
+    this needs enforceCumulative true and enforceDueDate false to work
+     */
+    private static void testTestScheduling(String importDir){
+        assert(importDir.endsWith("/"));
+        List<String> list =  listFilesUsingJavaIO(importDir,".json");
+
+        for(String fileName:list) {
+            info("--------------------------------------------------------------------------");
+                info("trying file " + fileName);
+                String outputFile = importDir+"results/" + fileName;
+                if (!new File(outputFile).exists()) {
+
+                    Scenario base = new Scenario();
+                    base.setDataFileVersionNumber(8.0);
+                    base.setDataFile("");
+                    base.setHorizon(50000);
+                    base.setTimeResolution(5);
+                    base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
+
+                    // define the format version of the datafiles
+                    new ReadTestSchedulingFile(base, new File(importDir + fileName));
+                    SolverRun test = new SolverRun(base);
+                    test.setName(fileName);
+                    test.setSolverStatus(ToRun);
+                    test.setEnforceReleaseDate(false);
+                    test.setEnforceDueDate(false);
+                    test.setEnforceCumulative(true);
+                    test.setEnforceWip(false);
+                    test.setEnforceDowntime(false);
+                    test.setEnforceSetup(false);
+                    test.setEnforceTransportTime(false);
+                    test.setRelaxSequence(false);
+                    test.setAddSameOrder(false);
+                    test.setTimeout(30);
+                    test.setModelType(CPO);
+                    test.setObjectiveType(ObjectiveType.Makespan);
+                    test.setNrThreads(4);
+
+//            info("Nr SolverRun " + base.getListSolverRun().size());
+                    for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
+                        info("Running " + run.getName());
+                        new CPOModel(base, run).solve();
+                    }
+                    new WriteData(base).toFile(new File(outputFile), 2);
+                }
+
         }
 
     }
 
-    public static List<String> listFilesUsingJavaIO(String dir,String ext) {
-        return Stream.of(new File(dir).listFiles())
-                .filter(file -> !file.isDirectory())
-                .map(File::getName)
-                .filter(x->x.endsWith(ext))
-                .sorted() //to get a standard order
-//                .limit(2)
-                .collect(Collectors.toList());
-    }
 
     private static void analyzeAll(String resultDir,String title,String suffix){
         assert(resultDir.endsWith("/"));
@@ -180,7 +240,7 @@ public class TestAll {
                     double bound = sol.getDouble("bound");
                     double gap = sol.getDouble("gap");
                     int makespan = sol.getInt("makespan");
-                    info(name + " " + nrJobs + " " + nrMachines + " " + status + " " + time + " " + makespan + " " + bound + " " + gap);
+                    info(name + " jobs " + nrJobs + " machines " + nrMachines + " status " + status + " time " + time + " makespan " + makespan + " bound " + bound + " gap " + gap*100.0);
                     out.printf("%s & %d & %d & %s & %5.2f & %d & %5.2f & %5.2f\\\\\n",
                             name.replaceAll("_"," "),nrJobs,nrMachines,status,time,makespan,bound,gap*100.0);
 
@@ -198,5 +258,14 @@ public class TestAll {
         }
     }
 
+    public static List<String> listFilesUsingJavaIO(String dir,String ext) {
+        return Stream.of(new File(dir).listFiles())
+                .filter(file -> !file.isDirectory())
+                .map(File::getName)
+                .filter(x->x.endsWith(ext))
+                .sorted() //to get a standard order
+//                .limit(2)
+                .collect(Collectors.toList());
+    }
 
 }

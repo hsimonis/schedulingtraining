@@ -19,10 +19,7 @@ import org.insightcentre.tbischeduling.implementedsolver.GenerateDataSolverImpl;
 import org.insightcentre.tbischeduling.implementedsolver.NewDowntimeSolverImpl;
 import org.insightcentre.tbischeduling.implementedsolver.NewOrderSolverImpl;
 import org.insightcentre.tbischeduling.implementedsolver.ScheduleJobsSolverImpl;
-import org.insightcentre.tbischeduling.importer.CreateData;
-import org.insightcentre.tbischeduling.importer.ReadData;
-import org.insightcentre.tbischeduling.importer.ReadJJFlatFile;
-import org.insightcentre.tbischeduling.importer.ReadSALBPFile;
+import org.insightcentre.tbischeduling.importer.*;
 import org.insightcentre.tbischeduling.reports.ProcessDiagram;
 import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
@@ -225,6 +222,44 @@ public class JfxApp extends GeneratedJfxApp {
                                 info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
                                 base.setDataFile(selected.getName());
                                 new ReadSALBPFile(base,selected);
+                                setTitle(applicationTitle+" ("+selected.getName()+")");
+                        } catch(IOException e){
+                                severe("IOException "+e.getMessage());
+                        }
+                } else {
+                        warning("File null");
+                }
+                // re-adjust the user interface to reflect the modified data
+                reset();
+                // if any errors were found, show them in the GUI
+                if (base.getListInputError().size() > 0){
+                        setStatus("File read with "+base.getListInputError().size()+" input data errors");
+                        showView("InputError");
+                } else if (base.getListSolutionError().size() > 0){
+                        setStatus("File read with "+base.getListSolutionError().size()+" solution errors");
+                        showView("SolutionError");
+                } else {
+                        showView("custom/DiagramViewer");
+                        setStatus("File read");
+                }
+        }
+
+        @Override
+        public void LoadTestFileAction(Scenario base) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Load Test Scheduling Datafile");
+                fileChooser.setInitialDirectory(new File("testscheduling/"));
+                fileChooser.getExtensionFilters().add(
+                        new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+                fileChooser.setInitialFileName("t20m10r3-1.pl.json");
+                // allow to enter new file
+                File selected = fileChooser.showOpenDialog(primaryStage);
+                if (selected != null){
+                        try {
+                                setStatus("Reading file "+selected.getName());
+                                info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
+                                base.setDataFile(selected.getName());
+                                new ReadTestSchedulingFile(base,selected);
                                 setTitle(applicationTitle+" ("+selected.getName()+")");
                         } catch(IOException e){
                                 severe("IOException "+e.getMessage());
