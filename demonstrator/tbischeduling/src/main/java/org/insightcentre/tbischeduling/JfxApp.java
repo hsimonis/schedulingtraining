@@ -81,7 +81,7 @@ public class JfxApp extends GeneratedJfxApp {
                         q.getWipProbability(),q.getMinWip(),q.getMaxWip(),
                         q.getDowntimeProbability(),q.getMinDowntime(),q.getMaxDowntime(),
                         q.getEarliestDue(),100,q.getTimeResolution(),q.getSeed());
-                base.setHorizon(50000);
+                base.setHorizon(100000);
                 base.setDirty(false);
                 setTitle(applicationTitle+" (Generated)");
 //                new ReadJJFlatFile(base,"transport/instance400_1.txt");

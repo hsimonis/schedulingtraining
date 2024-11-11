@@ -1,0 +1,303 @@
+\begin{frame}
+\frametitle{Overview}
+\begin{itemize}
+\item Insight SFI Centre for Data Analytics
+\item Some Recent Applications
+%\item Survey Teaching of Constraint Programming
+\item Survey Constraint Programming and Scheduling
+\item EDIH Skills Development Course Scheduling
+\item Generic Scheduling Tool
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Insight is one of the largest data research and innovation centres in Europe...}
+\includegraphics[width=\textwidth]{../assistantse/onepage}
+\end{frame}
+
+\begin{frame}
+\frametitle{Background}
+\begin{columns}
+\begin{column}{0.65\textwidth}
+\begin{itemize}
+\item Mathematics @ TH Darmstadt
+\item 1986-1990 ECRC GmbH, Munich
+\item 1990-2000, Technical Director, Cosytec SA, Orsay
+\item 2000-2005, Imperial College London, Parc Technologies Ltd
+\item 2013-2014, President, Association for Constraint Programming
+\item Best Application Paper Awards, CP 2009, CP 2013
+\item Program Chair, CP 2020, CPAIOR 2014
+\item Distinguished Service Award, ACP
+\end{itemize}
+\end{column}
+\begin{column}{0.35\textwidth}
+\includegraphics[width=.85\textwidth]{../book/images/helmut}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{ASSISTANT Project Overview}
+\includegraphics[width=.9\textwidth]{../assistantse/imagesse/assistantdigitaltwin}
+\end{frame}
+
+\begin{frame}
+\frametitle{Assistant Siemens Energy Use Case}
+\includegraphics[width=\textwidth]{../assistantse/imagesse/assistantgasturbine}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{SE Product Routing}
+% \includegraphics[width=\textwidth]{../assistantse/imagesse/assistantrouting}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Test Datasets}
+% \includegraphics[width=\textwidth]{../assistantse/imagesse/assistantfullscaledatasets}
+% \end{frame}
+
+\begin{frame}
+\frametitle{Optimizer High Level Structure}
+\includegraphics[width=.9\textwidth]{../assistantse/imagesse/overview}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Raw Data - Manual Data Entry Causes Problems}
+% \begin{columns}
+% \begin{column}{0.5\textwidth}
+% \begin{itemize}
+% \item Raw data come from spreadsheet
+% \begin{itemize}
+% \item 20 tabs
+% \end{itemize}
+% \item Excel is a particularly bad input data format
+% \item Realistic, not real data
+% \item Created by hand/automatically from existing test scenarios
+% \item Series of files Berlin01 - Berlin05 were too inconsistent to run
+% \item Berlin06 still contains some errors
+% \item Optimizer explains all issues that it finds
+% \end{itemize}
+% \end{column}
+% \begin{column}{0.5\textwidth}
+% \includegraphics[width=.85\textwidth]{../assistantse/imagesse/rawerror}
+% \end{column}
+% \end{columns}
+% \end{frame}
+
+\begin{frame}
+\frametitle{Domain Model - Knowledge Graph}
+\includegraphics[width=.8\textwidth]{../assistantse/imagesse/DomainModel}
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution for Berlin 08a - Shows Only\\20\% of Tasks in Model}
+\includegraphics[width=.75\textwidth]{../assistantse/imagesse/solution08apref2}
+\end{frame}
+
+\begin{frame}
+\frametitle{Implementation}
+\begin{itemize}
+\item Requirement capture done inside project
+\item Data checking/cleaning most time consuming aspect
+\item Some specified functionality was rejected by Betriebsrat
+\item Built in Java
+\item Uses IBM's CPOptimizer back-end
+\item 120k LoC, 110k generated, 3k solver
+\item Outperforms both 
+\begin{itemize}
+\item Current in-house tool
+\item Simulation based tool based on commercial simulator 
+\end{itemize}
+\item System installed at SE site, but not in daily use
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Explaining Late Delivery}
+\begin{itemize}
+\item Explain why some orders are delivered late
+\item Find root-cause, show schedule in context
+\end{itemize}
+
+\includegraphics[width=\textwidth]{../assistantse/imagesse/explanation}
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluation - KPIs}
+\begin{tabular}{p{5cm}rrr}\toprule
+KPI & Baseline & Optimizer \\ \midrule
+OTD & > 80 \%  & 92 \%\\
+Bottleneck machine utilization & 99.5 \% & 100 \%\\
+Manufacturing defects & 10-15 \% & < 10 \%\\
+Scenarios in 8 hours & 15-20 & > 100,000 \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+
+% \begin{frame}
+% \frametitle{CPO Keeps on Trucking}
+% \includegraphics[width=.65\textwidth]{../assistantse/imagesse/improving}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Conclusion by Siemens Energy}
+% \includegraphics[width=.9\textwidth]{../assistantse/imagesse/quote}
+
+% {\tiny from ASSISTANT final project review: Siemens Energy assessment}
+% \end{frame}
+
+\begin{frame}
+\frametitle{Oven Scheduling - Detailed vs. Long-term Scheduling Objectives}
+\begin{itemize}
+\item Another example from the ASSISTANT EU project 
+\item Oven schedule for one of the industrial partners
+\item Schedule tasks on a set of ovens
+\item Tasks can share oven only if they are compatible
+\item Conflicting objectives
+\begin{itemize}
+\item Energy use of ovens very significant, reduce when ovens are used
+\item Waiting for an oven affects quality of product
+\end{itemize}
+\item Jobs only visible when previous process step starts
+\item Currently scheduled by hand, industry partner expressed strong need for change
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{What does this look like in the real world?}
+\begin{tabular}{cc}
+\includegraphics[width=4cm]{../ovenscheduling/images/oven}
+&
+\includegraphics[width=6cm]{../ovenscheduling/images/compressor}
+\\
+Industrial Oven & Rotors in Compressor
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Short-Term Schedule: Job View}
+\includegraphics[width=.8\textwidth]{../ovenscheduling/images/jobgantt}
+\end{frame}
+
+\begin{frame}
+\frametitle{Long Term Schedule: Detailed Schedule}
+\includegraphics[width=.8\textwidth]{../ovenscheduling/images/ovenschedule}
+\end{frame}
+
+\begin{frame}
+\frametitle{Factory Design via Detailed Scheduling}
+\begin{itemize}
+\item CONFIRM project with J\&J
+\item Schedule and layout future factory
+\item Hybrid, flexible flow-shop with transportation times
+\item Compare different solution approaches
+\item Hybrid of NEH and Constraint Programming
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Flexible Workcells}
+\includegraphics[width=\textwidth]{../factorydesign/images/factorymodel}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{A Survey of the Existing Literature}
+\begin{itemize}
+\item Joint work with Cemalettin Ozturk, MTU
+\item What is out there
+\item Where to start
+\item Where to publish
+\item I'm interested in some specific topic, what is relevant
+\item Draft results available at \url{https://hsimonis.github.io/pthg24/}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Overall Analysis (Based on 671 Works)}
+\includegraphics[width=\textwidth]{../literaturesurvey/images/worksbyyear}
+\end{frame}
+
+\begin{frame}
+\frametitle{Origin of Papers/Articles}
+\begin{tabular}[t]{cc}
+\includegraphics[width=.45\textwidth]{../literaturesurvey/images/conferences}
+& 
+\includegraphics[width=.55\textwidth]{../literaturesurvey/images/journals}
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Training Course on Constraint-Based\\ Production Scheduling}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Skills development program as part of ENTIRE project
+\item European Digital Innovation Hub
+\item Munster region, Ireland
+\item For Irish SMEs, public sector
+\item Initial, two day course on 21/22 Nov 2024
+\item Modelling focus
+\item \href{https://entire-edih.ie/ai-fundamentals-constraint-based-production-scheduling/}{Link} \qrcode[link,height=1.2cm]{https://entire-edih.ie/ai-fundamentals-constraint-based-production-scheduling/}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\href{https://entire-edih.ie/}{About ENTIRE}
+
+\vspace{0.5cm}
+
+\includegraphics[width=.4\textwidth]{../mtuvisit/images/entirelogo}
+
+\vspace{0.5cm}
+
+\includegraphics[width=\textwidth]{../mtuvisit/images/entirepartners}
+
+\vspace{0.5cm}
+
+\includegraphics[width=.3\textwidth]{../mtuvisit/images/entirefunders}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{A Generic Scheduling Tool}
+\begin{itemize}
+\item No programming, configured by JSON input data
+\item Compositional use of different constraint types
+\item Different commercial or open-source back-end solvers
+\item Developed in Java
+\item Interactive JavaFX front-end
+\item Can by used as back-end scheduling tool/server
+\item Instance generator included
+\item Readers for multiple benchmark types included
+\item Release planned early 2025
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Scheduling Tool GUI Examples}
+\begin{tabular}{cc}
+\includegraphics[width=.5\textwidth]{images/processchart}
+&\includegraphics[width=.5\textwidth]{images/gantt}
+\\
+\includegraphics[width=.5\textwidth]{images/pert}
+&
+\includegraphics[width=.5\textwidth]{images/productionplanning}
+\end{tabular}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conclusions}
+\begin{itemize}
+\item Presented some of my work at Insight
+\item Strong links with MTU
+\item Current focus on teaching and scheduling
+\item Application centered research
+\end{itemize}
+\end{frame}

@@ -43,15 +43,15 @@ public class TestAll {
 
 
     public static void main(String[] args) {
-//        testAll("imports/Taillard/OSS/");
-//        analyzeAll("imports/Taillard/OSS/results/","Taillard OpenShop","oss");
-//        testAll("imports/Taillard/JSS/");
-//        analyzeAll("imports/Taillard/JSS/results/","Taillard JobShop","jss");
-//        testAll("imports/Taillard/FSS/");
-//        analyzeAll("imports/Taillard/FSS/results/","Taillard Flowshop","fss");
-//        testSALBP("salbp/");
-//        analyzeAll("salbp/results/","SALBP-1 Problems","salbp");
-//        testTestScheduling("testscheduling/");
+        testAll("imports/Taillard/OSS/");
+        analyzeAll("imports/Taillard/OSS/results/","Taillard OpenShop","oss");
+        testAll("imports/Taillard/JSS/");
+        analyzeAll("imports/Taillard/JSS/results/","Taillard JobShop","jss");
+        testAll("imports/Taillard/FSS/");
+        analyzeAll("imports/Taillard/FSS/results/","Taillard Flowshop","fss");
+        testSALBP("salbp/");
+        analyzeAll("salbp/results/","SALBP-1 Problems","salbp");
+        testTestScheduling("testscheduling/");
         analyzeAll("testscheduling/results/","Test Scheduling Problems","tsched");
     }
 
@@ -167,7 +167,6 @@ public class TestAll {
         List<String> list =  listFilesUsingJavaIO(importDir,".json");
 
         for(String fileName:list) {
-            info("--------------------------------------------------------------------------");
                 info("trying file " + fileName);
                 String outputFile = importDir+"results/" + fileName;
                 if (!new File(outputFile).exists()) {
@@ -175,7 +174,7 @@ public class TestAll {
                     Scenario base = new Scenario();
                     base.setDataFileVersionNumber(8.0);
                     base.setDataFile("");
-                    base.setHorizon(50000);
+                    base.setHorizon(100000);
                     base.setTimeResolution(5);
                     base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
 
@@ -240,7 +239,7 @@ public class TestAll {
                     double bound = sol.getDouble("bound");
                     double gap = sol.getDouble("gap");
                     int makespan = sol.getInt("makespan");
-                    info(name + " jobs " + nrJobs + " machines " + nrMachines + " status " + status + " time " + time + " makespan " + makespan + " bound " + bound + " gap " + gap*100.0);
+//                    info(name + " jobs " + nrJobs + " machines " + nrMachines + " status " + status + " time " + time + " makespan " + makespan + " bound " + bound + " gap " + gap*100.0);
                     out.printf("%s & %d & %d & %s & %5.2f & %d & %5.2f & %5.2f\\\\\n",
                             name.replaceAll("_"," "),nrJobs,nrMachines,status,time,makespan,bound,gap*100.0);
 
@@ -248,6 +247,7 @@ public class TestAll {
                     severe("Cannot read file " + fileName + ", exception " + e.getMessage());
                 }catch (Exception e) {
                     severe(resultDir+" Instance "+fileName+" Exception " + e.getMessage());
+//                    assert(false);
                 }
             }
             out.printf("\\end{longtable}\n\n");

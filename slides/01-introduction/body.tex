@@ -1,7 +1,16 @@
 \begin{frame}
 \frametitle{Key Points}
 \begin{itemize}
-\item
+\item AI is more than LLM
+\item Stochastic vs. deductive AI methods
+\item Constraint Based Scheduling and its alternatives
+\item Key advantages
+\begin{itemize}
+\item Compositional
+\item Reusable
+\item Explainable
+\end{itemize}
+\item Course structure
 \end{itemize}
 \end{frame}
 
@@ -11,18 +20,96 @@
 
 \subsection{Constraint-Based Scheduling}
 
-\subsection{Solution Approaches}
+\begin{frame}
+\frametitle{Constraint Programming - in a nutshell}
+\begin{itemize}
+\item Declarative description of problems with
+\begin{itemize}
+\item {\em Variables} which range over (finite) sets of values
+\item {\em Constraints} over subsets of variables which restrict possible value combinations
+\item A {\em solution} is a value assignment which satisfies all constraints
+\end{itemize}
+
+\item Constraint propagation/reasoning
+\begin{itemize}
+\item Removing inconsistent values for variables
+\item Detect failure if constraint can not be satisfied
+\item Interaction of constraints via shared variables
+\item Incomplete
+\end{itemize}
+
+\item Search
+\begin{itemize}
+\item User controlled assignment of values to variables
+\item Each step triggers constraint propagation 
+\end{itemize}
+\item Different domains require/allow different methods
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Constraint Programming is Different}
+  \begin{itemize}
+  \item Declarative Programming
+    \begin{itemize}
+    \item Concentrate on what you want
+      \item Not how to get there
+      \item Program != Algorithm
+      \item Program = Model
+    \end{itemize}
+    \item Applied to Combinatorial Problems
+      \begin{itemize}
+        \item No complete polynomial algorithms known (exist?)
+        \item CP less ad-hoc than heuristics
+        \item Models can evolve
+  \end{itemize}
+  \end{itemize}
+  \end{frame}
+    
+\begin{frame}
+  \frametitle{A Subtractive Process}
+  \begin{textblock}{4}(8,-3)
+    \includegraphics[width=4cm]{../01-introduction/images/stages}
+  \end{textblock}
+  \vfill
+  \begin{quote}
+    ``Oh, bosh, as Mr. Ruskin says. Sculpture, per se, is the simplest thing in the world. All you have to do is to take a big chunk of marble and a hammer and chisel, make up your mind what you are about to create and chip off all the marble you don't want.''-Paris Gaulois.
+  \end{quote}
+  
+  {\tiny Source: \url{https://quoteinvestigator.com/2014/06/22/chip-away/}}
+\end{frame}
+
+\subsection{Other Solution Approaches}
+
+\begin{frame}
+\frametitle{Other Technologies}
+\begin{itemize}
+\item Heuristics
+\item Integer Programming
+\item Local search
+\item Deep neural networks
+\end{itemize}
+\end{frame}
 
 \section{Course Structure}
 
 \subsection{What is not covered?}
+
+\begin{frame}
+\frametitle{How does it all work?}
+\begin{itemize}
+\item 
+\end{itemize}
+\end{frame}
 
 \subsection{A Short History}
 
 \begin{frame}
 \frametitle{Summary}
 \begin{itemize}
-\item
+\item Why use Constraint Based Scheduling?
+\item Compared to other AI methods
+\item Compared to other solution approaches
 \end{itemize}
 \end{frame}
 
