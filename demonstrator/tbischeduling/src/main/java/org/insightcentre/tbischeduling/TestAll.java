@@ -49,8 +49,8 @@ public class TestAll {
     public static void main(String[] args) {
         Scenario base = new Scenario();
 //        testAll("imports/Taillard/OSS/","resultsCPSat/");
-//        analyzeAll("imports/Taillard/OSS/results/","Taillard OpenShop (CPOptimizer)","oss");
-//        analyzeAll("imports/Taillard/OSS/resultsCPSat/","Taillard OpenShop (CPSat)","ossCPSat");
+        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard OpenShop (CPOptimizer)","oss");
+        analyzeAll(base,"imports/Taillard/OSS/resultsCPSat/","Taillard OpenShop (CPSat)","ossCPSat");
 //        testAll("imports/Taillard/JSS/","resultsCPSat/");
 //        analyzeAll("imports/Taillard/JSS/results/","Taillard JobShop","jss");
 //        analyzeAll("imports/Taillard/JSS/resultsCPSat/","Taillard JobShop (CPSat)","jssCPSat");
@@ -58,8 +58,8 @@ public class TestAll {
 //        analyzeAll("imports/Taillard/FSS/resultsCPSat/","Taillard Flowshop (CPSat)","fssCPSat");
 //        analyzeAll("imports/Taillard/FSS/results/","Taillard Flowshop","fss");
 //        testSALBP("salbp/","resultsCPSat/");
-        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat");
-        analyzeAll(base,"salbp/results/","SALBP-1 Problems","salbp");
+//        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat");
+//        analyzeAll(base,"salbp/results/","SALBP-1 Problems","salbp");
         compareSummaries(base);
 //        testTestScheduling("testscheduling/");
 //        analyzeAll("testscheduling/results/","Test Scheduling Problems","tsched");
