@@ -61,6 +61,7 @@ import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.SetupType;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.SolutionError;
+import org.insightcentre.tbischeduling.datamodel.SolutionSummary;
 import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.Task;
@@ -79,7 +80,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 20:35:12 on 2024-11-12 */
+ * Generated at 12:39:47 on 2024-11-13 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -169,10 +170,13 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<TransportMatrix> transportMatrixData = FXCollections.observableArrayList();
 
+	private ObservableList<SolutionSummary> solutionSummaryData = FXCollections.observableArrayList();
+
 	public GeneratedJfxApp() {
 		super("tbischeduling", "ENTIRE EDIH Test Before Invest - Scheduling - University College Cork", "*.data", "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling");
 		fs = minimalDataset();
 		reset();
+		tableViews.put("SolutionSummary", "SolutionSummary");
 		tableViews.put("Scenario", "Scenario");
 		tableViews.put("Scenario Differences", "ApplicationDifference");
 		tableViews.put("Warnings", "ApplicationWarning");
@@ -363,6 +367,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		transportData.addAll(base.getListTransport());
 		transportMatrixData.clear();
 		transportMatrixData.addAll(base.getListTransportMatrix());
+		solutionSummaryData.clear();
+		solutionSummaryData.addAll(base.getListSolutionSummary());
 		for (BaseController controller : controllers) {
 			controller.setMainApp(this);
 		}
@@ -687,5 +693,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public ObservableList<TransportMatrix> getTransportMatrixData() {
 		return transportMatrixData;
+	}
+
+	public ObservableList<SolutionSummary> getSolutionSummaryData() {
+		return solutionSummaryData;
 	}
 }

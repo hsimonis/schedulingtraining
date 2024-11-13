@@ -41,6 +41,7 @@ import org.insightcentre.tbischeduling.datamodel.SetupType;
 import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.Transport;
 import org.insightcentre.tbischeduling.datamodel.TransportMatrix;
+import org.insightcentre.tbischeduling.datamodel.SolutionSummary;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -397,6 +398,13 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<TransportMatrix> listTransportMatrix = new ArrayList<TransportMatrix>();
 
 /**
+ *  This lists holds all items of class SolutionSummary and its subclasses
+ *
+*/
+
+    List<SolutionSummary> listSolutionSummary = new ArrayList<SolutionSummary>();
+
+/**
  *  This is the static counter from which all id numbers are generated.It is used by all classes, so that ids are unique over all objects.
  *
 */
@@ -547,6 +555,7 @@ public int compareTo(ApplicationDataset ds2){
                              "SetupType",
                              "Solution",
                              "SolutionError",
+                             "SolutionSummary",
                              "SolverProperty",
                              "SolverRun",
                              "Task",
@@ -647,6 +656,7 @@ public int compareTo(ApplicationDataset ds2){
         resetListSetupMatrix();
         resetListTransport();
         resetListTransportMatrix();
+        resetListSolutionSummary();
     }
 
 /**
@@ -2033,6 +2043,40 @@ public int compareTo(ApplicationDataset ds2){
         List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
         for(ApplicationObject a:listApplicationObject){
             if (!(a instanceof TransportMatrix)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class SolutionSummary
+ *
+*/
+
+    public Iterator<SolutionSummary> getIteratorSolutionSummary(){
+        return listSolutionSummary.iterator();
+    }
+
+/**
+ *  Getter for list of class SolutionSummary
+ *
+*/
+
+    public List<SolutionSummary> getListSolutionSummary(){
+        return listSolutionSummary;
+    }
+
+/**
+ *  reset the list of class SolutionSummary; use with care, does not call cascades
+ *
+*/
+
+    public void resetListSolutionSummary(){
+        listSolutionSummary = new ArrayList<SolutionSummary>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof SolutionSummary)){
                 newListApplicationObject.add(a);
             }
         }
@@ -3680,6 +3724,26 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class SolutionSummary
+ *
+*/
+
+    public void addSolutionSummary(SolutionSummary solutionSummary){
+        assert solutionSummary != null;
+        this.listSolutionSummary.add(solutionSummary);
+    }
+
+/**
+ *  remove an item from the list for class SolutionSummary
+ *
+*/
+
+    public Boolean removeSolutionSummary(SolutionSummary solutionSummary){
+        assert solutionSummary != null;
+        return this.listSolutionSummary.remove(solutionSummary);
+    }
+
+/**
  *  dump all items on the console for debugging
  *
 */
@@ -3767,6 +3831,9 @@ public int compareTo(ApplicationDataset ds2){
             System.out.println(x);
         }
         for(SolutionError x:getListSolutionError()){
+            System.out.println(x);
+        }
+        for(SolutionSummary x:getListSolutionSummary()){
             System.out.println(x);
         }
         for(SolverProperty x:getListSolverProperty()){
@@ -3906,6 +3973,9 @@ public int compareTo(ApplicationDataset ds2){
         }
         for(SolutionError x:getListSolutionError()){
             if (x.getClass().equals(SolutionError.class)) x.toXML(out);
+        }
+        for(SolutionSummary x:getListSolutionSummary()){
+            if (x.getClass().equals(SolutionSummary.class)) x.toXML(out);
         }
         for(SolverProperty x:getListSolverProperty()){
             if (x.getClass().equals(SolverProperty.class)) x.toXML(out);
@@ -4049,6 +4119,7 @@ public int compareTo(ApplicationDataset ds2){
         compareSetupType(this.getListSetupType(),compare.getListSetupType());
         compareSolution(this.getListSolution(),compare.getListSolution());
         compareSolutionError(this.getListSolutionError(),compare.getListSolutionError());
+        compareSolutionSummary(this.getListSolutionSummary(),compare.getListSolutionSummary());
         compareSolverProperty(this.getListSolverProperty(),compare.getListSolverProperty());
         compareSolverRun(this.getListSolverRun(),compare.getListSolverRun());
         compareTask(this.getListTask(),compare.getListTask());
@@ -4684,6 +4755,30 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ * compare two lists of types SolutionSummary, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareSolutionSummary(List<SolutionSummary> aList,List<SolutionSummary> bList){
+        System.out.println("Comparing SolutionSummary");
+        for(SolutionSummary a:aList){
+            SolutionSummary b= SolutionSummary.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolutionSummary A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolutionSummary A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolutionSummary B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(SolutionSummary b: bList){
+            SolutionSummary a = SolutionSummary.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"SolutionSummary B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
  * compare two lists of types SolverProperty, create AppplicationWarnings for items which are in only one of the lists
  * or for items which are applicationSame(), but not applicationEqual()
 */
@@ -4884,6 +4979,7 @@ public int compareTo(ApplicationDataset ds2){
         checkSetupType(this.getListSetupType());
         checkSolution(this.getListSolution());
         checkSolutionError(this.getListSolutionError());
+        checkSolutionSummary(this.getListSolutionSummary());
         checkSolverProperty(this.getListSolverProperty());
         checkSolverRun(this.getListSolverRun());
         checkTask(this.getListTask());
@@ -5192,6 +5288,17 @@ public int compareTo(ApplicationDataset ds2){
 
 /**
  * helper method for checkAll()
+ * @param list List<SolutionSummary> dataset list of all items of type SolutionSummary
+*/
+
+    public void checkSolutionSummary(List<SolutionSummary> list){
+        for(SolutionSummary a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
  * @param list List<SolverProperty> dataset list of all items of type SolverProperty
 */
 
@@ -5296,6 +5403,7 @@ public int compareTo(ApplicationDataset ds2){
         SetupType.dummy(this);
         Solution.dummy(this);
         SolutionError.dummy(this);
+        SolutionSummary.dummy(this);
         SolverProperty.dummy(this);
         SolverRun.dummy(this);
         Task.dummy(this);
