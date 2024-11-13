@@ -3,6 +3,7 @@ package org.insightcentre.tbischeduling.implementedsolver;
 import framework.types.DateOnly;
 import framework.types.DateTime;
 import framework.types.TimeOnly;
+import net.sourceforge.plantuml.project3.Solver;
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 import org.insightcentre.tbischeduling.importer.Reset;
@@ -105,6 +106,9 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
             case CPO:
                 res = new CPOModel(base,run).solve();
                 break;
+            case CPSat:
+                res = new CPSatModel(base,run).solve();
+                break;
             case MiniZincDiffn:
                 res = new MiniZincDiffnModel(base,run).solve();
                 break;
@@ -113,6 +117,9 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
                 break;
             case REST:
                 res = new RESTSolver(base,run).solve();
+                break;
+            case Batch:
+                res = new BatchSolver(base,run).solve();
                 break;
             default:
                 severe("Unknown model type "+getModelType());

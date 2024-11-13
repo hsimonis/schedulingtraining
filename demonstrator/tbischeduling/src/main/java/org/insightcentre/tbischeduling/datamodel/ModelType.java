@@ -48,6 +48,7 @@ import org.insightcentre.tbischeduling.datamodel.Severity;
 import org.insightcentre.tbischeduling.datamodel.ModelType;
 import org.insightcentre.tbischeduling.datamodel.SolverBackend;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
+import org.insightcentre.tbischeduling.datamodel.SolutionStatus;
 import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.ResourceModel;
 import org.insightcentre.tbischeduling.datamodel.DurationModel;
@@ -87,6 +88,12 @@ CPO,
  *
 */
 
+CPSat,
+    /**
+ *  
+ *
+*/
+
 MiniZincDiffn,
     /**
  *  
@@ -99,7 +106,13 @@ MiniZincTask,
  *
 */
 
-REST;
+REST,
+    /**
+ *  
+ *
+*/
+
+Batch;
 private static ModelType[] cache = null;
 
 public static ModelType[] cachedValues(){

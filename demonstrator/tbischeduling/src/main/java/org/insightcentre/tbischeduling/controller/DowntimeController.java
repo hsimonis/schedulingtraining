@@ -23,7 +23,7 @@ import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
 
 /**
- * Generated at 23:36:18 on 2024-11-06 */
+ * Generated at 20:35:12 on 2024-11-12 */
 public class DowntimeController extends Table3Controller {
 	@FXML
 	private TableView<Downtime> table;

@@ -23,16 +23,28 @@ The detailed execution time depends on many parameters that are not well control
 \chapter{Taillard Open Shop Problems}
 All problems are solved to optimality, possible due to their small to moderate size.
 
+\section{Results for CPOptimizer}
+
 \input{resultsoss}
+
+\section{Results for CPSat}
+
+\input{resultsossCPSat}
 
 \clearpage
 \chapter{Taillard Job Shop Problems}
 
 The results are rather confusing, as some smaller problems cannot be solved to optimality, while complete groups of larger instances can. The number of jobs clearly is not the only indicator of difficulty of these problems.
 
+\section{Results for CPOptimizer}
+
 \input{resultsjss}
 
-\section{Sample Results on Mac}
+\section{Results for CPSat}
+
+\input{resultsjssCPSat}
+
+\section{Sample Results on Mac (CPOptimizer)}
 For a selected subset of the tests, we also tried running on a mac laptop, results show some good improvement of the m2 based laptop over the Intel based Windows machine, but the improvements are not consistent.
 \input{resultsjss100-20-mac}
 
@@ -41,9 +53,15 @@ For a selected subset of the tests, we also tried running on a mac laptop, resul
 
 These problems seem to be more difficult to solve to optimality. The number of stages seems to make a huge difference, we can solve the problems with five stages (machines) much more easily than the problems with 10 or twenty stages.
 
+\section{Results for CPOptimizer}
+
 \input{resultsfss}
 
-\section{Permutation Flowshop Results for Taillard}
+\section{Results for CPSat}
+
+\input{resultsfssCPSat}
+
+\section{Permutation Flowshop Results for CPOptimizer}
 
 We can run the flowshop benchmarks with an additional constraint to be solved as a permutation flowshop, which dramatically reduces the sets of feasible solutions, and the search tree to be searched. This might results in improved solutions found as a larger part of that search space can be explored, but solutions can be worse than for the original problem. In particular the optimal solution for the permutation flowshop can be worse than a good feasible solution for the unrestricted flowshop.
 
@@ -55,12 +73,17 @@ We can run the flowshop benchmarks with an additional constraint to be solved as
 The assembly line balancing problems have a single cumulative and no disjunctive constraints, so the indicated number of (disjunctive) machines is zero. 
 
 The larger problem instances are still missing. For the small instances (20 tasks), only a few are not solved to optimality, for the medium sizes the number of optimal solutions found is reduced, and for larger instances, optimal solutions are rare.
+
+\section{Results for CPOptimizer}
+
 \input{resultssalbp}
 
 \clearpage
 \chapter{Test Scheduling Problems}
 
 Due to the number of instances given, we only run problems for 30 seconds, some results are still missing. The original instance data was given in Prolog format, we generate a JSON equivalent, which is used as input to create the problems.
+
+\section{Results for CPOptimizer}
 
 \input{resultstsched}
 

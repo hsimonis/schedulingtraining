@@ -33,7 +33,7 @@ public class Batch {
         Scenario base = new Scenario();
         base.setDataFileVersionNumber(8.0);
         base.setDataFile("");
-        base.setHorizon(20000);
+        base.setHorizon(100000);
         base.setTimeResolution(5);
         base.setStartDateTime(new DateTime(2024,10,1,0,0));
 

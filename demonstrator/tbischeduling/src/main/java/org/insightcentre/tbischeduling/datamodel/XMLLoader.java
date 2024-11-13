@@ -104,6 +104,16 @@ public SolverStatus getSolverStatus(String attributeName,
             return SolverStatus.valueOf(e);
         }
     }
+public SolutionStatus getSolutionStatus(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("SolutionStatus"+": "+attributeName);
+            return null;
+        } else {
+            return SolutionStatus.valueOf(e);
+        }
+    }
 public ObjectiveType getObjectiveType(String attributeName,
                                Attributes attributes) {
         String e = attributes.getValue(attributeName);

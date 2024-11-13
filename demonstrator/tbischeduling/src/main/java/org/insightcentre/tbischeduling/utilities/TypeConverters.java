@@ -7,6 +7,7 @@ import static org.insightcentre.tbischeduling.datamodel.DurationDisplay.*;
 import static org.insightcentre.tbischeduling.datamodel.DurationDisplay.None;
 import static org.insightcentre.tbischeduling.datamodel.DurationModel.*;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
+import static org.insightcentre.tbischeduling.datamodel.ModelType.CPSat;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.REST;
 import static org.insightcentre.tbischeduling.datamodel.ObjectiveType.*;
 import static org.insightcentre.tbischeduling.datamodel.ResourceModel.*;
@@ -42,9 +43,11 @@ public class TypeConverters {
     public static  ModelType toModelType(String name){
         return switch (name) {
             case "CPO" -> CPO;
+            case "CPSat" -> CPSat;
             case "MiniZincDiffn" -> MiniZincDiffn;
             case "MiniZincTask" -> MiniZincTask;
             case "REST" -> REST;
+            case "Batch" -> Batch;
             default -> null;
         };
     }
@@ -53,7 +56,7 @@ public class TypeConverters {
             case "None" -> SolverBackend.None;
             case "Chuffed" -> Chuffed;
             case "Gecode" -> Gecode;
-            case "CPSat" -> CPSat;
+            case "CPSat" -> SolverBackend.CPSat;
             case "Cplex" -> Cplex;
             default -> null;
         };

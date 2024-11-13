@@ -4,9 +4,12 @@ import framework.types.DateTime;
 import framework.types.IrishCalendar;
 import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.SolverBackend;
 import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.implementedsolver.CPOModel;
+import org.insightcentre.tbischeduling.implementedsolver.CPSatModel;
+import org.insightcentre.tbischeduling.implementedsolver.MiniZincDiffnModel;
 import org.insightcentre.tbischeduling.importer.ReadData;
 import org.insightcentre.tbischeduling.importer.ReadSALBPFile;
 import org.insightcentre.tbischeduling.importer.ReadTestSchedulingFile;
@@ -23,7 +26,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.insightcentre.tbischeduling.datamodel.ModelType.CPO;
+import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.ToRun;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
@@ -43,16 +46,19 @@ public class TestAll {
 
 
     public static void main(String[] args) {
-        testAll("imports/Taillard/OSS/");
-        analyzeAll("imports/Taillard/OSS/results/","Taillard OpenShop","oss");
-        testAll("imports/Taillard/JSS/");
-        analyzeAll("imports/Taillard/JSS/results/","Taillard JobShop","jss");
-        testAll("imports/Taillard/FSS/");
-        analyzeAll("imports/Taillard/FSS/results/","Taillard Flowshop","fss");
-        testSALBP("salbp/");
-        analyzeAll("salbp/results/","SALBP-1 Problems","salbp");
-        testTestScheduling("testscheduling/");
-        analyzeAll("testscheduling/results/","Test Scheduling Problems","tsched");
+//        testAll("imports/Taillard/OSS/","resultsCPSat/");
+//        analyzeAll("imports/Taillard/OSS/results/","Taillard OpenShop (CPOptimizer)","oss");
+//        analyzeAll("imports/Taillard/OSS/resultsCPSat/","Taillard OpenShop (CPSat)","ossCPSat");
+//        testAll("imports/Taillard/JSS/","resultsCPSat/");
+//        analyzeAll("imports/Taillard/JSS/results/","Taillard JobShop","jss");
+//        analyzeAll("imports/Taillard/JSS/resultsCPSat/","Taillard JobShop (CPSat)","jssCPSat");
+        testAll("imports/Taillard/FSS/","resultsCPSat/");
+        analyzeAll("imports/Taillard/FSS/resultsCPSat/","Taillard Flowshop (CPSat)","fssCPSat");
+//        analyzeAll("imports/Taillard/FSS/results/","Taillard Flowshop","fss");
+//        testSALBP("salbp/");
+//        analyzeAll("salbp/results/","SALBP-1 Problems","salbp");
+//        testTestScheduling("testscheduling/");
+//        analyzeAll("testscheduling/results/","Test Scheduling Problems","tsched");
     }
 
     /*
@@ -60,14 +66,14 @@ public class TestAll {
     read each file, create a SolverRun to run it, run the test and write the result in the results subdirectory under the same name
     important: check the SolverRun for the correct test settings
      */
-    private static void testAll(String importDir){
+    private static void testAll(String importDir,String resultDir){
         assert(importDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(importDir,".json");
 
         for(String fileName:list) {
             info("trying file " + fileName);
-            String outputFile = importDir + "results/" + fileName;
-            if (!new File(outputFile).exists()) {
+            String outputFile = importDir + resultDir + fileName;
+            if (!new File(outputFile).exists() /*&& fileName.startsWith("tai50_5")*/) {
 
                 Scenario base = new Scenario();
                 base.setDataFileVersionNumber(8.0);
@@ -93,14 +99,20 @@ public class TestAll {
                 //??? save the results in a different directory
                 test.setAddSameOrder(false);
                 test.setTimeout(600);
-                test.setModelType(CPO);
+//                test.setModelType(CPO);
+                test.setModelType(CPSat);
+//                test.setModelType(MiniZincDiffn);
+//                test.setSolverBackend(SolverBackend.Chuffed);
+                test.setSolverBackend(SolverBackend.CPSat);
                 test.setObjectiveType(ObjectiveType.Makespan);
-                test.setNrThreads(2);
+                test.setNrThreads(8);
 
 //            info("Nr SolverRun " + base.getListSolverRun().size());
                 for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
                     info("Running " + run.getName());
-                    new CPOModel(base, run).solve();
+//                    new CPOModel(base, run).solve();
+                    new CPSatModel(base, run).solve();
+//                    new MiniZincDiffnModel(base, run).solve();
                 }
                 new WriteData(base).toFile(new File(outputFile), 2);
             }
