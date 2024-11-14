@@ -49,23 +49,18 @@ public class TestAll {
     public static void main(String[] args) {
         Scenario base = new Scenario();
 //        testAll("imports/Taillard/OSS/","resultsCPSat/");
-//        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard OpenShop (CPOptimizer)","oss");
-//        analyzeAll(base,"imports/Taillard/OSS/resultsCPSat/","Taillard OpenShop (CPSat)","ossCPSat");
-//        compareSummaries(base,"compareoss","Comparison of CPO and CPSat for Result Groups of Taillard Open Shop Problems",false,"CPO","CPSat");
+        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard OpenShop (CPOptimizer)","oss");
+        analyzeAll(base,"imports/Taillard/OSS/resultsCPSat/","Taillard OpenShop (CPSat)","ossCPSat");
 //        testAll("imports/Taillard/JSS/","resultsCPSat/");
-//        analyzeAll(base,"imports/Taillard/JSS/results/","Taillard JobShop","jss");
-//        analyzeAll(base,"imports/Taillard/JSS/resultsCPSat/","Taillard JobShop (CPSat)","jssCPSat");
-//        compareSummaries(base,"comparejss","Comparison of CPO and CPSat for Result Groups of Taillard Job Shop Problems",false,"CPO","CPSat");
+//        analyzeAll("imports/Taillard/JSS/results/","Taillard JobShop","jss");
+//        analyzeAll("imports/Taillard/JSS/resultsCPSat/","Taillard JobShop (CPSat)","jssCPSat");
 //        testAll("imports/Taillard/FSS/","resultsCPSat/");
-//        analyzeAll(base,"imports/Taillard/FSS/resultsCPSat/","Taillard Flowshop (CPSat)","fssCPSat");
-        analyzeAll(base,"imports/Taillard/FSS/results/","Taillard Flowshop","fss");
-        analyzeAll(base,"imports/Taillard/FSS/permutationresults/","Taillard Permutation Flowshop","pfss");
-        compareSummaries(base,"comparepfss","Comparison of CPO for Result Groups of Taillard Flow Shop and Permutation FlowShop Problems",true,"FSS","PFSS");
-//        compareSummaries(base,"comparefss","Comparison of CPO and CPSat for Result Groups of Taillard Flow Shop Problems",false,"CPO","CPSat");
+//        analyzeAll("imports/Taillard/FSS/resultsCPSat/","Taillard Flowshop (CPSat)","fssCPSat");
+//        analyzeAll("imports/Taillard/FSS/results/","Taillard Flowshop","fss");
 //        testSALBP("salbp/","resultsCPSat/");
 //        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat");
 //        analyzeAll(base,"salbp/results/","SALBP-1 Problems","salbp");
-//       compareSummaries(base,"comparesalbp","Comparison of CPO and CPSat for Result Groups of SALBP-1 Problems",false,"CPO","CPSat");
+        compareSummaries(base);
 //        testTestScheduling("testscheduling/");
 //        analyzeAll("testscheduling/results/","Test Scheduling Problems","tsched");
     }
@@ -307,159 +302,103 @@ public class TestAll {
                 .collect(Collectors.toList());
     }
 
-    private static void compareSummaries(Scenario base,String key,String label,boolean relaxed,String variant1,String variant2){
-        String fileName = "reports/"+key+".tex";
-        try {
-            PrintWriter out = new PrintWriter(fileName);
-            out.printf("\\begin{table}[htbp]\n");
-            out.printf("\\caption{\\label{tab:%s}%s}\n",key,label);
-            out.printf("\\begin{tabular}{l*{10}{r}}\\toprule\n");
-            out.printf("& \\multicolumn{4}{c}{All Instances} & \\multicolumn{2}{c}{Optimal Only} & \\multicolumn{4}{c}{Non-Optimal Only}\\\\\n");
-            out.printf(" & \\multicolumn{4}{c}{Optimal (\\%% of Instances)} & \\multicolumn{2}{c}{Time (\\%% of VB)} & \\multicolumn{2}{c}{Cost (\\%% of VB)} & \\multicolumn{2}{c}{Bound (\\%% of VB)}\\\\\n");
-            out.printf("Group & Both & %s & %s & Neither & %s & %s & %s &%s & %s & %s\\\\ \\midrule\n",variant1,variant2,variant1,variant2,variant1,variant2,variant1,variant2);
-
-            List<String> groups = base.getListSolutionSummary().stream().
-                    map(TestAll::group).
-                    distinct().
-                    sorted().
-                    toList();
-            for (String group : groups) {
-                String variantOne = null;
-                String variantTwo = null;
-                double timeOne = 0.0;
-                double timeTwo = 0.0;
-                double timeVb = 0.0;
-                int bothOptimal = 0;
-                int oneOnlyOptimal = 0;
-                int twoOnlyOptimal = 0;
-                int oneSpan = 0;
-                int twoSpan = 0;
-                int vbSpan = 0;
-                int spanCnt = 0;
-                double oneBound = 0.0;
-                double twoBound = 0.0;
-                double vbBound = 0.0;
-                int minDiff = 0;
-                int maxDiff = 0;
-                int onlyOneCnt = 0;
-                int twoCnt = 0;
-                int notOptimal = 0;
-                int sameCostOne = 0;
-                int sameCostTwo = 0;
-                Map<String, List<SolutionSummary>> map = base.getListSolutionSummary().stream().
-                        filter(x -> group(x).equals(group)).
-                        collect(groupingBy(SolutionSummary::getInstance));
-                for (String instance : map.keySet()) {
-                    List<SolutionSummary> sols = map.get(instance).stream().
-                            sorted(Comparator.comparing(SolutionSummary::getVariant)).
-                            toList();
-                    if (sols.size() == 1) {
+    private static void compareSummaries(Scenario base){
+        String variantOne=null;
+        String variantTwo=null;
+        double timeOne = 0.0;
+        double timeTwo = 0.0;
+        int bothOptimal = 0;
+        int oneOnlyOptimal = 0;
+        int twoOnlyOptimal = 0;
+        int oneSpan = 0;
+        int twoSpan = 0;
+        int spanCnt = 0;
+        double oneBound=0.0;
+        double twoBound = 0.0;
+        int minDiff = 0;
+        int maxDiff =0;
+        int onlyOneCnt = 0;
+        int twoCnt = 0;
+        int notOptimal = 0;
+        int sameCostOne = 0;
+        int sameCostTwo = 0;
+        Map<String,List<SolutionSummary>> map = base.getListSolutionSummary().stream().collect(groupingBy(SolutionSummary::getInstance));
+        for(String instance:map.keySet()){
+            List<SolutionSummary> sols = map.get(instance).stream().sorted(Comparator.comparing(SolutionSummary::getVariant)).toList();
+            if (sols.size()==1){
 //                info("Only 1 "+instance);
-                        onlyOneCnt++;
-                    } else if (sols.size() == 2) {
-                        twoCnt++;
-                        SolutionSummary one = sols.get(0);
-                        SolutionSummary two = sols.get(1);
-                        if (variantOne != null) {
-                            assert (variantOne.equals(one.getVariant()));
-                        } else {
-                            variantOne = one.getVariant();
-                        }
-                        if (variantTwo != null) {
-                            assert (variantTwo.equals(two.getVariant()));
-                        } else {
-                            variantTwo = two.getVariant();
-                        }
-                        if (one.getSolverStatus() == two.getSolverStatus()) {
-                            if (one.getSolverStatus() == Optimal) {
+                onlyOneCnt++;
+            } else if (sols.size() ==2) {
+                twoCnt++;
+                SolutionSummary one = sols.get(0);
+                SolutionSummary two = sols.get(1);
+                if (variantOne != null){
+                    assert(variantOne.equals(one.getVariant()));
+                } else {
+                    variantOne = one.getVariant();
+                }
+                if (variantTwo != null){
+                    assert(variantTwo.equals(two.getVariant()));
+                } else {
+                    variantTwo = two.getVariant();
+                }
+                if (one.getSolverStatus() == two.getSolverStatus()){
+                    if (one.getSolverStatus() ==Optimal){
 //                        info("Equal " + one.getSolverStatus() + " " + one.getMakespan() + " " + two.getMakespan());
-                                // we need to relax that assertion for permutation flow shop, where the optimal results are different
-                                assert (relaxed || one.getMakespan() == (int) two.getMakespan());
-                                timeOne += one.getTime();
-                                timeTwo += two.getTime();
-                                timeVb += Math.min(one.getTime(), two.getTime());
-                                bothOptimal++;
-
-                            } else {
-                                notOptimal++;
-//                        info("Equal " + one.getSolverStatus() + " " + one.getMakespan() + " " + two.getMakespan());
-                                oneSpan += one.getMakespan();
-                                twoSpan += two.getMakespan();
-                                vbSpan += Math.min(one.getMakespan(), two.getMakespan());
-                                oneBound += one.getBound();
-                                twoBound += two.getBound();
-                                vbBound += Math.max(one.getBound(), two.getBound());
-                                minDiff = Math.min(minDiff, one.getMakespan() - two.getMakespan());
-                                maxDiff = Math.max(maxDiff, one.getMakespan() - two.getMakespan());
-                                spanCnt++;
-                            }
-
-                        } else {
-//                    info("Different status "+one.getSolverStatus()+" "+two.getSolverStatus());
-                            oneSpan += one.getMakespan();
-                            twoSpan += two.getMakespan();
-                            vbSpan += Math.min(one.getMakespan(), two.getMakespan());
-                            oneBound += one.getBound();
-                            twoBound += two.getBound();
-                            vbBound += Math.max(one.getBound(), two.getBound());
-                            spanCnt++;
-                            if (one.getSolverStatus() == Optimal) {
-                                oneOnlyOptimal++;
-                                if (one.getMakespan() == (int) two.getMakespan()) {
-                                    sameCostOne++;
-                                }
-                            } else if (two.getSolverStatus() == Optimal) {
-                                twoOnlyOptimal++;
-                                if (one.getMakespan() == (int) two.getMakespan()) {
-                                    sameCostTwo++;
-                                }
-                            }
-                        }
+                        assert(one.getMakespan() == 0+two.getMakespan());
+                        timeOne += one.getTime();
+                        timeTwo += two.getTime();
+                        bothOptimal++;
 
                     } else {
-                        warning("Too many solutions " + instance);
-                        assert (false);
+                        notOptimal++;
+//                        info("Equal " + one.getSolverStatus() + " " + one.getMakespan() + " " + two.getMakespan());
+                        oneSpan += one.getMakespan();
+                        twoSpan += two.getMakespan();
+                        oneBound += one.getBound();
+                        twoBound += two.getBound();
+                        minDiff =Math.min(minDiff,one.getMakespan()-two.getMakespan());
+                        maxDiff =Math.max(maxDiff,one.getMakespan()-two.getMakespan());
+                        spanCnt++;
+                    }
+
+                } else {
+//                    info("Different status "+one.getSolverStatus()+" "+two.getSolverStatus());
+                    oneSpan += one.getMakespan();
+                    twoSpan += two.getMakespan();
+                    oneBound += one.getBound();
+                    twoBound += two.getBound();
+                    spanCnt++;
+                    if (one.getSolverStatus() == Optimal){
+                        oneOnlyOptimal++;
+                        if (one.getMakespan()==0+two.getMakespan()){
+                            sameCostOne++;
+                        }
+                    } else if (two.getSolverStatus() == Optimal){
+                        twoOnlyOptimal++;
+                        if (one.getMakespan()==0+two.getMakespan()){
+                            sameCostTwo++;
+                        }
                     }
                 }
-                info("Group " + group);
-                info("Only one entry " + onlyOneCnt + " two entries " + twoCnt);
-                info("Time for " + bothOptimal + " " + percent(bothOptimal, twoCnt) + " optimal cases " +
-                        variantOne + " " + timeOne + " " + percent(timeOne, timeVb) + " " +
-                        variantTwo + " " + timeTwo + " " + percent(timeTwo, timeVb) + " VB " + timeVb);
-                info("One only Optimal " + variantOne + " " + oneOnlyOptimal + " " + percent(oneOnlyOptimal, twoCnt) + " same Cost " + sameCostOne);
-                info("Two only Optimal " + variantTwo + " " + twoOnlyOptimal + " " + percent(twoOnlyOptimal, twoCnt) + " same Cost " + sameCostTwo);
-                info("Not optimal " + notOptimal + " " + percent(notOptimal, twoCnt));
-                info("Sum Makespan " + spanCnt + " " + variantOne + " " + oneSpan + " " + percent(oneSpan, vbSpan) +
-                        " " + variantTwo + " " + twoSpan + " " + percent(twoSpan, vbSpan) + " VB " + vbSpan);
-                info("Sum Bound " + spanCnt + " " + variantOne + " " + oneBound + " " + percent(oneBound, vbBound) + " " +
-                        variantTwo + " " + twoBound + " " + percent(twoBound, vbBound) + " VB " + vbBound);
-                info(variantOne + " better than " + variantTwo + " by " + minDiff + ", " + variantTwo + " better than " + variantOne + " by " + maxDiff);
-                info("---------------------------------------------------------");
-                out.printf("%s & %s& %s& %s& %s& %s& %s& %s& %s& %s& %s\\\\\n",
-                        group,percent(bothOptimal, twoCnt),percent(oneOnlyOptimal, twoCnt),percent(twoOnlyOptimal, twoCnt),percent(notOptimal, twoCnt),
-                        percent(timeOne, timeVb),percent(timeTwo, timeVb),
-                        percent(oneSpan, vbSpan),percent(twoSpan, vbSpan),percent(oneBound, vbBound),percent(twoBound, vbBound));
+
+            } else {
+                warning("Too many solutions "+instance);
+                assert(false);
             }
-            out.printf("\\bottomrule\n");
-            out.printf("\\end{tabular}\n");
-            out.printf("\\end{table}\n");
-            out.close();
-        }catch(IOException e){
-            severe("Cannot write file: "+fileName+", exception "+e.getMessage());
         }
+        info("Only one entry "+onlyOneCnt+" two entries "+twoCnt);
+        info("Time for "+bothOptimal+" "+percent(bothOptimal,twoCnt)+" optimal cases "+variantOne+" "+timeOne+" "+variantTwo+" "+timeTwo);
+        info("One only Optimal "+variantOne+" "+oneOnlyOptimal +" "+percent(oneOnlyOptimal,twoCnt)+" same Cost "+sameCostOne);
+        info("Two only Optimal "+variantTwo+" "+twoOnlyOptimal+" "+percent(twoOnlyOptimal,twoCnt)+" same Cost "+sameCostTwo);
+        info("Not optimal "+notOptimal+" "+percent(notOptimal,twoCnt));
+        info("Sum Makespan "+spanCnt+" one "+variantOne +" "+oneSpan+" "+variantTwo+" "+twoSpan);
+        info("Sum Bound "+spanCnt+" one "+variantOne +" "+oneBound+" "+variantTwo+" "+twoBound);
+        info("Two Better than one by "+minDiff+" one better than two by "+maxDiff);
     }
 
-    private static String group(SolutionSummary x){
-        return x.getNrJobs()+"/"+x.getNrMachines();
-    }
-    private static String groupSalbp(SolutionSummary x){
-        return x.getNrTasks()+"";
-    }
     private static String percent(double a,double b){
-        if (b == 0.0){
-            return "n/a";
-        }
-        return String.format("%5.2f",100.0*a/b);
+        return String.format("%5.2f%%",100.0*a/b);
     }
 
 }

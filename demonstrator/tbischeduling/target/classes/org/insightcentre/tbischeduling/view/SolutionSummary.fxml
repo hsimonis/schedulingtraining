@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+
+<!--Generated at 12:39:47 on 2024-11-13-->
+
+
+<Tab text="SolutionSummary" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.SolutionSummaryController">
+   <BorderPane>
+      <center>
+         <TableView fx:id="table" editable="true">
+            <columns>
+               <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
+               <TableColumn fx:id="variant" styleClass="right-aligned" text="Variant" />
+               <TableColumn fx:id="instance" styleClass="right-aligned" text="Instance" />
+               <TableColumn fx:id="nrJobs" styleClass="right-aligned" text="NrJobs" />
+               <TableColumn fx:id="nrTasks" styleClass="right-aligned" text="NrTasks" />
+               <TableColumn fx:id="nrMachines" styleClass="right-aligned" text="NrMachines" />
+               <TableColumn fx:id="nrCumulatives" styleClass="right-aligned" text="NrCumulatives" />
+               <TableColumn fx:id="solverStatus" styleClass="right-aligned" text="SolverStatus" />
+               <TableColumn fx:id="time" styleClass="right-aligned" text="Time" />
+               <TableColumn fx:id="makespan" styleClass="right-aligned" text="Makespan" />
+               <TableColumn fx:id="bound" styleClass="right-aligned" text="Bound" />
+               <TableColumn fx:id="gapPercent" styleClass="right-aligned" text="GapPercent" />
+            </columns>
+         </TableView>
+      </center>
+      <bottom>
+         <TitledPane fx:id="filterPane" expanded="false" text="Filter">
+            <content>
+               <HBox alignment="center" spacing="5.0">
+                  <ChoiceBox fx:id="filterChoiceBox" />
+                  <ChoiceBox fx:id="filterComparisonBox" />
+                  <TextField fx:id="filterTextField" />
+               </HBox>
+            </content>
+         </TitledPane>
+      </bottom>
+   </BorderPane>
+</Tab>
