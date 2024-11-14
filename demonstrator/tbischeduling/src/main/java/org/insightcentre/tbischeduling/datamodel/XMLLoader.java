@@ -880,6 +880,25 @@ public DurationDisplay getDurationDisplay(String attributeName,
         return res;
     }
 
+    public SolutionSummary getSolutionSummary(String attributeName,
+                               Attributes attributes) {
+        return (SolutionSummary) find(getId(attributeName,attributes));
+    }
+
+    public List<SolutionSummary> getSolutionSummaryCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<SolutionSummary> res = new ArrayList<SolutionSummary>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((SolutionSummary) find(id));
+            }
+        }
+        return res;
+    }
+
     public SolverProperty getSolverProperty(String attributeName,
                                Attributes attributes) {
         return (SolverProperty) find(getId(attributeName,attributes));
@@ -1465,6 +1484,24 @@ public DurationDisplay getDurationDisplay(String attributeName,
                         null,
                         getString("value",attributes,"")
                         ));
+            } else if (qname.equals("solutionSummary")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new SolutionSummary(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getDouble("bound",attributes,0.0),
+                        getDouble("gapPercent",attributes,0.0),
+                        getString("instance",attributes,""),
+                        getInteger("makespan",attributes,0),
+                        getInteger("nrCumulatives",attributes,0),
+                        getInteger("nrJobs",attributes,0),
+                        getInteger("nrMachines",attributes,0),
+                        getInteger("nrTasks",attributes,0),
+                        null,
+                        getDouble("time",attributes,0.0),
+                        getString("variant",attributes,"")
+                        ));
             } else if (qname.equals("solverProperty")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1786,6 +1823,11 @@ public DurationDisplay getDurationDisplay(String attributeName,
                 SolutionError item = (SolutionError) find(id);
                  item.setSeverity(getSeverity("severity",attributes));
                  item.setSolution(getSolution("solution",attributes));
+            } else if (qname.equals("solutionSummary")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                SolutionSummary item = (SolutionSummary) find(id);
+                 item.setSolverStatus(getSolverStatus("solverStatus",attributes));
             } else if (qname.equals("solverProperty")) {
                 assert (base != null);
                 int id = getId("id", attributes);

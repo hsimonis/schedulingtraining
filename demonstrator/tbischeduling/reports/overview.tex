@@ -1,6 +1,7 @@
 \documentclass[a4paper]{report}
 \usepackage{booktabs}
 \usepackage{longtable}
+\usepackage{multirow}
 \usepackage{hyperref}
 \title{Results for Scheduling Benchmark Classes}
 \author{Luis Quesada and Helmut Simonis}
@@ -16,8 +17,36 @@ this reposts lists results of the \emph{tbischeduling} tool for a number of exis
 
 The results are obtained by running the TestAll main routine for the different benchmark problems, selecting the necessary parameters and limits for each benchmark type.
 
-The detailed execution time depends on many parameters that are not well controlled in the test environment, so the results should be considered with caution. Tests were run on a Windows 11 laptop using CPOptimizer 22.1.0.
+The detailed execution time depends on many parameters that are not well controlled in the test environment, so the results should be considered with caution. Tests were run on a Windows 11 laptop using CPOptimizer 22.1.0, and CPSat 9.11, both using their Java API. 
 
+\chapter{Overview}
+
+The following tables compare the results of CPOptimizer and CPSat on a number of well-known benchmark problems. Note that the programs used are the generic solutions of the problems, there was no attempt to improve lower bounds, or add redundant constraints that would improve pruning for a specific problem class. As such, the results indicate "out-of-the-box"  performance of the solvers.
+
+The comparison does not attempt to compare the solutions found to the best known results, it is only intended to compare the results of the solvers considered based on the same underlying data model, running on the same hardware, with the same time limit.
+
+
+Table~\ref{tab:compareoss} shows the results for the Taillard open shop problem set. All problems are solved to optimality by both solvers, given 600 seconds timeout and 4 resp. 8 threads for the solver. The results are grouped by instances classes where $x/y$ indicate $x$ jobs on $y$ machines. We compare the time taken to find and prove the optimal solution based on the virtual best solution of the faster time of the solvers. For smaller instances, CPSat seems to be faster, but for larger instances CPOptimizer finds the solution more rapidly. Given that all results are obtained in atmost a few seconds on either solver, this does not seem to be a significant difference.
+
+\input{compareoss}
+
+\input{comparejss}
+
+Table~\ref{tab:comparejss} compares the results for the Taillard job shop problems (incomplete). Only some of the problem groups are solved to optimality. For the 10/20 set, CPOptimizer proves optimality, while CPSat finds solutions which are very close to the optimal results. The bound results for 100/20 with CPSat are incorrect, and need to be recomputed.
+
+\input{comparefss}
+
+
+Table~\ref{tab:comparefss} shows the results for the Taillard flow shop problems. Instance sets 20/5 and 50/5 are solved to optimality by both solvers, CPOptimizer finds many optimal solutions for the 100/5 sets. There are a few optimal solutions for the 20/10 set as well. Execution times for the optimal solutions seems to be significantly higher for CPSat. Comparing the non-optimal solutions, CPOptimizer consistently finds better solutions, but on average, CPSat is within 10\% of the CPOptimizer result. For the bounds, CPSat often provide slightly better lower bounds, but CPOptimizer results are pretty close. Note that for the bounds, a higher value is better, so achieving 100\% of the virtual best bound is better than achieving 98\%.
+
+Table~\ref{tab:comparepfss} compares the results for CPOptimizer for the regular flow shop and the permutation flow shop version on the same data. The model for the permutation flow shop is not available with CPSat. A number of instances are solved to optimality with the permutation flow shop variant, but these optimal solutions typically are not optimal for the unrestricted version. In general, it is much faster to find the optimal solution for the permutation flowshop version, and perhaps surprisingly, the results for the non-optimal instances are often superior for the permutation flowshop. The bounds for the permutation flowshop are stronger, but they are not valid bounds for the unrestricted version. 
+
+\input{comparepfss}
+
+
+\input{comparesalbp}
+
+The results (incomplete) for SALBP-1 in Table~\ref{tab:comparesalbp} were obtained with a 30 second timeout. All of the 20 task instances were solved to optimality (some only with CPSat), while 88\% of the 50 task instances were solved to optimality, but only 43\% were solved by both. The time taken to find the common optimal solutions varies significantly, CPSat seems on average faster on the small instances, while CPOptimizer is faster on a larger instances, but this does not hold for all instances. For the non-optimal solutions, solution quality seems very evenly balanced.
 
 \clearpage
 \chapter{Taillard Open Shop Problems}
@@ -77,6 +106,10 @@ The larger problem instances are still missing. For the small instances (20 task
 \section{Results for CPOptimizer}
 
 \input{resultssalbp}
+
+\section{Results for CPSat}
+
+\input{resultssalbpCPSat}
 
 \clearpage
 \chapter{Test Scheduling Problems}

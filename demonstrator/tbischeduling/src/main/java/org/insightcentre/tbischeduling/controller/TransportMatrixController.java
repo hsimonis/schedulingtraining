@@ -21,7 +21,7 @@ import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.TransportMatrix;
 
 /**
- * Generated at 20:35:13 on 2024-11-12 */
+ * Generated at 12:39:47 on 2024-11-13 */
 public class TransportMatrixController extends Table3Controller {
 	@FXML
 	private TableView<TransportMatrix> table;

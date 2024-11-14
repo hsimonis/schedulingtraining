@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 20:35:13 on 2024-11-12 */
+ * Generated at 12:39:47 on 2024-11-13 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -888,6 +888,31 @@ public class ScatterChartController extends ChartXYFilterController {
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("variant");
+		filterNames.add("instance");
+		attributeNames.add("nrJobs");
+		filterNames.add("nrJobs");
+		attributeNames.add("nrTasks");
+		filterNames.add("nrTasks");
+		attributeNames.add("nrMachines");
+		filterNames.add("nrMachines");
+		attributeNames.add("nrCumulatives");
+		filterNames.add("nrCumulatives");
+		filterNames.add("solverStatus");
+		attributeNames.add("time");
+		filterNames.add("time");
+		attributeNames.add("makespan");
+		filterNames.add("makespan");
+		attributeNames.add("bound");
+		filterNames.add("bound");
+		attributeNames.add("gapPercent");
+		filterNames.add("gapPercent");
+		choicesMap.put("SolutionSummary", attributeNames);
+		filterMap.put("SolutionSummary", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -1027,6 +1052,9 @@ public class ScatterChartController extends ChartXYFilterController {
 			}
 			else if (className.equals("TransportMatrix")) {
 				objectList = mainApp.getTransportMatrixData();
+			}
+			else if (className.equals("SolutionSummary")) {
+				objectList = mainApp.getSolutionSummaryData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

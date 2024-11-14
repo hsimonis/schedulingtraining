@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 20:35:13 on 2024-11-12-->
+<!--Generated at 12:39:47 on 2024-11-13-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -80,6 +80,7 @@
             </Menu>
             <Menu text="_Window">
                <items>
+                  <MenuItem id="solutionSummaryPage" onAction="#handle" text="SolutionSummary" />
                   <Menu text="_Problem">
                      <items>
                         <MenuItem id="inputErrorPage" onAction="#handle" text="InputError" />

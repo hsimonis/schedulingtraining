@@ -31,6 +31,7 @@
 				<xs:element ref="setupType" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="solution" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="solutionError" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="solutionSummary" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="solverProperty" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="solverRun" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="task" minOccurs="0" maxOccurs="unbounded"/>
@@ -472,6 +473,24 @@
 			<xs:attribute name="severity" use="required" type="xs:string"/>
 			<xs:attribute name="solution" use="required" type="xs:IDREF"/>
 			<xs:attribute name="value" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="solutionSummary">
+		<xs:complexType>
+			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
+			<xs:attribute name="id" use="required" type="xs:ID"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="bound" use="required" type="xs:double"/>
+			<xs:attribute name="gapPercent" use="required" type="xs:double"/>
+			<xs:attribute name="instance" use="required" type="xs:string"/>
+			<xs:attribute name="makespan" use="required" type="xs:integer"/>
+			<xs:attribute name="nrCumulatives" use="required" type="xs:integer"/>
+			<xs:attribute name="nrJobs" use="required" type="xs:integer"/>
+			<xs:attribute name="nrMachines" use="required" type="xs:integer"/>
+			<xs:attribute name="nrTasks" use="required" type="xs:integer"/>
+			<xs:attribute name="solverStatus" use="required" type="xs:string"/>
+			<xs:attribute name="time" use="required" type="xs:double"/>
+			<xs:attribute name="variant" use="required" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="solverProperty">

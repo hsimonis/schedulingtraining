@@ -25,15 +25,18 @@ public class CPSatModel extends AbstractModel{
     public boolean solve(){
         info("Starting solver");
         long startTime = System.currentTimeMillis();
-        int n = base.getListTask().size();
+        int nrTasks = base.getListTask().size();
+        int nrJobs = base.getListJob().size();
         int horizon = base.getHorizon();
         Loader.loadNativeLibraries();
         // Creates the model.
         CpModel model = new CpModel();
 
-        IntVar[] start = new IntVar[n];
-        IntVar[] end = new IntVar[n];
-        IntervalVar[] tasks = new IntervalVar[n];
+        IntVar[] start = new IntVar[nrTasks];
+        IntVar[] end = new IntVar[nrTasks];
+        IntervalVar[] tasks = new IntervalVar[nrTasks];
+        IntVar[] jStart = new IntVar[nrJobs];
+        IntVar[] jEnd = new IntVar[nrJobs];
 
         int i=0;
         Hashtable<Task,Integer> taskHash = new Hashtable<>();
@@ -44,6 +47,15 @@ public class CPSatModel extends AbstractModel{
             end[i] = model.newIntVar(0, horizon, "end" + t.getName());
             tasks[i] = model.newIntervalVar(start[i], LinearExpr.constant(t.getDuration()), end[i], "task" + t.getName());
             i++;
+        }
+        i =0;
+        Hashtable<Job,Integer> jobHash = new Hashtable<>();
+        for(Job j:base.getListJob()){
+            jobHash.put(j,i);
+            jStart[i] = model.newIntVar(0, horizon, "start" + j.getName());
+            jEnd[i] = model.newIntVar(0, horizon, "end" + j.getName());
+            i++;
+
         }
 
         // Precedences between tasks
@@ -63,6 +75,19 @@ public class CPSatModel extends AbstractModel{
                 }
             }
         }
+        // link job start /end to tasks
+        for(Job j:base.getListJob()){
+            List<IntVar> starts = base.getListTask().stream().filter(x->x.getJob()==j).map(x->start[taskHash.get(x)]).toList();
+            model.addMinEquality(jStart[jobHash.get(j)], starts);
+            List<IntVar> ends = base.getListTask().stream().filter(x->x.getJob()==j).map(x->end[taskHash.get(x)]).toList();
+            model.addMaxEquality(jEnd[jobHash.get(j)], ends);
+            if (run.getEnforceReleaseDate()) {
+                model.addGreaterOrEqual(jStart[jobHash.get(j)], j.getOrder().getRelease());
+            }
+            if (run.getEnforceDueDate()) {
+                model.addLessOrEqual(jEnd[jobHash.get(j)], j.getOrder().getDue());
+            }
+        }
         // disjunctive Resources
         for(DisjunctiveResource m:base.getListDisjunctiveResource()){
             List<IntervalVar> list = base.getListTask().stream().filter(x->x.getMachines().contains(m)).map(x->tasks[taskHash.get(x)]).toList();
@@ -76,35 +101,37 @@ public class CPSatModel extends AbstractModel{
             model.addNoOverlap(list);
         }
         // cumulative resources
-        for(CumulativeResource r:base.getListCumulativeResource()){
-            int limit = limit(r);
-            CumulativeConstraint cumul = model.addCumulative(limit);
+        if (run.getEnforceCumulative()) {
+            for (CumulativeResource r : base.getListCumulativeResource()) {
+                int limit = limit(r);
+                CumulativeConstraint cumul = model.addCumulative(limit);
 
-            Hashtable<ProcessStep,Integer> demandHash = new Hashtable<>();
-            int needs=0;
-            for(CumulativeNeed cn:base.getListCumulativeNeed().stream().
-                    filter(x->x.getCumulativeResource()==r).
-                    toList()) {
-                demandHash.put(cn.getProcessStep(),cn.getDemand());
-                needs++;
-            }
-            int cnt = 0;
-            for(Task t:base.getListTask().stream().toList()){
-                Integer demand = demandHash.get(t.getProcessStep());
-                if (demand != null){
-                    cumul.addDemand(tasks[taskHash.get(t)],demand);
-                    cnt++;
+                Hashtable<ProcessStep, Integer> demandHash = new Hashtable<>();
+                int needs = 0;
+                for (CumulativeNeed cn : base.getListCumulativeNeed().stream().
+                        filter(x -> x.getCumulativeResource() == r).
+                        toList()) {
+                    demandHash.put(cn.getProcessStep(), cn.getDemand());
+                    needs++;
                 }
-            }
-            info("Cumulative "+r+" limit "+limit+" needs "+needs+" cnt "+cnt);
+                int cnt = 0;
+                for (Task t : base.getListTask().stream().toList()) {
+                    Integer demand = demandHash.get(t.getProcessStep());
+                    if (demand != null) {
+                        cumul.addDemand(tasks[taskHash.get(t)], demand);
+                        cnt++;
+                    }
+                }
+                info("Cumulative " + r + " limit " + limit + " needs " + needs + " cnt " + cnt);
 
+            }
         }
 
         // Makespan objective
         IntVar objVar = model.newIntVar(0, base.getHorizon(), "makespan");
         List<IntVar> ends = new ArrayList<>();
-        for (Task t:base.getListTask()) {
-            ends.add(end[taskHash.get(t)]);
+        for (Job j:base.getListJob()) {
+            ends.add(jEnd[jobHash.get(j)]);
         }
         model.addMaxEquality(objVar, ends);
         model.minimize(objVar);
@@ -131,7 +158,7 @@ public class CPSatModel extends AbstractModel{
             solution.setGap(gap);
             solution.setSolverRun(run);
             solution.setSolverStatus(toSolverStatus(status));
-            Hashtable<Job, JobAssignment> jobHash = new Hashtable<>();
+            Hashtable<Job, JobAssignment> jobAssignmentHash = new Hashtable<>();
             int taNr=0;
             for(Task t:base.getListTask()){
                 int startValue = (int) Math.round(solver.value(start[taskHash.get(t)]));
@@ -143,7 +170,7 @@ public class CPSatModel extends AbstractModel{
                 ta.setStart(startValue);
                 ta.setEnd(endValue);
                 ta.setDuration(t.getDuration());
-                ta.setJobAssignment(findJobAssignment(t.getJob(), solution, jobHash));
+                ta.setJobAssignment(findJobAssignment(t.getJob(), solution, jobAssignmentHash));
             }
             updateJA(solution);
             return true;
