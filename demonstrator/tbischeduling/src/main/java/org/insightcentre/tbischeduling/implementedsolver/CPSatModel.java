@@ -118,6 +118,7 @@ public class CPSatModel extends AbstractModel{
                 model.addGreaterOrEqual(jStart[jobHash.get(j)], j.getOrder().getRelease());
             }
             if (run.getEnforceDueDate()) {
+                info("due date "+j.getName()+" due "+j.getOrder().getDue());
                 model.addLessOrEqual(jEnd[jobHash.get(j)], j.getOrder().getDue());
             }
         }
@@ -129,6 +130,17 @@ public class CPSatModel extends AbstractModel{
                 if (z[ii][mIndex] != null){
                     list.add(z[ii][mIndex]);
                 }
+            }
+            // add wip, downtime
+            for(WiP wip:base.getListWiP().stream().filter(x->x.getDisjunctiveResource()==m).toList()){
+                IntervalVar wTask = model.newFixedSizeIntervalVar(model.newConstant(0),wip.getDuration(),wip.getName());
+                list.add(wTask);
+                info("Machine "+m.getName()+" add wip "+wip.getEnd());
+            }
+            for(Downtime down:base.getListDowntime().stream().filter(x->x.getDisjunctiveResource()==m).toList()){
+                IntervalVar dTask = model.newFixedSizeIntervalVar(model.newConstant(down.getStart()),down.getDuration(),down.getName());
+                list.add(dTask);
+                info("Machine "+m.getName()+" add down "+down.getStart()+"-"+down.getEnd());
             }
             info("Machine "+m+" tasks "+list.size());
             model.addNoOverlap(list);
@@ -270,6 +282,8 @@ public class CPSatModel extends AbstractModel{
             ja.setStart(tasks.stream().mapToInt(TaskAssignment::getStart).min().orElse(0));
             ja.setEnd(tasks.stream().mapToInt(TaskAssignment::getEnd).max().orElse(0));
             ja.setDuration(ja.getEnd()-ja.getStart());
+            ja.setEarly(Math.max(0,ja.getJob().getOrder().getDue()-ja.getEnd()));
+            ja.setLate(Math.max(0,ja.getEnd()-ja.getJob().getOrder().getDue()));
         }
         List<JobAssignment> jList =base.getListJobAssignment().stream().filter(x->x.getSolution()==solution).toList();
         solution.setStart(jList.stream().mapToInt(JobAssignment::getStart).min().orElse(0));
@@ -277,6 +291,24 @@ public class CPSatModel extends AbstractModel{
         solution.setMakespan(jList.stream().mapToInt(JobAssignment::getEnd).max().orElse(0));
         solution.setFlowtime(jList.stream().mapToInt(JobAssignment::getEnd).sum());
         solution.setDuration(solution.getEnd()-solution.getStart());
+        List<JobAssignment> lateJobs = base.getListJobAssignment().stream().
+                filter(x->x.getSolution()==solution).
+                filter(x->x.getLate() > 0).
+                toList();
+        solution.setNrLate(lateJobs.size());
+        solution.setPercentLate(100.0*lateJobs.size()/base.getListJob().size());
+        solution.setTotalLateness(lateJobs.stream().mapToInt(JobAssignment::getLate).sum());
+        solution.setMaxLateness(lateJobs.stream().mapToInt(JobAssignment::getLate).max().orElse(0));
+        solution.setWeightedLateness(lateJobs.stream().mapToDouble(x->x.getLate()*x.getJob().getOrder().getLatenessWeight()).sum());
+        List<JobAssignment> earlyJobs = base.getListJobAssignment().stream().
+                filter(x->x.getSolution()==solution).
+                filter(x->x.getEarly() > 0).
+                toList();
+        solution.setNrEarly(earlyJobs.size());
+        solution.setPercentEarly(100.0*earlyJobs.size()/base.getListJob().size());
+        solution.setTotalEarliness(earlyJobs.stream().mapToInt(JobAssignment::getEarly).sum());
+        solution.setMaxEarliness(earlyJobs.stream().mapToInt(JobAssignment::getEarly).max().orElse(0));
+        solution.setWeightedEarliness(earlyJobs.stream().mapToDouble(x->x.getEarly()*x.getJob().getOrder().getEarlinessWeight()).sum());
 
     }
 
