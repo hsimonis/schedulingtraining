@@ -262,7 +262,7 @@ public class TestAll {
         for(String fileName:list) {
             info("trying file " + fileName);
             String outputFile = importDir+resultDir+ fileName.replaceAll(".txt",".json");
-            if (!new File(outputFile).exists() && fileName.startsWith("instance20_")) {
+            if (!new File(outputFile).exists() /*&& fileName.startsWith("instance20_")*/) {
 
                 Scenario base = new Scenario();
                 base.setDataFileVersionNumber(8.0);
@@ -286,16 +286,16 @@ public class TestAll {
                 test.setRelaxSequence(false);
                 test.setAddSameOrder(false);
                 test.setTimeout(300);
-                test.setModelType(CPO);
-//                test.setModelType(CPSat);
+//                test.setModelType(CPO);
+                test.setModelType(CPSat);
                 test.setObjectiveType(ObjectiveType.Makespan);
                 test.setNrThreads(8);
 
 //            info("Nr SolverRun " + base.getListSolverRun().size());
                 for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
                     info("Running " + run.getName());
-                    new CPOModel(base, run).solve();
-//                    new CPSatModel(base, run).solve();
+//                    new CPOModel(base, run).solve();
+                    new CPSatModel(base, run).solve();
                 }
                 new WriteData(base).toFile(new File(outputFile), 2);
             }
