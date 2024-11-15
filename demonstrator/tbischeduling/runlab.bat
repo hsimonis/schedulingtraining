@@ -1,0 +1,1 @@
+java -ea -Xms64m -Xmx2g -jar --module-path "C:/Program Files/Java/javafx-sdk-23.0.1/lib"  --add-modules=javafx.controls,javafx.fxml,javafx.web target/tbischeduling-1.0-SNAPSHOT-jar-with-dependencies.jar
