@@ -48,6 +48,10 @@ Table~\ref{tab:comparepfss} compares the results for CPOptimizer for the regular
 
 The results (incomplete) for SALBP-1 in Table~\ref{tab:comparesalbp} were obtained with a 30 second timeout. All of the 20 task instances were solved to optimality (some only with CPSat), while 88\% of the 50 task instances were solved to optimality, but only 43\% were solved by both. The time taken to find the common optimal solutions varies significantly, CPSat seems on average faster on the small instances, while CPOptimizer is faster on a larger instances, but this does not hold for all instances. For the non-optimal solutions, solution quality seems very evenly balanced.
 
+\input{compareTest}
+
+\input{compareTrans}
+
 \clearpage
 \chapter{Taillard Open Shop Problems}
 All problems are solved to optimality, possible due to their small to moderate size.
@@ -120,9 +124,21 @@ Due to the number of instances given, we only run problems for 30 seconds, some 
 
 \input{resultstsched}
 
+\section{Results for CPSat}
+
+\input{resultstschedCPSat}
+
 \clearpage
 \chapter{J\&J Hybrid Flexible Flowshop with Transportation Times}
 
 \section{Without Transportation Times}
+
+\subsection{Results for CPOptimizer}
+
+\input{resultstrans}
+
+\subsection{Results for CPSat}
+
+\input{resultstransCPSat}
 
 \end{document}

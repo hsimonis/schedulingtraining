@@ -28,6 +28,18 @@ public class CPSatModel extends AbstractModel{
         int nrTasks = base.getListTask().size();
         int nrJobs = base.getListJob().size();
         int horizon = base.getHorizon();
+
+        // disjunctive resources
+        int nrDisjunctiveResources = base.getListDisjunctiveResource().size();
+        DisjunctiveResource[] disjRes = new DisjunctiveResource[nrDisjunctiveResources];
+        int i =0;
+        Hashtable<DisjunctiveResource,Integer> disjHash = new Hashtable<>();
+        for(DisjunctiveResource r:base.getListDisjunctiveResource()){
+            disjRes[i] = r;
+            disjHash.put(r,i);
+            i++;
+        }
+
         Loader.loadNativeLibraries();
         // Creates the model.
         CpModel model = new CpModel();
@@ -35,10 +47,12 @@ public class CPSatModel extends AbstractModel{
         IntVar[] start = new IntVar[nrTasks];
         IntVar[] end = new IntVar[nrTasks];
         IntervalVar[] tasks = new IntervalVar[nrTasks];
+        IntervalVar[][] z = new IntervalVar[nrTasks][nrDisjunctiveResources];
+        BoolVar[][] p = new BoolVar[nrTasks][nrDisjunctiveResources];
         IntVar[] jStart = new IntVar[nrJobs];
         IntVar[] jEnd = new IntVar[nrJobs];
 
-        int i=0;
+        i=0;
         Hashtable<Task,Integer> taskHash = new Hashtable<>();
         for(Task t:base.getListTask()){
             taskHash.put(t,i);
@@ -46,6 +60,25 @@ public class CPSatModel extends AbstractModel{
             start[i] = model.newIntVar(0, horizon, "start" + t.getName());
             end[i] = model.newIntVar(0, horizon, "end" + t.getName());
             tasks[i] = model.newIntervalVar(start[i], LinearExpr.constant(t.getDuration()), end[i], "task" + t.getName());
+            if (t.getMachines().size() == 1) {
+                int m =disjHash.get(t.getMachines().get(0));
+                z[i][m] = tasks[i];
+            } else {
+                Literal[] presences = new Literal[t.getMachines().size()];
+                int k= 0;
+                for (DisjunctiveResource r : t.getMachines()) {
+                    int m = disjHash.get(r);
+                    IntVar zStart = model.newIntVar(0, horizon, "zstart" + i+"_"+m);
+                    IntVar zEnd = model.newIntVar(0, horizon, "zend" + i+"_"+m);
+                    BoolVar presence = model.newBoolVar("presence" + i + "_" + m);
+                    presences[k++] = presence;
+                    z[i][m] = model.newOptionalIntervalVar(zStart, LinearExpr.constant(t.getDuration()), zEnd, presence, "ztask" + i + "_" + m);
+                    p[i][m] = presence;
+                    model.addEquality(zStart,start[i]).onlyEnforceIf(presence);
+                    model.addEquality(zEnd,end[i]).onlyEnforceIf(presence);
+                }
+                model.addExactlyOne(presences);
+            }
             i++;
         }
         i =0;
@@ -55,8 +88,8 @@ public class CPSatModel extends AbstractModel{
             jStart[i] = model.newIntVar(0, horizon, "start" + j.getName());
             jEnd[i] = model.newIntVar(0, horizon, "end" + j.getName());
             i++;
-
         }
+
 
         // Precedences between tasks
         //??? needs to deal with offset
@@ -90,7 +123,13 @@ public class CPSatModel extends AbstractModel{
         }
         // disjunctive Resources
         for(DisjunctiveResource m:base.getListDisjunctiveResource()){
-            List<IntervalVar> list = base.getListTask().stream().filter(x->x.getMachines().contains(m)).map(x->tasks[taskHash.get(x)]).toList();
+            int mIndex = disjHash.get(m);
+            List<IntervalVar> list = new ArrayList<>();
+            for(int ii=0;ii<nrTasks;ii++){
+                if (z[ii][mIndex] != null){
+                    list.add(z[ii][mIndex]);
+                }
+            }
             info("Machine "+m+" tasks "+list.size());
             model.addNoOverlap(list);
         }
@@ -161,8 +200,9 @@ public class CPSatModel extends AbstractModel{
             Hashtable<Job, JobAssignment> jobAssignmentHash = new Hashtable<>();
             int taNr=0;
             for(Task t:base.getListTask()){
-                int startValue = (int) Math.round(solver.value(start[taskHash.get(t)]));
-                int endValue = (int) Math.round(solver.value(end[taskHash.get(t)]));
+                int ii = taskHash.get(t);
+                int startValue = (int) Math.round(solver.value(start[ii]));
+                int endValue = (int) Math.round(solver.value(end[ii]));
 //                info("Start "+t+" "+startValue+" "+endValue);
                 TaskAssignment ta = new TaskAssignment(base);
                 ta.setName("TA"+taNr++);
@@ -171,6 +211,22 @@ public class CPSatModel extends AbstractModel{
                 ta.setEnd(endValue);
                 ta.setDuration(t.getDuration());
                 ta.setJobAssignment(findJobAssignment(t.getJob(), solution, jobAssignmentHash));
+                if (t.getMachines().size()==1){
+                    ta.setDisjunctiveResource(t.getMachines().get(0));
+                } else {
+                    boolean found = false;
+                    for (DisjunctiveResource m : t.getMachines()) {
+                        int mm = disjHash.get(m);
+                        boolean present = solver.booleanValue(p[ii][mm]);
+                        if (present) {
+                            assert(!found);
+                            ta.setDisjunctiveResource(m);
+                            found = true;
+                        }
+                    }
+                    assert(found);
+                }
+
             }
             updateJA(solution);
             return true;
