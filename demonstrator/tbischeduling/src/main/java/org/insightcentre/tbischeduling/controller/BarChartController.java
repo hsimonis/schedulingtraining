@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 12:39:47 on 2024-11-13 */
+ * Generated at 10:47:55 on 2024-11-17 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -214,7 +214,7 @@ public class BarChartController extends ChartController {
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("objectiveValue");
 		attributeNames.add("bound");
-		attributeNames.add("gap");
+		attributeNames.add("gapPercent");
 		attributeNames.add("makespan");
 		attributeNames.add("flowtime");
 		attributeNames.add("totalLateness");

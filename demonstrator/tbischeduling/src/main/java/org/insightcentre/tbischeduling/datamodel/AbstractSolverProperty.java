@@ -83,6 +83,24 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
  *
 */
 
+    public Boolean addBlocking;
+
+    private transient BooleanProperty addBlockingWrapper;
+
+/**
+ *  
+ *
+*/
+
+    public Boolean addNoWait;
+
+    private transient BooleanProperty addNoWaitWrapper;
+
+/**
+ *  
+ *
+*/
+
     public Boolean addSameOrder;
 
     private transient BooleanProperty addSameOrderWrapper;
@@ -296,6 +314,8 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 
     public AbstractSolverProperty(ApplicationDataset applicationDataset){
         super(applicationDataset);
+        setAddBlocking(false);
+        setAddNoWait(false);
         setAddSameOrder(false);
         setDescription("");
         setEnforceCumulative(true);
@@ -306,8 +326,8 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
         setEnforceTransportTime(false);
         setEnforceWip(true);
         setLabel("");
-        setModelType(ModelType.CPO);
-        setNrThreads(2);
+        setModelType(ModelType.CPSat);
+        setNrThreads(8);
         setObjectiveType(ObjectiveType.Makespan);
         setProducePDF(false);
         setProduceReport(false);
@@ -334,6 +354,8 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
     public AbstractSolverProperty(ApplicationDataset applicationDataset,
             Integer id,
             String name,
+            Boolean addBlocking,
+            Boolean addNoWait,
             Boolean addSameOrder,
             String description,
             Boolean enforceCumulative,
@@ -362,6 +384,8 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
         super(applicationDataset,
             id,
             name);
+        setAddBlocking(addBlocking);
+        setAddNoWait(addNoWait);
         setAddSameOrder(addSameOrder);
         setDescription(description);
         setEnforceCumulative(enforceCumulative);
@@ -394,6 +418,8 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
         this(other.applicationDataset,
             other.id,
             other.name,
+            other.addBlocking,
+            other.addNoWait,
             other.addSameOrder,
             other.description,
             other.enforceCumulative,
@@ -430,6 +456,42 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 
     public Boolean remove(){
         return getApplicationDataset().removeAbstractSolverProperty(this) && getApplicationDataset().removeApplicationObject(this);
+    }
+
+/**
+ *  get attribute addBlocking
+ *
+ * @return Boolean
+*/
+
+    public Boolean getAddBlocking(){
+        return this.addBlocking;
+    }
+
+    public BooleanProperty addBlockingWrapperProperty() {
+        if (addBlockingWrapper == null) {
+            addBlockingWrapper = new SimpleBooleanProperty();
+        }
+        addBlockingWrapper.set(addBlocking);
+        return addBlockingWrapper;
+    }
+
+/**
+ *  get attribute addNoWait
+ *
+ * @return Boolean
+*/
+
+    public Boolean getAddNoWait(){
+        return this.addNoWait;
+    }
+
+    public BooleanProperty addNoWaitWrapperProperty() {
+        if (addNoWaitWrapper == null) {
+            addNoWaitWrapper = new SimpleBooleanProperty();
+        }
+        addNoWaitWrapper.set(addNoWait);
+        return addNoWaitWrapper;
     }
 
 /**
@@ -776,6 +838,30 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 
     public Integer getWeightMakespan(){
         return this.weightMakespan;
+    }
+
+/**
+ *  set attribute addBlocking, mark dataset as dirty, mark dataset as not valid
+@param addBlocking Boolean
+ *
+*/
+
+    public void setAddBlocking(Boolean addBlocking){
+        this.addBlocking = addBlocking;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute addNoWait, mark dataset as dirty, mark dataset as not valid
+@param addNoWait Boolean
+ *
+*/
+
+    public void setAddNoWait(Boolean addNoWait){
+        this.addNoWait = addNoWait;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
     }
 
 /**
@@ -1172,7 +1258,7 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getAddSameOrder()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceSetup()+ " " +getEnforceTransportTime()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRelaxSequence()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getStartDateTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan();
+        return ""+ " " +getId()+ " " +getName()+ " " +getAddBlocking()+ " " +getAddNoWait()+ " " +getAddSameOrder()+ " " +getDescription()+ " " +getEnforceCumulative()+ " " +getEnforceDowntime()+ " " +getEnforceDueDate()+ " " +getEnforceReleaseDate()+ " " +getEnforceSetup()+ " " +getEnforceTransportTime()+ " " +getEnforceWip()+ " " +getLabel()+ " " +getModelType()+ " " +getNrThreads()+ " " +getObjectiveType()+ " " +getProducePDF()+ " " +getProduceReport()+ " " +getRelaxSequence()+ " " +getRemoveSolution()+ " " +getSeed()+ " " +getSolverBackend()+ " " +getStartDateTime()+ " " +getTimeout()+ " " +getWeightEarliness()+ " " +getWeightFlowtime()+ " " +getWeightLateness()+ " " +getWeightMakespan();
     }
 
 /**
@@ -1196,6 +1282,8 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
          out.println("<abstractSolverProperty "+ " applicationDataset=\""+toXMLApplicationDataset()+"\""+
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
+            " addBlocking=\""+toXMLAddBlocking()+"\""+
+            " addNoWait=\""+toXMLAddNoWait()+"\""+
             " addSameOrder=\""+toXMLAddSameOrder()+"\""+
             " description=\""+toXMLDescription()+"\""+
             " enforceCumulative=\""+toXMLEnforceCumulative()+"\""+
@@ -1222,6 +1310,26 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
             " weightLateness=\""+toXMLWeightLateness()+"\""+
             " weightMakespan=\""+toXMLWeightMakespan()+"\""+" />");
      }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLAddBlocking(){
+        return this.getAddBlocking().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLAddNoWait(){
+        return this.getAddNoWait().toString();
+    }
 
 /**
  * helper method for toXML(), prcess one attribute
@@ -1567,6 +1675,12 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
 */
 
     public Boolean applicationEqual(AbstractSolverProperty b){
+      if(!this.getAddBlocking().equals(b.getAddBlocking())){
+         System.out.println("AddBlocking");
+        }
+      if(!this.getAddNoWait().equals(b.getAddNoWait())){
+         System.out.println("AddNoWait");
+        }
       if(!this.getAddSameOrder().equals(b.getAddSameOrder())){
          System.out.println("AddSameOrder");
         }
@@ -1645,7 +1759,9 @@ public abstract class AbstractSolverProperty extends ApplicationObject{
       if(!this.getWeightMakespan().equals(b.getWeightMakespan())){
          System.out.println("WeightMakespan");
         }
-        return  this.getAddSameOrder().equals(b.getAddSameOrder()) &&
+        return  this.getAddBlocking().equals(b.getAddBlocking()) &&
+          this.getAddNoWait().equals(b.getAddNoWait()) &&
+          this.getAddSameOrder().equals(b.getAddSameOrder()) &&
           this.getDescription().equals(b.getDescription()) &&
           this.getEnforceCumulative().equals(b.getEnforceCumulative()) &&
           this.getEnforceDowntime().equals(b.getEnforceDowntime()) &&

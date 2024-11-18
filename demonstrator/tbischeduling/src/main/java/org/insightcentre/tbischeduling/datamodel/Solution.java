@@ -125,7 +125,7 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
  *
 */
 
-    public Double gap;
+    public Double gapPercent;
 
 /**
  *  
@@ -376,7 +376,7 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
         setEnd(0);
         setEndDate(new DateTime());
         setFlowtime(0);
-        setGap(0.0);
+        setGapPercent(0.0);
         setIdlePercent(0.0);
         setMakespan(0);
         setMaxEarliness(0);
@@ -428,7 +428,7 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
             Integer end,
             DateTime endDate,
             Integer flowtime,
-            Double gap,
+            Double gapPercent,
             Double idlePercent,
             Integer makespan,
             Integer maxEarliness,
@@ -470,7 +470,7 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
         setEnd(end);
         setEndDate(endDate);
         setFlowtime(flowtime);
-        setGap(gap);
+        setGapPercent(gapPercent);
         setIdlePercent(idlePercent);
         setMakespan(makespan);
         setMaxEarliness(maxEarliness);
@@ -516,7 +516,7 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
             other.end,
             other.endDate,
             other.flowtime,
-            other.gap,
+            other.gapPercent,
             other.idlePercent,
             other.makespan,
             other.maxEarliness,
@@ -626,13 +626,13 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
     }
 
 /**
- *  get attribute gap
+ *  get attribute gapPercent
  *
  * @return Double
 */
 
-    public Double getGap(){
-        return this.gap;
+    public Double getGapPercent(){
+        return this.gapPercent;
     }
 
 /**
@@ -1028,13 +1028,13 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
     }
 
 /**
- *  set attribute gap, mark dataset as dirty, mark dataset as not valid
-@param gap Double
+ *  set attribute gapPercent, mark dataset as dirty, mark dataset as not valid
+@param gapPercent Double
  *
 */
 
-    public void setGap(Double gap){
-        this.gap = gap;
+    public void setGapPercent(Double gapPercent){
+        this.gapPercent = gapPercent;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -1726,7 +1726,7 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getActiveUtilization()+ " " +getBound()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getFlowtime()+ " " +getGap()+ " " +getIdlePercent()+ " " +getMakespan()+ " " +getMaxEarliness()+ " " +getMaxIdleAfter()+ " " +getMaxIdleBefore()+ " " +getMaxLateness()+ " " +getMaxSetupAfter()+ " " +getMaxSetupBefore()+ " " +getMaxWaitAfter()+ " " +getMaxWaitBefore()+ " " +getNrEarly()+ " " +getNrLate()+ " " +getObjectiveValue()+ " " +getPercentEarly()+ " " +getPercentLate()+ " " +getSetupPercent()+ " " +getSolverRun().toColumnString()+ " " +getSolverStatus()+ " " +getStart()+ " " +getStartDate()+ " " +getTotalActiveTime()+ " " +getTotalEarliness()+ " " +getTotalIdleAfter()+ " " +getTotalIdleBefore()+ " " +getTotalLateness()+ " " +getTotalProductionTime()+ " " +getTotalSetupAfter()+ " " +getTotalSetupBefore()+ " " +getTotalWaitAfter()+ " " +getTotalWaitBefore()+ " " +getWeightedEarliness()+ " " +getWeightedLateness();
+        return ""+ " " +getId()+ " " +getName()+ " " +getActiveUtilization()+ " " +getBound()+ " " +getDuration()+ " " +getEnd()+ " " +getEndDate()+ " " +getFlowtime()+ " " +getGapPercent()+ " " +getIdlePercent()+ " " +getMakespan()+ " " +getMaxEarliness()+ " " +getMaxIdleAfter()+ " " +getMaxIdleBefore()+ " " +getMaxLateness()+ " " +getMaxSetupAfter()+ " " +getMaxSetupBefore()+ " " +getMaxWaitAfter()+ " " +getMaxWaitBefore()+ " " +getNrEarly()+ " " +getNrLate()+ " " +getObjectiveValue()+ " " +getPercentEarly()+ " " +getPercentLate()+ " " +getSetupPercent()+ " " +getSolverRun().toColumnString()+ " " +getSolverStatus()+ " " +getStart()+ " " +getStartDate()+ " " +getTotalActiveTime()+ " " +getTotalEarliness()+ " " +getTotalIdleAfter()+ " " +getTotalIdleBefore()+ " " +getTotalLateness()+ " " +getTotalProductionTime()+ " " +getTotalSetupAfter()+ " " +getTotalSetupBefore()+ " " +getTotalWaitAfter()+ " " +getTotalWaitBefore()+ " " +getWeightedEarliness()+ " " +getWeightedLateness();
     }
 
 /**
@@ -1756,7 +1756,7 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
             " end=\""+toXMLEnd()+"\""+
             " endDate=\""+toXMLEndDate()+"\""+
             " flowtime=\""+toXMLFlowtime()+"\""+
-            " gap=\""+toXMLGap()+"\""+
+            " gapPercent=\""+toXMLGapPercent()+"\""+
             " idlePercent=\""+toXMLIdlePercent()+"\""+
             " makespan=\""+toXMLMakespan()+"\""+
             " maxEarliness=\""+toXMLMaxEarliness()+"\""+
@@ -1857,8 +1857,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
  * @return String
 */
 
-    String toXMLGap(){
-        return this.getGap().toString();
+    String toXMLGapPercent(){
+        return this.getGapPercent().toString();
     }
 
 /**
@@ -2188,11 +2188,11 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Solution</th>"+"<th>Name</th>"+"<th>SolverRun</th>"+"<th>ObjectiveValue</th>"+"<th>SolverStatus</th>"+"<th>Bound</th>"+"<th>Gap</th>"+"<th>Makespan</th>"+"<th>Flowtime</th>"+"<th>TotalLateness</th>"+"<th>MaxLateness</th>"+"<th>NrLate</th>"+"<th>WeightedLateness</th>"+"<th>TotalEarliness</th>"+"<th>MaxEarliness</th>"+"<th>NrEarly</th>"+"<th>WeightedEarliness</th>"+"<th>PercentEarly</th>"+"<th>PercentLate</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"<th>TotalWaitBefore</th>"+"<th>TotalWaitAfter</th>"+"<th>MaxWaitBefore</th>"+"<th>MaxWaitAfter</th>"+"<th>TotalIdleBefore</th>"+"<th>TotalIdleAfter</th>"+"<th>MaxIdleBefore</th>"+"<th>MaxIdleAfter</th>"+"<th>TotalSetupBefore</th>"+"<th>TotalSetupAfter</th>"+"<th>MaxSetupBefore</th>"+"<th>MaxSetupAfter</th>"+"<th>TotalActiveTime</th>"+"<th>TotalProductionTime</th>"+"<th>ActiveUtilization</th>"+"<th>SetupPercent</th>"+"<th>IdlePercent</th>"+"</tr>";
+        return "<tr><th>Solution</th>"+"<th>Name</th>"+"<th>SolverRun</th>"+"<th>ObjectiveValue</th>"+"<th>SolverStatus</th>"+"<th>Bound</th>"+"<th>GapPercent</th>"+"<th>Makespan</th>"+"<th>Flowtime</th>"+"<th>TotalLateness</th>"+"<th>MaxLateness</th>"+"<th>NrLate</th>"+"<th>WeightedLateness</th>"+"<th>TotalEarliness</th>"+"<th>MaxEarliness</th>"+"<th>NrEarly</th>"+"<th>WeightedEarliness</th>"+"<th>PercentEarly</th>"+"<th>PercentLate</th>"+"<th>Duration</th>"+"<th>Start</th>"+"<th>End</th>"+"<th>StartDate</th>"+"<th>EndDate</th>"+"<th>TotalWaitBefore</th>"+"<th>TotalWaitAfter</th>"+"<th>MaxWaitBefore</th>"+"<th>MaxWaitAfter</th>"+"<th>TotalIdleBefore</th>"+"<th>TotalIdleAfter</th>"+"<th>MaxIdleBefore</th>"+"<th>MaxIdleAfter</th>"+"<th>TotalSetupBefore</th>"+"<th>TotalSetupAfter</th>"+"<th>MaxSetupBefore</th>"+"<th>MaxSetupAfter</th>"+"<th>TotalActiveTime</th>"+"<th>TotalProductionTime</th>"+"<th>ActiveUtilization</th>"+"<th>SetupPercent</th>"+"<th>IdlePercent</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolverRun().toColumnString()+"</td>"+ " " +"<td>"+getObjectiveValue()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGap()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getFlowtime()+"</td>"+ " " +"<td>"+getTotalLateness()+"</td>"+ " " +"<td>"+getMaxLateness()+"</td>"+ " " +"<td>"+getNrLate()+"</td>"+ " " +"<td>"+getWeightedLateness()+"</td>"+ " " +"<td>"+getTotalEarliness()+"</td>"+ " " +"<td>"+getMaxEarliness()+"</td>"+ " " +"<td>"+getNrEarly()+"</td>"+ " " +"<td>"+getWeightedEarliness()+"</td>"+ " " +"<td>"+getPercentEarly()+"</td>"+ " " +"<td>"+getPercentLate()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+ " " +"<td>"+getTotalWaitBefore()+"</td>"+ " " +"<td>"+getTotalWaitAfter()+"</td>"+ " " +"<td>"+getMaxWaitBefore()+"</td>"+ " " +"<td>"+getMaxWaitAfter()+"</td>"+ " " +"<td>"+getTotalIdleBefore()+"</td>"+ " " +"<td>"+getTotalIdleAfter()+"</td>"+ " " +"<td>"+getMaxIdleBefore()+"</td>"+ " " +"<td>"+getMaxIdleAfter()+"</td>"+ " " +"<td>"+getTotalSetupBefore()+"</td>"+ " " +"<td>"+getTotalSetupAfter()+"</td>"+ " " +"<td>"+getMaxSetupBefore()+"</td>"+ " " +"<td>"+getMaxSetupAfter()+"</td>"+ " " +"<td>"+getTotalActiveTime()+"</td>"+ " " +"<td>"+getTotalProductionTime()+"</td>"+ " " +"<td>"+getActiveUtilization()+"</td>"+ " " +"<td>"+getSetupPercent()+"</td>"+ " " +"<td>"+getIdlePercent()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getSolverRun().toColumnString()+"</td>"+ " " +"<td>"+getObjectiveValue()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGapPercent()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getFlowtime()+"</td>"+ " " +"<td>"+getTotalLateness()+"</td>"+ " " +"<td>"+getMaxLateness()+"</td>"+ " " +"<td>"+getNrLate()+"</td>"+ " " +"<td>"+getWeightedLateness()+"</td>"+ " " +"<td>"+getTotalEarliness()+"</td>"+ " " +"<td>"+getMaxEarliness()+"</td>"+ " " +"<td>"+getNrEarly()+"</td>"+ " " +"<td>"+getWeightedEarliness()+"</td>"+ " " +"<td>"+getPercentEarly()+"</td>"+ " " +"<td>"+getPercentLate()+"</td>"+ " " +"<td>"+getDuration()+"</td>"+ " " +"<td>"+getStart()+"</td>"+ " " +"<td>"+getEnd()+"</td>"+ " " +"<td>"+getStartDate()+"</td>"+ " " +"<td>"+getEndDate()+"</td>"+ " " +"<td>"+getTotalWaitBefore()+"</td>"+ " " +"<td>"+getTotalWaitAfter()+"</td>"+ " " +"<td>"+getMaxWaitBefore()+"</td>"+ " " +"<td>"+getMaxWaitAfter()+"</td>"+ " " +"<td>"+getTotalIdleBefore()+"</td>"+ " " +"<td>"+getTotalIdleAfter()+"</td>"+ " " +"<td>"+getMaxIdleBefore()+"</td>"+ " " +"<td>"+getMaxIdleAfter()+"</td>"+ " " +"<td>"+getTotalSetupBefore()+"</td>"+ " " +"<td>"+getTotalSetupAfter()+"</td>"+ " " +"<td>"+getMaxSetupBefore()+"</td>"+ " " +"<td>"+getMaxSetupAfter()+"</td>"+ " " +"<td>"+getTotalActiveTime()+"</td>"+ " " +"<td>"+getTotalProductionTime()+"</td>"+ " " +"<td>"+getActiveUtilization()+"</td>"+ " " +"<td>"+getSetupPercent()+"</td>"+ " " +"<td>"+getIdlePercent()+"</td>"+"</tr>";
     }
 
 /**
@@ -2327,8 +2327,8 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
       if(!this.getFlowtime().equals(b.getFlowtime())){
          System.out.println("Flowtime");
         }
-      if(!this.getGap().equals(b.getGap())){
-         System.out.println("Gap");
+      if(!this.getGapPercent().equals(b.getGapPercent())){
+         System.out.println("GapPercent");
         }
       if(!this.getIdlePercent().equals(b.getIdlePercent())){
          System.out.println("IdlePercent");
@@ -2435,7 +2435,7 @@ public  class Solution extends ApplicationObject implements SolutionHierarchy{
           this.getEnd().equals(b.getEnd()) &&
           this.getEndDate().applicationEqual(b.getEndDate()) &&
           this.getFlowtime().equals(b.getFlowtime()) &&
-          this.getGap().equals(b.getGap()) &&
+          this.getGapPercent().equals(b.getGapPercent()) &&
           this.getIdlePercent().equals(b.getIdlePercent()) &&
           this.getMakespan().equals(b.getMakespan()) &&
           this.getMaxEarliness().equals(b.getMaxEarliness()) &&

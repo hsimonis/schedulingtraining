@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 
-<!--Generated at 12:39:47 on 2024-11-13-->
+<!--Generated at 10:47:55 on 2024-11-17-->
 
 
 <Tab text="Solution" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.SolutionController">
@@ -23,7 +23,7 @@
                <TableColumn fx:id="objectiveValue" styleClass="right-aligned" text="ObjectiveValue" />
                <TableColumn fx:id="solverStatus" styleClass="right-aligned" text="SolverStatus" />
                <TableColumn fx:id="bound" styleClass="right-aligned" text="Bound" />
-               <TableColumn fx:id="gap" styleClass="right-aligned" text="Gap" />
+               <TableColumn fx:id="gapPercent" styleClass="right-aligned" text="GapPercent" />
                <TableColumn fx:id="makespan" styleClass="right-aligned" text="Makespan" />
                <TableColumn fx:id="flowtime" styleClass="right-aligned" text="Flowtime" />
                <TableColumn fx:id="totalLateness" styleClass="right-aligned" text="TotalLateness" />

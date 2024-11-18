@@ -926,7 +926,7 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","solverRun","objectiveValue","solverStatus","bound","gap",
+                if (requireFields(key,i,item,new String[]{"name","solverRun","objectiveValue","solverStatus","bound",
                         "makespan","flowtime",
                         "totalLateness","maxLateness","weightedLateness",
                         "totalEarliness","maxEarliness","weightedEarliness","start","end","duration","startDate","endDate",
@@ -936,7 +936,12 @@ public class ReadData {
                     int objectiveValue = item.getInt("objectiveValue");
                     String solverStatus = item.getString("solverStatus");
                     double bound = item.getDouble("bound");
-                    double gap = item.getDouble("gap");
+                    double gapPercent=0.0;
+                    if (item.has("gapPercent")) {
+                        gapPercent = item.getDouble("gapPercent");
+                    } else if (item.has("gap")){
+                        gapPercent = 100.0*item.getDouble("gapPercent");
+                    }
                     int makespan = item.getInt("makespan");
                     int flowtime = item.getInt("flowtime");
                     int totalLateness = item.getInt("totalLateness");
@@ -970,7 +975,7 @@ public class ReadData {
                     s.setObjectiveValue(objectiveValue);
                     s.setSolverStatus(toSolverStatus(solverStatus));
                     s.setBound(bound);
-                    s.setGap(gap);
+                    s.setGapPercent(gapPercent);
                     s.setMakespan(makespan);
                     s.setFlowtime(flowtime);
                     s.setTotalLateness(totalLateness);

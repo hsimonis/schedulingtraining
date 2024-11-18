@@ -102,6 +102,14 @@ public class CheckSolutions {
                                         "Precedence EndBeforeStart not respected", Fatal);
                             }
                             break;
+                        case NoWait:
+                        case Blocking:
+
+                            if (!run.getRelaxSequence() && after.getStart() != (int) ta.getEnd()) {
+                                newError(sol, "Task", t.getName(), "precedes", a.getName(),
+                                        "Precedence NoWait/NoBuffer not respected", Fatal);
+                            }
+                            break;
                         case StartBeforeStart:
                             if (!run.getRelaxSequence() && after.getStart() < ta.getStart()) {
                                 newError(sol, "Task", t.getName(), "precedes", a.getName(),
@@ -122,6 +130,14 @@ public class CheckSolutions {
                 if (ta.getDuration() != ta.getEnd() - ta.getStart()) {
                     newError(sol, "TaskAssignment", ta.getName(), "duration", ta.getDuration(),
                             "Duration is wrong, should be " + (ta.getEnd() - ta.getStart()), Fatal);
+                }
+                if (ta.getDuration() > (int) t.getDuration()) {
+                    newError(sol, "TaskAssignment", ta.getName(), "duration", ta.getDuration(),
+                            "Assigned Task is longer than needed, should be " + (t.getDuration()), Minor);
+                }
+                if (ta.getDuration() < (int) t.getDuration()) {
+                    newError(sol, "TaskAssignment", ta.getName(), "duration", ta.getDuration(),
+                            "Assigned Task is too short, should be " + (t.getDuration()), Fatal);
                 }
 
             }

@@ -16,13 +16,149 @@
 
 \section{Core Concepts}
 
-\subsection{Orders, Products, Processes}
 
 \subsection{Jobs and Tasks}
 
+\begin{frame}
+\frametitle{Most basic description of scheduling problem}
+\begin{itemize}
+\item Job
+\begin{itemize}
+\item Collection of activities required to manufacture one object/lot/order
+\item Overall start/end determined by starts and ends of its tasks
+\end{itemize}
+\item Task
+\begin{itemize}
+\item Individual activities required for manufacture
+\item Have defined start, end (typical: variables) and duration (sometimes fixed)
+\item Often performed on one specific resource (more on that later)
+\end{itemize}
+\item Very compact representation of scheduling problem
+\item But, where does the data come from?
+
+\end{itemize}
+\end{frame}
+
+\subsection{Orders, Products, Processes}
+
+
+
 \section{Temporal Relations}
 
-\subsection{Release and Due Date}
+\begin{frame}
+\frametitle{Temporal Relations}
+\begin{itemize}
+\item Temporal constraints between tasks and/or jobs
+\item Defined by the manufacturing process
+\item In simple cases, a single sequence of process steps performed in that order
+\item Each task must finish before the next one can start
+\end{itemize}
+\end{frame}
+
+
+
+\subsection{Relations between Tasks}
+
+\begin{frame}
+\frametitle{The Most Common Relation: EndBeforeStart}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item States that one task (T1) must end before the next one (T2) can start
+\item Typical for manufacturing process based on the same item
+\item Addition: offset
+\begin{itemize}
+\item For example cooling, drying time outside a machine
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\input{../02-concepts/endBeforeStart}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Less Common: startBeforeStart}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item States that one task (T2) can start any time after the start of another task (T1)
+\item Uncommon in manufacturing, occurs in project management
+\item Example later on on assembly line balancing 
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\input{../02-concepts/startBeforeStart}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{NoWait}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Sometimes, two steps must follow each other immediately
+\item The item made would spoil
+\item Product specific
+\item There is no space to hold item
+\item Machine specific, buffers
+\item End of one task (T1) must be equal to start of next task (T2)
+\item May mean delay of start of task T1
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\input{../02-concepts/nowait}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Blocking}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Sometimes, two steps must follow each other immediately
+\item There is no space to hold store item between machines
+\item Keep item on previous machine until needed
+\item That machine is now blocked
+\item Duration of task T1 is extended
+\item Use with caution!
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\input{../02-concepts/blocking}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{More General: Relations between Intervals}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item First introduced by Allen (1983)
+\item 13 relations between intervals
+\item Allows composition of relations
+\item Constraint reasoning on sets of relations
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../02-concepts/images/allen-relations}
+
+{\tiny from Wikipedia: \url{https://en.wikipedia.org/wiki/Allen\%27s_interval_algebra}}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\subsection{Relation between Tasks and Jobs}
+
+
+
+\subsection{Jobs: Release and Due Date}
 
 \section{Processes, Bill of Materials}
 

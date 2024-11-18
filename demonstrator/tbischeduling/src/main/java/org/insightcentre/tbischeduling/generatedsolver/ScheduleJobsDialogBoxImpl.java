@@ -33,6 +33,8 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
     private final CheckBox enforceTransportTimeItem = new CheckBox();
     private final CheckBox relaxSequenceItem = new CheckBox();
     private final CheckBox addSameOrderItem = new CheckBox();
+    private final CheckBox addNoWaitItem = new CheckBox();
+    private final CheckBox addBlockingItem = new CheckBox();
     private final ChoiceBox modelTypeItem = new ChoiceBox();
     private final ChoiceBox solverBackendItem = new ChoiceBox();
     private final ChoiceBox objectiveTypeItem = new ChoiceBox();
@@ -110,6 +112,9 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(enforceTransportTimeItem, 1, row++);
         enforceTransportTimeItem.setSelected(((ScheduleJobsSolver)solver).getEnforceTransportTime());
 
+        Separator sep2a = new Separator(Orientation.HORIZONTAL);
+        pane.add(sep2a,0,row++,2,1);
+
         pane.add(new Label("Relax Sequence:"), 0, row);
         pane.add(relaxSequenceItem, 1, row++);
         relaxSequenceItem.setSelected(((ScheduleJobsSolver)solver).getRelaxSequence());
@@ -117,6 +122,14 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         pane.add(new Label("Add Same Order:"), 0, row);
         pane.add(addSameOrderItem, 1, row++);
         addSameOrderItem.setSelected(((ScheduleJobsSolver)solver).getAddSameOrder());
+
+        pane.add(new Label("Add NoWait:"), 0, row);
+        pane.add(addNoWaitItem, 1, row++);
+        addNoWaitItem.setSelected(((ScheduleJobsSolver)solver).getAddNoWait());
+
+        pane.add(new Label("Add Blocking:"), 0, row);
+        pane.add(addBlockingItem, 1, row++);
+        addBlockingItem.setSelected(((ScheduleJobsSolver)solver).getAddBlocking());
 
         Separator sep3 = new Separator(Orientation.HORIZONTAL);
         pane.add(sep3,0,row++,2,1);
@@ -238,6 +251,8 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
             boolean enforceTransportTimeValue = enforceTransportTimeItem.isSelected();
             boolean relaxSequenceValue = relaxSequenceItem.isSelected();
             boolean addSameOrderValue = addSameOrderItem.isSelected();
+            boolean addNoWaitValue = addNoWaitItem.isSelected();
+            boolean addBlockingValue = addBlockingItem.isSelected();
 
             String modelTypeValue = modelTypeItem.getValue().toString();
             String solverBackendValue = solverBackendItem.getValue().toString();
@@ -266,6 +281,8 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
                     .setEnforceTransportTime(enforceTransportTimeValue)
                     .setRelaxSequence(relaxSequenceValue)
                     .setAddSameOrder(addSameOrderValue)
+                    .setAddNoWait(addNoWaitValue)
+                    .setAddBlocking(addBlockingValue)
                     .setModelType(modelTypeValue)
                     .setSolverBackend(solverBackendValue)
                     .setObjectiveType(objectiveTypeValue)

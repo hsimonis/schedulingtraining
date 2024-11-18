@@ -303,7 +303,7 @@ public class SchedulingReport extends AbstractReport{
                 addStringColumn(st("Objective","Type"),x->x.getSolverRun().getObjectiveType().toString()).
                 addIntegerColumn(st("Objective", "Value"), Solution::getObjectiveValue,"%,d",new KPIRanking<>(SmallerIsBetter)).
                 addDoubleColumn("Bound",Solution::getBound,"%5.2f",new KPIRanking<>(GreaterIsBetter)).
-                addDoubleColumn("Gap",Solution::getGap,"%5.2f",new KPIRanking<>(SmallerIsBetter)).
+                addDoubleColumn(st("Gap","Percent"),Solution::getGapPercent,"%5.2f",new KPIRanking<>(SmallerIsBetter)).
                 addIntegerColumn("Makespan", Solution::getMakespan,"%,d",new KPIRanking<>(SmallerIsBetter)).
                 addIntegerColumn("Flowtime", Solution::getFlowtime,"%,d",new KPIRanking<>(SmallerIsBetter)).
                 addIntegerColumn(st("Total", "Lateness"), Solution::getTotalLateness,"%,d",new KPIRanking<>(SmallerIsBetter)).

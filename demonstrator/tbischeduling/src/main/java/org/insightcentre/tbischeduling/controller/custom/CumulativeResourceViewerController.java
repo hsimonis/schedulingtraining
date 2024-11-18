@@ -170,7 +170,7 @@ public class CumulativeResourceViewerController extends JJAbstractChartControlle
 			assert (base != null);
 			if (selectedResource != null && selectedSolution != null) {
 				// we do have a resource and a solution
-				chart.setTitle("Cumulative Level for " + selectedResource.getName()+", Makespan "+String.format("%,d",selectedSolution.getMakespan()));
+				chart.setTitle("Cumulative Level for " + selectedResource.getName()+", Solution "+selectedSolution.getName()+", Makespan "+String.format("%,d",selectedSolution.getMakespan()));
 				chart.getData().clear();
 				chart.getData().add(capacityProfile(selectedResource, selectedSolution));
 				chart.getData().add(demandProfile(selectedResource, selectedSolution));

@@ -514,7 +514,7 @@ public class WriteData {
         obj.put("objectiveValue",sol.getObjectiveValue());
         obj.put("solverStatus",sol.getSolverStatus().toString());
         obj.put("bound",sol.getBound());
-        obj.put("gap",sol.getGap());
+        obj.put("gapPercent",sol.getGapPercent());
         obj.put("makespan",sol.getMakespan());
         obj.put("flowtime",sol.getFlowtime());
         obj.put("totalLateness",sol.getTotalLateness());

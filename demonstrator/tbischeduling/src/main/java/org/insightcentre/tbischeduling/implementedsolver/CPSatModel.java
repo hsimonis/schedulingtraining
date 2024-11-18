@@ -4,17 +4,17 @@ import com.google.ortools.Loader;
 import com.google.ortools.sat.*;
 import org.insightcentre.tbischeduling.datamodel.*;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.google.ortools.sat.CpSolverStatus.FEASIBLE;
 import static com.google.ortools.sat.CpSolverStatus.OPTIMAL;
 import static java.util.stream.Collectors.groupingBy;
+import static org.insightcentre.tbischeduling.datamodel.SequenceType.Blocking;
+import static org.insightcentre.tbischeduling.datamodel.SequenceType.NoWait;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
+import static org.insightcentre.tbischeduling.utilities.TypeConverters.toDateTime;
 
 public class CPSatModel extends AbstractModel{
     int jaNr=0;
@@ -22,9 +22,40 @@ public class CPSatModel extends AbstractModel{
         super(base,run);
     }
 
+    static class VarArraySolutionPrinterWithObjective extends CpSolverSolutionCallback {
+        Scenario base;
+        SolverRun run;
+        private int solutionCount;
+        private final IntVar[] variableArray;
+        public VarArraySolutionPrinterWithObjective(Scenario base,SolverRun run,IntVar[] variables) {
+            this.base = base;
+            this.run= run;
+            variableArray = variables;
+        }
+
+        @Override
+        public void onSolutionCallback() {
+            IntermediateSolution sol = new IntermediateSolution(base);
+            sol.setName("IntSol"+solutionCount);
+            sol.setNr(solutionCount++);
+            sol.setSolverRun(run);
+            sol.setCost(objectiveValue());
+            sol.setBound(bestObjectiveBound());
+            sol.setGapPercent(100.0 * (sol.getCost()-bestObjectiveBound())/sol.getCost());
+            sol.setTime(wallTime());
+            info("Solution "+sol.getCost()+" bound "+sol.getBound()+" gap "+sol.getGapPercent()+" time "+sol.getTime());
+
+        }
+
+        public int getSolutionCount() {
+            return solutionCount;
+        }
+
+    }
     public boolean solve(){
         info("Starting solver");
         long startTime = System.currentTimeMillis();
+        base.resetListIntermediateSolution();
         int nrTasks = base.getListTask().size();
         int nrJobs = base.getListJob().size();
         int horizon = base.getHorizon();
@@ -44,14 +75,25 @@ public class CPSatModel extends AbstractModel{
         // Creates the model.
         CpModel model = new CpModel();
 
+        // start and end of each task, are lined to the tasks Interval variables
         IntVar[] start = new IntVar[nrTasks];
         IntVar[] end = new IntVar[nrTasks];
+        // the main variables for each task, used for temporal relations and cumulative constraints
+        // all of these tasks are required
         IntervalVar[] tasks = new IntervalVar[nrTasks];
+        // create matrix of potential optional tasks for each possible machine
+        // copy x variable directly into z matrix if there is only one possible machine
+        // check that z_{ij} is not null before every use !!
         IntervalVar[][] z = new IntervalVar[nrTasks][nrDisjunctiveResources];
+        // separate boolean presence variables to see which alternative machine was taken
+        //??? we probably can extract that from the z variables as well
         BoolVar[][] p = new BoolVar[nrTasks][nrDisjunctiveResources];
+        // start and end variables for the jobs, used in release and due date constraints, and in the objective functions
         IntVar[] jStart = new IntVar[nrJobs];
         IntVar[] jEnd = new IntVar[nrJobs];
 
+
+        // create the variables for the tasks, start, end, tasks, z and p
         i=0;
         Hashtable<Task,Integer> taskHash = new Hashtable<>();
         for(Task t:base.getListTask()){
@@ -81,6 +123,7 @@ public class CPSatModel extends AbstractModel{
             }
             i++;
         }
+        // create the variables for the jobs, jStart and jEnd
         i =0;
         Hashtable<Job,Integer> jobHash = new Hashtable<>();
         for(Job j:base.getListJob()){
@@ -97,10 +140,12 @@ public class CPSatModel extends AbstractModel{
             for(Task after:t.getPrecedes()){
 //                info("seq "+t+" "+after);
                 ProcessSequence ps = findProcessSequence(t.getProcessStep(),after.getProcessStep());
-                switch (ps.getSequenceType()) {
+                switch (modifiedSequenceType(run,ps.getSequenceType())) {
                     case EndBeforeStart -> model.addGreaterOrEqual(start[taskHash.get(after)], end[taskHash.get(t)]);
                     case StartBeforeStart ->
                             model.addGreaterOrEqual(start[taskHash.get(after)], start[taskHash.get(t)]);
+                    case NoWait -> model.addEquality(start[taskHash.get(after)], end[taskHash.get(t)]);
+                    case Blocking -> model.addEquality(start[taskHash.get(after)], end[taskHash.get(t)]);
                     default -> {
                         severe("Bad sequenceType " + ps.getSequenceType());
                         assert (false);
@@ -118,7 +163,7 @@ public class CPSatModel extends AbstractModel{
                 model.addGreaterOrEqual(jStart[jobHash.get(j)], j.getOrder().getRelease());
             }
             if (run.getEnforceDueDate()) {
-                info("due date "+j.getName()+" due "+j.getOrder().getDue());
+                info("enforce due date "+j.getName()+" due "+j.getOrder().getDue());
                 model.addLessOrEqual(jEnd[jobHash.get(j)], j.getOrder().getDue());
             }
         }
@@ -143,6 +188,7 @@ public class CPSatModel extends AbstractModel{
                 info("Machine "+m.getName()+" add down "+down.getStart()+"-"+down.getEnd());
             }
             info("Machine "+m+" tasks "+list.size());
+            // set noOverlap constraint
             model.addNoOverlap(list);
         }
         // noOverlap jobs
@@ -155,8 +201,10 @@ public class CPSatModel extends AbstractModel{
         if (run.getEnforceCumulative()) {
             for (CumulativeResource r : base.getListCumulativeResource()) {
                 int limit = limit(r);
+                // create the cumulative constraint with the limit, add demands later on
                 CumulativeConstraint cumul = model.addCumulative(limit);
 
+                // create a hashtable from the process steps to the demands of the step for that cumulative resource
                 Hashtable<ProcessStep, Integer> demandHash = new Hashtable<>();
                 int needs = 0;
                 for (CumulativeNeed cn : base.getListCumulativeNeed().stream().
@@ -165,6 +213,7 @@ public class CPSatModel extends AbstractModel{
                     demandHash.put(cn.getProcessStep(), cn.getDemand());
                     needs++;
                 }
+                // create a demand for every task that has a demand on that machine
                 int cnt = 0;
                 for (Task t : base.getListTask().stream().toList()) {
                     Integer demand = demandHash.get(t.getProcessStep());
@@ -173,43 +222,143 @@ public class CPSatModel extends AbstractModel{
                         cnt++;
                     }
                 }
-                info("Cumulative " + r + " limit " + limit + " needs " + needs + " cnt " + cnt);
+                // add dummy demands to create the correct profile
+                int dummies=createDummies(model,cumul,r,limit);
+
+                info("Cumulative " + r + " limit " + limit + " needs " + needs + " cnt " + cnt+" dummyDemands "+dummies);
 
             }
         }
 
-        // Makespan objective
-        IntVar objVar = model.newIntVar(0, base.getHorizon(), "makespan");
-        List<IntVar> ends = new ArrayList<>();
-        for (Job j:base.getListJob()) {
-            ends.add(jEnd[jobHash.get(j)]);
+        /*
+        setup the objective function
+        only add lateness and earliness variables if we need them
+         */
+        switch (run.getObjectiveType()) {
+            case Makespan -> {
+                IntVar objVar = model.newIntVar(0, base.getHorizon(), "objective");
+                model.addMaxEquality(objVar, jEnd);
+                model.minimize(objVar);
+            }
+            case Flowtime -> {
+                model.minimize(LinearExpr.sum(jEnd));
+            }
+            case TotalLateness -> {
+                LinearExprBuilder sum = LinearExpr.newBuilder();
+                for (Job j : base.getListJob()) {
+                    IntVar latej = latenessVar(model,jEnd[jobHash.get(j)],j.getOrder().getDue(),j.getName());
+                    sum.addTerm(latej, 1);
+                }
+                model.minimize(sum.build());
+            }
+            case WeightedLateness -> {
+                LinearExprBuilder sum = LinearExpr.newBuilder();
+                for (Job j : base.getListJob()) {
+                    IntVar latej = latenessVar(model,jEnd[jobHash.get(j)],j.getOrder().getDue(),j.getName());
+                    //??? using only integer part of weight
+                    sum.addTerm(latej, (long) Math.round(j.getOrder().getLatenessWeight()));
+                }
+                model.minimize(sum.build());
+            }
+            case MaxLateness -> {
+                IntVar objVar = model.newIntVar(0, base.getHorizon(), "objective");
+                List<IntVar> lateList = new ArrayList<>();
+                for (Job j : base.getListJob()) {
+                    IntVar latej = latenessVar(model,jEnd[jobHash.get(j)],j.getOrder().getDue(),j.getName());
+                    lateList.add(latej);
+                }
+                model.addMaxEquality(objVar, lateList);
+                model.minimize(objVar);
+            }
+            case TotalEarliness -> {
+                LinearExprBuilder sum = LinearExpr.newBuilder();
+                for (Job j : base.getListJob()) {
+                    IntVar earlyj = earlinessVar(model,jEnd[jobHash.get(j)],j.getOrder().getDue(),j.getName());
+                    sum.addTerm(earlyj, 1);
+                }
+                model.minimize(sum.build());
+            }
+            case WeightedEarliness -> {
+                LinearExprBuilder sum = LinearExpr.newBuilder();
+                for (Job j : base.getListJob()) {
+                    IntVar earlyj = earlinessVar(model,jEnd[jobHash.get(j)],j.getOrder().getDue(),j.getName());
+                    //??? using only integer part of weight
+                    sum.addTerm(earlyj, (long) Math.round(j.getOrder().getEarlinessWeight()));
+                }
+                model.minimize(sum.build());
+            }
+            case MaxEarliness -> {
+                IntVar objVar = model.newIntVar(0, base.getHorizon(), "objective");
+                List<IntVar> earlyList = new ArrayList<>();
+                for (Job j : base.getListJob()) {
+                    IntVar earlyj = earlinessVar(model,jEnd[jobHash.get(j)],j.getOrder().getDue(),j.getName());
+                    earlyList.add(earlyj);
+                }
+                model.addMaxEquality(objVar, earlyList);
+                model.minimize(objVar);
+            }
+            case OnTime -> {
+                LinearExprBuilder sum = LinearExpr.newBuilder();
+                for (Job j : base.getListJob()) {
+                    IntVar earlyj = earlinessVar(model,jEnd[jobHash.get(j)],j.getOrder().getDue(),j.getName());
+                    sum.addTerm(earlyj, run.getWeightEarliness());
+                    IntVar latej = latenessVar(model,jEnd[jobHash.get(j)],j.getOrder().getDue(),j.getName());
+                    sum.addTerm(latej, run.getWeightLateness());
+                }
+                model.minimize(sum.build());
+            }
+            case Hybrid -> {
+                // need separate variable for makespan
+                IntVar makespan = model.newIntVar(0, base.getHorizon(), "makespan");
+                // this will be the objective
+                LinearExprBuilder sum = LinearExpr.newBuilder();
+                for (Job j : base.getListJob()) {
+                    // add weighted lateness, earliness and flowtime for each job to objective
+                    IntVar earlyj = earlinessVar(model,jEnd[jobHash.get(j)],j.getOrder().getDue(),j.getName());
+                    sum.addTerm(earlyj, run.getWeightEarliness());
+                    IntVar latej = latenessVar(model,jEnd[jobHash.get(j)],j.getOrder().getDue(),j.getName());
+                    sum.addTerm(latej, run.getWeightLateness());
+                    sum.addTerm(jEnd[jobHash.get(j)], run.getWeightFlowtime());
+                }
+                // add weighted makespan to objective
+                model.addMaxEquality(makespan, jEnd);
+                sum.addTerm(makespan,run.getWeightMakespan());
+                model.minimize(sum.build());
+            }
+            default -> {
+                severe("Objective " + run.getObjectiveType() + " not yet implemented in CPSat");
+                assert (false);
+            }
         }
-        model.addMaxEquality(objVar, ends);
-        model.minimize(objVar);
 
         // Creates a solver and solves the model.
         CpSolver solver = new CpSolver();
+        VarArraySolutionPrinterWithObjective cb =
+                new VarArraySolutionPrinterWithObjective(base,run,null);
         solver.getParameters().setMaxTimeInSeconds(run.getTimeout());
         solver.getParameters().setNumWorkers(run.getNrThreads());
+        solver.getParameters().setRandomSeed(run.getSeed());
         info("solving for "+run.getTimeout()+" seconds with "+run.getNrThreads()+" workers...");
 
-        CpSolverStatus status = solver.solve(model);
+        CpSolverStatus status = solver.solve(model,cb);
+        // update SolverRun status and time regardless of result
         run.setSolverStatus(toSolverStatus(status));
         run.setTime(solver.wallTime());
         if (status == OPTIMAL || status == FEASIBLE) {
             // extract solution
             int cost = (int) Math.round(solver.objectiveValue());
             double bound = solver.bestObjectiveBound();
-            double gap = (cost-bound)/cost;
-            info("Solved cost "+cost+" Bound "+bound+" gapPercent "+gap*100.0+" in "+solver.wallTime()+" seconds");
+            double gapPercent = 100.0*(cost-bound)/cost;
+            info("Solved cost "+cost+" Bound "+bound+" gapPercent "+gapPercent+" in "+solver.wallTime()+" seconds");
             Solution solution = new Solution(base);
-            solution.setName("cpsat");
+            solution.setName("Sol"+solNr++);
             solution.setObjectiveValue(cost);
             solution.setBound(bound);
-            solution.setGap(gap);
+            solution.setGapPercent(gapPercent);
             solution.setSolverRun(run);
             solution.setSolverStatus(toSolverStatus(status));
             Hashtable<Job, JobAssignment> jobAssignmentHash = new Hashtable<>();
+            Hashtable<Task,TaskAssignment> assignHash = new Hashtable<>();
             int taNr=0;
             for(Task t:base.getListTask()){
                 int ii = taskHash.get(t);
@@ -219,8 +368,11 @@ public class CPSatModel extends AbstractModel{
                 TaskAssignment ta = new TaskAssignment(base);
                 ta.setName("TA"+taNr++);
                 ta.setTask(t);
+                assignHash.put(t,ta);
                 ta.setStart(startValue);
                 ta.setEnd(endValue);
+                ta.setStartDate(toDateTime(base,startValue));
+                ta.setEndDate(toDateTime(base,endValue));
                 ta.setDuration(t.getDuration());
                 ta.setJobAssignment(findJobAssignment(t.getJob(), solution, jobAssignmentHash));
                 if (t.getMachines().size()==1){
@@ -240,12 +392,51 @@ public class CPSatModel extends AbstractModel{
                 }
 
             }
+            List<JobAssignment> jaList =base.getListJobAssignment().stream().filter(x->x.getSolution()==solution).toList();
+            List<TaskAssignment> taList = base.getListTaskAssignment().stream().
+                    filter(x->x.getJobAssignment().getSolution()==solution).
+                    toList();
+
+            calculateWaitBeforeAfter(assignHash);
+            calculateSetupAndIdleTimes(taList);
             updateJA(solution);
+            updateSolution(solution,jaList,taList);
             return true;
         } else {
             info("No solution, status "+status);
             return false;
         }
+
+    }
+
+    private SequenceType modifiedSequenceType(SolverRun run,SequenceType orig){
+        if (run.getAddNoWait()) {
+            return NoWait;
+        } else if (run.getAddBlocking()){
+            return Blocking;
+        }
+        return orig;
+    }
+    private IntVar latenessVar(CpModel model,IntVar end,int due,String name){
+        IntVar res = model.newIntVar(0, base.getHorizon(), "late" + name);
+        model.addMaxEquality(res, new LinearExpr[]{
+                LinearExpr.newBuilder().
+                        addTerm(end, 1).
+                        add(-due).
+                        build(),
+                LinearExpr.constant(0)});
+        return res;
+
+    }
+    private IntVar earlinessVar(CpModel model,IntVar end,int due,String name){
+        IntVar res = model.newIntVar(0, base.getHorizon(), "early" + name);
+        model.addMaxEquality(res, new LinearExpr[]{
+                LinearExpr.newBuilder().
+                        addTerm(end, -1).
+                        add(due).
+                        build(),
+                LinearExpr.constant(0)});
+        return res;
 
     }
 
@@ -281,39 +472,47 @@ public class CPSatModel extends AbstractModel{
             List<TaskAssignment> tasks = map.get(ja);
             ja.setStart(tasks.stream().mapToInt(TaskAssignment::getStart).min().orElse(0));
             ja.setEnd(tasks.stream().mapToInt(TaskAssignment::getEnd).max().orElse(0));
+            ja.setStartDate(toDateTime(base,ja.getStart()));
+            ja.setEndDate(toDateTime(base,ja.getEnd()));
             ja.setDuration(ja.getEnd()-ja.getStart());
             ja.setEarly(Math.max(0,ja.getJob().getOrder().getDue()-ja.getEnd()));
             ja.setLate(Math.max(0,ja.getEnd()-ja.getJob().getOrder().getDue()));
         }
-        List<JobAssignment> jList =base.getListJobAssignment().stream().filter(x->x.getSolution()==solution).toList();
-        solution.setStart(jList.stream().mapToInt(JobAssignment::getStart).min().orElse(0));
-        solution.setEnd(jList.stream().mapToInt(JobAssignment::getEnd).max().orElse(0));
-        solution.setMakespan(jList.stream().mapToInt(JobAssignment::getEnd).max().orElse(0));
-        solution.setFlowtime(jList.stream().mapToInt(JobAssignment::getEnd).sum());
-        solution.setDuration(solution.getEnd()-solution.getStart());
-        List<JobAssignment> lateJobs = base.getListJobAssignment().stream().
-                filter(x->x.getSolution()==solution).
-                filter(x->x.getLate() > 0).
-                toList();
-        solution.setNrLate(lateJobs.size());
-        solution.setPercentLate(100.0*lateJobs.size()/base.getListJob().size());
-        solution.setTotalLateness(lateJobs.stream().mapToInt(JobAssignment::getLate).sum());
-        solution.setMaxLateness(lateJobs.stream().mapToInt(JobAssignment::getLate).max().orElse(0));
-        solution.setWeightedLateness(lateJobs.stream().mapToDouble(x->x.getLate()*x.getJob().getOrder().getLatenessWeight()).sum());
-        List<JobAssignment> earlyJobs = base.getListJobAssignment().stream().
-                filter(x->x.getSolution()==solution).
-                filter(x->x.getEarly() > 0).
-                toList();
-        solution.setNrEarly(earlyJobs.size());
-        solution.setPercentEarly(100.0*earlyJobs.size()/base.getListJob().size());
-        solution.setTotalEarliness(earlyJobs.stream().mapToInt(JobAssignment::getEarly).sum());
-        solution.setMaxEarliness(earlyJobs.stream().mapToInt(JobAssignment::getEarly).max().orElse(0));
-        solution.setWeightedEarliness(earlyJobs.stream().mapToDouble(x->x.getEarly()*x.getJob().getOrder().getEarlinessWeight()).sum());
-
     }
 
     private int limit(CumulativeResource m){
         return base.getListCumulativeProfile().stream().mapToInt(CumulativeProfile::getCapacity).max().orElse(0);
+    }
+
+    private int createDummies(CpModel model,CumulativeConstraint cumul,CumulativeResource r,int limit){
+        int res = 0;
+        List<CumulativeProfile> profiles = base.getListCumulativeProfile().stream().
+                filter(x->x.getCumulativeResource()==r).
+                sorted(Comparator.comparing(CumulativeProfile::getFrom)).
+                toList();
+        Integer prevStart = 0;
+        Integer prevCapacity = 0;
+        for(CumulativeProfile cp:profiles){
+            if (prevCapacity<limit && prevStart<cp.getFrom()){
+                //create dummy demand from prevStart to cp.getFrom with demand limit-prevCapacity
+                info("Dummy "+r.getName()+" "+res+" from "+prevStart+" to "+cp.getFrom()+" demand "+(limit-prevCapacity));
+                IntervalVar dTask = model.newFixedSizeIntervalVar(model.newConstant(prevStart),cp.getFrom()-prevStart,"Dummy"+r.getName()+"_"+res);
+                cumul.addDemand(dTask,limit-prevCapacity);
+                res++;
+
+            }
+            prevStart= cp.getFrom();
+            prevCapacity = cp.getCapacity();
+        }
+        if (prevCapacity < limit && prevStart < base.getHorizon()){
+            // create dummy demand from prevStart to horizon with demand limit-prevCapacity
+            info("Dummy "+r.getName()+" "+res+" from "+prevStart+" to "+base.getHorizon()+" demand "+(limit-prevCapacity));
+            IntervalVar dTask = model.newFixedSizeIntervalVar(model.newConstant(prevStart),base.getHorizon()-prevStart,"Dummy"+r.getName()+"_"+res);
+            cumul.addDemand(dTask,limit-prevCapacity);
+            res++;
+        }
+        return res;
+
     }
 
     private ProcessSequence findProcessSequence(ProcessStep before,ProcessStep after){

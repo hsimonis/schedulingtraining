@@ -7,12 +7,12 @@ import org.insightcentre.tbischeduling.datamodel.*;
 import java.util.*;
 
 import static java.util.stream.Collectors.groupingBy;
+import static org.insightcentre.tbischeduling.datamodel.SequenceType.Blocking;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 import static org.insightcentre.tbischeduling.utilities.TypeConverters.toDateTime;
 
 public class CPOModel extends AbstractModel{
-    static int solNr = 1;
     public CPOModel(Scenario base, SolverRun run){
         super(base,run);
         info("solver object created");
@@ -96,7 +96,11 @@ public class CPOModel extends AbstractModel{
             // create task related variables
             for(int i=0;i<nrTasks;i++){
                 // assumes machine independent duration
-                x[i] = cp.intervalVar(durations[i],tasks[i].getName());
+                if(canBeUsedAsBuffer(tasks[i])) {
+                    x[i] = cp.intervalVar(durations[i], base.getHorizon());
+                } else {
+                    x[i] = cp.intervalVar(durations[i], tasks[i].getName());
+                }
                 x[i].setPresent();
                 x[i].setStartMin(0);
                 x[i].setEndMax(horizon);
@@ -187,7 +191,10 @@ public class CPOModel extends AbstractModel{
                         cp.add(cp.endBeforeStart(x[beforeIndex], x[afterIndex]));
                     } else if (seq.getSequenceType()==SequenceType.StartBeforeStart) {
                         cp.add(cp.startBeforeStart(x[beforeIndex], x[afterIndex]));
-//                        info("start before start");
+                    } else if (seq.getSequenceType()== Blocking) {
+                        cp.add(cp.endAtStart(x[beforeIndex], x[afterIndex]));
+                    } else if (seq.getSequenceType()==SequenceType.NoWait) {
+                        cp.add(cp.endAtStart(x[beforeIndex], x[afterIndex]));
                     } else {
                         severe("Bad precedence type "+seq.getSequenceType()+" ignored!");
                     }
@@ -413,7 +420,7 @@ public class CPOModel extends AbstractModel{
                 run.setTime(time(startTime));
                 sol.setSolverRun(run);
                 sol.setBound(bound);
-                sol.setGap(gap);
+                sol.setGapPercent(100.0*gap);
 
                 // extract job assignment
                 Hashtable<Job,JobAssignment> jaHash = new Hashtable<>();
@@ -425,6 +432,9 @@ public class CPOModel extends AbstractModel{
                     int late = (int) Math.round(cp.getValue(lateness[j]));
                     int due = jobs[j].getOrder().getDue();
                     int early = Math.max(0,due-end);
+                    //??? check on correctness of extracted lateness
+                    assert(late == Math.max(0,end-due));
+
                     JobAssignment ja = new JobAssignment(base);
                     ja.setName("JA"+j);
                     ja.setSolution(sol);
@@ -466,71 +476,12 @@ public class CPOModel extends AbstractModel{
                     assert(cnt<=1);
                 }
                 Collection<TaskAssignment> taList = assignHash.values();
-                // calculate waitBefore and waitAfter for each task
-                for(int i=0;i<nrTasks;i++){
-                    Task t = tasks[i];
-                    TaskAssignment ta = assignHash.get(t);
-                    assert(ta != null);
-                    int waitBefore = t.getFollows().stream().mapToInt(xx->ta.getStart()-assignHash.get(xx).getEnd()).min().orElse(0);
-                    int waitAfter = t.getPrecedes().stream().mapToInt(xx->assignHash.get(xx).getStart()-ta.getEnd()).min().orElse(0);
-                    ta.setWaitBefore(waitBefore);
-                    ta.setWaitAfter(waitAfter);
-                }
-                // calculate setup and idle times for each task
-                Map<DisjunctiveResource,List<TaskAssignment>> mapAssignment = taList.stream().
-                        filter(xx->xx.getDisjunctiveResource()!= null).
-                        collect(groupingBy(TaskAssignment::getDisjunctiveResource));
-                for(DisjunctiveResource r:mapAssignment.keySet()){
-                    List<TaskAssignment> orderedInTime = mapAssignment.get(r).stream().sorted(Comparator.comparing(TaskAssignment::getStart)).toList();
-                    TaskAssignment prev = null;
-                    for(TaskAssignment t:orderedInTime){
-                        if (prev != null) {
-                            int totalGap = t.getStart() - prev.getEnd();
-                            int setup = calculateSetupTime(r,prev.getTask(),t.getTask());
-                            int idle = totalGap-setup;
-                            prev.setIdleAfter(idle);
-                            prev.setSetupAfter(setup);
-                            t.setIdleBefore(idle);
-                            t.setSetupBefore(setup);
-                        } else {
-                            t.setIdleBefore(0);
-                            t.setSetupBefore(0);
-                        }
-                        prev = t;
-                    }
-                    prev.setIdleAfter(0);
-                    prev.setSetupAfter(0);
-                }
 
-                sol.setMakespan(jaList.stream().mapToInt(JobAssignment::getEnd).max().orElse(0));
-                sol.setFlowtime(jaList.stream().mapToInt(JobAssignment::getEnd).sum());
-                sol.setTotalLateness(jaList.stream().mapToInt(JobAssignment::getLate).sum());
-                sol.setMaxLateness(jaList.stream().mapToInt(JobAssignment::getLate).max().orElse(0));
-                sol.setNrLate((int)jaList.stream().filter(xx->xx.getLate() >0).count());
-                sol.setWeightedLateness(jaList.stream().mapToDouble(this::weightedLateness).sum());
-                sol.setTotalEarliness(jaList.stream().mapToInt(JobAssignment::getEarly).sum());
-                sol.setMaxEarliness(jaList.stream().mapToInt(JobAssignment::getEarly).max().orElse(0));
-                sol.setNrEarly((int)jaList.stream().filter(xx->xx.getEarly()>0).count());
-                sol.setWeightedEarliness(jaList.stream().mapToDouble(this::weightedEarliness).sum());
-                sol.setPercentEarly(100.0*sol.getNrEarly()/nrJobs);
-                sol.setPercentLate(100.0*sol.getNrLate()/nrJobs);
-                sol.setStart(jaList.stream().mapToInt(JobAssignment::getStart).min().orElse(0));
-                sol.setEnd(jaList.stream().mapToInt(JobAssignment::getEnd).max().orElse(0));
-                sol.setStartDate(toDateTime(base,sol.getStart()));
-                sol.setEndDate(toDateTime(base,sol.getEnd()));
-                sol.setDuration(sol.getEnd()-sol.getStart());
-                sol.setTotalWaitBefore(taList.stream().mapToInt(TaskAssignment::getWaitBefore).sum());
-                sol.setMaxWaitBefore(taList.stream().mapToInt(TaskAssignment::getWaitBefore).max().orElse(0));
-                sol.setTotalWaitAfter(taList.stream().mapToInt(TaskAssignment::getWaitAfter).sum());
-                sol.setMaxWaitAfter(taList.stream().mapToInt(TaskAssignment::getWaitAfter).max().orElse(0));
-                sol.setTotalSetupBefore(taList.stream().mapToInt(TaskAssignment::getSetupBefore).sum());
-                sol.setMaxSetupBefore(taList.stream().mapToInt(TaskAssignment::getSetupBefore).max().orElse(0));
-                sol.setTotalSetupAfter(taList.stream().mapToInt(TaskAssignment::getSetupAfter).sum());
-                sol.setMaxSetupAfter(taList.stream().mapToInt(TaskAssignment::getSetupAfter).max().orElse(0));
-                sol.setTotalIdleBefore(taList.stream().mapToInt(TaskAssignment::getIdleBefore).sum());
-                sol.setMaxIdleBefore(taList.stream().mapToInt(TaskAssignment::getIdleBefore).max().orElse(0));
-                sol.setTotalIdleAfter(taList.stream().mapToInt(TaskAssignment::getIdleAfter).sum());
-                sol.setMaxIdleAfter(taList.stream().mapToInt(TaskAssignment::getIdleAfter).max().orElse(0));
+                calculateWaitBeforeAfter(assignHash);
+                calculateSetupAndIdleTimes(taList);
+
+                updateSolution(sol,jaList,taList);
+
                 // to capture previously unseen solver status strings
                 assert(run.getSolverStatus() != null);
                 return true;
@@ -551,6 +502,16 @@ public class CPOModel extends AbstractModel{
             return false;
         }
     }
+
+private boolean canBeUsedAsBuffer(Task t){
+        for(ProcessSequence ps:base.getListProcessSequence()){
+            if (ps.getBefore() == t.getProcessStep() && ps.getSequenceType()== Blocking){
+                return true;
+            }
+        }
+        return false;
+}
+
 
     private WiP wipForResource(DisjunctiveResource r){
         for(WiP wip:base.getListWiP()){
@@ -581,12 +542,6 @@ public class CPOModel extends AbstractModel{
 
 
 
-    private double weightedLateness(JobAssignment ja){
-        return ja.getLate()*ja.getJob().getOrder().getLatenessWeight();
-    }
-    private double weightedEarliness(JobAssignment ja){
-        return ja.getEarly()*ja.getJob().getOrder().getLatenessWeight();
-    }
 
     private int duration(Task t){
         return t.getDuration();
@@ -631,23 +586,5 @@ public class CPOModel extends AbstractModel{
 
     }
 
-    private int calculateSetupTime(DisjunctiveResource r,Task before, Task after){
-        if (r.getSetup()==null){
-            return 0;
-        } else {
-            Setup setup = r.getSetup();
-            SetupMatrix entry = base.getListSetupMatrix().stream().
-                    filter(x->x.getFrom()==before.getProcessStep().getSetupType()).
-                    filter(x->x.getTo()==after.getProcessStep().getSetupType()).
-                    findAny().orElse(null);
-            if (entry != null){
-                return entry.getValue();
-            } else if (before.getProcessStep().getSetupType() == after.getProcessStep().getSetupType()){
-                return setup.getSameValue();
-            } else {
-                return setup.getDefaultValue();
-            }
-        }
-    }
 
 }

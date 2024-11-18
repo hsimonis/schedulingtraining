@@ -21,7 +21,7 @@ import org.insightcentre.tbischeduling.datamodel.GanttProperty;
 import org.insightcentre.tbischeduling.datamodel.LineChoice;
 
 /**
- * Generated at 12:39:47 on 2024-11-13 */
+ * Generated at 10:47:55 on 2024-11-17 */
 public class GanttPropertyController extends Table3Controller {
 	@FXML
 	private TableView<GanttProperty> table;

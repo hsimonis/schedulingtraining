@@ -5,31 +5,21 @@ Generated once, should be extended by user
 */
 
 import framework.types.DateTime;
-import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import org.insightcentre.tbischeduling.datamodel.*;
 import framework.ApplicationDatasetInterface;
 import framework.ApplicationObjectInterface;
 import framework.types.IrishCalendar;
-import org.insightcentre.tbischeduling.datamodel.Process;
-import org.insightcentre.tbischeduling.exporter.CreateJSONDoc;
 import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.generatedsolver.*;
 import org.insightcentre.tbischeduling.implementedsolver.*;
 import org.insightcentre.tbischeduling.importer.*;
-import org.insightcentre.tbischeduling.reports.ProcessDiagram;
 import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Date;
-import java.util.Objects;
 import java.util.Optional;
 
-import static org.insightcentre.tbischeduling.datamodel.ColorBy.Process;
-import static org.insightcentre.tbischeduling.datamodel.ModelType.CPSat;
-import static org.insightcentre.tbischeduling.datamodel.ResourceModel.*;
 import static org.insightcentre.tbischeduling.datamodel.Severity.Minor;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
@@ -55,7 +45,7 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setDataFileVersionNumber(8.0);
                 base.setDataFile("");
                 base.setStartDateTime(new DateTime(2024,10,1,0,0));
-                base.setHorizon(20000);
+                base.setHorizon(5000);
                 base.setTimeResolution(5);
                 base.setGanttWidth(23);
                 base.setGanttLinesPerPage(25);
@@ -78,7 +68,7 @@ public class JfxApp extends GeneratedJfxApp {
                         q.getMinQty(),q.getMaxQty(),
                         q.getWipProbability(),q.getMinWip(),q.getMaxWip(),
                         q.getDowntimeProbability(),q.getMinDowntime(),q.getMaxDowntime(),
-                        q.getEarliestDue(),100,q.getTimeResolution(),q.getSeed());
+                        q.getEarliestDue(),20,q.getTimeResolution(),q.getSeed());
                 base.setHorizon(100000);
                 base.setDirty(false);
                 setTitle(applicationTitle+" (Generated)");
@@ -98,6 +88,11 @@ public class JfxApp extends GeneratedJfxApp {
 //                new ReadJJFlatFile(base,"transport/instance400_1.txt");
 //                setTitle(applicationTitle+" ("+base.getDataFile()+")");
 //                new ProcessDiagram(base, Objects.requireNonNull(org.insightcentre.tbischeduling.datamodel.Process.findFirst(base)));
+//                for(ProcessSequence ps:base.getListProcessSequence()){
+//                        if (ps.getAfter().getStage()<=3){
+//                                ps.setSequenceType(Blocking);
+//                        }
+//                }
                 return base;
         }
 

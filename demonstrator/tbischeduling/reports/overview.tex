@@ -32,7 +32,7 @@ Table~\ref{tab:compareoss} shows the results for the Taillard open shop problem 
 
 \input{comparejss}
 
-Table~\ref{tab:comparejss} compares the results for the Taillard job shop problems (incomplete). Only some of the problem groups are solved to optimality. For the 10/20 set, CPOptimizer proves optimality, while CPSat finds solutions which are very close to the optimal results. The bound results for 100/20 with CPSat are incorrect, and need to be recomputed.
+Table~\ref{tab:comparejss} compares the results for the Taillard job shop problems. Only some of the problem groups are solved to optimality. For the 10/20 set, CPOptimizer proves optimality, while CPSat finds solutions which are very close to the optimal results. The bound results for 100/20 with CPSat are incorrect, and need to be recomputed.
 
 \input{comparefss}
 
@@ -46,11 +46,20 @@ Table~\ref{tab:comparepfss} compares the results for CPOptimizer for the regular
 
 \input{comparesalbp}
 
-The results (incomplete) for SALBP-1 in Table~\ref{tab:comparesalbp} were obtained with a 30 second timeout. All of the 20 task instances were solved to optimality (some only with CPSat), while 88\% of the 50 task instances were solved to optimality, but only 43\% were solved by both. The time taken to find the common optimal solutions varies significantly, CPSat seems on average faster on the small instances, while CPOptimizer is faster on a larger instances, but this does not hold for all instances. For the non-optimal solutions, solution quality seems very evenly balanced.
+The results for SALBP-1 in Table~\ref{tab:comparesalbp} were obtained with a 30 second timeout. All of the 20 task instances were solved to optimality (some only with CPSat), while 88\% of the 50 task instances were solved to optimality, but only 43\% were solved by both. The time taken to find the common optimal solutions varies significantly, CPSat seems on average faster on the small instances, while CPOptimizer is faster on a larger instances, but this does not hold for all instances. For the non-optimal solutions, solution quality seems very evenly balanced.
+
+The results for the test scheduling case study are shown in Table~\ref{tab:compareTest}.
+Very likely the 30 second timeout is too small for the large problem instances. Optimal solutions are found by both solvers for the smaller instance sizes, CPO does find some optimal solutions even for large problem sizes. Solution quality for up to 100 tasks is very close, while results for CPSat on the 500 task problems is disappointing compared to the CPO results. Already for 100 tasks, the time needed to find the optimal solutions is much higher for CPSat, the results may improve if more time is given for both solvers.
 
 \input{compareTest}
 
+Table~\ref{tab:compareTrans} compares CPO and CPSat for the Hybrid flexible flow shop problem of the factory design case study. For the smaller problem sizes, up to 40 jobs, both system offer comparable solution quality, with significantly high run times for CPSat. Starting from the 50 job problem instances, but especially for the large 300 and 400 job problems, the solution quality of CPO is much better. Optimal solutions are found by both system up to size 30, CPSat finds more optimal solutions for the smaller problems, and CPO finds more optimal solution for larger instances (up to size 50). 
+
+While the results for CPO are clearly superior to the ones for CPSat for the 500 task problem instances, the given lower bound is very poor for CPO. 
+
 \input{compareTrans}
+
+Note that there is a single 300 job instance 300\_2 for which CPSat did not find any solution within the timeout, so only 24 instances are compared.  
 
 \clearpage
 \chapter{Taillard Open Shop Problems}

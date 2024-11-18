@@ -426,7 +426,7 @@
 			<xs:attribute name="end" use="required" type="xs:integer"/>
 			<xs:attribute name="endDate" use="required" type="xs:dateTime"/>
 			<xs:attribute name="flowtime" use="required" type="xs:integer"/>
-			<xs:attribute name="gap" use="required" type="xs:double"/>
+			<xs:attribute name="gapPercent" use="required" type="xs:double"/>
 			<xs:attribute name="idlePercent" use="required" type="xs:double"/>
 			<xs:attribute name="makespan" use="required" type="xs:integer"/>
 			<xs:attribute name="maxEarliness" use="required" type="xs:integer"/>
@@ -498,6 +498,8 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="addBlocking" use="required" type="xs:boolean"/>
+			<xs:attribute name="addNoWait" use="required" type="xs:boolean"/>
 			<xs:attribute name="addSameOrder" use="required" type="xs:boolean"/>
 			<xs:attribute name="description" use="required" type="xs:string"/>
 			<xs:attribute name="enforceCumulative" use="required" type="xs:boolean"/>
@@ -530,6 +532,8 @@
 			<xs:attribute name="applicationDataset" use="required" type="xs:IDREF"/>
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="addBlocking" use="required" type="xs:boolean"/>
+			<xs:attribute name="addNoWait" use="required" type="xs:boolean"/>
 			<xs:attribute name="addSameOrder" use="required" type="xs:boolean"/>
 			<xs:attribute name="description" use="required" type="xs:string"/>
 			<xs:attribute name="enforceCumulative" use="required" type="xs:boolean"/>

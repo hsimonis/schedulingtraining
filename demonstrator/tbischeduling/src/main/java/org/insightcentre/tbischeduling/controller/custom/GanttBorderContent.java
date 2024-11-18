@@ -137,7 +137,7 @@ public class GanttBorderContent {
     }
 
     public void setScenario(Scenario base){
-        info("Scenario set");
+//        info("Scenario set");
         this.base = base;
     }
 
@@ -182,7 +182,7 @@ public class GanttBorderContent {
     }
     public void setDatesDisplay(String v){
         if (v != null) {
-            info("update datesDisplay "+toDatesDisplay(v));
+//            info("update datesDisplay "+toDatesDisplay(v));
             gp.setDatesDisplay(toDatesDisplay(v));
         }
     }
@@ -219,7 +219,7 @@ public class GanttBorderContent {
 
     public void initialize() {
         // mainApp may not be set, avoid data manipulation here
-        info("initialize Gantt "+gp.getDatesDisplay());
+//        info("initialize Gantt "+gp.getDatesDisplay());
 
 //        virtWidth = Math.max(virtWidth,base.getHorizon());
 
@@ -250,7 +250,7 @@ public class GanttBorderContent {
                 addListener(new ChangeListener<Number>() {
                     public void changed(ObservableValue<? extends Number> ov,
                                         Number oldVal, Number newVal) {
-                        info("changed right " + oldVal + " to " + newVal);
+//                        info("changed right " + oldVal + " to " + newVal);
                         startY = (double) newVal;
                         canvas.draw();
                         leftCanvas.draw();
@@ -268,7 +268,7 @@ public class GanttBorderContent {
                 addListener(new ChangeListener<Number>() {
                     public void changed(ObservableValue<? extends Number> ov,
                                         Number oldVal, Number newVal) {
-                        info("changed bottom " + oldVal + " to " + newVal);
+ //                       info("changed bottom " + oldVal + " to " + newVal);
                         startX = (double) newVal;
                         canvas.draw();
                         leftCanvas.draw();
@@ -317,7 +317,7 @@ public class GanttBorderContent {
 
 
     public void ganttSelect(double x, double y, String type) {
-        info("clicked " + x + " " + y + " on " + type);
+//        info("clicked " + x + " " + y + " on " + type);
         ResourceActivity selected =insideRegion(x,y);
         if (selected == getSelected()){
             setSelected(null);
@@ -326,7 +326,7 @@ public class GanttBorderContent {
         } else {
             setSelected(selected);
            if (selected != null) {
-                info("inside " + selected.getName());
+//                info("inside " + selected.getName());
                controller.updateDetails(selected);
                 drawChart();
             }
@@ -406,7 +406,7 @@ public class GanttBorderContent {
     public void drawCenter() {
         controller.updateParameters();
         if (base != null) {
-            info("Draw center sol " + solution + " M " + showMachinesBox + " J " + showJobsBox);
+//            info("Draw center sol " + solution + " M " + showMachinesBox + " J " + showJobsBox);
             double width = canvas.getWidth();
             double height = canvas.getHeight();
             // reset regions as all tasks will have new coordinates
@@ -450,7 +450,7 @@ public class GanttBorderContent {
                 // each item uses 5 spaces, four for the item itself, and one for the gap
                 double space = height/(nrResources*5);
                 itemHeight = (int) Math.min(30.0,Math.max(5.0,Math.round(4*space)));
-                info("fitAll resources"+nrResources+" space "+space+" itemHeight "+itemHeight);
+//                info("fitAll resources"+nrResources+" space "+space+" itemHeight "+itemHeight);
                 itemGap = (int) Math.round(Math.max(2,Math.min(8,space)));
                 resourceLabelOffset= itemHeight -3;
                 taskLabelOffset= itemHeight -3;
@@ -500,7 +500,7 @@ public class GanttBorderContent {
 
     public void timeline(GraphicsContext gc,double width,double height,double xoffset){
         int increment = zoomIncrement(width,zoom);
-        info("increment "+increment);
+//        info("increment "+increment);
         int startX = (int) Math.round(getStartX());
         for(int i=0;i<virtWidth;i+=increment){
             double x = xoffset+xcoor(i,startX);
@@ -518,7 +518,7 @@ public class GanttBorderContent {
     }
     public void centerTimeline(GraphicsContext gc,double width,double height){
         int increment = zoomIncrement(width,zoom);
-        info("center increment "+increment);
+//        info("center increment "+increment);
         int startX = (int) Math.round(getStartX());
         for(int i=0;i<virtWidth;i+=increment){
             double x = xcoor(i,startX);
@@ -554,7 +554,7 @@ public class GanttBorderContent {
         if (gp.getDatesDisplay() == Internal) {
             // how many internal time units will be shown in window width
             double valueRange = width / zoom;
-            info("timeline " + width + " z " + zoom + " r " + valueRange);
+//            info("timeline " + width + " z " + zoom + " r " + valueRange);
             if (valueRange > 10000) {
                 return 500;
             } else if (valueRange > 5000) {

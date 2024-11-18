@@ -11,8 +11,7 @@ import static org.insightcentre.tbischeduling.datamodel.ModelType.CPSat;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.REST;
 import static org.insightcentre.tbischeduling.datamodel.ObjectiveType.*;
 import static org.insightcentre.tbischeduling.datamodel.ResourceModel.*;
-import static org.insightcentre.tbischeduling.datamodel.SequenceType.EndBeforeStart;
-import static org.insightcentre.tbischeduling.datamodel.SequenceType.StartBeforeStart;
+import static org.insightcentre.tbischeduling.datamodel.SequenceType.*;
 import static org.insightcentre.tbischeduling.datamodel.Severity.*;
 import static org.insightcentre.tbischeduling.datamodel.Severity.Minor;
 import static org.insightcentre.tbischeduling.datamodel.SolverBackend.*;
@@ -27,6 +26,8 @@ public class TypeConverters {
         return switch(name) {
             case "EndBeforeStart" -> EndBeforeStart;
             case "StartBeforeStart" -> StartBeforeStart;
+            case "NoWait" -> NoWait;
+            case "NoBuffer" -> Blocking;
             default -> null;
 
         };

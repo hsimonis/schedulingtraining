@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 12:39:47 on 2024-11-13 */
+ * Generated at 10:47:55 on 2024-11-17 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -78,6 +78,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceTransportTime");
 		filterNames.add("relaxSequence");
 		filterNames.add("addSameOrder");
+		filterNames.add("addNoWait");
+		filterNames.add("addBlocking");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");
@@ -116,6 +118,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceTransportTime");
 		filterNames.add("relaxSequence");
 		filterNames.add("addSameOrder");
+		filterNames.add("addNoWait");
+		filterNames.add("addBlocking");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");
@@ -154,6 +158,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("enforceTransportTime");
 		filterNames.add("relaxSequence");
 		filterNames.add("addSameOrder");
+		filterNames.add("addNoWait");
+		filterNames.add("addBlocking");
 		filterNames.add("modelType");
 		filterNames.add("solverBackend");
 		filterNames.add("objectiveType");
@@ -611,8 +617,8 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("solverStatus");
 		attributeNames.add("bound");
 		filterNames.add("bound");
-		attributeNames.add("gap");
-		filterNames.add("gap");
+		attributeNames.add("gapPercent");
+		filterNames.add("gapPercent");
 		attributeNames.add("makespan");
 		filterNames.add("makespan");
 		attributeNames.add("flowtime");

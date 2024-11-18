@@ -39,6 +39,8 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
                 base.getSolverProperty().getEnforceTransportTime(),
                 base.getSolverProperty().getRelaxSequence(),
                 base.getSolverProperty().getAddSameOrder(),
+                base.getSolverProperty().getAddNoWait(),
+                base.getSolverProperty().getAddBlocking(),
                 base.getSolverProperty().getModelType().toString(),
                 base.getSolverProperty().getSolverBackend().toString(),
                 base.getSolverProperty().getObjectiveType().toString(),
@@ -72,6 +74,8 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         p.setEnforceTransportTime(getEnforceTransportTime());
         p.setRelaxSequence(getRelaxSequence());
         p.setAddSameOrder(getAddSameOrder());
+        p.setAddNoWait(getAddNoWait());
+        p.setAddBlocking(getAddBlocking());
         p.setModelType(toModelType(getModelType()));
         p.setSolverBackend(toSolverBackend(getSolverBackend()));
         p.setObjectiveType(toObjectiveType(getObjectiveType()));
@@ -98,7 +102,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
                 toSolverBackend(getSolverBackend()),toObjectiveType(getObjectiveType()),
                 getEnforceReleaseDate(),getEnforceDueDate(),getEnforceCumulative(),getEnforceWip(),
                 getEnforceDowntime(),getEnforceSetup(),getEnforceTransportTime(),getRelaxSequence(),
-                getAddSameOrder(),
+                getAddSameOrder(),getAddNoWait(),getAddBlocking(),
                 getWeightMakespan(),getWeightFlowtime(),getWeightEarliness(),getWeightLateness(),
                 getTimeout(),getNrThreads(),getSeed(),
                 getRemoveSolution(),getProduceReport(),getProducePDF());
@@ -147,14 +151,15 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
     private SolverRun createSolverRun(String label,String description,ModelType modelType,SolverBackend solverBackend,
                                       ObjectiveType objectiveType,boolean enforceReleaseDate,boolean enforceDueDate,
                                       boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,boolean enforceSetup,
-                                      boolean enforceTransportTime,boolean relaxSequence,boolean addSameOrder,
+                                      boolean enforceTransportTime,boolean relaxSequence,
+                                      boolean addSameOrder,boolean addNoWait,boolean addBlocking,
                                       int weightMakespan,int weightFlowtime,int weightEarliness,int weightLateness,
                                       int timeout,int nrThreads,int seed,boolean removeSolution,
                                       boolean produceReport,boolean producePDF){
         String name = "Run"+runNr++;
         double time = 0.0;
         DateTime startDateTime = new DateTime(new Date());
-        SolverRun res = new SolverRun(base,runNr,name,addSameOrder,description,enforceCumulative,enforceDowntime,enforceDueDate,
+        SolverRun res = new SolverRun(base,runNr,name,addBlocking,addNoWait,addSameOrder,description,enforceCumulative,enforceDowntime,enforceDueDate,
                 enforceReleaseDate,enforceSetup,enforceTransportTime,enforceWip,
                 label,modelType,nrThreads,objectiveType,producePDF,produceReport,relaxSequence,removeSolution,seed,solverBackend,
                 startDateTime,timeout,weightEarliness,weightFlowtime,weightLateness,weightMakespan,ToRun,time);

@@ -21,7 +21,8 @@ public class ResizableCanvas extends Canvas {
     int xoffset = 0;
 
     public ResizableCanvas() {
-        info("construct resizable");
+
+//        info("construct resizable");
     }
 
     public void setXOffset(int v) {
@@ -93,7 +94,7 @@ public class ResizableCanvas extends Canvas {
         double height = getHeight();
         contentProvider.setCurrentWidth(width);
         contentProvider.setCurrentHeight(height);
-        info("draw resizable " + width + " " + height + " " + type);
+//        info("draw resizable " + width + " " + height + " " + type);
         switch (type) {
             case "Top":
                 contentProvider.drawTimeline();

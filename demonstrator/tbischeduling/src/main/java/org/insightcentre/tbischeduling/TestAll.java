@@ -73,11 +73,11 @@ public class TestAll {
 //        compareSummaries(base,"comparepfss",true,"FSS","PFSS",
 //                "Comparison of CPO for Result Groups of Permutation and Unrestricted FlowShop Problems",GroupType.Taillard);
 ////        testSALBP("salbp/","resultsCPSat/");
-        base.resetListSolutionSummary();
-        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
-        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
-        compareSummaries(base,"comparesalbp",false,"CPO","CPSat",
-                "Comparison of CPO and CPSat for Result Groups of SALBP-1 Problems",GroupType.Salbp);
+//        base.resetListSolutionSummary();
+//        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
+//        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
+//        compareSummaries(base,"comparesalbp",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Result Groups of SALBP-1 Problems",GroupType.Salbp);
 ////        testTestScheduling("testscheduling/","resultsCPSat/");
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"testscheduling/results/","Test Scheduling Problems (CPO)","tsched","CPO");
@@ -85,11 +85,11 @@ public class TestAll {
 //        compareSummaries(base,"compareTest",false,"CPO","CPSat",
 //                "Comparison of CPO and CPSat for Result Groups of Test Scheduling Problems",GroupType.TestScheduling);
 //        testTransport("transport/","results/");
-//        base.resetListSolutionSummary();
-//        analyzeAll(base,"transport/results/","Factory Design (CPO)","trans","CPO");
-//        analyzeAll(base,"transport/resultsCPSat/","Factory Design (CPSat)","transCPSat","CPSat");
-//        compareSummaries(base,"compareTrans",false,"CPO","CPSat",
-//                "Comparison of CPO and CPSat for Result Groups of Factory Design Problems",GroupType.Transport);
+        base.resetListSolutionSummary();
+        analyzeAll(base,"transport/results/","Factory Design (CPO)","trans","CPO");
+        analyzeAll(base,"transport/resultsCPSat/","Factory Design (CPSat)","transCPSat","CPSat");
+        compareSummaries(base,"compareTrans",false,"CPO","CPSat",
+                "Comparison of CPO and CPSat for Result Groups of Factory Design Problems",GroupType.Transport);
     }
 
     /*
@@ -286,16 +286,16 @@ public class TestAll {
                 test.setRelaxSequence(false);
                 test.setAddSameOrder(false);
                 test.setTimeout(300);
-//                test.setModelType(CPO);
-                test.setModelType(CPSat);
+                test.setModelType(CPO);
+//                test.setModelType(CPSat);
                 test.setObjectiveType(ObjectiveType.Makespan);
-                test.setNrThreads(8);
+                test.setNrThreads(4);
 
 //            info("Nr SolverRun " + base.getListSolverRun().size());
                 for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
                     info("Running " + run.getName());
-//                    new CPOModel(base, run).solve();
-                    new CPSatModel(base, run).solve();
+                    new CPOModel(base, run).solve();
+//                    new CPSatModel(base, run).solve();
                 }
                 new WriteData(base).toFile(new File(outputFile), 2);
             }

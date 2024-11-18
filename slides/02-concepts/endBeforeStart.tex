@@ -1,0 +1,9 @@
+\scalebox{0.6}{
+\begin{tikzpicture}
+\draw[fill=blue!10,draw=black] (0,0) rectangle node {T1} (2,1);
+\draw[fill=blue!10,draw=black] (3,2) rectangle node {T2} (6,3);
+\draw[->] (2,0.5) -- (3,2.5);
+\draw[<->] (2,3.5) -- node[above] {Possible start of T2}(7,3.5);
+\draw[<->] (-1,-0.5) -- node[below] {Possible end of T1}(3,-0.5);
+\end{tikzpicture}
+}

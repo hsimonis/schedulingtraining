@@ -89,7 +89,19 @@ EndBeforeStart,
  *
 */
 
-StartBeforeStart;
+StartBeforeStart,
+    /**
+ *  
+ *
+*/
+
+NoWait,
+    /**
+ *  
+ *
+*/
+
+Blocking;
 private static SequenceType[] cache = null;
 
 public static SequenceType[] cachedValues(){

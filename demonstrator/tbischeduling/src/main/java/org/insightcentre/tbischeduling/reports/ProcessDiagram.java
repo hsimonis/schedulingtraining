@@ -8,7 +8,6 @@ import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.datamodel.Process;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.Hashtable;
@@ -16,8 +15,6 @@ import java.util.List;
 
 import static java.util.stream.Collectors.joining;
 import static net.sourceforge.plantuml.FileFormat.PNG;
-import static net.sourceforge.plantuml.FileFormat.SVG;
-import static org.insightcentre.tbischeduling.datamodel.SequenceType.StartBeforeStart;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
@@ -264,8 +261,18 @@ public class ProcessDiagram {
         return clean(ps.getBefore().getName())+
                 " -> "+
                 clean(ps.getAfter().getName())+
-                (ps.getSequenceType()==StartBeforeStart? " [color=darkseagreen]":"")+
+                sequenceTypeColor(ps.getSequenceType())+
                 "\n";
+    }
+
+    private String sequenceTypeColor(SequenceType type){
+        switch(type){
+            case StartBeforeStart: return " [color=darkseagreen]";
+            case NoWait: return " [color=tomato]";
+            case Blocking: return " [color=goldenrod]";
+            default:
+                return "";
+        }
     }
 
     private String link(String before,String after){

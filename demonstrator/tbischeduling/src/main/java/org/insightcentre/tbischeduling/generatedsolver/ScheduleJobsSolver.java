@@ -24,6 +24,8 @@ public class ScheduleJobsSolver extends DefaultSolver{
     protected boolean enforceTransportTime=false;
     protected boolean relaxSequence=false;
     protected boolean addSameOrder=false;
+    protected boolean addNoWait=false;
+    protected boolean addBlocking=false;
     protected String modelType="CPO";
     protected String solverBackend="None";
     protected String objectiveType="Makespan";
@@ -41,7 +43,7 @@ public class ScheduleJobsSolver extends DefaultSolver{
     public ScheduleJobsSolver(Scenario base){
         super(base,new String[] {});
     }
-    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,boolean enforceSetup,boolean enforceTransportTime,boolean relaxSequence,boolean addSameOrder,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarliness,int timeout,int nrThreads,int seed,boolean removeSolution,boolean produceReport,boolean producePDF){
+    public ScheduleJobsSolver(Scenario base,String label,String description,String startDate,String startTime,boolean enforceReleaseDate,boolean enforceDueDate,boolean enforceCumulative,boolean enforceWip,boolean enforceDowntime,boolean enforceSetup,boolean enforceTransportTime,boolean relaxSequence,boolean addSameOrder,boolean addNoWait,boolean addBlocking,String modelType,String solverBackend,String objectiveType,int weightMakespan,int weightFlowtime,int weightLateness,int weightEarliness,int timeout,int nrThreads,int seed,boolean removeSolution,boolean produceReport,boolean producePDF){
         super(base,new String[] {});
         this.label=label;
         this.description=description;
@@ -56,6 +58,8 @@ public class ScheduleJobsSolver extends DefaultSolver{
         this.enforceTransportTime=enforceTransportTime;
         this.relaxSequence=relaxSequence;
         this.addSameOrder=addSameOrder;
+        this.addNoWait=addNoWait;
+        this.addBlocking=addBlocking;
         this.modelType=modelType;
         this.solverBackend=solverBackend;
         this.objectiveType=objectiveType;
@@ -121,6 +125,14 @@ public boolean getRelaxSequence(){
 
 public boolean getAddSameOrder(){
  return addSameOrder;
+}
+
+public boolean getAddNoWait(){
+ return addNoWait;
+}
+
+public boolean getAddBlocking(){
+ return addBlocking;
 }
 
 public String getModelType(){
@@ -237,6 +249,16 @@ public ScheduleJobsSolver setRelaxSequence(boolean v){
 
 public ScheduleJobsSolver setAddSameOrder(boolean v){
  addSameOrder = v;
+ return this;
+}
+
+public ScheduleJobsSolver setAddNoWait(boolean v){
+ addNoWait = v;
+ return this;
+}
+
+public ScheduleJobsSolver setAddBlocking(boolean v){
+ addBlocking = v;
  return this;
 }
 

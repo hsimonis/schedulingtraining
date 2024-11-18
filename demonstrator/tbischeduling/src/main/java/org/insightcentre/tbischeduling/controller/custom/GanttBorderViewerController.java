@@ -184,7 +184,7 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 
 	@Override
 	public void setMainApp(AbstractJfxMainWindow mainApp) {
-		info("setMainApp");
+//		info("setMainApp");
 		this.mainApp = (GeneratedJfxApp) mainApp;
 		Scenario base = this.mainApp.basebase;
 
@@ -213,7 +213,7 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		showJobsBox.getSelectionModel().select(All.toString());
 		ObservableList<String> datesDisplayChoices = FXCollections.observableArrayList(DatesDisplay.getNames());
 		setChoices(datesDisplayChoiceBox,datesDisplayChoices);
-		info("Initialize datesDisplay "+base.getGanttProperty().getDatesDisplay());
+//		info("Initialize datesDisplay "+base.getGanttProperty().getDatesDisplay());
 		datesDisplayChoiceBox.getSelectionModel().select(base.getGanttProperty().getDatesDisplay().toString());
 
 		contentProvider = new GanttBorderContent(this,canvas,topCanvas,leftCanvas,rightBar,bottomBar,base.getGanttProperty());
@@ -243,17 +243,17 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 	// this is used inside the content provider to get the latest values when redrawing
 	public void updateParameters(){
 		if (contentProvider != null){
-			info("updateParameters sol "+solutionChoiceBox.getSelectionModel().getSelectedItem()+
-					" m "+showMachinesBox.getSelectionModel().getSelectedItem()+
-					" j "+showJobsBox.getSelectionModel().getSelectedItem()+
-					" crit "+highlightCritical.isSelected()+
-					" a "+alpha.getValue()+
-					" z "+zoom.getValue()+
-					" Color "+colorByChoiceBox.getSelectionModel().getSelectedItem()+
-					" Label "+taskLabelChoiceBox.getSelectionModel().getSelectedItem()+
-					" Order "+jobOrderChoiceBox.getSelectionModel().getSelectedItem()+
-					" Dates "+datesDisplayChoiceBox.getSelectionModel().getSelectedItem()+
-					" rz "+resourceZoomChoiceBox.getSelectionModel().getSelectedItem());
+//			info("updateParameters sol "+solutionChoiceBox.getSelectionModel().getSelectedItem()+
+//					" m "+showMachinesBox.getSelectionModel().getSelectedItem()+
+//					" j "+showJobsBox.getSelectionModel().getSelectedItem()+
+//					" crit "+highlightCritical.isSelected()+
+//					" a "+alpha.getValue()+
+//					" z "+zoom.getValue()+
+//					" Color "+colorByChoiceBox.getSelectionModel().getSelectedItem()+
+//					" Label "+taskLabelChoiceBox.getSelectionModel().getSelectedItem()+
+//					" Order "+jobOrderChoiceBox.getSelectionModel().getSelectedItem()+
+//					" Dates "+datesDisplayChoiceBox.getSelectionModel().getSelectedItem()+
+//					" rz "+resourceZoomChoiceBox.getSelectionModel().getSelectedItem());
 			contentProvider.setResourceZoom(resourceZoomChoiceBox.getSelectionModel().getSelectedItem());
 			contentProvider.setSolution(solutionChoiceBox.getSelectionModel().getSelectedItem());
 			contentProvider.setShowMachinesBox(showMachinesBox.getSelectionModel().getSelectedItem());
@@ -270,14 +270,14 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 
 	@FXML
 	public void onColorPicked() {
-		info("Color picked");
+//		info("Color picked");
 		updateColors(contentProvider);
 		drawChart();
 	}
 
 	@FXML
 	public void onValueEntered(){
-		info("Value entered");
+//		info("Value entered");
 		updateLayout(contentProvider);
 		drawChart();
 	}
@@ -299,7 +299,7 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		releaseLineChoiceBox.getSelectionModel().select(gp.getShowRelease().toString());
 		waitLineChoiceBox.getSelectionModel().select(gp.getShowWait().toString());
 		setupLineChoiceBox.getSelectionModel().select(gp.getShowSetup().toString());
-		info("Setting idle "+gp.getShowIdle().toString());
+//		info("Setting idle "+gp.getShowIdle().toString());
 		idleLineChoiceBox.getSelectionModel().select(gp.getShowIdle().toString());
 	}
 
@@ -319,7 +319,7 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		gp.setShowWait(toLineChoice(waitLineChoiceBox.getSelectionModel().getSelectedItem()));
 		gp.setShowSetup(toLineChoice(setupLineChoiceBox.getSelectionModel().getSelectedItem()));
 		gp.setShowIdle(toLineChoice(idleLineChoiceBox.getSelectionModel().getSelectedItem()));
-		info("IdleUpdate "+idleLineChoiceBox.getSelectionModel().getSelectedItem());
+//		info("IdleUpdate "+idleLineChoiceBox.getSelectionModel().getSelectedItem());
 		// have to reposition the windows as well
 		c.initialize();
 
@@ -376,12 +376,12 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 	}
 	@FXML
 	public void onShowSelect() {
-		info("Show select choice callback");
+//		info("Show select choice callback");
 		drawChart();
 	}
 	@FXML
 	public void onResourceZoomSelect() {
-		info("ResourceZoom callback");
+//		info("ResourceZoom callback");
 		drawChart();
 	}
 
@@ -466,19 +466,18 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 
 
 	public void drawChart() {
-		info("draw gantt");
+//		info("draw gantt");
 
 		if (mainApp != null && contentProvider != null ) {
 			// we are now switching back to framework objects, not JavaFX Strings
 			Scenario base = mainApp.basebase;
 			assert(base != null);
-			info("Scenario ");
+//			info("Scenario ");
 
 			contentProvider.setScenario(base);
 
 			contentProvider.drawChart();
 
-			System.out.println("drawn");
 		}
 
 	}

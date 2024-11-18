@@ -15,7 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
 /**
- * Generated at 12:39:47 on 2024-11-13 */
+ * Generated at 10:47:55 on 2024-11-17 */
 public class PieChartController extends ChartController {
 	public static final Double MIN_SLICE_PERCENTAGE = 1.0d;
 
@@ -77,6 +77,8 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceTransportTime");
 		attributeNames.add("relaxSequence");
 		attributeNames.add("addSameOrder");
+		attributeNames.add("addNoWait");
+		attributeNames.add("addBlocking");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");
@@ -105,6 +107,8 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceTransportTime");
 		attributeNames.add("relaxSequence");
 		attributeNames.add("addSameOrder");
+		attributeNames.add("addNoWait");
+		attributeNames.add("addBlocking");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");
@@ -133,6 +137,8 @@ public class PieChartController extends ChartController {
 		attributeNames.add("enforceTransportTime");
 		attributeNames.add("relaxSequence");
 		attributeNames.add("addSameOrder");
+		attributeNames.add("addNoWait");
+		attributeNames.add("addBlocking");
 		attributeNames.add("modelType");
 		attributeNames.add("solverBackend");
 		attributeNames.add("objectiveType");
@@ -422,7 +428,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("objectiveValue");
 		attributeNames.add("solverStatus");
 		attributeNames.add("bound");
-		attributeNames.add("gap");
+		attributeNames.add("gapPercent");
 		attributeNames.add("makespan");
 		attributeNames.add("flowtime");
 		attributeNames.add("totalLateness");

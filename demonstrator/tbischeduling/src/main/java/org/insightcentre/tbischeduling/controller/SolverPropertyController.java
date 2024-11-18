@@ -32,7 +32,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverBackend;
 import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 
 /**
- * Generated at 12:39:47 on 2024-11-13 */
+ * Generated at 10:47:55 on 2024-11-17 */
 public class SolverPropertyController extends Table3Controller {
 	@FXML
 	private TableView<SolverProperty> table;
@@ -75,6 +75,12 @@ public class SolverPropertyController extends Table3Controller {
 
 	@FXML
 	private TableColumn<SolverProperty, Boolean> addSameOrder;
+
+	@FXML
+	private TableColumn<SolverProperty, Boolean> addNoWait;
+
+	@FXML
+	private TableColumn<SolverProperty, Boolean> addBlocking;
 
 	@FXML
 	private TableColumn<SolverProperty, ModelType> modelType;
@@ -184,6 +190,12 @@ public class SolverPropertyController extends Table3Controller {
 		choices.add("addSameOrder");
 		addSameOrder.setCellValueFactory(new AddSameOrderCallback());
 		addSameOrder.setCellFactory(CheckBoxTableCell.forTableColumn(addSameOrder));
+		choices.add("addNoWait");
+		addNoWait.setCellValueFactory(new AddNoWaitCallback());
+		addNoWait.setCellFactory(CheckBoxTableCell.forTableColumn(addNoWait));
+		choices.add("addBlocking");
+		addBlocking.setCellValueFactory(new AddBlockingCallback());
+		addBlocking.setCellFactory(CheckBoxTableCell.forTableColumn(addBlocking));
 		choices.add("modelType");
 		modelType.setCellValueFactory(new PropertyValueFactory<>("modelType"));
 		choices.add("solverBackend");
@@ -412,6 +424,36 @@ public class SolverPropertyController extends Table3Controller {
 				@SuppressWarnings("rawtypes")
 				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
 					cellData.getValue().setAddSameOrder(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class AddNoWaitCallback implements Callback<TableColumn.CellDataFeatures<SolverProperty, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SolverProperty, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().addNoWaitWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setAddNoWait(newValue);
+				}
+			});
+			return prop;
+		}
+	}
+
+	class AddBlockingCallback implements Callback<TableColumn.CellDataFeatures<SolverProperty, Boolean>, ObservableValue<Boolean>> {
+		@Override
+		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SolverProperty, Boolean> cellData) {
+			Property<Boolean> prop = cellData.getValue().addBlockingWrapperProperty();
+			prop.addListener(new ChangeListener<Boolean>() {
+				@Override
+				@SuppressWarnings("rawtypes")
+				public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+					cellData.getValue().setAddBlocking(newValue);
 				}
 			});
 			return prop;

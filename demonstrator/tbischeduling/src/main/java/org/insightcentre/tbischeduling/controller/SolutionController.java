@@ -34,7 +34,7 @@ import org.insightcentre.tbischeduling.datamodel.SolverRun;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 12:39:47 on 2024-11-13 */
+ * Generated at 10:47:55 on 2024-11-17 */
 public class SolutionController extends Table3Controller {
 	@FXML
 	private TableView<Solution> table;
@@ -55,7 +55,7 @@ public class SolutionController extends Table3Controller {
 	private TableColumn<Solution, Double> bound;
 
 	@FXML
-	private TableColumn<Solution, Double> gap;
+	private TableColumn<Solution, Double> gapPercent;
 
 	@FXML
 	private TableColumn<Solution, Integer> makespan;
@@ -258,10 +258,10 @@ public class SolutionController extends Table3Controller {
 		bound.setCellValueFactory(new PropertyValueFactory<>("bound"));
 		bound.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
 		bound.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setBound(event.getNewValue()); mainApp.reset();});
-		choices.add("gap");
-		gap.setCellValueFactory(new PropertyValueFactory<>("gap"));
-		gap.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
-		gap.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setGap(event.getNewValue()); mainApp.reset();});
+		choices.add("gapPercent");
+		gapPercent.setCellValueFactory(new PropertyValueFactory<>("gapPercent"));
+		gapPercent.setCellFactory(TextFieldTableCell.forTableColumn(getDoubleConverter("#,##0.00")));
+		gapPercent.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setGapPercent(event.getNewValue()); mainApp.reset();});
 		choices.add("makespan");
 		makespan.setCellValueFactory(new PropertyValueFactory<>("makespan"));
 		makespan.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));

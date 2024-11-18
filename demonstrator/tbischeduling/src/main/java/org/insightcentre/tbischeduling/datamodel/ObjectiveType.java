@@ -95,24 +95,6 @@ Flowtime,
  *
 */
 
-TotalEarliness,
-    /**
- *  
- *
-*/
-
-MaxEarliness,
-    /**
- *  
- *
-*/
-
-WeightedEarliness,
-    /**
- *  
- *
-*/
-
 TotalLateness,
     /**
  *  
@@ -126,6 +108,24 @@ MaxLateness,
 */
 
 WeightedLateness,
+    /**
+ *  
+ *
+*/
+
+TotalEarliness,
+    /**
+ *  
+ *
+*/
+
+MaxEarliness,
+    /**
+ *  
+ *
+*/
+
+WeightedEarliness,
     /**
  *  
  *
