@@ -1,32 +1,575 @@
 \begin{frame}
 \frametitle{Key Points}
 \begin{itemize}
-\item
+\item This section describes the scheduling tool
+\item How to load/create data
+\begin{itemize}
+\item From files
+\item By instance generator
+\item From benchmark problems
+\end{itemize}
+\item How to run the solvers
+\begin{itemize}
+\item Which solvers are supported
+\item What to expect in terms of performance
+\end{itemize}
+\item Experiments to try
+\begin{itemize}
+\item Limited time
+\item Possible "test before invest" continuation
+\end{itemize}
+
 \end{itemize}
 \end{frame}
 
 \section{The Scheduling Tool}
 
-\section{Data Input}
+\begin{frame}
+\frametitle{The Scheduling Tool}
+\begin{itemize}
+\item We create the tool as basis for experiments
+\item To test ideas and solvers
+\item As a teaching tool
+\item Slightly higher standard than usual academic prototypes
+\item Not a commercial tool
+\begin{itemize}
+\item But can use commercial solvers
+\item Also open-source solvers
+\end{itemize}
+\item Written in Java, JavaFX
+\item Uses our Java application framework generator
+\item Will become available in early 2025
+\end{itemize}
+\end{frame}
+
+
+
+\section{Under the hood}
+
+\begin{frame}
+\frametitle{Back-end solvers}
+\begin{itemize}
+\item Provide both open-source and commercial solver interfaces
+\item Allow experimentation without having to buy commercial tools straightaway
+\item Gives a level playing field to compare solvers and models
+\item Provides out-of-the-box, generic performance
+\end{itemize}
+\end{frame}
+
+
+
+\subsection{Google CPSat}
+
+\begin{frame}
+\frametitle{Google OR-Tools CPSat Solver}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Open-Source tool provided by Google
+\item Available at \url{https://developers.google.com/optimization/cp/cp_solver}
+\item Probably best open-source CP solver for scheduling
+\item This solver is packaged with scheduler
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/cpsat-example}
+
+{\tiny (from OR-Tools website)}
+\end{column}
+\end{columns}
+\end{frame}
+
+\subsection{IBM CPOptimizer}
+
+\begin{frame}
+\frametitle{CP Optimizer from IBM}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Commercial tool of IBM
+\item \url{https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-cp-optimizer}
+\item Part of optimization suite with Cplex, OPL
+\item We do \textbf{not} provide this solver, we allow to interface with it
+\item Academic licenses available
+\item Well-known for capabilities for scheduling
+
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=.7\textwidth]{../04-experiments/images/cpoptimizer-example}
+
+{\tiny (from CPOptimizer website)}
+\end{column}
+\end{columns}
+\end{frame}
+
+\subsection{MiniZinc}
+
+\begin{frame}
+\frametitle{MiniZinc from Monash University}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Modelling language and backend tools from Monash University in Melbourne, Australia
+\item Available from \url{https://www.minizinc.org/}
+\item Widely used for teaching
+\item Allows different backend solver to run from same model
+\item Generic CP tool, not optimized for scheduling
+\item Requires separate installation, open-source
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/minizinc-example}
+
+{\tiny (from MiniZinc Website)}
+\end{column}
+\end{columns}
+\end{frame}
+
+\subsection{Which solver to use?}
+
+
+
+
+\section{Input Data}
+
+\begin{frame}
+\frametitle{Input Data}
+\begin{itemize}
+\item We have defined a specific JSON data format to describe scheduling problems
+\item This is different from the native/XML data format of the application (do not use)
+\item Load with menu \texttt{File - Load DataFile...}
+\item Save with menu \texttt{File - Save DataFile...}
+\item The format is described in a document
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Base Data}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Description of 
+\begin{itemize}
+\item Product
+\item Process
+\item DisjunctiveResource
+\item CumulativeNeed
+\item ProcessStep
+\item ResourceNeed
+\item CumulativeProfile
+\item Problem
+\item CumulativeResource
+\item ProcessSequence
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/basedata}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Schedule Input Data}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Description of
+\begin{itemize}
+\item Downtime
+\item Task (x2)
+\item Job
+\item Order
+\item WiP
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/schedule}
+\end{column}
+\end{columns}
+\end{frame}
+
+
 
 \section{Result Output}
 
+\begin{frame}
+\frametitle{Result Data}
+\begin{itemize}
+\item We use the same JSON format to describe the results of the schedule
+\item Added field types for SolverRun, Solution, assigned Jobs and Tasks
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sample Results}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\begin{itemize}
+\item Description of
+\begin{itemize}
+\item Solution
+\item SolverRun
+\item Job Assignment
+\item Task Assignment
+\end{itemize}
+
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=.7\textwidth]{../04-experiments/images/samplerresult}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
 \section{Instance Generator}
+
+\begin{frame}
+\frametitle{Instance Generator}
+\begin{itemize}
+\item Application allows to generate different types of test problems
+\item Different types of resource models
+\item Different numbers of orders, resources, WiP, downtime
+\item Useful to generate more life-like examples combining different constraint types
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Instance Generator Dialog}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Resource Model
+\begin{itemize}
+\item Select a resource model defining the overall structure of problem
+\end{itemize}
+\item Nr Disjunctive Resources
+\begin{itemize}
+\item Describe how many disjunctive resources are generated
+\end{itemize}
+\item Resource Probability
+\begin{itemize}
+\item The probability that a resource is compatible with a task
+\item Only for some resource models
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/instance-generator}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Resource Models}
+\begin{itemize}
+\item Flow-Shop
+\begin{itemize}
+\item Multiple stages, all jobs use machines in same order
+\end{itemize}
+
+\item Job-Shop
+\begin{itemize}
+\item Multiple stages, jobs use machines in different order
+\end{itemize}
+
+\item Open-Shop
+\begin{itemize}
+\item Multiple stages, no predefined order of machines
+\end{itemize}
+
+\item Hybrid Flow-Shop (default)
+\item Hybrid Job-Shop
+\item Hybrid Open-Shop
+\begin{itemize}
+\item Like x-shop, but with multiple machines per stage
+\end{itemize}
+
+\item Random
+\begin{itemize}
+\item Multiple stages, each stage using a random subset of machines
+\end{itemize}
+
+\item All
+\begin{itemize}
+\item Multiple stages, each stage allowing all machines
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Instance Generator - Products}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Nr Products
+\begin{itemize}
+\item Number of products to be generated
+\item Products may be reused by multiple orders
+\end{itemize}
+\item Stages Range
+\begin{itemize}
+\item Range slider, sets lower and upper bound on number of stages
+\end{itemize}
+
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/instance-generator-products}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instance Generator - Duration}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Duration Model
+\begin{itemize}
+\item Different ways to link duration of processSteps
+\end{itemize}
+\item Duration Range
+\begin{itemize}
+\item Range slider to set lower and upper bounds on perUnit duration
+\end{itemize}
+
+\item Duration Fixed Factor
+\begin{itemize}
+\item How fixed and perUnit duration values are linked
+\end{itemize}
+
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/instance-generator-duration}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instance Generator - Cumulative}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Nr Cumulative Resources
+\begin{itemize}
+\item Number of cumulative resources generated
+\end{itemize}
+
+\item Cumul Demand Range
+\begin{itemize}
+\item Range slider to select lower and upper bound on cumulativeResourceNeed demands
+\end{itemize}
+
+\item Profile Pieces
+\begin{itemize}
+\item Number of segments of CumulativeProfile generated for each resource
+\end{itemize}
+
+\item Cumul Capacity Range
+\begin{itemize}
+\item Range slider to select lower and upper bounds on cumulative profile capacity values
+\end{itemize}
+
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/instance-generator-cumulative}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instance Generator - Orders}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Nr Orders
+\begin{itemize}
+\item Number of orders generated, each order is assigned a random product/process
+\end{itemize}
+
+\item Qty Range
+\begin{itemize}
+\item Range slider to select lower and upper bounds on quantity for each order
+\end{itemize}
+
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/instance-generator-orders}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instance Generator - WiP (Work in Progress)}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item WiP Probability
+\begin{itemize}
+\item Probability of generating a WiP for a disjunctive resource
+\end{itemize}
+
+\item WiP Range
+\begin{itemize}
+\item Range slider to set lower and upper bound on WiP duration
+\end{itemize}
+
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/instance-generator-wip}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instance Generator - Downtime}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Downtime Probability
+\begin{itemize}
+\item Probability of generating a downtime for a disjunctive resource
+\end{itemize}
+\item Downtime Range
+\begin{itemize}
+\item Range slider to select lower and upper bounds on downtime duration
+\end{itemize}
+
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/instance-generator-downtime}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instance Generator - Other Parameters}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Earliest Due
+\begin{itemize}
+\item Smallest allowed value for a due date
+\end{itemize}
+
+\item Horizon Days
+\begin{itemize}
+\item What planning horizon to consider (in days)
+\end{itemize}
+
+\item Time Resolution
+\begin{itemize}
+\item In minutes, links internal and external time presentation
+\end{itemize}
+
+\item Random Seed
+\begin{itemize}
+\item Random seed to make reproducible random choices
+\end{itemize}
+
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/instance-generator-parameters}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
 
 \section{Predefined Problem Sets}
 \subsection{Taillard}
-\subsection{SALBP}
-\subsection{Test Scheduling}
-\subsection{Hybrid Flexible Flowshop}
 
-\section{Creating Your Own Tests}
+\begin{frame}
+\frametitle{Taillard Scheduling Benchmarks}
+\begin{itemize}
+\item Three datasets of different sizes
+\begin{itemize}
+\item Job-shop
+\item Flow-shop
+\item Open-shop
+\end{itemize}
+\item Load with menu \texttt{File - Load DataFile... - Taillard - }
+\item Larger instances need more solver time to reach good solutions (600 s)
+\end{itemize}
+\end{frame}
+
+
+\subsection{SALBP}
+
+\begin{frame}
+\frametitle{Simple Assembly Line Balancing Problem (SALBP)}
+\begin{itemize}
+\item Will be discussed on more details as case study
+\item Design an assembly line setup by solving a scheduling problem
+\item Balance a set of operations across a number of stations of an assembly line
+\item Precedence graph is not a chain, can be very complex
+\item Specialized problem normally solved with specialized tools
+\item Load with menu \texttt{File - Load SALBP Problem...}
+\end{itemize}
+\end{frame}
+
+
+\subsection{Test Scheduling}
+
+\begin{frame}
+\frametitle{Test Scheduling Benchmark set from ABB}
+\begin{itemize}
+\item Will be discussed in more details as case study
+\item Schedule a set of tests on a number of machines, minimizing total duration
+\item Single stage tests, possibly large number of resources
+\item Closely related to bin-packing
+\item Load with menu \texttt{File - Load Test Scheduling Problem...}
+
+\end{itemize}
+\end{frame}
+
+\section{Some Suggested Experiments}
+
+\begin{frame}
+\frametitle{Experiment 1}
+\begin{itemize}
+\item Start the application
+\begin{itemize}
+\item Our running example will be automatically generated
+\end{itemize}
+\item Look at the process diagram \texttt{Window-Product-Process Diagram}
+\item Run the solver \texttt{Scenario - Run ScheduleJobs Solver}
+\item Observe the results in Gantt Chart
+\item Customize display
+\item Look at Cumulative Resource Chart \texttt{Window-Solution-Cumulative Resource Chart}
+
+\end{itemize}
+\end{frame}
+
+
 
 \section{Summary}
 
 \begin{frame}
 \frametitle{Summary}
 \begin{itemize}
-\item
+\item We presented an overview of our generic scheduling tool
+\item Discussed available solvers, both commercial and open-source
+\item Described the JSON data format for input and output
+\item Gave an overview of the instance generator provided
+\item Shows example problems included with tool
+\item Suggested some experiments to run
 \end{itemize}
 \end{frame}
 
