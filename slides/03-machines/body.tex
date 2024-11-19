@@ -1,15 +1,161 @@
 \begin{frame}
 \frametitle{Key Points}
 \begin{itemize}
-\item
+\item Introduce Different Types of Resources
+\item Disjunctive Resources - One Task at a Time
+\item Cumulative Resources - Demands and Capacity
+\item Machine Choice - Use one of multiple machines
+\item Calendars - Not working all the time
 \end{itemize}
 \end{frame}
 
 \section{Disjunctive Resources}
 
+\begin{frame}
+\frametitle{Disjunctive Resource}
+\begin{itemize}
+\item A \emph{disjunctive resource} works on one task at a time
+\item Each task runs uninterrupted from start to end
+\item The machine may be \emph{idle} between tasks
+\item The machine may be unused at start and end of schedule
+\begin{itemize}
+\item Some of this may be unreachable, there is not work that can be done in these periods
+\item Problem of cold start, especially for flow-shop type problems
+\end{itemize}
+\item Active time is time between first and last use
+\item Resource utilization compares productive time to active or available time
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Disjunctive Machines Examples}
+\includegraphics[width=\textwidth]{../03-machines/images/disjunctive-flow-shop}
+
+Flow-Shop example, some unreachable time on later resources in process, some idle time
+
+\includegraphics[width=\textwidth]{../03-machines/images/disjunctive-job-shop}
+
+Job-Shop example, a lot of idle time
+\end{frame}
+
+
+
+
+
+\subsection{Preemption}
+
+\begin{frame}
+\frametitle{Preemption}
+\begin{itemize}
+\item Normal constraint for disjunctive constraints is one task at a time
+\item Once a task is started, it runs until it is finished
+\item \emph{Preemption} allows to stop a task, run a different task, then resume the previous task to the end
+\item Example: This is how Operating Systems run tasks inside a computer
+\begin{itemize}
+\item This works since cost of suspending a task is relatively low
+\item Also needed as tasks continuously produce output which is expected
+\end{itemize}
+\item In manufacturing, preemption often is an exception in an emergency
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{How to Deal with Preemption in Scheduling}
+\begin{enumerate}
+\item Handle this as manual intervention for critical situations
+\item Dedicated preemptive scheduling constraints
+\item Allow limited number of interruptions
+\begin{itemize}
+\item Split each task into multiple pieces of unknown length
+\item Normally, schedule all parts together for total duration
+\item For preemption, schedule other task after first/second part
+\item All parts of task must add up to total duration 
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+
+
 \section{Cumulative Resources}
 
+\begin{frame}
+\frametitle{Cumulative Resources}
+\begin{itemize}
+\item A cumulative resource provides capacity over time, the sum of the demands at each timepoint cannot exceed the available capacity at that time
+\item Resource demand by one task is considered constant from start to end
+\begin{itemize}
+\item Need to break task into smaller segments to model time variable demand
+\end{itemize}
+\item In itself a hard problem, so full propagation not possible
+\begin{itemize}
+\item Active research area since 1993, when the constraint was introduced in CHIP
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\subsection{Demand and Capacity}
+
+
+\subsection{Variants}
+
+\begin{frame}
+\frametitle{Time Variable Resource Cost}
+\begin{itemize}
+\item
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Soft/Hard Limit, Overtime Cost}
+\begin{itemize}
+\item
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Lower Utilization Limit}
+\begin{itemize}
+\item
+\end{itemize}
+\end{frame}
+
+
+
+\subsection{Manpower}
+
+\subsection{Nested Skill Levels}
+
+\subsection{Assigned Operators}
+
+\subsection{Fractional Manpower Needs}
+
 \section{Machine Choice}
+
+\begin{frame}
+\frametitle{Choosing which machine to use}
+\begin{itemize}
+\item Problem with Job-shop/Flow-shop: There is only one machine
+\begin{itemize}
+\item What happens if any of those machines stops working?
+\item Do we stop production completely
+\end{itemize}
+\item Most plants have multiple machine for the same task
+\item Three fundamental alternatives
+\begin{itemize}
+\item Multiple, identical machines
+\item Multiple machines with different speeds
+\item Preferences for specific machines, but viable alternatives exist
+\end{itemize}
+\item On the other hand, sometimes identical machines are treated as different
+\begin{itemize}
+\item Dedicated lines for major products, avoiding setup/cleaning times
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
 \subsection{Identical Machines}
 \subsection{Machine Dependent Speed}
 \subsection{Machine Preferences}
@@ -18,12 +164,21 @@
 
 \section{Calendars}
 
+
+\subsection{Factory Wide Calendars}
+\subsection{Machine Specific Calendars}
+\subsection{Changing Work Pattern}
+\subsection{Varying Machine Speed}
+\subsection{Task/Break Interaction}
+
 \section{Summary}
 
 \begin{frame}
 \frametitle{Summary}
 \begin{itemize}
-\item
+\item Introduced different resource types
+\item Identifying resources is a key element of defining scheduling problem
+\item As simple as possible - as complex as required
 \end{itemize}
 \end{frame}
 
