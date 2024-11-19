@@ -115,7 +115,7 @@
 \subsection{Relations between Tasks}
 
 \begin{frame}
-\frametitle{The Most Common Relation: EndBeforeStart}
+\frametitle{The Most Common Relation: EndBeforeStart \avail}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
@@ -135,7 +135,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Less Common: StartBeforeStart}
+\frametitle{Less Common: StartBeforeStart \avail}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
@@ -151,7 +151,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{NoWait}
+\frametitle{NoWait \avail}
 \begin{columns}
 \begin{column}{0.6\textwidth}
 \begin{itemize}
@@ -176,7 +176,7 @@
 
 
 \begin{frame}
-\frametitle{MaxWait}
+\frametitle{MaxWait \soon}
 \begin{columns}
 \begin{column}{0.6\textwidth}
 \begin{itemize}
@@ -196,7 +196,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Blocking}
+\frametitle{Blocking \avail}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
@@ -215,7 +215,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Special Case: Pipelining}
+\frametitle{Special Case: Pipelining \navail}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
@@ -235,7 +235,7 @@
 
 
 \begin{frame}
-\frametitle{More General: Relations between Intervals}
+\frametitle{More General: Relations between Intervals \navail}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
@@ -257,7 +257,7 @@
 \subsection{Relation between Tasks and Jobs}
 
 \begin{frame}
-\frametitle{Start and End of Jobs}
+\frametitle{Start and End of Jobs \avail}
 \begin{itemize}
 \item The start of a job is equal to the start of the earliest task of the job
 \item The end of a job is equal to the latest end of any of its tasks
@@ -297,7 +297,7 @@
 \subsection{Jobs: Release and Due Date}
 
 \begin{frame}
-\frametitle{Jobs: Release and Due Dates}
+\frametitle{Jobs: Release and Due Dates \avail}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
@@ -320,7 +320,7 @@
 \subsection{Relations between jobs}
 
 \begin{frame}
-\frametitle{Relations between Jobs}
+\frametitle{Relations between Jobs \navail}
 \begin{itemize}
 \item There may be relations between jobs as well
 \item For example, jobs for the same product may be arranged by due date
@@ -352,7 +352,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Intermediate products}
+\frametitle{Intermediate products \navail}
 \begin{itemize}
 \item Some production operations are assembly steps
 \item Combine multiple intermediate products together
@@ -362,7 +362,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Raw materials}
+\frametitle{Raw materials \navail}
 \begin{itemize}
 \item Sometimes, a process step needs certain raw materials 
 \item These are not made within the scheduled part of the plant
@@ -373,7 +373,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Bill of Materials (BoM), Bill of Processes}
+\frametitle{Bill of Materials (BoM), Bill of Processes \navail}
 \begin{itemize}
 \item Enterprise systems will describe which items are needed to make a product
 \item Tree like structure, indicates the intermediate product/raw material needed and its quantity
@@ -414,7 +414,7 @@
 \subsection{Job-Shop}
 
 \begin{frame}
-\frametitle{Job-Shop}
+\frametitle{Job-Shop \avail}
 \begin{itemize}
 \item Consists of a number of jobs and a number of machines
 \item Each job visits each machine, but possibly in a different order, depending on process
@@ -444,7 +444,7 @@
 \subsection{Flow-Shop}
 
 \begin{frame}
-\frametitle{Flow-Shop}
+\frametitle{Flow-Shop \avail}
 \begin{itemize}
 \item Consists of a number of jobs and a number of machines
 \item Each jobs visits each machine, all jobs in the same order
@@ -474,7 +474,7 @@
 \subsection{Open-Shop}
 
 \begin{frame}
-\frametitle{Open-Shop}
+\frametitle{Open-Shop \avail}
 \begin{itemize}
 \item Consists of a number of jobs and a number of machines
 \item Each jobs visits each machine, we have to choose the sequence individually for each order
@@ -520,7 +520,7 @@
 \subsection{RCPSP}
 
 \begin{frame}
-\frametitle{Resource Constrained Project Scheduling Problem (RCPSP)}
+\frametitle{Resource Constrained Project Scheduling Problem (RCPSP) \soon}
 \begin{itemize}
 \item Problem class from project management
 \item One project (one job), many tasks
@@ -564,7 +564,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Machine Gantt Chart}
+\frametitle{Machine Gantt Chart \avail}
 \includegraphics[width=\textwidth]{../02-concepts/images/machine-gantt}
 
 \begin{itemize}
@@ -577,7 +577,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Job Gantt Chart}
+\frametitle{Job Gantt Chart \avail}
 \includegraphics[width=\textwidth]{../02-concepts/images/job-gantt}
 
 \begin{itemize}
@@ -590,7 +590,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Cumulative Resource Chart}
+\frametitle{Cumulative Resource Chart \avail}
 \includegraphics[width=\textwidth]{../02-concepts/images/cumulative-resource}
 
 \begin{itemize}
@@ -608,7 +608,7 @@
 
 
 \begin{frame}
-\frametitle{Resource Utilization}
+\frametitle{Resource Utilization \avail}
 \includegraphics[width=\textwidth]{../02-concepts/images/resource-utilization}
 
 \begin{itemize}
@@ -620,7 +620,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Intermediate Solutions}
+\frametitle{Intermediate Solutions \avail}
 \includegraphics[width=\textwidth]{../02-concepts/images/intermediate-solutions}
 
 \begin{itemize}
@@ -631,7 +631,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Process Diagram}
+\frametitle{Process Diagram \avail}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
@@ -649,7 +649,7 @@
 
 
 \begin{frame}
-\frametitle{PERT Chart(Program Evaluation Review Technique)}
+\frametitle{PERT Chart(Program Evaluation Review Technique) \avail}
 \includegraphics[width=\textwidth]{../02-concepts/images/pert}
 
 \begin{itemize}
@@ -670,8 +670,18 @@
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Calendars \navail}
+\scalebox{0.45}{
+\input{../03-machines/calendarl3}
+}
+\begin{itemize}
+\item Shows weekly structure for one or more years
+\item Indicates public holidays, shut-downs, etc
+\item Indicating working days, KPI for each day
+\end{itemize}
 
-
+\end{frame}
 
 
 

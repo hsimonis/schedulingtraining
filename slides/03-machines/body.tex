@@ -1,10 +1,11 @@
 \begin{frame}
 \frametitle{Key Points}
 \begin{itemize}
-\item Introduce Different Types of Resources
-\item Disjunctive Resources - One Task at a Time
-\item Cumulative Resources - Demands and Capacity
-\item Machine Choice - Use one of multiple machines
+\item Introduce different types of resources
+\item Disjunctive resources - one task at a time
+\item Cumulative resources - demands and capacity
+\item Machine choice - Use one of multiple machines
+\item Work in progress and planned downtimes
 \item Calendars - Not working all the time
 \end{itemize}
 \end{frame}
@@ -12,17 +13,17 @@
 \section{Disjunctive Resources}
 
 \begin{frame}
-\frametitle{Disjunctive Resource}
+\frametitle{Disjunctive Resource \avail}
 \begin{itemize}
 \item A \emph{disjunctive resource} works on one task at a time
 \item Each task runs uninterrupted from start to end
 \item The machine may be \emph{idle} between tasks
 \item The machine may be unused at start and end of schedule
 \begin{itemize}
-\item Some of this may be unreachable, there is not work that can be done in these periods
+\item Some of this may be unreachable, there is no work that can be done in these periods
 \item Problem of cold start, especially for flow-shop type problems
 \end{itemize}
-\item Active time is time between first and last use
+\item \emph{Active time} is time between first and last use
 \item Resource utilization compares productive time to active or available time
 \end{itemize}
 \end{frame}
@@ -30,12 +31,16 @@
 \begin{frame}
 \frametitle{Disjunctive Machines Examples}
 \includegraphics[width=\textwidth]{../03-machines/images/disjunctive-flow-shop}
+\begin{itemize}
+\item Flow-Shop example, some unreachable time on later resources in process, some idle time
+\end{itemize}
 
-Flow-Shop example, some unreachable time on later resources in process, some idle time
 
 \includegraphics[width=\textwidth]{../03-machines/images/disjunctive-job-shop}
+\begin{itemize}
+\item Job-Shop example, a lot of idle time
+\end{itemize}
 
-Job-Shop example, a lot of idle time
 \end{frame}
 
 
@@ -45,7 +50,7 @@ Job-Shop example, a lot of idle time
 \subsection{Preemption}
 
 \begin{frame}
-\frametitle{Preemption}
+\frametitle{Preemption \navail}
 \begin{itemize}
 \item Normal constraint for disjunctive constraints is one task at a time
 \item Once a task is started, it runs until it is finished
@@ -56,6 +61,7 @@ Job-Shop example, a lot of idle time
 \item Also needed as tasks continuously produce output which is expected
 \end{itemize}
 \item In manufacturing, preemption often is an exception in an emergency
+\item Occurs a lot in project management, e.g. construction
 \end{itemize}
 \end{frame}
 
@@ -79,7 +85,7 @@ Job-Shop example, a lot of idle time
 \section{Cumulative Resources}
 
 \begin{frame}
-\frametitle{Cumulative Resources}
+\frametitle{Cumulative Resources \avail}
 \begin{itemize}
 \item A cumulative resource provides capacity over time, the sum of the demands at each timepoint cannot exceed the available capacity at that time
 \item Resource demand by one task is considered constant from start to end
@@ -97,49 +103,236 @@ Job-Shop example, a lot of idle time
 
 \subsection{Demand and Capacity}
 
+\begin{frame}
+\frametitle{Specifying Cumulative Resources}
+\begin{columns}
+\begin{column}{0.75\textwidth}
+\begin{itemize}
+\item Describing a cumulative resource
+\begin{itemize}
+\item The resource itself
+\item The capacity profile over time
+\item The demands per processStep
+\end{itemize}
+\item Each task may or may not need a specific cumulative resource
+\item The assumed total amount of work needed is constant
+\item We can calculate resource utilization by comparing demand to capacity
+\end{itemize}
+\end{column}
+\begin{column}{0.25\textwidth}
+\includegraphics[width=.4\textwidth]{../03-machines/images/cumulativeResource}
+
+\includegraphics[width=\textwidth]{../03-machines/images/cumulativeProfile}
+
+\includegraphics[width=\textwidth]{../03-machines/images/cumulativeNeed}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cumulative Resource Profile}
+\includegraphics[width=\textwidth]{../03-machines/images/cumulative-profile-respected}
+\end{frame}
+
+\begin{frame}
+\frametitle{What is the Impact of the Cumulative?}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\begin{itemize}
+\item We want to understand what impact a cumulative resource has
+\item We can disable the constraint in the solver options
+\item Re-run the scheduler
+\item Observe the impact on the objective
+\item See where the capacity limit is not respected in new solution
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=\textwidth]{../03-machines/images/relax-cumulative-arrow}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cumulative Profile When Constraint is Disabled}
+\includegraphics[width=\textwidth]{../03-machines/images/cumulative-profile-relaxed}
+
+\begin{itemize}
+\item Objective reduced from 2,752 to 2,098
+\item Overall resource use now reaches 8 in period where capacity is limited to 5
+\end{itemize}
+
+\end{frame}
+
 
 \subsection{Variants}
 
 \begin{frame}
-\frametitle{Time Variable Resource Cost}
+\frametitle{Variant: Resource Limit as Objective \navail}
 \begin{itemize}
-\item
+\item For some scheduling problems, the duration of the schedule is fixed
+\item The objective is: how many resources are needed to schedule all tasks within the available time?
+\item Capacity is a variable, part of objective function
+\item Example later on for assembly line balancing
+\begin{itemize}
+\item Number of stations on line is fixed
+\item Objective is to minimize \emph{Takt}, the cycle time allocated for one step
+\end{itemize}
+\item Consider solving this question with multiple scenarios, instead of different objective
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Variant: Trading Time for Capacity \navail}
+\begin{itemize}
+\item In some cases, the duration of a task depends on how many resources are available
+\item Total amount of work (energy) is constant, higher demand (power) means lower duration
+\item In easiest case, fixed demand levels are assumed
+\begin{itemize}
+\item Resources are assigned to task throughout duration
+\item Example: assigning software engineers to projects
+\item Remember Books's law
+\begin{itemize}
+\item \emph{Adding manpower to a late software project makes it later.}
+\end{itemize}
+
+\end{itemize}
+
+\item Most general case, any profile is OK, as long total demand is covered
+\begin{itemize}
+\item Cost of reassigning resource from one task to another is considered minimal
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Variation: Time Variable Resource Cost \navail}
+\begin{itemize}
+\item Resource cost may vary over time
+\item Example: Overtime cost for working on weekend
+\item Example: Energy cost with time variable tariff
+\item Avoid periods of high cost, use areas of low cost
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Soft/Hard Limit, Overtime Cost}
+\frametitle{Example: Electricity Price in Ireland}
+\includegraphics[width=\textwidth]{../03-machines/images/electricity-price}
+
+{\tiny from: \url{https://kilowatt.ie/wholesale-electricity-prices-ireland/}}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Variant: Soft/Hard Limits \navail}
 \begin{itemize}
-\item
+\item Often, some capacity is available for "free", sunk costs
+\item Resource use above that limit costs extra
+\item Example: Full-time staff/contract workers
+\item Example: In-house capacity/rented computing capacity
+\item Multiple profiles, each with its own cost per unit
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Lower Utilization Limit}
+\frametitle{Variant: Lower Utilization Limit \navail}
 \begin{itemize}
-\item
+\item Sometimes, we also want to enforce a lower limit of the resource use
+\item We want to avoid resources being idle
+\item Express a lower limit on the resource use
+\item Can be hard to satisfy for specific demand and capacity values
 \end{itemize}
 \end{frame}
 
 
 
-\subsection{Manpower}
+\section{Manpower}
+
+\begin{frame}
+\frametitle{Manpower Constraints \avail}
+\begin{itemize}
+\item Use cumulative constraints to express manpower limits
+\item Some tasks may need multiple workers
+\item Total capacity profile is number of workers available at each time
+\item Profile may change with shift-pattern (regular pattern)
+\item Holidays/sick-leave/training reduce available manpower at specific times
+\item Constraint does not assign workers, only checks that enough capacity is available
+\end{itemize}
+\end{frame}
+
+
 
 \subsection{Nested Skill Levels}
 
+\begin{frame}
+\frametitle{Skills \navail}
+\begin{itemize}
+\item Not all workers have the same qualifications
+\item Workers may need to be trained/certified to perform certain tasks
+\item Each task may require specific skill(s)
+\item Nested resource constraints to cover the needed skills
+\begin{enumerate}
+\item One worker may have all required skills, only one worker is needed
+\item Multiple workers needed to cover all required skills, no worker has all skills
+\item More than one worker needed anyway, the group must cover required skills
+\end{enumerate}
+\item Training/certification program may create its own scheduling problem
+\end{itemize}
+\end{frame}
+
+
+
 \subsection{Assigned Operators}
 
+\begin{frame}
+\frametitle{Alternative: Assigned Operators \navail}
+\begin{itemize}
+\item In special cases, it may be required to assign specific workers to tasks
+\item Each worker can work on one tasks at a time (disjunctive constraint)
+\item Multiple workers are qualified to perform certain jobs (machine choice, one worker is assigned)
+\item Multiple workers are qualified to perform certain jobs (multiple workers with that skill are needed)
+\item Named individual must be assigned for traceability 
+\begin{enumerate}
+\item Is there a hand-over from one shift to the next?
+\item Complete work must be performed within one shift
+\end{enumerate}
+\end{itemize}
+\end{frame}
+
+
+
 \subsection{Fractional Manpower Needs}
+
+\begin{frame}
+\frametitle{Fractional Manpower Needs \navail}
+\begin{itemize}
+\item Some tasks may not need a full-time operator
+\item Different scenarios
+\begin{itemize}
+\item Operator only needed at start/end of task (setup, cleaning)
+\item Operator is needed to load/unload items into machine
+\item One operator can supervise three, but not four machines
+\end{itemize}
+\item This gets too complex/too fragile very quickly
+\end{itemize}
+\end{frame}
+
+
 
 \section{Machine Choice}
 
 \begin{frame}
 \frametitle{Choosing which machine to use}
 \begin{itemize}
-\item Problem with Job-shop/Flow-shop: There is only one machine
+\item Problem with Job-shop/Flow-shop: There is only one machine per processStep
 \begin{itemize}
 \item What happens if any of those machines stops working?
-\item Do we stop production completely
+\item Do we stop production completely?
 \end{itemize}
 \item Most plants have multiple machine for the same task
 \item Three fundamental alternatives
@@ -157,19 +350,304 @@ Job-Shop example, a lot of idle time
 
 
 \subsection{Identical Machines}
+
+\begin{frame}
+\frametitle{Identical Machines \avail}
+\begin{itemize}
+\item Easiest case, several machines of same type
+\item You can choose any of the available machines
+\item Processing time is the same on all machines
+\item Product quality is identical
+\item Define which machines are available with ResourceNeed
+\end{itemize}
+\end{frame}
+
+
 \subsection{Machine Dependent Speed}
+
+\begin{frame}
+\frametitle{Machine Dependent Speed \soon}
+\begin{itemize}
+\item Duration of the task depends on machine on which it is run
+\item Two common scenarios
+\begin{enumerate}
+\item Some machines are faster than others (new generation)
+\item Different processes are faster/slower on some machines
+\end{enumerate}
+\item Express task duration as part of ResourceNeed
+\item Prefer faster machines, but balance machine use
+\end{itemize}
+\end{frame}
+
+
 \subsection{Machine Preferences}
+
+\begin{frame}
+\frametitle{Machine Preference \soon}
+\begin{itemize}
+\item Each process step has a preference ranking of machines, from best to worst
+\item Potential Causes
+\begin{itemize}
+\item Product quality
+\item Production speed
+\item Production cost
+\item Skill level required
+\item Scrap rate
+\end{itemize}
+\item Handle preferences as part of objective
+\item Enforce certain levels of preference to understand impact
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example from Siemens Energy Case Study}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\begin{itemize}
+\item Six alternatives for task T10
+\item Preference ranking from one (best) to six (worst)
+\item Some alternatives require additional tasks
+\item Tasks in red are outsourced
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=\textwidth]{../03-machines/images/containergraph}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+
 
 \section{Work in Progress and Planned Downtimes}
 
+\begin{frame}
+\frametitle{Work in Progress \avail}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Typical a plant does not start from scratch
+\item There is work currently running on machines
+\item This work must be finished before new work can be scheduled
+\item Called \emph{Work in Progress (WiP)}
+\item Specified in input data
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../03-machines/images/wip-table}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Work in Progress \avail}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Typical a plant does not start from scratch
+\item There is work currently running on machines
+\item This work must be finished before new work can be scheduled
+\item Called \emph{Work in Progress (WiP)}
+\item Specified in input data, shown in gray
+\item Part of the disjunctive constraints
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../03-machines/images/wip-gantt}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Planned Downtimes \avail}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Sometimes, a machine is unavailable for a period of time
+\item Maintenance, upgrade
+\item Planned activity with fixed start and end
+\item This should be considered in schedule
+\item Given as input data
+\item Part of the disjunctive constraints
+\item Gaps may lead to loss of productivity 
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../03-machines/images/downtime-table}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Variant: Scheduled Downtime \navail}
+\begin{itemize}
+\item Sometimes, we can decide when the downtime should occur (within reason)
+\item We can schedule it like any other task
+\item Avoid unproductive gaps in schedule
+\item More complex case for regular, scheduled downtimes
+\begin{itemize}
+\item Maintain the correct time gap between maintenance checks
+\end{itemize}
+
+\item How is in control in scheduling these events?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Unplanned Downtime \navail}
+\begin{itemize}
+\item A machine breaks down unexpectedly
+\item This is not reflected in current schedule (unplanned)
+\item How to react?
+\begin{itemize}
+\item Extend current task until finished (if task continues after breakdown)
+\item Create new task to complete work later on (if task is partially finished)
+\item Scrap task, reintroduce order in next schedule (if task is scrapped by breakdown)
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
 \section{Calendars}
 
+\begin{frame}
+\frametitle{Calendars}
+\begin{itemize}
+\item A plant may not run 24/7, but shut down for regular/irregular periods
+\begin{itemize}
+\item Overnight
+\item Weekend
+\item Public holidays/holidays/Christmas
+\end{itemize}
+\item Some parts of plant may operate on different calendars
+\begin{itemize}
+\item Office/lab may be working office hours only
+\end{itemize}
+\item Considering multi-site, plants may be working in different time-zones
+\begin{itemize}
+\item Common example: data centres around the world, follow the moon
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Important Questions}
+\begin{itemize}
+\item Which dates are expressed in working time, which in calendar time?
+\item Examples
+\begin{itemize}
+\item Release/due dates typically expressed in calendar time
+\item Task duration expressed in working time
+\item Min/max waiting time expressed in calendar time
+\end{itemize}
+
+\end{itemize}
+\end{frame}
 
 \subsection{Factory Wide Calendars}
-\subsection{Machine Specific Calendars}
-\subsection{Changing Work Pattern}
-\subsection{Varying Machine Speed}
+
+\begin{frame}
+\frametitle{Single, Factory-wide Calendar}
+\begin{itemize}
+\item Three shift operation common
+\begin{itemize}
+\item 06:00 - 14:00
+\item 14:00 - 22:00
+\item 22:00 - 06:00
+\end{itemize}
+\item Start/end of weekend not obvious
+\item Handling of public holidays plant specific
+\item Lots of input data 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Shift Pattern Definition \navail}
+\scalebox{0.45}{
+\input{../03-machines/calendarl3table}
+}
+\begin{itemize}
+\item Definition of three shifts for Mon-Fri, shut-down in September
+\item Plant does not shut-down for Bank holidays (marked /)
+\end{itemize}
+
+\scalebox{0.4}{
+\input{../03-machines/calendarl3}
+}
+\begin{itemize}
+\item Resulting shift calendar
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Weekly Machine Dependent Calendar}
+\scalebox{0.4}{
+\input{../03-machines/shiftresources}
+}
+\begin{itemize}
+\item Note machines running one shift, two shifts, or three shifts
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{ShiftPattern for Workers}
+\scalebox{0.45}{
+\input{../03-machines/shiftworkers}
+}
+
+\begin{itemize}
+\item Note different resource levels for morning, afternoon and night shift
+\end{itemize}
+
+\end{frame}
+
+\subsection{Calendar Dependent Duration}
+
+\begin{frame}
+\frametitle{Calendar Dependent Duration \navail}
+\begin{itemize}
+\item In some factories, tasks have different duration depending on when they are run
+\item During the night-shift fewer workers are available, tasks like cleaning take longer
+\item During holidays, most expert operators are absent, tasks take longer due to less experienced operators
+\item For every working period, define a utilization factor to define nominal capacity (0-100\%)
+\begin{itemize}
+\item Tasks take longer if work capacity is lower
+\item Only supported in few solvers (CPO)
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
 \subsection{Task/Break Interaction}
+
+\begin{frame}
+\frametitle{Tasks Stretching over Shutdown \navail}
+\begin{itemize}
+\item When a machine does not run continuously, the duration of tasks in wall time may change
+\end{itemize}
+
+\scalebox{0.2}{
+\input{../03-machines/calendarprinciple}
+}
+
+\begin{itemize}
+\item Task starting at 07:00 has duration of 4 hours
+\item Same task starting at 19:00 stretches over nightly shutdown (22:00-06:00), extending its duration to 16 hours
+\end{itemize}
+
+\end{frame}
+
+
 
 \section{Summary}
 
@@ -177,8 +655,15 @@ Job-Shop example, a lot of idle time
 \frametitle{Summary}
 \begin{itemize}
 \item Introduced different resource types
+\begin{itemize}
+\item Disjunctive resources
+\item Cumulative resources
+\item Machine choice
+\end{itemize}
 \item Identifying resources is a key element of defining scheduling problem
-\item As simple as possible - as complex as required
+\item Many problem specific variants exist, also impacting the constraint reasoning
+\item Keep as simple as possible - as complex as required
+\item Not all described variants already in our generic tool
 \end{itemize}
 \end{frame}
 
