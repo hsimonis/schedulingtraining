@@ -155,7 +155,102 @@
 
 \section{Artificial Intelligence}
 
+\begin{frame}
+\frametitle{What is Artificial Intelligence?}
+\begin{quote}
+Artificial intelligence, or AI, is the field that studies the synthesis and analysis of computational agents that act intelligently.
+\end{quote}
+David Poole, Alan Mackworth. Artificial Intelligence, Cambridge University Press, 3rd Edition, 2023.
+
+\begin{itemize}
+\item This definition leaves a lot of questions.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The Great Divide}
+\begin{itemize}
+\item Two fundamentally different approaches to AI
+\begin{itemize}
+\item Reasoning based
+\item Stochastic
+\end{itemize}
+\item Currently, the stochastic methods get all the attention
+\item But they have their problems
+\begin{itemize}
+\item Impossible to understand what is happening inside
+\item Hallucinations, making up convincing false statements
+\item Enormous resource requirements
+\item Privacy/IP of training data
+\item Really limited to a few multi-nationals
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Topics in AI}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Chapter Structure of AI Book
+\item Shows importance of deductive/search based approaches
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../01-introduction/images/poole-mackworth-chapters-arrow}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{What is Constraint Programming?}
+\begin{quote}
+Constraint programming technology is used to find solutions to scheduling and combinatorial optimization problems. It is based primarily on computer science fundamentals, such as logic programming and graph theory, in contrast to mathematical programming, which is based on numerical linear algebra.
+
+Constraint programming is invaluable when dealing with the complexity of many real-world sequencing and scheduling problems.
+\end{quote}
+IBM {\tiny (\url{https://ibmdecisionoptimization.github.io/docplex-doc/cp.html})}
+\end{frame}
+
+
+
 \section{Scheduling}
+
+\begin{frame}
+\frametitle{What is Scheduling?}
+\begin{quote}
+Scheduling is a decision-making process that is used on a regular basis in
+many manufacturing and services industries. It deals with the allocation of
+resources to tasks over given time periods and its goal is to optimize one or
+more objectives.
+\end{quote}
+Michael Pinedo. Scheduling. Springer, 5th edition, 2016. 
+\end{frame}
+
+\begin{frame}
+\frametitle{Information Flow Diagram in a Manufacturing System}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item According to Pinedo, page 5.
+\item We focus on what is shown as \emph{detailed scheduling}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../01-introduction/images/information-flow}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
 
 \subsection{Constraint-Based Scheduling}
 
@@ -256,7 +351,6 @@
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
-\item Sub-class of constraint programming
 \item Restrict yourself to linear constraints
 \item Powerful reasoning on the complete set of constraints
 \begin{itemize}
@@ -264,7 +358,7 @@
 \item Cut generation
 \end{itemize}
 \item Expressing scheduling constraints can be difficult
-\item Scalability issues
+\item Scalability issues for detailed scheduling
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -312,6 +406,8 @@
 
 \section{Course Structure}
 
+\subsection{Timetable}
+
 \begin{frame}
 \frametitle{Course Structure}
 \begin{tabular}{lp{4cm}p{4cm}}\toprule
@@ -348,6 +444,10 @@ Time & Day 1 & Day 2\\\midrule
 \item You don't really need to know this to use Constraint Programming
 \item Advantage of declarative, compositional formulation
 \item I teach an introductory course on Constraint Programming for CRT-AI
+\begin{itemize}
+\item Ask for details if interested
+\end{itemize}
+
 \item Overview of courses, books and materials at \url{https://arxiv.org/abs/2403.12717}
 \end{itemize}
 \end{frame}
