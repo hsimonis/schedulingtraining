@@ -1,32 +1,226 @@
 \begin{frame}
 \frametitle{Key Points}
 \begin{itemize}
-\item
+\item We present some more advanced concepts in scheduling
+\item These occur in more specialized problem areas
+\item Typically require more work on modelling
+\item Solver support may be limited
 \end{itemize}
 \end{frame}
 
-\section{Sequence Dependent Setup}
+\section{Sequence Dependent Setup-Time}
+
+\begin{frame}
+\frametitle{Sequence Dependent Setup-Time \avail}
+\begin{itemize}
+\item Our usual disjunctive resource model assumes we can change easily from one task to the next
+\item There might be a cleaning/setup time required
+\begin{itemize}
+\item This is part of the fixed duration part of a processStep description
+\end{itemize}
+\item In some cases it is more complex
+\begin{itemize}
+\item On some machines there is a setup-time required which depends on both the previous and the next product
+\item This time varies significantly between product combinations
+\item Typically, the time depends on some properties of the products
+\end{itemize}
+\item The setup time is non-productive, and should be avoided when possible
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Computed Setup-Time Matrix}
+\includegraphics[width=\textwidth]{../06-advanced/images/setupmatrix}
+\begin{itemize}
+\item This needs to be computed from first principles, not maintained by hand!
+\item Available as input data in JSON format
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Relation to TSP}
+\begin{itemize}
+\item Computing the optimal sequence of setup times is a variant of the \emph{Travelling Salesman Problem (TSP)}
+\item Another of the classical hard combinatorial problems
+\item Due to the structure of the data, setup-time problem often are simpler to solve
+\begin{itemize}
+\item Changing between very similar products needs no setup-time
+\item Using a simple rule about product compatibility produces best results
+\item Example: dark-chocolate $\rightarrow$ milk chocolate $\rightarrow$ white chocolate $\rightarrow$ milk chocolate $\rightarrow$ draw chocolate
+\end{itemize}
+\item Problems get more difficult when release/due dates need to be respected
+\item This is the equivalent to the \emph{VRPTW (Vehicle Routing Problem with Time Windows)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Xmas Shopping Hint}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item W. Cook. In Pursuit of the Travelling Salesman. Princeton University Press, 2011
+\item Entertaining general science presentation of the TSP and related issues
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=.8\textwidth]{../06-advanced/images/In_Pursuit_of_the_Traveling_Salesman.jpg}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Setup Times Constraints can be Included in Model}
+\includegraphics[width=\textwidth]{../06-advanced/images/schedule-with-setup}
+\begin{itemize}
+\item Shown in Machine Gantt chart, enable display in \texttt{Layout} tab
+\item So far, only in CPO, not in CPSat model
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Related Problem: Forbidden Transitions \navail}
+\begin{itemize}
+\item For safety reasons, it may be forbidden to change from some product to some specific other products
+\item Contamination risk is considered too high
+\item Examples
+\begin{itemize}
+\item In food production: Is this product peanut free?
+\item In food production: Directly changing from dark to white chocolate is not allowed
+\item In chemical plants: Contamination may lead to explosions
+\end{itemize}
+\item These transitions are called \emph{forbidden}, and must be avoided
+\item Careful, it is easy to paint yourself into a corner! 
+\end{itemize}
+\end{frame}
 
 \section{Transportation Time}
 
-\section{Human Resource Constraints}
+\begin{frame}
+\frametitle{Dealing with Transportation Times}
+\begin{itemize}
+\item Really two different Problems 
+\begin{itemize}
+\item In one, the resources are in fixed locations, and we transport the jobs between the locations
+\item In the other, the tasks are in fixed locations, and we transport the resources between them
+\end{itemize}
 
-\section{Energy Cost Aware Scheduling}
+\end{itemize}
+\end{frame}
 
-\section{Premption}
+\subsection{Transportation of Materials}
 
-\section{Inventory}
+\begin{frame}
+\frametitle{Transportation of Jobs}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Example from a project with J\&J in Limerick
+\item Considering a \emph{factory of the future} based on agile machines
+\item Robots that can be configured to perform many different tasks
+\item These robots may be inside one or more factories
+\item How to arrange them to minimize impact of transport on production
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../06-advanced/images/agilemachine}
 
-\section{Alternative Processes/Process Paths}
+{\tiny from J\&J}
+\end{column}
+\end{columns}
+\end{frame}
 
-\section{Explainability}
+\begin{frame}
+\frametitle{Layout of Factor in Matrix Form}
+\includegraphics[width=\textwidth]{../06-advanced/images/factorymodel}
+\begin{itemize}
+\item Materials are transported between stations by moving robots
+\item Layout of factory determines delay caused by transport
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Inclusion in Model \soon}
+\includegraphics[width=\textwidth]{../06-advanced/images/transport-matrix}
+\begin{itemize}
+\item Add location attribute to each resource
+\item Include transport time as element in temporal constraints 
+\end{itemize}
+\end{frame}
+
+\subsection{Transportation of Resources/Personnel}
+
+\begin{frame}
+\frametitle{Scheduling Service Visits}
+\begin{itemize}
+\item Based on a project with UTRC-I, UTRC, OTIS
+\item Schedule visits to maintain equipment installed in customer premises
+\item Resources are the service engineers
+\item They have to travel between locations and perform work there
+\item The tasks are the maintenance operations required to keep equipment working
+\item Also called \emph{Traveling Repair-person Problem}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Planning Maintenance Visits for Service Personnel}
+\includegraphics[width=.85\textwidth]{../06-advanced/images/schedule}
+\begin{itemize}
+\item Include single day trips, multi-day tours
+\item Most of the time spent at customer locations
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Re-scheduling Problem}
+\includegraphics[width=.85\textwidth]{../06-advanced/images/callbacks}
+\begin{itemize}
+\item How to react when a customer is trapped in an elevator
+\item All you engineers are on service calls
+\item Who you gonna call?
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Advertisement}
+\begin{itemize}
+\item This will be described in more detail in a new course
+\item AI Fundamentals: Skill Development Program on Transportation Optimization
+\item Arriving in 2025 at this location
+\end{itemize}
+\end{frame}
+
+
+%\section{Raw Material Availability}
+
+%\section{Producer/Consumer Constraints}
+
+%\section{Explainability}
 
 \section{Summary}
 
 \begin{frame}
 \frametitle{Summary}
 \begin{itemize}
-\item
+\item We presented some more advanced topics
+\begin{itemize}
+\item Sequence dependent setup
+\item Transportation time
+%\item Raw material availability
+%\item Producer/Consumer constraints
+\end{itemize}
+\item Not available in every solver
+\item Useful concepts when dealing with specific scheduling problems
+\item Leading to another \emph{Skills Development Program}
 \end{itemize}
 \end{frame}
 

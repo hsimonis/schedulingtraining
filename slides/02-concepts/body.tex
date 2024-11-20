@@ -110,6 +110,15 @@
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Annotations on Features}
+\begin{itemize}
+\item \avail Currently available in scheduling tool
+\item \soon Will be available shortly
+\item \navail Currently not available, may be added in future version 
+\end{itemize}
+\end{frame}
+
 
 
 \subsection{Relations between Tasks}
@@ -220,7 +229,7 @@
 \begin{column}{0.5\textwidth}
 \begin{itemize}
 \item Sometimes, we can start on the next task while the first is still running
-\item Possible if one jobs consists of multiple items (lots,...)
+\item Possible if one jobs produces multiple items (lots,...)
 \item As soon as the first item is finished, take it to the next machine to process it there
 \item Overlaps T1 and T2 as much as possible
 \item Details can get complex
@@ -438,6 +447,7 @@
 
 \begin{itemize}
 \item One task is selected (in red), in both Machine and Job Gantt Chart
+\item Tasks are colored by machine, note coloring in jobs is different for each job
 \end{itemize}
 \end{frame}
 
@@ -510,6 +520,7 @@
 \begin{itemize}
 \item Example solution for 7x7 open shop example
 \item Order of tasks within jobs not constrained
+\item Note that machines are still idle in optimal solution
 \end{itemize}
 
 \end{frame}
@@ -536,7 +547,7 @@
 \begin{frame}
 \frametitle{$\alpha/\beta/\gamma$ Notation}
 \begin{itemize}
-\item The previous classes are good for research, but not very practical
+\item The previous classes are good for algorithm research, but not very practical
 \item General scheme to describe problem type introduced in 1979
 \item Based on three parameters
 \begin{description}
