@@ -2,6 +2,9 @@
 \frametitle{Key Points}
 \begin{itemize}
 \item This section describes the scheduling tool
+\begin{itemize}
+\item This is a \emph{preview} of the current state, not released yet!
+\end{itemize}
 \item How to load/create data
 \begin{itemize}
 \item From files
@@ -31,12 +34,16 @@
 \item To test ideas and solvers
 \item As a teaching tool
 \item Slightly higher standard than usual academic prototypes
+\begin{itemize}
+\item This is a \emph{preview}, not released yet
+\end{itemize}
 \item Not a commercial tool
 \begin{itemize}
 \item But can use commercial solvers
 \item Also open-source solvers
 \end{itemize}
 \item Written in Java, JavaFX
+\item Can also be used as a back-end scheduling server
 \item Uses our Java application framework generator
 \item Will become available in early 2025
 \end{itemize}
@@ -126,7 +133,94 @@
 \end{columns}
 \end{frame}
 
-\subsection{Which solver to use?}
+\subsection{Which solver is better?}
+
+\begin{frame}
+\frametitle{Which Solver is Better?}
+\begin{itemize}
+\item We present results on a few benchmark types
+\item Fair comparison between solvers
+\begin{itemize}
+\item Same hardware, Windows 11 laptop
+\item CPU i7-10875H @ 2.3GHz, 64GB, four cores
+\item Same timeout (600 s)
+\end{itemize}
+\item Not a fair comparison to state-of-the-art
+\begin{itemize}
+\item Uses out-of-the-box model
+\item Significant improvements possible
+\item More specific models
+\item Parameter tuning
+\item Unlimited runtime
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Taillard Job-Shop Benchmarks}
+\scalebox{0.6}{
+\begin{tabular}{lr*{10}{r}} \toprule
+& &\multicolumn{4}{c}{All Instances} & \multicolumn{2}{c}{Optimal Only} & \multicolumn{4}{c}{Non Optimal Only}\\ 
+& &\multicolumn{4}{c}{Optimal (\% of All Instances)} & \multicolumn{2}{c}{Time (\% of VB)} & \multicolumn{2}{c}{Cost (\% of VB)} & \multicolumn{2}{c}{Bound (\% of VB)}\\ 
+Group & Nr & Both & CPO & CPSat & None & CPO & CPSat & CPO & CPSat & CPO & CPSat\\ \midrule
+15/15 & 10 & 90.00 &  0.00 &  0.00 & 10.00 & 105.19 & 141.18 & 100.00 & 100.00 & 97.17 & 100.00 \\ 
+20/15 & 10 & 20.00 &  0.00 &  0.00 & 80.00 & 267.27 & 263.20 & 100.99 & 100.05 & 98.50 & 99.93 \\ 
+20/20 & 10 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.74 & 100.06 & 97.96 & 100.00 \\ 
+30/15 & 10 & 10.00 &  0.00 & 10.00 & 80.00 & 174.32 & 100.00 & 100.18 & 100.49 & 99.87 & 100.00 \\ 
+30/20 & 10 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.30 & 101.30 & 99.40 & 100.00 \\ 
+50/15 & 10 & 100.00 &  0.00 &  0.00 &  0.00 & 100.00 & 685.09 & n/a & n/a & n/a & n/a \\ 
+50/20 & 10 & 10.00 & 60.00 &  0.00 & 30.00 & 100.00 & 381.38 & 100.00 & 101.60 & 100.00 & 100.00 \\ 
+100/20 & 10 & 10.00 & 90.00 &  0.00 &  0.00 & 100.00 & 416.13 & 100.00 & 101.73 & 100.00 & 66.81 \\ 
+\bottomrule
+\end{tabular}
+}
+
+\begin{itemize}
+\item Significant number of problems solved to optimality in 600s
+\item In terms of quality, solvers are quite similar
+\item CPO wins in terms of solution times for larger instances
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Results for Hybrid Flexible Flow-Shop}
+\scalebox{0.6}{
+\begin{tabular}{lr*{10}{r}} \toprule
+& &\multicolumn{4}{c}{All Instances} & \multicolumn{2}{c}{Optimal Only} & \multicolumn{4}{c}{Non Optimal Only}\\ 
+& &\multicolumn{4}{c}{Optimal (\% of All Instances)} & \multicolumn{2}{c}{Time (\% of VB)} & \multicolumn{2}{c}{Cost (\% of VB)} & \multicolumn{2}{c}{Bound (\% of VB)}\\ 
+Group & Nr & Both & CPO & CPSat & None & CPO & CPSat & CPO & CPSat & CPO & CPSat\\ \midrule
+20 & 25 & 76.00 &  0.00 & 20.00 &  4.00 & 100.00 & 580.71 & 100.00 & 100.00 & 96.52 & 100.00 \\ 
+25 & 25 & 80.00 &  0.00 &  8.00 & 12.00 & 101.65 & 238.02 & 100.00 & 100.37 & 97.67 & 100.00 \\ 
+30 & 25 & 60.00 &  0.00 &  4.00 & 36.00 & 100.35 & 264.69 & 100.18 & 101.05 & 100.00 & 100.00 \\ 
+40 & 25 &  4.00 & 16.00 &  0.00 & 80.00 & 100.00 & 2554.03 & 100.00 & 104.68 & 100.00 & 100.00 \\ 
+50 & 25 &  0.00 &  4.00 &  0.00 & 96.00 & n/a & n/a & 100.00 & 107.87 & 100.00 & 100.00 \\ 
+100 & 25 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.00 & 120.43 & 100.00 & 100.00 \\ 
+200 & 25 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.00 & 188.60 & 100.00 & 100.00 \\ 
+300 & 24 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.00 & 263.22 & 100.00 & 100.00 \\ 
+400 & 25 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.00 & 246.34 & 100.00 & 100.00 \\ 
+\bottomrule
+\end{tabular}
+}
+\begin{itemize}
+\item Only smaller/medium instances solved to optimality
+\item For those problems, both solvers perform well
+\item CPO significantly better on large instances
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{General Recommendations}
+\begin{itemize}
+\item If you already have access to CPO, use it!
+\item For new problem types, do an evaluation with CPSat first
+\item Out of the box, CPO performs more consistently
+\item May be easier to extend CPSat with your own research
+\item Use multiple cores and memory to your advantage
+\end{itemize}
+\end{frame}
+
 
 
 
@@ -556,6 +650,52 @@
 
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Experiment 2}
+\begin{itemize}
+\item Re-run solver disabling cumulative constraint
+\item Observe result in Gantt chart
+\item See impact on Cumulative Resource chart
+\item Switch between solutions in charts
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Experiment 3}
+\begin{itemize}
+\item Check Gantt chart display for delayed tasks, enabling lateness display
+\item Re-run solver, enforcing due-date constraints
+\item What impact does this have on objective
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Experiment 4}
+\begin{itemize}
+\item Change objective to on-time delivery
+\item Results are very different, why?
+\item More explanations on this tomorrow
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Experiment 5}
+\begin{itemize}
+\item Load one of the other example types
+\item For example, Taillard Job-shop 15x15
+\item Understand process diagram
+\item Run solver
+\item Look at intermediate solutions found
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
 
 
 
