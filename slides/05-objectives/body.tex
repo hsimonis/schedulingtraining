@@ -35,7 +35,7 @@
 \item Many intangible factors weigh in
 \begin{itemize}
 \item Happiness of the customers (which customers are unhappy, does it matter?)
-\item Happiness of personnel (Finding and retaining skilled personnel is critical)
+\item Happiness of personnel (finding and retaining skilled personnel is critical)
 \item Happiness of stakeholders (sales, production, inventory, management)
 \end{itemize}
 
@@ -152,6 +152,7 @@
 \begin{itemize}
 \item Weight 100 for lateness, weight 1 for earliness
 \item Removes all delays, very little earliness
+\item Makespan increased dramatically
 
 \end{itemize}
 \end{frame}
@@ -164,6 +165,7 @@
 \includegraphics[width=.8\textwidth]{../05-objectives/images/objective-hybrid}
 
 \begin{itemize}
+\item Weights makespan:1000, flowtime:0, lateness:10, earliness:1
 \item Does not remove lateness completely
 \item Probably needs more time to improve
 \end{itemize}
@@ -190,7 +192,7 @@
 \item May mean other aspect of solution is poor
 \begin{itemize}
 \item \emph{Total Lateness} bad if just reducing \emph{Makespan}
-\item \emph{Makespan} if just reducing \emph{Total Lateness}
+\item \emph{Makespan} bad if just reducing \emph{Total Lateness}
 \end{itemize}
 \item Hybrid objectives can find better compromises
 \item Using constraints to restrict search can help 
@@ -213,10 +215,15 @@
 \begin{itemize}
 \item The number of disjunctive machines needed
 \item A cumulative resource capacity
-\item the manpower required to perform all tasks
+\item The manpower required to perform all tasks
 \end{itemize}
 \item We may do this for understanding the problem
 \item The optimized schedules will be brittle
+\begin{itemize}
+\item Any resource breakdown will cause an issue
+\item Spare capacity is a good thing (if it is not too expensive)
+\end{itemize}
+
 \end{itemize}
 \end{frame}
 
@@ -234,6 +241,32 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Pareto Frontier for Two Incomparable Objectives}
+\scalebox{0.5}{
+\begin{tikzpicture}
+\draw[black,->] (0,0) -- node[below]{Objective 1} (15,0);
+\draw[black,->] (0,0) -- node[left] {Objective 2} (0,12);
+\node[left] at (0,10) {v1};
+\draw[dotted] (0,10) -- (4,10);
+\draw[fill=red] (4,10) circle (0.1) node[above right]{1};
+\draw[fill=red] (7,8) circle (0.1) node[above right]{2};
+\draw[fill=red] (10,4) circle (0.1) node[above right]{3};
+\draw[fill=red] (12,1) circle (0.1) node[above right]{4};
+\draw[fill=blue,opacity=0.1] (12,1) rectangle +(3,11);
+\draw[fill=blue,opacity=0.1] (10,4) rectangle +(5,8);
+\draw[fill=blue,opacity=0.1] (7,8) rectangle +(8,4);
+\draw[fill=blue,opacity=0.1] (4,10) rectangle +(11,2);
+\node at (12,10) {Dominated};
+\node at (5,5) {\shortstack{Incomparable\\Solutions}};
+\draw[thick,black, ->] (4,10) -- node[left] {Obj2 < v1} (7,8);
+\end{tikzpicture}
+}
+\begin{itemize}
+\item Finding Pareto frontier by repeated optimization of objective1
+\end{itemize}
+
+\end{frame}
 
 
 \section{Other Quality Vectors}
@@ -247,6 +280,7 @@
 \item Robustness
 \item Product Quality
 \item Customer Satisfaction
+\item Diversity
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -312,6 +346,21 @@
 
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Diversity}
+\begin{itemize}
+\item Is it sometimes useful to present different solutions to a user to choose from
+\item These solutions should be substantially different to make choice meaningful
+\item Unfortunately, solvers often find very similar solutions
+\item Typically, there are far too many solution to enumerate them all
+\item We can add constraints to ask for the next solution to be quite different from the previous ones
+\item Needs good definition to define similarity
+\item Hamming distance on machine order a good starting point
+\end{itemize}
+\end{frame}
+
+
 
 
 \section{Key Performance Indicators}
@@ -382,9 +431,6 @@
 \end{description}
 \end{frame}
 
-
-
-
 \begin{frame}
 \frametitle{KPI Ranking \navail}
 \begin{itemize}
@@ -394,17 +440,10 @@
 \item We can also try to infer a ranking method based on some comparison queries asked to users
 \begin{itemize}
 \item Do you prefer this or that solution?
-\item With enough answer, we can postulate a ranking method
+\item With enough answers, we can postulate a ranking method
 \end{itemize}
 \end{itemize}
 \end{frame}
-
-
-
-
-
-
-
 
 \section{Interactive Scheduling}
 
@@ -415,7 +454,7 @@
 \begin{itemize}
 \item Perhaps change some constraints, or weights
 \end{itemize}
-\item Other human scheduler want to modify the plan by hand
+\item Other human schedulers want to modify the plan by hand
 \begin{itemize}
 \item This is not always easy to do
 \item How can a scheduling tool handle this?
@@ -428,7 +467,7 @@
 \begin{frame}
 \frametitle{Example: Moses System}
 \begin{itemize}
-\item Scheduling application for Animal Feed mills in the UK
+\item Scheduling application for animal feed mills in the UK
 \item Produces overnight schedule for delivery on next day
 \item Operator updates the schedule whenever a task is finished
 \item Change duration of task if it is delayed
@@ -444,6 +483,11 @@
 \item Related to explainability
 
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Screenshot of Moses Application}
+\includegraphics[width=\textwidth]{../05-objectives/images/moses}
 \end{frame}
 
 

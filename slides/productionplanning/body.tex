@@ -17,6 +17,25 @@
 \end{frame}
 
 \begin{frame}
+\frametitle{Problem}
+{\tiny
+This is a case study from industry, combining production planning and detailed scheduling. It is based on a project that some of my colleagues were working on for a local medical devices company. 
+
+The overall problem is to decide which products to make in which quantities over the planning horizon, so that we have enough stock to satisfy any customer demand, and make sure that we have some safety margin if the demand suddenly increases. At the same time we do not want to create inventory in products that we will not sell in the near future, as this increases our inventory carrying cost.
+
+The company uses two main concepts for production planning:
+The run-out days for each product state how long the current stock will last, given a projected customer demand profile. We try to achieve the same run-out days value for all products, this works well for fast and slow moving products.
+
+The safety stock values says how much stock we should have for each product. This gives us more control over the stock levels, this works better if the demand cannot be predicted as accurately as we would like, but it is more difficult to compare the stock levels for  different products.
+
+The production planning part of the application decides how much to produce for which product, but this is based on an estimate of the production capacity for the planning period. We use the detailed scheduling part of the application to validate the plan generated, and make sure that we can really produce the required capacities in the given planning period.
+
+}
+\end{frame}
+
+
+
+\begin{frame}
 \frametitle{Product List}
 \includegraphics[width=\textwidth]{../productionplanning/images/products}
 \end{frame}

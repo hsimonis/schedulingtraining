@@ -103,7 +103,7 @@
 \begin{frame}
 \frametitle{Dealing with Transportation Times}
 \begin{itemize}
-\item Really two different Problems 
+\item Really two different problems 
 \begin{itemize}
 \item In one, the resources are in fixed locations, and we transport the jobs between the locations
 \item In the other, the tasks are in fixed locations, and we transport the resources between them
@@ -152,6 +152,39 @@
 \item Include transport time as element in temporal constraints 
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{More Complex Variant}
+\begin{itemize}
+\item Schedule the moving robots as well
+\item Assume that an empty robot travels much faster than a loaded one
+\item We can treat the robots as a machine choice resource for the transportation tasks
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Even More Complex Variant}
+\begin{itemize}
+\item Schedule the moving robots as well
+\item They move at the same speed empty and loaded
+\item We can to bring them from the end of one transport task to the start of the next one
+\item This is a vehicle routine problem
+\item In some industries, this is the harder problem compared to scheduling the plant itself
+\begin{itemize}
+\item Torpedo scheduling in steel plant: rail cars holding molten steel, quantities limited  
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Torpedo Scheduling (CP 2016 Challenge)}
+\includegraphics[width=\textwidth]{../06-advanced/images/torpedo}
+{\tiny (from ACP Website \url{http://cp2016.a4cp.org/program/acp-challenge/})} 
+\end{frame}
+
+
+
 
 \subsection{Transportation of Resources/Personnel}
 
