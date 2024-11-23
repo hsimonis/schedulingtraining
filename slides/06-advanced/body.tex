@@ -13,7 +13,7 @@
 \begin{frame}
 \frametitle{Sequence Dependent Setup-Time \avail}
 \begin{itemize}
-\item Our usual disjunctive resource model assumes we can change easily from one task to the next
+\item Our usual disjunctive resource model assumes that we can change easily from one task to the next
 \item There might be a cleaning/setup time required
 \begin{itemize}
 \item This is part of the fixed duration part of a processStep description
@@ -43,11 +43,11 @@
 \begin{itemize}
 \item Computing the optimal sequence of setup times is a variant of the \emph{Travelling Salesman Problem (TSP)}
 \item Another of the classical hard combinatorial problems
-\item Due to the structure of the data, setup-time problem often are simpler to solve
+\item Due to the structure of the data, setup-time problems often are simpler to solve
 \begin{itemize}
 \item Changing between very similar products needs no setup-time
 \item Using a simple rule about product compatibility produces best results
-\item Example: dark-chocolate $\rightarrow$ milk chocolate $\rightarrow$ white chocolate $\rightarrow$ milk chocolate $\rightarrow$ draw chocolate
+\item Example: dark-chocolate $\rightarrow$ milk chocolate $\rightarrow$ white chocolate $\rightarrow$ milk chocolate $\rightarrow$ dark chocolate
 \end{itemize}
 \item Problems get more difficult when release/due dates need to be respected
 \item This is the equivalent to the \emph{VRPTW (Vehicle Routing Problem with Time Windows)}
@@ -154,7 +154,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{More Complex Variant}
+\frametitle{More Complex Variant \navail}
 \begin{itemize}
 \item Schedule the moving robots as well
 \item Assume that an empty robot travels much faster than a loaded one
@@ -163,13 +163,13 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Even More Complex Variant}
+\frametitle{Even More Complex Variant \navail}
 \begin{itemize}
 \item Schedule the moving robots as well
 \item They move at the same speed empty and loaded
 \item We can to bring them from the end of one transport task to the start of the next one
 \item This is a vehicle routine problem
-\item In some industries, this is the harder problem compared to scheduling the plant itself
+\item In some industries, this is the harder problem than scheduling the plant itself
 \begin{itemize}
 \item Torpedo scheduling in steel plant: rail cars holding molten steel, quantities limited  
 \end{itemize}
@@ -189,7 +189,7 @@
 \subsection{Transportation of Resources/Personnel}
 
 \begin{frame}
-\frametitle{Scheduling Service Visits}
+\frametitle{Scheduling Service Visits \navail}
 \begin{itemize}
 \item Based on a project with UTRC-I, UTRC, OTIS
 \item Schedule visits to maintain equipment installed in customer premises
@@ -215,8 +215,8 @@
 \includegraphics[width=.85\textwidth]{../06-advanced/images/callbacks}
 \begin{itemize}
 \item How to react when a customer is trapped in an elevator
-\item All you engineers are on service calls
-\item Who you gonna call?
+\item All your engineers are on service calls
+\item \emph{Who you gonna call?}
 \end{itemize}
 
 \end{frame}

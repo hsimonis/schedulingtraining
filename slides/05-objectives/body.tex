@@ -14,7 +14,7 @@
 \begin{frame}
 \frametitle{Why have an Objective?}
 \begin{itemize}
-\item For most scheduling problem, we define some form objective
+\item For most scheduling problem, we define some form of objective
 \item A mathematical formula that we evaluate on a schedule to compare it
 \item It is not always clear whether that formula represents some direct business benefit
 \item But, there are far more bad solutions than good solutions!
@@ -125,7 +125,7 @@
 
 \begin{itemize}
 \item Minimize the sum of job ends
-\item Prefer any machine to end early
+\item Prefer all machine to end early
 \item Not always easy to find good solutions
 \end{itemize}
 \end{frame}
@@ -139,6 +139,7 @@
 \begin{itemize}
 \item Able to remove all delays on jobs
 \item Does not care about makespan or earliness
+\item In the example problem, many due dates far in the future
 
 \end{itemize}
 \end{frame}
@@ -204,7 +205,7 @@
 
 
 
-\subsection{Resource Levels}
+\subsection{Other objectives}
 
 \begin{frame}
 \frametitle{Optimizing Resource Levels \navail}
@@ -228,10 +229,28 @@
 \end{frame}
 
 \begin{frame}
+\frametitle{Including Optional Work \navail}
+\begin{itemize}
+\item So far, the set of orders had to be fulfilled
+\item The resulting jobs needed to be included in schedule
+\item Sometimes, there are optional orders that we may or may not include in schedule
+\item The more work we do in this schedule, the better
+\begin{itemize}
+\item Assumes a fixed horizon to limit the available space
+\end{itemize}
+\item But we can reject some of the orders
+\item The objective is to maximize the value of the accepted orders
+\item Related to \emph{Knapsack problem}, a well known combinatorial problem
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
 \frametitle{Multi-level Objectives \navail}
 \begin{itemize}
 \item In some situations, a hybrid objective combining different aspects is not enough
-\item We need to find the best compromises between the different objective types
+\item We need to find all best compromises between the different objective types
 \begin{itemize}
 \item Without an a-priori weight to state which is more important
 \end{itemize}
@@ -292,7 +311,7 @@
 \item If we assign operators, do we
 \begin{itemize}
 \item Treat all operators in a fair way?
-\item Give effective workers more work
+\item Give effective workers always more work
 \item Provide opportunities for training and skill development
 \item De-risk dependency on key personnel 
 \end{itemize}
@@ -326,7 +345,10 @@
 \frametitle{Product Quality}
 \begin{itemize}
 \item The tighter the schedule, the more risk there is of cutting corners
+\item Example
+\begin{itemize}
 \item If we minimize curing times to speed up production, quality may be affected
+\end{itemize}
 \item The fastest machine is not always the best in terms of quality, cost
 \end{itemize}
 \end{frame}
