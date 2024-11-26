@@ -3,7 +3,6 @@ package org.insightcentre.tbischeduling.implementedsolver;
 import framework.types.DateOnly;
 import framework.types.DateTime;
 import framework.types.TimeOnly;
-import net.sourceforge.plantuml.project3.Solver;
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 import org.insightcentre.tbischeduling.importer.Reset;
