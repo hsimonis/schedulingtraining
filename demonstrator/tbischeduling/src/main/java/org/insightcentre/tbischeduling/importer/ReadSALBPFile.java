@@ -22,6 +22,7 @@ public class ReadSALBPFile {
         DateTime startDate = new DateTime(2024,10,1,0,0);
         base.setStartDateTime(startDate);
         base.setTimeResolution(60);
+        //??? why 2000
         base.setHorizon(2000);
         base.setDataFile(file.getName());
         base.setHasReleaseDate(false);
@@ -35,7 +36,7 @@ public class ReadSALBPFile {
 
         try {
             Scanner reader = new Scanner(file);
-            info(readField(reader));
+            skip(readField(reader));
             int nrTasks = reader.nextInt();
             Problem problem = new Problem(base);
             problem.setName("Problem");
@@ -72,7 +73,7 @@ public class ReadSALBPFile {
             Hashtable<Integer,ProcessStep> taskHash = new Hashtable<>();
             Hashtable<Integer,Integer> demandHash = new Hashtable<>();
             problem.setNrTasks(nrTasks);
-            info(readField(reader));
+            skip(readField(reader));
             int cycleTime = reader.nextInt();
             CumulativeProfile cp = new CumulativeProfile(base);
             cp.setName("Profile");
@@ -80,9 +81,9 @@ public class ReadSALBPFile {
             cp.setFrom(0);
             cp.setCapacity(cycleTime);
 
-            info(readField(reader));
-            info(readField(reader));
-            info(readField(reader));
+            skip(readField(reader));
+            skip(readField(reader));
+            skip(readField(reader));
             for(int i=0;i<nrTasks;i++){
                 int nr = reader.nextInt();
                 int demand = reader.nextInt();
@@ -109,7 +110,7 @@ public class ReadSALBPFile {
                 t.setDuration(1);
                 t.setStage(0);
             }
-            info(readField(reader));
+            skip(readField(reader));
             String pair=reader.nextLine();
             int i=0;
             while(!pair.equals("")){
@@ -133,7 +134,7 @@ public class ReadSALBPFile {
 
                 pair=reader.nextLine();
             }
-            info(readField(reader));
+            skip(readField(reader));
             reader.close();
             summarizeProblem(base);
 
@@ -149,6 +150,13 @@ public class ReadSALBPFile {
             res = reader.nextLine();
         }
         return res;
+    }
+
+    /*
+    the information read here will not be used; print only for debugging
+     */
+    private void skip(String t){
+//        info("Skipped "+t);
     }
 
 }

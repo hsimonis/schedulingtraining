@@ -98,11 +98,13 @@ public class CPSatModel extends AbstractModel{
         Hashtable<Task,Integer> taskHash = new Hashtable<>();
         for(Task t:base.getListTask()){
             taskHash.put(t,i);
-//            info("task "+i+" dur "+t.getDuration());
+//            info("task "+i+" dur "+t.getDuration()+" "+horizon);
             start[i] = model.newIntVar(0, horizon, "start" + t.getName());
             end[i] = model.newIntVar(0, horizon, "end" + t.getName());
             tasks[i] = model.newIntervalVar(start[i], LinearExpr.constant(t.getDuration()), end[i], "task" + t.getName());
-            if (t.getMachines().size() == 1) {
+            if (t.getMachines().size() == 0) {
+//                info("No machine "+t.getName());
+            } else if (t.getMachines().size() == 1) {
                 int m =disjHash.get(t.getMachines().get(0));
                 z[i][m] = tasks[i];
             } else {
@@ -138,8 +140,8 @@ public class CPSatModel extends AbstractModel{
         //??? needs to deal with offset
         for (Task t:base.getListTask()) {
             for(Task after:t.getPrecedes()){
-//                info("seq "+t+" "+after);
                 ProcessSequence ps = findProcessSequence(t.getProcessStep(),after.getProcessStep());
+//                info("seq "+t+" "+after+" "+ps.getSequenceType());
                 switch (modifiedSequenceType(run,ps.getSequenceType())) {
                     case EndBeforeStart -> model.addGreaterOrEqual(start[taskHash.get(after)], end[taskHash.get(t)]);
                     case StartBeforeStart ->
@@ -338,7 +340,7 @@ public class CPSatModel extends AbstractModel{
         solver.getParameters().setMaxTimeInSeconds(run.getTimeout());
         solver.getParameters().setNumWorkers(run.getNrThreads());
         solver.getParameters().setRandomSeed(run.getSeed());
-        info("solving for "+run.getTimeout()+" seconds with "+run.getNrThreads()+" workers...");
+        info("CPSat solving for "+run.getTimeout()+" seconds with "+run.getNrThreads()+" workers...");
 
         CpSolverStatus status = solver.solve(model,cb);
         // update SolverRun status and time regardless of result
@@ -375,8 +377,10 @@ public class CPSatModel extends AbstractModel{
                 ta.setEndDate(toDateTime(base,endValue));
                 ta.setDuration(t.getDuration());
                 ta.setJobAssignment(findJobAssignment(t.getJob(), solution, jobAssignmentHash));
-                if (t.getMachines().size()==1){
-                    ta.setDisjunctiveResource(t.getMachines().get(0));
+                if (t.getMachines().size()==0) {
+                    ta.setDisjunctiveResource(null);
+                } else if (t.getMachines().size()==1){
+                        ta.setDisjunctiveResource(t.getMachines().get(0));
                 } else {
                     boolean found = false;
                     for (DisjunctiveResource m : t.getMachines()) {

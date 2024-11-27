@@ -48,6 +48,7 @@ public class TestAll {
 
     public static void main(String[] args) {
         Scenario base = new Scenario();
+        boolean overWrite = false;
 ////        testAll("imports/Taillard/OSS/","resultsCPSat/");
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard OpenShop (CPO)","oss","CPO");
@@ -72,12 +73,12 @@ public class TestAll {
 //        analyzeAll(base,"imports/Taillard/FSS/permutationresults/","Taillard Permutation Flowshop (CPO)","pfss","PFSS");
 //        compareSummaries(base,"comparepfss",true,"FSS","PFSS",
 //                "Comparison of CPO for Result Groups of Permutation and Unrestricted FlowShop Problems",GroupType.Taillard);
-////        testSALBP("salbp/","resultsCPSat/");
-//        base.resetListSolutionSummary();
-//        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
-//        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
-//        compareSummaries(base,"comparesalbp",false,"CPO","CPSat",
-//                "Comparison of CPO and CPSat for Result Groups of SALBP-1 Problems",GroupType.Salbp);
+//        testSALBP("salbp/","resultsCPSat/",CPSat,8,30,overWrite);
+        base.resetListSolutionSummary();
+        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
+        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
+        compareSummaries(base,"comparesalbp",false,"CPO","CPSat",
+                "Comparison of CPO and CPSat for Result Groups of SALBP-1 Problems",GroupType.Salbp);
 ////        testTestScheduling("testscheduling/","resultsCPSat/");
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"testscheduling/results/","Test Scheduling Problems (CPO)","tsched","CPO");
@@ -85,11 +86,11 @@ public class TestAll {
 //        compareSummaries(base,"compareTest",false,"CPO","CPSat",
 //                "Comparison of CPO and CPSat for Result Groups of Test Scheduling Problems",GroupType.TestScheduling);
 //        testTransport("transport/","results/");
-        base.resetListSolutionSummary();
-        analyzeAll(base,"transport/results/","Factory Design (CPO)","trans","CPO");
-        analyzeAll(base,"transport/resultsCPSat/","Factory Design (CPSat)","transCPSat","CPSat");
-        compareSummaries(base,"compareTrans",false,"CPO","CPSat",
-                "Comparison of CPO and CPSat for Result Groups of Factory Design Problems",GroupType.Transport);
+//        base.resetListSolutionSummary();
+//        analyzeAll(base,"transport/results/","Factory Design (CPO)","trans","CPO");
+//        analyzeAll(base,"transport/resultsCPSat/","Factory Design (CPSat)","transCPSat","CPSat");
+//        compareSummaries(base,"compareTrans",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Result Groups of Factory Design Problems",GroupType.Transport);
     }
 
     /*
@@ -155,14 +156,14 @@ public class TestAll {
     there is no JSON file of the created input data
     this needs enforceCumulative true and enforceDueDate false
      */
-    private static void testSALBP(String importDir,String resultDir){
+    private static void testSALBP(String importDir,String resultDir,ModelType solver,int nrThreads,int timeout,boolean overWrite){
         assert(importDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(importDir,".alb");
 
         for(String fileName:list) {
             info("trying file " + fileName);
             String outputFile = importDir+resultDir+ fileName.replaceAll(".alb",".json");
-            if (!new File(outputFile).exists()  && fileName.startsWith("instance_n=100_")) {
+            if (overWrite || (!new File(outputFile).exists() /* && fileName.startsWith("instance_n=20_")*/)) {
 
                 Scenario base = new Scenario();
                 base.setDataFileVersionNumber(8.0);
@@ -185,17 +186,24 @@ public class TestAll {
                 test.setEnforceTransportTime(false);
                 test.setRelaxSequence(false);
                 test.setAddSameOrder(false);
-                test.setTimeout(30);
-                test.setModelType(CPO);
-                test.setModelType(CPSat);
+                test.setTimeout(timeout);
+                test.setModelType(solver);
                 test.setObjectiveType(ObjectiveType.Makespan);
-                test.setNrThreads(4);
+                test.setNrThreads(nrThreads);
 
 //            info("Nr SolverRun " + base.getListSolverRun().size());
                 for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
                     info("Running " + run.getName());
-//                    new CPOModel(base, run).solve();
-                    new CPSatModel(base, run).solve();
+                    switch (solver) {
+                        case CPO -> new CPOModel(base, run).solve();
+                        case CPSat -> new CPSatModel(base, run).solve();
+                        case MiniZincDiffn -> new MiniZincDiffnModel(base, run).solve();
+                        default -> {
+                            severe("solver not supported " + solver);
+                            assert (false);
+                        }
+                    }
+
                 }
                 new WriteData(base).toFile(new File(outputFile), 2);
             }
@@ -334,7 +342,14 @@ public class TestAll {
                     String status = sol.getString("solverStatus");
                     double time = solverRun.getDouble("time");
                     double bound = sol.getDouble("bound");
-                    double gap = sol.getDouble("gap");
+                    double gapPercent=0.0;
+                    if (sol.has("gapPercent")) {
+                        gapPercent = sol.getDouble("gapPercent");
+                    } else if (sol.has("gap")){
+                        gapPercent = 100.0*sol.getDouble("gap");
+                    } else {
+                        warning("Solution has not gap information");
+                    }
                     int makespan = sol.getInt("makespan");
                     SolutionSummary s = new SolutionSummary(base);
                     s.setInstance(name);
@@ -346,13 +361,13 @@ public class TestAll {
                     s.setTime(time);
                     s.setMakespan(makespan);
                     s.setBound(bound);
-                    s.setGapPercent(100.0*gap);
+                    s.setGapPercent(gapPercent);
                     s.setVariant(variant);
 
 
-//                    info(name + " jobs " + nrJobs + " machines " + nrMachines + " status " + status + " time " + time + " makespan " + makespan + " bound " + bound + " gap " + gap*100.0);
+//                    info(name + " jobs " + nrJobs + " machines " + nrMachines + " status " + status + " time " + time + " makespan " + makespan + " bound " + bound + " gapPercent " + gapPercent);
                     out.printf("%s & %d & %d & %s & %5.2f & %d & %5.2f & %5.2f\\\\\n",
-                            name.replaceAll("_"," "),nrJobs,nrMachines,status,time,makespan,bound,gap*100.0);
+                            name.replaceAll("_"," "),nrJobs,nrMachines,status,time,makespan,bound,gapPercent);
 
                 } catch (IOException e) {
                     severe("Cannot read file " + fileName + ", exception " + e.getMessage());
