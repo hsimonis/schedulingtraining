@@ -545,7 +545,7 @@ public class ReadData {
                 if(requireFields(key,i,item,new String[]{"name","from","fromDate","cumulativeResource","capacity"})) {
                     String name = item.getString("name");
                     int from = item.getInt("from");
-                    DateTime fromDate = readDateTime(item.getString("fromDate"),from);
+                    DateTime fromDate = readDateTime(item.getString("fromDate"),from,name,"fromDate");
                     String rName = item.getString("cumulativeResource");
                     int capacity = item.getInt("capacity");
                     CumulativeResource r = cumulativeResourceHash.get(rName);
@@ -574,11 +574,14 @@ public class ReadData {
         return res;
     }
 
-    private DateTime readDateTime(String string,int value){
+    private DateTime readDateTime(String string,int value,String name,String attr){
         try{
+            if (string.equals("")){
+                return toDateTime(base,value);
+            }
             return DateTime.parseDateTime(string,dateTimeFormat);
         } catch(Exception e){
-            severe("Cannot parse DateTime from "+string);
+            severe("Cannot parse DateTime attribute "+attr+ " value "+string+" of time "+name);
             return toDateTime(base,value);
         }
     }
@@ -607,8 +610,8 @@ public class ReadData {
                     int due = item.getInt("due");
                     int release = item.getInt("release");
                     int nr = optionalInteger(item,"nr",i);
-                    DateTime dueDate = readDateTime(item.getString("dueDate"),due);
-                    DateTime releaseDate = readDateTime(item.getString("releaseDate"),release);
+                    DateTime dueDate = readDateTime(item.getString("dueDate"),due,name,"dueDate");
+                    DateTime releaseDate = readDateTime(item.getString("releaseDate"),release,name,"releaseDate");
                     double latenessWeight = 1.0;
                     if (item.has("latenessWeight")) {
                         latenessWeight = item.getDouble("latenessWeight");
@@ -769,8 +772,8 @@ public class ReadData {
                     int duration = item.getInt("duration");
                     int start = item.getInt("start");
                     int end = item.getInt("end");
-                    DateTime startDate = readDateTime(item.getString("startDate"),start);
-                    DateTime endDate = readDateTime(item.getString("endDate"),end);
+                    DateTime startDate = readDateTime(item.getString("startDate"),start,name,"startDate");
+                    DateTime endDate = readDateTime(item.getString("endDate"),end,name,"endDate");
                     DisjunctiveResource r = disjunctiveResourceHash.get(rName);
                     if (r == null) {
                         inputError(key, name, "disjunctiveResource", rName, "The required object does not exist", Fatal);
@@ -809,8 +812,8 @@ public class ReadData {
                     int start = item.getInt("start");
                     int end = item.getInt("end");
                     int duration = item.getInt("duration");
-                    DateTime startDate = readDateTime(item.getString("startDate"),start);
-                    DateTime endDate = readDateTime(item.getString("endDate"),end);
+                    DateTime startDate = readDateTime(item.getString("startDate"),start,name,"startDate");
+                    DateTime endDate = readDateTime(item.getString("endDate"),end,name,"endDate");
                     DisjunctiveResource r = disjunctiveResourceHash.get(rName);
                     if (r == null) {
                         inputError(key, name, "disjunctiveResource", rName, "The required object does not exist", Fatal);
@@ -958,8 +961,8 @@ public class ReadData {
                     int start = item.getInt("start");
                     int end = item.getInt("end");
                     int duration = item.getInt("duration");
-                    DateTime startDate = readDateTime(item.getString("startDate"),start);
-                    DateTime endDate = readDateTime(item.getString("endDate"),end);
+                    DateTime startDate = readDateTime(item.getString("startDate"),start,name,"startDate");
+                    DateTime endDate = readDateTime(item.getString("endDate"),end,name,"endDate");
                     int totalWaitBefore = item.getInt("totalWaitBefore");
                     int totalWaitAfter = item.getInt("totalWaitAfter");
                     int maxWaitBefore = item.getInt("maxWaitBefore");
@@ -1025,8 +1028,8 @@ public class ReadData {
                     int start = item.getInt("start");
                     int end = item.getInt("end");
                     int duration = item.getInt("duration");
-                    DateTime startDate = readDateTime(item.getString("startDate"),start);
-                    DateTime endDate = readDateTime(item.getString("endDate"),end);
+                    DateTime startDate = readDateTime(item.getString("startDate"),start,name,"startDate");
+                    DateTime endDate = readDateTime(item.getString("endDate"),end,name,"endDate");
                     int late = item.getInt("late");
                     int early = item.getInt("early");
                     Job j = jobHash.get(jName);
@@ -1079,8 +1082,8 @@ public class ReadData {
                     String rName = item.getString("disjunctiveResource");
                     int start = item.getInt("start");
                     int end = item.getInt("end");
-                    DateTime startDate = readDateTime(item.getString("startDate"),start);
-                    DateTime endDate = readDateTime(item.getString("endDate"),end);
+                    DateTime startDate = readDateTime(item.getString("startDate"),start,name,"startDate");
+                    DateTime endDate = readDateTime(item.getString("endDate"),end,name,"endDate");
                     int duration = item.getInt("duration");
                     int waitBefore = item.getInt("waitBefore");
                     int waitAfter = item.getInt("waitAfter");
