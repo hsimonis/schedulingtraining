@@ -1,0 +1,828 @@
+{
+    "product": [
+        {
+            "name": "product",
+            "defaultProcess": "process"
+        }
+    ],
+    "process": [
+        {
+            "name": "process"
+        }
+    ],
+    "disjunctiveResource": [],
+    "inputError": [],
+    "cumulativeNeed": [
+        {
+            "cumulativeResource": "CR_1",
+            "name": "CN_2_1",
+            "processStep": "PS_2",
+            "demand": 9
+        },
+        {
+            "cumulativeResource": "CR_3",
+            "name": "CN_3_3",
+            "processStep": "PS_3",
+            "demand": 4
+        },
+        {
+            "cumulativeResource": "CR_1",
+            "name": "CN_4_1",
+            "processStep": "PS_4",
+            "demand": 8
+        },
+        {
+            "cumulativeResource": "CR_3",
+            "name": "CN_5_3",
+            "processStep": "PS_5",
+            "demand": 3
+        },
+        {
+            "cumulativeResource": "CR_3",
+            "name": "CN_6_3",
+            "processStep": "PS_6",
+            "demand": 5
+        },
+        {
+            "cumulativeResource": "CR_2",
+            "name": "CN_7_2",
+            "processStep": "PS_7",
+            "demand": 8
+        },
+        {
+            "cumulativeResource": "CR_3",
+            "name": "CN_8_3",
+            "processStep": "PS_8",
+            "demand": 5
+        },
+        {
+            "cumulativeResource": "CR_4",
+            "name": "CN_9_4",
+            "processStep": "PS_9",
+            "demand": 10
+        },
+        {
+            "cumulativeResource": "CR_3",
+            "name": "CN_10_3",
+            "processStep": "PS_10",
+            "demand": 2
+        },
+        {
+            "cumulativeResource": "CR_2",
+            "name": "CN_11_2",
+            "processStep": "PS_11",
+            "demand": 6
+        },
+        {
+            "cumulativeResource": "CR_1",
+            "name": "CN_12_1",
+            "processStep": "PS_12",
+            "demand": 5
+        },
+        {
+            "cumulativeResource": "CR_3",
+            "name": "CN_13_3",
+            "processStep": "PS_13",
+            "demand": 3
+        },
+        {
+            "cumulativeResource": "CR_1",
+            "name": "CN_14_1",
+            "processStep": "PS_14",
+            "demand": 1
+        },
+        {
+            "cumulativeResource": "CR_4",
+            "name": "CN_15_4",
+            "processStep": "PS_15",
+            "demand": 4
+        },
+        {
+            "cumulativeResource": "CR_4",
+            "name": "CN_16_4",
+            "processStep": "PS_16",
+            "demand": 7
+        },
+        {
+            "cumulativeResource": "CR_4",
+            "name": "CN_17_4",
+            "processStep": "PS_17",
+            "demand": 3
+        },
+        {
+            "cumulativeResource": "CR_4",
+            "name": "CN_18_4",
+            "processStep": "PS_18",
+            "demand": 10
+        },
+        {
+            "cumulativeResource": "CR_3",
+            "name": "CN_19_3",
+            "processStep": "PS_19",
+            "demand": 6
+        },
+        {
+            "cumulativeResource": "CR_4",
+            "name": "CN_20_4",
+            "processStep": "PS_20",
+            "demand": 8
+        },
+        {
+            "cumulativeResource": "CR_1",
+            "name": "CN_21_1",
+            "processStep": "PS_21",
+            "demand": 7
+        },
+        {
+            "cumulativeResource": "CR_3",
+            "name": "CN_22_3",
+            "processStep": "PS_22",
+            "demand": 1
+        },
+        {
+            "cumulativeResource": "CR_4",
+            "name": "CN_23_4",
+            "processStep": "PS_23",
+            "demand": 10
+        },
+        {
+            "cumulativeResource": "CR_2",
+            "name": "CN_24_2",
+            "processStep": "PS_24",
+            "demand": 5
+        },
+        {
+            "cumulativeResource": "CR_1",
+            "name": "CN_25_1",
+            "processStep": "PS_25",
+            "demand": 5
+        },
+        {
+            "cumulativeResource": "CR_1",
+            "name": "CN_26_1",
+            "processStep": "PS_26",
+            "demand": 9
+        },
+        {
+            "cumulativeResource": "CR_1",
+            "name": "CN_27_1",
+            "processStep": "PS_27",
+            "demand": 6
+        },
+        {
+            "cumulativeResource": "CR_4",
+            "name": "CN_28_4",
+            "processStep": "PS_28",
+            "demand": 3
+        },
+        {
+            "cumulativeResource": "CR_2",
+            "name": "CN_29_2",
+            "processStep": "PS_29",
+            "demand": 5
+        },
+        {
+            "cumulativeResource": "CR_3",
+            "name": "CN_30_3",
+            "processStep": "PS_30",
+            "demand": 1
+        },
+        {
+            "cumulativeResource": "CR_2",
+            "name": "CN_31_2",
+            "processStep": "PS_31",
+            "demand": 7
+        }
+    ],
+    "processStep": [
+        {
+            "process": "process",
+            "name": "PS_2",
+            "durationFixed": 0,
+            "durationPerUnit": 9
+        },
+        {
+            "process": "process",
+            "name": "PS_3",
+            "durationFixed": 0,
+            "durationPerUnit": 3
+        },
+        {
+            "process": "process",
+            "name": "PS_4",
+            "durationFixed": 0,
+            "durationPerUnit": 9
+        },
+        {
+            "process": "process",
+            "name": "PS_5",
+            "durationFixed": 0,
+            "durationPerUnit": 3
+        },
+        {
+            "process": "process",
+            "name": "PS_6",
+            "durationFixed": 0,
+            "durationPerUnit": 7
+        },
+        {
+            "process": "process",
+            "name": "PS_7",
+            "durationFixed": 0,
+            "durationPerUnit": 10
+        },
+        {
+            "process": "process",
+            "name": "PS_8",
+            "durationFixed": 0,
+            "durationPerUnit": 1
+        },
+        {
+            "process": "process",
+            "name": "PS_9",
+            "durationFixed": 0,
+            "durationPerUnit": 5
+        },
+        {
+            "process": "process",
+            "name": "PS_10",
+            "durationFixed": 0,
+            "durationPerUnit": 9
+        },
+        {
+            "process": "process",
+            "name": "PS_11",
+            "durationFixed": 0,
+            "durationPerUnit": 3
+        },
+        {
+            "process": "process",
+            "name": "PS_12",
+            "durationFixed": 0,
+            "durationPerUnit": 4
+        },
+        {
+            "process": "process",
+            "name": "PS_13",
+            "durationFixed": 0,
+            "durationPerUnit": 8
+        },
+        {
+            "process": "process",
+            "name": "PS_14",
+            "durationFixed": 0,
+            "durationPerUnit": 9
+        },
+        {
+            "process": "process",
+            "name": "PS_15",
+            "durationFixed": 0,
+            "durationPerUnit": 9
+        },
+        {
+            "process": "process",
+            "name": "PS_16",
+            "durationFixed": 0,
+            "durationPerUnit": 1
+        },
+        {
+            "process": "process",
+            "name": "PS_17",
+            "durationFixed": 0,
+            "durationPerUnit": 9
+        },
+        {
+            "process": "process",
+            "name": "PS_18",
+            "durationFixed": 0,
+            "durationPerUnit": 1
+        },
+        {
+            "process": "process",
+            "name": "PS_19",
+            "durationFixed": 0,
+            "durationPerUnit": 2
+        },
+        {
+            "process": "process",
+            "name": "PS_20",
+            "durationFixed": 0,
+            "durationPerUnit": 2
+        },
+        {
+            "process": "process",
+            "name": "PS_21",
+            "durationFixed": 0,
+            "durationPerUnit": 6
+        },
+        {
+            "process": "process",
+            "name": "PS_22",
+            "durationFixed": 0,
+            "durationPerUnit": 4
+        },
+        {
+            "process": "process",
+            "name": "PS_23",
+            "durationFixed": 0,
+            "durationPerUnit": 9
+        },
+        {
+            "process": "process",
+            "name": "PS_24",
+            "durationFixed": 0,
+            "durationPerUnit": 9
+        },
+        {
+            "process": "process",
+            "name": "PS_25",
+            "durationFixed": 0,
+            "durationPerUnit": 8
+        },
+        {
+            "process": "process",
+            "name": "PS_26",
+            "durationFixed": 0,
+            "durationPerUnit": 4
+        },
+        {
+            "process": "process",
+            "name": "PS_27",
+            "durationFixed": 0,
+            "durationPerUnit": 1
+        },
+        {
+            "process": "process",
+            "name": "PS_28",
+            "durationFixed": 0,
+            "durationPerUnit": 1
+        },
+        {
+            "process": "process",
+            "name": "PS_29",
+            "durationFixed": 0,
+            "durationPerUnit": 7
+        },
+        {
+            "process": "process",
+            "name": "PS_30",
+            "durationFixed": 0,
+            "durationPerUnit": 9
+        },
+        {
+            "process": "process",
+            "name": "PS_31",
+            "durationFixed": 0,
+            "durationPerUnit": 4
+        }
+    ],
+    "label": "j3020_4",
+    "version": 8,
+    "resourceNeed": [],
+    "downtime": [],
+    "cumulativeProfile": [
+        {
+            "fromDate": "",
+            "cumulativeResource": "CR_1",
+            "name": "CP_1",
+            "from": 0,
+            "capacity": 18
+        },
+        {
+            "fromDate": "",
+            "cumulativeResource": "CR_2",
+            "name": "CP_2",
+            "from": 0,
+            "capacity": 14
+        },
+        {
+            "fromDate": "",
+            "cumulativeResource": "CR_3",
+            "name": "CP_3",
+            "from": 0,
+            "capacity": 19
+        },
+        {
+            "fromDate": "",
+            "cumulativeResource": "CR_4",
+            "name": "CP_4",
+            "from": 0,
+            "capacity": 14
+        }
+    ],
+    "problem": [
+        {
+            "timePointsAsDate": true,
+            "nrDisjunctiveResources": 0,
+            "nrOrders": 1,
+            "nrProcesses": 1,
+            "nrJobs": 0,
+            "nrProducts": 1,
+            "name": "Generated",
+            "nrTasks": 0,
+            "label": "j3020_4",
+            "nrCumulativeResources": 4
+        }
+    ],
+    "cumulativeResource": [
+        {
+            "name": "CR_1"
+        },
+        {
+            "name": "CR_2"
+        },
+        {
+            "name": "CR_3"
+        },
+        {
+            "name": "CR_4"
+        }
+    ],
+    "task": [],
+    "solution": [],
+    "taskAssignment": [],
+    "processSequence": [
+        {
+            "offset": 0,
+            "before": "PS_2",
+            "after": "PS_6",
+            "name": "Seq_PS_2_PS_6",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_2",
+            "after": "PS_12",
+            "name": "Seq_PS_2_PS_12",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_2",
+            "after": "PS_25",
+            "name": "Seq_PS_2_PS_25",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_3",
+            "after": "PS_5",
+            "name": "Seq_PS_3_PS_5",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_3",
+            "after": "PS_7",
+            "name": "Seq_PS_3_PS_7",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_3",
+            "after": "PS_28",
+            "name": "Seq_PS_3_PS_28",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_4",
+            "after": "PS_9",
+            "name": "Seq_PS_4_PS_9",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_4",
+            "after": "PS_11",
+            "name": "Seq_PS_4_PS_11",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_4",
+            "after": "PS_17",
+            "name": "Seq_PS_4_PS_17",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_5",
+            "after": "PS_17",
+            "name": "Seq_PS_5_PS_17",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_5",
+            "after": "PS_18",
+            "name": "Seq_PS_5_PS_18",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_6",
+            "after": "PS_10",
+            "name": "Seq_PS_6_PS_10",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_6",
+            "after": "PS_20",
+            "name": "Seq_PS_6_PS_20",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_6",
+            "after": "PS_22",
+            "name": "Seq_PS_6_PS_22",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_7",
+            "after": "PS_8",
+            "name": "Seq_PS_7_PS_8",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_7",
+            "after": "PS_13",
+            "name": "Seq_PS_7_PS_13",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_7",
+            "after": "PS_14",
+            "name": "Seq_PS_7_PS_14",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_8",
+            "after": "PS_16",
+            "name": "Seq_PS_8_PS_16",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_8",
+            "after": "PS_23",
+            "name": "Seq_PS_8_PS_23",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_9",
+            "after": "PS_14",
+            "name": "Seq_PS_9_PS_14",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_9",
+            "after": "PS_15",
+            "name": "Seq_PS_9_PS_15",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_9",
+            "after": "PS_26",
+            "name": "Seq_PS_9_PS_26",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_10",
+            "after": "PS_21",
+            "name": "Seq_PS_10_PS_21",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_10",
+            "after": "PS_24",
+            "name": "Seq_PS_10_PS_24",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_10",
+            "after": "PS_28",
+            "name": "Seq_PS_10_PS_28",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_11",
+            "after": "PS_16",
+            "name": "Seq_PS_11_PS_16",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_11",
+            "after": "PS_19",
+            "name": "Seq_PS_11_PS_19",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_11",
+            "after": "PS_24",
+            "name": "Seq_PS_11_PS_24",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_12",
+            "after": "PS_26",
+            "name": "Seq_PS_12_PS_26",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_13",
+            "after": "PS_25",
+            "name": "Seq_PS_13_PS_25",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_14",
+            "after": "PS_21",
+            "name": "Seq_PS_14_PS_21",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_14",
+            "after": "PS_22",
+            "name": "Seq_PS_14_PS_22",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_15",
+            "after": "PS_20",
+            "name": "Seq_PS_15_PS_20",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_16",
+            "after": "PS_21",
+            "name": "Seq_PS_16_PS_21",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_16",
+            "after": "PS_27",
+            "name": "Seq_PS_16_PS_27",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_17",
+            "after": "PS_20",
+            "name": "Seq_PS_17_PS_20",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_18",
+            "after": "PS_24",
+            "name": "Seq_PS_18_PS_24",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_18",
+            "after": "PS_27",
+            "name": "Seq_PS_18_PS_27",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_19",
+            "after": "PS_28",
+            "name": "Seq_PS_19_PS_28",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_20",
+            "after": "PS_23",
+            "name": "Seq_PS_20_PS_23",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_21",
+            "after": "PS_29",
+            "name": "Seq_PS_21_PS_29",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_21",
+            "after": "PS_31",
+            "name": "Seq_PS_21_PS_31",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_22",
+            "after": "PS_23",
+            "name": "Seq_PS_22_PS_23",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_22",
+            "after": "PS_27",
+            "name": "Seq_PS_22_PS_27",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_23",
+            "after": "PS_29",
+            "name": "Seq_PS_23_PS_29",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_23",
+            "after": "PS_31",
+            "name": "Seq_PS_23_PS_31",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_24",
+            "after": "PS_30",
+            "name": "Seq_PS_24_PS_30",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_24",
+            "after": "PS_31",
+            "name": "Seq_PS_24_PS_31",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_25",
+            "after": "PS_26",
+            "name": "Seq_PS_25_PS_26",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_26",
+            "after": "PS_30",
+            "name": "Seq_PS_26_PS_30",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_27",
+            "after": "PS_30",
+            "name": "Seq_PS_27_PS_30",
+            "sequenceType": "EndBeforeStart"
+        },
+        {
+            "offset": 0,
+            "before": "PS_28",
+            "after": "PS_29",
+            "name": "Seq_PS_28_PS_29",
+            "sequenceType": "EndBeforeStart"
+        }
+    ],
+    "solverRun": [],
+    "jobAssignment": [],
+    "job": [],
+    "order": [
+        {
+            "product": "product",
+            "process": "process",
+            "due": 43,
+            "releaseDate": "",
+            "release": 0,
+            "qty": 1,
+            "dueDate": "",
+            "name": "order",
+            "earlinessWeight": 1,
+            "latenessWeight": 1
+        }
+    ],
+    "wip": []
+}
