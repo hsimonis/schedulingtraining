@@ -241,6 +241,7 @@ public class CumulativeResourceViewerController extends JJAbstractChartControlle
 				previousTime = e.getX();
 
 			}
+			res.getData().add(new XYChart.Data<>(previousTime, previousDemand));
 			res.getData().add(new XYChart.Data<>(sol.getMakespan(), previousDemand));
 		}
 		return res;
@@ -248,7 +249,7 @@ public class CumulativeResourceViewerController extends JJAbstractChartControlle
 
 	private int usesResource(TaskAssignment ta,CumulativeResource r){
 		for(CumulativeNeed cn:base.getListCumulativeNeed()){
-			if (cn.getProcessStep()==ta.getTask().getProcessStep()){
+			if (cn.getProcessStep()==ta.getTask().getProcessStep() && cn.getCumulativeResource() == r){
 				return cn.getDemand();
 			}
 		}

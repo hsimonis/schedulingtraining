@@ -129,6 +129,7 @@ public class ReadData {
     }
 
     private void extendedConsistencyChecks() {
+        base.setHasDisjunctive(base.getListDisjunctiveResource().size()>0);
         seqBelongToSameProcess();
         processMustBeSingleton();
         processStepDurationNotZero();

@@ -49,12 +49,13 @@ public class TestAll {
     public static void main(String[] args) {
         Scenario base = new Scenario();
         boolean overWrite = false;
-////        testAll("imports/Taillard/OSS/","resultsCPSat/");
-//        base.resetListSolutionSummary();
-//        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard OpenShop (CPO)","oss","CPO");
-//        analyzeAll(base,"imports/Taillard/OSS/resultsCPSat/","Taillard OpenShop (CPSat)","ossCPSat","CPSat");
-//        compareSummaries(base,"compareoss",false,"CPO","CPSat",
-//                "Comparison of CPO and CPSat for Result Groups of Taillard OpenShop Problems",GroupType.Taillard);
+        testAll("imports/Taillard/OSS/","results/",CPO,4,600,overWrite);
+        testAll("imports/Taillard/OSS/","resultsCPSat/",CPSat,8,30,overWrite);
+        base.resetListSolutionSummary();
+        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard OpenShop (CPO)","oss","CPO");
+        analyzeAll(base,"imports/Taillard/OSS/resultsCPSat/","Taillard OpenShop (CPSat)","ossCPSat","CPSat");
+        compareSummaries(base,"compareoss",false,"CPO","CPSat",
+                "Comparison of CPO and CPSat for Result Groups of Taillard OpenShop Problems",GroupType.Taillard);
 //        testAll("imports/Taillard/JSS/","resultsCPSat/");
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"imports/Taillard/JSS/results/","Taillard JobShop (CPO)","jss","CPO");
@@ -74,11 +75,11 @@ public class TestAll {
 //        compareSummaries(base,"comparepfss",true,"FSS","PFSS",
 //                "Comparison of CPO for Result Groups of Permutation and Unrestricted FlowShop Problems",GroupType.Taillard);
 //        testSALBP("salbp/","resultsCPSat/",CPSat,8,30,overWrite);
-        base.resetListSolutionSummary();
-        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
-        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
-        compareSummaries(base,"comparesalbp",false,"CPO","CPSat",
-                "Comparison of CPO and CPSat for Result Groups of SALBP-1 Problems",GroupType.Salbp);
+//        base.resetListSolutionSummary();
+//        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
+//        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
+//        compareSummaries(base,"comparesalbp",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Result Groups of SALBP-1 Problems",GroupType.Salbp);
 ////        testTestScheduling("testscheduling/","resultsCPSat/");
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"testscheduling/results/","Test Scheduling Problems (CPO)","tsched","CPO");
@@ -98,14 +99,14 @@ public class TestAll {
     read each file, create a SolverRun to run it, run the test and write the result in the results subdirectory under the same name
     important: check the SolverRun for the correct test settings
      */
-    private static void testAll(String importDir,String resultDir){
+    private static void testAll(String importDir,String resultDir,ModelType solver,int nrThreads,int timeout,boolean overWrite){
         assert(importDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(importDir,".json");
 
         for(String fileName:list) {
             info("trying file " + fileName);
             String outputFile = importDir + resultDir + fileName;
-            if (!new File(outputFile).exists() /*&& fileName.startsWith("tai50_5")*/) {
+            if (overWrite || (!new File(outputFile).exists() /*&& fileName.startsWith("tai50_5")*/)) {
 
                 Scenario base = new Scenario();
                 base.setDataFileVersionNumber(8.0);
@@ -130,21 +131,24 @@ public class TestAll {
                 //??? we did run some experiments on flow shop to turn this on
                 //??? save the results in a different directory
                 test.setAddSameOrder(false);
-                test.setTimeout(600);
-//                test.setModelType(CPO);
-                test.setModelType(CPSat);
-//                test.setModelType(MiniZincDiffn);
+                test.setTimeout(timeout);
+                test.setModelType(solver);
 //                test.setSolverBackend(SolverBackend.Chuffed);
-                test.setSolverBackend(SolverBackend.CPSat);
                 test.setObjectiveType(ObjectiveType.Makespan);
-                test.setNrThreads(8);
+                test.setNrThreads(nrThreads);
 
 //            info("Nr SolverRun " + base.getListSolverRun().size());
                 for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
                     info("Running " + run.getName());
-//                    new CPOModel(base, run).solve();
-                    new CPSatModel(base, run).solve();
-//                    new MiniZincDiffnModel(base, run).solve();
+                    switch (solver) {
+                        case CPO -> new CPOModel(base, run).solve();
+                        case CPSat -> new CPSatModel(base, run).solve();
+                        case MiniZincDiffn -> new MiniZincDiffnModel(base, run).solve();
+                        default -> {
+                            severe("solver not supported " + solver);
+                            assert (false);
+                        }
+                    }
                 }
                 new WriteData(base).toFile(new File(outputFile), 2);
             }

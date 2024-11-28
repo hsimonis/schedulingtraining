@@ -373,7 +373,7 @@ public class CreateData {
         }
         Map<Order,List<Task>> grouped = base.getListTask().stream().collect(groupingBy(x->x.getJob().getOrder()));
         for(Order ord:grouped.keySet()){
-            ord.setMinDuration(grouped.get(ord).stream().mapToInt(Task::getDuration).sum());
+//            ord.setMinDuration(grouped.get(ord).stream().mapToInt(Task::getDuration).sum());
         }
     }
 
