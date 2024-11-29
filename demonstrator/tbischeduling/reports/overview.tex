@@ -59,7 +59,10 @@ While the results for CPO are clearly superior to the ones for CPSat for the 500
 
 \input{compareTrans}
 
-Note that there is a single 300 job instance 300\_2 for which CPSat did not find any solution within the timeout, so only 24 instances are compared.  
+Note that there is a single 300 job instance 300\_2 for which CPSat did not find any solution within the timeout, so only 24 instances are compared. 
+
+%\input{comparercpspj30} 
+\input{comparercpspj60} 
 
 \clearpage
 \chapter{Taillard Open Shop Problems}
@@ -149,5 +152,22 @@ Due to the number of instances given, we only run problems for 30 seconds, some 
 \subsection{Results for CPSat}
 
 \input{resultstransCPSat}
+
+\clearpage
+\chapter{RCPSP SingleMode}
+
+\section{Size J30}
+\subsection{CPO}
+\input{resultsrcpspj30CPO}
+
+\subsection{CPSat}
+\input{resultsrcpspj30CPSat}
+
+\section{Size J60}
+\subsection{CPO}
+\input{resultsrcpspj60CPO}
+
+\subsection{CPSat}
+\input{resultsrcpspj60CPSat}
 
 \end{document}

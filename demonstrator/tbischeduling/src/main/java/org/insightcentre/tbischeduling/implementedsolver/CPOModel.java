@@ -411,7 +411,7 @@ public class CPOModel extends AbstractModel{
                 String status = cp.getStatusString();
                 double bound = cp.getObjBound();
                 double gap = cp.getObjGap();
-                info("Solved Obj "+obj+" status "+status+" bound "+bound+" gap "+gap);
+                info("Solved Obj "+obj+" status "+status+" bound "+bound+" gapPercent "+100.0*gap);
                 Solution sol = new Solution(base);
                 sol.setName("Sol"+solNr++);
                 sol.setObjectiveValue(obj);

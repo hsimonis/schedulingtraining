@@ -49,13 +49,37 @@ public class TestAll {
     public static void main(String[] args) {
         Scenario base = new Scenario();
         boolean overWrite = false;
-        testAll("imports/Taillard/OSS/","results/",CPO,4,600,overWrite);
-        testAll("imports/Taillard/OSS/","resultsCPSat/",CPSat,8,30,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j30/","results/",CPO,4,600,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j30/","resultsCPSat/",CPSat,8,600,overWrite);
         base.resetListSolutionSummary();
-        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard OpenShop (CPO)","oss","CPO");
-        analyzeAll(base,"imports/Taillard/OSS/resultsCPSat/","Taillard OpenShop (CPSat)","ossCPSat","CPSat");
-        compareSummaries(base,"compareoss",false,"CPO","CPSat",
-                "Comparison of CPO and CPSat for Result Groups of Taillard OpenShop Problems",GroupType.Taillard);
+        analyzeAll(base,"imports/RCPSP/SingleMode/j30/results/","RCPSP J30 (CPO)","rcpspj30CPO","CPO");
+        analyzeAll(base,"imports/RCPSP/SingleMode/j30/resultsCPSat/","RCPSP J30 (CPSat)","rcpspj30CPSat","CPSat");
+//        compareSummaries(base,"comparercpspj30",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Results of RCPSP J30",GroupType.RCPSP);
+
+//        testAll("imports/RCPSP/SingleMode/j60/","results/",CPO,4,600,overWrite);
+        testAll("imports/RCPSP/SingleMode/j60/","resultsCPSat/",CPSat,8,600,overWrite);
+//        base.resetListSolutionSummary();
+        analyzeAll(base,"imports/RCPSP/SingleMode/j60/results/","RCPSP J60 (CPO)","rcpspj60CPO","CPO");
+        analyzeAll(base,"imports/RCPSP/SingleMode/j60/resultsCPSat/","RCPSP J60 (CPSat)","rcpspj60CPSat","CPSat");
+        compareSummaries(base,"comparercpspj60",false,"CPO","CPSat",
+                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
+
+//        testAll("imports/RCPSP/SingleMode/j90/","results/",CPO,4,600,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j90/","resultsCPSat/",CPSat,8,600,overWrite);
+//        base.resetListSolutionSummary();
+//        analyzeAll(base,"imports/RCPSP/SingleMode/j90/results/","RCPSP (CPO)","rcpspj90CPO","CPO");
+//        analyzeAll(base,"imports/RCPSP/SingleMode/j90/resultsCPSat/","RCPSP (CPSat)","rcpspj90CPSat","CPSat");
+//        compareSummaries(base,"comparercpspj90",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Results of RCPSP j90",GroupType.RCPSP);
+
+//        testAll("imports/Taillard/OSS/","results/",CPO,4,600,overWrite);
+//        testAll("imports/Taillard/OSS/","resultsCPSat/",CPSat,8,30,overWrite);
+//        base.resetListSolutionSummary();
+//        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard OpenShop (CPO)","oss","CPO");
+//        analyzeAll(base,"imports/Taillard/OSS/resultsCPSat/","Taillard OpenShop (CPSat)","ossCPSat","CPSat");
+//        compareSummaries(base,"compareoss",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Result Groups of Taillard OpenShop Problems",GroupType.Taillard);
 //        testAll("imports/Taillard/JSS/","resultsCPSat/");
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"imports/Taillard/JSS/results/","Taillard JobShop (CPO)","jss","CPO");
@@ -544,6 +568,7 @@ public class TestAll {
     static Hashtable<String,Group> groupHash = new Hashtable<>();
     private static Group grouper(SolutionSummary s,GroupType type){
         switch(type){
+            case RCPSP: return lookupGroup(s.getNrTasks()+"",s.getNrTasks(),0,0);
             case Taillard: return lookupGroup(s.getNrJobs()+"/"+s.getNrMachines(),s.getNrJobs(),s.getNrMachines(),0);
             case Salbp: return lookupGroup(s.getNrTasks()+"",s.getNrTasks(),0,0);
             case TestScheduling: return lookupGroup(s.getNrJobs()+"/"+s.getNrMachines()+"/"+s.getNrCumulatives(),s.getNrJobs(),s.getNrMachines(),s.getNrCumulatives());
