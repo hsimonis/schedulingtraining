@@ -59,14 +59,22 @@ While the results for CPO are clearly superior to the ones for CPSat for the 500
 
 \input{compareTrans}
 
-Note that there is a single 300 job instance 300\_2 for which CPSat did not find any solution within the timeout, so only 24 instances are compared. 
+Note that there is a single 300 job instance 300\_2 for which CPSat did not find any solution within the timeout, so only 24 instances are compared.
+
+The results for the single mode RCPSP problems do not use consistent settings, the smaller (j30 and j60) instances are run with a 600 seconds timeout, the j90 instances with a 30 seconds, and the j120 instances with a 60 second timeout. These larger instances should be rerun with a 600 seconds timeout, but that will require several days of CPU time.  
 
 %\input{comparercpspj30} 
-\input{comparercpspj60} 
+%\input{comparercpspj60} 
+%\input{comparercpspj90} 
+\input{comparercpspj120} 
+
+Overall, the results are similar to other problem sets. For all instance sets, both CPO and SPSat find and prove optimal solutions, 100\% for J30 instances, 90\% for j60 instances, 80\% for j90 instances, but only 45\% for j120 instances. While the times for the j30 instances are comparable, the overall time for the larger instances is significantly higher for CPSat. Detailed results shows that many instances are solved by both solvers in less than a second, the differences arise from relatively few instances that take much longer in CPSat, while there are only few instances where CPO takes longer than CPSat.
+
+For all non-optimal solutions, the solution quality obtained by both solvers within the timeout is nearly identical, with a very slight advantage for CPO for both solutions found and lower bound calculated.
 
 \clearpage
 \chapter{Taillard Open Shop Problems}
-All problems are solved to optimality, possible due to their small to moderate size.
+All problems are solved to optimality, possibly due to their small to moderate size.
 
 \section{Results for CPOptimizer}
 
@@ -156,6 +164,8 @@ Due to the number of instances given, we only run problems for 30 seconds, some 
 \clearpage
 \chapter{RCPSP SingleMode}
 
+The detailed result tables for the individual RCPSP instances show that many instances are solved with either solver in less than a second, but that there are a few families of problems which are more difficult to solve. For problem type J30, the sets 13, 29, and 45 are such examples, they are still solved to optimality, but the time required is larger. For bigger problem instances, the solvers are not able to find and prove the optimal solutions for such families, for example sets 9, 13 , 25, 29, 41, 45 for j60. It would be interesting to understand this better, and see which generator settings make these instance families more difficult to solve.
+
 \section{Size J30}
 \subsection{CPO}
 \input{resultsrcpspj30CPO}
@@ -169,5 +179,19 @@ Due to the number of instances given, we only run problems for 30 seconds, some 
 
 \subsection{CPSat}
 \input{resultsrcpspj60CPSat}
+
+\section{Size J90}
+\subsection{CPO}
+\input{resultsrcpspj90CPO}
+
+\subsection{CPSat}
+\input{resultsrcpspj90CPSat}
+
+\section{Size J120}
+\subsection{CPO}
+\input{resultsrcpspj120CPO}
+
+\subsection{CPSat}
+\input{resultsrcpspj120CPSat}
 
 \end{document}

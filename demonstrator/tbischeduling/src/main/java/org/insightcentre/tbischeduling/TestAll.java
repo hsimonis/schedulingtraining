@@ -58,20 +58,28 @@ public class TestAll {
 //                "Comparison of CPO and CPSat for Results of RCPSP J30",GroupType.RCPSP);
 
 //        testAll("imports/RCPSP/SingleMode/j60/","results/",CPO,4,600,overWrite);
-        testAll("imports/RCPSP/SingleMode/j60/","resultsCPSat/",CPSat,8,600,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j60/","resultsCPSat/",CPSat,8,600,overWrite);
 //        base.resetListSolutionSummary();
         analyzeAll(base,"imports/RCPSP/SingleMode/j60/results/","RCPSP J60 (CPO)","rcpspj60CPO","CPO");
         analyzeAll(base,"imports/RCPSP/SingleMode/j60/resultsCPSat/","RCPSP J60 (CPSat)","rcpspj60CPSat","CPSat");
-        compareSummaries(base,"comparercpspj60",false,"CPO","CPSat",
-                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
+//        compareSummaries(base,"comparercpspj60",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
 
-//        testAll("imports/RCPSP/SingleMode/j90/","results/",CPO,4,600,overWrite);
-//        testAll("imports/RCPSP/SingleMode/j90/","resultsCPSat/",CPSat,8,600,overWrite);
-//        base.resetListSolutionSummary();
-//        analyzeAll(base,"imports/RCPSP/SingleMode/j90/results/","RCPSP (CPO)","rcpspj90CPO","CPO");
-//        analyzeAll(base,"imports/RCPSP/SingleMode/j90/resultsCPSat/","RCPSP (CPSat)","rcpspj90CPSat","CPSat");
+//        testAll("imports/RCPSP/SingleMode/j90/","results/",CPO,4,30,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j90/","resultsCPSat/",CPSat,8,30,overWrite);
+ //       base.resetListSolutionSummary();
+        analyzeAll(base,"imports/RCPSP/SingleMode/j90/results/","RCPSP J90 (CPO)","rcpspj90CPO","CPO");
+        analyzeAll(base,"imports/RCPSP/SingleMode/j90/resultsCPSat/","RCPSP J90 (CPSat)","rcpspj90CPSat","CPSat");
 //        compareSummaries(base,"comparercpspj90",false,"CPO","CPSat",
-//                "Comparison of CPO and CPSat for Results of RCPSP j90",GroupType.RCPSP);
+//                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
+
+        testAll("imports/RCPSP/SingleMode/j120/","results/",CPO,4,60,overWrite);
+        testAll("imports/RCPSP/SingleMode/j120/","resultsCPSat/",CPSat,8,60,overWrite);
+        //       base.resetListSolutionSummary();
+        analyzeAll(base,"imports/RCPSP/SingleMode/j120/results/","RCPSP J120 (CPO)","rcpspj120CPO","CPO");
+        analyzeAll(base,"imports/RCPSP/SingleMode/j120/resultsCPSat/","RCPSP J120 (CPSat)","rcpspj120CPSat","CPSat");
+        compareSummaries(base,"comparercpspj120",false,"CPO","CPSat",
+                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
 
 //        testAll("imports/Taillard/OSS/","results/",CPO,4,600,overWrite);
 //        testAll("imports/Taillard/OSS/","resultsCPSat/",CPSat,8,30,overWrite);
