@@ -55,6 +55,8 @@ public class SchedulingReport extends AbstractReport{
     int makespan;
     int earliestStart;
     int latestEnd;
+    double placementWidth;
+    double placementHeight;
 
     public SchedulingReport(Scenario base, String reportDir){
         super(base,reportDir);
@@ -101,7 +103,7 @@ public class SchedulingReport extends AbstractReport{
                 xlabel("Stage").ylabel("Required Duration").
                 generate().latex(tex);
 
-        new BarPlot<>(base.getListCumulativeResource(),CumulativeResource::getName,this::cumulativeDemand).
+        new BarPlot<>(base.getListCumulativeResource(),x->safe(x.getName()),this::cumulativeDemand).
                 includeZero(true).
                 width(10).height(12).
                 title("Cumulative Demand (Resource Time) per Cumulative Resource").
@@ -114,23 +116,25 @@ public class SchedulingReport extends AbstractReport{
 //                title("Potential Disjunctive Demand (Resource Time) per Disjunctive Resource").
 //                xlabel("Resource").ylabel("Demand").
 //                generate().latex(tex);
-        BarPlot<DisjunctiveResource,String> bp = new BarPlot<>();
-        //??? must add each plot individually, cannot chain addPlot calls
-        bp.addPlot("WiP",base.getListDisjunctiveResource(),DisjunctiveResource::getName,this::wipDemand);
-        bp.addPlot("Downtime",base.getListDisjunctiveResource(),DisjunctiveResource::getName,this::downtimeDemand);
-        bp.addPlot("Required",base.getListDisjunctiveResource(),DisjunctiveResource::getName,this::requiredDisjunctiveDemand);
-        bp.addPlot("Potential",base.getListDisjunctiveResource(),DisjunctiveResource::getName,this::potentialDisjunctiveDemand);
-        bp.includeZero(true).
-                // needs fixed ordering to that plots align properly
-                ordering(BarPlotOrdering.LABEL).
-                // stack the bars on top of each other, otherwise there is not enough room
-                stacked().
-                // legend outside to not obstruct plot
-                legendPos("outer north east").
-                width(20).height(12).
-                title("Potential Disjunctive Demand (Resource Time) per Disjunctive Resource").
-                xlabel("Resource").ylabel("Demand").
-                generate().latex(tex);
+        if (base.getListDisjunctiveResource().size() > 0) {
+            BarPlot<DisjunctiveResource, String> bp = new BarPlot<>();
+            //??? must add each plot individually, cannot chain addPlot calls
+            bp.addPlot("WiP", base.getListDisjunctiveResource(), DisjunctiveResource::getName, this::wipDemand);
+            bp.addPlot("Downtime", base.getListDisjunctiveResource(), DisjunctiveResource::getName, this::downtimeDemand);
+            bp.addPlot("Required", base.getListDisjunctiveResource(), DisjunctiveResource::getName, this::requiredDisjunctiveDemand);
+            bp.addPlot("Potential", base.getListDisjunctiveResource(), DisjunctiveResource::getName, this::potentialDisjunctiveDemand);
+            bp.includeZero(true).
+                    // needs fixed ordering to that plots align properly
+                            ordering(BarPlotOrdering.LABEL).
+                    // stack the bars on top of each other, otherwise there is not enough room
+                            stacked().
+                    // legend outside to not obstruct plot
+                            legendPos("outer north east").
+                    width(20).height(12).
+                    title("Potential Disjunctive Demand (Resource Time) per Disjunctive Resource").
+                    xlabel("Resource").ylabel("Demand").
+                    generate().latex(tex);
+        }
 
         if (base.getListSolution().size() > 0) {
             clearpage();
@@ -175,14 +179,20 @@ public class SchedulingReport extends AbstractReport{
                         filter(x->x.getStart()<end).
                         toList()));
             }
-            machineGantt(sol,machines,activities,minStage,maxStage);
+            if (base.getListDisjunctiveResource().size() >0) {
+                machineGantt(sol, machines, activities, minStage, maxStage);
+            }
             jobGantt(sol,jobs,tasks,minStage,maxStage);
 
-            utilizationChart(sol);
+            if (base.getListDisjunctiveResource().size() >0) {
+                utilizationChart(sol);
+            }
             for(CumulativeResource cr:base.getListCumulativeResource()) {
                 cumulProfile(sol,cr);
             }
             latenessPlot(sol);
+
+            placementPlot(sol,23.0,10.0);
 
 
         } else {
@@ -611,7 +621,7 @@ public class SchedulingReport extends AbstractReport{
         pp.plotStyle(FIGURE).
                 legendPos("outer north east").
                 width(21).height(12).
-                caption("Cumulative Resource Use "+cr.getName()).
+                caption("Cumulative Resource Use "+safe(cr.getName())).
                 xlabel("Time").ylabel("Resource Use").
                 generate().latex(tex);
         info("Max "+pp.getYmax());
@@ -692,6 +702,131 @@ public class SchedulingReport extends AbstractReport{
             return ja.getLate();
         } else {
             return -ja.getEarly();
+        }
+    }
+
+    private void placementPlot(Solution sol,double width,double height){
+        for(CumulativeResource c:base.getListCumulativeResource()){
+            placementPlot(c,sol,width,height);
+        }
+    }
+
+    private void placementPlot(CumulativeResource c,Solution sol,double width,double height){
+        placementWidth = width;
+        placementHeight = height;
+        List<PlacedRectangle> rects = base.getListPlacedRectangle().stream().
+                filter(x->x.getCumulativeResource()==c).
+                filter(x->x.getTaskAssignment().getJobAssignment().getSolution()==sol).
+                toList();
+        int maxY = rects.stream().mapToInt(this::getEndY).max().orElse(1);
+        int maxX = rects.stream().mapToInt(this::getEndX).max().orElse(1);
+        tex.printf("\\begin{figure}[htbp]\n");
+        tex.printf("\\caption{Placement for %s}\n",safe(nameOf(c)));
+        tex.printf("\\begin{tikzpicture}\n");
+        grid(maxX,maxY);
+        for(PlacedRectangle r:rects){
+            tex.printf("\\draw[draw=black,fill=blue,fill opacity=0.2,text opacity=1.0] (%f,%f) rectangle node {\\tiny %s} (%f,%f);\n",
+                    xcoor(r.getX(),maxX),
+                    ycoor(r.getY(),maxY),
+                    r.getName(),
+                    xcoor(r.getX()+r.getW(),maxX),
+                    ycoor(r.getY()+r.getH(),maxY));
+        }
+        List<CumulativeProfile> profiles = base.getListCumulativeProfile().stream().
+                filter(x->x.getCumulativeResource()==c).
+                sorted(Comparator.comparing(CumulativeProfile::getFrom)).
+                toList();
+        int prevTime = 0;
+        int prevCapacity = 0;
+        for(CumulativeProfile cp:profiles){
+            tex.printf("\\draw[red,thick] (%f,%f) -- (%f,%f);\n",
+                    xcoor(prevTime,maxX),ycoor(prevCapacity,maxY),
+                    xcoor(cp.getFrom(),maxX),ycoor(prevCapacity,maxY));
+            tex.printf("\\draw[red,thick] (%f,%f) -- (%f,%f);\n",
+                    xcoor(cp.getFrom(),maxX),ycoor(prevCapacity,maxY),
+                    xcoor(cp.getFrom(),maxX),ycoor(cp.getCapacity(),maxY));
+            prevTime = cp.getFrom();
+            prevCapacity = cp.getCapacity();
+        }
+        tex.printf("\\draw[red,thick] (%f,%f) -- (%f,%f);\n",
+                xcoor(prevTime,maxX),ycoor(prevCapacity,maxY),
+                xcoor(maxX,maxX),ycoor(prevCapacity,maxY));
+        tex.printf("\\draw[red,thick] (%f,%f) -- (%f,%f);\n",
+                xcoor(maxX,maxX),ycoor(prevCapacity,maxY),
+                xcoor(maxX,maxX),ycoor(0,maxY));
+        tex.printf("\\end{tikzpicture}\n");
+        tex.printf("\\end{figure}\n\n");
+
+    }
+
+    private double xcoor(int x,int maxX){
+        return placementWidth*x/maxX;
+    }
+
+    private double ycoor(int y,int maxY){
+        return placementHeight*y/maxY;
+    }
+
+    private int getEndY(PlacedRectangle r){
+        return r.getY()+r.getH();
+    }
+
+    private int getEndX(PlacedRectangle r){
+        return r.getX()+r.getW();
+    }
+
+    private void grid(int maxX,int maxY){
+        double extension = 0.5;
+        double tickLength = 0.1;
+        tex.printf("\\draw[black,->] (%f,%f) -- (%f,%f);\n",
+                xcoor(0,maxX),ycoor(0,maxY),xcoor(maxX,maxX)+extension,ycoor(0,maxY));
+        tex.printf("\\draw[black,->] (%f,%f) -- (%f,%f);\n",
+                xcoor(0,maxX),ycoor(0,maxY),xcoor(0,maxX),ycoor(maxY,maxY)+extension);
+        int incX = scale(maxX);
+        int incY = scale(maxY);
+        for(int i=0;i<=maxX;i+=incX){
+            tex.printf("\\draw[black] (%f,%f) -- (%f,%f);\n",
+                    xcoor(i,maxX),ycoor(0,maxY),xcoor(i,maxX),ycoor(0,maxY)-tickLength);
+            tex.printf("\\node[below] at (%f,%f) {\\tiny %d};\n",
+                    xcoor(i,maxX),ycoor(0,maxY)-tickLength,i);
+
+        }
+        for(int i=0;i<=maxY;i+=incY){
+            tex.printf("\\draw[black] (%f,%f) -- (%f,%f);\n",
+                    xcoor(0,maxX),ycoor(i,maxY),xcoor(0,maxX)-tickLength,ycoor(i,maxY));
+            tex.printf("\\node[left] at (%f,%f) {\\tiny %d};\n",
+                    xcoor(0,maxX)-tickLength,ycoor(i,maxY),i);
+
+        }
+    }
+
+    private int scale(int max){
+        if (max <= 20) {
+            return 1;
+        } else if (max <= 50) {
+            return 2;
+        } else if (max <= 100) {
+            return 5;
+        } else if (max <= 200) {
+            return 10;
+        } else if (max <= 500) {
+            return 20;
+        } else if (max <= 1000) {
+            return 50;
+        } else if (max <= 2000) {
+            return 100;
+        } else if (max <= 5000) {
+            return 200;
+        } else if (max <= 10000) {
+            return 500;
+        } else if (max <= 20000) {
+            return 1000;
+        } else if (max <= 50000) {
+            return 2000;
+        } else if (max <= 100000) {
+            return 5000;
+        } else {
+            return 10000;
         }
     }
 

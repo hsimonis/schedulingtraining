@@ -42,6 +42,12 @@ import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.Transport;
 import org.insightcentre.tbischeduling.datamodel.TransportMatrix;
 import org.insightcentre.tbischeduling.datamodel.SolutionSummary;
+import org.insightcentre.tbischeduling.datamodel.LowerBound;
+import org.insightcentre.tbischeduling.datamodel.JobLowerBound;
+import org.insightcentre.tbischeduling.datamodel.DisjunctiveLowerBound;
+import org.insightcentre.tbischeduling.datamodel.CumulativeLowerBound;
+import org.insightcentre.tbischeduling.datamodel.MachineGroupLowerBound;
+import org.insightcentre.tbischeduling.datamodel.PlacedRectangle;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -405,6 +411,48 @@ public abstract class ApplicationDataset implements ApplicationDatasetInterface,
     List<SolutionSummary> listSolutionSummary = new ArrayList<SolutionSummary>();
 
 /**
+ *  This lists holds all items of class LowerBound and its subclasses
+ *
+*/
+
+    List<LowerBound> listLowerBound = new ArrayList<LowerBound>();
+
+/**
+ *  This lists holds all items of class JobLowerBound and its subclasses
+ *
+*/
+
+    List<JobLowerBound> listJobLowerBound = new ArrayList<JobLowerBound>();
+
+/**
+ *  This lists holds all items of class DisjunctiveLowerBound and its subclasses
+ *
+*/
+
+    List<DisjunctiveLowerBound> listDisjunctiveLowerBound = new ArrayList<DisjunctiveLowerBound>();
+
+/**
+ *  This lists holds all items of class CumulativeLowerBound and its subclasses
+ *
+*/
+
+    List<CumulativeLowerBound> listCumulativeLowerBound = new ArrayList<CumulativeLowerBound>();
+
+/**
+ *  This lists holds all items of class MachineGroupLowerBound and its subclasses
+ *
+*/
+
+    List<MachineGroupLowerBound> listMachineGroupLowerBound = new ArrayList<MachineGroupLowerBound>();
+
+/**
+ *  This lists holds all items of class PlacedRectangle and its subclasses
+ *
+*/
+
+    List<PlacedRectangle> listPlacedRectangle = new ArrayList<PlacedRectangle>();
+
+/**
  *  This is the static counter from which all id numbers are generated.It is used by all classes, so that ids are unique over all objects.
  *
 */
@@ -529,11 +577,13 @@ public int compareTo(ApplicationDataset ds2){
     public List<String> getListOfClassNames(){
         return Arrays.asList("ApplicationDifference",
                              "ApplicationWarning",
+                             "CumulativeLowerBound",
                              "CumulativeNeed",
                              "CumulativeProfile",
                              "CumulativeResource",
                              "DataGeneratorProperty",
                              "DataGeneratorRun",
+                             "DisjunctiveLowerBound",
                              "DisjunctiveResource",
                              "Downtime",
                              "GanttProperty",
@@ -541,7 +591,10 @@ public int compareTo(ApplicationDataset ds2){
                              "IntermediateSolution",
                              "Job",
                              "JobAssignment",
+                             "JobLowerBound",
+                             "MachineGroupLowerBound",
                              "Order",
+                             "PlacedRectangle",
                              "Problem",
                              "Process",
                              "ProcessSequence",
@@ -657,6 +710,12 @@ public int compareTo(ApplicationDataset ds2){
         resetListTransport();
         resetListTransportMatrix();
         resetListSolutionSummary();
+        resetListLowerBound();
+        resetListJobLowerBound();
+        resetListDisjunctiveLowerBound();
+        resetListCumulativeLowerBound();
+        resetListMachineGroupLowerBound();
+        resetListPlacedRectangle();
     }
 
 /**
@@ -2084,6 +2143,242 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  Iterator for list of class LowerBound
+ *
+*/
+
+    public Iterator<LowerBound> getIteratorLowerBound(){
+        return listLowerBound.iterator();
+    }
+
+/**
+ *  Getter for list of class LowerBound
+ *
+*/
+
+    public List<LowerBound> getListLowerBound(){
+        return listLowerBound;
+    }
+
+/**
+ *  reset the list of class LowerBound; use with care, does not call cascades
+ *
+*/
+
+    public void resetListLowerBound(){
+        listLowerBound = new ArrayList<LowerBound>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof LowerBound)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+        resetListJobLowerBound();
+        resetListDisjunctiveLowerBound();
+        resetListCumulativeLowerBound();
+        resetListMachineGroupLowerBound();
+    }
+
+/**
+ *  Iterator for list of class JobLowerBound
+ *
+*/
+
+    public Iterator<JobLowerBound> getIteratorJobLowerBound(){
+        return listJobLowerBound.iterator();
+    }
+
+/**
+ *  Getter for list of class JobLowerBound
+ *
+*/
+
+    public List<JobLowerBound> getListJobLowerBound(){
+        return listJobLowerBound;
+    }
+
+/**
+ *  reset the list of class JobLowerBound; use with care, does not call cascades
+ *
+*/
+
+    public void resetListJobLowerBound(){
+        listJobLowerBound = new ArrayList<JobLowerBound>();
+        List<LowerBound> newListLowerBound = new ArrayList<LowerBound>();
+        for(LowerBound a:listLowerBound){
+            if (!(a instanceof JobLowerBound)){
+                newListLowerBound.add(a);
+            }
+        }
+       listLowerBound = newListLowerBound;
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof JobLowerBound)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class DisjunctiveLowerBound
+ *
+*/
+
+    public Iterator<DisjunctiveLowerBound> getIteratorDisjunctiveLowerBound(){
+        return listDisjunctiveLowerBound.iterator();
+    }
+
+/**
+ *  Getter for list of class DisjunctiveLowerBound
+ *
+*/
+
+    public List<DisjunctiveLowerBound> getListDisjunctiveLowerBound(){
+        return listDisjunctiveLowerBound;
+    }
+
+/**
+ *  reset the list of class DisjunctiveLowerBound; use with care, does not call cascades
+ *
+*/
+
+    public void resetListDisjunctiveLowerBound(){
+        listDisjunctiveLowerBound = new ArrayList<DisjunctiveLowerBound>();
+        List<LowerBound> newListLowerBound = new ArrayList<LowerBound>();
+        for(LowerBound a:listLowerBound){
+            if (!(a instanceof DisjunctiveLowerBound)){
+                newListLowerBound.add(a);
+            }
+        }
+       listLowerBound = newListLowerBound;
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof DisjunctiveLowerBound)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class CumulativeLowerBound
+ *
+*/
+
+    public Iterator<CumulativeLowerBound> getIteratorCumulativeLowerBound(){
+        return listCumulativeLowerBound.iterator();
+    }
+
+/**
+ *  Getter for list of class CumulativeLowerBound
+ *
+*/
+
+    public List<CumulativeLowerBound> getListCumulativeLowerBound(){
+        return listCumulativeLowerBound;
+    }
+
+/**
+ *  reset the list of class CumulativeLowerBound; use with care, does not call cascades
+ *
+*/
+
+    public void resetListCumulativeLowerBound(){
+        listCumulativeLowerBound = new ArrayList<CumulativeLowerBound>();
+        List<LowerBound> newListLowerBound = new ArrayList<LowerBound>();
+        for(LowerBound a:listLowerBound){
+            if (!(a instanceof CumulativeLowerBound)){
+                newListLowerBound.add(a);
+            }
+        }
+       listLowerBound = newListLowerBound;
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof CumulativeLowerBound)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class MachineGroupLowerBound
+ *
+*/
+
+    public Iterator<MachineGroupLowerBound> getIteratorMachineGroupLowerBound(){
+        return listMachineGroupLowerBound.iterator();
+    }
+
+/**
+ *  Getter for list of class MachineGroupLowerBound
+ *
+*/
+
+    public List<MachineGroupLowerBound> getListMachineGroupLowerBound(){
+        return listMachineGroupLowerBound;
+    }
+
+/**
+ *  reset the list of class MachineGroupLowerBound; use with care, does not call cascades
+ *
+*/
+
+    public void resetListMachineGroupLowerBound(){
+        listMachineGroupLowerBound = new ArrayList<MachineGroupLowerBound>();
+        List<LowerBound> newListLowerBound = new ArrayList<LowerBound>();
+        for(LowerBound a:listLowerBound){
+            if (!(a instanceof MachineGroupLowerBound)){
+                newListLowerBound.add(a);
+            }
+        }
+       listLowerBound = newListLowerBound;
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof MachineGroupLowerBound)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
+ *  Iterator for list of class PlacedRectangle
+ *
+*/
+
+    public Iterator<PlacedRectangle> getIteratorPlacedRectangle(){
+        return listPlacedRectangle.iterator();
+    }
+
+/**
+ *  Getter for list of class PlacedRectangle
+ *
+*/
+
+    public List<PlacedRectangle> getListPlacedRectangle(){
+        return listPlacedRectangle;
+    }
+
+/**
+ *  reset the list of class PlacedRectangle; use with care, does not call cascades
+ *
+*/
+
+    public void resetListPlacedRectangle(){
+        listPlacedRectangle = new ArrayList<PlacedRectangle>();
+        List<ApplicationObject> newListApplicationObject = new ArrayList<ApplicationObject>();
+        for(ApplicationObject a:listApplicationObject){
+            if (!(a instanceof PlacedRectangle)){
+                newListApplicationObject.add(a);
+            }
+        }
+       listApplicationObject = newListApplicationObject;
+    }
+
+/**
  *  Generate a new id number, used in constructor calls
  *
 */
@@ -2899,6 +3194,96 @@ public int compareTo(ApplicationDataset ds2){
          }
         }
         for(TransportMatrix b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class Job; remove all dependent objects of class JobLowerBound which refer to item through their attribute job
+ *
+*/
+
+    public void cascadeJobLowerBoundJob(Job item){
+        assert item != null;
+        List<JobLowerBound> toRemove = new ArrayList<JobLowerBound>();
+        for(JobLowerBound a:getListJobLowerBound()) {
+         if (a.getJob() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(JobLowerBound b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class DisjunctiveResource; remove all dependent objects of class DisjunctiveLowerBound which refer to item through their attribute disjunctiveResource
+ *
+*/
+
+    public void cascadeDisjunctiveLowerBoundDisjunctiveResource(DisjunctiveResource item){
+        assert item != null;
+        List<DisjunctiveLowerBound> toRemove = new ArrayList<DisjunctiveLowerBound>();
+        for(DisjunctiveLowerBound a:getListDisjunctiveLowerBound()) {
+         if (a.getDisjunctiveResource() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(DisjunctiveLowerBound b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class CumulativeResource; remove all dependent objects of class CumulativeLowerBound which refer to item through their attribute cumulativeResource
+ *
+*/
+
+    public void cascadeCumulativeLowerBoundCumulativeResource(CumulativeResource item){
+        assert item != null;
+        List<CumulativeLowerBound> toRemove = new ArrayList<CumulativeLowerBound>();
+        for(CumulativeLowerBound a:getListCumulativeLowerBound()) {
+         if (a.getCumulativeResource() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(CumulativeLowerBound b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class CumulativeResource; remove all dependent objects of class PlacedRectangle which refer to item through their attribute cumulativeResource
+ *
+*/
+
+    public void cascadePlacedRectangleCumulativeResource(CumulativeResource item){
+        assert item != null;
+        List<PlacedRectangle> toRemove = new ArrayList<PlacedRectangle>();
+        for(PlacedRectangle a:getListPlacedRectangle()) {
+         if (a.getCumulativeResource() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(PlacedRectangle b:toRemove) {
+            b.remove();
+        }
+    }
+
+/**
+ *  Removing object item of class TaskAssignment; remove all dependent objects of class PlacedRectangle which refer to item through their attribute taskAssignment
+ *
+*/
+
+    public void cascadePlacedRectangleTaskAssignment(TaskAssignment item){
+        assert item != null;
+        List<PlacedRectangle> toRemove = new ArrayList<PlacedRectangle>();
+        for(PlacedRectangle a:getListPlacedRectangle()) {
+         if (a.getTaskAssignment() == item) {
+            toRemove.add(a);
+         }
+        }
+        for(PlacedRectangle b:toRemove) {
             b.remove();
         }
     }
@@ -3744,6 +4129,126 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ *  add an item to the list for class LowerBound
+ *
+*/
+
+    public void addLowerBound(LowerBound lowerBound){
+        assert lowerBound != null;
+        this.listLowerBound.add(lowerBound);
+    }
+
+/**
+ *  remove an item from the list for class LowerBound
+ *
+*/
+
+    public Boolean removeLowerBound(LowerBound lowerBound){
+        assert lowerBound != null;
+        return this.listLowerBound.remove(lowerBound);
+    }
+
+/**
+ *  add an item to the list for class JobLowerBound
+ *
+*/
+
+    public void addJobLowerBound(JobLowerBound jobLowerBound){
+        assert jobLowerBound != null;
+        this.listJobLowerBound.add(jobLowerBound);
+    }
+
+/**
+ *  remove an item from the list for class JobLowerBound
+ *
+*/
+
+    public Boolean removeJobLowerBound(JobLowerBound jobLowerBound){
+        assert jobLowerBound != null;
+        return this.listJobLowerBound.remove(jobLowerBound);
+    }
+
+/**
+ *  add an item to the list for class DisjunctiveLowerBound
+ *
+*/
+
+    public void addDisjunctiveLowerBound(DisjunctiveLowerBound disjunctiveLowerBound){
+        assert disjunctiveLowerBound != null;
+        this.listDisjunctiveLowerBound.add(disjunctiveLowerBound);
+    }
+
+/**
+ *  remove an item from the list for class DisjunctiveLowerBound
+ *
+*/
+
+    public Boolean removeDisjunctiveLowerBound(DisjunctiveLowerBound disjunctiveLowerBound){
+        assert disjunctiveLowerBound != null;
+        return this.listDisjunctiveLowerBound.remove(disjunctiveLowerBound);
+    }
+
+/**
+ *  add an item to the list for class CumulativeLowerBound
+ *
+*/
+
+    public void addCumulativeLowerBound(CumulativeLowerBound cumulativeLowerBound){
+        assert cumulativeLowerBound != null;
+        this.listCumulativeLowerBound.add(cumulativeLowerBound);
+    }
+
+/**
+ *  remove an item from the list for class CumulativeLowerBound
+ *
+*/
+
+    public Boolean removeCumulativeLowerBound(CumulativeLowerBound cumulativeLowerBound){
+        assert cumulativeLowerBound != null;
+        return this.listCumulativeLowerBound.remove(cumulativeLowerBound);
+    }
+
+/**
+ *  add an item to the list for class MachineGroupLowerBound
+ *
+*/
+
+    public void addMachineGroupLowerBound(MachineGroupLowerBound machineGroupLowerBound){
+        assert machineGroupLowerBound != null;
+        this.listMachineGroupLowerBound.add(machineGroupLowerBound);
+    }
+
+/**
+ *  remove an item from the list for class MachineGroupLowerBound
+ *
+*/
+
+    public Boolean removeMachineGroupLowerBound(MachineGroupLowerBound machineGroupLowerBound){
+        assert machineGroupLowerBound != null;
+        return this.listMachineGroupLowerBound.remove(machineGroupLowerBound);
+    }
+
+/**
+ *  add an item to the list for class PlacedRectangle
+ *
+*/
+
+    public void addPlacedRectangle(PlacedRectangle placedRectangle){
+        assert placedRectangle != null;
+        this.listPlacedRectangle.add(placedRectangle);
+    }
+
+/**
+ *  remove an item from the list for class PlacedRectangle
+ *
+*/
+
+    public Boolean removePlacedRectangle(PlacedRectangle placedRectangle){
+        assert placedRectangle != null;
+        return this.listPlacedRectangle.remove(placedRectangle);
+    }
+
+/**
  *  dump all items on the console for debugging
  *
 */
@@ -3753,6 +4258,9 @@ public int compareTo(ApplicationDataset ds2){
             System.out.println(x);
         }
         for(ApplicationWarning x:getListApplicationWarning()){
+            System.out.println(x);
+        }
+        for(CumulativeLowerBound x:getListCumulativeLowerBound()){
             System.out.println(x);
         }
         for(CumulativeNeed x:getListCumulativeNeed()){
@@ -3768,6 +4276,9 @@ public int compareTo(ApplicationDataset ds2){
             System.out.println(x);
         }
         for(DataGeneratorRun x:getListDataGeneratorRun()){
+            System.out.println(x);
+        }
+        for(DisjunctiveLowerBound x:getListDisjunctiveLowerBound()){
             System.out.println(x);
         }
         for(DisjunctiveResource x:getListDisjunctiveResource()){
@@ -3791,7 +4302,16 @@ public int compareTo(ApplicationDataset ds2){
         for(JobAssignment x:getListJobAssignment()){
             System.out.println(x);
         }
+        for(JobLowerBound x:getListJobLowerBound()){
+            System.out.println(x);
+        }
+        for(MachineGroupLowerBound x:getListMachineGroupLowerBound()){
+            System.out.println(x);
+        }
         for(Order x:getListOrder()){
+            System.out.println(x);
+        }
+        for(PlacedRectangle x:getListPlacedRectangle()){
             System.out.println(x);
         }
         for(Problem x:getListProblem()){
@@ -3899,6 +4419,9 @@ public int compareTo(ApplicationDataset ds2){
         for(ApplicationWarning x:getListApplicationWarning()){
             if (x.getClass().equals(ApplicationWarning.class)) x.toXML(out);
         }
+        for(CumulativeLowerBound x:getListCumulativeLowerBound()){
+            if (x.getClass().equals(CumulativeLowerBound.class)) x.toXML(out);
+        }
         for(CumulativeNeed x:getListCumulativeNeed()){
             if (x.getClass().equals(CumulativeNeed.class)) x.toXML(out);
         }
@@ -3913,6 +4436,9 @@ public int compareTo(ApplicationDataset ds2){
         }
         for(DataGeneratorRun x:getListDataGeneratorRun()){
             if (x.getClass().equals(DataGeneratorRun.class)) x.toXML(out);
+        }
+        for(DisjunctiveLowerBound x:getListDisjunctiveLowerBound()){
+            if (x.getClass().equals(DisjunctiveLowerBound.class)) x.toXML(out);
         }
         for(DisjunctiveResource x:getListDisjunctiveResource()){
             if (x.getClass().equals(DisjunctiveResource.class)) x.toXML(out);
@@ -3935,8 +4461,17 @@ public int compareTo(ApplicationDataset ds2){
         for(JobAssignment x:getListJobAssignment()){
             if (x.getClass().equals(JobAssignment.class)) x.toXML(out);
         }
+        for(JobLowerBound x:getListJobLowerBound()){
+            if (x.getClass().equals(JobLowerBound.class)) x.toXML(out);
+        }
+        for(MachineGroupLowerBound x:getListMachineGroupLowerBound()){
+            if (x.getClass().equals(MachineGroupLowerBound.class)) x.toXML(out);
+        }
         for(Order x:getListOrder()){
             if (x.getClass().equals(Order.class)) x.toXML(out);
+        }
+        for(PlacedRectangle x:getListPlacedRectangle()){
+            if (x.getClass().equals(PlacedRectangle.class)) x.toXML(out);
         }
         for(Problem x:getListProblem()){
             if (x.getClass().equals(Problem.class)) x.toXML(out);
@@ -4094,11 +4629,13 @@ public int compareTo(ApplicationDataset ds2){
         ApplicationDataset compare = (ApplicationDataset) c;
         System.out.println("Comparing ApplicationDataset");
         compareApplicationWarning(this.getListApplicationWarning(),compare.getListApplicationWarning());
+        compareCumulativeLowerBound(this.getListCumulativeLowerBound(),compare.getListCumulativeLowerBound());
         compareCumulativeNeed(this.getListCumulativeNeed(),compare.getListCumulativeNeed());
         compareCumulativeProfile(this.getListCumulativeProfile(),compare.getListCumulativeProfile());
         compareCumulativeResource(this.getListCumulativeResource(),compare.getListCumulativeResource());
         compareDataGeneratorProperty(this.getListDataGeneratorProperty(),compare.getListDataGeneratorProperty());
         compareDataGeneratorRun(this.getListDataGeneratorRun(),compare.getListDataGeneratorRun());
+        compareDisjunctiveLowerBound(this.getListDisjunctiveLowerBound(),compare.getListDisjunctiveLowerBound());
         compareDisjunctiveResource(this.getListDisjunctiveResource(),compare.getListDisjunctiveResource());
         compareDowntime(this.getListDowntime(),compare.getListDowntime());
         compareGanttProperty(this.getListGanttProperty(),compare.getListGanttProperty());
@@ -4106,7 +4643,10 @@ public int compareTo(ApplicationDataset ds2){
         compareIntermediateSolution(this.getListIntermediateSolution(),compare.getListIntermediateSolution());
         compareJob(this.getListJob(),compare.getListJob());
         compareJobAssignment(this.getListJobAssignment(),compare.getListJobAssignment());
+        compareJobLowerBound(this.getListJobLowerBound(),compare.getListJobLowerBound());
+        compareMachineGroupLowerBound(this.getListMachineGroupLowerBound(),compare.getListMachineGroupLowerBound());
         compareOrder(this.getListOrder(),compare.getListOrder());
+        comparePlacedRectangle(this.getListPlacedRectangle(),compare.getListPlacedRectangle());
         compareProblem(this.getListProblem(),compare.getListProblem());
         compareProcess(this.getListProcess(),compare.getListProcess());
         compareProcessSequence(this.getListProcessSequence(),compare.getListProcessSequence());
@@ -4150,6 +4690,30 @@ public int compareTo(ApplicationDataset ds2){
             ApplicationWarning a = ApplicationWarning.find(b,aList);
             if (a == null) {
                 new ApplicationDifference(this,ApplicationDataset.getIdNr(),"ApplicationWarning B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types CumulativeLowerBound, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareCumulativeLowerBound(List<CumulativeLowerBound> aList,List<CumulativeLowerBound> bList){
+        System.out.println("Comparing CumulativeLowerBound");
+        for(CumulativeLowerBound a:aList){
+            CumulativeLowerBound b= CumulativeLowerBound.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeLowerBound A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeLowerBound A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeLowerBound B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(CumulativeLowerBound b: bList){
+            CumulativeLowerBound a = CumulativeLowerBound.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"CumulativeLowerBound B",b.toString(),DifferenceType.ONLYB);
             }
         }
     }
@@ -4270,6 +4834,30 @@ public int compareTo(ApplicationDataset ds2){
             DataGeneratorRun a = DataGeneratorRun.find(b,aList);
             if (a == null) {
                 new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DataGeneratorRun B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types DisjunctiveLowerBound, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareDisjunctiveLowerBound(List<DisjunctiveLowerBound> aList,List<DisjunctiveLowerBound> bList){
+        System.out.println("Comparing DisjunctiveLowerBound");
+        for(DisjunctiveLowerBound a:aList){
+            DisjunctiveLowerBound b= DisjunctiveLowerBound.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DisjunctiveLowerBound A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DisjunctiveLowerBound A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DisjunctiveLowerBound B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(DisjunctiveLowerBound b: bList){
+            DisjunctiveLowerBound a = DisjunctiveLowerBound.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"DisjunctiveLowerBound B",b.toString(),DifferenceType.ONLYB);
             }
         }
     }
@@ -4443,6 +5031,54 @@ public int compareTo(ApplicationDataset ds2){
     }
 
 /**
+ * compare two lists of types JobLowerBound, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareJobLowerBound(List<JobLowerBound> aList,List<JobLowerBound> bList){
+        System.out.println("Comparing JobLowerBound");
+        for(JobLowerBound a:aList){
+            JobLowerBound b= JobLowerBound.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"JobLowerBound A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"JobLowerBound A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"JobLowerBound B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(JobLowerBound b: bList){
+            JobLowerBound a = JobLowerBound.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"JobLowerBound B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types MachineGroupLowerBound, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void compareMachineGroupLowerBound(List<MachineGroupLowerBound> aList,List<MachineGroupLowerBound> bList){
+        System.out.println("Comparing MachineGroupLowerBound");
+        for(MachineGroupLowerBound a:aList){
+            MachineGroupLowerBound b= MachineGroupLowerBound.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"MachineGroupLowerBound A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"MachineGroupLowerBound A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"MachineGroupLowerBound B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(MachineGroupLowerBound b: bList){
+            MachineGroupLowerBound a = MachineGroupLowerBound.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"MachineGroupLowerBound B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
  * compare two lists of types Order, create AppplicationWarnings for items which are in only one of the lists
  * or for items which are applicationSame(), but not applicationEqual()
 */
@@ -4462,6 +5098,30 @@ public int compareTo(ApplicationDataset ds2){
             Order a = Order.find(b,aList);
             if (a == null) {
                 new ApplicationDifference(this,ApplicationDataset.getIdNr(),"Order B",b.toString(),DifferenceType.ONLYB);
+            }
+        }
+    }
+
+/**
+ * compare two lists of types PlacedRectangle, create AppplicationWarnings for items which are in only one of the lists
+ * or for items which are applicationSame(), but not applicationEqual()
+*/
+
+    public void comparePlacedRectangle(List<PlacedRectangle> aList,List<PlacedRectangle> bList){
+        System.out.println("Comparing PlacedRectangle");
+        for(PlacedRectangle a:aList){
+            PlacedRectangle b= PlacedRectangle.find(a,bList);
+            if (b == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"PlacedRectangle A",a.prettyString(),DifferenceType.ONLYA);
+            } else if (!a.applicationEqual(b)){
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"PlacedRectangle A",a.prettyString(),DifferenceType.DIFFERA);
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"PlacedRectangle B",b.prettyString(),DifferenceType.DIFFERB);
+            }
+        }
+        for(PlacedRectangle b: bList){
+            PlacedRectangle a = PlacedRectangle.find(b,aList);
+            if (a == null) {
+                new ApplicationDifference(this,ApplicationDataset.getIdNr(),"PlacedRectangle B",b.toString(),DifferenceType.ONLYB);
             }
         }
     }
@@ -4953,11 +5613,13 @@ public int compareTo(ApplicationDataset ds2){
 
     public void checkAll(){
         checkApplicationWarning(this.getListApplicationWarning());
+        checkCumulativeLowerBound(this.getListCumulativeLowerBound());
         checkCumulativeNeed(this.getListCumulativeNeed());
         checkCumulativeProfile(this.getListCumulativeProfile());
         checkCumulativeResource(this.getListCumulativeResource());
         checkDataGeneratorProperty(this.getListDataGeneratorProperty());
         checkDataGeneratorRun(this.getListDataGeneratorRun());
+        checkDisjunctiveLowerBound(this.getListDisjunctiveLowerBound());
         checkDisjunctiveResource(this.getListDisjunctiveResource());
         checkDowntime(this.getListDowntime());
         checkGanttProperty(this.getListGanttProperty());
@@ -4965,7 +5627,10 @@ public int compareTo(ApplicationDataset ds2){
         checkIntermediateSolution(this.getListIntermediateSolution());
         checkJob(this.getListJob());
         checkJobAssignment(this.getListJobAssignment());
+        checkJobLowerBound(this.getListJobLowerBound());
+        checkMachineGroupLowerBound(this.getListMachineGroupLowerBound());
         checkOrder(this.getListOrder());
+        checkPlacedRectangle(this.getListPlacedRectangle());
         checkProblem(this.getListProblem());
         checkProcess(this.getListProcess());
         checkProcessSequence(this.getListProcessSequence());
@@ -4996,6 +5661,17 @@ public int compareTo(ApplicationDataset ds2){
 
     public void checkApplicationWarning(List<ApplicationWarning> list){
         for(ApplicationWarning a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<CumulativeLowerBound> dataset list of all items of type CumulativeLowerBound
+*/
+
+    public void checkCumulativeLowerBound(List<CumulativeLowerBound> list){
+        for(CumulativeLowerBound a:list){
             a.check();
         }
     }
@@ -5051,6 +5727,17 @@ public int compareTo(ApplicationDataset ds2){
 
     public void checkDataGeneratorRun(List<DataGeneratorRun> list){
         for(DataGeneratorRun a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<DisjunctiveLowerBound> dataset list of all items of type DisjunctiveLowerBound
+*/
+
+    public void checkDisjunctiveLowerBound(List<DisjunctiveLowerBound> list){
+        for(DisjunctiveLowerBound a:list){
             a.check();
         }
     }
@@ -5134,11 +5821,44 @@ public int compareTo(ApplicationDataset ds2){
 
 /**
  * helper method for checkAll()
+ * @param list List<JobLowerBound> dataset list of all items of type JobLowerBound
+*/
+
+    public void checkJobLowerBound(List<JobLowerBound> list){
+        for(JobLowerBound a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<MachineGroupLowerBound> dataset list of all items of type MachineGroupLowerBound
+*/
+
+    public void checkMachineGroupLowerBound(List<MachineGroupLowerBound> list){
+        for(MachineGroupLowerBound a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
  * @param list List<Order> dataset list of all items of type Order
 */
 
     public void checkOrder(List<Order> list){
         for(Order a:list){
+            a.check();
+        }
+    }
+
+/**
+ * helper method for checkAll()
+ * @param list List<PlacedRectangle> dataset list of all items of type PlacedRectangle
+*/
+
+    public void checkPlacedRectangle(List<PlacedRectangle> list){
+        for(PlacedRectangle a:list){
             a.check();
         }
     }
@@ -5377,11 +6097,13 @@ public int compareTo(ApplicationDataset ds2){
    public void generateDummies(){
         ApplicationDifference.dummy(this);
         ApplicationWarning.dummy(this);
+        CumulativeLowerBound.dummy(this);
         CumulativeNeed.dummy(this);
         CumulativeProfile.dummy(this);
         CumulativeResource.dummy(this);
         DataGeneratorProperty.dummy(this);
         DataGeneratorRun.dummy(this);
+        DisjunctiveLowerBound.dummy(this);
         DisjunctiveResource.dummy(this);
         Downtime.dummy(this);
         GanttProperty.dummy(this);
@@ -5389,7 +6111,10 @@ public int compareTo(ApplicationDataset ds2){
         IntermediateSolution.dummy(this);
         Job.dummy(this);
         JobAssignment.dummy(this);
+        JobLowerBound.dummy(this);
+        MachineGroupLowerBound.dummy(this);
         Order.dummy(this);
+        PlacedRectangle.dummy(this);
         Problem.dummy(this);
         Process.dummy(this);
         ProcessSequence.dummy(this);

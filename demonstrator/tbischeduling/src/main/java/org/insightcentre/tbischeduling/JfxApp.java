@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
+import static framework.reports.AbstractCommon.safe;
 import static org.insightcentre.tbischeduling.datamodel.Severity.Minor;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
@@ -72,12 +73,21 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setHorizon(100000);
                 base.setDirty(false);
                 setTitle(applicationTitle+" (Generated)");
+//                new ReadData(base,new File("imports/RCPSP/SingleMode/j30/j301_1.json"));
+//                new ReadData(base,new File("imports/RCPSP/SingleMode/j30/j3013_2.json"));
+//                new ReadData(base,new File("imports/RCPSP/SingleMode/j120/j12013_2.json"));
+//                new ReadData(base,new File("imports/RCPSP/SingleMode/j120/j12011_1.json"));
 ////                new ReadData(base,new File("imports/Taillard/JSS/tai15_15_0.json"));
 ////                new ReadData(base,new File("imports/Taillard/JSS/tai100_20_0.json"));
 ////                new ReadData(base,new File("imports/Taillard/FSS/tai20_5_0.json"));
 ////                new ReadData(base,new File("imports/Taillard/OSS/tai20_20_0.json"));
-////                new ReadSALBPFile(base,new File("salbp/instance_n=50_1.alb"));
+//                new ReadSALBPAlternativeFile(base,new File("salbp/instance_n=20_171.alb"));
+                new ReadSALBPFile(base,new File("salbp/instance_n=20_171.alb"));
+//                new ReadSALBPAlternativeFile(base,new File("salbp/instance_n=1000_511.alb"));
+//                new ReadSALBPFile(base,new File("salbp/instance_n=1000_511.alb"));
 //                new ReadTestSchedulingFile(base,new File("testscheduling/t20m10r3-1.pl.json"));
+//                new ReadTestSchedulingFile(base,new File("testscheduling/t500m20r10-1.pl.json"));
+//                new ReadJJFlatFile(base,"transport/instance400_1.txt");
 //                SolverRun run = new SolverRun(base);
 //                run.setName("cpsat");
 //                run.setModelType(ModelType.CPSat);
@@ -85,14 +95,15 @@ public class JfxApp extends GeneratedJfxApp {
 //                run.setNrThreads(8);
 //                run.setSolverStatus(SolverStatus.ToRun);
 //                new CPSatModel(base,run).solve();
-//                new ReadJJFlatFile(base,"transport/instance400_1.txt");
-//                setTitle(applicationTitle+" ("+base.getDataFile()+")");
+                setTitle(applicationTitle+" ("+base.getDataFile()+")");
 //                new ProcessDiagram(base, Objects.requireNonNull(org.insightcentre.tbischeduling.datamodel.Process.findFirst(base)));
 //                for(ProcessSequence ps:base.getListProcessSequence()){
 //                        if (ps.getAfter().getStage()<=3){
 //                                ps.setSequenceType(Blocking);
 //                        }
 //                }
+//                new SchedulingReport(base, "reports/").produce("placementreport", "Scheduling Report for "+safe(base.getDataFile()), "L. O'Toole and H. Simonis");
+                info("file "+base.getDataFile());
                 return base;
         }
 
@@ -227,6 +238,43 @@ public class JfxApp extends GeneratedJfxApp {
                                 info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
                                 base.setDataFile(selected.getName());
                                 new ReadSALBPFile(base,selected);
+                                setTitle(applicationTitle+" ("+selected.getName()+")");
+                        } catch(IOException e){
+                                severe("IOException "+e.getMessage());
+                        }
+                } else {
+                        warning("File null");
+                }
+                // re-adjust the user interface to reflect the modified data
+                reset();
+                // if any errors were found, show them in the GUI
+                if (base.getListInputError().size() > 0){
+                        setStatus("File read with "+base.getListInputError().size()+" input data errors");
+                        showView("InputError");
+                } else if (base.getListSolutionError().size() > 0){
+                        setStatus("File read with "+base.getListSolutionError().size()+" solution errors");
+                        showView("SolutionError");
+                } else {
+                        showView("custom/DiagramViewer");
+                        setStatus("File read");
+                }
+        }
+        @Override
+        public void LoadSALBPAlternativeFileAction(Scenario base) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Load Datafile");
+                fileChooser.setInitialDirectory(new File("salbp/"));
+                fileChooser.getExtensionFilters().add(
+                        new FileChooser.ExtensionFilter("ALB Files", "*.alb"));
+                fileChooser.setInitialFileName("instance+n=20_1.alb");
+                // allow to enter new file
+                File selected = fileChooser.showOpenDialog(primaryStage);
+                if (selected != null){
+                        try {
+                                setStatus("Reading file "+selected.getName());
+                                info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
+                                base.setDataFile(selected.getName());
+                                new ReadSALBPAlternativeFile(base,selected);
                                 setTitle(applicationTitle+" ("+selected.getName()+")");
                         } catch(IOException e){
                                 severe("IOException "+e.getMessage());

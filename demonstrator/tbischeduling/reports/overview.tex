@@ -1,6 +1,8 @@
 \documentclass[a4paper]{report}
 \usepackage{booktabs}
 \usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{xcolor}
 \usepackage{multirow}
 \usepackage{hyperref}
 \title{Results for Scheduling Benchmark Classes}
@@ -135,6 +137,25 @@ The larger problem instances are still missing. For the small instances (20 task
 
 \input{resultssalbpCPSat}
 
+\section{Results for MiniZinc/Cplex}
+
+\input{resultssalbpCplex}
+
+\section{Results for MiniZinc/Chuffed}
+
+\input{resultssalbpChuffed}
+
+\section{Alternative Model}
+
+\subsection{CPO}
+
+\input{resultsalternativesalbp}
+
+\subsection{CPSat}
+
+\input{resultsalternativesalbpCPSat}
+
+
 \clearpage
 \chapter{Test Scheduling Problems}
 
@@ -193,5 +214,10 @@ The detailed result tables for the individual RCPSP instances show that many ins
 
 \subsection{CPSat}
 \input{resultsrcpspj120CPSat}
+
+\clearpage
+\chapter{Result Comparison for SALBP}
+
+\input{salbpresultcompare}
 
 \end{document}

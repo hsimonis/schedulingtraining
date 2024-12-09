@@ -42,6 +42,12 @@ import org.insightcentre.tbischeduling.datamodel.SetupMatrix;
 import org.insightcentre.tbischeduling.datamodel.Transport;
 import org.insightcentre.tbischeduling.datamodel.TransportMatrix;
 import org.insightcentre.tbischeduling.datamodel.SolutionSummary;
+import org.insightcentre.tbischeduling.datamodel.LowerBound;
+import org.insightcentre.tbischeduling.datamodel.JobLowerBound;
+import org.insightcentre.tbischeduling.datamodel.DisjunctiveLowerBound;
+import org.insightcentre.tbischeduling.datamodel.CumulativeLowerBound;
+import org.insightcentre.tbischeduling.datamodel.MachineGroupLowerBound;
+import org.insightcentre.tbischeduling.datamodel.PlacedRectangle;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;
@@ -132,6 +138,8 @@ public  class CumulativeResource extends ApplicationObject{
     public Boolean remove(){
         getApplicationDataset().cascadeCumulativeNeedCumulativeResource(this);
         getApplicationDataset().cascadeCumulativeProfileCumulativeResource(this);
+        getApplicationDataset().cascadeCumulativeLowerBoundCumulativeResource(this);
+        getApplicationDataset().cascadePlacedRectangleCumulativeResource(this);
         return getApplicationDataset().removeCumulativeResource(this) && getApplicationDataset().removeApplicationObject(this);
     }
 

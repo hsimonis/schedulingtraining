@@ -51,6 +51,7 @@ public abstract class AbstractModel {
         sol.setMaxIdleBefore(taList.stream().mapToInt(TaskAssignment::getIdleBefore).max().orElse(0));
         sol.setTotalIdleAfter(taList.stream().mapToInt(TaskAssignment::getIdleAfter).sum());
         sol.setMaxIdleAfter(taList.stream().mapToInt(TaskAssignment::getIdleAfter).max().orElse(0));
+        new PlacementLayout(base,sol);
     }
 
 

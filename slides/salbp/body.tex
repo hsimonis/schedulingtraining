@@ -1,22 +1,187 @@
 \begin{frame}
 \frametitle{Key Points}
 \begin{itemize}
-\item
+\item There can be more than one formulation of a problem
+\item Typically there is a direct model where all constraints are taken from problem description
+\item There may be other representations of problem using other variables, domains, constraints
+\item Needs mapping to original problem
+\item Performance may vary a lot
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Problem Description}
+{\scriptsize 
+A car is made on an assembly line, where the $n$ pieces of the car are added at different
+stations. The car moves along the assembly line, running through the stations
+in sequence, where it stays for a fixed amount of time (the \emph{cycle time} or \emph{Takt} $t$) at each
+station. At each station different pieces can be added, each item $i$ requiring
+a certain amount of time $d_i$. The total amount of time spent in each station
+cannot be more than the cycle time. A precedence graph states which items must be installed before another item can be added. All items must be placed on the car in
+some station, the precedence constraints state that all preceding items must be placed on the car at an earlier or the same station. The problem
+is to design the assembly line, and minimize $k$, the number of stations needed.
+The stations should be numbered consecutively from 1 to $k$.
+}
 \end{frame}
 
 \begin{frame}
 \frametitle{Feature Overview}
+\begin{itemize}
+\item Direct model
+\begin{itemize}
+\item One task for each item to be placed, with a variable indicating the station it is added
+\item Domain: possible stations, all tasks have duration one
+\item Tasks with StartBeforeStart time constraints
+\item Can be strengthened to EndBeforeStart for certain task pairs
+\item One cumulative constraint with overall Takt resource capacity $t$
+\item CumulativeNeed of each Task is its duration $d_{i}$ in seconds
+\end{itemize}
+\item Other models possible
+
+\end{itemize}
+
 \end{frame}
 
-% \begin{frame}
-% \frametitle{Loading a Problem Instance}
-% \includegraphics[width=\textwidth]{images/}
-% \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Large Scale Example}
+\begin{itemize}
+\item Problem \verb|instance_n=1000\_511.alb|
+\item 1000 tasks, complex precedence graph
+\item Cumulative lower bound 230
+\begin{itemize}
+\item Sum of CumulativeNeed 229,447
+\item Takt 1,000
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Process Diagram}
+\includegraphics[width=\textwidth]{../salbp/images/process-diagram}
+\begin{itemize}
+\item Only part of overall process shown
+\item StartBeforeStart links shown in green
+\item Derived EndBeforeStart links in black
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Solutions}
+\begin{itemize}
+\item CPO
+\begin{itemize}
+\item 300s timeout, 4 threads
+\item Solver lower bound 230
+\item Cost 237 (Gap 2.95\%) after 30s
+\end{itemize}
+
+\item CPSat
+\begin{itemize}
+\item 300s timeout, 8 threads
+\item Solver lower bound 224
+\item Cost 237 (Gap 2.95\%) after 22s
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{PERT Diagram of Solution}
+\includegraphics[width=\textwidth]{../salbp/images/pert}
+\begin{itemize}
+\item Only part of diagram shown
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Cumulative Resource Chart}
+\includegraphics[width=\textwidth]{../salbp/images/cumulative-level}
+\begin{itemize}
+\item Overall resource use quite balanced
+\item Some stations have spare capacity
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Placement of Cumulative Needs}
+\includegraphics[width=\textwidth]{../salbp/images/placement}
+\begin{itemize}
+\item Not the same solution
+\item Task height is high compared to station capacity
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Overview of Benchmark Results}
+\includegraphics[width=\textwidth]{../salbp/images/overview-results}
+\begin{itemize}
+\item Benchmark set from Otto et al, EJOR, 2013
+\item 30s timeout, 4 threads for CPO, 8 threads for CPSat
+\item Small instances solved to optimality
+\item Larger instances have good, but not optimal solutions for both CPO and CPSat
+\item Weaker lower bound for CPSat on large instances
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Alternative Model}
+\begin{itemize}
+\item One task per item to be placed, with a variable indicating the start time within the station
+\item Domain: k*(t+1), tasks have duration $d_{i}$
+\item Place \emph{Exclusion markers} in timeline to avoid tasks spanning multiple stations
+\begin{itemize}
+\item Place fixed Downtime at end of each station period
+\item Start $t+i*(t+1)$
+\item Duration one
+\item Example for t=1000 and start=0: 1000, 2001, 3002, 4003 ...
+\end{itemize}
+\item EndBeforeStart precedence constraints between tasks
+\begin{itemize}
+\item Preceding tasks are either in the same station (ordered in time), or in an earlier station 
+\end{itemize}
+
+\item One disjunctive resource: maximum time available in each station is $t$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Alternative Model (II)}
+\begin{itemize}
+\item Objective
+\begin{itemize}
+\item Minimize makespan (latest end) of tasks
+\item Ignore downtime objects in objective
+\end{itemize}
+\item Needs a mapping to find station of each item
+\begin{itemize}
+\item $station = \lceil start/(t+1)\rceil$
+\end{itemize}
+\item Needs an upper bound on the number of stations to create the correct number of downtime objects
+\begin{itemize}
+\item Trivial: $n$
+\end{itemize}
+
+
+\end{itemize}
+\end{frame}
+
+
+
+
+
 
 
 
@@ -24,7 +189,13 @@
 \begin{frame}
 \frametitle{Summary}
 \begin{itemize}
-\item
+\item Scheduling can be used to design factories as well
+\item There can be more than one model for the same problem
+\item Choosing the best model is quite difficult
+\begin{itemize}
+\item Experiments with realistic data are key
+\end{itemize}
+\item Good results compared to specialized methods
 \end{itemize}
 \end{frame}
 

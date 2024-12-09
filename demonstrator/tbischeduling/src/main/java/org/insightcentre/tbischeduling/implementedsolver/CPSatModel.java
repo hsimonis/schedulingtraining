@@ -179,17 +179,21 @@ public class CPSatModel extends AbstractModel{
                 }
             }
             // add wip, downtime
-            for(WiP wip:base.getListWiP().stream().filter(x->x.getDisjunctiveResource()==m).toList()){
-                IntervalVar wTask = model.newFixedSizeIntervalVar(model.newConstant(0),wip.getDuration(),wip.getName());
-                list.add(wTask);
-                info("Machine "+m.getName()+" add wip "+wip.getEnd());
+            if (run.getEnforceWip()) {
+                for (WiP wip : base.getListWiP().stream().filter(x -> x.getDisjunctiveResource() == m).toList()) {
+                    IntervalVar wTask = model.newFixedSizeIntervalVar(model.newConstant(0), wip.getDuration(), wip.getName());
+                    list.add(wTask);
+                    info("Machine " + m.getName() + " add wip " + wip.getEnd());
+                }
             }
-            for(Downtime down:base.getListDowntime().stream().filter(x->x.getDisjunctiveResource()==m).toList()){
-                IntervalVar dTask = model.newFixedSizeIntervalVar(model.newConstant(down.getStart()),down.getDuration(),down.getName());
-                list.add(dTask);
-                info("Machine "+m.getName()+" add down "+down.getStart()+"-"+down.getEnd());
+            if (run.getEnforceDowntime()) {
+                for (Downtime down : base.getListDowntime().stream().filter(x -> x.getDisjunctiveResource() == m).toList()) {
+                    IntervalVar dTask = model.newFixedSizeIntervalVar(model.newConstant(down.getStart()), down.getDuration(), down.getName());
+                    list.add(dTask);
+//                info("Machine "+m.getName()+" add down "+down.getStart()+"-"+down.getEnd());
+                }
             }
-            info("Machine "+m+" tasks "+list.size());
+            info("Machine "+m+" tasks, wip, downtime "+list.size());
             // set noOverlap constraint
             model.addNoOverlap(list);
         }

@@ -112,13 +112,18 @@ public class RunMiniZincGeneral {
             return new SolMultiple(convertStatus(status), time);
         } else if (type.equals("statistics")) {
             JSONObject stats = json.getJSONObject("statistics");
-            int objective = stats.getInt("objective");
-            int nodes = 0;
-            if (stats.has("nodes")) {
-                nodes = stats.getInt("nodes");
+            if (stats.has("objective")) {
+                int objective = stats.getInt("objective");
+
+                int nodes = 0;
+                if (stats.has("nodes")) {
+                    nodes = stats.getInt("nodes");
+                }
+                double solveTime = stats.getDouble("solveTime");
+                return new SolMultiple(new Stats(objective, nodes, solveTime));
+            } else {
+                return null;
             }
-            double solveTime = stats.getDouble("solveTime");
-            return new SolMultiple(new Stats(objective, nodes, solveTime));
         } else if (type.equals("comment")) {
             if (json.has("comment")) {
                 info("Comment " + json.getString("comment"));

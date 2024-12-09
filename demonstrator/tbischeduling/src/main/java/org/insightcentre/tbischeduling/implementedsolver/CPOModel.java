@@ -242,7 +242,7 @@ public class CPOModel extends AbstractModel{
                             dd.setStartMin(d.getStart());
                             dd.setStartMax(d.getStart());
                             disjunctive.add(dd);
-                            info(d.getName() + " " + r.getName() + " " + d.getStart() + " " + d.getEnd());
+//                            info(d.getName() + " " + r.getName() + " " + d.getStart() + " " + d.getEnd());
                             prevEnd = d.getEnd();
                         }
                     }

@@ -21,7 +21,7 @@ import org.insightcentre.tbischeduling.datamodel.Solution;
 import org.insightcentre.tbischeduling.datamodel.SolutionError;
 
 /**
- * Generated at 10:47:55 on 2024-11-17 */
+ * Generated at 11:52:07 on 2024-12-06 */
 public class SolutionErrorController extends Table3Controller {
 	@FXML
 	private TableView<SolutionError> table;

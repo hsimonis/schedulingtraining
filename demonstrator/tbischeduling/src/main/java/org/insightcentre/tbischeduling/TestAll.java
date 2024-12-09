@@ -7,10 +7,7 @@ import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.implementedsolver.CPOModel;
 import org.insightcentre.tbischeduling.implementedsolver.CPSatModel;
 import org.insightcentre.tbischeduling.implementedsolver.MiniZincDiffnModel;
-import org.insightcentre.tbischeduling.importer.ReadData;
-import org.insightcentre.tbischeduling.importer.ReadJJFlatFile;
-import org.insightcentre.tbischeduling.importer.ReadSALBPFile;
-import org.insightcentre.tbischeduling.importer.ReadTestSchedulingFile;
+import org.insightcentre.tbischeduling.importer.*;
 import org.insightcentre.tbischeduling.utilities.Group;
 import org.insightcentre.tbischeduling.utilities.GroupType;
 import org.json.JSONObject;
@@ -27,6 +24,8 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
+import static org.insightcentre.tbischeduling.datamodel.SolverBackend.Chuffed;
+import static org.insightcentre.tbischeduling.datamodel.SolverBackend.Cplex;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.Optimal;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.ToRun;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
@@ -49,37 +48,37 @@ public class TestAll {
     public static void main(String[] args) {
         Scenario base = new Scenario();
         boolean overWrite = false;
-//        testAll("imports/RCPSP/SingleMode/j30/","results/",CPO,4,600,overWrite);
-//        testAll("imports/RCPSP/SingleMode/j30/","resultsCPSat/",CPSat,8,600,overWrite);
-        base.resetListSolutionSummary();
-        analyzeAll(base,"imports/RCPSP/SingleMode/j30/results/","RCPSP J30 (CPO)","rcpspj30CPO","CPO");
-        analyzeAll(base,"imports/RCPSP/SingleMode/j30/resultsCPSat/","RCPSP J30 (CPSat)","rcpspj30CPSat","CPSat");
-//        compareSummaries(base,"comparercpspj30",false,"CPO","CPSat",
-//                "Comparison of CPO and CPSat for Results of RCPSP J30",GroupType.RCPSP);
-
-//        testAll("imports/RCPSP/SingleMode/j60/","results/",CPO,4,600,overWrite);
-//        testAll("imports/RCPSP/SingleMode/j60/","resultsCPSat/",CPSat,8,600,overWrite);
+////        testAll("imports/RCPSP/SingleMode/j30/","results/",CPO,4,600,overWrite);
+////        testAll("imports/RCPSP/SingleMode/j30/","resultsCPSat/",CPSat,8,600,overWrite);
 //        base.resetListSolutionSummary();
-        analyzeAll(base,"imports/RCPSP/SingleMode/j60/results/","RCPSP J60 (CPO)","rcpspj60CPO","CPO");
-        analyzeAll(base,"imports/RCPSP/SingleMode/j60/resultsCPSat/","RCPSP J60 (CPSat)","rcpspj60CPSat","CPSat");
-//        compareSummaries(base,"comparercpspj60",false,"CPO","CPSat",
+//        analyzeAll(base,"imports/RCPSP/SingleMode/j30/results/","RCPSP J30 (CPO)","rcpspj30CPO","CPO");
+//        analyzeAll(base,"imports/RCPSP/SingleMode/j30/resultsCPSat/","RCPSP J30 (CPSat)","rcpspj30CPSat","CPSat");
+////        compareSummaries(base,"comparercpspj30",false,"CPO","CPSat",
+////                "Comparison of CPO and CPSat for Results of RCPSP J30",GroupType.RCPSP);
+//
+////        testAll("imports/RCPSP/SingleMode/j60/","results/",CPO,4,600,overWrite);
+////        testAll("imports/RCPSP/SingleMode/j60/","resultsCPSat/",CPSat,8,600,overWrite);
+////        base.resetListSolutionSummary();
+//        analyzeAll(base,"imports/RCPSP/SingleMode/j60/results/","RCPSP J60 (CPO)","rcpspj60CPO","CPO");
+//        analyzeAll(base,"imports/RCPSP/SingleMode/j60/resultsCPSat/","RCPSP J60 (CPSat)","rcpspj60CPSat","CPSat");
+////        compareSummaries(base,"comparercpspj60",false,"CPO","CPSat",
+////                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
+//
+////        testAll("imports/RCPSP/SingleMode/j90/","results/",CPO,4,30,overWrite);
+////        testAll("imports/RCPSP/SingleMode/j90/","resultsCPSat/",CPSat,8,30,overWrite);
+// //       base.resetListSolutionSummary();
+//        analyzeAll(base,"imports/RCPSP/SingleMode/j90/results/","RCPSP J90 (CPO)","rcpspj90CPO","CPO");
+//        analyzeAll(base,"imports/RCPSP/SingleMode/j90/resultsCPSat/","RCPSP J90 (CPSat)","rcpspj90CPSat","CPSat");
+////        compareSummaries(base,"comparercpspj90",false,"CPO","CPSat",
+////                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
+//
+//        testAll("imports/RCPSP/SingleMode/j120/","results/",CPO,4,60,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j120/","resultsCPSat/",CPSat,8,60,overWrite);
+//        //       base.resetListSolutionSummary();
+//        analyzeAll(base,"imports/RCPSP/SingleMode/j120/results/","RCPSP J120 (CPO)","rcpspj120CPO","CPO");
+//        analyzeAll(base,"imports/RCPSP/SingleMode/j120/resultsCPSat/","RCPSP J120 (CPSat)","rcpspj120CPSat","CPSat");
+//        compareSummaries(base,"comparercpspj120",false,"CPO","CPSat",
 //                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
-
-//        testAll("imports/RCPSP/SingleMode/j90/","results/",CPO,4,30,overWrite);
-//        testAll("imports/RCPSP/SingleMode/j90/","resultsCPSat/",CPSat,8,30,overWrite);
- //       base.resetListSolutionSummary();
-        analyzeAll(base,"imports/RCPSP/SingleMode/j90/results/","RCPSP J90 (CPO)","rcpspj90CPO","CPO");
-        analyzeAll(base,"imports/RCPSP/SingleMode/j90/resultsCPSat/","RCPSP J90 (CPSat)","rcpspj90CPSat","CPSat");
-//        compareSummaries(base,"comparercpspj90",false,"CPO","CPSat",
-//                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
-
-        testAll("imports/RCPSP/SingleMode/j120/","results/",CPO,4,60,overWrite);
-        testAll("imports/RCPSP/SingleMode/j120/","resultsCPSat/",CPSat,8,60,overWrite);
-        //       base.resetListSolutionSummary();
-        analyzeAll(base,"imports/RCPSP/SingleMode/j120/results/","RCPSP J120 (CPO)","rcpspj120CPO","CPO");
-        analyzeAll(base,"imports/RCPSP/SingleMode/j120/resultsCPSat/","RCPSP J120 (CPSat)","rcpspj120CPSat","CPSat");
-        compareSummaries(base,"comparercpspj120",false,"CPO","CPSat",
-                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
 
 //        testAll("imports/Taillard/OSS/","results/",CPO,4,600,overWrite);
 //        testAll("imports/Taillard/OSS/","resultsCPSat/",CPSat,8,30,overWrite);
@@ -106,12 +105,23 @@ public class TestAll {
 //        analyzeAll(base,"imports/Taillard/FSS/permutationresults/","Taillard Permutation Flowshop (CPO)","pfss","PFSS");
 //        compareSummaries(base,"comparepfss",true,"FSS","PFSS",
 //                "Comparison of CPO for Result Groups of Permutation and Unrestricted FlowShop Problems",GroupType.Taillard);
-//        testSALBP("salbp/","resultsCPSat/",CPSat,8,30,overWrite);
+//        testSALBP("salbp/","results/",CPO,null,4,30,overWrite);
+//        testSALBP("salbp/","resultsCPSat/",CPSat,null,8,30,overWrite);
+//        testSALBP("salbp/","resultsChuffed/",MiniZincDiffn,Chuffed,1,120,overWrite);
+//        testSALBP("salbp/","resultsCplex/",MiniZincDiffn,Cplex,8,30,overWrite);
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
 //        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
 //        compareSummaries(base,"comparesalbp",false,"CPO","CPSat",
 //                "Comparison of CPO and CPSat for Result Groups of SALBP-1 Problems",GroupType.Salbp);
+//        testSALBPAlternative("salbp/","alternative/",CPO,4,30,overWrite);
+//        testSALBPAlternative("salbp/","alternativeCPSat/",CPSat,8,30,overWrite);
+//        base.resetListSolutionSummary();
+//        analyzeAll(base,"salbp/alternative/","SALBP-1 Problems Alternative (CPO)","alternativesalbp","CPO",true);
+//        analyzeAll(base,"salbp/alternativeCPSat/","SALBP-1 Problems Alternative (CPSat)","alternativesalbpCPSat","CPSat",true);
+//        tabularResults(base);
+//        compareSummaries(base,"comparesalbpalternative",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Result Groups of SALBP-1 Problems Alternative ",GroupType.Salbp);
 ////        testTestScheduling("testscheduling/","resultsCPSat/");
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"testscheduling/results/","Test Scheduling Problems (CPO)","tsched","CPO");
@@ -124,6 +134,16 @@ public class TestAll {
 //        analyzeAll(base,"transport/resultsCPSat/","Factory Design (CPSat)","transCPSat","CPSat");
 //        compareSummaries(base,"compareTrans",false,"CPO","CPSat",
 //                "Comparison of CPO and CPSat for Result Groups of Factory Design Problems",GroupType.Transport);
+
+        base.resetListSolutionSummary();
+        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
+        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
+        analyzeAll(base,"salbp/resultsCplex/","SALBP-1 Problems (Cplex)","salbpCplex","Cplex");
+        analyzeAll(base,"salbp/resultsChuffed/","SALBP-1 Problems (Chuffed)","salbpChuffed","Chuffed");
+        analyzeAll(base,"salbp/alternative/","SALBP-1 Problems Alternative (CPO)","alternativesalbp","CPOAlternative",true);
+        analyzeAll(base,"salbp/alternativeCPSat/","SALBP-1 Problems Alternative (CPSat)","alternativesalbpCPSat","CPSatAlternative",true);
+        tabularResults(base,"reports/salbpresultcompare.tex");
+
     }
 
     /*
@@ -136,9 +156,9 @@ public class TestAll {
         List<String> list =  listFilesUsingJavaIO(importDir,".json");
 
         for(String fileName:list) {
-            info("trying file " + fileName);
             String outputFile = importDir + resultDir + fileName;
             if (overWrite || (!new File(outputFile).exists() /*&& fileName.startsWith("tai50_5")*/)) {
+                info("trying file " + fileName);
 
                 Scenario base = new Scenario();
                 base.setDataFileVersionNumber(8.0);
@@ -192,14 +212,14 @@ public class TestAll {
     there is no JSON file of the created input data
     this needs enforceCumulative true and enforceDueDate false
      */
-    private static void testSALBP(String importDir,String resultDir,ModelType solver,int nrThreads,int timeout,boolean overWrite){
+    private static void testSALBP(String importDir,String resultDir,ModelType solver,SolverBackend backEnd,int nrThreads,int timeout,boolean overWrite){
         assert(importDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(importDir,".alb");
 
         for(String fileName:list) {
-            info("trying file " + fileName);
             String outputFile = importDir+resultDir+ fileName.replaceAll(".alb",".json");
-            if (overWrite || (!new File(outputFile).exists() /* && fileName.startsWith("instance_n=20_")*/)) {
+            if (overWrite || (!new File(outputFile).exists() && fileName.startsWith("instance_n=100_"))) {
+                info("trying file " + fileName);
 
                 Scenario base = new Scenario();
                 base.setDataFileVersionNumber(8.0);
@@ -218,6 +238,62 @@ public class TestAll {
                 test.setEnforceCumulative(true);
                 test.setEnforceWip(false);
                 test.setEnforceDowntime(false);
+                test.setEnforceSetup(false);
+                test.setEnforceTransportTime(false);
+                test.setRelaxSequence(false);
+                test.setAddSameOrder(false);
+                test.setTimeout(timeout);
+                test.setModelType(solver);
+                test.setSolverBackend(backEnd);
+                test.setObjectiveType(ObjectiveType.Makespan);
+                test.setNrThreads(nrThreads);
+
+//            info("Nr SolverRun " + base.getListSolverRun().size());
+                for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
+                    info("Running " + run.getName());
+                    switch (solver) {
+                        case CPO -> new CPOModel(base, run).solve();
+                        case CPSat -> new CPSatModel(base, run).solve();
+                        case MiniZincDiffn -> new MiniZincDiffnModel(base, run).solve();
+                        default -> {
+                            severe("solver not supported " + solver);
+                            assert (false);
+                        }
+                    }
+
+                }
+                new WriteData(base).toFile(new File(outputFile), 2);
+            }
+
+        }
+
+    }
+    private static void testSALBPAlternative(String importDir,String resultDir,ModelType solver,int nrThreads,int timeout,boolean overWrite){
+        assert(importDir.endsWith("/"));
+        List<String> list =  listFilesUsingJavaIO(importDir,".alb");
+
+        for(String fileName:list) {
+            String outputFile = importDir+resultDir+ fileName.replaceAll(".alb",".json");
+            if (overWrite || (!new File(outputFile).exists() /*&& fileName.startsWith("instance_n=20_")*/)) {
+                info("trying file " + fileName);
+
+                Scenario base = new Scenario();
+                base.setDataFileVersionNumber(8.0);
+                base.setDataFile("");
+                base.setHorizon(50000);
+                base.setTimeResolution(5);
+                base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
+
+                // define the format version of the datafiles
+                new ReadSALBPAlternativeFile(base, new File(importDir + fileName));
+                SolverRun test = new SolverRun(base);
+                test.setName(fileName);
+                test.setSolverStatus(ToRun);
+                test.setEnforceReleaseDate(false);
+                test.setEnforceDueDate(false);
+                test.setEnforceCumulative(true);
+                test.setEnforceWip(true);
+                test.setEnforceDowntime(true);
                 test.setEnforceSetup(false);
                 test.setEnforceTransportTime(false);
                 test.setRelaxSequence(false);
@@ -349,7 +425,10 @@ public class TestAll {
     }
 
 
-    private static void analyzeAll(Scenario base,String resultDir,String title,String suffix,String variant){
+    private static void analyzeAll(Scenario base,String resultDir,String title,String suffix,String variant) {
+        analyzeAll (base, resultDir, title, suffix, variant,false);
+    }
+    private static void analyzeAll(Scenario base,String resultDir,String title,String suffix,String variant,boolean adjust){
         assert(resultDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(resultDir,".json");
         String reportFile = "reports/results"+suffix+".tex";
@@ -399,11 +478,14 @@ public class TestAll {
                     s.setBound(bound);
                     s.setGapPercent(gapPercent);
                     s.setVariant(variant);
+                    if (adjust) {
+                        adjustMakespan(s);
+                    }
 
 
 //                    info(name + " jobs " + nrJobs + " machines " + nrMachines + " status " + status + " time " + time + " makespan " + makespan + " bound " + bound + " gapPercent " + gapPercent);
                     out.printf("%s & %d & %d & %s & %5.2f & %d & %5.2f & %5.2f\\\\\n",
-                            name.replaceAll("_"," "),nrJobs,nrMachines,status,time,makespan,bound,gapPercent);
+                            name.replaceAll("_"," "),nrJobs,nrMachines,status,time,s.getMakespan(),s.getBound(),s.getGapPercent());
 
                 } catch (IOException e) {
                     severe("Cannot read file " + fileName + ", exception " + e.getMessage());
@@ -418,6 +500,17 @@ public class TestAll {
         } catch(IOException e){
             severe("Cannot write file "+reportFile+", exception "+e.getMessage());
         }
+    }
+
+    private static void adjustMakespan(SolutionSummary s){
+        s.setMakespan((int)adjustValue(s.getMakespan()));
+        s.setBound(adjustValue(s.getBound()));
+        s.setGapPercent(100.0*(s.getMakespan()-s.getBound())/s.getMakespan());
+
+    }
+
+    private static double adjustValue(double value){
+        return Math.ceil(value/(1000.0+1));
     }
 
     public static List<String> listFilesUsingJavaIO(String dir,String ext) {
@@ -500,7 +593,9 @@ public class TestAll {
                         assert(variant2.equals(variantTwo));
                         if (one.getSolverStatus() == two.getSolverStatus()) {
                             if (one.getSolverStatus() == Optimal) {
-//                        info("Equal " + one.getSolverStatus() + " " + one.getMakespan() + " " + two.getMakespan());
+                                if (one.getMakespan() != (int)two.getMakespan()) {
+                                    info("Equal " + one.getSolverStatus() + " " + one.getMakespan() + " " + two.getMakespan());
+                                }
                                 assert (relax || one.getMakespan() == (int) two.getMakespan());
                                 timeOne += one.getTime();
                                 timeTwo += two.getTime();
@@ -602,5 +697,86 @@ public class TestAll {
         }
         return String.format("%5.2f",100.0*a/b);
     }
+
+    private static void tabularResults(Scenario base,String fileName){
+        List<String> problems = base.getListSolutionSummary().stream().
+                map(SolutionSummary::getInstance).
+                distinct().
+                sorted().
+                toList();
+        Hashtable<String,SolutionSummary> hash = new Hashtable<>();
+        for(SolutionSummary s:base.getListSolutionSummary()){
+            assert(hash.get(key(s))==null);
+            hash.put(key(s),s);
+        }
+        try {
+            PrintWriter out = new PrintWriter(fileName);
+            out.printf("\\begin{longtable}{lrrrrrr}\n");
+            out.printf("\\caption{Result Comparisoon for SALBP}\\\\\\toprule\n");
+            out.printf("& \\multicolumn{4}{c}{Direct} & \\multicolumn{2}{c}{Alternative}\\\\");
+            out.printf("Instance & CPO & CPSat & Cplex & Chuffed & CPO & CPSat \\\\\\midrule\n");
+            out.printf("\\endhead\n");
+            out.printf("\\bottomrule\n");
+            out.printf("\\endfoot\n");
+
+            for (String problem : problems) {
+                Integer a = solution(hash, problem, "CPO");
+                Integer b = solution(hash, problem, "CPSat");
+                Integer b1 = solution(hash, problem, "Cplex");
+                Integer b2 = solution(hash, problem, "Chuffed");
+                Integer c = solution(hash, problem, "CPOAlternative") ;
+                Integer d = solution(hash, problem, "CPSatAlternative");
+                List<Integer> sols = new ArrayList<>();
+                if (a != null) sols.add(a);
+                if (b != null) sols.add(b);
+                if (b1 != null) sols.add(b1);
+                if (b2 != null) sols.add(b2);
+                if (c != null) sols.add(c);
+                if (d != null) sols.add(d);
+                int min = sols.stream().mapToInt(x->x).min().orElse(0);
+
+                out.printf("%s",problem.replaceAll("instance_n=","").replaceAll(".alb","").replaceAll("_"," "));
+                printSol(out,a,min);
+                printSol(out,b,min);
+                printSol(out,b1,min);
+                printSol(out,b2,min);
+                printSol(out,c,min);
+                printSol(out,d,min);
+                out.printf("\\\\\n");
+            }
+            out.printf("\\end{longtable}\n\n");
+            out.close();
+        } catch(IOException e){
+            severe("Cannot write file "+fileName+", exception "+e.getMessage());
+        }
+    }
+
+    private static void printSol(PrintWriter out,Integer v,int min){
+        if (v == null){
+            out.printf("& \\cellcolor{red!20} n/a ");
+        } else if (v == min){
+            out.printf("& \\cellcolor{blue!20} %d ",v);
+        } else {
+            out.printf("& %d ",v);
+        }
+    }
+
+    private static Integer solution(Hashtable<String,SolutionSummary> hash, String instance,String variant){
+        SolutionSummary s = hash.get(key(instance,variant));
+        if (s == null) {
+            return null;
+        }
+        return s.getMakespan();
+    }
+
+    private static String key(String instance,String variant){
+        return instance+"/"+variant;
+    }
+
+    private static String key(SolutionSummary s){
+        return key(s.getInstance(),s.getVariant());
+    }
+
+
 
 }

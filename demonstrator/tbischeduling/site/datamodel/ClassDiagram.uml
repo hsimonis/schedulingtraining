@@ -27,11 +27,13 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include ApplicationDifference.uml
 !include ApplicationObject.uml
 !include ApplicationWarning.uml
+!include CumulativeLowerBound.uml
 !include CumulativeNeed.uml
 !include CumulativeProfile.uml
 !include CumulativeResource.uml
 !include DataGeneratorProperty.uml
 !include DataGeneratorRun.uml
+!include DisjunctiveLowerBound.uml
 !include DisjunctiveResource.uml
 !include Downtime.uml
 !include GanttProperty.uml
@@ -39,7 +41,11 @@ int compare(ApplicationObjectInterface o1, ApplicationObjectInterface o2)
 !include IntermediateSolution.uml
 !include Job.uml
 !include JobAssignment.uml
+!include JobLowerBound.uml
+!include LowerBound.uml
+!include MachineGroupLowerBound.uml
 !include Order.uml
+!include PlacedRectangle.uml
 !include Problem.uml
 !include Process.uml
 !include ProcessSequence.uml
@@ -94,6 +100,10 @@ AbstractGanttProperty <|-- GanttProperty
 ResourceActivity <|-- WiP
 ResourceActivity <|-- Downtime
 ResourceActivity <|-- TaskAssignment
+LowerBound <|-- JobLowerBound
+LowerBound <|-- DisjunctiveLowerBound
+LowerBound <|-- CumulativeLowerBound
+LowerBound <|-- MachineGroupLowerBound
 ApplicationDataset  *-- ApplicationObject 
 SolverProperty  *-- Scenario 
 DataGeneratorProperty  *-- Scenario 
@@ -135,6 +145,11 @@ SetupType  *-- SetupMatrix : from
 SetupType  *-- SetupMatrix : to
 DisjunctiveResource  *-- TransportMatrix : from
 DisjunctiveResource  *-- TransportMatrix : to
+Job  *-- JobLowerBound 
+DisjunctiveResource  *-- DisjunctiveLowerBound 
+CumulativeResource  *-- CumulativeLowerBound 
+CumulativeResource  *-- PlacedRectangle 
+TaskAssignment  *-- PlacedRectangle 
 header
 Datamodel of Application tbischeduling
 endheader

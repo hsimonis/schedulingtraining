@@ -34,11 +34,13 @@ import org.insightcentre.tbischeduling.datamodel.AbstractGanttProperty;
 import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
 import org.insightcentre.tbischeduling.datamodel.ApplicationDifference;
 import org.insightcentre.tbischeduling.datamodel.ApplicationWarning;
+import org.insightcentre.tbischeduling.datamodel.CumulativeLowerBound;
 import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
 import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
 import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
 import org.insightcentre.tbischeduling.datamodel.DataGeneratorProperty;
 import org.insightcentre.tbischeduling.datamodel.DataGeneratorRun;
+import org.insightcentre.tbischeduling.datamodel.DisjunctiveLowerBound;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.Downtime;
 import org.insightcentre.tbischeduling.datamodel.GanttProperty;
@@ -46,7 +48,11 @@ import org.insightcentre.tbischeduling.datamodel.InputError;
 import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.JobAssignment;
+import org.insightcentre.tbischeduling.datamodel.JobLowerBound;
+import org.insightcentre.tbischeduling.datamodel.LowerBound;
+import org.insightcentre.tbischeduling.datamodel.MachineGroupLowerBound;
 import org.insightcentre.tbischeduling.datamodel.Order;
+import org.insightcentre.tbischeduling.datamodel.PlacedRectangle;
 import org.insightcentre.tbischeduling.datamodel.Problem;
 import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
@@ -80,7 +86,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 10:47:55 on 2024-11-17 */
+ * Generated at 11:52:07 on 2024-12-06 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -172,11 +178,24 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<SolutionSummary> solutionSummaryData = FXCollections.observableArrayList();
 
+	private ObservableList<LowerBound> lowerBoundData = FXCollections.observableArrayList();
+
+	private ObservableList<JobLowerBound> jobLowerBoundData = FXCollections.observableArrayList();
+
+	private ObservableList<DisjunctiveLowerBound> disjunctiveLowerBoundData = FXCollections.observableArrayList();
+
+	private ObservableList<CumulativeLowerBound> cumulativeLowerBoundData = FXCollections.observableArrayList();
+
+	private ObservableList<MachineGroupLowerBound> machineGroupLowerBoundData = FXCollections.observableArrayList();
+
+	private ObservableList<PlacedRectangle> placedRectangleData = FXCollections.observableArrayList();
+
 	public GeneratedJfxApp() {
 		super("tbischeduling", "ENTIRE EDIH Test Before Invest - Scheduling - University College Cork", "*.data", "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling");
 		fs = minimalDataset();
 		reset();
 		tableViews.put("SolutionSummary", "SolutionSummary");
+		tableViews.put("PlacedRectangle", "PlacedRectangle");
 		tableViews.put("Scenario", "Scenario");
 		tableViews.put("Scenario Differences", "ApplicationDifference");
 		tableViews.put("Warnings", "ApplicationWarning");
@@ -211,6 +230,11 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		tableViews.put("DataGeneratorProperty", "DataGeneratorProperty");
 		tableViews.put("SolverProperty", "SolverProperty");
 		tableViews.put("GanttProperty", "GanttProperty");
+		tableViews.put("LowerBound", "LowerBound");
+		tableViews.put("JobLowerBound", "JobLowerBound");
+		tableViews.put("DisjunctiveLowerBound", "DisjunctiveLowerBound");
+		tableViews.put("CumulativeLowerBound", "CumulativeLowerBound");
+		tableViews.put("MachineGroupLowerBound", "MachineGroupLowerBound");
 		tableViews.put("AbstractSolverProperty", "AbstractSolverProperty");
 		tableViews.put("AbstractDataGeneratorProperty", "AbstractDataGeneratorProperty");
 		tableViews.put("AbstractGanttProperty", "AbstractGanttProperty");
@@ -369,6 +393,18 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		transportMatrixData.addAll(base.getListTransportMatrix());
 		solutionSummaryData.clear();
 		solutionSummaryData.addAll(base.getListSolutionSummary());
+		lowerBoundData.clear();
+		lowerBoundData.addAll(base.getListLowerBound());
+		jobLowerBoundData.clear();
+		jobLowerBoundData.addAll(base.getListJobLowerBound());
+		disjunctiveLowerBoundData.clear();
+		disjunctiveLowerBoundData.addAll(base.getListDisjunctiveLowerBound());
+		cumulativeLowerBoundData.clear();
+		cumulativeLowerBoundData.addAll(base.getListCumulativeLowerBound());
+		machineGroupLowerBoundData.clear();
+		machineGroupLowerBoundData.addAll(base.getListMachineGroupLowerBound());
+		placedRectangleData.clear();
+		placedRectangleData.addAll(base.getListPlacedRectangle());
 		for (BaseController controller : controllers) {
 			controller.setMainApp(this);
 		}
@@ -394,6 +430,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		alert(Alert.AlertType.WARNING, "Action LoadSALBPFileAction is not yet implemented!");
 	}
 
+	public void LoadSALBPAlternativeFileAction(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action LoadSALBPAlternativeFileAction is not yet implemented!");
+	}
+
 	public void LoadTestFileAction(Scenario base) {
 		alert(Alert.AlertType.WARNING, "Action LoadTestFileAction is not yet implemented!");
 	}
@@ -416,6 +456,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public void cumulativeResourceViewer(Scenario base) {
 		alert(Alert.AlertType.WARNING, "Action cumulativeResourceViewer is not yet implemented!");
+	}
+
+	public void cumulativeResourcePlacement(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action cumulativeResourcePlacement is not yet implemented!");
 	}
 
 	public void resourceUtilization0BarChart(Scenario base) {
@@ -486,6 +530,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		else if (id.equals("LoadSALBPFileAction")) {
 			LoadSALBPFileAction((Scenario) fs);
 		}
+		else if (id.equals("LoadSALBPAlternativeFileAction")) {
+			LoadSALBPAlternativeFileAction((Scenario) fs);
+		}
 		else if (id.equals("LoadTestFileAction")) {
 			LoadTestFileAction((Scenario) fs);
 		}
@@ -527,6 +574,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		}
 		else if (id.equals("cumulativeResourceViewer")) {
 			cumulativeResourceViewer((Scenario) fs);
+		}
+		else if (id.equals("cumulativeResourcePlacement")) {
+			cumulativeResourcePlacement((Scenario) fs);
 		}
 		else if (id.equals("resourceUtilization0BarChart")) {
 			resourceUtilization0BarChart((Scenario) fs);
@@ -697,5 +747,29 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public ObservableList<SolutionSummary> getSolutionSummaryData() {
 		return solutionSummaryData;
+	}
+
+	public ObservableList<LowerBound> getLowerBoundData() {
+		return lowerBoundData;
+	}
+
+	public ObservableList<JobLowerBound> getJobLowerBoundData() {
+		return jobLowerBoundData;
+	}
+
+	public ObservableList<DisjunctiveLowerBound> getDisjunctiveLowerBoundData() {
+		return disjunctiveLowerBoundData;
+	}
+
+	public ObservableList<CumulativeLowerBound> getCumulativeLowerBoundData() {
+		return cumulativeLowerBoundData;
+	}
+
+	public ObservableList<MachineGroupLowerBound> getMachineGroupLowerBoundData() {
+		return machineGroupLowerBoundData;
+	}
+
+	public ObservableList<PlacedRectangle> getPlacedRectangleData() {
+		return placedRectangleData;
 	}
 }

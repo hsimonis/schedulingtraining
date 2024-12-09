@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 10:47:55 on 2024-11-17 */
+ * Generated at 11:52:07 on 2024-12-06 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -327,6 +327,29 @@ public class BarChartController extends ChartController {
 		attributeNames.add("gapPercent");
 		choicesMap.put("SolutionSummary", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("value");
+		choicesMap.put("LowerBound", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("value");
+		choicesMap.put("JobLowerBound", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("value");
+		choicesMap.put("DisjunctiveLowerBound", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("value");
+		attributeNames.add("maxCapacity");
+		attributeNames.add("totalDemand");
+		choicesMap.put("CumulativeLowerBound", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("value");
+		choicesMap.put("MachineGroupLowerBound", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("x");
+		attributeNames.add("y");
+		attributeNames.add("w");
+		attributeNames.add("h");
+		choicesMap.put("PlacedRectangle", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -461,6 +484,24 @@ public class BarChartController extends ChartController {
 			}
 			else if (className.equals("SolutionSummary")) {
 				objectList = mainApp.getSolutionSummaryData();
+			}
+			else if (className.equals("LowerBound")) {
+				objectList = mainApp.getLowerBoundData();
+			}
+			else if (className.equals("JobLowerBound")) {
+				objectList = mainApp.getJobLowerBoundData();
+			}
+			else if (className.equals("DisjunctiveLowerBound")) {
+				objectList = mainApp.getDisjunctiveLowerBoundData();
+			}
+			else if (className.equals("CumulativeLowerBound")) {
+				objectList = mainApp.getCumulativeLowerBoundData();
+			}
+			else if (className.equals("MachineGroupLowerBound")) {
+				objectList = mainApp.getMachineGroupLowerBoundData();
+			}
+			else if (className.equals("PlacedRectangle")) {
+				objectList = mainApp.getPlacedRectangleData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

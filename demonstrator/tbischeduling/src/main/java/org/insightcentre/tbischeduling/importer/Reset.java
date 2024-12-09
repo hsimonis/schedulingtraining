@@ -19,6 +19,7 @@ public class Reset {
     only remove solution data, required when changing other data to maintain consistency
      */
     public static void resetSolution(Scenario base){
+        base.resetListPlacedRectangle();
         base.resetListTaskAssignment();
         base.resetListJobAssignment();
         base.resetListSolution();
@@ -48,6 +49,11 @@ public class Reset {
         base.resetListInputError();
         base.resetListSolutionError();
         base.resetListProblem();
+        base.resetListCumulativeLowerBound();
+        base.resetListDisjunctiveLowerBound();
+        base.resetListJobLowerBound();
+        base.resetListMachineGroupLowerBound();
+        base.resetListLowerBound();
         base.resetListResourceNeed();
         base.resetListCumulativeNeed();
         base.resetListCumulativeProfile();

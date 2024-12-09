@@ -11,6 +11,7 @@ import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
 import java.util.*;
 
+import static framework.reports.AbstractCommon.safe;
 import static java.util.stream.Collectors.groupingBy;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
 import static org.insightcentre.tbischeduling.datamodel.ObjectiveType.*;
@@ -134,7 +135,7 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
             new CheckSolutions(base,sol);
 
             if (run.getProduceReport() || run.getProducePDF()) {
-                new SchedulingReport(base, "reports/").produce("schedulingreport", "Scheduling Report", "L. O'Toole and H. Simonis");
+                new SchedulingReport(base, "reports/").produce("schedulingreport", "Scheduling Report for "+safe(base.getDataFile()), "L. O'Toole and H. Simonis");
             }
             if (run.getProducePDF()) {
                 // run latex to produce report

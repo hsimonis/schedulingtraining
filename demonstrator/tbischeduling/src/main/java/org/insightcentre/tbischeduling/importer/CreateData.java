@@ -26,7 +26,7 @@ public class CreateData {
         this.base = base;
         scheduleOrder(ord,i);
         base.setDirty(false);
-        summarizeProblem(base);
+//        summarizeProblem(base);
     }
 
     public CreateData(Scenario base,List<Order> orders){
@@ -38,7 +38,7 @@ public class CreateData {
             scheduleOrder(ord,i++);
         }
         base.setDirty(false);
-        summarizeProblem(base);
+//        summarizeProblem(base);
     }
     public CreateData(Scenario base,String label,DateTime startDateTime,ResourceModel resourceModel,int nrProducts,
                       int minStages,int maxStages,
@@ -346,13 +346,14 @@ public class CreateData {
 
 
     public static void summarizeProblem(Scenario base){
+        info("SummarizeProblem");
         Problem prob;
         if (base.getListProblem().size()==0){
             severe("There is no Problem instance, creating... ");
             prob = new Problem(base);
             prob.setName("TempFix");
         } else if (base.getListProblem().size()>1){
-            severe("There are too Problem instances, should be only 1.");
+            severe("There are too many Problem instances, should be only 1.");
             prob = Problem.findFirst(base);
         } else {
             prob = Problem.findFirst(base);
@@ -373,8 +374,9 @@ public class CreateData {
         }
         Map<Order,List<Task>> grouped = base.getListTask().stream().collect(groupingBy(x->x.getJob().getOrder()));
         for(Order ord:grouped.keySet()){
-//            ord.setMinDuration(grouped.get(ord).stream().mapToInt(Task::getDuration).sum());
+            ord.setMinDuration(grouped.get(ord).stream().mapToInt(Task::getDuration).sum());
         }
+        computeLowerBounds(base);
     }
 
     private static List<DisjunctiveResource> disjunctiveResources(Scenario base,Task t){
@@ -446,6 +448,55 @@ public class CreateData {
         } else {
             return minStages + random.nextInt(maxStages - minStages);
         }
+    }
+
+    private static void computeLowerBounds(Scenario base){
+        for(CumulativeResource c:base.getListCumulativeResource()){
+            computeCumulativeBound(base,c);
+        }
+    }
+
+    private static void computeCumulativeBound(Scenario base,CumulativeResource c){
+        Hashtable<ProcessStep,CumulativeNeed> hash = new Hashtable<>();
+        for(CumulativeNeed cn:base.getListCumulativeNeed().stream().filter(x->x.getCumulativeResource()==c).toList()){
+            hash.put(cn.getProcessStep(),cn);
+        }
+        int maxCapacity = base.getListCumulativeProfile().stream().
+                filter(x->x.getCumulativeResource()==c).
+                mapToInt(CumulativeProfile::getCapacity).
+                max().orElse(0);
+
+        int totalEnergy = base.getListTask().stream().mapToInt(x->energyFor(x,hash)).sum();
+        int bound = (int) Math.ceil(1.0*totalEnergy/maxCapacity);
+        CumulativeLowerBound clb = new CumulativeLowerBound(base);
+        clb.setName("LB "+c.getName());
+        clb.setCumulativeResource(c);
+        clb.setMaxCapacity(maxCapacity);
+        clb.setTotalDemand(totalEnergy);
+        clb.setValue(bound);
+        List<Task> tasks = base.getListTask().stream().filter(x->demandFor(x,hash)>0).toList();
+        for(Task t1:tasks){
+            for(Task t2:tasks){
+                if (t1.getNr() < t2.getNr() && demandFor(t1,hash)+demandFor(t2,hash) > maxCapacity){
+//                    info("disjunctive "+t1+" demand "+demandFor(t1,hash)+" "+t2+" demand "+demandFor(t2,hash)+" "+c+" capacity "+maxCapacity);
+                }
+            }
+        }
+    }
+
+    private static int energyFor(Task t,Hashtable<ProcessStep,CumulativeNeed> hash){
+        CumulativeNeed cn = hash.get(t.getProcessStep());
+        if (cn != null){
+            return cn.getDemand()*t.getDuration();
+        }
+        return 0;
+    }
+    private static int demandFor(Task t,Hashtable<ProcessStep,CumulativeNeed> hash){
+        CumulativeNeed cn = hash.get(t.getProcessStep());
+        if (cn != null){
+            return cn.getDemand();
+        }
+        return 0;
     }
 
 }

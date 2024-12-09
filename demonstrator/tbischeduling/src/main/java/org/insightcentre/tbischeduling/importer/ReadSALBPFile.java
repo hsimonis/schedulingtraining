@@ -22,8 +22,6 @@ public class ReadSALBPFile {
         DateTime startDate = new DateTime(2024,10,1,0,0);
         base.setStartDateTime(startDate);
         base.setTimeResolution(60);
-        //??? why 2000
-        base.setHorizon(2000);
         base.setDataFile(file.getName());
         base.setHasReleaseDate(false);
         base.setHasDisjunctive(false);
@@ -32,7 +30,7 @@ public class ReadSALBPFile {
         base.setHasWiP(false);
         base.setHasDowntime(false);
         base.setHasSetupTime(false);
-        base.setHasTransportTime(true);
+        base.setHasTransportTime(false);
 
         try {
             Scanner reader = new Scanner(file);
@@ -52,6 +50,7 @@ public class ReadSALBPFile {
             Product product = new Product(base);
             product.setName("Product");
             product.setDefaultProcess(process);
+            base.setHorizon(nrTasks);
 
             Order order = new Order(base);
             order.setName("Order");

@@ -94,6 +94,18 @@ $\square$\ & producePDF &  \\
 \end{table}
 
 \begin{table}
+\caption{CumulativeLowerBound  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & cumulativeResource &  \\
+$\square$\ & maxCapacity &  \\
+$\square$\ & totalDemand &  \\
+\end{longtable}
+\label{attr:CumulativeLowerBound}
+\end{table}
+
+\begin{table}
 \caption{CumulativeNeed  }
 
 \begin{longtable}{llp{8cm}}
@@ -118,6 +130,7 @@ $\square$\ & capacity &  \\
 \label{attr:CumulativeProfile}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{CumulativeResource  }
 
@@ -127,7 +140,6 @@ $\square$\ & capacity &  \\
 \label{attr:CumulativeResource}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{DataGeneratorProperty  }
 
@@ -147,6 +159,16 @@ $\square$\ & capacity &  \\
 \end{table}
 
 \begin{table}
+\caption{DisjunctiveLowerBound  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & disjunctiveResource &  \\
+\end{longtable}
+\label{attr:DisjunctiveLowerBound}
+\end{table}
+
+\begin{table}
 \caption{DisjunctiveResource  }
 
 \begin{longtable}{llp{8cm}}
@@ -157,6 +179,7 @@ $\square$\ & shortName &  \\
 \label{attr:DisjunctiveResource}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{Downtime  }
 
@@ -175,7 +198,6 @@ $\square$\ & shortName &  \\
 \label{attr:GanttProperty}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{InputError  }
 
@@ -219,6 +241,7 @@ $\square$\ & noOverlap &  \\
 \label{attr:Job}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{JobAssignment  }
 
@@ -235,6 +258,36 @@ $\square$\ & startDate &  \\
 $\square$\ & endDate &  \\
 \end{longtable}
 \label{attr:JobAssignment}
+\end{table}
+
+\begin{table}
+\caption{JobLowerBound  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & job &  \\
+\end{longtable}
+\label{attr:JobLowerBound}
+\end{table}
+
+\begin{table}
+\caption{LowerBound  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & value &  \\
+$\square$\ & description &  \\
+\end{longtable}
+\label{attr:LowerBound}
+\end{table}
+
+\begin{table}
+\caption{MachineGroupLowerBound  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+\end{longtable}
+\label{attr:MachineGroupLowerBound}
 \end{table}
 
 \begin{table}
@@ -258,6 +311,21 @@ $\square$\ & minDuration &  \\
 \end{table}
 
 \clearpage
+\begin{table}
+\caption{PlacedRectangle  }
+
+\begin{longtable}{llp{8cm}}
+& Attribute & Description \\
+$\square$\ & cumulativeResource &  \\
+$\square$\ & taskAssignment &  \\
+$\square$\ & x &  \\
+$\square$\ & y &  \\
+$\square$\ & w &  \\
+$\square$\ & h &  \\
+\end{longtable}
+\label{attr:PlacedRectangle}
+\end{table}
+
 \begin{table}
 \caption{Problem  }
 
@@ -314,6 +382,7 @@ $\square$\ & setupType &  \\
 \label{attr:ProcessStep}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{Product  }
 
@@ -324,7 +393,6 @@ $\square$\ & defaultProcess &  \\
 \label{attr:Product}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{ResourceActivity  }
 
@@ -400,6 +468,7 @@ $\square$\ & hasTransportTime &  \\
 \label{attr:Scenario}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{Setup  }
 
@@ -412,7 +481,6 @@ $\square$\ & disjunctiveResource &  \\
 \label{attr:Setup}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{SetupMatrix  }
 
@@ -501,6 +569,7 @@ $\square$\ & severity &  \\
 \label{attr:SolutionError}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{SolutionSummary  }
 
@@ -521,7 +590,6 @@ $\square$\ & gapPercent &  \\
 \label{attr:SolutionSummary}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{SolverProperty  }
 
@@ -577,6 +645,7 @@ $\square$\ & setupAfter &  \\
 \label{attr:TaskAssignment}
 \end{table}
 
+\clearpage
 \begin{table}
 \caption{Transport  }
 
@@ -587,7 +656,6 @@ $\square$\ & defaultValue &  \\
 \label{attr:Transport}
 \end{table}
 
-\clearpage
 \begin{table}
 \caption{TransportMatrix  }
 

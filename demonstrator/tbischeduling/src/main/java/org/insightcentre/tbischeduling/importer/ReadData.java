@@ -38,6 +38,7 @@ public class ReadData {
             resetAll(base);
             String contents = new String(Files.readAllBytes(selected.toPath()));
             root = new JSONObject(contents);
+            base.setDataFile(selected.getName());
 //            pretty(root,"exports/pretty.json");
         } catch(IOException e){
             severe("Cannot read file "+selected+", exception "+e.getMessage());
@@ -120,8 +121,11 @@ public class ReadData {
 
         }
 
+        info("extended");
         extendedConsistencyChecks();
+        info("properSummarize");
         summarizeProblem(base);
+        info("check sol");
         new CheckSolutions(base,base.getListSolution());
         info("File read, "+base.getListInputError().size()+" input error(s), "+base.getListSolutionError().size()+" solution errors");
 

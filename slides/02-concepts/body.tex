@@ -531,15 +531,45 @@
 \subsection{RCPSP}
 
 \begin{frame}
-\frametitle{Resource Constrained Project Scheduling Problem (RCPSP) \soon}
+\frametitle{Resource Constrained Project Scheduling Problem (RCPSP) \avail}
 \begin{itemize}
 \item Problem class from project management
 \item One project (one job), many tasks
 \item Precedence graph is arbitrary DAG
-\item Cumulative as well as disjunctive resources
-\item Variants with process alternatives
+\item Cumulative resources
+\item Variants with alternative modes, process alternatives \navail
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{RCPSP Process Diagram}
+\includegraphics[width=.7\textwidth]{../02-concepts/images/rcpsp-process-diagram}
+\begin{itemize}
+\item Multiple sources, sinks
+\item Multiple cumulative resources
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{RCPSP PERT Diagram}
+\includegraphics[width=\textwidth]{../02-concepts/images/rcpsp-pert}
+\begin{itemize}
+\item Resource constraints influence schedule, no single critical path
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{RCPSP Cumulative Chart}
+\includegraphics[width=\textwidth]{../02-concepts/images/rcpsp-cumulative-chart}
+\begin{itemize}
+\item Multiple cumulative resource, not busy all the time
+\item Not all instances are very hard to solve
+\end{itemize}
+
+\end{frame}
+
 
 
 \subsection{$\alpha/\beta/\gamma$ Notation}

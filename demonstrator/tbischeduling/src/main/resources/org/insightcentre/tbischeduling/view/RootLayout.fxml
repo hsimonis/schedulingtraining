@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 10:47:55 on 2024-11-17-->
+<!--Generated at 11:52:07 on 2024-12-06-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -31,6 +31,7 @@
                   <SeparatorMenuItem />
                   <MenuItem id="LoadJJFileAction" onAction="#handle" text="Load J&amp;J Problem..." />
                   <MenuItem id="LoadSALBPFileAction" onAction="#handle" text="Load SALBP Problem..." />
+                  <MenuItem id="LoadSALBPAlternativeFileAction" onAction="#handle" text="Load SALBP Problem Alternative..." />
                   <MenuItem id="LoadTestFileAction" onAction="#handle" text="Load Test Scheduling Problem..." />
                   <SeparatorMenuItem />
                   <MenuItem id="Print" accelerator="Shortcut+P" onAction="#handle" text="Print..." />
@@ -81,6 +82,7 @@
             <Menu text="_Window">
                <items>
                   <MenuItem id="solutionSummaryPage" onAction="#handle" text="SolutionSummary" />
+                  <MenuItem id="placedRectanglePage" onAction="#handle" text="PlacedRectangle" />
                   <Menu text="_Problem">
                      <items>
                         <MenuItem id="inputErrorPage" onAction="#handle" text="InputError" />
@@ -150,6 +152,7 @@
                         <SeparatorMenuItem />
                         <MenuItem id="disjunctiveResourceViewer" onAction="#handle" text="Disjunctive Resource Chart" />
                         <MenuItem id="cumulativeResourceViewer" onAction="#handle" text="Cumulative Resource Chart" />
+                        <MenuItem id="cumulativeResourcePlacement" onAction="#handle" text="Cumulative Resource Placement" />
                         <MenuItem id="resourceUtilizationPage" onAction="#handle" text="ResourceUtilization" />
                         <MenuItem id="resourceUtilization0BarChart" onAction="#handle" text="ResourceUtilizationBarChart0" />
                         <SeparatorMenuItem />
@@ -167,6 +170,16 @@
                      </items>
                   </Menu>
                   <SeparatorMenuItem />
+                  <Menu text="_LowerBound">
+                     <items>
+                        <MenuItem id="lowerBoundPage" onAction="#handle" text="LowerBound" />
+                        <MenuItem id="jobLowerBoundPage" onAction="#handle" text="JobLowerBound" />
+                        <MenuItem id="disjunctiveLowerBoundPage" onAction="#handle" text="DisjunctiveLowerBound" />
+                        <MenuItem id="cumulativeLowerBoundPage" onAction="#handle" text="CumulativeLowerBound" />
+                        <MenuItem id="machineGroupLowerBoundPage" onAction="#handle" text="MachineGroupLowerBound" />
+                     </items>
+                  </Menu>
+                  <SeparatorMenuItem />
                   <Menu text="_Others">
                      <items>
                         <MenuItem id="abstractSolverPropertyPage" onAction="#handle" text="AbstractSolverProperty" />
@@ -176,8 +189,8 @@
                         <MenuItem id="resourceActivityPage" onAction="#handle" text="ResourceActivity" />
                      </items>
                   </Menu>
-                  <SeparatorMenuItem />
                   <MenuItem id="GenericPieChart" onAction="#handle" text="Generic Pie Chart" />
+                  <SeparatorMenuItem />
                   <MenuItem id="GenericBarChart" accelerator="Shortcut+B" onAction="#handle" text="Generic Bar Chart" />
                   <MenuItem id="GenericScatterChart" onAction="#handle" text="Generic Scatter Chart" />
                   <Menu text="_System">

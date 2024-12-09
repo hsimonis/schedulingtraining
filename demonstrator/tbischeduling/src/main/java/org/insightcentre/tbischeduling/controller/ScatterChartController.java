@@ -12,7 +12,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 10:47:55 on 2024-11-17 */
+ * Generated at 11:52:07 on 2024-12-06 */
 public class ScatterChartController extends ChartXYFilterController {
 	@FXML
 	private ScatterChart<Number, Number> chart;
@@ -919,6 +919,74 @@ public class ScatterChartController extends ChartXYFilterController {
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
+		filterNames.add("name");
+		attributeNames.add("value");
+		filterNames.add("value");
+		filterNames.add("description");
+		choicesMap.put("LowerBound", attributeNames);
+		filterMap.put("LowerBound", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		attributeNames.add("value");
+		filterNames.add("value");
+		filterNames.add("description");
+		filterNames.add("job");
+		choicesMap.put("JobLowerBound", attributeNames);
+		filterMap.put("JobLowerBound", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		attributeNames.add("value");
+		filterNames.add("value");
+		filterNames.add("description");
+		filterNames.add("disjunctiveResource");
+		choicesMap.put("DisjunctiveLowerBound", attributeNames);
+		filterMap.put("DisjunctiveLowerBound", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		attributeNames.add("value");
+		filterNames.add("value");
+		filterNames.add("description");
+		filterNames.add("cumulativeResource");
+		attributeNames.add("maxCapacity");
+		filterNames.add("maxCapacity");
+		attributeNames.add("totalDemand");
+		filterNames.add("totalDemand");
+		choicesMap.put("CumulativeLowerBound", attributeNames);
+		filterMap.put("CumulativeLowerBound", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		attributeNames.add("value");
+		filterNames.add("value");
+		filterNames.add("description");
+		choicesMap.put("MachineGroupLowerBound", attributeNames);
+		filterMap.put("MachineGroupLowerBound", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
+		filterNames.add("name");
+		filterNames.add("cumulativeResource");
+		filterNames.add("taskAssignment");
+		attributeNames.add("x");
+		filterNames.add("x");
+		attributeNames.add("y");
+		filterNames.add("y");
+		attributeNames.add("w");
+		filterNames.add("w");
+		attributeNames.add("h");
+		filterNames.add("h");
+		choicesMap.put("PlacedRectangle", attributeNames);
+		filterMap.put("PlacedRectangle", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -1061,6 +1129,24 @@ public class ScatterChartController extends ChartXYFilterController {
 			}
 			else if (className.equals("SolutionSummary")) {
 				objectList = mainApp.getSolutionSummaryData();
+			}
+			else if (className.equals("LowerBound")) {
+				objectList = mainApp.getLowerBoundData();
+			}
+			else if (className.equals("JobLowerBound")) {
+				objectList = mainApp.getJobLowerBoundData();
+			}
+			else if (className.equals("DisjunctiveLowerBound")) {
+				objectList = mainApp.getDisjunctiveLowerBoundData();
+			}
+			else if (className.equals("CumulativeLowerBound")) {
+				objectList = mainApp.getCumulativeLowerBoundData();
+			}
+			else if (className.equals("MachineGroupLowerBound")) {
+				objectList = mainApp.getMachineGroupLowerBoundData();
+			}
+			else if (className.equals("PlacedRectangle")) {
+				objectList = mainApp.getPlacedRectangleData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

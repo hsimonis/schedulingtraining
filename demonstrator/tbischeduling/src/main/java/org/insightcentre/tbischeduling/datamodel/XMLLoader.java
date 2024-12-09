@@ -367,6 +367,25 @@ public DurationDisplay getDurationDisplay(String attributeName,
         return res;
     }
 
+    public CumulativeLowerBound getCumulativeLowerBound(String attributeName,
+                               Attributes attributes) {
+        return (CumulativeLowerBound) find(getId(attributeName,attributes));
+    }
+
+    public List<CumulativeLowerBound> getCumulativeLowerBoundCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<CumulativeLowerBound> res = new ArrayList<CumulativeLowerBound>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((CumulativeLowerBound) find(id));
+            }
+        }
+        return res;
+    }
+
     public CumulativeNeed getCumulativeNeed(String attributeName,
                                Attributes attributes) {
         return (CumulativeNeed) find(getId(attributeName,attributes));
@@ -457,6 +476,25 @@ public DurationDisplay getDurationDisplay(String attributeName,
             if (words[i].length() > 0) {
                 int id = Integer.parseInt(words[i].substring(3));
                 res.add((DataGeneratorRun) find(id));
+            }
+        }
+        return res;
+    }
+
+    public DisjunctiveLowerBound getDisjunctiveLowerBound(String attributeName,
+                               Attributes attributes) {
+        return (DisjunctiveLowerBound) find(getId(attributeName,attributes));
+    }
+
+    public List<DisjunctiveLowerBound> getDisjunctiveLowerBoundCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<DisjunctiveLowerBound> res = new ArrayList<DisjunctiveLowerBound>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((DisjunctiveLowerBound) find(id));
             }
         }
         return res;
@@ -595,6 +633,63 @@ public DurationDisplay getDurationDisplay(String attributeName,
         return res;
     }
 
+    public JobLowerBound getJobLowerBound(String attributeName,
+                               Attributes attributes) {
+        return (JobLowerBound) find(getId(attributeName,attributes));
+    }
+
+    public List<JobLowerBound> getJobLowerBoundCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<JobLowerBound> res = new ArrayList<JobLowerBound>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((JobLowerBound) find(id));
+            }
+        }
+        return res;
+    }
+
+    public LowerBound getLowerBound(String attributeName,
+                               Attributes attributes) {
+        return (LowerBound) find(getId(attributeName,attributes));
+    }
+
+    public List<LowerBound> getLowerBoundCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<LowerBound> res = new ArrayList<LowerBound>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((LowerBound) find(id));
+            }
+        }
+        return res;
+    }
+
+    public MachineGroupLowerBound getMachineGroupLowerBound(String attributeName,
+                               Attributes attributes) {
+        return (MachineGroupLowerBound) find(getId(attributeName,attributes));
+    }
+
+    public List<MachineGroupLowerBound> getMachineGroupLowerBoundCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<MachineGroupLowerBound> res = new ArrayList<MachineGroupLowerBound>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((MachineGroupLowerBound) find(id));
+            }
+        }
+        return res;
+    }
+
     public Order getOrder(String attributeName,
                                Attributes attributes) {
         return (Order) find(getId(attributeName,attributes));
@@ -609,6 +704,25 @@ public DurationDisplay getDurationDisplay(String attributeName,
             if (words[i].length() > 0) {
                 int id = Integer.parseInt(words[i].substring(3));
                 res.add((Order) find(id));
+            }
+        }
+        return res;
+    }
+
+    public PlacedRectangle getPlacedRectangle(String attributeName,
+                               Attributes attributes) {
+        return (PlacedRectangle) find(getId(attributeName,attributes));
+    }
+
+    public List<PlacedRectangle> getPlacedRectangleCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<PlacedRectangle> res = new ArrayList<PlacedRectangle>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((PlacedRectangle) find(id));
             }
         }
         return res;
@@ -1099,6 +1213,18 @@ public DurationDisplay getDurationDisplay(String attributeName,
                         getString("limit",attributes,""),
                         null
                         ));
+            } else if (qname.equals("cumulativeLowerBound")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new CumulativeLowerBound(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getString("description",attributes,""),
+                        getInteger("value",attributes,0),
+                        null,
+                        getInteger("maxCapacity",attributes,0),
+                        getInteger("totalDemand",attributes,0)
+                        ));
             } else if (qname.equals("cumulativeNeed")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1203,6 +1329,16 @@ public DurationDisplay getDurationDisplay(String attributeName,
                         getInteger("timeResolution",attributes,0),
                         getDouble("wipProbability",attributes,0.0)
                         ));
+            } else if (qname.equals("disjunctiveLowerBound")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new DisjunctiveLowerBound(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getString("description",attributes,""),
+                        getInteger("value",attributes,0),
+                        null
+                        ));
             } else if (qname.equals("disjunctiveResource")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1292,6 +1428,25 @@ public DurationDisplay getDurationDisplay(String attributeName,
                         getInteger("start",attributes,0),
                         getDateTime("startDate",attributes,"2011-01-01")
                         ));
+            } else if (qname.equals("jobLowerBound")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new JobLowerBound(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getString("description",attributes,""),
+                        getInteger("value",attributes,0),
+                        null
+                        ));
+            } else if (qname.equals("machineGroupLowerBound")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new MachineGroupLowerBound(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getString("description",attributes,""),
+                        getInteger("value",attributes,0)
+                        ));
             } else if (qname.equals("order")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1309,6 +1464,19 @@ public DurationDisplay getDurationDisplay(String attributeName,
                         getInteger("qty",attributes,0),
                         getInteger("release",attributes,0),
                         getDateTime("releaseDate",attributes,"2011-01-01")
+                        ));
+            } else if (qname.equals("placedRectangle")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new PlacedRectangle(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        null,
+                        getInteger("h",attributes,0),
+                        null,
+                        getInteger("w",attributes,0),
+                        getInteger("x",attributes,0),
+                        getInteger("y",attributes,0)
                         ));
             } else if (qname.equals("problem")) {
                 assert (base != null);
@@ -1684,6 +1852,11 @@ public DurationDisplay getDurationDisplay(String attributeName,
                 int id = getId("id", attributes);
                 ApplicationWarning item = (ApplicationWarning) find(id);
                  item.setType(getWarningType("type",attributes));
+            } else if (qname.equals("cumulativeLowerBound")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                CumulativeLowerBound item = (CumulativeLowerBound) find(id);
+                 item.setCumulativeResource(getCumulativeResource("cumulativeResource",attributes));
             } else if (qname.equals("cumulativeNeed")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1711,6 +1884,11 @@ public DurationDisplay getDurationDisplay(String attributeName,
                 DataGeneratorRun item = (DataGeneratorRun) find(id);
                  item.setDurationModel(getDurationModel("durationModel",attributes));
                  item.setResourceModel(getResourceModel("resourceModel",attributes));
+            } else if (qname.equals("disjunctiveLowerBound")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                DisjunctiveLowerBound item = (DisjunctiveLowerBound) find(id);
+                 item.setDisjunctiveResource(getDisjunctiveResource("disjunctiveResource",attributes));
             } else if (qname.equals("disjunctiveResource")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -1754,12 +1932,27 @@ public DurationDisplay getDurationDisplay(String attributeName,
                 JobAssignment item = (JobAssignment) find(id);
                  item.setJob(getJob("job",attributes));
                  item.setSolution(getSolution("solution",attributes));
+            } else if (qname.equals("jobLowerBound")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                JobLowerBound item = (JobLowerBound) find(id);
+                 item.setJob(getJob("job",attributes));
+            } else if (qname.equals("machineGroupLowerBound")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                MachineGroupLowerBound item = (MachineGroupLowerBound) find(id);
             } else if (qname.equals("order")) {
                 assert (base != null);
                 int id = getId("id", attributes);
                 Order item = (Order) find(id);
                  item.setProcess(getProcess("process",attributes));
                  item.setProduct(getProduct("product",attributes));
+            } else if (qname.equals("placedRectangle")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                PlacedRectangle item = (PlacedRectangle) find(id);
+                 item.setCumulativeResource(getCumulativeResource("cumulativeResource",attributes));
+                 item.setTaskAssignment(getTaskAssignment("taskAssignment",attributes));
             } else if (qname.equals("problem")) {
                 assert (base != null);
                 int id = getId("id", attributes);
