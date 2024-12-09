@@ -107,8 +107,8 @@ public class TestAll {
 //                "Comparison of CPO for Result Groups of Permutation and Unrestricted FlowShop Problems",GroupType.Taillard);
 //        testSALBP("salbp/","results/",CPO,null,4,30,overWrite);
 //        testSALBP("salbp/","resultsCPSat/",CPSat,null,8,30,overWrite);
-//        testSALBP("salbp/","resultsChuffed/",MiniZincDiffn,Chuffed,1,120,overWrite);
-//        testSALBP("salbp/","resultsCplex/",MiniZincDiffn,Cplex,8,30,overWrite);
+        testSALBP("salbp/","resultsChuffed/",MiniZincDiffn,Chuffed,1,120,overWrite);
+        testSALBP("salbp/","resultsCplex/",MiniZincDiffn,Cplex,8,120,overWrite);
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
 //        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
