@@ -1,5 +1,6 @@
 package org.insightcentre.tbischeduling;
 
+import au.com.bytecode.opencsv.CSVReader;
 import framework.types.DateTime;
 import framework.types.IrishCalendar;
 import org.insightcentre.tbischeduling.datamodel.*;
@@ -12,9 +13,7 @@ import org.insightcentre.tbischeduling.utilities.Group;
 import org.insightcentre.tbischeduling.utilities.GroupType;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -107,14 +106,14 @@ public class TestAll {
 //                "Comparison of CPO for Result Groups of Permutation and Unrestricted FlowShop Problems",GroupType.Taillard);
 //        testSALBP("salbp/","results/",CPO,null,4,30,overWrite);
 //        testSALBP("salbp/","resultsCPSat/",CPSat,null,8,30,overWrite);
-        testSALBP("salbp/","resultsChuffed/",MiniZincDiffn,Chuffed,1,120,overWrite);
-        testSALBP("salbp/","resultsCplex/",MiniZincDiffn,Cplex,8,120,overWrite);
+//        testSALBP("salbp/","resultsChuffed/",MiniZincDiffn,Chuffed,1,120,overWrite);
+//        testSALBP("salbp/","resultsCplex/",MiniZincDiffn,Cplex,8,120,overWrite);
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
 //        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
 //        compareSummaries(base,"comparesalbp",false,"CPO","CPSat",
 //                "Comparison of CPO and CPSat for Result Groups of SALBP-1 Problems",GroupType.Salbp);
-//        testSALBPAlternative("salbp/","alternative/",CPO,4,30,overWrite);
+        testSALBPAlternative("salbp/","alternative/",CPO,4,120,overWrite);
 //        testSALBPAlternative("salbp/","alternativeCPSat/",CPSat,8,30,overWrite);
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"salbp/alternative/","SALBP-1 Problems Alternative (CPO)","alternativesalbp","CPO",true);
@@ -136,6 +135,10 @@ public class TestAll {
 //                "Comparison of CPO and CPSat for Result Groups of Factory Design Problems",GroupType.Transport);
 
         base.resetListSolutionSummary();
+        baseResults(base,"salbp/bounds1000.csv");
+        baseResults(base,"salbp/bounds100.csv");
+        baseResults(base,"salbp/bounds50.csv");
+        baseResults(base,"salbp/bounds20.csv");
         analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
         analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
         analyzeAll(base,"salbp/resultsCplex/","SALBP-1 Problems (Cplex)","salbpCplex","Cplex");
@@ -218,7 +221,7 @@ public class TestAll {
 
         for(String fileName:list) {
             String outputFile = importDir+resultDir+ fileName.replaceAll(".alb",".json");
-            if (overWrite || (!new File(outputFile).exists() && fileName.startsWith("instance_n=100_"))) {
+            if (overWrite || (!new File(outputFile).exists() /*&& fileName.startsWith("instance_n=50_")*/)) {
                 info("trying file " + fileName);
 
                 Scenario base = new Scenario();
@@ -711,22 +714,32 @@ public class TestAll {
         }
         try {
             PrintWriter out = new PrintWriter(fileName);
-            out.printf("\\begin{longtable}{lrrrrrr}\n");
+            out.printf("\\begin{longtable}{lrrrrrrrr}\n");
             out.printf("\\caption{Result Comparisoon for SALBP}\\\\\\toprule\n");
-            out.printf("& \\multicolumn{4}{c}{Direct} & \\multicolumn{2}{c}{Alternative}\\\\");
-            out.printf("Instance & CPO & CPSat & Cplex & Chuffed & CPO & CPSat \\\\\\midrule\n");
+            out.printf("& \\multicolumn{2}{c}{SALOME} & \\multicolumn{4}{c}{Direct} & \\multicolumn{2}{c}{Alternative}\\\\");
+            out.printf("Instance & LB & UB & CPO & CPSat & Cplex & Chuffed & CPO & CPSat \\\\\\midrule\n");
             out.printf("\\endhead\n");
             out.printf("\\bottomrule\n");
             out.printf("\\endfoot\n");
 
             for (String problem : problems) {
+                SolutionSummary salome = hash.get(key(problem,"base"));
+                Integer ub = solution(hash, problem, "base");
                 Integer a = solution(hash, problem, "CPO");
                 Integer b = solution(hash, problem, "CPSat");
                 Integer b1 = solution(hash, problem, "Cplex");
                 Integer b2 = solution(hash, problem, "Chuffed");
                 Integer c = solution(hash, problem, "CPOAlternative") ;
                 Integer d = solution(hash, problem, "CPSatAlternative");
+                SolverStatus ubStatus = status(hash, problem, "base");
+                SolverStatus aStatus = status(hash, problem, "CPO");
+                SolverStatus bStatus = status(hash, problem, "CPSat");
+                SolverStatus b1Status = status(hash, problem, "Cplex");
+                SolverStatus b2Status = status(hash, problem, "Chuffed");
+                SolverStatus cStatus = status(hash, problem, "CPOAlternative") ;
+                SolverStatus dStatus = status(hash, problem, "CPSatAlternative");
                 List<Integer> sols = new ArrayList<>();
+                if (ub != null) sols.add(ub);
                 if (a != null) sols.add(a);
                 if (b != null) sols.add(b);
                 if (b1 != null) sols.add(b1);
@@ -734,14 +747,21 @@ public class TestAll {
                 if (c != null) sols.add(c);
                 if (d != null) sols.add(d);
                 int min = sols.stream().mapToInt(x->x).min().orElse(0);
+                int exAequo = (int) sols.stream().filter(x->x==min).count();
 
                 out.printf("%s",problem.replaceAll("instance_n=","").replaceAll(".alb","").replaceAll("_"," "));
-                printSol(out,a,min);
-                printSol(out,b,min);
-                printSol(out,b1,min);
-                printSol(out,b2,min);
-                printSol(out,c,min);
-                printSol(out,d,min);
+                if (salome != null) {
+                    out.printf("& %d ",(int)Math.round(salome.getBound()));
+                } else {
+                    out.printf("& n/a");
+                }
+                printSol(out,ub,ubStatus,min,exAequo);
+                printSol(out,a,aStatus,min,exAequo);
+                printSol(out,b,bStatus,min,exAequo);
+                printSol(out,b1,b1Status,min,exAequo);
+                printSol(out,b2,b2Status,min,exAequo);
+                printSol(out,c,cStatus,min,exAequo);
+                printSol(out,d,dStatus,min,exAequo);
                 out.printf("\\\\\n");
             }
             out.printf("\\end{longtable}\n\n");
@@ -751,13 +771,33 @@ public class TestAll {
         }
     }
 
-    private static void printSol(PrintWriter out,Integer v,int min){
+    private static void printSol(PrintWriter out,Integer v,SolverStatus status,int min,int exAequo){
         if (v == null){
             out.printf("& \\cellcolor{red!20} n/a ");
         } else if (v == min){
-            out.printf("& \\cellcolor{blue!20} %d ",v);
+            out.printf("& \\cellcolor{%s} %s ",intensity(exAequo),statusValue(v,status));
         } else {
-            out.printf("& %d ",v);
+            out.printf("& %s ",statusValue(v,status));
+        }
+    }
+
+    private static String statusValue(int v,SolverStatus status){
+        if (status==Optimal){
+            return String.format("\\textbf{%d}",v);
+        }
+        return String.format("%d",v);
+    }
+
+    private static String intensity(int exAequo){
+        if (exAequo == 1){
+            return "blue!40";
+        } else if (exAequo == 2) {
+            return "blue!20";
+        } else if (exAequo == 3) {
+            return "blue!10";
+        } else {
+            return "blue!5";
+
         }
     }
 
@@ -768,6 +808,13 @@ public class TestAll {
         }
         return s.getMakespan();
     }
+    private static SolverStatus status(Hashtable<String,SolutionSummary> hash, String instance,String variant){
+        SolutionSummary s = hash.get(key(instance,variant));
+        if (s == null) {
+            return null;
+        }
+        return s.getSolverStatus();
+    }
 
     private static String key(String instance,String variant){
         return instance+"/"+variant;
@@ -776,6 +823,53 @@ public class TestAll {
     private static String key(SolutionSummary s){
         return key(s.getInstance(),s.getVariant());
     }
+
+    private static void baseResults(Scenario base,String fullFile){
+        try{
+            info("Reading file " + fullFile);
+            CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(fullFile),"UTF8"),',');
+            String[] firstLine = reader.readNext();
+            String[] nextLine;
+            int line = 1;
+            int created = 0;
+            while ((nextLine = reader.readNext()) != null) {
+                int col= 0;
+//                System.out.println(nextLine[0]);
+                if (!nextLine[0].equals("")) {
+
+                    String instance = nextLine[col++].trim()+".alb";
+                    int lb = readInteger(nextLine[col++].trim());
+                    int ub = readInteger(nextLine[col++].trim());
+
+                    SolutionSummary ss = new SolutionSummary(base);
+                    ss.setInstance(instance);
+                    ss.setBound((double)lb);
+                    ss.setMakespan(ub);
+                    ss.setVariant("base");
+                    ss.setSolverStatus(lb == ub?Optimal:SolverStatus.Solution);
+
+
+                    created++;
+
+
+                }
+                line++;
+            }
+            info("BaseResult File read, "+line+" lines, "+created+ " created items");
+
+        } catch(IOException e){
+            severe("Cannot read file "+fullFile+", exception "+e.getMessage());
+
+        }
+    }
+
+    public static int readInteger(String entry){
+        if (entry.equals("")||entry.equals("null")){
+            return 0;
+        }
+        return Integer.parseInt(entry);
+    }
+
 
 
 
