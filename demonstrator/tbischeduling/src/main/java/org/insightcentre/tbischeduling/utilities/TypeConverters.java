@@ -103,6 +103,7 @@ public class TypeConverters {
             case "WeightedLateness" -> WeightedLateness;
             case "OnTime" -> OnTime;
             case "Hybrid" -> Hybrid;
+            case "Projection" -> Projection;
             default -> null;
         };
     }

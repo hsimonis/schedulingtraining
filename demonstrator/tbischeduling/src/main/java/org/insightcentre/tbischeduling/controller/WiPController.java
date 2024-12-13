@@ -23,7 +23,7 @@ import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.WiP;
 
 /**
- * Generated at 11:52:07 on 2024-12-06 */
+ * Generated at 13:12:28 on 2024-12-12 */
 public class WiPController extends Table3Controller {
 	@FXML
 	private TableView<WiP> table;

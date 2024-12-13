@@ -25,7 +25,7 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Process;
 
 /**
- * Generated at 11:52:07 on 2024-12-06 */
+ * Generated at 13:12:27 on 2024-12-12 */
 public class ProcessController extends Table3Controller {
 	@FXML
 	private TableView<Process> table;

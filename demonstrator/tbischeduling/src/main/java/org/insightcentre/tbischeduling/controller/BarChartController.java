@@ -13,7 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 /**
- * Generated at 11:52:07 on 2024-12-06 */
+ * Generated at 13:12:28 on 2024-12-12 */
 public class BarChartController extends ChartController {
 	@FXML
 	private BarChart<String, Number> chart;
@@ -317,6 +317,7 @@ public class BarChartController extends ChartController {
 		attributeNames.add("value");
 		choicesMap.put("TransportMatrix", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("instanceNr");
 		attributeNames.add("nrJobs");
 		attributeNames.add("nrTasks");
 		attributeNames.add("nrMachines");

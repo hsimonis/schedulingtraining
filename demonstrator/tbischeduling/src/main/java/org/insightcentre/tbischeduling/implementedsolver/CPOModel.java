@@ -343,6 +343,22 @@ public class CPOModel extends AbstractModel{
              */
             IloObjective objective=null;
             switch (run.getObjectiveType()) {
+                case Projection -> {
+                    // this is an experimental objective for the alternative model of the SALBP problem
+                    // it defines the number of stations as the real objective, and links this to the makespan via a projection
+
+                    IloIntExpr makespan = cp.intVar(0,base.getHorizon());
+                    IloIntExpr nrStations = cp.intVar(0,base.getHorizon()/1001);
+                    IloIntExpr time = cp.intVar(0,1000);
+                    // Constraint makespan+time = 1001*nrStations with dummy time rest
+                    cp.addEq(cp.sum(makespan,time),cp.prod(nrStations,1001));
+                    IntExprList ends = new IntExprList();
+                    for(int j=0;j<nrJobs;j++){
+                        ends.add(cp.endOf(y[j]));
+                    }
+                    cp.addEq(makespan,cp.max(ends.toArray()));
+                    objective = cp.minimize(nrStations);
+                }
                 case Makespan -> {
                     // define makespan
                     IloIntExpr makespan = cp.intVar(0,base.getHorizon());

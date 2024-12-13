@@ -48,6 +48,8 @@ Table~\ref{tab:comparepfss} compares the results for CPOptimizer for the regular
 
 \input{comparesalbp}
 
+\input{comparesalbpalternative}
+
 The results for SALBP-1 in Table~\ref{tab:comparesalbp} were obtained with a 30 second timeout. All of the 20 task instances were solved to optimality (some only with CPSat), while 88\% of the 50 task instances were solved to optimality, but only 43\% were solved by both. The time taken to find the common optimal solutions varies significantly, CPSat seems on average faster on the small instances, while CPOptimizer is faster on a larger instances, but this does not hold for all instances. For the non-optimal solutions, solution quality seems very evenly balanced.
 
 The results for the test scheduling case study are shown in Table~\ref{tab:compareTest}.
@@ -217,6 +219,9 @@ The detailed result tables for the individual RCPSP instances show that many ins
 
 \clearpage
 \chapter{Result Comparison for SALBP}
+
+\input{salbpresultsummary}
+\clearpage
 
 \input{salbpresultcompare}
 

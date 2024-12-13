@@ -110,6 +110,13 @@ public  class SolutionSummary extends ApplicationObject{
  *
 */
 
+    public Integer instanceNr;
+
+/**
+ *  
+ *
+*/
+
     public Integer makespan;
 
 /**
@@ -183,6 +190,7 @@ public  class SolutionSummary extends ApplicationObject{
         setBound(0.0);
         setGapPercent(0.0);
         setInstance("");
+        setInstanceNr(0);
         setMakespan(0);
         setNrCumulatives(0);
         setNrJobs(0);
@@ -207,6 +215,7 @@ public  class SolutionSummary extends ApplicationObject{
             Double bound,
             Double gapPercent,
             String instance,
+            Integer instanceNr,
             Integer makespan,
             Integer nrCumulatives,
             Integer nrJobs,
@@ -221,6 +230,7 @@ public  class SolutionSummary extends ApplicationObject{
         setBound(bound);
         setGapPercent(gapPercent);
         setInstance(instance);
+        setInstanceNr(instanceNr);
         setMakespan(makespan);
         setNrCumulatives(nrCumulatives);
         setNrJobs(nrJobs);
@@ -239,6 +249,7 @@ public  class SolutionSummary extends ApplicationObject{
             other.bound,
             other.gapPercent,
             other.instance,
+            other.instanceNr,
             other.makespan,
             other.nrCumulatives,
             other.nrJobs,
@@ -288,6 +299,16 @@ public  class SolutionSummary extends ApplicationObject{
 
     public String getInstance(){
         return this.instance;
+    }
+
+/**
+ *  get attribute instanceNr
+ *
+ * @return Integer
+*/
+
+    public Integer getInstanceNr(){
+        return this.instanceNr;
     }
 
 /**
@@ -407,6 +428,18 @@ public  class SolutionSummary extends ApplicationObject{
     }
 
 /**
+ *  set attribute instanceNr, mark dataset as dirty, mark dataset as not valid
+@param instanceNr Integer
+ *
+*/
+
+    public void setInstanceNr(Integer instanceNr){
+        this.instanceNr = instanceNr;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute makespan, mark dataset as dirty, mark dataset as not valid
 @param makespan Integer
  *
@@ -503,6 +536,17 @@ public  class SolutionSummary extends ApplicationObject{
     }
 
 /**
+ *  inc attribute instanceNr, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incInstanceNr(){
+        this.instanceNr++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  inc attribute makespan, mark dataset as dirty, mark dataset as not valid
  *
 */
@@ -574,7 +618,7 @@ public  class SolutionSummary extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getGapPercent()+ " " +getInstance()+ " " +getMakespan()+ " " +getNrCumulatives()+ " " +getNrJobs()+ " " +getNrMachines()+ " " +getNrTasks()+ " " +getSolverStatus()+ " " +getTime()+ " " +getVariant();
+        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getGapPercent()+ " " +getInstance()+ " " +getInstanceNr()+ " " +getMakespan()+ " " +getNrCumulatives()+ " " +getNrJobs()+ " " +getNrMachines()+ " " +getNrTasks()+ " " +getSolverStatus()+ " " +getTime()+ " " +getVariant();
     }
 
 /**
@@ -601,6 +645,7 @@ public  class SolutionSummary extends ApplicationObject{
             " bound=\""+toXMLBound()+"\""+
             " gapPercent=\""+toXMLGapPercent()+"\""+
             " instance=\""+toXMLInstance()+"\""+
+            " instanceNr=\""+toXMLInstanceNr()+"\""+
             " makespan=\""+toXMLMakespan()+"\""+
             " nrCumulatives=\""+toXMLNrCumulatives()+"\""+
             " nrJobs=\""+toXMLNrJobs()+"\""+
@@ -639,6 +684,16 @@ public  class SolutionSummary extends ApplicationObject{
 
     String toXMLInstance(){
         return this.safeXML(getInstance());
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLInstanceNr(){
+        return this.getInstanceNr().toString();
     }
 
 /**
@@ -728,11 +783,11 @@ public  class SolutionSummary extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>SolutionSummary</th>"+"<th>Name</th>"+"<th>Variant</th>"+"<th>Instance</th>"+"<th>NrJobs</th>"+"<th>NrTasks</th>"+"<th>NrMachines</th>"+"<th>NrCumulatives</th>"+"<th>SolverStatus</th>"+"<th>Time</th>"+"<th>Makespan</th>"+"<th>Bound</th>"+"<th>GapPercent</th>"+"</tr>";
+        return "<tr><th>SolutionSummary</th>"+"<th>Name</th>"+"<th>Variant</th>"+"<th>Instance</th>"+"<th>InstanceNr</th>"+"<th>NrJobs</th>"+"<th>NrTasks</th>"+"<th>NrMachines</th>"+"<th>NrCumulatives</th>"+"<th>SolverStatus</th>"+"<th>Time</th>"+"<th>Makespan</th>"+"<th>Bound</th>"+"<th>GapPercent</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getVariant()+"</td>"+ " " +"<td>"+getInstance()+"</td>"+ " " +"<td>"+getNrJobs()+"</td>"+ " " +"<td>"+getNrTasks()+"</td>"+ " " +"<td>"+getNrMachines()+"</td>"+ " " +"<td>"+getNrCumulatives()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getTime()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGapPercent()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getVariant()+"</td>"+ " " +"<td>"+getInstance()+"</td>"+ " " +"<td>"+getInstanceNr()+"</td>"+ " " +"<td>"+getNrJobs()+"</td>"+ " " +"<td>"+getNrTasks()+"</td>"+ " " +"<td>"+getNrMachines()+"</td>"+ " " +"<td>"+getNrCumulatives()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getTime()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGapPercent()+"</td>"+"</tr>";
     }
 
 /**
@@ -858,6 +913,9 @@ public  class SolutionSummary extends ApplicationObject{
       if(!this.getInstance().equals(b.getInstance())){
          System.out.println("Instance");
         }
+      if(!this.getInstanceNr().equals(b.getInstanceNr())){
+         System.out.println("InstanceNr");
+        }
       if(!this.getMakespan().equals(b.getMakespan())){
          System.out.println("Makespan");
         }
@@ -888,6 +946,7 @@ public  class SolutionSummary extends ApplicationObject{
         return  this.getBound().equals(b.getBound()) &&
           this.getGapPercent().equals(b.getGapPercent()) &&
           this.getInstance().equals(b.getInstance()) &&
+          this.getInstanceNr().equals(b.getInstanceNr()) &&
           this.getMakespan().equals(b.getMakespan()) &&
           this.getName().equals(b.getName()) &&
           this.getNrCumulatives().equals(b.getNrCumulatives()) &&

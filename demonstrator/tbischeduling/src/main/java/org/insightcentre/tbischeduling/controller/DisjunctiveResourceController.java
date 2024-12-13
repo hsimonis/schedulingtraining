@@ -20,7 +20,7 @@ import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 import org.insightcentre.tbischeduling.datamodel.Setup;
 
 /**
- * Generated at 11:52:07 on 2024-12-06 */
+ * Generated at 13:12:27 on 2024-12-12 */
 public class DisjunctiveResourceController extends Table3Controller {
 	@FXML
 	private TableView<DisjunctiveResource> table;

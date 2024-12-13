@@ -143,7 +143,13 @@ OnTime,
  *
 */
 
-Hybrid;
+Hybrid,
+    /**
+ *  
+ *
+*/
+
+Projection;
 private static ObjectiveType[] cache = null;
 
 public static ObjectiveType[] cachedValues(){

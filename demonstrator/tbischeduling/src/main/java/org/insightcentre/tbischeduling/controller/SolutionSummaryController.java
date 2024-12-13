@@ -22,7 +22,7 @@ import org.insightcentre.tbischeduling.datamodel.SolutionSummary;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 11:52:07 on 2024-12-06 */
+ * Generated at 13:12:28 on 2024-12-12 */
 public class SolutionSummaryController extends Table3Controller {
 	@FXML
 	private TableView<SolutionSummary> table;
@@ -35,6 +35,9 @@ public class SolutionSummaryController extends Table3Controller {
 
 	@FXML
 	private TableColumn<SolutionSummary, String> instance;
+
+	@FXML
+	private TableColumn<SolutionSummary, Integer> instanceNr;
 
 	@FXML
 	private TableColumn<SolutionSummary, Integer> nrJobs;
@@ -95,6 +98,10 @@ public class SolutionSummaryController extends Table3Controller {
 		instance.setCellValueFactory(new PropertyValueFactory<>("instance"));
 		instance.setCellFactory(TextFieldTableCell.forTableColumn());
 		instance.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setInstance(event.getNewValue()); mainApp.reset();});
+		choices.add("instanceNr");
+		instanceNr.setCellValueFactory(new PropertyValueFactory<>("instanceNr"));
+		instanceNr.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		instanceNr.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setInstanceNr(event.getNewValue()); mainApp.reset();});
 		choices.add("nrJobs");
 		nrJobs.setCellValueFactory(new PropertyValueFactory<>("nrJobs"));
 		nrJobs.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
