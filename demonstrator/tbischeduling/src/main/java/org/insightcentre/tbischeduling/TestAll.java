@@ -284,7 +284,7 @@ public class TestAll {
 
         for(String fileName:list.stream().sorted(Comparator.comparing(TestAll::instanceNr)).toList()) {
             String outputFile = importDir+resultDir+ fileName.replaceAll(".alb",".json");
-            if (overWrite || (!new File(outputFile).exists() && fileName.startsWith("instance_n=100_"))) {
+            if (overWrite || (!new File(outputFile).exists() /*&& fileName.startsWith("instance_n=100_")*/)) {
                 info("trying file " + fileName);
 
                 Scenario base = new Scenario();
