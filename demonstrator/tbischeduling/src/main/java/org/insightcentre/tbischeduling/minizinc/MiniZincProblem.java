@@ -25,12 +25,15 @@ public class MiniZincProblem {
         res.put("cumulativeNeeds",cumulativeNeeds);
         JSONArray sequences = createSequences(taskHash);
         res.put("sequences",sequences);
+        JSONArray downtimes = createDowntimes();
+        res.put("downtimes",downtimes);
         res.put("nrJobs",base.getListJob().size());
         res.put("nrTasks",base.getListTask().size());
         res.put("nrMachines",base.getListDisjunctiveResource().size());
         res.put("nrCumulativeMachines",base.getListCumulativeResource().size());
         res.put("nrCumulativeNeeds",cumulativeNeeds.length());
         res.put("nrSequences",sequences.length());
+        res.put("nrDowntimes",downtimes.length());
         res.put("horizon",base.getHorizon());
         return res;
     }
@@ -138,6 +141,22 @@ public class MiniZincProblem {
             }
         }
         return arr;
+    }
+
+    private JSONArray createDowntimes(){
+        JSONArray arr = new JSONArray();
+        int dNr = 1;
+        for(Downtime d:base.getListDowntime()){
+            JSONObject downtime = new JSONObject();
+            downtime.put("name",d.getName());
+            downtime.put("nr",dNr++);
+            downtime.put("machine",d.getDisjunctiveResource().getName());
+            downtime.put("start",d.getStart());
+            downtime.put("duration",d.getDuration());
+            arr.put(downtime);
+        }
+        return arr;
+
     }
 
     private ProcessSequence findProcessSequence(ProcessStep before,ProcessStep after){

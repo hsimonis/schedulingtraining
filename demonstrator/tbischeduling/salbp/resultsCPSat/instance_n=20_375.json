@@ -403,7 +403,7 @@
     "makespan": 3,
     "totalEarliness": 0,
     "endDate": "1/10/2024 03:00",
-    "totalWaitBefore": -9,
+    "totalWaitBefore": -10,
     "nrEarly": 0,
     "percentEarly": 0,
     "duration": 3,
@@ -418,12 +418,12 @@
     "bound": 3,
     "solverStatus": "Optimal",
     "start": 0,
-    "totalWaitAfter": -11,
+    "totalWaitAfter": -9,
     "percentLate": 100,
     "weightedLateness": 3,
     "maxEarliness": 0,
     "gapPercent": 0,
-    "name": "Sol1357",
+    "name": "Sol971",
     "objectiveValue": 3,
     "flowtime": 3,
     "startDate": "1/10/2024 00:00"
@@ -433,13 +433,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T1",
-      "endDate": "1/10/2024 01:00",
+      "endDate": "1/10/2024 02:00",
       "name": "TA0",
-      "start": 0,
-      "end": 1,
+      "start": 1,
+      "end": 2,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 00:00"
+      "startDate": "1/10/2024 01:00"
     },
     {
       "duration": 1,
@@ -479,15 +479,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T5",
-      "endDate": "1/10/2024 02:00",
+      "endDate": "1/10/2024 01:00",
       "name": "TA4",
-      "start": 1,
-      "end": 2,
+      "start": 0,
+      "end": 1,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 01:00"
+      "startDate": "1/10/2024 00:00"
     },
     {
       "duration": 1,
@@ -503,7 +503,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T7",
       "endDate": "1/10/2024 01:00",
       "name": "TA6",
@@ -529,13 +529,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T9",
-      "endDate": "1/10/2024 02:00",
+      "endDate": "1/10/2024 01:00",
       "name": "TA8",
-      "start": 1,
-      "end": 2,
+      "start": 0,
+      "end": 1,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 01:00"
+      "waitBefore": -1,
+      "startDate": "1/10/2024 00:00"
     },
     {
       "duration": 1,
@@ -551,15 +551,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T11",
-      "endDate": "1/10/2024 01:00",
+      "endDate": "1/10/2024 02:00",
       "name": "TA10",
-      "start": 0,
-      "end": 1,
+      "start": 1,
+      "end": 2,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 00:00"
+      "waitBefore": 0,
+      "startDate": "1/10/2024 01:00"
     },
     {
       "duration": 1,
@@ -575,14 +575,14 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T13",
       "endDate": "1/10/2024 02:00",
       "name": "TA12",
       "start": 1,
       "end": 2,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
+      "waitBefore": 0,
       "startDate": "1/10/2024 01:00"
     },
     {
@@ -594,15 +594,27 @@
       "start": 1,
       "end": 2,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "1/10/2024 01:00"
     },
     {
       "duration": 1,
       "waitAfter": -1,
       "task": "T15",
-      "endDate": "1/10/2024 03:00",
+      "endDate": "1/10/2024 02:00",
       "name": "TA14",
+      "start": 1,
+      "end": 2,
+      "jobAssignment": "JA0",
+      "waitBefore": -1,
+      "startDate": "1/10/2024 01:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": -1,
+      "task": "T16",
+      "endDate": "1/10/2024 03:00",
+      "name": "TA15",
       "start": 2,
       "end": 3,
       "jobAssignment": "JA0",
@@ -611,10 +623,10 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
-      "task": "T16",
+      "waitAfter": 0,
+      "task": "T17",
       "endDate": "1/10/2024 02:00",
-      "name": "TA15",
+      "name": "TA16",
       "start": 1,
       "end": 2,
       "jobAssignment": "JA0",
@@ -624,26 +636,14 @@
     {
       "duration": 1,
       "waitAfter": 0,
-      "task": "T17",
-      "endDate": "1/10/2024 03:00",
-      "name": "TA16",
-      "start": 2,
-      "end": 3,
-      "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 02:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 0,
       "task": "T18",
-      "endDate": "1/10/2024 03:00",
+      "endDate": "1/10/2024 02:00",
       "name": "TA17",
-      "start": 2,
-      "end": 3,
+      "start": 1,
+      "end": 2,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "1/10/2024 02:00"
+      "startDate": "1/10/2024 01:00"
     },
     {
       "duration": 1,
@@ -654,20 +654,20 @@
       "start": 2,
       "end": 3,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "1/10/2024 02:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T20",
-      "endDate": "1/10/2024 02:00",
+      "endDate": "1/10/2024 03:00",
       "name": "TA19",
-      "start": 1,
-      "end": 2,
+      "start": 2,
+      "end": 3,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "1/10/2024 01:00"
+      "startDate": "1/10/2024 02:00"
     }
   ],
   "processSequence": [
@@ -849,14 +849,13 @@
   ],
   "solverRun": [{
     "seed": 42,
-    "solverBackend": "None",
     "weightMakespan": 1,
     "producePDF": false,
     "enforceSetup": false,
     "description": "",
     "enforceTransportTime": false,
     "enforceWip": false,
-    "timeout": 30,
+    "timeout": 120,
     "weightLateness": 1,
     "produceReport": false,
     "addSameOrder": false,
@@ -870,7 +869,7 @@
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "instance_n=20_375.alb",
-    "time": 0.012270300000000001,
+    "time": 0.012728600000000001,
     "enforceDowntime": false,
     "removeSolution": false,
     "enforceReleaseDate": false,
@@ -878,7 +877,7 @@
   }],
   "jobAssignment": [{
     "duration": 3,
-    "solution": "Sol1357",
+    "solution": "Sol971",
     "late": 3,
     "endDate": "1/10/2024 03:00",
     "name": "JA0",

@@ -18040,32 +18040,32 @@
     }
   ],
   "solution": [{
-    "makespan": 234,
+    "makespan": 233,
     "totalEarliness": 0,
-    "endDate": "10/10/2024 18:00",
-    "totalWaitBefore": 16637,
+    "endDate": "10/10/2024 17:00",
+    "totalWaitBefore": 16656,
     "nrEarly": 0,
     "percentEarly": 0,
-    "duration": 234,
-    "maxLateness": 234,
-    "maxWaitAfter": 196,
+    "duration": 233,
+    "maxLateness": 233,
+    "maxWaitAfter": 163,
     "nrLate": 1,
     "solverRun": "instance_n=1000_201.alb",
-    "end": 234,
+    "end": 233,
     "weightedEarliness": 0,
-    "totalLateness": 234,
-    "maxWaitBefore": 206,
-    "bound": 139,
+    "totalLateness": 233,
+    "maxWaitBefore": 224,
+    "bound": 215,
     "solverStatus": "Solution",
     "start": 0,
-    "totalWaitAfter": 6947,
+    "totalWaitAfter": 7431,
     "percentLate": 100,
-    "weightedLateness": 234,
+    "weightedLateness": 233,
     "maxEarliness": 0,
-    "gapPercent": 40.598290598290596,
-    "name": "Sol115",
-    "objectiveValue": 234,
-    "flowtime": 234,
+    "gapPercent": 7.725321888412017,
+    "name": "Sol273",
+    "objectiveValue": 233,
+    "flowtime": 233,
     "startDate": "1/10/2024 00:00"
   }],
   "taskAssignment": [
@@ -18073,32 +18073,56 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T1",
-      "endDate": "3/10/2024 12:00",
+      "endDate": "1/10/2024 10:00",
       "name": "TA0",
-      "start": 59,
-      "end": 60,
+      "start": 9,
+      "end": 10,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "3/10/2024 11:00"
+      "startDate": "1/10/2024 09:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T2",
-      "endDate": "1/10/2024 13:00",
+      "endDate": "1/10/2024 07:00",
       "name": "TA1",
-      "start": 12,
-      "end": 13,
+      "start": 6,
+      "end": 7,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 12:00"
+      "startDate": "1/10/2024 06:00"
     },
     {
       "duration": 1,
-      "waitAfter": 14,
+      "waitAfter": 12,
       "task": "T3",
-      "endDate": "1/10/2024 02:00",
+      "endDate": "1/10/2024 14:00",
       "name": "TA2",
+      "start": 13,
+      "end": 14,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 13:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 15,
+      "task": "T4",
+      "endDate": "2/10/2024 01:00",
+      "name": "TA3",
+      "start": 24,
+      "end": 25,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 00:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 1,
+      "task": "T5",
+      "endDate": "1/10/2024 02:00",
+      "name": "TA4",
       "start": 1,
       "end": 2,
       "jobAssignment": "JA0",
@@ -18107,46 +18131,10 @@
     },
     {
       "duration": 1,
-      "waitAfter": 2,
-      "task": "T4",
-      "endDate": "2/10/2024 08:00",
-      "name": "TA3",
-      "start": 31,
-      "end": 32,
-      "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "2/10/2024 07:00"
-    },
-    {
-      "duration": 1,
       "waitAfter": -1,
-      "task": "T5",
-      "endDate": "1/10/2024 03:00",
-      "name": "TA4",
-      "start": 2,
-      "end": 3,
-      "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 02:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 1,
       "task": "T6",
-      "endDate": "1/10/2024 04:00",
-      "name": "TA5",
-      "start": 3,
-      "end": 4,
-      "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 03:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 0,
-      "task": "T7",
       "endDate": "1/10/2024 01:00",
-      "name": "TA6",
+      "name": "TA5",
       "start": 0,
       "end": 1,
       "jobAssignment": "JA0",
@@ -18155,27 +18143,39 @@
     },
     {
       "duration": 1,
-      "waitAfter": 26,
-      "task": "T8",
-      "endDate": "1/10/2024 05:00",
-      "name": "TA7",
-      "start": 4,
-      "end": 5,
+      "waitAfter": 4,
+      "task": "T7",
+      "endDate": "1/10/2024 02:00",
+      "name": "TA6",
+      "start": 1,
+      "end": 2,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 04:00"
+      "startDate": "1/10/2024 01:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 17,
+      "task": "T8",
+      "endDate": "1/10/2024 12:00",
+      "name": "TA7",
+      "start": 11,
+      "end": 12,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "1/10/2024 11:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T9",
-      "endDate": "1/10/2024 22:00",
+      "endDate": "4/10/2024 23:00",
       "name": "TA8",
-      "start": 21,
-      "end": 22,
+      "start": 94,
+      "end": 95,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 21:00"
+      "startDate": "4/10/2024 22:00"
     },
     {
       "duration": 1,
@@ -18203,51 +18203,51 @@
     },
     {
       "duration": 1,
-      "waitAfter": 196,
+      "waitAfter": 144,
       "task": "T12",
-      "endDate": "1/10/2024 09:00",
+      "endDate": "3/10/2024 13:00",
       "name": "TA11",
-      "start": 8,
-      "end": 9,
+      "start": 60,
+      "end": 61,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 08:00"
+      "startDate": "3/10/2024 12:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T13",
-      "endDate": "2/10/2024 04:00",
+      "endDate": "9/10/2024 20:00",
       "name": "TA12",
-      "start": 27,
-      "end": 28,
+      "start": 211,
+      "end": 212,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "2/10/2024 03:00"
+      "startDate": "9/10/2024 19:00"
     },
     {
       "duration": 1,
       "waitAfter": -1,
       "task": "T14",
-      "endDate": "1/10/2024 01:00",
+      "endDate": "1/10/2024 02:00",
       "name": "TA13",
-      "start": 0,
-      "end": 1,
+      "start": 1,
+      "end": 2,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 00:00"
+      "startDate": "1/10/2024 01:00"
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 5,
       "task": "T15",
-      "endDate": "1/10/2024 07:00",
+      "endDate": "1/10/2024 03:00",
       "name": "TA14",
-      "start": 6,
-      "end": 7,
+      "start": 2,
+      "end": 3,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 06:00"
+      "startDate": "1/10/2024 02:00"
     },
     {
       "duration": 1,
@@ -18263,15 +18263,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 5,
       "task": "T17",
-      "endDate": "1/10/2024 17:00",
+      "endDate": "1/10/2024 18:00",
       "name": "TA16",
-      "start": 16,
-      "end": 17,
+      "start": 17,
+      "end": 18,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 16:00"
+      "startDate": "1/10/2024 17:00"
     },
     {
       "duration": 1,
@@ -18282,44 +18282,44 @@
       "start": 104,
       "end": 105,
       "jobAssignment": "JA0",
-      "waitBefore": 101,
+      "waitBefore": 102,
       "startDate": "5/10/2024 08:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 5,
       "task": "T19",
-      "endDate": "3/10/2024 12:00",
+      "endDate": "1/10/2024 10:00",
       "name": "TA18",
-      "start": 59,
-      "end": 60,
+      "start": 9,
+      "end": 10,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "3/10/2024 11:00"
+      "startDate": "1/10/2024 09:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T20",
-      "endDate": "1/10/2024 03:00",
+      "endDate": "1/10/2024 04:00",
       "name": "TA19",
-      "start": 2,
-      "end": 3,
+      "start": 3,
+      "end": 4,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 02:00"
+      "waitBefore": 1,
+      "startDate": "1/10/2024 03:00"
     },
     {
       "duration": 1,
-      "waitAfter": 27,
+      "waitAfter": 33,
       "task": "T21",
-      "endDate": "1/10/2024 14:00",
+      "endDate": "1/10/2024 08:00",
       "name": "TA20",
-      "start": 13,
-      "end": 14,
+      "start": 7,
+      "end": 8,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 13:00"
+      "startDate": "1/10/2024 07:00"
     },
     {
       "duration": 1,
@@ -18330,80 +18330,80 @@
       "start": 5,
       "end": 6,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
+      "waitBefore": 4,
       "startDate": "1/10/2024 05:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 2,
       "task": "T23",
-      "endDate": "1/10/2024 02:00",
+      "endDate": "1/10/2024 07:00",
       "name": "TA22",
-      "start": 1,
-      "end": 2,
+      "start": 6,
+      "end": 7,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 01:00"
+      "waitBefore": 4,
+      "startDate": "1/10/2024 06:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 27,
       "task": "T24",
-      "endDate": "1/10/2024 18:00",
+      "endDate": "1/10/2024 07:00",
       "name": "TA23",
-      "start": 17,
-      "end": 18,
+      "start": 6,
+      "end": 7,
       "jobAssignment": "JA0",
-      "waitBefore": 14,
-      "startDate": "1/10/2024 17:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 16,
-      "task": "T25",
-      "endDate": "1/10/2024 17:00",
-      "name": "TA24",
-      "start": 16,
-      "end": 17,
-      "jobAssignment": "JA0",
-      "waitBefore": 14,
-      "startDate": "1/10/2024 16:00"
+      "waitBefore": 4,
+      "startDate": "1/10/2024 06:00"
     },
     {
       "duration": 1,
       "waitAfter": 6,
-      "task": "T26",
-      "endDate": "2/10/2024 11:00",
-      "name": "TA25",
-      "start": 34,
-      "end": 35,
+      "task": "T25",
+      "endDate": "2/10/2024 03:00",
+      "name": "TA24",
+      "start": 26,
+      "end": 27,
       "jobAssignment": "JA0",
-      "waitBefore": 2,
-      "startDate": "2/10/2024 10:00"
+      "waitBefore": 12,
+      "startDate": "2/10/2024 02:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
+      "task": "T26",
+      "endDate": "2/10/2024 17:00",
+      "name": "TA25",
+      "start": 40,
+      "end": 41,
+      "jobAssignment": "JA0",
+      "waitBefore": 15,
+      "startDate": "2/10/2024 16:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 0,
       "task": "T27",
-      "endDate": "1/10/2024 01:00",
+      "endDate": "1/10/2024 02:00",
       "name": "TA26",
-      "start": 0,
-      "end": 1,
+      "start": 1,
+      "end": 2,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "1/10/2024 00:00"
+      "startDate": "1/10/2024 01:00"
     },
     {
       "duration": 1,
       "waitAfter": -1,
       "task": "T28",
-      "endDate": "1/10/2024 07:00",
+      "endDate": "1/10/2024 01:00",
       "name": "TA27",
-      "start": 6,
-      "end": 7,
+      "start": 0,
+      "end": 1,
       "jobAssignment": "JA0",
-      "waitBefore": 2,
-      "startDate": "1/10/2024 06:00"
+      "waitBefore": -1,
+      "startDate": "1/10/2024 00:00"
     },
     {
       "duration": 1,
@@ -18414,19 +18414,19 @@
       "start": 30,
       "end": 31,
       "jobAssignment": "JA0",
-      "waitBefore": 27,
+      "waitBefore": 28,
       "startDate": "2/10/2024 06:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T30",
       "endDate": "1/10/2024 09:00",
       "name": "TA29",
       "start": 8,
       "end": 9,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
+      "waitBefore": 5,
       "startDate": "1/10/2024 08:00"
     },
     {
@@ -18443,15 +18443,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 38,
       "task": "T32",
-      "endDate": "3/10/2024 12:00",
+      "endDate": "1/10/2024 16:00",
       "name": "TA31",
-      "start": 59,
-      "end": 60,
+      "start": 15,
+      "end": 16,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 11:00"
+      "waitBefore": 5,
+      "startDate": "1/10/2024 15:00"
     },
     {
       "duration": 1,
@@ -18462,7 +18462,7 @@
       "start": 3,
       "end": 4,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "1/10/2024 03:00"
     },
     {
@@ -18486,32 +18486,32 @@
       "start": 33,
       "end": 34,
       "jobAssignment": "JA0",
-      "waitBefore": 16,
+      "waitBefore": 6,
       "startDate": "2/10/2024 09:00"
     },
     {
       "duration": 1,
-      "waitAfter": 7,
+      "waitAfter": -1,
       "task": "T36",
-      "endDate": "1/10/2024 02:00",
+      "endDate": "1/10/2024 10:00",
       "name": "TA35",
-      "start": 1,
-      "end": 2,
+      "start": 9,
+      "end": 10,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 01:00"
+      "waitBefore": 2,
+      "startDate": "1/10/2024 09:00"
     },
     {
       "duration": 1,
-      "waitAfter": 81,
+      "waitAfter": 65,
       "task": "T37",
-      "endDate": "1/10/2024 19:00",
+      "endDate": "2/10/2024 11:00",
       "name": "TA36",
-      "start": 18,
-      "end": 19,
+      "start": 34,
+      "end": 35,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 18:00"
+      "waitBefore": 27,
+      "startDate": "2/10/2024 10:00"
     },
     {
       "duration": 1,
@@ -18522,20 +18522,20 @@
       "start": 41,
       "end": 42,
       "jobAssignment": "JA0",
-      "waitBefore": 6,
+      "waitBefore": 0,
       "startDate": "2/10/2024 17:00"
     },
     {
       "duration": 1,
       "waitAfter": -1,
       "task": "T39",
-      "endDate": "1/10/2024 01:00",
+      "endDate": "1/10/2024 03:00",
       "name": "TA38",
-      "start": 0,
-      "end": 1,
+      "start": 2,
+      "end": 3,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 00:00"
+      "waitBefore": 0,
+      "startDate": "1/10/2024 02:00"
     },
     {
       "duration": 1,
@@ -18551,7 +18551,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 0,
       "task": "T41",
       "endDate": "2/10/2024 07:00",
       "name": "TA40",
@@ -18563,27 +18563,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 74,
       "task": "T42",
-      "endDate": "4/10/2024 03:00",
+      "endDate": "1/10/2024 01:00",
       "name": "TA41",
-      "start": 74,
-      "end": 75,
+      "start": 0,
+      "end": 1,
       "jobAssignment": "JA0",
-      "waitBefore": 67,
-      "startDate": "4/10/2024 02:00"
+      "waitBefore": -1,
+      "startDate": "1/10/2024 00:00"
     },
     {
       "duration": 1,
-      "waitAfter": 9,
+      "waitAfter": 5,
       "task": "T43",
-      "endDate": "2/10/2024 07:00",
+      "endDate": "2/10/2024 15:00",
       "name": "TA42",
-      "start": 30,
-      "end": 31,
+      "start": 38,
+      "end": 39,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 06:00"
+      "waitBefore": 7,
+      "startDate": "2/10/2024 14:00"
     },
     {
       "duration": 1,
@@ -18599,15 +18599,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 7,
+      "waitAfter": 13,
       "task": "T45",
-      "endDate": "1/10/2024 07:00",
+      "endDate": "1/10/2024 01:00",
       "name": "TA44",
-      "start": 6,
-      "end": 7,
+      "start": 0,
+      "end": 1,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "1/10/2024 06:00"
+      "startDate": "1/10/2024 00:00"
     },
     {
       "duration": 1,
@@ -18623,43 +18623,43 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 6,
       "task": "T47",
-      "endDate": "1/10/2024 10:00",
+      "endDate": "1/10/2024 09:00",
       "name": "TA46",
-      "start": 9,
-      "end": 10,
+      "start": 8,
+      "end": 9,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 09:00"
+      "waitBefore": -1,
+      "startDate": "1/10/2024 08:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T48",
-      "endDate": "7/10/2024 16:00",
+      "endDate": "10/10/2024 10:00",
       "name": "TA47",
-      "start": 159,
-      "end": 160,
+      "start": 225,
+      "end": 226,
       "jobAssignment": "JA0",
-      "waitBefore": 152,
-      "startDate": "7/10/2024 15:00"
+      "waitBefore": 224,
+      "startDate": "10/10/2024 09:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 2,
       "task": "T49",
-      "endDate": "3/10/2024 12:00",
+      "endDate": "3/10/2024 07:00",
       "name": "TA48",
-      "start": 59,
-      "end": 60,
+      "start": 54,
+      "end": 55,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 11:00"
+      "waitBefore": 38,
+      "startDate": "3/10/2024 06:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 9,
       "task": "T50",
       "endDate": "1/10/2024 09:00",
       "name": "TA49",
@@ -18671,14 +18671,14 @@
     },
     {
       "duration": 1,
-      "waitAfter": 19,
+      "waitAfter": 18,
       "task": "T51",
       "endDate": "1/10/2024 10:00",
       "name": "TA50",
       "start": 9,
       "end": 10,
       "jobAssignment": "JA0",
-      "waitBefore": 7,
+      "waitBefore": -1,
       "startDate": "1/10/2024 09:00"
     },
     {
@@ -18695,15 +18695,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T53",
-      "endDate": "1/10/2024 01:00",
+      "endDate": "1/10/2024 03:00",
       "name": "TA52",
-      "start": 0,
-      "end": 1,
+      "start": 2,
+      "end": 3,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "1/10/2024 00:00"
+      "startDate": "1/10/2024 02:00"
     },
     {
       "duration": 1,
@@ -18757,13 +18757,13 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T58",
-      "endDate": "2/10/2024 09:00",
+      "endDate": "2/10/2024 08:00",
       "name": "TA57",
-      "start": 32,
-      "end": 33,
+      "start": 31,
+      "end": 32,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "2/10/2024 08:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 07:00"
     },
     {
       "duration": 1,
@@ -18774,7 +18774,7 @@
       "start": 100,
       "end": 101,
       "jobAssignment": "JA0",
-      "waitBefore": 81,
+      "waitBefore": 65,
       "startDate": "5/10/2024 04:00"
     },
     {
@@ -18791,7 +18791,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 2,
+      "waitAfter": 7,
       "task": "T61",
       "endDate": "4/10/2024 09:00",
       "name": "TA60",
@@ -18803,55 +18803,55 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T62",
       "endDate": "1/10/2024 15:00",
       "name": "TA61",
       "start": 14,
       "end": 15,
       "jobAssignment": "JA0",
-      "waitBefore": 7,
+      "waitBefore": 13,
       "startDate": "1/10/2024 14:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T63",
-      "endDate": "1/10/2024 01:00",
+      "endDate": "1/10/2024 04:00",
       "name": "TA62",
-      "start": 0,
-      "end": 1,
+      "start": 3,
+      "end": 4,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 00:00"
+      "waitBefore": 0,
+      "startDate": "1/10/2024 03:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T64",
-      "endDate": "1/10/2024 12:00",
+      "endDate": "3/10/2024 03:00",
       "name": "TA63",
-      "start": 11,
-      "end": 12,
+      "start": 50,
+      "end": 51,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "1/10/2024 11:00"
+      "waitBefore": 41,
+      "startDate": "3/10/2024 02:00"
     },
     {
       "duration": 1,
-      "waitAfter": 6,
+      "waitAfter": 7,
       "task": "T65",
       "endDate": "1/10/2024 16:00",
       "name": "TA64",
       "start": 15,
       "end": 16,
       "jobAssignment": "JA0",
-      "waitBefore": 5,
+      "waitBefore": 6,
       "startDate": "1/10/2024 15:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 2,
       "task": "T66",
       "endDate": "2/10/2024 10:00",
       "name": "TA65",
@@ -18877,85 +18877,85 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T68",
-      "endDate": "3/10/2024 12:00",
+      "endDate": "3/10/2024 10:00",
       "name": "TA67",
-      "start": 59,
-      "end": 60,
+      "start": 57,
+      "end": 58,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 11:00"
+      "waitBefore": 2,
+      "startDate": "3/10/2024 09:00"
     },
     {
       "duration": 1,
-      "waitAfter": 23,
+      "waitAfter": 24,
       "task": "T69",
-      "endDate": "4/10/2024 06:00",
+      "endDate": "4/10/2024 05:00",
       "name": "TA68",
-      "start": 77,
-      "end": 78,
-      "jobAssignment": "JA0",
-      "waitBefore": 20,
-      "startDate": "4/10/2024 05:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 9,
-      "task": "T70",
-      "endDate": "1/10/2024 09:00",
-      "name": "TA69",
-      "start": 8,
-      "end": 9,
-      "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 08:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": -1,
-      "task": "T71",
-      "endDate": "2/10/2024 06:00",
-      "name": "TA70",
-      "start": 29,
-      "end": 30,
+      "start": 76,
+      "end": 77,
       "jobAssignment": "JA0",
       "waitBefore": 19,
-      "startDate": "2/10/2024 05:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 0,
-      "task": "T72",
-      "endDate": "2/10/2024 09:00",
-      "name": "TA71",
-      "start": 32,
-      "end": 33,
-      "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 08:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 0,
-      "task": "T73",
-      "endDate": "4/10/2024 09:00",
-      "name": "TA72",
-      "start": 80,
-      "end": 81,
-      "jobAssignment": "JA0",
-      "waitBefore": 23,
-      "startDate": "4/10/2024 08:00"
+      "startDate": "4/10/2024 04:00"
     },
     {
       "duration": 1,
       "waitAfter": -1,
-      "task": "T74",
-      "endDate": "1/10/2024 02:00",
-      "name": "TA73",
-      "start": 1,
-      "end": 2,
+      "task": "T70",
+      "endDate": "1/10/2024 19:00",
+      "name": "TA69",
+      "start": 18,
+      "end": 19,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 01:00"
+      "waitBefore": 9,
+      "startDate": "1/10/2024 18:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 2,
+      "task": "T71",
+      "endDate": "2/10/2024 05:00",
+      "name": "TA70",
+      "start": 28,
+      "end": 29,
+      "jobAssignment": "JA0",
+      "waitBefore": 18,
+      "startDate": "2/10/2024 04:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 1,
+      "task": "T72",
+      "endDate": "2/10/2024 08:00",
+      "name": "TA71",
+      "start": 31,
+      "end": 32,
+      "jobAssignment": "JA0",
+      "waitBefore": -1,
+      "startDate": "2/10/2024 07:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 6,
+      "task": "T73",
+      "endDate": "4/10/2024 03:00",
+      "name": "TA72",
+      "start": 74,
+      "end": 75,
+      "jobAssignment": "JA0",
+      "waitBefore": 17,
+      "startDate": "4/10/2024 02:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 1,
+      "task": "T74",
+      "endDate": "1/10/2024 03:00",
+      "name": "TA73",
+      "start": 2,
+      "end": 3,
+      "jobAssignment": "JA0",
+      "waitBefore": -1,
+      "startDate": "1/10/2024 02:00"
     },
     {
       "duration": 1,
@@ -18971,39 +18971,39 @@
     },
     {
       "duration": 1,
-      "waitAfter": 4,
+      "waitAfter": 0,
       "task": "T76",
-      "endDate": "1/10/2024 09:00",
+      "endDate": "1/10/2024 14:00",
       "name": "TA75",
-      "start": 8,
-      "end": 9,
+      "start": 13,
+      "end": 14,
       "jobAssignment": "JA0",
-      "waitBefore": 7,
-      "startDate": "1/10/2024 08:00"
+      "waitBefore": 9,
+      "startDate": "1/10/2024 13:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T77",
-      "endDate": "1/10/2024 16:00",
+      "endDate": "1/10/2024 15:00",
       "name": "TA76",
-      "start": 15,
-      "end": 16,
+      "start": 14,
+      "end": 15,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 15:00"
+      "waitBefore": -1,
+      "startDate": "1/10/2024 14:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T78",
-      "endDate": "2/10/2024 00:00",
+      "endDate": "2/10/2024 04:00",
       "name": "TA77",
-      "start": 23,
-      "end": 24,
+      "start": 27,
+      "end": 28,
       "jobAssignment": "JA0",
-      "waitBefore": 7,
-      "startDate": "1/10/2024 23:00"
+      "waitBefore": 11,
+      "startDate": "2/10/2024 03:00"
     },
     {
       "duration": 1,
@@ -19019,7 +19019,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T80",
       "endDate": "1/10/2024 04:00",
       "name": "TA79",
@@ -19031,15 +19031,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 3,
+      "waitAfter": 0,
       "task": "T81",
-      "endDate": "1/10/2024 01:00",
+      "endDate": "1/10/2024 05:00",
       "name": "TA80",
-      "start": 0,
-      "end": 1,
+      "start": 4,
+      "end": 5,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 00:00"
+      "waitBefore": 0,
+      "startDate": "1/10/2024 04:00"
     },
     {
       "duration": 1,
@@ -19081,13 +19081,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T85",
-      "endDate": "4/10/2024 12:00",
+      "endDate": "6/10/2024 23:00",
       "name": "TA84",
-      "start": 83,
-      "end": 84,
+      "start": 142,
+      "end": 143,
       "jobAssignment": "JA0",
-      "waitBefore": 2,
-      "startDate": "4/10/2024 11:00"
+      "waitBefore": 61,
+      "startDate": "6/10/2024 22:00"
     },
     {
       "duration": 1,
@@ -19103,15 +19103,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 2,
+      "waitAfter": 0,
       "task": "T87",
-      "endDate": "2/10/2024 11:00",
+      "endDate": "2/10/2024 13:00",
       "name": "TA86",
-      "start": 34,
-      "end": 35,
+      "start": 36,
+      "end": 37,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "2/10/2024 10:00"
+      "waitBefore": 2,
+      "startDate": "2/10/2024 12:00"
     },
     {
       "duration": 1,
@@ -19127,15 +19127,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 2,
       "task": "T89",
-      "endDate": "3/10/2024 12:00",
+      "endDate": "3/10/2024 10:00",
       "name": "TA88",
-      "start": 59,
-      "end": 60,
+      "start": 57,
+      "end": 58,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "3/10/2024 11:00"
+      "startDate": "3/10/2024 09:00"
     },
     {
       "duration": 1,
@@ -19146,7 +19146,7 @@
       "start": 18,
       "end": 19,
       "jobAssignment": "JA0",
-      "waitBefore": 9,
+      "waitBefore": -1,
       "startDate": "1/10/2024 18:00"
     },
     {
@@ -19158,7 +19158,7 @@
       "start": 133,
       "end": 134,
       "jobAssignment": "JA0",
-      "waitBefore": 124,
+      "waitBefore": 119,
       "startDate": "6/10/2024 13:00"
     },
     {
@@ -19170,31 +19170,31 @@
       "start": 101,
       "end": 102,
       "jobAssignment": "JA0",
-      "waitBefore": 23,
+      "waitBefore": 24,
       "startDate": "5/10/2024 05:00"
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 0,
       "task": "T93",
-      "endDate": "2/10/2024 06:00",
+      "endDate": "2/10/2024 08:00",
       "name": "TA92",
-      "start": 29,
-      "end": 30,
+      "start": 31,
+      "end": 32,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 05:00"
+      "waitBefore": 2,
+      "startDate": "2/10/2024 07:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T94",
       "endDate": "1/10/2024 16:00",
       "name": "TA93",
       "start": 15,
       "end": 16,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
+      "waitBefore": 0,
       "startDate": "1/10/2024 15:00"
     },
     {
@@ -19206,7 +19206,7 @@
       "start": 33,
       "end": 34,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": 1,
       "startDate": "2/10/2024 09:00"
     },
     {
@@ -19218,20 +19218,20 @@
       "start": 81,
       "end": 82,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": 6,
       "startDate": "4/10/2024 09:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T97",
-      "endDate": "1/10/2024 02:00",
+      "endDate": "1/10/2024 05:00",
       "name": "TA96",
-      "start": 1,
-      "end": 2,
+      "start": 4,
+      "end": 5,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 01:00"
+      "waitBefore": 1,
+      "startDate": "1/10/2024 04:00"
     },
     {
       "duration": 1,
@@ -19273,13 +19273,13 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T101",
-      "endDate": "1/10/2024 05:00",
+      "endDate": "1/10/2024 06:00",
       "name": "TA100",
-      "start": 4,
-      "end": 5,
+      "start": 5,
+      "end": 6,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
-      "startDate": "1/10/2024 04:00"
+      "waitBefore": 0,
+      "startDate": "1/10/2024 05:00"
     },
     {
       "duration": 1,
@@ -19290,7 +19290,7 @@
       "start": 60,
       "end": 61,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": 2,
       "startDate": "3/10/2024 12:00"
     },
     {
@@ -19314,7 +19314,7 @@
       "start": 37,
       "end": 38,
       "jobAssignment": "JA0",
-      "waitBefore": 2,
+      "waitBefore": 0,
       "startDate": "2/10/2024 13:00"
     },
     {
@@ -19333,29 +19333,29 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T106",
-      "endDate": "2/10/2024 08:00",
+      "endDate": "2/10/2024 09:00",
       "name": "TA105",
-      "start": 31,
-      "end": 32,
+      "start": 32,
+      "end": 33,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "2/10/2024 07:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 0,
-      "task": "T107",
-      "endDate": "1/10/2024 16:00",
-      "name": "TA106",
-      "start": 15,
-      "end": 16,
-      "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 15:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 08:00"
     },
     {
       "duration": 1,
       "waitAfter": -1,
+      "task": "T107",
+      "endDate": "1/10/2024 18:00",
+      "name": "TA106",
+      "start": 17,
+      "end": 18,
+      "jobAssignment": "JA0",
+      "waitBefore": 1,
+      "startDate": "1/10/2024 17:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 1,
       "task": "T108",
       "endDate": "3/10/2024 10:00",
       "name": "TA107",
@@ -19391,7 +19391,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 62,
+      "waitAfter": 78,
       "task": "T111",
       "endDate": "5/10/2024 19:00",
       "name": "TA110",
@@ -19417,61 +19417,61 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T113",
-      "endDate": "1/10/2024 12:00",
+      "endDate": "1/10/2024 13:00",
       "name": "TA112",
-      "start": 11,
-      "end": 12,
+      "start": 12,
+      "end": 13,
       "jobAssignment": "JA0",
       "waitBefore": 6,
-      "startDate": "1/10/2024 11:00"
+      "startDate": "1/10/2024 12:00"
     },
     {
       "duration": 1,
       "waitAfter": 1,
       "task": "T114",
-      "endDate": "1/10/2024 05:00",
+      "endDate": "1/10/2024 06:00",
       "name": "TA113",
-      "start": 4,
-      "end": 5,
+      "start": 5,
+      "end": 6,
       "jobAssignment": "JA0",
-      "waitBefore": 2,
-      "startDate": "1/10/2024 04:00"
+      "waitBefore": 0,
+      "startDate": "1/10/2024 05:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T115",
-      "endDate": "10/10/2024 14:00",
+      "endDate": "8/10/2024 17:00",
       "name": "TA114",
-      "start": 229,
-      "end": 230,
+      "start": 184,
+      "end": 185,
       "jobAssignment": "JA0",
-      "waitBefore": 99,
-      "startDate": "10/10/2024 13:00"
+      "waitBefore": 54,
+      "startDate": "8/10/2024 16:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T116",
-      "endDate": "1/10/2024 03:00",
-      "name": "TA115",
-      "start": 2,
-      "end": 3,
-      "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 02:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 0,
-      "task": "T117",
       "endDate": "1/10/2024 05:00",
-      "name": "TA116",
+      "name": "TA115",
       "start": 4,
       "end": 5,
       "jobAssignment": "JA0",
       "waitBefore": -1,
       "startDate": "1/10/2024 04:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": -1,
+      "task": "T117",
+      "endDate": "1/10/2024 06:00",
+      "name": "TA116",
+      "start": 5,
+      "end": 6,
+      "jobAssignment": "JA0",
+      "waitBefore": -1,
+      "startDate": "1/10/2024 05:00"
     },
     {
       "duration": 1,
@@ -19487,7 +19487,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T119",
       "endDate": "3/10/2024 13:00",
       "name": "TA118",
@@ -19511,39 +19511,39 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 2,
       "task": "T121",
-      "endDate": "1/10/2024 17:00",
+      "endDate": "1/10/2024 18:00",
       "name": "TA120",
-      "start": 16,
-      "end": 17,
+      "start": 17,
+      "end": 18,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 16:00"
+      "waitBefore": -1,
+      "startDate": "1/10/2024 17:00"
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": -1,
       "task": "T122",
-      "endDate": "3/10/2024 10:00",
+      "endDate": "3/10/2024 12:00",
       "name": "TA121",
-      "start": 57,
-      "end": 58,
+      "start": 59,
+      "end": 60,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 09:00"
+      "waitBefore": 1,
+      "startDate": "3/10/2024 11:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T123",
-      "endDate": "2/10/2024 08:00",
+      "endDate": "2/10/2024 09:00",
       "name": "TA122",
-      "start": 31,
-      "end": 32,
+      "start": 32,
+      "end": 33,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "2/10/2024 07:00"
+      "startDate": "2/10/2024 08:00"
     },
     {
       "duration": 1,
@@ -19571,27 +19571,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": 67,
+      "waitAfter": 66,
       "task": "T126",
-      "endDate": "2/10/2024 22:00",
+      "endDate": "2/10/2024 23:00",
       "name": "TA125",
-      "start": 45,
-      "end": 46,
+      "start": 46,
+      "end": 47,
       "jobAssignment": "JA0",
-      "waitBefore": 8,
-      "startDate": "2/10/2024 21:00"
+      "waitBefore": 9,
+      "startDate": "2/10/2024 22:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T127",
-      "endDate": "1/10/2024 04:00",
+      "endDate": "1/10/2024 05:00",
       "name": "TA126",
-      "start": 3,
-      "end": 4,
+      "start": 4,
+      "end": 5,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "1/10/2024 03:00"
+      "startDate": "1/10/2024 04:00"
     },
     {
       "duration": 1,
@@ -19602,12 +19602,12 @@
       "start": 13,
       "end": 14,
       "jobAssignment": "JA0",
-      "waitBefore": 8,
+      "waitBefore": 7,
       "startDate": "1/10/2024 13:00"
     },
     {
       "duration": 1,
-      "waitAfter": 50,
+      "waitAfter": 90,
       "task": "T129",
       "endDate": "6/10/2024 14:00",
       "name": "TA128",
@@ -19633,25 +19633,25 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T131",
-      "endDate": "1/10/2024 08:00",
+      "endDate": "1/10/2024 09:00",
       "name": "TA130",
-      "start": 7,
-      "end": 8,
+      "start": 8,
+      "end": 9,
       "jobAssignment": "JA0",
-      "waitBefore": 4,
-      "startDate": "1/10/2024 07:00"
+      "waitBefore": 3,
+      "startDate": "1/10/2024 08:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T132",
-      "endDate": "1/10/2024 07:00",
+      "endDate": "1/10/2024 08:00",
       "name": "TA131",
-      "start": 6,
-      "end": 7,
+      "start": 7,
+      "end": 8,
       "jobAssignment": "JA0",
       "waitBefore": 1,
-      "startDate": "1/10/2024 06:00"
+      "startDate": "1/10/2024 07:00"
     },
     {
       "duration": 1,
@@ -19662,43 +19662,43 @@
       "start": 169,
       "end": 170,
       "jobAssignment": "JA0",
-      "waitBefore": 166,
+      "waitBefore": 164,
       "startDate": "8/10/2024 01:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 2,
       "task": "T134",
-      "endDate": "1/10/2024 10:00",
+      "endDate": "1/10/2024 11:00",
       "name": "TA133",
-      "start": 9,
-      "end": 10,
+      "start": 10,
+      "end": 11,
       "jobAssignment": "JA0",
       "waitBefore": 4,
-      "startDate": "1/10/2024 09:00"
+      "startDate": "1/10/2024 10:00"
     },
     {
       "duration": 1,
-      "waitAfter": 11,
+      "waitAfter": 0,
       "task": "T135",
-      "endDate": "1/10/2024 12:00",
+      "endDate": "1/10/2024 13:00",
       "name": "TA134",
-      "start": 11,
-      "end": 12,
+      "start": 12,
+      "end": 13,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "1/10/2024 11:00"
+      "startDate": "1/10/2024 12:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T136",
       "endDate": "4/10/2024 03:00",
       "name": "TA135",
       "start": 74,
       "end": 75,
       "jobAssignment": "JA0",
-      "waitBefore": 67,
+      "waitBefore": 69,
       "startDate": "4/10/2024 02:00"
     },
     {
@@ -19715,39 +19715,39 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 20,
       "task": "T138",
-      "endDate": "1/10/2024 23:00",
+      "endDate": "1/10/2024 08:00",
       "name": "TA137",
-      "start": 22,
-      "end": 23,
+      "start": 7,
+      "end": 8,
       "jobAssignment": "JA0",
-      "waitBefore": 18,
-      "startDate": "1/10/2024 22:00"
+      "waitBefore": 2,
+      "startDate": "1/10/2024 07:00"
     },
     {
       "duration": 1,
-      "waitAfter": 4,
+      "waitAfter": 0,
       "task": "T139",
-      "endDate": "1/10/2024 18:00",
+      "endDate": "1/10/2024 21:00",
       "name": "TA138",
-      "start": 17,
-      "end": 18,
+      "start": 20,
+      "end": 21,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 17:00"
+      "waitBefore": 2,
+      "startDate": "1/10/2024 20:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 9,
       "task": "T140",
-      "endDate": "3/10/2024 13:00",
+      "endDate": "3/10/2024 15:00",
       "name": "TA139",
-      "start": 60,
-      "end": 61,
+      "start": 62,
+      "end": 63,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 12:00"
+      "waitBefore": 1,
+      "startDate": "3/10/2024 14:00"
     },
     {
       "duration": 1,
@@ -19782,7 +19782,7 @@
       "start": 59,
       "end": 60,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
+      "waitBefore": -1,
       "startDate": "3/10/2024 11:00"
     },
     {
@@ -19794,7 +19794,7 @@
       "start": 32,
       "end": 33,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "2/10/2024 08:00"
     },
     {
@@ -19818,7 +19818,7 @@
       "start": 113,
       "end": 114,
       "jobAssignment": "JA0",
-      "waitBefore": 109,
+      "waitBefore": 108,
       "startDate": "5/10/2024 17:00"
     },
     {
@@ -19830,7 +19830,7 @@
       "start": 113,
       "end": 114,
       "jobAssignment": "JA0",
-      "waitBefore": 67,
+      "waitBefore": 66,
       "startDate": "5/10/2024 17:00"
     },
     {
@@ -19847,27 +19847,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 2,
       "task": "T149",
-      "endDate": "1/10/2024 08:00",
+      "endDate": "1/10/2024 09:00",
       "name": "TA148",
-      "start": 7,
-      "end": 8,
+      "start": 8,
+      "end": 9,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "1/10/2024 07:00"
+      "startDate": "1/10/2024 08:00"
     },
     {
       "duration": 1,
-      "waitAfter": 2,
+      "waitAfter": 0,
       "task": "T150",
-      "endDate": "1/10/2024 11:00",
+      "endDate": "1/10/2024 14:00",
       "name": "TA149",
-      "start": 10,
-      "end": 11,
+      "start": 13,
+      "end": 14,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 10:00"
+      "waitBefore": 2,
+      "startDate": "1/10/2024 13:00"
     },
     {
       "duration": 1,
@@ -19885,37 +19885,37 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T152",
-      "endDate": "3/10/2024 18:00",
+      "endDate": "2/10/2024 04:00",
       "name": "TA151",
-      "start": 65,
-      "end": 66,
+      "start": 27,
+      "end": 28,
       "jobAssignment": "JA0",
-      "waitBefore": 53,
-      "startDate": "3/10/2024 17:00"
+      "waitBefore": 14,
+      "startDate": "2/10/2024 03:00"
     },
     {
       "duration": 1,
-      "waitAfter": 66,
+      "waitAfter": 64,
       "task": "T153",
-      "endDate": "4/10/2024 03:00",
+      "endDate": "4/10/2024 05:00",
       "name": "TA152",
-      "start": 74,
-      "end": 75,
+      "start": 76,
+      "end": 77,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "4/10/2024 02:00"
+      "waitBefore": 1,
+      "startDate": "4/10/2024 04:00"
     },
     {
       "duration": 1,
-      "waitAfter": 157,
+      "waitAfter": 114,
       "task": "T154",
-      "endDate": "1/10/2024 17:00",
+      "endDate": "3/10/2024 12:00",
       "name": "TA153",
-      "start": 16,
-      "end": 17,
+      "start": 59,
+      "end": 60,
       "jobAssignment": "JA0",
-      "waitBefore": 6,
-      "startDate": "1/10/2024 16:00"
+      "waitBefore": 48,
+      "startDate": "3/10/2024 11:00"
     },
     {
       "duration": 1,
@@ -19938,7 +19938,7 @@
       "start": 7,
       "end": 8,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "1/10/2024 07:00"
     },
     {
@@ -19962,7 +19962,7 @@
       "start": 4,
       "end": 5,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "1/10/2024 04:00"
     },
     {
@@ -19979,15 +19979,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 4,
+      "waitAfter": 15,
       "task": "T160",
-      "endDate": "2/10/2024 00:00",
+      "endDate": "1/10/2024 14:00",
       "name": "TA159",
-      "start": 23,
-      "end": 24,
+      "start": 13,
+      "end": 14,
       "jobAssignment": "JA0",
-      "waitBefore": 11,
-      "startDate": "1/10/2024 23:00"
+      "waitBefore": 0,
+      "startDate": "1/10/2024 13:00"
     },
     {
       "duration": 1,
@@ -20003,39 +20003,39 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 3,
       "task": "T162",
-      "endDate": "2/10/2024 00:00",
+      "endDate": "2/10/2024 05:00",
       "name": "TA161",
-      "start": 23,
-      "end": 24,
+      "start": 28,
+      "end": 29,
+      "jobAssignment": "JA0",
+      "waitBefore": 20,
+      "startDate": "2/10/2024 04:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 1,
+      "task": "T163",
+      "endDate": "1/10/2024 22:00",
+      "name": "TA162",
+      "start": 21,
+      "end": 22,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 23:00"
+      "startDate": "1/10/2024 21:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
-      "task": "T163",
-      "endDate": "1/10/2024 23:00",
-      "name": "TA162",
-      "start": 22,
-      "end": 23,
-      "jobAssignment": "JA0",
-      "waitBefore": 4,
-      "startDate": "1/10/2024 22:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 6,
       "task": "T164",
-      "endDate": "3/10/2024 13:00",
+      "endDate": "4/10/2024 01:00",
       "name": "TA163",
-      "start": 60,
-      "end": 61,
+      "start": 72,
+      "end": 73,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 12:00"
+      "waitBefore": 9,
+      "startDate": "4/10/2024 00:00"
     },
     {
       "duration": 1,
@@ -20051,19 +20051,19 @@
     },
     {
       "duration": 1,
-      "waitAfter": 23,
+      "waitAfter": 4,
       "task": "T166",
-      "endDate": "6/10/2024 02:00",
+      "endDate": "6/10/2024 21:00",
       "name": "TA165",
-      "start": 121,
-      "end": 122,
+      "start": 140,
+      "end": 141,
       "jobAssignment": "JA0",
-      "waitBefore": 110,
-      "startDate": "6/10/2024 01:00"
+      "waitBefore": 126,
+      "startDate": "6/10/2024 20:00"
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 19,
       "task": "T167",
       "endDate": "3/10/2024 16:00",
       "name": "TA166",
@@ -20147,15 +20147,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 4,
       "task": "T174",
-      "endDate": "1/10/2024 08:00",
+      "endDate": "1/10/2024 12:00",
       "name": "TA173",
-      "start": 7,
-      "end": 8,
+      "start": 11,
+      "end": 12,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 07:00"
+      "waitBefore": 2,
+      "startDate": "1/10/2024 11:00"
     },
     {
       "duration": 1,
@@ -20190,32 +20190,32 @@
       "start": 137,
       "end": 138,
       "jobAssignment": "JA0",
-      "waitBefore": 126,
+      "waitBefore": 123,
       "startDate": "6/10/2024 17:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T178",
       "endDate": "1/10/2024 06:00",
       "name": "TA177",
       "start": 5,
       "end": 6,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "1/10/2024 05:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T179",
-      "endDate": "1/10/2024 14:00",
+      "endDate": "1/10/2024 15:00",
       "name": "TA178",
-      "start": 13,
-      "end": 14,
+      "start": 14,
+      "end": 15,
       "jobAssignment": "JA0",
-      "waitBefore": 2,
-      "startDate": "1/10/2024 13:00"
+      "waitBefore": 0,
+      "startDate": "1/10/2024 14:00"
     },
     {
       "duration": 1,
@@ -20238,24 +20238,24 @@
       "start": 145,
       "end": 146,
       "jobAssignment": "JA0",
-      "waitBefore": 23,
+      "waitBefore": 4,
       "startDate": "7/10/2024 01:00"
     },
     {
       "duration": 1,
-      "waitAfter": 18,
+      "waitAfter": 0,
       "task": "T182",
-      "endDate": "3/10/2024 18:00",
+      "endDate": "4/10/2024 12:00",
       "name": "TA181",
-      "start": 65,
-      "end": 66,
+      "start": 83,
+      "end": 84,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "3/10/2024 17:00"
+      "waitBefore": 19,
+      "startDate": "4/10/2024 11:00"
     },
     {
       "duration": 1,
-      "waitAfter": 64,
+      "waitAfter": 37,
       "task": "T183",
       "endDate": "8/10/2024 01:00",
       "name": "TA182",
@@ -20279,15 +20279,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 9,
+      "waitAfter": 1,
       "task": "T185",
-      "endDate": "2/10/2024 01:00",
+      "endDate": "2/10/2024 09:00",
       "name": "TA184",
-      "start": 24,
-      "end": 25,
+      "start": 32,
+      "end": 33,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "2/10/2024 00:00"
+      "waitBefore": 3,
+      "startDate": "2/10/2024 08:00"
     },
     {
       "duration": 1,
@@ -20317,25 +20317,25 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T188",
-      "endDate": "3/10/2024 14:00",
+      "endDate": "4/10/2024 08:00",
       "name": "TA187",
-      "start": 61,
-      "end": 62,
+      "start": 79,
+      "end": 80,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "3/10/2024 13:00"
+      "waitBefore": 6,
+      "startDate": "4/10/2024 07:00"
     },
     {
       "duration": 1,
       "waitAfter": -1,
       "task": "T189",
-      "endDate": "1/10/2024 09:00",
+      "endDate": "1/10/2024 17:00",
       "name": "TA188",
-      "start": 8,
-      "end": 9,
+      "start": 16,
+      "end": 17,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 08:00"
+      "waitBefore": 4,
+      "startDate": "1/10/2024 16:00"
     },
     {
       "duration": 1,
@@ -20351,15 +20351,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T191",
-      "endDate": "1/10/2024 23:00",
+      "endDate": "2/10/2024 00:00",
       "name": "TA190",
-      "start": 22,
-      "end": 23,
+      "start": 23,
+      "end": 24,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 22:00"
+      "waitBefore": 1,
+      "startDate": "1/10/2024 23:00"
     },
     {
       "duration": 1,
@@ -20387,15 +20387,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T194",
-      "endDate": "1/10/2024 15:00",
+      "endDate": "1/10/2024 16:00",
       "name": "TA193",
-      "start": 14,
-      "end": 15,
+      "start": 15,
+      "end": 16,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 14:00"
+      "startDate": "1/10/2024 15:00"
     },
     {
       "duration": 1,
@@ -20423,7 +20423,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T197",
       "endDate": "2/10/2024 14:00",
       "name": "TA196",
@@ -20435,39 +20435,39 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 23,
       "task": "T198",
-      "endDate": "3/10/2024 06:00",
+      "endDate": "2/10/2024 04:00",
       "name": "TA197",
-      "start": 53,
-      "end": 54,
+      "start": 27,
+      "end": 28,
       "jobAssignment": "JA0",
-      "waitBefore": 47,
-      "startDate": "3/10/2024 05:00"
+      "waitBefore": 21,
+      "startDate": "2/10/2024 03:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T199",
-      "endDate": "9/10/2024 19:00",
+      "endDate": "7/10/2024 12:00",
       "name": "TA198",
-      "start": 210,
-      "end": 211,
+      "start": 155,
+      "end": 156,
       "jobAssignment": "JA0",
-      "waitBefore": 196,
-      "startDate": "9/10/2024 18:00"
+      "waitBefore": 140,
+      "startDate": "7/10/2024 11:00"
     },
     {
       "duration": 1,
-      "waitAfter": 4,
+      "waitAfter": 3,
       "task": "T200",
-      "endDate": "1/10/2024 06:00",
+      "endDate": "1/10/2024 07:00",
       "name": "TA199",
-      "start": 5,
-      "end": 6,
+      "start": 6,
+      "end": 7,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 05:00"
+      "waitBefore": 0,
+      "startDate": "1/10/2024 06:00"
     },
     {
       "duration": 1,
@@ -20483,15 +20483,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 4,
       "task": "T202",
-      "endDate": "1/10/2024 15:00",
+      "endDate": "1/10/2024 18:00",
       "name": "TA201",
-      "start": 14,
-      "end": 15,
+      "start": 17,
+      "end": 18,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 14:00"
+      "waitBefore": 1,
+      "startDate": "1/10/2024 17:00"
     },
     {
       "duration": 1,
@@ -20502,7 +20502,7 @@
       "start": 84,
       "end": 85,
       "jobAssignment": "JA0",
-      "waitBefore": 18,
+      "waitBefore": 0,
       "startDate": "4/10/2024 12:00"
     },
     {
@@ -20514,44 +20514,44 @@
       "start": 34,
       "end": 35,
       "jobAssignment": "JA0",
-      "waitBefore": 9,
+      "waitBefore": 1,
       "startDate": "2/10/2024 10:00"
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": -1,
       "task": "T205",
-      "endDate": "2/10/2024 14:00",
+      "endDate": "2/10/2024 16:00",
       "name": "TA204",
-      "start": 37,
-      "end": 38,
+      "start": 39,
+      "end": 40,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 13:00"
+      "waitBefore": 1,
+      "startDate": "2/10/2024 15:00"
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 14,
       "task": "T206",
-      "endDate": "3/10/2024 15:00",
+      "endDate": "4/10/2024 09:00",
       "name": "TA205",
-      "start": 62,
-      "end": 63,
+      "start": 80,
+      "end": 81,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "3/10/2024 14:00"
+      "startDate": "4/10/2024 08:00"
     },
     {
       "duration": 1,
-      "waitAfter": 8,
+      "waitAfter": -1,
       "task": "T207",
-      "endDate": "1/10/2024 09:00",
+      "endDate": "1/10/2024 17:00",
       "name": "TA206",
-      "start": 8,
-      "end": 9,
+      "start": 16,
+      "end": 17,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "1/10/2024 08:00"
+      "startDate": "1/10/2024 16:00"
     },
     {
       "duration": 1,
@@ -20569,13 +20569,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T209",
-      "endDate": "10/10/2024 18:00",
+      "endDate": "9/10/2024 15:00",
       "name": "TA208",
-      "start": 233,
-      "end": 234,
+      "start": 206,
+      "end": 207,
       "jobAssignment": "JA0",
-      "waitBefore": 64,
-      "startDate": "10/10/2024 17:00"
+      "waitBefore": 37,
+      "startDate": "9/10/2024 14:00"
     },
     {
       "duration": 1,
@@ -20634,7 +20634,7 @@
       "start": 102,
       "end": 103,
       "jobAssignment": "JA0",
-      "waitBefore": 48,
+      "waitBefore": 74,
       "startDate": "5/10/2024 06:00"
     },
     {
@@ -20677,13 +20677,13 @@
       "duration": 1,
       "waitAfter": 5,
       "task": "T218",
-      "endDate": "2/10/2024 15:00",
+      "endDate": "2/10/2024 16:00",
       "name": "TA217",
-      "start": 38,
-      "end": 39,
+      "start": 39,
+      "end": 40,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 14:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 15:00"
     },
     {
       "duration": 1,
@@ -20706,12 +20706,12 @@
       "start": 170,
       "end": 171,
       "jobAssignment": "JA0",
-      "waitBefore": 164,
+      "waitBefore": 163,
       "startDate": "8/10/2024 02:00"
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 5,
       "task": "T221",
       "endDate": "2/10/2024 15:00",
       "name": "TA220",
@@ -20723,14 +20723,14 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T222",
       "endDate": "1/10/2024 11:00",
       "name": "TA221",
       "start": 10,
       "end": 11,
       "jobAssignment": "JA0",
-      "waitBefore": 4,
+      "waitBefore": 3,
       "startDate": "1/10/2024 10:00"
     },
     {
@@ -20759,15 +20759,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 9,
+      "waitAfter": -1,
       "task": "T225",
-      "endDate": "1/10/2024 16:00",
+      "endDate": "1/10/2024 23:00",
       "name": "TA224",
-      "start": 15,
-      "end": 16,
+      "start": 22,
+      "end": 23,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 15:00"
+      "waitBefore": 4,
+      "startDate": "1/10/2024 22:00"
     },
     {
       "duration": 1,
@@ -20795,39 +20795,39 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T228",
       "endDate": "2/10/2024 16:00",
       "name": "TA227",
       "start": 39,
       "end": 40,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
+      "waitBefore": -1,
       "startDate": "2/10/2024 15:00"
     },
     {
       "duration": 1,
-      "waitAfter": 31,
+      "waitAfter": 0,
       "task": "T229",
-      "endDate": "3/10/2024 17:00",
+      "endDate": "5/10/2024 00:00",
       "name": "TA228",
-      "start": 64,
-      "end": 65,
+      "start": 95,
+      "end": 96,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "3/10/2024 16:00"
+      "waitBefore": 14,
+      "startDate": "4/10/2024 23:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 6,
       "task": "T230",
-      "endDate": "1/10/2024 18:00",
+      "endDate": "1/10/2024 17:00",
       "name": "TA229",
-      "start": 17,
-      "end": 18,
+      "start": 16,
+      "end": 17,
       "jobAssignment": "JA0",
-      "waitBefore": 8,
-      "startDate": "1/10/2024 17:00"
+      "waitBefore": -1,
+      "startDate": "1/10/2024 16:00"
     },
     {
       "duration": 1,
@@ -20845,25 +20845,25 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T232",
-      "endDate": "1/10/2024 12:00",
+      "endDate": "1/10/2024 11:00",
       "name": "TA231",
-      "start": 11,
-      "end": 12,
+      "start": 10,
+      "end": 11,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "1/10/2024 11:00"
+      "waitBefore": -1,
+      "startDate": "1/10/2024 10:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T233",
-      "endDate": "2/10/2024 17:00",
+      "endDate": "2/10/2024 21:00",
       "name": "TA232",
-      "start": 40,
-      "end": 41,
+      "start": 44,
+      "end": 45,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "2/10/2024 16:00"
+      "waitBefore": 5,
+      "startDate": "2/10/2024 20:00"
     },
     {
       "duration": 1,
@@ -20879,15 +20879,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": -1,
       "task": "T235",
-      "endDate": "2/10/2024 21:00",
+      "endDate": "2/10/2024 22:00",
       "name": "TA234",
-      "start": 44,
-      "end": 45,
+      "start": 45,
+      "end": 46,
       "jobAssignment": "JA0",
       "waitBefore": 5,
-      "startDate": "2/10/2024 20:00"
+      "startDate": "2/10/2024 21:00"
     },
     {
       "duration": 1,
@@ -20939,15 +20939,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 3,
+      "waitAfter": 2,
       "task": "T240",
-      "endDate": "2/10/2024 16:00",
+      "endDate": "2/10/2024 17:00",
       "name": "TA239",
-      "start": 39,
-      "end": 40,
+      "start": 40,
+      "end": 41,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 15:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 16:00"
     },
     {
       "duration": 1,
@@ -20958,32 +20958,32 @@
       "start": 96,
       "end": 97,
       "jobAssignment": "JA0",
-      "waitBefore": 31,
+      "waitBefore": 0,
       "startDate": "5/10/2024 00:00"
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 4,
       "task": "T242",
-      "endDate": "2/10/2024 02:00",
+      "endDate": "1/10/2024 23:00",
       "name": "TA241",
-      "start": 25,
-      "end": 26,
+      "start": 22,
+      "end": 23,
       "jobAssignment": "JA0",
-      "waitBefore": 9,
-      "startDate": "2/10/2024 01:00"
+      "waitBefore": -1,
+      "startDate": "1/10/2024 22:00"
     },
     {
       "duration": 1,
-      "waitAfter": 3,
+      "waitAfter": 0,
       "task": "T243",
-      "endDate": "2/10/2024 17:00",
+      "endDate": "2/10/2024 23:00",
       "name": "TA242",
-      "start": 40,
-      "end": 41,
+      "start": 46,
+      "end": 47,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 16:00"
+      "waitBefore": 1,
+      "startDate": "2/10/2024 22:00"
     },
     {
       "duration": 1,
@@ -20994,7 +20994,7 @@
       "start": 125,
       "end": 126,
       "jobAssignment": "JA0",
-      "waitBefore": 113,
+      "waitBefore": 114,
       "startDate": "6/10/2024 05:00"
     },
     {
@@ -21013,13 +21013,13 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T246",
-      "endDate": "1/10/2024 13:00",
+      "endDate": "1/10/2024 12:00",
       "name": "TA245",
-      "start": 12,
-      "end": 13,
+      "start": 11,
+      "end": 12,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 12:00"
+      "startDate": "1/10/2024 11:00"
     },
     {
       "duration": 1,
@@ -21030,7 +21030,7 @@
       "start": 60,
       "end": 61,
       "jobAssignment": "JA0",
-      "waitBefore": 21,
+      "waitBefore": 20,
       "startDate": "3/10/2024 12:00"
     },
     {
@@ -21042,36 +21042,36 @@
       "start": 165,
       "end": 166,
       "jobAssignment": "JA0",
-      "waitBefore": 147,
+      "waitBefore": 148,
       "startDate": "7/10/2024 21:00"
     },
     {
       "duration": 1,
-      "waitAfter": 3,
+      "waitAfter": 2,
       "task": "T249",
-      "endDate": "1/10/2024 18:00",
+      "endDate": "2/10/2024 00:00",
       "name": "TA248",
-      "start": 17,
-      "end": 18,
+      "start": 23,
+      "end": 24,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 17:00"
+      "waitBefore": 5,
+      "startDate": "1/10/2024 23:00"
     },
     {
       "duration": 1,
       "waitAfter": -1,
       "task": "T250",
-      "endDate": "2/10/2024 23:00",
+      "endDate": "2/10/2024 22:00",
       "name": "TA249",
-      "start": 46,
-      "end": 47,
+      "start": 45,
+      "end": 46,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "2/10/2024 22:00"
+      "waitBefore": -1,
+      "startDate": "2/10/2024 21:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T251",
       "endDate": "2/10/2024 12:00",
       "name": "TA250",
@@ -21083,15 +21083,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 14,
       "task": "T252",
-      "endDate": "7/10/2024 04:00",
+      "endDate": "7/10/2024 01:00",
       "name": "TA251",
-      "start": 147,
-      "end": 148,
+      "start": 144,
+      "end": 145,
       "jobAssignment": "JA0",
-      "waitBefore": 50,
-      "startDate": "7/10/2024 03:00"
+      "waitBefore": 47,
+      "startDate": "7/10/2024 00:00"
     },
     {
       "duration": 1,
@@ -21131,7 +21131,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 9,
+      "waitAfter": 48,
       "task": "T256",
       "endDate": "5/10/2024 13:00",
       "name": "TA255",
@@ -21150,7 +21150,7 @@
       "start": 158,
       "end": 159,
       "jobAssignment": "JA0",
-      "waitBefore": 117,
+      "waitBefore": 111,
       "startDate": "7/10/2024 14:00"
     },
     {
@@ -21162,44 +21162,44 @@
       "start": 43,
       "end": 44,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
+      "waitBefore": 2,
       "startDate": "2/10/2024 19:00"
     },
     {
       "duration": 1,
-      "waitAfter": 10,
-      "task": "T259",
-      "endDate": "2/10/2024 12:00",
-      "name": "TA258",
-      "start": 35,
-      "end": 36,
-      "jobAssignment": "JA0",
-      "waitBefore": 17,
-      "startDate": "2/10/2024 11:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 12,
-      "task": "T260",
-      "endDate": "1/10/2024 13:00",
-      "name": "TA259",
-      "start": 12,
-      "end": 13,
-      "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "1/10/2024 12:00"
-    },
-    {
-      "duration": 1,
       "waitAfter": 0,
-      "task": "T261",
+      "task": "T259",
       "endDate": "2/10/2024 21:00",
-      "name": "TA260",
+      "name": "TA258",
       "start": 44,
       "end": 45,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
+      "waitBefore": 20,
       "startDate": "2/10/2024 20:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 2,
+      "task": "T260",
+      "endDate": "1/10/2024 23:00",
+      "name": "TA259",
+      "start": 22,
+      "end": 23,
+      "jobAssignment": "JA0",
+      "waitBefore": 10,
+      "startDate": "1/10/2024 22:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": -1,
+      "task": "T261",
+      "endDate": "3/10/2024 00:00",
+      "name": "TA260",
+      "start": 47,
+      "end": 48,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "2/10/2024 23:00"
     },
     {
       "duration": 1,
@@ -21215,39 +21215,39 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 2,
       "task": "T263",
-      "endDate": "2/10/2024 22:00",
+      "endDate": "3/10/2024 00:00",
       "name": "TA262",
-      "start": 45,
-      "end": 46,
+      "start": 47,
+      "end": 48,
       "jobAssignment": "JA0",
-      "waitBefore": 4,
-      "startDate": "2/10/2024 21:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 23:00"
     },
     {
       "duration": 1,
       "waitAfter": -1,
       "task": "T264",
-      "endDate": "1/10/2024 13:00",
+      "endDate": "1/10/2024 12:00",
       "name": "TA263",
-      "start": 12,
-      "end": 13,
+      "start": 11,
+      "end": 12,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "1/10/2024 12:00"
+      "startDate": "1/10/2024 11:00"
     },
     {
       "duration": 1,
-      "waitAfter": 27,
+      "waitAfter": 22,
       "task": "T265",
-      "endDate": "1/10/2024 22:00",
+      "endDate": "2/10/2024 03:00",
       "name": "TA264",
-      "start": 21,
-      "end": 22,
+      "start": 26,
+      "end": 27,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
-      "startDate": "1/10/2024 21:00"
+      "waitBefore": 2,
+      "startDate": "2/10/2024 02:00"
     },
     {
       "duration": 1,
@@ -21258,31 +21258,31 @@
       "start": 27,
       "end": 28,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
+      "waitBefore": 4,
       "startDate": "2/10/2024 03:00"
     },
     {
       "duration": 1,
-      "waitAfter": 21,
+      "waitAfter": 6,
       "task": "T267",
-      "endDate": "3/10/2024 02:00",
+      "endDate": "3/10/2024 17:00",
       "name": "TA266",
-      "start": 49,
-      "end": 50,
+      "start": 64,
+      "end": 65,
       "jobAssignment": "JA0",
-      "waitBefore": 18,
-      "startDate": "3/10/2024 01:00"
+      "waitBefore": 33,
+      "startDate": "3/10/2024 16:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 7,
       "task": "T268",
       "endDate": "2/10/2024 03:00",
       "name": "TA267",
       "start": 26,
       "end": 27,
       "jobAssignment": "JA0",
-      "waitBefore": 13,
+      "waitBefore": 14,
       "startDate": "2/10/2024 02:00"
     },
     {
@@ -21294,7 +21294,7 @@
       "start": 146,
       "end": 147,
       "jobAssignment": "JA0",
-      "waitBefore": 105,
+      "waitBefore": 99,
       "startDate": "7/10/2024 02:00"
     },
     {
@@ -21318,32 +21318,32 @@
       "start": 103,
       "end": 104,
       "jobAssignment": "JA0",
-      "waitBefore": 67,
+      "waitBefore": 58,
       "startDate": "5/10/2024 07:00"
     },
     {
       "duration": 1,
       "waitAfter": -1,
       "task": "T272",
-      "endDate": "2/10/2024 13:00",
+      "endDate": "2/10/2024 12:00",
       "name": "TA271",
-      "start": 36,
-      "end": 37,
+      "start": 35,
+      "end": 36,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "2/10/2024 12:00"
+      "waitBefore": -1,
+      "startDate": "2/10/2024 11:00"
     },
     {
       "duration": 1,
-      "waitAfter": 17,
+      "waitAfter": 5,
       "task": "T273",
-      "endDate": "7/10/2024 04:00",
+      "endDate": "7/10/2024 16:00",
       "name": "TA272",
-      "start": 147,
-      "end": 148,
+      "start": 159,
+      "end": 160,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "7/10/2024 03:00"
+      "waitBefore": 14,
+      "startDate": "7/10/2024 15:00"
     },
     {
       "duration": 1,
@@ -21354,7 +21354,7 @@
       "start": 25,
       "end": 26,
       "jobAssignment": "JA0",
-      "waitBefore": 12,
+      "waitBefore": 2,
       "startDate": "2/10/2024 01:00"
     },
     {
@@ -21366,7 +21366,7 @@
       "start": 124,
       "end": 125,
       "jobAssignment": "JA0",
-      "waitBefore": 79,
+      "waitBefore": 76,
       "startDate": "6/10/2024 04:00"
     },
     {
@@ -21395,15 +21395,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 40,
+      "waitAfter": 1,
       "task": "T278",
-      "endDate": "5/10/2024 23:00",
+      "endDate": "7/10/2024 14:00",
       "name": "TA277",
-      "start": 118,
-      "end": 119,
+      "start": 157,
+      "end": 158,
       "jobAssignment": "JA0",
-      "waitBefore": 9,
-      "startDate": "5/10/2024 22:00"
+      "waitBefore": 48,
+      "startDate": "7/10/2024 13:00"
     },
     {
       "duration": 1,
@@ -21433,13 +21433,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T281",
-      "endDate": "1/10/2024 13:00",
+      "endDate": "1/10/2024 12:00",
       "name": "TA280",
-      "start": 12,
-      "end": 13,
+      "start": 11,
+      "end": 12,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "1/10/2024 12:00"
+      "startDate": "1/10/2024 11:00"
     },
     {
       "duration": 1,
@@ -21450,7 +21450,7 @@
       "start": 94,
       "end": 95,
       "jobAssignment": "JA0",
-      "waitBefore": 58,
+      "waitBefore": 49,
       "startDate": "4/10/2024 22:00"
     },
     {
@@ -21474,7 +21474,7 @@
       "start": 58,
       "end": 59,
       "jobAssignment": "JA0",
-      "waitBefore": 12,
+      "waitBefore": 10,
       "startDate": "3/10/2024 10:00"
     },
     {
@@ -21486,12 +21486,12 @@
       "start": 23,
       "end": 24,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "1/10/2024 23:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T286",
       "endDate": "2/10/2024 04:00",
       "name": "TA285",
@@ -21505,13 +21505,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T287",
-      "endDate": "8/10/2024 17:00",
+      "endDate": "3/10/2024 17:00",
       "name": "TA286",
-      "start": 184,
-      "end": 185,
+      "start": 64,
+      "end": 65,
       "jobAssignment": "JA0",
-      "waitBefore": 148,
-      "startDate": "8/10/2024 16:00"
+      "waitBefore": 19,
+      "startDate": "3/10/2024 16:00"
     },
     {
       "duration": 1,
@@ -21546,7 +21546,7 @@
       "start": 190,
       "end": 191,
       "jobAssignment": "JA0",
-      "waitBefore": 168,
+      "waitBefore": 163,
       "startDate": "8/10/2024 22:00"
     },
     {
@@ -21558,7 +21558,7 @@
       "start": 53,
       "end": 54,
       "jobAssignment": "JA0",
-      "waitBefore": 7,
+      "waitBefore": 5,
       "startDate": "3/10/2024 05:00"
     },
     {
@@ -21575,51 +21575,51 @@
     },
     {
       "duration": 1,
-      "waitAfter": 3,
+      "waitAfter": 0,
       "task": "T293",
-      "endDate": "3/10/2024 00:00",
+      "endDate": "3/10/2024 03:00",
       "name": "TA292",
-      "start": 47,
-      "end": 48,
+      "start": 50,
+      "end": 51,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "2/10/2024 23:00"
+      "waitBefore": 2,
+      "startDate": "3/10/2024 02:00"
     },
     {
       "duration": 1,
-      "waitAfter": 22,
+      "waitAfter": 14,
       "task": "T294",
-      "endDate": "2/10/2024 03:00",
+      "endDate": "2/10/2024 11:00",
       "name": "TA293",
-      "start": 26,
-      "end": 27,
+      "start": 34,
+      "end": 35,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 02:00"
+      "waitBefore": 7,
+      "startDate": "2/10/2024 10:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T295",
-      "endDate": "2/10/2024 23:00",
+      "endDate": "2/10/2024 22:00",
       "name": "TA294",
-      "start": 46,
-      "end": 47,
+      "start": 45,
+      "end": 46,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "2/10/2024 22:00"
+      "startDate": "2/10/2024 21:00"
     },
     {
       "duration": 1,
-      "waitAfter": 6,
+      "waitAfter": 9,
       "task": "T296",
-      "endDate": "1/10/2024 14:00",
+      "endDate": "1/10/2024 13:00",
       "name": "TA295",
-      "start": 13,
-      "end": 14,
+      "start": 12,
+      "end": 13,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/10/2024 13:00"
+      "startDate": "1/10/2024 12:00"
     },
     {
       "duration": 1,
@@ -21647,19 +21647,19 @@
     },
     {
       "duration": 1,
-      "waitAfter": 6,
+      "waitAfter": 1,
       "task": "T299",
-      "endDate": "2/10/2024 13:00",
+      "endDate": "2/10/2024 12:00",
       "name": "TA298",
-      "start": 36,
-      "end": 37,
+      "start": 35,
+      "end": 36,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "2/10/2024 12:00"
+      "startDate": "2/10/2024 11:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 16,
       "task": "T300",
       "endDate": "2/10/2024 14:00",
       "name": "TA299",
@@ -21719,15 +21719,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 111,
       "task": "T305",
-      "endDate": "7/10/2024 02:00",
+      "endDate": "2/10/2024 11:00",
       "name": "TA304",
-      "start": 145,
-      "end": 146,
+      "start": 34,
+      "end": 35,
       "jobAssignment": "JA0",
-      "waitBefore": 117,
-      "startDate": "7/10/2024 01:00"
+      "waitBefore": 6,
+      "startDate": "2/10/2024 10:00"
     },
     {
       "duration": 1,
@@ -21750,7 +21750,7 @@
       "start": 159,
       "end": 160,
       "jobAssignment": "JA0",
-      "waitBefore": 40,
+      "waitBefore": 1,
       "startDate": "7/10/2024 15:00"
     },
     {
@@ -21767,7 +21767,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 2,
       "task": "T309",
       "endDate": "2/10/2024 21:00",
       "name": "TA308",
@@ -21779,15 +21779,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T310",
-      "endDate": "2/10/2024 04:00",
+      "endDate": "2/10/2024 05:00",
       "name": "TA309",
-      "start": 27,
-      "end": 28,
+      "start": 28,
+      "end": 29,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 03:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 04:00"
     },
     {
       "duration": 1,
@@ -21810,7 +21810,7 @@
       "start": 207,
       "end": 208,
       "jobAssignment": "JA0",
-      "waitBefore": 180,
+      "waitBefore": 172,
       "startDate": "9/10/2024 15:00"
     },
     {
@@ -21822,7 +21822,7 @@
       "start": 112,
       "end": 113,
       "jobAssignment": "JA0",
-      "waitBefore": 65,
+      "waitBefore": 66,
       "startDate": "5/10/2024 16:00"
     },
     {
@@ -21839,26 +21839,26 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 20,
       "task": "T315",
-      "endDate": "8/10/2024 13:00",
+      "endDate": "7/10/2024 17:00",
       "name": "TA314",
-      "start": 180,
-      "end": 181,
+      "start": 160,
+      "end": 161,
       "jobAssignment": "JA0",
-      "waitBefore": 85,
-      "startDate": "8/10/2024 12:00"
+      "waitBefore": 65,
+      "startDate": "7/10/2024 16:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T316",
       "endDate": "2/10/2024 23:00",
       "name": "TA315",
       "start": 46,
       "end": 47,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
+      "waitBefore": 0,
       "startDate": "2/10/2024 22:00"
     },
     {
@@ -21894,20 +21894,20 @@
       "start": 141,
       "end": 142,
       "jobAssignment": "JA0",
-      "waitBefore": 66,
+      "waitBefore": 64,
       "startDate": "6/10/2024 21:00"
     },
     {
       "duration": 1,
-      "waitAfter": 3,
+      "waitAfter": 1,
       "task": "T320",
-      "endDate": "1/10/2024 21:00",
+      "endDate": "1/10/2024 23:00",
       "name": "TA319",
-      "start": 20,
-      "end": 21,
+      "start": 22,
+      "end": 23,
       "jobAssignment": "JA0",
-      "waitBefore": 6,
-      "startDate": "1/10/2024 20:00"
+      "waitBefore": 9,
+      "startDate": "1/10/2024 22:00"
     },
     {
       "duration": 1,
@@ -21923,27 +21923,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 0,
       "task": "T322",
-      "endDate": "2/10/2024 20:00",
+      "endDate": "2/10/2024 14:00",
       "name": "TA321",
-      "start": 43,
-      "end": 44,
+      "start": 37,
+      "end": 38,
       "jobAssignment": "JA0",
-      "waitBefore": 6,
-      "startDate": "2/10/2024 19:00"
+      "waitBefore": 1,
+      "startDate": "2/10/2024 13:00"
     },
     {
       "duration": 1,
-      "waitAfter": 6,
+      "waitAfter": -1,
       "task": "T323",
-      "endDate": "2/10/2024 15:00",
+      "endDate": "3/10/2024 07:00",
       "name": "TA322",
-      "start": 38,
-      "end": 39,
+      "start": 54,
+      "end": 55,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "2/10/2024 14:00"
+      "waitBefore": 16,
+      "startDate": "3/10/2024 06:00"
     },
     {
       "duration": 1,
@@ -22019,15 +22019,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 4,
       "task": "T330",
-      "endDate": "7/10/2024 02:00",
+      "endDate": "7/10/2024 03:00",
       "name": "TA329",
-      "start": 145,
-      "end": 146,
+      "start": 146,
+      "end": 147,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "7/10/2024 01:00"
+      "waitBefore": 111,
+      "startDate": "7/10/2024 02:00"
     },
     {
       "duration": 1,
@@ -22043,31 +22043,31 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T332",
-      "endDate": "2/10/2024 21:00",
+      "endDate": "3/10/2024 00:00",
       "name": "TA331",
-      "start": 44,
-      "end": 45,
+      "start": 47,
+      "end": 48,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 20:00"
+      "waitBefore": 2,
+      "startDate": "2/10/2024 23:00"
     },
     {
       "duration": 1,
-      "waitAfter": 17,
+      "waitAfter": 25,
       "task": "T333",
-      "endDate": "3/10/2024 10:00",
+      "endDate": "3/10/2024 02:00",
       "name": "TA332",
-      "start": 57,
-      "end": 58,
+      "start": 49,
+      "end": 50,
       "jobAssignment": "JA0",
-      "waitBefore": 10,
-      "startDate": "3/10/2024 09:00"
+      "waitBefore": 2,
+      "startDate": "3/10/2024 01:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 28,
       "task": "T334",
       "endDate": "7/10/2024 05:00",
       "name": "TA333",
@@ -22081,13 +22081,13 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T335",
-      "endDate": "2/10/2024 08:00",
+      "endDate": "2/10/2024 06:00",
       "name": "TA334",
-      "start": 31,
-      "end": 32,
+      "start": 29,
+      "end": 30,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
-      "startDate": "2/10/2024 07:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 05:00"
     },
     {
       "duration": 1,
@@ -22098,7 +22098,7 @@
       "start": 217,
       "end": 218,
       "jobAssignment": "JA0",
-      "waitBefore": 36,
+      "waitBefore": 56,
       "startDate": "10/10/2024 01:00"
     },
     {
@@ -22110,20 +22110,20 @@
       "start": 70,
       "end": 71,
       "jobAssignment": "JA0",
-      "waitBefore": 42,
+      "waitBefore": 41,
       "startDate": "3/10/2024 22:00"
     },
     {
       "duration": 1,
-      "waitAfter": 4,
+      "waitAfter": -1,
       "task": "T338",
-      "endDate": "2/10/2024 23:00",
+      "endDate": "3/10/2024 04:00",
       "name": "TA337",
-      "start": 46,
-      "end": 47,
+      "start": 51,
+      "end": 52,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 22:00"
+      "waitBefore": 4,
+      "startDate": "3/10/2024 03:00"
     },
     {
       "duration": 1,
@@ -22134,7 +22134,7 @@
       "start": 181,
       "end": 182,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": 20,
       "startDate": "8/10/2024 13:00"
     },
     {
@@ -22151,14 +22151,14 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T341",
       "endDate": "2/10/2024 05:00",
       "name": "TA340",
       "start": 28,
       "end": 29,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "2/10/2024 04:00"
     },
     {
@@ -22199,15 +22199,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 9,
+      "waitAfter": 4,
       "task": "T345",
-      "endDate": "7/10/2024 03:00",
+      "endDate": "7/10/2024 08:00",
       "name": "TA344",
-      "start": 146,
-      "end": 147,
+      "start": 151,
+      "end": 152,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "7/10/2024 02:00"
+      "waitBefore": 4,
+      "startDate": "7/10/2024 07:00"
     },
     {
       "duration": 1,
@@ -22223,27 +22223,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T347",
-      "endDate": "2/10/2024 22:00",
+      "endDate": "2/10/2024 15:00",
       "name": "TA346",
-      "start": 45,
-      "end": 46,
+      "start": 38,
+      "end": 39,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "2/10/2024 21:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 14:00"
     },
     {
       "duration": 1,
-      "waitAfter": 8,
+      "waitAfter": -1,
       "task": "T348",
-      "endDate": "2/10/2024 22:00",
+      "endDate": "3/10/2024 07:00",
       "name": "TA347",
-      "start": 45,
-      "end": 46,
+      "start": 54,
+      "end": 55,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "2/10/2024 21:00"
+      "waitBefore": -1,
+      "startDate": "3/10/2024 06:00"
     },
     {
       "duration": 1,
@@ -22285,13 +22285,13 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T352",
-      "endDate": "2/10/2024 05:00",
+      "endDate": "2/10/2024 06:00",
       "name": "TA351",
-      "start": 28,
-      "end": 29,
+      "start": 29,
+      "end": 30,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 04:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 05:00"
     },
     {
       "duration": 1,
@@ -22302,7 +22302,7 @@
       "start": 76,
       "end": 77,
       "jobAssignment": "JA0",
-      "waitBefore": 29,
+      "waitBefore": 24,
       "startDate": "4/10/2024 04:00"
     },
     {
@@ -22314,20 +22314,20 @@
       "start": 173,
       "end": 174,
       "jobAssignment": "JA0",
-      "waitBefore": 141,
+      "waitBefore": 143,
       "startDate": "8/10/2024 05:00"
     },
     {
       "duration": 1,
-      "waitAfter": 8,
+      "waitAfter": 9,
       "task": "T355",
-      "endDate": "2/10/2024 08:00",
+      "endDate": "2/10/2024 06:00",
       "name": "TA354",
-      "start": 31,
-      "end": 32,
+      "start": 29,
+      "end": 30,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "2/10/2024 07:00"
+      "startDate": "2/10/2024 05:00"
     },
     {
       "duration": 1,
@@ -22338,20 +22338,20 @@
       "start": 114,
       "end": 115,
       "jobAssignment": "JA0",
-      "waitBefore": 83,
+      "waitBefore": 75,
       "startDate": "5/10/2024 18:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 33,
       "task": "T357",
-      "endDate": "9/10/2024 19:00",
+      "endDate": "8/10/2024 10:00",
       "name": "TA356",
-      "start": 210,
-      "end": 211,
+      "start": 177,
+      "end": 178,
       "jobAssignment": "JA0",
-      "waitBefore": 35,
-      "startDate": "9/10/2024 18:00"
+      "waitBefore": 2,
+      "startDate": "8/10/2024 09:00"
     },
     {
       "duration": 1,
@@ -22374,7 +22374,7 @@
       "start": 53,
       "end": 54,
       "jobAssignment": "JA0",
-      "waitBefore": 6,
+      "waitBefore": 1,
       "startDate": "3/10/2024 05:00"
     },
     {
@@ -22403,15 +22403,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T362",
-      "endDate": "2/10/2024 05:00",
+      "endDate": "2/10/2024 06:00",
       "name": "TA361",
-      "start": 28,
-      "end": 29,
+      "start": 29,
+      "end": 30,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "2/10/2024 04:00"
+      "startDate": "2/10/2024 05:00"
     },
     {
       "duration": 1,
@@ -22434,32 +22434,32 @@
       "start": 54,
       "end": 55,
       "jobAssignment": "JA0",
-      "waitBefore": 8,
+      "waitBefore": -1,
       "startDate": "3/10/2024 06:00"
     },
     {
       "duration": 1,
-      "waitAfter": 45,
+      "waitAfter": 72,
       "task": "T365",
       "endDate": "7/10/2024 13:00",
       "name": "TA364",
       "start": 156,
       "end": 157,
       "jobAssignment": "JA0",
-      "waitBefore": 9,
+      "waitBefore": 4,
       "startDate": "7/10/2024 12:00"
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 5,
       "task": "T366",
-      "endDate": "2/10/2024 22:00",
+      "endDate": "2/10/2024 17:00",
       "name": "TA365",
-      "start": 45,
-      "end": 46,
+      "start": 40,
+      "end": 41,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 21:00"
+      "waitBefore": 1,
+      "startDate": "2/10/2024 16:00"
     },
     {
       "duration": 1,
@@ -22487,7 +22487,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T369",
       "endDate": "2/10/2024 01:00",
       "name": "TA368",
@@ -22499,15 +22499,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 55,
+      "waitAfter": 72,
       "task": "T370",
-      "endDate": "4/10/2024 08:00",
+      "endDate": "3/10/2024 15:00",
       "name": "TA369",
-      "start": 79,
-      "end": 80,
+      "start": 62,
+      "end": 63,
       "jobAssignment": "JA0",
-      "waitBefore": 33,
-      "startDate": "4/10/2024 07:00"
+      "waitBefore": 7,
+      "startDate": "3/10/2024 14:00"
     },
     {
       "duration": 1,
@@ -22535,7 +22535,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 3,
       "task": "T373",
       "endDate": "3/10/2024 10:00",
       "name": "TA372",
@@ -22547,27 +22547,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T374",
-      "endDate": "2/10/2024 06:00",
+      "endDate": "2/10/2024 07:00",
       "name": "TA373",
-      "start": 29,
-      "end": 30,
+      "start": 30,
+      "end": 31,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "2/10/2024 05:00"
+      "startDate": "2/10/2024 06:00"
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 2,
       "task": "T375",
-      "endDate": "2/10/2024 17:00",
+      "endDate": "2/10/2024 16:00",
       "name": "TA374",
-      "start": 40,
-      "end": 41,
+      "start": 39,
+      "end": 40,
       "jobAssignment": "JA0",
-      "waitBefore": 8,
-      "startDate": "2/10/2024 16:00"
+      "waitBefore": 9,
+      "startDate": "2/10/2024 15:00"
     },
     {
       "duration": 1,
@@ -22595,15 +22595,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": -1,
       "task": "T378",
-      "endDate": "2/10/2024 05:00",
+      "endDate": "2/10/2024 07:00",
       "name": "TA377",
-      "start": 28,
-      "end": 29,
+      "start": 30,
+      "end": 31,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 04:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 06:00"
     },
     {
       "duration": 1,
@@ -22621,13 +22621,13 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T380",
-      "endDate": "3/10/2024 00:00",
+      "endDate": "2/10/2024 23:00",
       "name": "TA379",
-      "start": 47,
-      "end": 48,
+      "start": 46,
+      "end": 47,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "2/10/2024 23:00"
+      "waitBefore": 5,
+      "startDate": "2/10/2024 22:00"
     },
     {
       "duration": 1,
@@ -22645,13 +22645,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T382",
-      "endDate": "3/10/2024 03:00",
+      "endDate": "3/10/2024 13:00",
       "name": "TA381",
-      "start": 50,
-      "end": 51,
+      "start": 60,
+      "end": 61,
       "jobAssignment": "JA0",
-      "waitBefore": 20,
-      "startDate": "3/10/2024 02:00"
+      "waitBefore": 29,
+      "startDate": "3/10/2024 12:00"
     },
     {
       "duration": 1,
@@ -22674,7 +22674,7 @@
       "start": 135,
       "end": 136,
       "jobAssignment": "JA0",
-      "waitBefore": 55,
+      "waitBefore": 72,
       "startDate": "6/10/2024 15:00"
     },
     {
@@ -22698,7 +22698,7 @@
       "start": 30,
       "end": 31,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "2/10/2024 06:00"
     },
     {
@@ -22710,20 +22710,20 @@
       "start": 228,
       "end": 229,
       "jobAssignment": "JA0",
-      "waitBefore": 198,
+      "waitBefore": 197,
       "startDate": "10/10/2024 12:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T388",
-      "endDate": "9/10/2024 11:00",
+      "endDate": "10/10/2024 14:00",
       "name": "TA387",
-      "start": 202,
-      "end": 203,
+      "start": 229,
+      "end": 230,
       "jobAssignment": "JA0",
-      "waitBefore": 45,
-      "startDate": "9/10/2024 10:00"
+      "waitBefore": 72,
+      "startDate": "10/10/2024 13:00"
     },
     {
       "duration": 1,
@@ -22751,27 +22751,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 3,
       "task": "T391",
-      "endDate": "3/10/2024 10:00",
+      "endDate": "3/10/2024 14:00",
       "name": "TA390",
-      "start": 57,
-      "end": 58,
+      "start": 61,
+      "end": 62,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 09:00"
+      "waitBefore": 3,
+      "startDate": "3/10/2024 13:00"
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T392",
-      "endDate": "2/10/2024 01:00",
+      "endDate": "2/10/2024 02:00",
       "name": "TA391",
-      "start": 24,
-      "end": 25,
+      "start": 25,
+      "end": 26,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "2/10/2024 00:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 01:00"
     },
     {
       "duration": 1,
@@ -22811,27 +22811,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T396",
-      "endDate": "3/10/2024 00:00",
+      "endDate": "2/10/2024 23:00",
       "name": "TA395",
-      "start": 47,
-      "end": 48,
+      "start": 46,
+      "end": 47,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "2/10/2024 23:00"
+      "startDate": "2/10/2024 22:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T397",
-      "endDate": "3/10/2024 04:00",
+      "endDate": "3/10/2024 14:00",
       "name": "TA396",
-      "start": 51,
-      "end": 52,
+      "start": 61,
+      "end": 62,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "3/10/2024 03:00"
+      "startDate": "3/10/2024 13:00"
     },
     {
       "duration": 1,
@@ -22866,7 +22866,7 @@
       "start": 30,
       "end": 31,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
+      "waitBefore": -1,
       "startDate": "2/10/2024 06:00"
     },
     {
@@ -22878,7 +22878,7 @@
       "start": 71,
       "end": 72,
       "jobAssignment": "JA0",
-      "waitBefore": 13,
+      "waitBefore": 9,
       "startDate": "3/10/2024 23:00"
     },
     {
@@ -22897,13 +22897,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T403",
-      "endDate": "7/10/2024 17:00",
+      "endDate": "8/10/2024 13:00",
       "name": "TA402",
-      "start": 160,
-      "end": 161,
+      "start": 180,
+      "end": 181,
       "jobAssignment": "JA0",
-      "waitBefore": 102,
-      "startDate": "7/10/2024 16:00"
+      "waitBefore": 118,
+      "startDate": "8/10/2024 12:00"
     },
     {
       "duration": 1,
@@ -22914,7 +22914,7 @@
       "start": 49,
       "end": 50,
       "jobAssignment": "JA0",
-      "waitBefore": 22,
+      "waitBefore": 14,
       "startDate": "3/10/2024 01:00"
     },
     {
@@ -22931,27 +22931,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": 9,
+      "waitAfter": 1,
       "task": "T406",
-      "endDate": "3/10/2024 10:00",
+      "endDate": "3/10/2024 18:00",
       "name": "TA405",
-      "start": 57,
-      "end": 58,
+      "start": 65,
+      "end": 66,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 09:00"
+      "waitBefore": 3,
+      "startDate": "3/10/2024 17:00"
     },
     {
       "duration": 1,
-      "waitAfter": 12,
+      "waitAfter": -1,
       "task": "T407",
-      "endDate": "3/10/2024 14:00",
+      "endDate": "4/10/2024 03:00",
       "name": "TA406",
-      "start": 61,
-      "end": 62,
+      "start": 74,
+      "end": 75,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
-      "startDate": "3/10/2024 13:00"
+      "waitBefore": 12,
+      "startDate": "4/10/2024 02:00"
     },
     {
       "duration": 1,
@@ -22967,14 +22967,14 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T409",
       "endDate": "2/10/2024 02:00",
       "name": "TA408",
       "start": 25,
       "end": 26,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "2/10/2024 01:00"
     },
     {
@@ -23010,7 +23010,7 @@
       "start": 47,
       "end": 48,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
+      "waitBefore": 0,
       "startDate": "2/10/2024 23:00"
     },
     {
@@ -23027,15 +23027,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 10,
+      "waitAfter": -1,
       "task": "T414",
-      "endDate": "3/10/2024 04:00",
+      "endDate": "3/10/2024 15:00",
       "name": "TA413",
-      "start": 51,
-      "end": 52,
+      "start": 62,
+      "end": 63,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 03:00"
+      "waitBefore": 0,
+      "startDate": "3/10/2024 14:00"
     },
     {
       "duration": 1,
@@ -23101,13 +23101,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T420",
-      "endDate": "10/10/2024 10:00",
+      "endDate": "9/10/2024 11:00",
       "name": "TA419",
-      "start": 225,
-      "end": 226,
+      "start": 202,
+      "end": 203,
       "jobAssignment": "JA0",
-      "waitBefore": 175,
-      "startDate": "10/10/2024 09:00"
+      "waitBefore": 152,
+      "startDate": "9/10/2024 10:00"
     },
     {
       "duration": 1,
@@ -23135,27 +23135,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T423",
-      "endDate": "2/10/2024 03:00",
+      "endDate": "2/10/2024 02:00",
       "name": "TA422",
-      "start": 26,
-      "end": 27,
+      "start": 25,
+      "end": 26,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "2/10/2024 02:00"
+      "waitBefore": -1,
+      "startDate": "2/10/2024 01:00"
     },
     {
       "duration": 1,
-      "waitAfter": 18,
+      "waitAfter": 14,
       "task": "T424",
-      "endDate": "3/10/2024 03:00",
+      "endDate": "3/10/2024 07:00",
       "name": "TA423",
-      "start": 50,
-      "end": 51,
+      "start": 54,
+      "end": 55,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "3/10/2024 02:00"
+      "waitBefore": 4,
+      "startDate": "3/10/2024 06:00"
     },
     {
       "duration": 1,
@@ -23190,7 +23190,7 @@
       "start": 74,
       "end": 75,
       "jobAssignment": "JA0",
-      "waitBefore": 12,
+      "waitBefore": -1,
       "startDate": "4/10/2024 02:00"
     },
     {
@@ -23202,7 +23202,7 @@
       "start": 107,
       "end": 108,
       "jobAssignment": "JA0",
-      "waitBefore": 49,
+      "waitBefore": 41,
       "startDate": "5/10/2024 11:00"
     },
     {
@@ -23243,7 +23243,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 4,
       "task": "T432",
       "endDate": "3/10/2024 01:00",
       "name": "TA431",
@@ -23303,15 +23303,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 1,
       "task": "T437",
-      "endDate": "3/10/2024 01:00",
+      "endDate": "2/10/2024 20:00",
       "name": "TA436",
-      "start": 48,
-      "end": 49,
+      "start": 43,
+      "end": 44,
       "jobAssignment": "JA0",
-      "waitBefore": 5,
-      "startDate": "3/10/2024 00:00"
+      "waitBefore": 0,
+      "startDate": "2/10/2024 19:00"
     },
     {
       "duration": 1,
@@ -23334,7 +23334,7 @@
       "start": 62,
       "end": 63,
       "jobAssignment": "JA0",
-      "waitBefore": 10,
+      "waitBefore": -1,
       "startDate": "3/10/2024 14:00"
     },
     {
@@ -23358,7 +23358,7 @@
       "start": 99,
       "end": 100,
       "jobAssignment": "JA0",
-      "waitBefore": 49,
+      "waitBefore": 34,
       "startDate": "5/10/2024 03:00"
     },
     {
@@ -23394,7 +23394,7 @@
       "start": 51,
       "end": 52,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
+      "waitBefore": 0,
       "startDate": "3/10/2024 03:00"
     },
     {
@@ -23411,15 +23411,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 6,
+      "waitAfter": 29,
       "task": "T446",
-      "endDate": "4/10/2024 01:00",
+      "endDate": "3/10/2024 02:00",
       "name": "TA445",
-      "start": 72,
-      "end": 73,
+      "start": 49,
+      "end": 50,
       "jobAssignment": "JA0",
-      "waitBefore": 29,
-      "startDate": "4/10/2024 00:00"
+      "waitBefore": 6,
+      "startDate": "3/10/2024 01:00"
     },
     {
       "duration": 1,
@@ -23442,7 +23442,7 @@
       "start": 26,
       "end": 27,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
+      "waitBefore": 0,
       "startDate": "2/10/2024 02:00"
     },
     {
@@ -23471,7 +23471,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 6,
       "task": "T451",
       "endDate": "10/10/2024 04:00",
       "name": "TA450",
@@ -23543,15 +23543,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 6,
+      "waitAfter": 5,
       "task": "T457",
-      "endDate": "3/10/2024 01:00",
+      "endDate": "3/10/2024 06:00",
       "name": "TA456",
-      "start": 48,
-      "end": 49,
+      "start": 53,
+      "end": 54,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 00:00"
+      "waitBefore": 4,
+      "startDate": "3/10/2024 05:00"
     },
     {
       "duration": 1,
@@ -23579,15 +23579,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 8,
+      "waitAfter": 12,
       "task": "T460",
-      "endDate": "3/10/2024 02:00",
+      "endDate": "2/10/2024 22:00",
       "name": "TA459",
-      "start": 49,
-      "end": 50,
+      "start": 45,
+      "end": 46,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "3/10/2024 01:00"
+      "waitBefore": 1,
+      "startDate": "2/10/2024 21:00"
     },
     {
       "duration": 1,
@@ -23627,7 +23627,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 13,
+      "waitAfter": 1,
       "task": "T464",
       "endDate": "9/10/2024 18:00",
       "name": "TA463",
@@ -23663,7 +23663,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 120,
+      "waitAfter": 127,
       "task": "T467",
       "endDate": "5/10/2024 03:00",
       "name": "TA466",
@@ -23687,15 +23687,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T469",
-      "endDate": "4/10/2024 23:00",
+      "endDate": "5/10/2024 23:00",
       "name": "TA468",
-      "start": 94,
-      "end": 95,
+      "start": 118,
+      "end": 119,
       "jobAssignment": "JA0",
-      "waitBefore": 42,
-      "startDate": "4/10/2024 22:00"
+      "waitBefore": 66,
+      "startDate": "5/10/2024 22:00"
     },
     {
       "duration": 1,
@@ -23706,7 +23706,7 @@
       "start": 111,
       "end": 112,
       "jobAssignment": "JA0",
-      "waitBefore": 38,
+      "waitBefore": 61,
       "startDate": "5/10/2024 15:00"
     },
     {
@@ -23747,15 +23747,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 5,
+      "waitAfter": 1,
       "task": "T474",
-      "endDate": "3/10/2024 08:00",
+      "endDate": "3/10/2024 12:00",
       "name": "TA473",
-      "start": 55,
-      "end": 56,
+      "start": 59,
+      "end": 60,
       "jobAssignment": "JA0",
-      "waitBefore": 6,
-      "startDate": "3/10/2024 07:00"
+      "waitBefore": 5,
+      "startDate": "3/10/2024 11:00"
     },
     {
       "duration": 1,
@@ -23778,7 +23778,7 @@
       "start": 58,
       "end": 59,
       "jobAssignment": "JA0",
-      "waitBefore": 8,
+      "waitBefore": 12,
       "startDate": "3/10/2024 10:00"
     },
     {
@@ -23833,13 +23833,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T481",
-      "endDate": "10/10/2024 04:00",
+      "endDate": "10/10/2024 11:00",
       "name": "TA480",
-      "start": 219,
-      "end": 220,
+      "start": 226,
+      "end": 227,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "10/10/2024 03:00"
+      "waitBefore": 6,
+      "startDate": "10/10/2024 10:00"
     },
     {
       "duration": 1,
@@ -23891,39 +23891,39 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 11,
       "task": "T486",
-      "endDate": "10/10/2024 08:00",
+      "endDate": "9/10/2024 20:00",
       "name": "TA485",
-      "start": 223,
-      "end": 224,
+      "start": 211,
+      "end": 212,
       "jobAssignment": "JA0",
-      "waitBefore": 13,
-      "startDate": "10/10/2024 07:00"
+      "waitBefore": 1,
+      "startDate": "9/10/2024 19:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T487",
-      "endDate": "7/10/2024 14:00",
+      "endDate": "9/10/2024 09:00",
       "name": "TA486",
-      "start": 157,
-      "end": 158,
+      "start": 200,
+      "end": 201,
       "jobAssignment": "JA0",
-      "waitBefore": 45,
-      "startDate": "7/10/2024 13:00"
+      "waitBefore": 88,
+      "startDate": "9/10/2024 08:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T488",
-      "endDate": "4/10/2024 23:00",
+      "endDate": "6/10/2024 00:00",
       "name": "TA487",
-      "start": 94,
-      "end": 95,
+      "start": 119,
+      "end": 120,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "4/10/2024 22:00"
+      "waitBefore": 0,
+      "startDate": "5/10/2024 23:00"
     },
     {
       "duration": 1,
@@ -24018,7 +24018,7 @@
       "start": 61,
       "end": 62,
       "jobAssignment": "JA0",
-      "waitBefore": 5,
+      "waitBefore": 1,
       "startDate": "3/10/2024 13:00"
     },
     {
@@ -24071,7 +24071,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 0,
       "task": "T501",
       "endDate": "3/10/2024 11:00",
       "name": "TA500",
@@ -24275,15 +24275,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T518",
-      "endDate": "3/10/2024 13:00",
+      "endDate": "3/10/2024 12:00",
       "name": "TA517",
-      "start": 60,
-      "end": 61,
+      "start": 59,
+      "end": 60,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "3/10/2024 12:00"
+      "waitBefore": 0,
+      "startDate": "3/10/2024 11:00"
     },
     {
       "duration": 1,
@@ -24335,7 +24335,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T523",
       "endDate": "3/10/2024 04:00",
       "name": "TA522",
@@ -24347,7 +24347,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 3,
       "task": "T524",
       "endDate": "2/10/2024 20:00",
       "name": "TA523",
@@ -24383,7 +24383,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T527",
       "endDate": "3/10/2024 15:00",
       "name": "TA526",
@@ -24445,13 +24445,13 @@
       "duration": 1,
       "waitAfter": 1,
       "task": "T532",
-      "endDate": "3/10/2024 14:00",
+      "endDate": "3/10/2024 12:00",
       "name": "TA531",
-      "start": 61,
-      "end": 62,
+      "start": 59,
+      "end": 60,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "3/10/2024 13:00"
+      "waitBefore": -1,
+      "startDate": "3/10/2024 11:00"
     },
     {
       "duration": 1,
@@ -24491,7 +24491,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 7,
+      "waitAfter": -1,
       "task": "T536",
       "endDate": "4/10/2024 16:00",
       "name": "TA535",
@@ -24539,15 +24539,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 0,
       "task": "T540",
-      "endDate": "2/10/2024 22:00",
+      "endDate": "3/10/2024 00:00",
       "name": "TA539",
-      "start": 45,
-      "end": 46,
+      "start": 47,
+      "end": 48,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "2/10/2024 21:00"
+      "waitBefore": -1,
+      "startDate": "2/10/2024 23:00"
     },
     {
       "duration": 1,
@@ -24575,15 +24575,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 3,
+      "waitAfter": 2,
       "task": "T543",
-      "endDate": "3/10/2024 06:00",
+      "endDate": "3/10/2024 04:00",
       "name": "TA542",
-      "start": 53,
-      "end": 54,
+      "start": 51,
+      "end": 52,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "3/10/2024 05:00"
+      "startDate": "3/10/2024 03:00"
     },
     {
       "duration": 1,
@@ -24611,15 +24611,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T546",
-      "endDate": "3/10/2024 15:00",
+      "endDate": "3/10/2024 16:00",
       "name": "TA545",
-      "start": 62,
-      "end": 63,
+      "start": 63,
+      "end": 64,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 14:00"
+      "waitBefore": 0,
+      "startDate": "3/10/2024 15:00"
     },
     {
       "duration": 1,
@@ -24635,15 +24635,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 10,
+      "waitAfter": 18,
       "task": "T548",
-      "endDate": "5/10/2024 00:00",
+      "endDate": "4/10/2024 16:00",
       "name": "TA547",
-      "start": 95,
-      "end": 96,
+      "start": 87,
+      "end": 88,
       "jobAssignment": "JA0",
-      "waitBefore": 7,
-      "startDate": "4/10/2024 23:00"
+      "waitBefore": -1,
+      "startDate": "4/10/2024 15:00"
     },
     {
       "duration": 1,
@@ -24683,15 +24683,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 2,
+      "waitAfter": 4,
       "task": "T552",
-      "endDate": "3/10/2024 16:00",
+      "endDate": "3/10/2024 14:00",
       "name": "TA551",
-      "start": 63,
-      "end": 64,
+      "start": 61,
+      "end": 62,
       "jobAssignment": "JA0",
       "waitBefore": 1,
-      "startDate": "3/10/2024 15:00"
+      "startDate": "3/10/2024 13:00"
     },
     {
       "duration": 1,
@@ -24719,27 +24719,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 9,
       "task": "T555",
-      "endDate": "3/10/2024 19:00",
-      "name": "TA554",
-      "start": 66,
-      "end": 67,
-      "jobAssignment": "JA0",
-      "waitBefore": 20,
-      "startDate": "3/10/2024 18:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 6,
-      "task": "T556",
       "endDate": "3/10/2024 10:00",
-      "name": "TA555",
+      "name": "TA554",
       "start": 57,
       "end": 58,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
+      "waitBefore": 9,
       "startDate": "3/10/2024 09:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 9,
+      "task": "T556",
+      "endDate": "3/10/2024 07:00",
+      "name": "TA555",
+      "start": 54,
+      "end": 55,
+      "jobAssignment": "JA0",
+      "waitBefore": 2,
+      "startDate": "3/10/2024 06:00"
     },
     {
       "duration": 1,
@@ -24750,7 +24750,7 @@
       "start": 69,
       "end": 70,
       "jobAssignment": "JA0",
-      "waitBefore": 15,
+      "waitBefore": 14,
       "startDate": "3/10/2024 21:00"
     },
     {
@@ -24774,7 +24774,7 @@
       "start": 110,
       "end": 111,
       "jobAssignment": "JA0",
-      "waitBefore": 56,
+      "waitBefore": 58,
       "startDate": "5/10/2024 14:00"
     },
     {
@@ -24793,13 +24793,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T561",
-      "endDate": "10/10/2024 18:00",
+      "endDate": "7/10/2024 02:00",
       "name": "TA560",
-      "start": 233,
-      "end": 234,
+      "start": 145,
+      "end": 146,
       "jobAssignment": "JA0",
-      "waitBefore": 187,
-      "startDate": "10/10/2024 17:00"
+      "waitBefore": 97,
+      "startDate": "7/10/2024 01:00"
     },
     {
       "duration": 1,
@@ -24815,15 +24815,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T563",
-      "endDate": "3/10/2024 00:00",
+      "endDate": "3/10/2024 01:00",
       "name": "TA562",
-      "start": 47,
-      "end": 48,
+      "start": 48,
+      "end": 49,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "2/10/2024 23:00"
+      "waitBefore": 0,
+      "startDate": "3/10/2024 00:00"
     },
     {
       "duration": 1,
@@ -24894,19 +24894,19 @@
       "start": 63,
       "end": 64,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "3/10/2024 15:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T570",
       "endDate": "3/10/2024 17:00",
       "name": "TA569",
       "start": 64,
       "end": 65,
       "jobAssignment": "JA0",
-      "waitBefore": 6,
+      "waitBefore": 9,
       "startDate": "3/10/2024 16:00"
     },
     {
@@ -24954,7 +24954,7 @@
       "start": 106,
       "end": 107,
       "jobAssignment": "JA0",
-      "waitBefore": 10,
+      "waitBefore": 18,
       "startDate": "5/10/2024 10:00"
     },
     {
@@ -24990,7 +24990,7 @@
       "start": 66,
       "end": 67,
       "jobAssignment": "JA0",
-      "waitBefore": 2,
+      "waitBefore": 4,
       "startDate": "3/10/2024 18:00"
     },
     {
@@ -25014,7 +25014,7 @@
       "start": 67,
       "end": 68,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": 9,
       "startDate": "3/10/2024 19:00"
     },
     {
@@ -25026,7 +25026,7 @@
       "start": 115,
       "end": 116,
       "jobAssignment": "JA0",
-      "waitBefore": 57,
+      "waitBefore": 60,
       "startDate": "5/10/2024 19:00"
     },
     {
@@ -25038,7 +25038,7 @@
       "start": 123,
       "end": 124,
       "jobAssignment": "JA0",
-      "waitBefore": 65,
+      "waitBefore": 68,
       "startDate": "6/10/2024 03:00"
     },
     {
@@ -25098,7 +25098,7 @@
       "start": 94,
       "end": 95,
       "jobAssignment": "JA0",
-      "waitBefore": 46,
+      "waitBefore": 45,
       "startDate": "4/10/2024 22:00"
     },
     {
@@ -25110,7 +25110,7 @@
       "start": 48,
       "end": 49,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "3/10/2024 00:00"
     },
     {
@@ -25139,15 +25139,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 105,
+      "waitAfter": 97,
       "task": "T590",
-      "endDate": "3/10/2024 17:00",
+      "endDate": "4/10/2024 01:00",
       "name": "TA589",
-      "start": 64,
-      "end": 65,
+      "start": 72,
+      "end": 73,
       "jobAssignment": "JA0",
-      "waitBefore": 16,
-      "startDate": "3/10/2024 16:00"
+      "waitBefore": 23,
+      "startDate": "4/10/2024 00:00"
     },
     {
       "duration": 1,
@@ -25199,15 +25199,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": -1,
       "task": "T595",
-      "endDate": "3/10/2024 17:00",
+      "endDate": "3/10/2024 18:00",
       "name": "TA594",
-      "start": 64,
-      "end": 65,
+      "start": 65,
+      "end": 66,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 16:00"
+      "waitBefore": 0,
+      "startDate": "3/10/2024 17:00"
     },
     {
       "duration": 1,
@@ -25381,13 +25381,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T610",
-      "endDate": "6/10/2024 01:00",
+      "endDate": "8/10/2024 06:00",
       "name": "TA609",
-      "start": 120,
-      "end": 121,
+      "start": 173,
+      "end": 174,
       "jobAssignment": "JA0",
-      "waitBefore": 17,
-      "startDate": "6/10/2024 00:00"
+      "waitBefore": 70,
+      "startDate": "8/10/2024 05:00"
     },
     {
       "duration": 1,
@@ -25518,7 +25518,7 @@
       "start": 65,
       "end": 66,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
+      "waitBefore": -1,
       "startDate": "3/10/2024 17:00"
     },
     {
@@ -25607,7 +25607,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 3,
+      "waitAfter": 2,
       "task": "T629",
       "endDate": "3/10/2024 03:00",
       "name": "TA628",
@@ -25763,15 +25763,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 8,
+      "waitAfter": 19,
       "task": "T642",
-      "endDate": "3/10/2024 17:00",
+      "endDate": "3/10/2024 06:00",
       "name": "TA641",
-      "start": 64,
-      "end": 65,
+      "start": 53,
+      "end": 54,
       "jobAssignment": "JA0",
-      "waitBefore": 13,
-      "startDate": "3/10/2024 16:00"
+      "waitBefore": 2,
+      "startDate": "3/10/2024 05:00"
     },
     {
       "duration": 1,
@@ -25787,19 +25787,19 @@
     },
     {
       "duration": 1,
-      "waitAfter": 24,
+      "waitAfter": 23,
       "task": "T644",
-      "endDate": "3/10/2024 07:00",
+      "endDate": "3/10/2024 08:00",
       "name": "TA643",
-      "start": 54,
-      "end": 55,
+      "start": 55,
+      "end": 56,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
-      "startDate": "3/10/2024 06:00"
+      "waitBefore": 4,
+      "startDate": "3/10/2024 07:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T645",
       "endDate": "3/10/2024 18:00",
       "name": "TA644",
@@ -25914,7 +25914,7 @@
       "start": 73,
       "end": 74,
       "jobAssignment": "JA0",
-      "waitBefore": 8,
+      "waitBefore": 19,
       "startDate": "4/10/2024 01:00"
     },
     {
@@ -25991,7 +25991,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T661",
       "endDate": "3/10/2024 20:00",
       "name": "TA660",
@@ -26015,27 +26015,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 0,
       "task": "T663",
-      "endDate": "3/10/2024 18:00",
+      "endDate": "3/10/2024 19:00",
       "name": "TA662",
-      "start": 65,
-      "end": 66,
+      "start": 66,
+      "end": 67,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 17:00"
+      "waitBefore": 0,
+      "startDate": "3/10/2024 18:00"
     },
     {
       "duration": 1,
-      "waitAfter": 26,
+      "waitAfter": 53,
       "task": "T664",
-      "endDate": "3/10/2024 21:00",
+      "endDate": "3/10/2024 20:00",
       "name": "TA663",
-      "start": 68,
-      "end": 69,
+      "start": 67,
+      "end": 68,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "3/10/2024 20:00"
+      "waitBefore": -1,
+      "startDate": "3/10/2024 19:00"
     },
     {
       "duration": 1,
@@ -26058,7 +26058,7 @@
       "start": 78,
       "end": 79,
       "jobAssignment": "JA0",
-      "waitBefore": 13,
+      "waitBefore": 24,
       "startDate": "4/10/2024 06:00"
     },
     {
@@ -26207,15 +26207,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": 0,
       "task": "T679",
-      "endDate": "3/10/2024 20:00",
+      "endDate": "3/10/2024 21:00",
       "name": "TA678",
-      "start": 67,
-      "end": 68,
+      "start": 68,
+      "end": 69,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "3/10/2024 19:00"
+      "waitBefore": 0,
+      "startDate": "3/10/2024 20:00"
     },
     {
       "duration": 1,
@@ -26226,12 +26226,12 @@
       "start": 67,
       "end": 68,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
+      "waitBefore": 0,
       "startDate": "3/10/2024 19:00"
     },
     {
       "duration": 1,
-      "waitAfter": 3,
+      "waitAfter": -1,
       "task": "T681",
       "endDate": "4/10/2024 06:00",
       "name": "TA680",
@@ -26250,7 +26250,7 @@
       "start": 153,
       "end": 154,
       "jobAssignment": "JA0",
-      "waitBefore": 84,
+      "waitBefore": 85,
       "startDate": "7/10/2024 09:00"
     },
     {
@@ -26262,7 +26262,7 @@
       "start": 70,
       "end": 71,
       "jobAssignment": "JA0",
-      "waitBefore": 4,
+      "waitBefore": 3,
       "startDate": "3/10/2024 22:00"
     },
     {
@@ -26286,7 +26286,7 @@
       "start": 187,
       "end": 188,
       "jobAssignment": "JA0",
-      "waitBefore": 118,
+      "waitBefore": 119,
       "startDate": "8/10/2024 19:00"
     },
     {
@@ -26430,7 +26430,7 @@
       "start": 69,
       "end": 70,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
+      "waitBefore": 0,
       "startDate": "3/10/2024 21:00"
     },
     {
@@ -26442,20 +26442,20 @@
       "start": 223,
       "end": 224,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
+      "waitBefore": 11,
       "startDate": "10/10/2024 07:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 3,
       "task": "T699",
-      "endDate": "4/10/2024 10:00",
+      "endDate": "4/10/2024 06:00",
       "name": "TA698",
-      "start": 81,
-      "end": 82,
+      "start": 77,
+      "end": 78,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
-      "startDate": "4/10/2024 09:00"
+      "waitBefore": -1,
+      "startDate": "4/10/2024 05:00"
     },
     {
       "duration": 1,
@@ -26478,7 +26478,7 @@
       "start": 98,
       "end": 99,
       "jobAssignment": "JA0",
-      "waitBefore": 30,
+      "waitBefore": 29,
       "startDate": "5/10/2024 02:00"
     },
     {
@@ -26567,7 +26567,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 2,
       "task": "T709",
       "endDate": "4/10/2024 06:00",
       "name": "TA708",
@@ -26639,15 +26639,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 4,
       "task": "T715",
-      "endDate": "5/10/2024 00:00",
+      "endDate": "6/10/2024 02:00",
       "name": "TA714",
-      "start": 95,
-      "end": 96,
+      "start": 121,
+      "end": 122,
       "jobAssignment": "JA0",
-      "waitBefore": 13,
-      "startDate": "4/10/2024 23:00"
+      "waitBefore": 43,
+      "startDate": "6/10/2024 01:00"
     },
     {
       "duration": 1,
@@ -26706,20 +26706,20 @@
       "start": 81,
       "end": 82,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
+      "waitBefore": 3,
       "startDate": "4/10/2024 09:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T721",
-      "endDate": "9/10/2024 20:00",
+      "endDate": "10/10/2024 00:00",
       "name": "TA720",
-      "start": 211,
-      "end": 212,
+      "start": 215,
+      "end": 216,
       "jobAssignment": "JA0",
-      "waitBefore": 142,
-      "startDate": "9/10/2024 19:00"
+      "waitBefore": 146,
+      "startDate": "9/10/2024 23:00"
     },
     {
       "duration": 1,
@@ -26797,13 +26797,13 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T728",
-      "endDate": "4/10/2024 06:00",
+      "endDate": "4/10/2024 09:00",
       "name": "TA727",
-      "start": 77,
-      "end": 78,
+      "start": 80,
+      "end": 81,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "4/10/2024 05:00"
+      "waitBefore": 2,
+      "startDate": "4/10/2024 08:00"
     },
     {
       "duration": 1,
@@ -26833,13 +26833,13 @@
       "duration": 1,
       "waitAfter": -1,
       "task": "T731",
-      "endDate": "5/10/2024 00:00",
+      "endDate": "6/10/2024 07:00",
       "name": "TA730",
-      "start": 95,
-      "end": 96,
+      "start": 126,
+      "end": 127,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "4/10/2024 23:00"
+      "waitBefore": 4,
+      "startDate": "6/10/2024 06:00"
     },
     {
       "duration": 1,
@@ -27023,15 +27023,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 2,
+      "waitAfter": -1,
       "task": "T747",
-      "endDate": "4/10/2024 06:00",
+      "endDate": "4/10/2024 09:00",
       "name": "TA746",
-      "start": 77,
-      "end": 78,
+      "start": 80,
+      "end": 81,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "4/10/2024 05:00"
+      "startDate": "4/10/2024 08:00"
     },
     {
       "duration": 1,
@@ -27047,15 +27047,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 34,
+      "waitAfter": 3,
       "task": "T749",
-      "endDate": "5/10/2024 00:00",
+      "endDate": "6/10/2024 07:00",
       "name": "TA748",
-      "start": 95,
-      "end": 96,
+      "start": 126,
+      "end": 127,
       "jobAssignment": "JA0",
       "waitBefore": -1,
-      "startDate": "4/10/2024 23:00"
+      "startDate": "6/10/2024 06:00"
     },
     {
       "duration": 1,
@@ -27215,14 +27215,14 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T763",
       "endDate": "4/10/2024 09:00",
       "name": "TA762",
       "start": 80,
       "end": 81,
       "jobAssignment": "JA0",
-      "waitBefore": 2,
+      "waitBefore": -1,
       "startDate": "4/10/2024 08:00"
     },
     {
@@ -27258,7 +27258,7 @@
       "start": 130,
       "end": 131,
       "jobAssignment": "JA0",
-      "waitBefore": 34,
+      "waitBefore": 3,
       "startDate": "6/10/2024 10:00"
     },
     {
@@ -27347,7 +27347,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 3,
+      "waitAfter": 8,
       "task": "T774",
       "endDate": "4/10/2024 01:00",
       "name": "TA773",
@@ -27361,13 +27361,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T775",
-      "endDate": "7/10/2024 06:00",
+      "endDate": "8/10/2024 10:00",
       "name": "TA774",
-      "start": 149,
-      "end": 150,
+      "start": 177,
+      "end": 178,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "7/10/2024 05:00"
+      "waitBefore": 28,
+      "startDate": "8/10/2024 09:00"
     },
     {
       "duration": 1,
@@ -27467,19 +27467,19 @@
     },
     {
       "duration": 1,
-      "waitAfter": 5,
+      "waitAfter": 4,
       "task": "T784",
-      "endDate": "4/10/2024 09:00",
+      "endDate": "4/10/2024 10:00",
       "name": "TA783",
-      "start": 80,
-      "end": 81,
+      "start": 81,
+      "end": 82,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "4/10/2024 08:00"
+      "waitBefore": 0,
+      "startDate": "4/10/2024 09:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T785",
       "endDate": "8/10/2024 10:00",
       "name": "TA784",
@@ -27503,15 +27503,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T787",
-      "endDate": "5/10/2024 21:00",
+      "endDate": "4/10/2024 23:00",
       "name": "TA786",
-      "start": 116,
-      "end": 117,
+      "start": 94,
+      "end": 95,
       "jobAssignment": "JA0",
-      "waitBefore": 36,
-      "startDate": "5/10/2024 20:00"
+      "waitBefore": 14,
+      "startDate": "4/10/2024 22:00"
     },
     {
       "duration": 1,
@@ -27587,15 +27587,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 8,
+      "waitAfter": 3,
       "task": "T794",
-      "endDate": "4/10/2024 05:00",
+      "endDate": "4/10/2024 10:00",
       "name": "TA793",
-      "start": 76,
-      "end": 77,
+      "start": 81,
+      "end": 82,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
-      "startDate": "4/10/2024 04:00"
+      "waitBefore": 8,
+      "startDate": "4/10/2024 09:00"
     },
     {
       "duration": 1,
@@ -27683,27 +27683,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": 2,
+      "waitAfter": 4,
       "task": "T802",
-      "endDate": "5/10/2024 23:00",
-      "name": "TA801",
-      "start": 118,
-      "end": 119,
-      "jobAssignment": "JA0",
-      "waitBefore": 38,
-      "startDate": "5/10/2024 22:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": -1,
-      "task": "T803",
       "endDate": "5/10/2024 21:00",
-      "name": "TA802",
+      "name": "TA801",
       "start": 116,
       "end": 117,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
+      "waitBefore": 36,
       "startDate": "5/10/2024 20:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 20,
+      "task": "T803",
+      "endDate": "5/10/2024 00:00",
+      "name": "TA802",
+      "start": 95,
+      "end": 96,
+      "jobAssignment": "JA0",
+      "waitBefore": 0,
+      "startDate": "4/10/2024 23:00"
     },
     {
       "duration": 1,
@@ -27738,7 +27738,7 @@
       "start": 85,
       "end": 86,
       "jobAssignment": "JA0",
-      "waitBefore": 8,
+      "waitBefore": 3,
       "startDate": "4/10/2024 13:00"
     },
     {
@@ -27827,7 +27827,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T814",
       "endDate": "7/10/2024 02:00",
       "name": "TA813",
@@ -27851,7 +27851,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 12,
+      "waitAfter": 1,
       "task": "T816",
       "endDate": "6/10/2024 23:00",
       "name": "TA815",
@@ -27906,7 +27906,7 @@
       "start": 121,
       "end": 122,
       "jobAssignment": "JA0",
-      "waitBefore": 2,
+      "waitBefore": 4,
       "startDate": "6/10/2024 01:00"
     },
     {
@@ -27930,7 +27930,7 @@
       "start": 116,
       "end": 117,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
+      "waitBefore": 20,
       "startDate": "5/10/2024 20:00"
     },
     {
@@ -27959,15 +27959,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 35,
+      "waitAfter": 27,
       "task": "T825",
-      "endDate": "4/10/2024 11:00",
+      "endDate": "4/10/2024 19:00",
       "name": "TA824",
-      "start": 82,
-      "end": 83,
+      "start": 90,
+      "end": 91,
       "jobAssignment": "JA0",
-      "waitBefore": 2,
-      "startDate": "4/10/2024 10:00"
+      "waitBefore": 10,
+      "startDate": "4/10/2024 18:00"
     },
     {
       "duration": 1,
@@ -28019,15 +28019,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 3,
       "task": "T830",
-      "endDate": "4/10/2024 16:00",
+      "endDate": "4/10/2024 17:00",
       "name": "TA829",
-      "start": 87,
-      "end": 88,
+      "start": 88,
+      "end": 89,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "4/10/2024 15:00"
+      "waitBefore": 2,
+      "startDate": "4/10/2024 16:00"
     },
     {
       "duration": 1,
@@ -28067,15 +28067,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 44,
+      "waitAfter": 42,
       "task": "T834",
-      "endDate": "7/10/2024 02:00",
+      "endDate": "7/10/2024 04:00",
       "name": "TA833",
-      "start": 145,
-      "end": 146,
+      "start": 147,
+      "end": 148,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "7/10/2024 01:00"
+      "waitBefore": 1,
+      "startDate": "7/10/2024 03:00"
     },
     {
       "duration": 1,
@@ -28103,19 +28103,19 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T837",
-      "endDate": "7/10/2024 12:00",
+      "endDate": "7/10/2024 01:00",
       "name": "TA836",
-      "start": 155,
-      "end": 156,
+      "start": 144,
+      "end": 145,
       "jobAssignment": "JA0",
-      "waitBefore": 12,
-      "startDate": "7/10/2024 11:00"
+      "waitBefore": 1,
+      "startDate": "7/10/2024 00:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 5,
       "task": "T838",
       "endDate": "7/10/2024 10:00",
       "name": "TA837",
@@ -28230,20 +28230,20 @@
       "start": 97,
       "end": 98,
       "jobAssignment": "JA0",
-      "waitBefore": 9,
+      "waitBefore": 8,
       "startDate": "5/10/2024 01:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T848",
-      "endDate": "9/10/2024 23:00",
+      "endDate": "10/10/2024 01:00",
       "name": "TA847",
-      "start": 214,
-      "end": 215,
+      "start": 216,
+      "end": 217,
       "jobAssignment": "JA0",
-      "waitBefore": 64,
-      "startDate": "9/10/2024 22:00"
+      "waitBefore": 66,
+      "startDate": "10/10/2024 00:00"
     },
     {
       "duration": 1,
@@ -28259,7 +28259,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T850",
       "endDate": "4/10/2024 10:00",
       "name": "TA849",
@@ -28283,15 +28283,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 47,
+      "waitAfter": 43,
       "task": "T852",
-      "endDate": "4/10/2024 17:00",
+      "endDate": "4/10/2024 21:00",
       "name": "TA851",
-      "start": 88,
-      "end": 89,
+      "start": 92,
+      "end": 93,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "4/10/2024 16:00"
+      "waitBefore": 3,
+      "startDate": "4/10/2024 20:00"
     },
     {
       "duration": 1,
@@ -28302,7 +28302,7 @@
       "start": 227,
       "end": 228,
       "jobAssignment": "JA0",
-      "waitBefore": 139,
+      "waitBefore": 138,
       "startDate": "10/10/2024 11:00"
     },
     {
@@ -28314,20 +28314,20 @@
       "start": 190,
       "end": 191,
       "jobAssignment": "JA0",
-      "waitBefore": 44,
+      "waitBefore": 42,
       "startDate": "8/10/2024 22:00"
     },
     {
       "duration": 1,
-      "waitAfter": 20,
+      "waitAfter": 14,
       "task": "T855",
-      "endDate": "7/10/2024 10:00",
+      "endDate": "7/10/2024 16:00",
       "name": "TA854",
-      "start": 153,
-      "end": 154,
+      "start": 159,
+      "end": 160,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "7/10/2024 09:00"
+      "waitBefore": 5,
+      "startDate": "7/10/2024 15:00"
     },
     {
       "duration": 1,
@@ -28403,15 +28403,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T862",
-      "endDate": "7/10/2024 12:00",
+      "endDate": "7/10/2024 03:00",
       "name": "TA861",
-      "start": 155,
-      "end": 156,
+      "start": 146,
+      "end": 147,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "7/10/2024 11:00"
+      "waitBefore": 1,
+      "startDate": "7/10/2024 02:00"
     },
     {
       "duration": 1,
@@ -28511,15 +28511,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 8,
+      "waitAfter": 7,
       "task": "T871",
-      "endDate": "4/10/2024 10:00",
+      "endDate": "4/10/2024 11:00",
       "name": "TA870",
-      "start": 81,
-      "end": 82,
+      "start": 82,
+      "end": 83,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "4/10/2024 09:00"
+      "waitBefore": 0,
+      "startDate": "4/10/2024 10:00"
     },
     {
       "duration": 1,
@@ -28535,7 +28535,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 19,
+      "waitAfter": 9,
       "task": "T873",
       "endDate": "5/10/2024 11:00",
       "name": "TA872",
@@ -28566,7 +28566,7 @@
       "start": 174,
       "end": 175,
       "jobAssignment": "JA0",
-      "waitBefore": 20,
+      "waitBefore": 14,
       "startDate": "8/10/2024 06:00"
     },
     {
@@ -28655,27 +28655,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 25,
       "task": "T883",
-      "endDate": "6/10/2024 07:00",
+      "endDate": "5/10/2024 21:00",
       "name": "TA882",
-      "start": 126,
-      "end": 127,
+      "start": 116,
+      "end": 117,
       "jobAssignment": "JA0",
-      "waitBefore": 19,
-      "startDate": "6/10/2024 06:00"
+      "waitBefore": 9,
+      "startDate": "5/10/2024 20:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 7,
       "task": "T884",
-      "endDate": "7/10/2024 12:00",
+      "endDate": "7/10/2024 04:00",
       "name": "TA883",
-      "start": 155,
-      "end": 156,
+      "start": 147,
+      "end": 148,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "7/10/2024 11:00"
+      "waitBefore": 0,
+      "startDate": "7/10/2024 03:00"
     },
     {
       "duration": 1,
@@ -28770,7 +28770,7 @@
       "start": 142,
       "end": 143,
       "jobAssignment": "JA0",
-      "waitBefore": 15,
+      "waitBefore": 25,
       "startDate": "6/10/2024 22:00"
     },
     {
@@ -28938,7 +28938,7 @@
       "start": 155,
       "end": 156,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
+      "waitBefore": 7,
       "startDate": "7/10/2024 11:00"
     },
     {
@@ -28969,13 +28969,13 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T909",
-      "endDate": "6/10/2024 07:00",
+      "endDate": "9/10/2024 19:00",
       "name": "TA908",
-      "start": 126,
-      "end": 127,
+      "start": 210,
+      "end": 211,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "6/10/2024 06:00"
+      "waitBefore": 93,
+      "startDate": "9/10/2024 18:00"
     },
     {
       "duration": 1,
@@ -29075,7 +29075,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 12,
+      "waitAfter": -1,
       "task": "T918",
       "endDate": "9/10/2024 20:00",
       "name": "TA917",
@@ -29123,7 +29123,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T922",
       "endDate": "4/10/2024 21:00",
       "name": "TA921",
@@ -29375,7 +29375,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 54,
+      "waitAfter": 57,
       "task": "T943",
       "endDate": "4/10/2024 18:00",
       "name": "TA942",
@@ -29399,15 +29399,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 0,
+      "waitAfter": 3,
       "task": "T945",
-      "endDate": "4/10/2024 21:00",
+      "endDate": "4/10/2024 22:00",
       "name": "TA944",
-      "start": 92,
-      "end": 93,
+      "start": 93,
+      "end": 94,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "4/10/2024 20:00"
+      "waitBefore": 0,
+      "startDate": "4/10/2024 21:00"
     },
     {
       "duration": 1,
@@ -29483,7 +29483,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 11,
       "task": "T952",
       "endDate": "9/10/2024 02:00",
       "name": "TA951",
@@ -29543,15 +29543,15 @@
     },
     {
       "duration": 1,
-      "waitAfter": 46,
+      "waitAfter": 15,
       "task": "T957",
-      "endDate": "4/10/2024 22:00",
+      "endDate": "5/10/2024 09:00",
       "name": "TA956",
-      "start": 93,
-      "end": 94,
+      "start": 104,
+      "end": 105,
       "jobAssignment": "JA0",
-      "waitBefore": 0,
-      "startDate": "4/10/2024 21:00"
+      "waitBefore": 10,
+      "startDate": "5/10/2024 08:00"
     },
     {
       "duration": 1,
@@ -29579,14 +29579,14 @@
     },
     {
       "duration": 1,
-      "waitAfter": 79,
+      "waitAfter": 95,
       "task": "T960",
       "endDate": "5/10/2024 02:00",
       "name": "TA959",
       "start": 97,
       "end": 98,
       "jobAssignment": "JA0",
-      "waitBefore": 4,
+      "waitBefore": 3,
       "startDate": "5/10/2024 01:00"
     },
     {
@@ -29603,7 +29603,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 6,
+      "waitAfter": 23,
       "task": "T962",
       "endDate": "9/10/2024 15:00",
       "name": "TA961",
@@ -29665,17 +29665,17 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T967",
-      "endDate": "7/10/2024 01:00",
+      "endDate": "7/10/2024 04:00",
       "name": "TA966",
-      "start": 144,
-      "end": 145,
+      "start": 147,
+      "end": 148,
       "jobAssignment": "JA0",
-      "waitBefore": 54,
-      "startDate": "7/10/2024 00:00"
+      "waitBefore": 57,
+      "startDate": "7/10/2024 03:00"
     },
     {
       "duration": 1,
-      "waitAfter": 21,
+      "waitAfter": 10,
       "task": "T968",
       "endDate": "9/10/2024 17:00",
       "name": "TA967",
@@ -29687,7 +29687,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 3,
+      "waitAfter": 21,
       "task": "T969",
       "endDate": "9/10/2024 10:00",
       "name": "TA968",
@@ -29699,27 +29699,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": 32,
+      "waitAfter": 7,
       "task": "T970",
-      "endDate": "9/10/2024 02:00",
+      "endDate": "9/10/2024 14:00",
       "name": "TA969",
-      "start": 193,
-      "end": 194,
+      "start": 205,
+      "end": 206,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "9/10/2024 01:00"
+      "waitBefore": 11,
+      "startDate": "9/10/2024 13:00"
     },
     {
       "duration": 1,
-      "waitAfter": 77,
+      "waitAfter": 97,
       "task": "T971",
-      "endDate": "6/10/2024 21:00",
+      "endDate": "6/10/2024 01:00",
       "name": "TA970",
-      "start": 140,
-      "end": 141,
+      "start": 120,
+      "end": 121,
       "jobAssignment": "JA0",
-      "waitBefore": 46,
-      "startDate": "6/10/2024 20:00"
+      "waitBefore": 15,
+      "startDate": "6/10/2024 00:00"
     },
     {
       "duration": 1,
@@ -29735,7 +29735,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": 95,
+      "waitAfter": 113,
       "task": "T973",
       "endDate": "5/10/2024 14:00",
       "name": "TA972",
@@ -29747,7 +29747,7 @@
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 1,
       "task": "T974",
       "endDate": "10/10/2024 00:00",
       "name": "TA973",
@@ -29766,20 +29766,20 @@
       "start": 163,
       "end": 164,
       "jobAssignment": "JA0",
-      "waitBefore": 69,
+      "waitBefore": 58,
       "startDate": "7/10/2024 19:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 62,
       "task": "T976",
-      "endDate": "9/10/2024 15:00",
+      "endDate": "6/10/2024 07:00",
       "name": "TA975",
-      "start": 206,
-      "end": 207,
+      "start": 126,
+      "end": 127,
       "jobAssignment": "JA0",
-      "waitBefore": 112,
-      "startDate": "9/10/2024 14:00"
+      "waitBefore": 21,
+      "startDate": "6/10/2024 06:00"
     },
     {
       "duration": 1,
@@ -29795,27 +29795,27 @@
     },
     {
       "duration": 1,
-      "waitAfter": 1,
+      "waitAfter": -1,
       "task": "T978",
-      "endDate": "10/10/2024 01:00",
+      "endDate": "9/10/2024 23:00",
       "name": "TA977",
-      "start": 216,
-      "end": 217,
+      "start": 214,
+      "end": 215,
       "jobAssignment": "JA0",
-      "waitBefore": 10,
-      "startDate": "10/10/2024 00:00"
+      "waitBefore": 8,
+      "startDate": "9/10/2024 22:00"
     },
     {
       "duration": 1,
-      "waitAfter": 6,
+      "waitAfter": 30,
       "task": "T979",
-      "endDate": "8/10/2024 10:00",
+      "endDate": "9/10/2024 02:00",
       "name": "TA978",
-      "start": 177,
-      "end": 178,
+      "start": 193,
+      "end": 194,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "8/10/2024 09:00"
+      "waitBefore": 15,
+      "startDate": "9/10/2024 01:00"
     },
     {
       "duration": 1,
@@ -29833,17 +29833,17 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T981",
-      "endDate": "10/10/2024 01:00",
+      "endDate": "10/10/2024 06:00",
       "name": "TA980",
-      "start": 216,
-      "end": 217,
+      "start": 221,
+      "end": 222,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "10/10/2024 00:00"
+      "waitBefore": 4,
+      "startDate": "10/10/2024 05:00"
     },
     {
       "duration": 1,
-      "waitAfter": -1,
+      "waitAfter": 0,
       "task": "T982",
       "endDate": "9/10/2024 14:00",
       "name": "TA981",
@@ -29857,37 +29857,37 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T983",
-      "endDate": "9/10/2024 22:00",
-      "name": "TA982",
-      "start": 213,
-      "end": 214,
-      "jobAssignment": "JA0",
-      "waitBefore": 6,
-      "startDate": "9/10/2024 21:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 0,
-      "task": "T984",
       "endDate": "10/10/2024 15:00",
-      "name": "TA983",
+      "name": "TA982",
       "start": 230,
       "end": 231,
       "jobAssignment": "JA0",
-      "waitBefore": 21,
+      "waitBefore": 23,
       "startDate": "10/10/2024 14:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
-      "task": "T985",
-      "endDate": "10/10/2024 11:00",
-      "name": "TA984",
-      "start": 226,
-      "end": 227,
+      "task": "T984",
+      "endDate": "10/10/2024 04:00",
+      "name": "TA983",
+      "start": 219,
+      "end": 220,
       "jobAssignment": "JA0",
-      "waitBefore": 32,
-      "startDate": "10/10/2024 10:00"
+      "waitBefore": 10,
+      "startDate": "10/10/2024 03:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 0,
+      "task": "T985",
+      "endDate": "9/10/2024 22:00",
+      "name": "TA984",
+      "start": 213,
+      "end": 214,
+      "jobAssignment": "JA0",
+      "waitBefore": 7,
+      "startDate": "9/10/2024 21:00"
     },
     {
       "duration": 1,
@@ -29898,20 +29898,20 @@
       "start": 218,
       "end": 219,
       "jobAssignment": "JA0",
-      "waitBefore": 77,
+      "waitBefore": 97,
       "startDate": "10/10/2024 02:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T987",
-      "endDate": "9/10/2024 14:00",
+      "endDate": "10/10/2024 08:00",
       "name": "TA986",
-      "start": 205,
-      "end": 206,
+      "start": 223,
+      "end": 224,
       "jobAssignment": "JA0",
-      "waitBefore": 3,
-      "startDate": "9/10/2024 13:00"
+      "waitBefore": 21,
+      "startDate": "10/10/2024 07:00"
     },
     {
       "duration": 1,
@@ -29929,37 +29929,37 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T989",
-      "endDate": "10/10/2024 03:00",
+      "endDate": "9/10/2024 23:00",
       "name": "TA988",
-      "start": 218,
-      "end": 219,
+      "start": 214,
+      "end": 215,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "10/10/2024 02:00"
+      "waitBefore": -1,
+      "startDate": "9/10/2024 22:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T990",
-      "endDate": "8/10/2024 17:00",
+      "endDate": "10/10/2024 09:00",
       "name": "TA989",
-      "start": 184,
-      "end": 185,
+      "start": 224,
+      "end": 225,
       "jobAssignment": "JA0",
-      "waitBefore": 6,
-      "startDate": "8/10/2024 16:00"
+      "waitBefore": 30,
+      "startDate": "10/10/2024 08:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T991",
-      "endDate": "10/10/2024 09:00",
+      "endDate": "9/10/2024 20:00",
       "name": "TA990",
-      "start": 224,
-      "end": 225,
+      "start": 211,
+      "end": 212,
       "jobAssignment": "JA0",
-      "waitBefore": 12,
-      "startDate": "10/10/2024 08:00"
+      "waitBefore": -1,
+      "startDate": "9/10/2024 19:00"
     },
     {
       "duration": 1,
@@ -29977,37 +29977,37 @@
       "duration": 1,
       "waitAfter": 0,
       "task": "T993",
-      "endDate": "9/10/2024 15:00",
+      "endDate": "8/10/2024 22:00",
       "name": "TA992",
-      "start": 206,
-      "end": 207,
+      "start": 189,
+      "end": 190,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "9/10/2024 14:00"
+      "waitBefore": 16,
+      "startDate": "8/10/2024 21:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T994",
-      "endDate": "9/10/2024 20:00",
+      "endDate": "9/10/2024 19:00",
       "name": "TA993",
-      "start": 211,
-      "end": 212,
+      "start": 210,
+      "end": 211,
       "jobAssignment": "JA0",
-      "waitBefore": 5,
-      "startDate": "9/10/2024 19:00"
+      "waitBefore": 4,
+      "startDate": "9/10/2024 18:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T995",
-      "endDate": "9/10/2024 14:00",
+      "endDate": "9/10/2024 15:00",
       "name": "TA994",
-      "start": 205,
-      "end": 206,
+      "start": 206,
+      "end": 207,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "9/10/2024 13:00"
+      "waitBefore": 0,
+      "startDate": "9/10/2024 14:00"
     },
     {
       "duration": 1,
@@ -30018,56 +30018,56 @@
       "start": 226,
       "end": 227,
       "jobAssignment": "JA0",
-      "waitBefore": 9,
+      "waitBefore": 11,
       "startDate": "10/10/2024 10:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T997",
-      "endDate": "9/10/2024 07:00",
+      "endDate": "9/10/2024 14:00",
       "name": "TA996",
-      "start": 198,
-      "end": 199,
+      "start": 205,
+      "end": 206,
       "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "9/10/2024 06:00"
+      "waitBefore": 6,
+      "startDate": "9/10/2024 13:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T998",
-      "endDate": "10/10/2024 02:00",
+      "endDate": "10/10/2024 14:00",
       "name": "TA997",
-      "start": 217,
-      "end": 218,
+      "start": 229,
+      "end": 230,
       "jobAssignment": "JA0",
-      "waitBefore": 1,
-      "startDate": "10/10/2024 01:00"
+      "waitBefore": 13,
+      "startDate": "10/10/2024 13:00"
     },
     {
       "duration": 1,
       "waitAfter": 0,
       "task": "T999",
-      "endDate": "10/10/2024 00:00",
-      "name": "TA998",
-      "start": 215,
-      "end": 216,
-      "jobAssignment": "JA0",
-      "waitBefore": -1,
-      "startDate": "9/10/2024 23:00"
-    },
-    {
-      "duration": 1,
-      "waitAfter": 0,
-      "task": "T1000",
       "endDate": "10/10/2024 04:00",
-      "name": "TA999",
+      "name": "TA998",
       "start": 219,
       "end": 220,
       "jobAssignment": "JA0",
       "waitBefore": 3,
       "startDate": "10/10/2024 03:00"
+    },
+    {
+      "duration": 1,
+      "waitAfter": 0,
+      "task": "T1000",
+      "endDate": "10/10/2024 02:00",
+      "name": "TA999",
+      "start": 217,
+      "end": 218,
+      "jobAssignment": "JA0",
+      "waitBefore": 1,
+      "startDate": "10/10/2024 01:00"
     }
   ],
   "processSequence": [
@@ -38481,14 +38481,13 @@
   ],
   "solverRun": [{
     "seed": 42,
-    "solverBackend": "None",
     "weightMakespan": 1,
     "producePDF": false,
     "enforceSetup": false,
     "description": "",
     "enforceTransportTime": false,
     "enforceWip": false,
-    "timeout": 30,
+    "timeout": 120,
     "weightLateness": 1,
     "produceReport": false,
     "addSameOrder": false,
@@ -38502,20 +38501,20 @@
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "instance_n=1000_201.alb",
-    "time": 30.0702962,
+    "time": 120.08749610000001,
     "enforceDowntime": false,
     "removeSolution": false,
     "enforceReleaseDate": false,
     "enforceDueDate": false
   }],
   "jobAssignment": [{
-    "duration": 234,
-    "solution": "Sol115",
-    "late": 234,
-    "endDate": "10/10/2024 18:00",
+    "duration": 233,
+    "solution": "Sol273",
+    "late": 233,
+    "endDate": "10/10/2024 17:00",
     "name": "JA0",
     "start": 0,
-    "end": 234,
+    "end": 233,
     "job": "Job",
     "early": 0,
     "startDate": "1/10/2024 00:00"

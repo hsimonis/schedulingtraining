@@ -850,7 +850,7 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","description","modelType","solverBackend",
+                if (requireFields(key,i,item,new String[]{"name","description","modelType",
                         "objectiveType",
                         "enforceReleaseDate","enforceDueDate","enforceCumulative","enforceWip","enforceDowntime",
                         "weightMakespan","weightFlowtime","weightEarliness","weightLateness",
@@ -863,7 +863,10 @@ public class ReadData {
                     }
                     String description = item.getString("description");
                     String modelType = item.getString("modelType");
-                    String solverBackend = item.getString("solverBackend");
+                    String solverBackend=null;
+                    if (item.has("solverBackend")) {
+                        solverBackend = item.getString("solverBackend");
+                    }
                     String objectiveType = item.getString("objectiveType");
                     boolean enforceReleaseDate = item.getBoolean("enforceReleaseDate");
                     boolean enforceDueDate = item.getBoolean("enforceDueDate");
@@ -891,7 +894,11 @@ public class ReadData {
                     s.setLabel(label);
                     s.setDescription(description);
                     s.setModelType(toModelType(modelType));
-                    s.setSolverBackend(toSolverBackend(solverBackend));
+                    if (solverBackend != null) {
+                        s.setSolverBackend(toSolverBackend(solverBackend));
+                    } else {
+                        s.setSolverBackend(null);
+                    }
                     s.setObjectiveType(toObjectiveType(objectiveType));
                     s.setEnforceReleaseDate(enforceReleaseDate);
                     s.setEnforceDueDate(enforceDueDate);

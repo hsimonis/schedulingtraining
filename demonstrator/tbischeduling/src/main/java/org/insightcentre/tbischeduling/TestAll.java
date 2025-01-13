@@ -26,8 +26,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverBackend.Chuffed;
 import static org.insightcentre.tbischeduling.datamodel.SolverBackend.Cplex;
-import static org.insightcentre.tbischeduling.datamodel.SolverStatus.Optimal;
-import static org.insightcentre.tbischeduling.datamodel.SolverStatus.ToRun;
+import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 import static org.insightcentre.tbischeduling.utilities.TypeConverters.toSolverStatus;
 
@@ -50,6 +49,9 @@ public class TestAll {
         boolean overWrite = false;
 ////        testAll("imports/RCPSP/SingleMode/j30/","results/",CPO,4,600,overWrite);
 ////        testAll("imports/RCPSP/SingleMode/j30/","resultsCPSat/",CPSat,8,600,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j30/","resultsChuffed/",MiniZincDiffn,Chuffed,1,600,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j30/","resultsCplex/",MiniZincDiffn,Cplex,8,600,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j30/","resultsMCPSat/",MiniZincDiffn,SolverBackend.CPSat,8,600,overWrite);
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"imports/RCPSP/SingleMode/j30/results/","RCPSP J30 (CPO)","rcpspj30CPO","CPO");
 //        analyzeAll(base,"imports/RCPSP/SingleMode/j30/resultsCPSat/","RCPSP J30 (CPSat)","rcpspj30CPSat","CPSat");
@@ -58,6 +60,8 @@ public class TestAll {
 //
 ////        testAll("imports/RCPSP/SingleMode/j60/","results/",CPO,4,600,overWrite);
 ////        testAll("imports/RCPSP/SingleMode/j60/","resultsCPSat/",CPSat,8,600,overWrite);
+        testAll("imports/RCPSP/SingleMode/j60/","resultsCplex/",MiniZincDiffn,SolverBackend.Cplex,8,600,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j60/","resultsMCPSat/",MiniZincDiffn,SolverBackend.CPSat,8,600,overWrite);
 ////        base.resetListSolutionSummary();
 //        analyzeAll(base,"imports/RCPSP/SingleMode/j60/results/","RCPSP J60 (CPO)","rcpspj60CPO","CPO");
 //        analyzeAll(base,"imports/RCPSP/SingleMode/j60/resultsCPSat/","RCPSP J60 (CPSat)","rcpspj60CPSat","CPSat");
@@ -105,8 +109,8 @@ public class TestAll {
 //        analyzeAll(base,"imports/Taillard/FSS/permutationresults/","Taillard Permutation Flowshop (CPO)","pfss","PFSS");
 //        compareSummaries(base,"comparepfss",true,"FSS","PFSS",
 //                "Comparison of CPO for Result Groups of Permutation and Unrestricted FlowShop Problems",GroupType.Taillard);
-//        testSALBP("salbp/","results/",CPO,null,4,30,overWrite);
-//        testSALBP("salbp/","resultsCPSat/",CPSat,null,8,30,overWrite);
+//        testSALBP("salbp/","results/",CPO,null,4,120,overWrite);
+//        testSALBP("salbp/","resultsCPSat/",CPSat,null,8,120,overWrite);
 //        testSALBP("salbp/","resultsChuffed/",MiniZincDiffn,Chuffed,1,120,overWrite);
 //        testSALBP("salbp/","resultsCplex/",MiniZincDiffn,Cplex,8,120,overWrite);
 //        testSALBP("salbp/","resultsMiniCPSat/",MiniZincDiffn,SolverBackend.CPSat,8,120,overWrite);
@@ -117,7 +121,9 @@ public class TestAll {
 //                "Comparison of CPO and CPSat for Result Groups of SALBP-1 Problems",GroupType.Salbp);
 //        testSALBPAlternative("salbp/","alternative/",CPO,4,120,overWrite);
 //        testSALBPAlternative("salbp/","projection/",CPO,4,120,overWrite);
-        testSALBPAlternative("salbp/","alternativeCPSat/",CPSat,8,30,overWrite);
+//        testSALBPAlternative("salbp/","alternativeCPSat/",CPSat,null,8,120,overWrite);
+//        testSALBPAlternative("salbp/","alternativeChuffed/",MiniZincDiffn,Chuffed,1,120,overWrite);
+//        testSALBPAlternative("salbp/","alternativeCplex/",MiniZincDiffn,Cplex,8,120,overWrite);
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"salbp/alternative/","SALBP-1 Problems Alternative (CPO)","alternativesalbp","CPO",true);
 //        analyzeAll(base,"salbp/alternativeCPSat/","SALBP-1 Problems Alternative (CPSat)","alternativesalbpCPSat","CPSat",true);
@@ -137,22 +143,25 @@ public class TestAll {
 //        compareSummaries(base,"compareTrans",false,"CPO","CPSat",
 //                "Comparison of CPO and CPSat for Result Groups of Factory Design Problems",GroupType.Transport);
 
-        base.resetListSolutionSummary();
-        baseResults(base,"salbp/bounds1000.csv","base");
-        baseResults(base,"salbp/bounds100.csv","base");
-        baseResults(base,"salbp/bounds50.csv","base");
-        baseResults(base,"salbp/bounds20.csv","base");
-        baseResults(base,"salbp/laborie100.csv","Laborie");
-        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
-        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
-        analyzeAll(base,"salbp/resultsCplex/","SALBP-1 Problems (Cplex)","salbpCplex","Cplex");
-        analyzeAll(base,"salbp/resultsChuffed/","SALBP-1 Problems (Chuffed)","salbpChuffed","Chuffed");
-        analyzeAll(base,"salbp/resultsMiniCPSat/","SALBP-1 Problems (MiniZinc/CPSat)","salbpMiniCPSat","MCPSat");
-        analyzeAll(base,"salbp/alternative/","SALBP-1 Problems Alternative (CPO)","alternativesalbp","CPOA",true);
-        // the projection has the correct objective function, not need to adjust
-//        analyzeAll(base,"salbp/projection/","SALBP-1 Problems Projection (CPO)","projectionsalbp","CPOProjection",false);
-        analyzeAll(base,"salbp/alternativeCPSat/","SALBP-1 Problems Alternative (CPSat)","alternativesalbpCPSat","CPSatA",true);
-        tabularResults(base,"reports/salbpresultcompare.tex","reports/salbpresultsummary.tex");
+//        base.resetListSolutionSummary();
+//        baseResults(base,"salbp/bounds1000.csv","base");
+//        baseResults(base,"salbp/bounds100.csv","base");
+//        baseResults(base,"salbp/bounds50.csv","base");
+//        baseResults(base,"salbp/bounds20.csv","base");
+//        baseResults(base,"salbp/laborie100.csv","Laborie");
+//        baseResults(base,"salbp/laborie1000.csv","Laborie");
+//        analyzeAll(base,"salbp/results/","SALBP-1 Problems (CPO)","salbp","CPO");
+//        analyzeAll(base,"salbp/resultsCPSat/","SALBP-1 Problems (CPSat)","salbpCPSat","CPSat");
+//        analyzeAll(base,"salbp/resultsCplex/","SALBP-1 Problems (Cplex)","salbpCplex","Cplex");
+//        analyzeAll(base,"salbp/resultsChuffed/","SALBP-1 Problems (Chuffed)","salbpChuffed","Chuffed");
+//        analyzeAll(base,"salbp/resultsMiniCPSat/","SALBP-1 Problems (MiniZinc/CPSat)","salbpMiniCPSat","MCPSat");
+//        analyzeAll(base,"salbp/alternative/","SALBP-1 Problems Alternative (CPO)","alternativesalbp","CPOA",true);
+//        // the projection has the correct objective function, not need to adjust
+////        analyzeAll(base,"salbp/projection/","SALBP-1 Problems Projection (CPO)","projectionsalbp","CPOProjection",false);
+//        analyzeAll(base,"salbp/alternativeCPSat/","SALBP-1 Problems Alternative (CPSat)","alternativesalbpCPSat","CPSatA",true);
+//        analyzeAll(base,"salbp/alternativeChuffed/","SALBP-1 Problems Alternative (Chuffed)","alternativesalbpChuffed","ChuffedA",true);
+//        analyzeAll(base,"salbp/alternativeCplex/","SALBP-1 Problems Alternative (Cplex)","alternativesalbpCplex","CplexA",true);
+//        tabularResults(base,"reports/salbpresultcompare.tex","reports/salbpresultsummary.tex");
 
     }
 
@@ -161,7 +170,7 @@ public class TestAll {
     read each file, create a SolverRun to run it, run the test and write the result in the results subdirectory under the same name
     important: check the SolverRun for the correct test settings
      */
-    private static void testAll(String importDir,String resultDir,ModelType solver,int nrThreads,int timeout,boolean overWrite){
+    private static void testAll(String importDir,String resultDir,ModelType solver,SolverBackend backEnd,int nrThreads,int timeout,boolean overWrite){
         assert(importDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(importDir,".json");
 
@@ -195,7 +204,7 @@ public class TestAll {
                 test.setAddSameOrder(false);
                 test.setTimeout(timeout);
                 test.setModelType(solver);
-//                test.setSolverBackend(SolverBackend.Chuffed);
+                test.setSolverBackend(backEnd);
                 test.setObjectiveType(ObjectiveType.Makespan);
                 test.setNrThreads(nrThreads);
 
@@ -228,13 +237,13 @@ public class TestAll {
 
         for(String fileName:list.stream().sorted(Comparator.comparing(TestAll::instanceNr)).toList()) {
             String outputFile = importDir+resultDir+ fileName.replaceAll(".alb",".json");
-            if (overWrite || (!new File(outputFile).exists() && fileName.startsWith("instance_n=50_"))) {
+            if (overWrite || (!new File(outputFile).exists() /*&& fileName.startsWith("instance_n=50_")*/)) {
                 info("trying file " + fileName);
 
                 Scenario base = new Scenario();
                 base.setDataFileVersionNumber(8.0);
                 base.setDataFile("");
-                base.setHorizon(50000);
+                // horizon set for each instance in the reader
                 base.setTimeResolution(5);
                 base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
 
@@ -278,19 +287,19 @@ public class TestAll {
         }
 
     }
-    private static void testSALBPAlternative(String importDir,String resultDir,ModelType solver,int nrThreads,int timeout,boolean overWrite){
+    private static void testSALBPAlternative(String importDir,String resultDir,ModelType solver,SolverBackend backEnd,int nrThreads,int timeout,boolean overWrite){
         assert(importDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(importDir,".alb");
 
         for(String fileName:list.stream().sorted(Comparator.comparing(TestAll::instanceNr)).toList()) {
             String outputFile = importDir+resultDir+ fileName.replaceAll(".alb",".json");
-            if (overWrite || (!new File(outputFile).exists() /*&& fileName.startsWith("instance_n=100_")*/)) {
+            if (overWrite || (!new File(outputFile).exists() /*&& fileName.startsWith("instance_n=50_")*/)) {
                 info("trying file " + fileName);
 
                 Scenario base = new Scenario();
                 base.setDataFileVersionNumber(8.0);
                 base.setDataFile("");
-                base.setHorizon(50000);
+                // horizon set for each instance in the reader
                 base.setTimeResolution(5);
                 base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
 
@@ -310,6 +319,7 @@ public class TestAll {
                 test.setAddSameOrder(false);
                 test.setTimeout(timeout);
                 test.setModelType(solver);
+                test.setSolverBackend(backEnd);
                 test.setObjectiveType(ObjectiveType.Makespan);
                 // use for experimental objective in SALBP alternative model
 //                test.setObjectiveType(ObjectiveType.Projection);
@@ -458,7 +468,6 @@ public class TestAll {
 //            info("analyzing file " + fileName);
                 try {
                     JSONObject root = new JSONObject(new String(Files.readAllBytes(Paths.get(resultDir + fileName))));
-                    JSONObject sol = root.getJSONArray("solution").getJSONObject(0);
                     JSONObject problem = root.getJSONArray("problem").getJSONObject(0);
                     JSONObject solverRun = root.getJSONArray("solverRun").getJSONObject(0);
                     String name = solverRun.getString("name");
@@ -466,22 +475,32 @@ public class TestAll {
                     int nrMachines = problem.getInt("nrDisjunctiveResources");
                     int nrCumulatives = problem.getInt("nrCumulativeResources");
                     int nrTasks = problem.getInt("nrTasks");
-                    String status = sol.getString("solverStatus");
+                    SolverStatus status = toSolverStatus(solverRun.getString("solverStatus"));
                     double time = solverRun.getDouble("time");
-                    double bound = sol.getDouble("bound");
-                    double gapPercent=0.0;
-                    if (sol.has("gapPercent")) {
-                        gapPercent = sol.getDouble("gapPercent");
-                    } else if (sol.has("gap")){
-                        gapPercent = 100.0*sol.getDouble("gap");
+                    double bound;
+                    double gapPercent;
+                    int makespan;
+                    if (root.has("solution") && root.getJSONArray("solution").length() > 0) {
+                        JSONObject sol = root.getJSONArray("solution").getJSONObject(0);
+                        makespan = sol.getInt("makespan");
+                        bound = sol.getDouble("bound");
+                        gapPercent = 0.0;
+                        if (sol.has("gapPercent")) {
+                            gapPercent = sol.getDouble("gapPercent");
+                        } else if (sol.has("gap")) {
+                            gapPercent = 100.0 * sol.getDouble("gap");
+                        } else {
+                            warning("Solution has no gap information");
+                        }
                     } else {
-                        warning("Solution has not gap information");
+                        bound = Double.NaN;
+                        gapPercent = Double.NaN;
+                        makespan = Integer.MAX_VALUE;
                     }
-                    int makespan = sol.getInt("makespan");
                     SolutionSummary s = new SolutionSummary(base);
                     s.setInstance(name);
                     s.setInstanceNr(instanceNr(name));
-                    s.setSolverStatus(toSolverStatus(status));
+                    s.setSolverStatus(status);
                     s.setNrJobs(nrJobs);
                     s.setNrMachines(nrMachines);
                     s.setNrCumulatives(nrCumulatives);
@@ -491,14 +510,18 @@ public class TestAll {
                     s.setBound(bound);
                     s.setGapPercent(gapPercent);
                     s.setVariant(variant);
-                    if (adjust) {
+                    if (adjust && status!=Unknown && status != Infeasible) {
                         adjustMakespan(s);
                     }
 
+                    if (status == Optimal || status == Solution) {
+                        out.printf("%s & %d & %d & %s & %5.2f & %d & %5.2f & %5.2f\\\\\n",
+                                name.replaceAll("_", " "), nrJobs, nrMachines, status, time, s.getMakespan(), s.getBound(), s.getGapPercent());
+                    } else {
+                        out.printf("%s & %d & %d & %s & %5.2f & - & - & -\\\\\n",
+                                name.replaceAll("_", " "), nrJobs, nrMachines, status, time);
 
-//                    info(name + " jobs " + nrJobs + " machines " + nrMachines + " status " + status + " time " + time + " makespan " + makespan + " bound " + bound + " gapPercent " + gapPercent);
-                    out.printf("%s & %d & %d & %s & %5.2f & %d & %5.2f & %5.2f\\\\\n",
-                            name.replaceAll("_"," "),nrJobs,nrMachines,status,time,s.getMakespan(),s.getBound(),s.getGapPercent());
+                    }
 
                 } catch (IOException e) {
                     severe("Cannot read file " + fileName + ", exception " + e.getMessage());
@@ -734,11 +757,11 @@ public class TestAll {
                     hash.put(key(s), s);
                 }
                 out.printf("\\section{SALBP Results Size %d}\n",size);
-                out.printf("{\\scriptsize\n");
-                out.printf("\\begin{longtable}{lrrrrrrrrrrr}\n");
+                out.printf("{\\tiny\n");
+                out.printf("\\begin{longtable}{lrrrrrrrrrrrrr}\n");
                 out.printf("\\caption{Result Comparison for SALBP Size %d (%d Instances)}\\\\\\toprule\n",size,problems.size());
-                out.printf("& Best & \\multicolumn{2}{c}{SALOME} & Laborie &\\multicolumn{2}{c}{Direct} & \\multicolumn{3}{c}{Direct MiniZinc} & \\multicolumn{2}{c}{Alternative}\\\\");
-                out.printf("Instance & LB & LB & UB & CPO & CPO & CPSat & Cplex & Chuffed & CPSat & CPO & CPSat \\\\\\midrule\n");
+                out.printf("& Best & \\multicolumn{2}{c}{SALOME} & Laborie &\\multicolumn{2}{c}{Direct} & \\multicolumn{3}{c}{Direct MiniZinc} & \\multicolumn{2}{c}{Alternative}& \\multicolumn{2}{c}{Alternative MiniZinc}\\\\");
+                out.printf("Instance & LB & LB & UB & CPO & CPO & CPSat & Cplex & Chuffed & CPSat & CPO & CPSat & Chuffed & Cplex\\\\\\midrule\n");
                 out.printf("\\endhead\n");
                 out.printf("\\bottomrule\n");
                 out.printf("\\endfoot\n");
@@ -774,6 +797,8 @@ public class TestAll {
                     Integer b3 = solution(hash, problem, "MCPSat");
                     Integer c = solution(hash, problem, "CPOA");
                     Integer d = solution(hash, problem, "CPSatA");
+                    Integer d1 = solution(hash, problem, "ChuffedA");
+                    Integer d2 = solution(hash, problem, "CplexA");
                     SolverStatus ubStatus = status(hash, problem, "base");
                     SolverStatus labStatus = status(hash, problem, "Laborie");
                     SolverStatus aStatus = status(hash, problem, "CPO");
@@ -783,6 +808,8 @@ public class TestAll {
                     SolverStatus b3Status = status(hash, problem, "MCPSat");
                     SolverStatus cStatus = status(hash, problem, "CPOA");
                     SolverStatus dStatus = status(hash, problem, "CPSatA");
+                    SolverStatus d1Status = status(hash, problem, "ChuffedA");
+                    SolverStatus d2Status = status(hash, problem, "CplexA");
                     List<Integer> sols = new ArrayList<>();
                     if (ub != null) sols.add(ub);
                     if (lab != null) sols.add(lab);
@@ -793,6 +820,8 @@ public class TestAll {
                     if (b3 != null) sols.add(b3);
                     if (c != null) sols.add(c);
                     if (d != null) sols.add(d);
+                    if (d1 != null) sols.add(d1);
+                    if (d2 != null) sols.add(d2);
                     int min = sols.stream().mapToInt(x -> x).min().orElse(0);
                     int exAequo = (int) sols.stream().filter(x -> x == min).count();
 
@@ -812,6 +841,8 @@ public class TestAll {
                     printSol(out, b3, b3Status, min, max, exAequo,typeHash,"MCPSat");
                     printSol(out, c, cStatus, min, max, exAequo,typeHash,"CPOA");
                     printSol(out, d, dStatus, min, max, exAequo,typeHash,"CPSatA");
+                    printSol(out, d1, d1Status, min, max, exAequo,typeHash,"ChuffedA");
+                    printSol(out, d2, d2Status, min, max, exAequo,typeHash,"CplexA");
                     out.printf("\\\\\n");
                 }
                 out.printf("\\end{longtable}\n\n");
@@ -828,9 +859,14 @@ public class TestAll {
 
     private static void printSol(PrintWriter out,Integer v,SolverStatus status,int minUB,int maxLB,int exAequo,Hashtable<String,Integer> typeHash,String solver){
         String type = solver+"/"+type(v,status,minUB,maxLB,exAequo);
+        info("type "+type);
         updateTypeCount(typeHash,type);
-        if (v == null){
-            out.printf("& \\cellcolor{red!20} n/a ");
+        if (status == Infeasible){
+            out.printf("& \\cellcolor{red!40} unsat ");
+        } else if (status == Unknown){
+            out.printf("& \\cellcolor{red!20} ??? ");
+        } else if (v == null) {
+            out.printf("& \\cellcolor{red!10} - ");
         } else if (v == minUB){
             out.printf("& \\cellcolor{%s} %s ",intensity(v,maxLB,exAequo),statusValue(v,status));
         } else {
@@ -839,8 +875,12 @@ public class TestAll {
     }
 
     private static String type(Integer v,SolverStatus status,int minUB,int maxLB,int exAequo){
-        if (v == null){
+        if (status == Infeasible) {
+            return "Infeasible";
+        } else if (status == Unknown){
             return "Unknown";
+        } else if (v == null) {
+            return "NotPresent";
         } else if (status == Optimal && exAequo==1){
             return "UniqueProvenOptimal";
         } else if (status == Optimal && exAequo>1){
@@ -867,12 +907,7 @@ public class TestAll {
     }
 
     private static void updateTypeCount(Hashtable<String,Integer> hash,String type){
-        Integer old = hash.get(type);
-        if (old == null){
-            hash.put(type,1);
-        } else {
-            hash.put(type,old+1);
-        }
+        hash.merge(type, 1, Integer::sum);
     }
 
     private static void typeSummary(PrintWriter out,Hashtable<String,Integer> hash,int size,int nrInstances,boolean asPercentage){
@@ -888,14 +923,17 @@ public class TestAll {
                 "NonBest",
                 "Solved",
                 "Unknown",
+                "Infeasible",
+                "NotPresent",
+                "N/A",
                 "Total"};
         info("types "+ Arrays.toString(types));
 //        Collection<String> solvers = compound.stream().map(TestAll::compoundSolver).distinct().sorted().toList();
-        String[] solvers = new String[]{"base","Laborie","CPO","CPSat","Cplex","Chuffed","MCPSat","CPOA","CPSatA"};
+        String[] solvers = new String[]{"base","Laborie","CPO","CPSat","Cplex","Chuffed","MCPSat","CPOA","CPSatA","ChuffedA","CplexA"};
         info("solvers "+ Arrays.toString(solvers));
         out.printf("\\begin{table}[htbp]\n");
         out.printf("\\caption{SALBP Results Summary Size %d (%d Instances)}\n",size,nrInstances);
-        out.printf("{\\scriptsize\n");
+        out.printf("{\\tiny\n");
         out.printf("\\begin{tabular}{l*{%d}{r}}\\toprule\n",solvers.length);
         out.printf("Type ");
         for(String solver:solvers){
@@ -929,6 +967,10 @@ public class TestAll {
         switch(type){
             case "Total":
                 return lookupValue(hash,solver,"Solved")+
+                        lookupValue(hash,solver,"N/A");
+            case "N/A":
+                return lookupValue(hash,solver,"NotPresent")+
+                        lookupValue(hash,solver,"Infeasible")+
                         lookupValue(hash,solver,"Unknown");
             case "Solved":
                 return lookupValue(hash,solver,"Optimal")+
@@ -989,14 +1031,14 @@ public class TestAll {
 
     private static Integer solution(Hashtable<String,SolutionSummary> hash, String instance,String variant){
         SolutionSummary s = hash.get(key(instance,variant));
-        if (s == null) {
+        if (s == null || s.getMakespan() == Integer.MAX_VALUE) {
             return null;
         }
         return s.getMakespan();
     }
     private static Integer bound(Hashtable<String,SolutionSummary> hash, String instance,String variant){
         SolutionSummary s = hash.get(key(instance,variant));
-        if (s == null) {
+        if (s == null || Double.isNaN(s.getBound())) {
             return null;
         }
         return (int) Math.ceil(s.getBound());

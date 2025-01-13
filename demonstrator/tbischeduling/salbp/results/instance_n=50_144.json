@@ -620,7 +620,7 @@
   "cumulativeProfile": [{
     "fromDate": "1/1/1900 00:00",
     "cumulativeResource": "C",
-    "name": "",
+    "name": "Profile",
     "from": 0,
     "capacity": 1000
   }],
@@ -950,7 +950,6 @@
     "maxLateness": 13,
     "maxWaitAfter": 7,
     "nrLate": 1,
-    "gap": 0,
     "solverRun": "instance_n=50_144.alb",
     "end": 13,
     "weightedEarliness": 0,
@@ -963,6 +962,7 @@
     "percentLate": 100,
     "weightedLateness": 13,
     "maxEarliness": 0,
+    "gapPercent": 0,
     "name": "Sol576",
     "objectiveValue": 13,
     "flowtime": 13,
@@ -1856,14 +1856,14 @@
       "before": "TP20",
       "name": "Seq41",
       "after": "TP26",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP20",
       "name": "Seq42",
       "after": "TP27",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1905,7 +1905,7 @@
       "before": "TP23",
       "name": "Seq48",
       "after": "TP30",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1926,7 +1926,7 @@
       "before": "TP24",
       "name": "Seq51",
       "after": "TP30",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -2176,16 +2176,16 @@
   ],
   "solverRun": [{
     "seed": 42,
-    "solverBackend": "None",
     "weightMakespan": 1,
     "producePDF": false,
     "enforceSetup": false,
     "description": "",
     "enforceTransportTime": false,
     "enforceWip": false,
-    "timeout": 30,
+    "timeout": 120,
     "weightLateness": 1,
     "produceReport": false,
+    "addSameOrder": false,
     "nrThreads": 4,
     "weightEarliness": 1,
     "solverStatus": "Optimal",
@@ -2196,7 +2196,7 @@
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "instance_n=50_144.alb",
-    "time": 0.09,
+    "time": 0.232,
     "enforceDowntime": false,
     "removeSolution": false,
     "enforceReleaseDate": false,

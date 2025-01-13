@@ -19,8 +19,6 @@ public class ReadSALBPAlternativeFile {
         DateTime startDate = new DateTime(2024,10,1,0,0);
         base.setStartDateTime(startDate);
         base.setTimeResolution(60);
-        //??? must be much larger than for direct model
-        base.setHorizon(600000);
         base.setDataFile(file.getName());
         base.setHasReleaseDate(false);
         base.setHasDisjunctive(true);
@@ -121,7 +119,8 @@ public class ReadSALBPAlternativeFile {
 
                 pair=reader.nextLine();
             }
-            base.setHorizon(Math.min(base.getHorizon(),nrTasks*cycleTime));
+            //defensible horizon value
+            base.setHorizon(nrTasks*(cycleTime+1));
             for(int d=0;d<base.getHorizon()/cycleTime;d++){
                 Downtime down = new Downtime(base);
                 down.setName("D"+d);

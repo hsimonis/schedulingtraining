@@ -1,1138 +1,1894 @@
 {
-  "cumulativeMachines": [{
-    "nr": 1,
-    "name": "C",
-    "limit": 1000
-  }],
+  "cumulativeMachines": [
+    {
+      "nr": 1,
+      "name": "CR_1",
+      "limit": 21
+    },
+    {
+      "nr": 2,
+      "name": "CR_2",
+      "limit": 21
+    },
+    {
+      "nr": 3,
+      "name": "CR_3",
+      "limit": 21
+    },
+    {
+      "nr": 4,
+      "name": "CR_4",
+      "limit": 21
+    }
+  ],
   "nrJobs": 1,
   "jobs": [{
     "noOverlap": false,
     "nr": 1,
-    "due": 0,
+    "due": 80,
     "release": 0,
-    "name": "Job"
+    "name": "J0"
   }],
-  "nrSequences": 85,
-  "nrCumulativeMachines": 1,
-  "nrTasks": 50,
+  "nrSequences": 87,
+  "downtimes": [],
+  "nrCumulativeMachines": 4,
+  "nrTasks": 60,
   "nrMachines": 0,
   "sequences": [
     {
       "offset": 0,
       "before": 1,
-      "after": 11,
-      "sequenceType": "StartBeforeStart"
+      "after": 10,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 1,
+      "after": 13,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 1,
+      "after": 15,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 2,
-      "after": 11,
-      "sequenceType": "StartBeforeStart"
+      "after": 4,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 3,
-      "after": 39,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 4,
       "after": 6,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
-      "before": 4,
-      "after": 7,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 4,
+      "before": 3,
       "after": 8,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 3,
+      "after": 11,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 4,
-      "after": 10,
-      "sequenceType": "StartBeforeStart"
+      "after": 5,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 4,
+      "after": 21,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 4,
+      "after": 29,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 5,
       "after": 7,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 5,
-      "after": 9,
-      "sequenceType": "StartBeforeStart"
+      "after": 32,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 5,
-      "after": 12,
-      "sequenceType": "StartBeforeStart"
+      "after": 37,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 6,
-      "after": 11,
-      "sequenceType": "StartBeforeStart"
+      "after": 9,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 6,
+      "after": 14,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 6,
+      "after": 44,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 7,
-      "after": 11,
-      "sequenceType": "StartBeforeStart"
+      "after": 12,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 7,
+      "after": 47,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 8,
-      "after": 11,
-      "sequenceType": "StartBeforeStart"
+      "after": 28,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 8,
+      "after": 45,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 9,
-      "after": 23,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 10,
-      "after": 11,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 10,
-      "after": 12,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 10,
-      "after": 13,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 10,
-      "after": 14,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 11,
-      "after": 15,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 11,
       "after": 16,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
-      "before": 11,
-      "after": 17,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 11,
-      "after": 18,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 11,
+      "before": 9,
       "after": 19,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 10,
+      "after": 33,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 10,
+      "after": 43,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 11,
-      "after": 20,
-      "sequenceType": "StartBeforeStart"
+      "after": 31,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 11,
-      "after": 21,
-      "sequenceType": "StartBeforeStart"
+      "after": 42,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 11,
+      "after": 53,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 12,
-      "after": 23,
-      "sequenceType": "StartBeforeStart"
+      "after": 20,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 12,
+      "after": 30,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 13,
+      "after": 59,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 14,
       "after": 23,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
-      "before": 14,
-      "after": 24,
-      "sequenceType": "StartBeforeStart"
+      "before": 15,
+      "after": 17,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
-      "before": 14,
+      "before": 15,
+      "after": 36,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 15,
       "after": 38,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 14,
-      "after": 40,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 16,
-      "after": 23,
-      "sequenceType": "StartBeforeStart"
+      "after": 26,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 16,
-      "after": 24,
-      "sequenceType": "StartBeforeStart"
+      "after": 27,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 16,
+      "after": 41,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 17,
-      "after": 26,
-      "sequenceType": "StartBeforeStart"
+      "after": 18,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 18,
       "after": 22,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 18,
+      "after": 48,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 19,
       "after": 23,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 18,
-      "after": 26,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 19,
-      "after": 22,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 19,
-      "after": 25,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 19,
-      "after": 41,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 20,
-      "after": 23,
-      "sequenceType": "StartBeforeStart"
+      "after": 22,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 21,
-      "after": 26,
-      "sequenceType": "StartBeforeStart"
+      "after": 25,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 21,
-      "after": 38,
-      "sequenceType": "StartBeforeStart"
+      "after": 57,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 22,
+      "after": 24,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 23,
       "after": 39,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 23,
-      "after": 28,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 23,
-      "after": 29,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 23,
-      "after": 30,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 23,
-      "after": 31,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 23,
-      "after": 32,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 24,
-      "after": 27,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 24,
       "after": 34,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 24,
-      "after": 41,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 25,
-      "after": 33,
-      "sequenceType": "StartBeforeStart"
+      "after": 40,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 26,
-      "after": 34,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 26,
-      "after": 36,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 26,
-      "after": 37,
-      "sequenceType": "StartBeforeStart"
+      "after": 28,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 27,
-      "after": 39,
-      "sequenceType": "StartBeforeStart"
+      "after": 35,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 28,
+      "after": 51,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 28,
+      "after": 60,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 29,
       "after": 34,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 29,
-      "after": 40,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 29,
-      "after": 41,
-      "sequenceType": "StartBeforeStart"
+      "after": 49,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 30,
-      "after": 35,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 30,
-      "after": 36,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 30,
-      "after": 38,
-      "sequenceType": "StartBeforeStart"
+      "after": 51,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 31,
-      "after": 34,
-      "sequenceType": "StartBeforeStart"
+      "after": 59,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
-      "before": 31,
-      "after": 35,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 31,
+      "before": 32,
       "after": 46,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 32,
-      "after": 35,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 32,
-      "after": 37,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 33,
-      "after": 47,
-      "sequenceType": "StartBeforeStart"
+      "after": 34,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 34,
       "after": 39,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
-      "before": 36,
+      "before": 34,
+      "after": 54,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 34,
+      "after": 55,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 35,
       "after": 40,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 36,
-      "after": 41,
-      "sequenceType": "StartBeforeStart"
+      "after": 48,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 37,
-      "after": 41,
-      "sequenceType": "StartBeforeStart"
+      "after": 39,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 38,
-      "after": 39,
-      "sequenceType": "StartBeforeStart"
+      "after": 56,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 39,
-      "after": 42,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 39,
-      "after": 43,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 39,
-      "after": 44,
-      "sequenceType": "StartBeforeStart"
-    },
-    {
-      "offset": 0,
-      "before": 39,
-      "after": 45,
-      "sequenceType": "StartBeforeStart"
+      "after": 52,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 40,
-      "after": 46,
-      "sequenceType": "StartBeforeStart"
+      "after": 52,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 41,
-      "after": 46,
-      "sequenceType": "StartBeforeStart"
+      "after": 55,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
-      "before": 41,
-      "after": 48,
-      "sequenceType": "StartBeforeStart"
+      "before": 42,
+      "after": 54,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 43,
-      "after": 47,
-      "sequenceType": "StartBeforeStart"
+      "after": 56,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 44,
+      "after": 52,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 45,
-      "after": 48,
-      "sequenceType": "StartBeforeStart"
+      "after": 46,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 45,
+      "after": 55,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 46,
-      "after": 47,
-      "sequenceType": "StartBeforeStart"
+      "after": 57,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": 47,
-      "after": 49,
-      "sequenceType": "StartBeforeStart"
+      "after": 51,
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
-      "before": 47,
+      "before": 48,
+      "after": 58,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 49,
       "after": 50,
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 49,
+      "after": 60,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 50,
+      "after": 53,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 51,
+      "after": 53,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 52,
+      "after": 56,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 53,
+      "after": 54,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 54,
+      "after": 57,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 54,
+      "after": 59,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 55,
+      "after": 60,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 56,
+      "after": 58,
+      "sequenceType": "EndBeforeStart"
+    },
+    {
+      "offset": 0,
+      "before": 57,
+      "after": 58,
+      "sequenceType": "EndBeforeStart"
     }
   ],
-  "nrCumulativeNeeds": 50,
-  "horizon": 50,
+  "nrCumulativeNeeds": 181,
+  "horizon": 50000,
+  "nrDowntimes": 0,
   "machines": [],
   "cumulativeNeeds": [
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
       "taskNr": 1,
-      "demand": 116
+      "demand": 8
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
       "taskNr": 2,
-      "demand": 313
+      "demand": 7
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 2,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 2,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 3,
-      "demand": 170
+      "demand": 5
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 3,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 3,
+      "demand": 9
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 3,
+      "demand": 6
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 4,
-      "demand": 105
+      "demand": 9
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 4,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 4,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 4,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_3",
       "taskNr": 5,
-      "demand": 77
+      "demand": 4
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_4",
+      "taskNr": 5,
+      "demand": 3
+    },
+    {
+      "cumulativeMachine": "CR_2",
       "taskNr": 6,
-      "demand": 210
+      "demand": 9
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 6,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 6,
+      "demand": 6
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 7,
-      "demand": 241
+      "demand": 3
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 7,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 7,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 8,
-      "demand": 113
+      "demand": 2
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 8,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 8,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 9,
-      "demand": 142
+      "demand": 1
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_4",
+      "taskNr": 9,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 10,
-      "demand": 21
+      "demand": 9
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 10,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 10,
+      "demand": 3
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 11,
-      "demand": 87
+      "demand": 5
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 11,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_2",
       "taskNr": 12,
-      "demand": 94
+      "demand": 4
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 12,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 12,
+      "demand": 9
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 13,
-      "demand": 54
+      "demand": 1
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 13,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 14,
-      "demand": 169
+      "demand": 2
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 14,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 14,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 14,
+      "demand": 6
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 15,
-      "demand": 23
+      "demand": 1
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 15,
+      "demand": 10
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 15,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 15,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 16,
-      "demand": 91
+      "demand": 3
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 16,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 16,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 16,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_2",
       "taskNr": 17,
-      "demand": 62
+      "demand": 8
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 17,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 17,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 18,
-      "demand": 273
+      "demand": 9
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 18,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 18,
+      "demand": 10
+    },
+    {
+      "cumulativeMachine": "CR_2",
       "taskNr": 19,
-      "demand": 170
+      "demand": 3
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 19,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 19,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 20,
-      "demand": 142
+      "demand": 9
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 20,
+      "demand": 6
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 20,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 20,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_3",
       "taskNr": 21,
-      "demand": 101
+      "demand": 2
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_4",
+      "taskNr": 21,
+      "demand": 10
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 22,
-      "demand": 105
+      "demand": 3
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 22,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 22,
+      "demand": 6
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 23,
-      "demand": 33
+      "demand": 9
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 23,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 23,
+      "demand": 6
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 23,
+      "demand": 9
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 24,
-      "demand": 152
+      "demand": 6
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 24,
+      "demand": 10
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 24,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 25,
-      "demand": 200
+      "demand": 9
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 25,
+      "demand": 6
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 25,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 26,
-      "demand": 255
+      "demand": 8
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 26,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 26,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 26,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 27,
-      "demand": 89
+      "demand": 7
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 27,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 27,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 28,
-      "demand": 156
+      "demand": 9
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 28,
+      "demand": 3
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 28,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_2",
       "taskNr": 29,
-      "demand": 157
+      "demand": 2
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_4",
+      "taskNr": 29,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 30,
-      "demand": 160
+      "demand": 2
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 30,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 30,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 31,
-      "demand": 103
+      "demand": 5
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 31,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 31,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_3",
       "taskNr": 32,
-      "demand": 71
+      "demand": 7
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_1",
       "taskNr": 33,
-      "demand": 179
+      "demand": 5
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 33,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 33,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 33,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 34,
-      "demand": 129
+      "demand": 7
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 34,
+      "demand": 6
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 34,
+      "demand": 10
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 35,
-      "demand": 217
+      "demand": 4
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 35,
+      "demand": 9
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 36,
-      "demand": 155
+      "demand": 4
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 36,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 37,
-      "demand": 164
+      "demand": 5
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 37,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 37,
+      "demand": 6
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 38,
-      "demand": 177
+      "demand": 9
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 38,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 38,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_2",
       "taskNr": 39,
-      "demand": 123
+      "demand": 2
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 39,
+      "demand": 6
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 39,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 40,
-      "demand": 130
+      "demand": 1
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 40,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 40,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 41,
-      "demand": 43
+      "demand": 2
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 41,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 41,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 42,
-      "demand": 102
+      "demand": 2
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 42,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 42,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 42,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 43,
-      "demand": 28
+      "demand": 9
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 43,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 43,
+      "demand": 3
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 43,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_2",
       "taskNr": 44,
-      "demand": 216
+      "demand": 8
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_1",
       "taskNr": 45,
-      "demand": 134
+      "demand": 2
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 45,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 45,
+      "demand": 9
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 45,
+      "demand": 9
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 46,
-      "demand": 97
+      "demand": 4
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_3",
+      "taskNr": 46,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 46,
+      "demand": 10
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 47,
-      "demand": 69
+      "demand": 5
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 47,
+      "demand": 10
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 47,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 48,
-      "demand": 372
+      "demand": 7
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 48,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 48,
+      "demand": 3
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 48,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 49,
-      "demand": 120
+      "demand": 6
     },
     {
-      "cumulativeMachine": "C",
+      "cumulativeMachine": "CR_2",
+      "taskNr": 49,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 49,
+      "demand": 3
+    },
+    {
+      "cumulativeMachine": "CR_1",
       "taskNr": 50,
-      "demand": 68
+      "demand": 9
+    },
+    {
+      "cumulativeMachine": "CR_2",
+      "taskNr": 50,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 50,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_1",
+      "taskNr": 51,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_2",
+      "taskNr": 51,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 51,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_2",
+      "taskNr": 52,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 52,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 52,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_1",
+      "taskNr": 53,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_2",
+      "taskNr": 53,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 53,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_1",
+      "taskNr": 54,
+      "demand": 6
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 54,
+      "demand": 9
+    },
+    {
+      "cumulativeMachine": "CR_1",
+      "taskNr": 55,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 55,
+      "demand": 10
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 55,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_1",
+      "taskNr": 56,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_2",
+      "taskNr": 56,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 56,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_1",
+      "taskNr": 57,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_2",
+      "taskNr": 57,
+      "demand": 3
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 57,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 57,
+      "demand": 8
+    },
+    {
+      "cumulativeMachine": "CR_1",
+      "taskNr": 58,
+      "demand": 10
+    },
+    {
+      "cumulativeMachine": "CR_2",
+      "taskNr": 58,
+      "demand": 9
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 58,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 58,
+      "demand": 4
+    },
+    {
+      "cumulativeMachine": "CR_1",
+      "taskNr": 59,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_2",
+      "taskNr": 59,
+      "demand": 1
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 59,
+      "demand": 3
+    },
+    {
+      "cumulativeMachine": "CR_1",
+      "taskNr": 60,
+      "demand": 2
+    },
+    {
+      "cumulativeMachine": "CR_2",
+      "taskNr": 60,
+      "demand": 5
+    },
+    {
+      "cumulativeMachine": "CR_3",
+      "taskNr": 60,
+      "demand": 7
+    },
+    {
+      "cumulativeMachine": "CR_4",
+      "taskNr": 60,
+      "demand": 9
     }
   ],
   "tasks": [
     {
-      "duration": 1,
+      "duration": 9,
       "nr": 1,
       "machine": "n/a",
-      "name": "T1",
-      "job": "Job"
+      "name": "T0PS_2",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 2,
       "nr": 2,
       "machine": "n/a",
-      "name": "T2",
-      "job": "Job"
+      "name": "T0PS_3",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 6,
       "nr": 3,
       "machine": "n/a",
-      "name": "T3",
-      "job": "Job"
+      "name": "T0PS_4",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 6,
       "nr": 4,
       "machine": "n/a",
-      "name": "T4",
-      "job": "Job"
+      "name": "T0PS_5",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 7,
       "nr": 5,
       "machine": "n/a",
-      "name": "T5",
-      "job": "Job"
+      "name": "T0PS_6",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 5,
       "nr": 6,
       "machine": "n/a",
-      "name": "T6",
-      "job": "Job"
+      "name": "T0PS_7",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 5,
       "nr": 7,
       "machine": "n/a",
-      "name": "T7",
-      "job": "Job"
+      "name": "T0PS_8",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 8,
       "nr": 8,
       "machine": "n/a",
-      "name": "T8",
-      "job": "Job"
+      "name": "T0PS_9",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 2,
       "nr": 9,
       "machine": "n/a",
-      "name": "T9",
-      "job": "Job"
+      "name": "T0PS_10",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 3,
       "nr": 10,
       "machine": "n/a",
-      "name": "T10",
-      "job": "Job"
+      "name": "T0PS_11",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 3,
       "nr": 11,
       "machine": "n/a",
-      "name": "T11",
-      "job": "Job"
+      "name": "T0PS_12",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 9,
       "nr": 12,
       "machine": "n/a",
-      "name": "T12",
-      "job": "Job"
+      "name": "T0PS_13",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 8,
       "nr": 13,
       "machine": "n/a",
-      "name": "T13",
-      "job": "Job"
+      "name": "T0PS_14",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 3,
       "nr": 14,
       "machine": "n/a",
-      "name": "T14",
-      "job": "Job"
+      "name": "T0PS_15",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 8,
       "nr": 15,
       "machine": "n/a",
-      "name": "T15",
-      "job": "Job"
+      "name": "T0PS_16",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 10,
       "nr": 16,
       "machine": "n/a",
-      "name": "T16",
-      "job": "Job"
+      "name": "T0PS_17",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 5,
       "nr": 17,
       "machine": "n/a",
-      "name": "T17",
-      "job": "Job"
+      "name": "T0PS_18",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 5,
       "nr": 18,
       "machine": "n/a",
-      "name": "T18",
-      "job": "Job"
+      "name": "T0PS_19",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 10,
       "nr": 19,
       "machine": "n/a",
-      "name": "T19",
-      "job": "Job"
+      "name": "T0PS_20",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 9,
       "nr": 20,
       "machine": "n/a",
-      "name": "T20",
-      "job": "Job"
+      "name": "T0PS_21",
+      "job": "J0"
     },
     {
       "duration": 1,
       "nr": 21,
       "machine": "n/a",
-      "name": "T21",
-      "job": "Job"
+      "name": "T0PS_22",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 5,
       "nr": 22,
       "machine": "n/a",
-      "name": "T22",
-      "job": "Job"
+      "name": "T0PS_23",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 6,
       "nr": 23,
       "machine": "n/a",
-      "name": "T23",
-      "job": "Job"
+      "name": "T0PS_24",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 6,
       "nr": 24,
       "machine": "n/a",
-      "name": "T24",
-      "job": "Job"
+      "name": "T0PS_25",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 8,
       "nr": 25,
       "machine": "n/a",
-      "name": "T25",
-      "job": "Job"
+      "name": "T0PS_26",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 9,
       "nr": 26,
       "machine": "n/a",
-      "name": "T26",
-      "job": "Job"
+      "name": "T0PS_27",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 6,
       "nr": 27,
       "machine": "n/a",
-      "name": "T27",
-      "job": "Job"
+      "name": "T0PS_28",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 10,
       "nr": 28,
       "machine": "n/a",
-      "name": "T28",
-      "job": "Job"
+      "name": "T0PS_29",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 6,
       "nr": 29,
       "machine": "n/a",
-      "name": "T29",
-      "job": "Job"
+      "name": "T0PS_30",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 8,
       "nr": 30,
       "machine": "n/a",
-      "name": "T30",
-      "job": "Job"
+      "name": "T0PS_31",
+      "job": "J0"
     },
     {
       "duration": 1,
       "nr": 31,
       "machine": "n/a",
-      "name": "T31",
-      "job": "Job"
+      "name": "T0PS_32",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 7,
       "nr": 32,
       "machine": "n/a",
-      "name": "T32",
-      "job": "Job"
+      "name": "T0PS_33",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 9,
       "nr": 33,
       "machine": "n/a",
-      "name": "T33",
-      "job": "Job"
+      "name": "T0PS_34",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 7,
       "nr": 34,
       "machine": "n/a",
-      "name": "T34",
-      "job": "Job"
+      "name": "T0PS_35",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 6,
       "nr": 35,
       "machine": "n/a",
-      "name": "T35",
-      "job": "Job"
+      "name": "T0PS_36",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 5,
       "nr": 36,
       "machine": "n/a",
-      "name": "T36",
-      "job": "Job"
+      "name": "T0PS_37",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 4,
       "nr": 37,
       "machine": "n/a",
-      "name": "T37",
-      "job": "Job"
+      "name": "T0PS_38",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 4,
       "nr": 38,
       "machine": "n/a",
-      "name": "T38",
-      "job": "Job"
+      "name": "T0PS_39",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 10,
       "nr": 39,
       "machine": "n/a",
-      "name": "T39",
-      "job": "Job"
+      "name": "T0PS_40",
+      "job": "J0"
     },
     {
       "duration": 1,
       "nr": 40,
       "machine": "n/a",
-      "name": "T40",
-      "job": "Job"
+      "name": "T0PS_41",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 4,
       "nr": 41,
       "machine": "n/a",
-      "name": "T41",
-      "job": "Job"
+      "name": "T0PS_42",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 7,
       "nr": 42,
       "machine": "n/a",
-      "name": "T42",
-      "job": "Job"
+      "name": "T0PS_43",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 2,
       "nr": 43,
       "machine": "n/a",
-      "name": "T43",
-      "job": "Job"
+      "name": "T0PS_44",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 7,
       "nr": 44,
       "machine": "n/a",
-      "name": "T44",
-      "job": "Job"
+      "name": "T0PS_45",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 6,
       "nr": 45,
       "machine": "n/a",
-      "name": "T45",
-      "job": "Job"
+      "name": "T0PS_46",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 8,
       "nr": 46,
       "machine": "n/a",
-      "name": "T46",
-      "job": "Job"
+      "name": "T0PS_47",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 2,
       "nr": 47,
       "machine": "n/a",
-      "name": "T47",
-      "job": "Job"
+      "name": "T0PS_48",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 6,
       "nr": 48,
       "machine": "n/a",
-      "name": "T48",
-      "job": "Job"
+      "name": "T0PS_49",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 5,
       "nr": 49,
       "machine": "n/a",
-      "name": "T49",
-      "job": "Job"
+      "name": "T0PS_50",
+      "job": "J0"
     },
     {
-      "duration": 1,
+      "duration": 10,
       "nr": 50,
       "machine": "n/a",
-      "name": "T50",
-      "job": "Job"
+      "name": "T0PS_51",
+      "job": "J0"
+    },
+    {
+      "duration": 6,
+      "nr": 51,
+      "machine": "n/a",
+      "name": "T0PS_52",
+      "job": "J0"
+    },
+    {
+      "duration": 4,
+      "nr": 52,
+      "machine": "n/a",
+      "name": "T0PS_53",
+      "job": "J0"
+    },
+    {
+      "duration": 6,
+      "nr": 53,
+      "machine": "n/a",
+      "name": "T0PS_54",
+      "job": "J0"
+    },
+    {
+      "duration": 4,
+      "nr": 54,
+      "machine": "n/a",
+      "name": "T0PS_55",
+      "job": "J0"
+    },
+    {
+      "duration": 2,
+      "nr": 55,
+      "machine": "n/a",
+      "name": "T0PS_56",
+      "job": "J0"
+    },
+    {
+      "duration": 2,
+      "nr": 56,
+      "machine": "n/a",
+      "name": "T0PS_57",
+      "job": "J0"
+    },
+    {
+      "duration": 8,
+      "nr": 57,
+      "machine": "n/a",
+      "name": "T0PS_58",
+      "job": "J0"
+    },
+    {
+      "duration": 8,
+      "nr": 58,
+      "machine": "n/a",
+      "name": "T0PS_59",
+      "job": "J0"
+    },
+    {
+      "duration": 7,
+      "nr": 59,
+      "machine": "n/a",
+      "name": "T0PS_60",
+      "job": "J0"
+    },
+    {
+      "duration": 9,
+      "nr": 60,
+      "machine": "n/a",
+      "name": "T0PS_61",
+      "job": "J0"
     }
   ]
 }

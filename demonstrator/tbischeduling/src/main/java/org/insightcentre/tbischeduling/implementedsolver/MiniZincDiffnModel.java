@@ -31,7 +31,9 @@ public class MiniZincDiffnModel extends AbstractModel{
         String program="problem.mzn";
 
         JSONObject problem = new MiniZincProblem(base).create();
+        info("write problem file "+minizincDir+dataFile);
         writeFile(problem,minizincDir+dataFile);
+        info("running solver");
         SolMultiple sol = new RunMiniZincGeneral(minizincDir, run.getSolverBackend(),
                 program,
                 dataFile,
@@ -46,6 +48,9 @@ public class MiniZincDiffnModel extends AbstractModel{
             Solution solution = new Solution(base);
             solution.setName("minizinc");
             solution.setObjectiveValue(sol.getCost());
+            // we should get a bound from MiniZinc
+            solution.setBound(0.0);
+            solution.setGapPercent(100.0);
             solution.setSolverRun(run);
             solution.setSolverStatus(status);
             Hashtable<Job, JobAssignment> jobHash = new Hashtable<>();
@@ -86,6 +91,8 @@ public class MiniZincDiffnModel extends AbstractModel{
             ja.setStart(tasks.stream().mapToInt(TaskAssignment::getStart).min().orElse(0));
             ja.setEnd(tasks.stream().mapToInt(TaskAssignment::getEnd).max().orElse(0));
             ja.setDuration(ja.getEnd()-ja.getStart());
+            ja.setLate(Math.max(0,ja.getEnd()-ja.getJob().getOrder().getDue()));
+            ja.setEarly(Math.max(0,ja.getJob().getOrder().getDue()-ja.getEnd()));
         }
         List<JobAssignment> jList =base.getListJobAssignment().stream().filter(x->x.getSolution()==solution).toList();
         solution.setStart(jList.stream().mapToInt(JobAssignment::getStart).min().orElse(0));
@@ -93,6 +100,11 @@ public class MiniZincDiffnModel extends AbstractModel{
         solution.setMakespan(jList.stream().mapToInt(JobAssignment::getEnd).max().orElse(0));
         solution.setFlowtime(jList.stream().mapToInt(JobAssignment::getEnd).sum());
         solution.setDuration(solution.getEnd()-solution.getStart());
+        solution.setTotalLateness(jList.stream().mapToInt(JobAssignment::getLate).sum());
+        solution.setWeightedLateness(jList.stream().mapToDouble(x->x.getLate()*x.getJob().getOrder().getLatenessWeight()).sum());
+        solution.setMaxLateness(jList.stream().mapToInt(JobAssignment::getLate).max().orElse(0));
+        solution.setNrLate((int)jList.stream().filter(x->x.getLate() > 0).count());
+        solution.setPercentLate(100.0*solution.getNrLate()/jList.size());
 
     }
 
