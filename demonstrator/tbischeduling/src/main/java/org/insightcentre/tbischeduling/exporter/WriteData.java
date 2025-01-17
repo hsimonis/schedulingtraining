@@ -471,7 +471,9 @@ public class WriteData {
         obj.put("label",run.getLabel());
         obj.put("description",run.getDescription());
         obj.put("modelType",run.getModelType().toString());
-        obj.put("solverBackend",run.getSolverBackend().toString());
+        if(run.getSolverBackend()!=null) {
+            obj.put("solverBackend", run.getSolverBackend().toString());
+        }
         obj.put("objectiveType",run.getObjectiveType().toString());
         obj.put("enforceReleaseDate",run.getEnforceReleaseDate());
         obj.put("enforceDueDate",run.getEnforceDueDate());

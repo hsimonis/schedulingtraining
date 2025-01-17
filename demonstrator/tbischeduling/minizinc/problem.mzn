@@ -6,6 +6,7 @@ int:nrMachines;
 int:nrCumulativeMachines;
 int:nrCumulativeNeeds;
 int:nrSequences;
+int:nrDowntimes;
 int:horizon;
 
 type Job = record(string:name,int:nr,int:release,int:due,bool:noOverlap);
@@ -14,6 +15,7 @@ type Machine = record(string:name,int:nr);
 type CumulativeMachine = record(string:name,int:nr,int:limit);
 type Sequence = record(int:before,int:after,int:offset,string:sequenceType);
 type CumulativeNeed = record(string:cumulativeMachine,int:taskNr,int:demand);
+type Downtime = record(string:name,int:nr,string:machine,int:start,int:duration);
 
 % data arrays
 array[1..nrJobs] of Job:jobs;
@@ -22,6 +24,7 @@ array[1..nrMachines] of Machine:machines;
 array[1..nrCumulativeMachines] of CumulativeMachine:cumulativeMachines;
 array[1..nrCumulativeNeeds] of CumulativeNeed:cumulativeNeeds;
 array[1..nrSequences] of Sequence:sequences;
+array[1..nrDowntimes] of Downtime:downtimes;
 
 % variables
 array[1..nrTasks] of var 0..horizon:x;
@@ -29,8 +32,10 @@ array[1..nrTasks] of var 0..horizon:ends;
 var 0..horizon:objective;
 
 constraint forall(m in 1..nrMachines)
-(disjunctive([x[i]|i in 1..nrTasks where tasks[i].machine == machines[m].name],
-             [tasks[i].duration|i in 1..nrTasks where tasks[i].machine == machines[m].name]));
+(disjunctive([x[i]|i in 1..nrTasks where tasks[i].machine == machines[m].name]++
+			 [downtimes[i].start|i in 1..nrDowntimes where downtimes[i].machine == machines[m].name],
+             [tasks[i].duration|i in 1..nrTasks where tasks[i].machine == machines[m].name]++
+			 [downtimes[i].duration|i in 1..nrDowntimes where downtimes[i].machine == machines[m].name]));
              
 constraint forall(j in 1..nrJobs where jobs[j].noOverlap)
 (disjunctive([x[i]|i in 1..nrTasks where tasks[i].job == jobs[j].name],

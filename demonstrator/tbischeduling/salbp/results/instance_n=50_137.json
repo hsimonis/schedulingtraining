@@ -620,7 +620,7 @@
   "cumulativeProfile": [{
     "fromDate": "1/1/1900 00:00",
     "cumulativeResource": "C",
-    "name": "",
+    "name": "Profile",
     "from": 0,
     "capacity": 1000
   }],
@@ -950,7 +950,6 @@
     "maxLateness": 11,
     "maxWaitAfter": 7,
     "nrLate": 1,
-    "gap": 0,
     "solverRun": "instance_n=50_137.alb",
     "end": 11,
     "weightedEarliness": 0,
@@ -963,7 +962,8 @@
     "percentLate": 100,
     "weightedLateness": 11,
     "maxEarliness": 0,
-    "name": "Sol568",
+    "gapPercent": 0,
+    "name": "Sol548",
     "objectiveValue": 11,
     "flowtime": 11,
     "startDate": "1/10/2024 00:00"
@@ -1667,7 +1667,7 @@
       "before": "TP9",
       "name": "Seq14",
       "after": "TP12",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -2162,16 +2162,16 @@
   ],
   "solverRun": [{
     "seed": 42,
-    "solverBackend": "None",
     "weightMakespan": 1,
     "producePDF": false,
     "enforceSetup": false,
     "description": "",
     "enforceTransportTime": false,
     "enforceWip": false,
-    "timeout": 30,
+    "timeout": 120,
     "weightLateness": 1,
     "produceReport": false,
+    "addSameOrder": false,
     "nrThreads": 4,
     "weightEarliness": 1,
     "solverStatus": "Optimal",
@@ -2182,7 +2182,7 @@
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "instance_n=50_137.alb",
-    "time": 0.047,
+    "time": 0.11,
     "enforceDowntime": false,
     "removeSolution": false,
     "enforceReleaseDate": false,
@@ -2190,7 +2190,7 @@
   }],
   "jobAssignment": [{
     "duration": 11,
-    "solution": "Sol568",
+    "solution": "Sol548",
     "late": 11,
     "endDate": "1/10/2024 11:00",
     "name": "JA0",

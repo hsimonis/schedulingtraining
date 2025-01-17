@@ -620,7 +620,7 @@
   "cumulativeProfile": [{
     "fromDate": "1/1/1900 00:00",
     "cumulativeResource": "C",
-    "name": "",
+    "name": "Profile",
     "from": 0,
     "capacity": 1000
   }],
@@ -950,7 +950,6 @@
     "maxLateness": 27,
     "maxWaitAfter": 10,
     "nrLate": 1,
-    "gap": 0.037037037037037035,
     "solverRun": "instance_n=50_192.alb",
     "end": 27,
     "weightedEarliness": 0,
@@ -963,7 +962,8 @@
     "percentLate": 100,
     "weightedLateness": 27,
     "maxEarliness": 0,
-    "name": "Sol629",
+    "gapPercent": 3.7037037037037033,
+    "name": "Sol768",
     "objectiveValue": 27,
     "flowtime": 27,
     "startDate": "1/10/2024 00:00"
@@ -1576,21 +1576,21 @@
       "before": "TP1",
       "name": "Seq1",
       "after": "TP8",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP2",
       "name": "Seq2",
       "after": "TP7",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP2",
       "name": "Seq3",
       "after": "TP24",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1604,7 +1604,7 @@
       "before": "TP3",
       "name": "Seq5",
       "after": "TP9",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1618,28 +1618,28 @@
       "before": "TP5",
       "name": "Seq7",
       "after": "TP15",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP7",
       "name": "Seq8",
       "after": "TP11",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP8",
       "name": "Seq9",
       "after": "TP13",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP9",
       "name": "Seq10",
       "after": "TP14",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1653,7 +1653,7 @@
       "before": "TP10",
       "name": "Seq12",
       "after": "TP15",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1688,35 +1688,35 @@
       "before": "TP13",
       "name": "Seq17",
       "after": "TP22",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP14",
       "name": "Seq18",
       "after": "TP21",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP15",
       "name": "Seq19",
       "after": "TP20",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP15",
       "name": "Seq20",
       "after": "TP23",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP15",
       "name": "Seq21",
       "after": "TP24",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1730,7 +1730,7 @@
       "before": "TP17",
       "name": "Seq23",
       "after": "TP43",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1751,7 +1751,7 @@
       "before": "TP20",
       "name": "Seq26",
       "after": "TP25",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1772,14 +1772,14 @@
       "before": "TP23",
       "name": "Seq29",
       "after": "TP30",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP23",
       "name": "Seq30",
       "after": "TP31",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1793,7 +1793,7 @@
       "before": "TP25",
       "name": "Seq32",
       "after": "TP36",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1828,7 +1828,7 @@
       "before": "TP31",
       "name": "Seq37",
       "after": "TP39",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1842,7 +1842,7 @@
       "before": "TP33",
       "name": "Seq39",
       "after": "TP43",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1870,14 +1870,14 @@
       "before": "TP39",
       "name": "Seq43",
       "after": "TP43",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP39",
       "name": "Seq44",
       "after": "TP44",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1891,7 +1891,7 @@
       "before": "TP41",
       "name": "Seq46",
       "after": "TP46",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1905,42 +1905,42 @@
       "before": "TP43",
       "name": "Seq48",
       "after": "TP47",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP43",
       "name": "Seq49",
       "after": "TP48",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP43",
       "name": "Seq50",
       "after": "TP50",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP44",
       "name": "Seq51",
       "after": "TP49",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     }
   ],
   "solverRun": [{
     "seed": 42,
-    "solverBackend": "None",
     "weightMakespan": 1,
     "producePDF": false,
     "enforceSetup": false,
     "description": "",
     "enforceTransportTime": false,
     "enforceWip": false,
-    "timeout": 30,
+    "timeout": 120,
     "weightLateness": 1,
     "produceReport": false,
+    "addSameOrder": false,
     "nrThreads": 4,
     "weightEarliness": 1,
     "solverStatus": "Solution",
@@ -1951,7 +1951,7 @@
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "instance_n=50_192.alb",
-    "time": 30.013,
+    "time": 120.02,
     "enforceDowntime": false,
     "removeSolution": false,
     "enforceReleaseDate": false,
@@ -1959,7 +1959,7 @@
   }],
   "jobAssignment": [{
     "duration": 27,
-    "solution": "Sol629",
+    "solution": "Sol768",
     "late": 27,
     "endDate": "2/10/2024 03:00",
     "name": "JA0",

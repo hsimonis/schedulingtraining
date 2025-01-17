@@ -620,7 +620,7 @@
   "cumulativeProfile": [{
     "fromDate": "1/1/1900 00:00",
     "cumulativeResource": "C",
-    "name": "",
+    "name": "Profile",
     "from": 0,
     "capacity": 1000
   }],
@@ -950,7 +950,6 @@
     "maxLateness": 25,
     "maxWaitAfter": 12,
     "nrLate": 1,
-    "gap": 0.04,
     "solverRun": "instance_n=50_200.alb",
     "end": 25,
     "weightedEarliness": 0,
@@ -963,7 +962,8 @@
     "percentLate": 100,
     "weightedLateness": 25,
     "maxEarliness": 0,
-    "name": "Sol639",
+    "gapPercent": 4,
+    "name": "Sol800",
     "objectiveValue": 25,
     "flowtime": 25,
     "startDate": "1/10/2024 00:00"
@@ -1583,21 +1583,21 @@
       "before": "TP1",
       "name": "Seq2",
       "after": "TP6",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP2",
       "name": "Seq3",
       "after": "TP7",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP2",
       "name": "Seq4",
       "after": "TP8",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1646,28 +1646,28 @@
       "before": "TP6",
       "name": "Seq11",
       "after": "TP14",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP7",
       "name": "Seq12",
       "after": "TP12",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP8",
       "name": "Seq13",
       "after": "TP13",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP8",
       "name": "Seq14",
       "after": "TP15",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1695,14 +1695,14 @@
       "before": "TP11",
       "name": "Seq18",
       "after": "TP20",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP12",
       "name": "Seq19",
       "after": "TP16",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1716,42 +1716,42 @@
       "before": "TP12",
       "name": "Seq21",
       "after": "TP24",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP13",
       "name": "Seq22",
       "after": "TP18",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP13",
       "name": "Seq23",
       "after": "TP25",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP14",
       "name": "Seq24",
       "after": "TP21",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP14",
       "name": "Seq25",
       "after": "TP26",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP15",
       "name": "Seq26",
       "after": "TP22",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1856,7 +1856,7 @@
       "before": "TP33",
       "name": "Seq41",
       "after": "TP38",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1877,7 +1877,7 @@
       "before": "TP34",
       "name": "Seq44",
       "after": "TP44",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1891,7 +1891,7 @@
       "before": "TP36",
       "name": "Seq46",
       "after": "TP44",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1905,14 +1905,14 @@
       "before": "TP38",
       "name": "Seq48",
       "after": "TP43",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP38",
       "name": "Seq49",
       "after": "TP45",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1947,7 +1947,7 @@
       "before": "TP45",
       "name": "Seq54",
       "after": "TP50",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1959,16 +1959,16 @@
   ],
   "solverRun": [{
     "seed": 42,
-    "solverBackend": "None",
     "weightMakespan": 1,
     "producePDF": false,
     "enforceSetup": false,
     "description": "",
     "enforceTransportTime": false,
     "enforceWip": false,
-    "timeout": 30,
+    "timeout": 120,
     "weightLateness": 1,
     "produceReport": false,
+    "addSameOrder": false,
     "nrThreads": 4,
     "weightEarliness": 1,
     "solverStatus": "Solution",
@@ -1979,7 +1979,7 @@
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "instance_n=50_200.alb",
-    "time": 30.014,
+    "time": 120.03,
     "enforceDowntime": false,
     "removeSolution": false,
     "enforceReleaseDate": false,
@@ -1987,7 +1987,7 @@
   }],
   "jobAssignment": [{
     "duration": 25,
-    "solution": "Sol639",
+    "solution": "Sol800",
     "late": 25,
     "endDate": "2/10/2024 01:00",
     "name": "JA0",

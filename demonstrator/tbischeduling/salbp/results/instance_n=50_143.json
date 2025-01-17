@@ -620,7 +620,7 @@
   "cumulativeProfile": [{
     "fromDate": "1/1/1900 00:00",
     "cumulativeResource": "C",
-    "name": "",
+    "name": "Profile",
     "from": 0,
     "capacity": 1000
   }],
@@ -950,7 +950,6 @@
     "maxLateness": 12,
     "maxWaitAfter": 5,
     "nrLate": 1,
-    "gap": 0,
     "solverRun": "instance_n=50_143.alb",
     "end": 12,
     "weightedEarliness": 0,
@@ -963,7 +962,8 @@
     "percentLate": 100,
     "weightedLateness": 12,
     "maxEarliness": 0,
-    "name": "Sol575",
+    "gapPercent": 0,
+    "name": "Sol572",
     "objectiveValue": 12,
     "flowtime": 12,
     "startDate": "1/10/2024 00:00"
@@ -1849,14 +1849,14 @@
       "before": "TP20",
       "name": "Seq40",
       "after": "TP25",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP20",
       "name": "Seq41",
       "after": "TP26",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1905,7 +1905,7 @@
       "before": "TP25",
       "name": "Seq48",
       "after": "TP29",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1947,7 +1947,7 @@
       "before": "TP29",
       "name": "Seq54",
       "after": "TP33",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -2127,16 +2127,16 @@
   ],
   "solverRun": [{
     "seed": 42,
-    "solverBackend": "None",
     "weightMakespan": 1,
     "producePDF": false,
     "enforceSetup": false,
     "description": "",
     "enforceTransportTime": false,
     "enforceWip": false,
-    "timeout": 30,
+    "timeout": 120,
     "weightLateness": 1,
     "produceReport": false,
+    "addSameOrder": false,
     "nrThreads": 4,
     "weightEarliness": 1,
     "solverStatus": "Optimal",
@@ -2147,7 +2147,7 @@
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "instance_n=50_143.alb",
-    "time": 0.126,
+    "time": 0.283,
     "enforceDowntime": false,
     "removeSolution": false,
     "enforceReleaseDate": false,
@@ -2155,7 +2155,7 @@
   }],
   "jobAssignment": [{
     "duration": 12,
-    "solution": "Sol575",
+    "solution": "Sol572",
     "late": 12,
     "endDate": "1/10/2024 12:00",
     "name": "JA0",

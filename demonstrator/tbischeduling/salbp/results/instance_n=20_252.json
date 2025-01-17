@@ -260,7 +260,7 @@
   "cumulativeProfile": [{
     "fromDate": "1/1/1900 00:00",
     "cumulativeResource": "C",
-    "name": "",
+    "name": "Profile",
     "from": 0,
     "capacity": 1000
   }],
@@ -410,7 +410,6 @@
     "maxLateness": 11,
     "maxWaitAfter": 6,
     "nrLate": 1,
-    "gap": 0,
     "solverRun": "instance_n=20_252.alb",
     "end": 11,
     "weightedEarliness": 0,
@@ -423,7 +422,8 @@
     "percentLate": 100,
     "weightedLateness": 11,
     "maxEarliness": 0,
-    "name": "Sol171",
+    "gapPercent": 0,
+    "name": "Sol1007",
     "objectiveValue": 11,
     "flowtime": 11,
     "startDate": "1/10/2024 00:00"
@@ -676,14 +676,14 @@
       "before": "TP1",
       "name": "Seq1",
       "after": "TP3",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP1",
       "name": "Seq2",
       "after": "TP4",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -697,7 +697,7 @@
       "before": "TP1",
       "name": "Seq4",
       "after": "TP6",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -732,28 +732,28 @@
       "before": "TP4",
       "name": "Seq9",
       "after": "TP7",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP4",
       "name": "Seq10",
       "after": "TP8",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP4",
       "name": "Seq11",
       "after": "TP10",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP4",
       "name": "Seq12",
       "after": "TP11",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -767,21 +767,21 @@
       "before": "TP6",
       "name": "Seq14",
       "after": "TP11",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP7",
       "name": "Seq15",
       "after": "TP12",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP8",
       "name": "Seq16",
       "after": "TP13",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -795,7 +795,7 @@
       "before": "TP10",
       "name": "Seq18",
       "after": "TP14",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -809,14 +809,14 @@
       "before": "TP12",
       "name": "Seq20",
       "after": "TP17",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP13",
       "name": "Seq21",
       "after": "TP16",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -863,16 +863,16 @@
   ],
   "solverRun": [{
     "seed": 42,
-    "solverBackend": "None",
     "weightMakespan": 1,
     "producePDF": false,
     "enforceSetup": false,
     "description": "",
     "enforceTransportTime": false,
     "enforceWip": false,
-    "timeout": 30,
+    "timeout": 120,
     "weightLateness": 1,
     "produceReport": false,
+    "addSameOrder": false,
     "nrThreads": 4,
     "weightEarliness": 1,
     "solverStatus": "Optimal",
@@ -883,7 +883,7 @@
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "instance_n=20_252.alb",
-    "time": 0.18,
+    "time": 1.192,
     "enforceDowntime": false,
     "removeSolution": false,
     "enforceReleaseDate": false,
@@ -891,7 +891,7 @@
   }],
   "jobAssignment": [{
     "duration": 11,
-    "solution": "Sol171",
+    "solution": "Sol1007",
     "late": 11,
     "endDate": "1/10/2024 11:00",
     "name": "JA0",

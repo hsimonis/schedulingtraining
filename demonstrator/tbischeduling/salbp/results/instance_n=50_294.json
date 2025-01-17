@@ -620,7 +620,7 @@
   "cumulativeProfile": [{
     "fromDate": "1/1/1900 00:00",
     "cumulativeResource": "C",
-    "name": "",
+    "name": "Profile",
     "from": 0,
     "capacity": 1000
   }],
@@ -950,7 +950,6 @@
     "maxLateness": 13,
     "maxWaitAfter": 3,
     "nrLate": 1,
-    "gap": 0,
     "solverRun": "instance_n=50_294.alb",
     "end": 13,
     "weightedEarliness": 0,
@@ -963,7 +962,8 @@
     "percentLate": 100,
     "weightedLateness": 13,
     "maxEarliness": 0,
-    "name": "Sol742",
+    "gapPercent": 0,
+    "name": "Sol1176",
     "objectiveValue": 13,
     "flowtime": 13,
     "startDate": "1/10/2024 00:00"
@@ -1688,7 +1688,7 @@
       "before": "TP13",
       "name": "Seq17",
       "after": "TP22",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1772,7 +1772,7 @@
       "before": "TP22",
       "name": "Seq29",
       "after": "TP27",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -1947,7 +1947,7 @@
       "before": "TP35",
       "name": "Seq54",
       "after": "TP47",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -2064,16 +2064,16 @@
   ],
   "solverRun": [{
     "seed": 42,
-    "solverBackend": "None",
     "weightMakespan": 1,
     "producePDF": false,
     "enforceSetup": false,
     "description": "",
     "enforceTransportTime": false,
     "enforceWip": false,
-    "timeout": 30,
+    "timeout": 120,
     "weightLateness": 1,
     "produceReport": false,
+    "addSameOrder": false,
     "nrThreads": 4,
     "weightEarliness": 1,
     "solverStatus": "Optimal",
@@ -2084,7 +2084,7 @@
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "instance_n=50_294.alb",
-    "time": 0.046,
+    "time": 0.204,
     "enforceDowntime": false,
     "removeSolution": false,
     "enforceReleaseDate": false,
@@ -2092,7 +2092,7 @@
   }],
   "jobAssignment": [{
     "duration": 13,
-    "solution": "Sol742",
+    "solution": "Sol1176",
     "late": 13,
     "endDate": "1/10/2024 13:00",
     "name": "JA0",

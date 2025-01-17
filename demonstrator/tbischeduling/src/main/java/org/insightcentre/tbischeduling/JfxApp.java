@@ -81,7 +81,7 @@ public class JfxApp extends GeneratedJfxApp {
 ////                new ReadData(base,new File("imports/Taillard/JSS/tai100_20_0.json"));
 ////                new ReadData(base,new File("imports/Taillard/FSS/tai20_5_0.json"));
 ////                new ReadData(base,new File("imports/Taillard/OSS/tai20_20_0.json"));
-//                new ReadSALBPAlternativeFile(base,new File("salbp/instance_n=20_171.alb"));
+                new ReadSALBPAlternativeFile(base,new File("salbp/instance_n=20_171.alb"));
 //                new ReadSALBPFile(base,new File("salbp/instance_n=20_171.alb"));
 //                new ReadSALBPAlternativeFile(base,new File("salbp/instance_n=1000_511.alb"));
 //                new ReadSALBPFile(base,new File("salbp/instance_n=1000_511.alb"));

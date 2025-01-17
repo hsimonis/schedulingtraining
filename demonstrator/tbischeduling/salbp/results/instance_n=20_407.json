@@ -260,7 +260,7 @@
   "cumulativeProfile": [{
     "fromDate": "1/1/1900 00:00",
     "cumulativeResource": "C",
-    "name": "",
+    "name": "Profile",
     "from": 0,
     "capacity": 1000
   }],
@@ -410,7 +410,6 @@
     "maxLateness": 10,
     "maxWaitAfter": 4,
     "nrLate": 1,
-    "gap": 0,
     "solverRun": "instance_n=20_407.alb",
     "end": 10,
     "weightedEarliness": 0,
@@ -423,7 +422,8 @@
     "percentLate": 100,
     "weightedLateness": 10,
     "maxEarliness": 0,
-    "name": "Sol343",
+    "gapPercent": 0,
+    "name": "Sol1627",
     "objectiveValue": 10,
     "flowtime": 10,
     "startDate": "1/10/2024 00:00"
@@ -676,7 +676,7 @@
       "before": "TP1",
       "name": "Seq1",
       "after": "TP6",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -697,14 +697,14 @@
       "before": "TP3",
       "name": "Seq4",
       "after": "TP13",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP3",
       "name": "Seq5",
       "after": "TP17",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -732,14 +732,14 @@
       "before": "TP6",
       "name": "Seq9",
       "after": "TP9",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
       "before": "TP6",
       "name": "Seq10",
       "after": "TP10",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -753,7 +753,7 @@
       "before": "TP8",
       "name": "Seq12",
       "after": "TP11",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -774,7 +774,7 @@
       "before": "TP9",
       "name": "Seq15",
       "after": "TP19",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     },
     {
       "offset": 0,
@@ -844,21 +844,21 @@
       "before": "TP17",
       "name": "Seq25",
       "after": "TP19",
-      "sequenceType": "StartBeforeStart"
+      "sequenceType": "EndBeforeStart"
     }
   ],
   "solverRun": [{
     "seed": 42,
-    "solverBackend": "None",
     "weightMakespan": 1,
     "producePDF": false,
     "enforceSetup": false,
     "description": "",
     "enforceTransportTime": false,
     "enforceWip": false,
-    "timeout": 30,
+    "timeout": 120,
     "weightLateness": 1,
     "produceReport": false,
+    "addSameOrder": false,
     "nrThreads": 4,
     "weightEarliness": 1,
     "solverStatus": "Optimal",
@@ -869,7 +869,7 @@
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "instance_n=20_407.alb",
-    "time": 0.047,
+    "time": 0.241,
     "enforceDowntime": false,
     "removeSolution": false,
     "enforceReleaseDate": false,
@@ -877,7 +877,7 @@
   }],
   "jobAssignment": [{
     "duration": 10,
-    "solution": "Sol343",
+    "solution": "Sol1627",
     "late": 10,
     "endDate": "1/10/2024 10:00",
     "name": "JA0",
