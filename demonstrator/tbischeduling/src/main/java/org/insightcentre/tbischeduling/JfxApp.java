@@ -10,6 +10,7 @@ import org.insightcentre.tbischeduling.datamodel.*;
 import framework.ApplicationDatasetInterface;
 import framework.ApplicationObjectInterface;
 import framework.types.IrishCalendar;
+import org.insightcentre.tbischeduling.exporter.CreateJSONDoc;
 import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.generatedsolver.*;
 import org.insightcentre.tbischeduling.implementedsolver.*;
@@ -56,8 +57,8 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setDataGeneratorProperty(q);
                 base.setGanttProperty(createGanttProperties(base));
                 base.setHasDisjunctive(true);
-//                info("Create JSON doc");
-//                new CreateJSONDoc(base,"site/jsonDoc/");
+                info("Create JSON doc");
+                new CreateJSONDoc(base,"site/jsonDoc/");
                 info("Creating default data");
                 new CreateData(base,q.getLabel(),q.getStartDateTime(),q.getResourceModel(),q.getNrProducts(),
                         q.getMinStages(),q.getMaxStages(),q.getNrDisjunctiveResources(),
@@ -81,7 +82,7 @@ public class JfxApp extends GeneratedJfxApp {
 ////                new ReadData(base,new File("imports/Taillard/JSS/tai100_20_0.json"));
 ////                new ReadData(base,new File("imports/Taillard/FSS/tai20_5_0.json"));
 ////                new ReadData(base,new File("imports/Taillard/OSS/tai20_20_0.json"));
-                new ReadSALBPAlternativeFile(base,new File("salbp/instance_n=20_171.alb"));
+//                new ReadSALBPAlternativeFile(base,new File("salbp/instance_n=20_171.alb"));
 //                new ReadSALBPFile(base,new File("salbp/instance_n=20_171.alb"));
 //                new ReadSALBPAlternativeFile(base,new File("salbp/instance_n=1000_511.alb"));
 //                new ReadSALBPFile(base,new File("salbp/instance_n=1000_511.alb"));

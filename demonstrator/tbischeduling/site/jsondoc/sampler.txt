@@ -97,7 +97,10 @@ FontStyle italic
     "name": "Prod0",
     "defaultProcess": "Process 0"
   }],
-  "process": [{"name": "Process 0"}],
+  "process": [{
+    "noOverlap": false,
+    "name": "Process 0"
+  }],
   "disjunctiveResource": [{"name": "DR0"}],
   "inputError": [],
   "cumulativeNeed": [
@@ -145,14 +148,14 @@ FontStyle italic
   "downtime": [{
     "duration": 32,
     "disjunctiveResource": "DR0",
-    "endDate": "27/10/2024 03:56",
+    "endDate": "27/1/2025 06:41",
     "name": "DDR0",
     "start": 1356,
     "end": 1388,
-    "startDate": "27/10/2024 01:16"
+    "startDate": "27/1/2025 04:01"
   }],
   "cumulativeProfile": [{
-    "fromDate": "22/10/2024 08:16",
+    "fromDate": "22/1/2025 11:01",
     "cumulativeResource": "CR0",
     "name": "CP00",
     "from": 0,
@@ -197,6 +200,7 @@ FontStyle italic
   "solverRun": [],
   "jobAssignment": [],
   "job": [{
+    "noOverlap": false,
     "process": "Process 0",
     "name": "J0",
     "order": "Order0"
@@ -205,10 +209,10 @@ FontStyle italic
     "product": "Prod0",
     "process": "Process 0",
     "due": 1995,
-    "releaseDate": "22/10/2024 08:16",
+    "releaseDate": "22/1/2025 11:01",
     "release": 0,
     "qty": 5,
-    "dueDate": "29/10/2024 06:31",
+    "dueDate": "29/1/2025 09:16",
     "name": "Order0",
     "earlinessWeight": 1,
     "latenessWeight": 1
@@ -216,11 +220,11 @@ FontStyle italic
   "wip": [{
     "duration": 43,
     "disjunctiveResource": "DR0",
-    "endDate": "22/10/2024 11:51",
+    "endDate": "22/1/2025 14:36",
     "name": "WDR0",
     "start": 0,
     "end": 43,
-    "startDate": "22/10/2024 08:16"
+    "startDate": "22/1/2025 11:01"
   }]
 }
 @endjson

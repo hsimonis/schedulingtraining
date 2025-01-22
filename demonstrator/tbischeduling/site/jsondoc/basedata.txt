@@ -97,7 +97,10 @@ FontStyle italic
     "name": "Prod0",
     "defaultProcess": "Process 0"
   }],
-  "process": [{"name": "Process 0"}],
+  "process": [{
+    "name": "Process 0",
+    "noOverlap": false
+  }],
   "disjunctiveResource": [{"name": "DR0"}],
   "inputError": [],
   "cumulativeNeed": [
@@ -144,7 +147,7 @@ FontStyle italic
   ],
   "downtime": [],
   "cumulativeProfile": [{
-    "fromDate": "22/10/2024 08:16",
+    "fromDate": "22/1/2025 11:01",
     "name": "CP00",
     "from": 0,
     "cumulativeResource": "CR0",
