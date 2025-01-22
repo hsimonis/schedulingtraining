@@ -430,7 +430,7 @@ public class JfxApp extends GeneratedJfxApp {
                 DataGeneratorProperty res = new DataGeneratorProperty(base);
                 res.setName("Default Properties");
                 res.setStartDateTime(base.getStartDateTime());
-                info("DateGenerator startDate "+res.getStartDateTime());
+                info("DataGenerator startDate "+res.getStartDateTime());
                 return res;
         }
 
