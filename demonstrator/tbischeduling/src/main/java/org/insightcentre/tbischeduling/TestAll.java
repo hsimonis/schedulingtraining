@@ -60,7 +60,7 @@ public class TestAll {
 //
 ////        testAll("imports/RCPSP/SingleMode/j60/","results/",CPO,4,600,overWrite);
 ////        testAll("imports/RCPSP/SingleMode/j60/","resultsCPSat/",CPSat,8,600,overWrite);
-        testAll("imports/RCPSP/SingleMode/j60/","resultsCplex/",MiniZincDiffn,SolverBackend.Cplex,8,600,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j60/","resultsCplex/",MiniZincDiffn,SolverBackend.Cplex,8,600,overWrite);
 //        testAll("imports/RCPSP/SingleMode/j60/","resultsMCPSat/",MiniZincDiffn,SolverBackend.CPSat,8,600,overWrite);
 ////        base.resetListSolutionSummary();
 //        analyzeAll(base,"imports/RCPSP/SingleMode/j60/results/","RCPSP J60 (CPO)","rcpspj60CPO","CPO");
@@ -86,22 +86,34 @@ public class TestAll {
 
 //        testAll("imports/Taillard/OSS/","results/",CPO,4,600,overWrite);
 //        testAll("imports/Taillard/OSS/","resultsCPSat/",CPSat,8,30,overWrite);
+//        testAll("imports/Taillard/OSS/","resultsCplex/",MiniZincDiffn,Cplex,8,30,overWrite);
+//        testAll("imports/Taillard/OSS/","resultsChuffed/",MiniZincDiffn,Chuffed,1,30,overWrite);
+//        testAll("imports/Taillard/OSS/","resultsMCPSat/",MiniZincDiffn,SolverBackend.CPSat,8,30,overWrite);
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard OpenShop (CPO)","oss","CPO");
 //        analyzeAll(base,"imports/Taillard/OSS/resultsCPSat/","Taillard OpenShop (CPSat)","ossCPSat","CPSat");
 //        compareSummaries(base,"compareoss",false,"CPO","CPSat",
 //                "Comparison of CPO and CPSat for Result Groups of Taillard OpenShop Problems",GroupType.Taillard);
 //        testAll("imports/Taillard/JSS/","resultsCPSat/");
+//        testAll("imports/Taillard/JSS/","resultsCplex/",MiniZincDiffn,Cplex,8,30,overWrite);
+//        testAll("imports/Taillard/JSS/","resultsChuffed/",MiniZincDiffn,Chuffed,1,30,overWrite);
+//        testAll("imports/Taillard/JSS/","resultsMCPSat/",MiniZincDiffn,SolverBackend.CPSat,8,30,overWrite);
+
 //        base.resetListSolutionSummary();
 //        analyzeAll(base,"imports/Taillard/JSS/results/","Taillard JobShop (CPO)","jss","CPO");
 //        analyzeAll(base,"imports/Taillard/JSS/resultsCPSat/","Taillard JobShop (CPSat)","jssCPSat","CPSat");
 //        compareSummaries(base,"comparejss",false,"CPO","CPSat",
 //                "Comparison of CPO and CPSat for Result Groups of Taillard JobShop Problems",GroupType.Taillard);
 //
-////        testAll("imports/Taillard/FSS/","resultsCPSat/");
+//        testAll("imports/Taillard/FSS/","results/",CPO,null,2,600,overWrite);
+//        testAll("imports/Taillard/FSS/","resultsCPSat/",CPSat,null,8,600,overWrite);
+//        testAll("imports/Taillard/FSS/","resultsCplex/",MiniZincDiffn,Cplex,8,600,overWrite);
+//        testAll("imports/Taillard/FSS/","resultsChuffed/",MiniZincDiffn,Chuffed,1,600,overWrite);
+//        testAll("imports/Taillard/FSS/","resultsMCPSat/",MiniZincDiffn,SolverBackend.CPSat,8,600,overWrite);
+
 //        base.resetListSolutionSummary();
-//        analyzeAll(base,"imports/Taillard/FSS/results/","Taillard Flowshop (CPO)","fss","CPSat");
-//        analyzeAll(base,"imports/Taillard/FSS/resultsCPSat/","Taillard Flowshop (CPSat)","fssCPSat","CPO");
+//        analyzeAll(base,"imports/Taillard/FSS/results/","Taillard Flowshop (CPO)","fss","CPO");
+//        analyzeAll(base,"imports/Taillard/FSS/resultsCPSat/","Taillard Flowshop (CPSat)","fssCPSat","CPSat");
 //        compareSummaries(base,"comparefss",false,"CPO","CPSat",
 //                "Comparison of CPO and CPSat for Result Groups of Taillard FlowShop Problems",GroupType.Taillard);
 //        base.resetListSolutionSummary();
@@ -109,6 +121,8 @@ public class TestAll {
 //        analyzeAll(base,"imports/Taillard/FSS/permutationresults/","Taillard Permutation Flowshop (CPO)","pfss","PFSS");
 //        compareSummaries(base,"comparepfss",true,"FSS","PFSS",
 //                "Comparison of CPO for Result Groups of Permutation and Unrestricted FlowShop Problems",GroupType.Taillard);
+
+
 //        testSALBP("salbp/","results/",CPO,null,4,120,overWrite);
 //        testSALBP("salbp/","resultsCPSat/",CPSat,null,8,120,overWrite);
 //        testSALBP("salbp/","resultsChuffed/",MiniZincDiffn,Chuffed,1,120,overWrite);
@@ -161,7 +175,39 @@ public class TestAll {
 //        analyzeAll(base,"salbp/alternativeCPSat/","SALBP-1 Problems Alternative (CPSat)","alternativesalbpCPSat","CPSatA",true);
 //        analyzeAll(base,"salbp/alternativeChuffed/","SALBP-1 Problems Alternative (Chuffed)","alternativesalbpChuffed","ChuffedA",true);
 //        analyzeAll(base,"salbp/alternativeCplex/","SALBP-1 Problems Alternative (Cplex)","alternativesalbpCplex","CplexA",true);
-//        tabularResults(base,"reports/salbpresultcompare.tex","reports/salbpresultsummary.tex");
+//        tabularResults(base,"reports/salbpresultcompare.tex","reports/salbpresultsummary.tex",
+//        "SALBP",new String[]{"base","Laborie","CPO","CPSat","Cplex","Chuffed","MCPSat","CPOA","CPSatA","ChuffedA","CplexA"});
+
+        base.resetListSolutionSummary();
+        baseResults(base,"imports/Taillard/FSS/bounds.csv","base");
+        analyzeAll(base,"imports/Taillard/FSS/results/","Taillard Flowshop (CPO)","fss","CPO");
+        analyzeAll(base,"imports/Taillard/FSS/resultsCPSat/","Taillard Flowshop (CPSat)","fssCPSat","CPSat");
+        analyzeAll(base,"imports/Taillard/FSS/resultsCplex/","Taillard Flowshop (Cplex)","fssCplex","Cplex");
+        analyzeAll(base,"imports/Taillard/FSS/resultsChuffed/","Taillard Flowshop (Chuffed)","fssChuffed","Chuffed");
+        analyzeAll(base,"imports/Taillard/FSS/resultsMCPSat/","Taillard Flowshop (MiniZinc CPSat)","fssMCPSat","MCPSat");
+        tabularResults(base,"reports/fssresultcompare.tex","reports/fssresultsummary.tex",
+                "Taillard FSS",new String[]{"base","CPO","CPSat","Cplex","Chuffed","MCPSat"});
+
+        base.resetListSolutionSummary();
+        baseResults(base,"imports/Taillard/JSS/bounds.csv","base");
+        analyzeAll(base,"imports/Taillard/JSS/results/","Taillard Jobshop (CPO)","jss","CPO");
+        analyzeAll(base,"imports/Taillard/JSS/resultsCPSat/","Taillard Jobshop (CPSat)","jssCPSat","CPSat");
+        analyzeAll(base,"imports/Taillard/JSS/resultsCplex/","Taillard Jobshop (Cplex)","jssCplex","Cplex");
+        analyzeAll(base,"imports/Taillard/JSS/resultsChuffed/","Taillard Jobshop (Chuffed)","jssChuffed","Chuffed");
+        analyzeAll(base,"imports/Taillard/JSS/resultsMCPSat/","Taillard Jobshop (MiniZinc CPSat)","jssMCPSat","MCPSat");
+        tabularResults(base,"reports/jssresultcompare.tex","reports/jssresultsummary.tex",
+                "Taillard JSS",new String[]{"base","CPO","CPSat","Cplex","Chuffed","MCPSat"});
+
+        base.resetListSolutionSummary();
+        baseResults(base,"imports/Taillard/OSS/bounds.csv","base");
+        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard Openshop (CPO)","oss","CPO");
+        analyzeAll(base,"imports/Taillard/OSS/resultsCPSat/","Taillard Openshop (CPSat)","ossCPSat","CPSat");
+        analyzeAll(base,"imports/Taillard/OSS/resultsCplex/","Taillard Openshop (Cplex)","ossCplex","Cplex");
+        analyzeAll(base,"imports/Taillard/OSS/resultsChuffed/","Taillard Openshop (Chuffed)","ossChuffed","Chuffed");
+        analyzeAll(base,"imports/Taillard/OSS/resultsMCPSat/","Taillard Openshop (MiniZinc CPSat)","ossMCPSat","MCPSat");
+        tabularResults(base,"reports/ossresultcompare.tex","reports/ossresultsummary.tex",
+                "Taillard OSS",new String[]{"base","CPO","CPSat","Cplex","Chuffed","MCPSat"});
+
 
     }
 
@@ -734,7 +780,7 @@ public class TestAll {
         return String.format("%5.2f",100.0*a/b);
     }
 
-    private static void tabularResults(Scenario base,String fileName,String summaryName){
+    private static void tabularResults(Scenario base,String fileName,String summaryName,String problemClass,String[] solvers){
         List<Integer> sizes = base.getListSolutionSummary().stream().
                 map(SolutionSummary::getNrTasks).
                 distinct().
@@ -744,6 +790,7 @@ public class TestAll {
             PrintWriter out = new PrintWriter(fileName);
             PrintWriter outSummary = new PrintWriter(summaryName);
             for(int size:sizes) {
+                info("Size "+size);
                 Hashtable<String,Integer> typeHash = new Hashtable<>();
                 List<String> problems = base.getListSolutionSummary().stream().
                         filter(x -> x.getNrTasks() == size).
@@ -756,12 +803,15 @@ public class TestAll {
                     assert (hash.get(key(s)) == null);
                     hash.put(key(s), s);
                 }
-                out.printf("\\section{SALBP Results Size %d}\n",size);
+                out.printf("\\section{%s Results Size %d}\n",problemClass,size);
                 out.printf("{\\tiny\n");
-                out.printf("\\begin{longtable}{lrrrrrrrrrrrrr}\n");
-                out.printf("\\caption{Result Comparison for SALBP Size %d (%d Instances)}\\\\\\toprule\n",size,problems.size());
-                out.printf("& Best & \\multicolumn{2}{c}{SALOME} & Laborie &\\multicolumn{2}{c}{Direct} & \\multicolumn{3}{c}{Direct MiniZinc} & \\multicolumn{2}{c}{Alternative}& \\multicolumn{2}{c}{Alternative MiniZinc}\\\\");
-                out.printf("Instance & LB & LB & UB & CPO & CPO & CPSat & Cplex & Chuffed & CPSat & CPO & CPSat & Chuffed & Cplex\\\\\\midrule\n");
+//                out.printf("\\begin{longtable}{lrrrrrrrrrrrrr}\n");
+                out.printf("\\begin{longtable}{lrrrrrrrr}\n");
+                out.printf("\\caption{Result Comparison for %s Size %d (%d Instances)}\\\\\\toprule\n",problemClass,size,problems.size());
+//                out.printf("& Best & \\multicolumn{2}{c}{SALOME} & Laborie &\\multicolumn{2}{c}{Direct} & \\multicolumn{3}{c}{Direct MiniZinc} & \\multicolumn{2}{c}{Alternative}& \\multicolumn{2}{c}{Alternative MiniZinc}\\\\");
+//                out.printf("Instance & LB & LB & UB & CPO & CPO & CPSat & Cplex & Chuffed & CPSat & CPO & CPSat & Chuffed & Cplex\\\\\\midrule\n");
+                out.printf("& Best & \\multicolumn{2}{c}{Taillard} & \\multicolumn{2}{c}{Direct} & \\multicolumn{3}{c}{Direct MiniZinc} \\\\");
+                out.printf("Instance & LB & LB & UB & CPO & CPSat & Cplex & Chuffed & CPSat \\\\\\midrule\n");
                 out.printf("\\endhead\n");
                 out.printf("\\bottomrule\n");
                 out.printf("\\endfoot\n");
@@ -833,22 +883,22 @@ public class TestAll {
                         out.printf("& n/a");
                     }
                     printSol(out, ub, ubStatus, min, max, exAequo,typeHash,"base");
-                    printSol(out, lab, labStatus, min, max, exAequo,typeHash,"Laborie");
+//                    printSol(out, lab, labStatus, min, max, exAequo,typeHash,"Laborie");
                     printSol(out, a, aStatus, min, max, exAequo,typeHash,"CPO");
                     printSol(out, b, bStatus, min, max, exAequo,typeHash,"CPSat");
                     printSol(out, b1, b1Status, min, max, exAequo,typeHash,"Cplex");
                     printSol(out, b2, b2Status, min, max, exAequo,typeHash,"Chuffed");
                     printSol(out, b3, b3Status, min, max, exAequo,typeHash,"MCPSat");
-                    printSol(out, c, cStatus, min, max, exAequo,typeHash,"CPOA");
-                    printSol(out, d, dStatus, min, max, exAequo,typeHash,"CPSatA");
-                    printSol(out, d1, d1Status, min, max, exAequo,typeHash,"ChuffedA");
-                    printSol(out, d2, d2Status, min, max, exAequo,typeHash,"CplexA");
+//                    printSol(out, c, cStatus, min, max, exAequo,typeHash,"CPOA");
+//                    printSol(out, d, dStatus, min, max, exAequo,typeHash,"CPSatA");
+//                    printSol(out, d1, d1Status, min, max, exAequo,typeHash,"ChuffedA");
+//                    printSol(out, d2, d2Status, min, max, exAequo,typeHash,"CplexA");
                     out.printf("\\\\\n");
                 }
                 out.printf("\\end{longtable}\n\n");
                 out.printf("}\n\n"); // end {\\scriptsize
-                typeSummary(outSummary,typeHash,size,problems.size(),false);
-                typeSummary(outSummary,typeHash,size,problems.size(),true);
+                typeSummary(outSummary,typeHash,size,problems.size(),false,problemClass,solvers);
+                typeSummary(outSummary,typeHash,size,problems.size(),true,problemClass,solvers);
             }
             out.close();
             outSummary.close();
@@ -859,7 +909,7 @@ public class TestAll {
 
     private static void printSol(PrintWriter out,Integer v,SolverStatus status,int minUB,int maxLB,int exAequo,Hashtable<String,Integer> typeHash,String solver){
         String type = solver+"/"+type(v,status,minUB,maxLB,exAequo);
-        info("type "+type);
+//        info("type "+type);
         updateTypeCount(typeHash,type);
         if (status == Infeasible){
             out.printf("& \\cellcolor{red!40} unsat ");
@@ -910,7 +960,7 @@ public class TestAll {
         hash.merge(type, 1, Integer::sum);
     }
 
-    private static void typeSummary(PrintWriter out,Hashtable<String,Integer> hash,int size,int nrInstances,boolean asPercentage){
+    private static void typeSummary(PrintWriter out,Hashtable<String,Integer> hash,int size,int nrInstances,boolean asPercentage,String problemClass,String[] solvers){
         Collection<String> compound = hash.keySet();
 //        Collection<String> types = compound.stream().map(TestAll::compoundType).distinct().sorted().toList();
         String[] types = new String[]{"UniqueProvenOptimal","SharedProvenOptimal",
@@ -929,10 +979,9 @@ public class TestAll {
                 "Total"};
         info("types "+ Arrays.toString(types));
 //        Collection<String> solvers = compound.stream().map(TestAll::compoundSolver).distinct().sorted().toList();
-        String[] solvers = new String[]{"base","Laborie","CPO","CPSat","Cplex","Chuffed","MCPSat","CPOA","CPSatA","ChuffedA","CplexA"};
         info("solvers "+ Arrays.toString(solvers));
         out.printf("\\begin{table}[htbp]\n");
-        out.printf("\\caption{SALBP Results Summary Size %d (%d Instances)}\n",size,nrInstances);
+        out.printf("\\caption{%s Results Summary Size %d (%d Instances)}\n",problemClass,size,nrInstances);
         out.printf("{\\tiny\n");
         out.printf("\\begin{tabular}{l*{%d}{r}}\\toprule\n",solvers.length);
         out.printf("Type ");
@@ -1072,7 +1121,7 @@ public class TestAll {
 //                System.out.println(nextLine[0]);
                 if (!nextLine[0].equals("")) {
 
-                    String instance = nextLine[col++].trim()+".alb";
+                    String instance = nextLine[col++].trim()+".json";
                     int lb = readInteger(nextLine[col++].trim());
                     int ub = readInteger(nextLine[col++].trim());
 
@@ -1083,7 +1132,8 @@ public class TestAll {
                     ss.setMakespan(ub);
                     ss.setVariant(variant);
                     String[] split = instance.split("_");
-                    int nrTasks = Integer.parseInt(split[1].substring(2));
+//                    int nrTasks = Integer.parseInt(split[1].substring(2));
+                    int nrTasks = Integer.parseInt(split[0].substring(3))*Integer.parseInt(split[1]);
                     ss.setNrTasks(nrTasks);
                     ss.setSolverStatus(lb == ub?Optimal:SolverStatus.Solution);
 

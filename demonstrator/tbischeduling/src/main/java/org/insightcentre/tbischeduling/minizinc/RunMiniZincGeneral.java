@@ -143,6 +143,7 @@ public class RunMiniZincGeneral {
             case "UNSATISFIABLE": return Unsatisfiable;
             case "UNKNOWN": return Unknown;
             case "OPTIMAL_SOLUTION": return Optimal;
+            case "ERROR": return SolutionStatus.Unknown;
             default:
                 severe("Bad status "+text);
                 assert(false);

@@ -21,6 +21,7 @@ The results are obtained by running the TestAll main routine for the different b
 
 The detailed execution time depends on many parameters that are not well controlled in the test environment, so the results should be considered with caution. Tests were run on a Windows 11 laptop using CPOptimizer 22.1.0, and CPSat 9.11, both using their Java API. 
 
+
 \chapter{Overview}
 
 The following tables compare the results of CPOptimizer and CPSat on a number of well-known benchmark problems. Note that the programs used are the generic solutions of the problems, there was no attempt to improve lower bounds, or add redundant constraints that would improve pruning for a specific problem class. As such, the results indicate "out-of-the-box"  performance of the solvers.
@@ -88,6 +89,18 @@ All problems are solved to optimality, possibly due to their small to moderate s
 
 \input{resultsossCPSat}
 
+\section{Results for Chuffed}
+
+\input{resultsossChuffed}
+
+\section{Results for Cplex}
+
+\input{resultsossCplex}
+
+\section{Results for MiniZinc CPSat}
+
+\input{resultsossMCPSat}
+
 \clearpage
 \chapter{Taillard Job Shop Problems}
 
@@ -100,6 +113,18 @@ The results are rather confusing, as some smaller problems cannot be solved to o
 \section{Results for CPSat}
 
 \input{resultsjssCPSat}
+
+\section{Results for Chuffed}
+
+\input{resultsjssChuffed}
+
+\section{Results for Cplex}
+
+\input{resultsjssCplex}
+
+\section{Results for MiniZinc CPSat}
+
+\input{resultsjssMCPSat}
 
 \section{Sample Results on Mac (CPOptimizer)}
 For a selected subset of the tests, we also tried running on a mac laptop, results show some good improvement of the m2 based laptop over the Intel based Windows machine, but the improvements are not consistent.
@@ -117,6 +142,18 @@ These problems seem to be more difficult to solve to optimality. The number of s
 \section{Results for CPSat}
 
 \input{resultsfssCPSat}
+
+\section{Results for Chuffed}
+
+\input{resultsfssChuffed}
+
+\section{Results for Cplex}
+
+\input{resultsfssCplex}
+
+\section{Results for MiniZinc CPSat}
+
+\input{resultsfssMCPSat}
 
 \section{Permutation Flowshop Results for CPOptimizer}
 
@@ -236,5 +273,29 @@ The detailed result tables for the individual RCPSP instances show that many ins
 \clearpage
 
 \input{salbpresultcompare}
+
+\clearpage
+\chapter{Result Comparison for Taillard FSS}
+
+\input{fssresultsummary}
+\clearpage
+
+\input{fssresultcompare}
+
+\clearpage
+\chapter{Result Comparison for Taillard JSS}
+
+\input{jssresultsummary}
+\clearpage
+
+\input{jssresultcompare}
+
+\clearpage
+\chapter{Result Comparison for Taillard OSS}
+
+\input{ossresultsummary}
+\clearpage
+
+\input{ossresultcompare}
 
 \end{document}

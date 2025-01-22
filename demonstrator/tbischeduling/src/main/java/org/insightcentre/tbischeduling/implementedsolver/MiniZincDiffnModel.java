@@ -15,8 +15,7 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.groupingBy;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
-import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
-import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
+import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
 public class MiniZincDiffnModel extends AbstractModel{
     int jaNr=1;
@@ -38,44 +37,49 @@ public class MiniZincDiffnModel extends AbstractModel{
                 program,
                 dataFile,
                 resultFile, run.getTimeout(),run.getNrThreads()).solve();
-        info("Status" +sol.getSolutionStatus());
+        if (sol != null) {
+            info("Status" + sol.getSolutionStatus());
 //        info("tasks "+sol.getStart().length+" Cost "+sol.getCost());
 //        info("names "+ Arrays.toString(sol.getTasks()));
-        SolverStatus status = toSolverStatus(sol.getSolutionStatus());
-        run.setSolverStatus(status);
-        run.setTime(sol.getTime());
-        if (status ==Optimal || status == Solution) {
-            Solution solution = new Solution(base);
-            solution.setName("minizinc");
-            solution.setObjectiveValue(sol.getCost());
-            // we should get a bound from MiniZinc
-            solution.setBound(0.0);
-            solution.setGapPercent(100.0);
-            solution.setSolverRun(run);
-            solution.setSolverStatus(status);
-            Hashtable<Job, JobAssignment> jobHash = new Hashtable<>();
-            for (int i = 0; i < sol.getStart().length; i++) {
-                int start = sol.getStart()[i];
-                String name = sol.getTasks()[i];
-                Task t = Task.findByName(base, name);
-                DisjunctiveResource m = DisjunctiveResource.findByName(base, sol.getMachines()[i]);
-                Job j = Job.findByName(base, sol.getJobs()[i]);
-                assert (t != null);
-                TaskAssignment ta = new TaskAssignment(base);
-                ta.setName("TA" + i);
-                ta.setTask(t);
-                ta.setStart(start);
-                ta.setEnd(start + t.getDuration());
-                ta.setDuration(t.getDuration());
-                ta.setDisjunctiveResource(m);
-                ta.setJobAssignment(findJobAssignment(j, solution, jobHash));
+            SolverStatus status = toSolverStatus(sol.getSolutionStatus());
+            run.setSolverStatus(status);
+            run.setTime(sol.getTime());
+            if (status == Optimal || status == Solution) {
+                Solution solution = new Solution(base);
+                solution.setName("minizinc");
+                solution.setObjectiveValue(sol.getCost());
+                // we should get a bound from MiniZinc
+                solution.setBound(0.0);
+                solution.setGapPercent(100.0);
+                solution.setSolverRun(run);
+                solution.setSolverStatus(status);
+                Hashtable<Job, JobAssignment> jobHash = new Hashtable<>();
+                for (int i = 0; i < sol.getStart().length; i++) {
+                    int start = sol.getStart()[i];
+                    String name = sol.getTasks()[i];
+                    Task t = Task.findByName(base, name);
+                    DisjunctiveResource m = DisjunctiveResource.findByName(base, sol.getMachines()[i]);
+                    Job j = Job.findByName(base, sol.getJobs()[i]);
+                    assert (t != null);
+                    TaskAssignment ta = new TaskAssignment(base);
+                    ta.setName("TA" + i);
+                    ta.setTask(t);
+                    ta.setStart(start);
+                    ta.setEnd(start + t.getDuration());
+                    ta.setDuration(t.getDuration());
+                    ta.setDisjunctiveResource(m);
+                    ta.setJobAssignment(findJobAssignment(j, solution, jobHash));
 //            ta.setJobAssignment(ja);
-            }
-            updateJA(solution);
+                }
+                updateJA(solution);
 
-            return true;
+                return true;
+            } else {
+                info("Solver failed");
+                return false;
+            }
         } else {
-            info("Solver failed");
+            warning("No answer returned");
             return false;
         }
 
