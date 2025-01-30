@@ -1,0 +1,62 @@
+\documentclass[a4paper]{article}
+\title{Constraint Model to deal with Process Alternatives}
+\author{H. Simonis}
+\begin{document}
+\maketitle
+\begin{abstract}
+This document describes the constraints needed to deal with a generalized scheduling model that allows for alternative processes, bill of materials, intermediate products, and process step choices.
+\end{abstract}
+\section{Model}
+\subsection{Variables}
+The model is expressed with task variables, which represent the stature of a task starting at a time point, running until its end, with a variable duration. The task may of may not be present in the solution. We add a preference field which tells us what is our preference if that task is present in the solution.
+\begin{description}
+\item[$z_{k}$] task variable for order $k$
+\item[$y_{jk}$] task variable for job $j$ of order $k$
+\item[$x_{ij}$] task variable for task $i$ of job $j$
+\item[$v_{im}$] task variable for machineTask of task $i$ on machine $m$
+\end{description}
+
+All task variables have fields
+\begin{description}
+\item[start] start of task
+\item[end] end of task
+\item[duration] duration of task
+\item[present] boolean flag that indicates of the task is present in schedule
+\item[preference] integer preference value to use in the objective 
+\end{description}
+
+\subsection{Constraints}
+
+\begin{equation}
+z_{k}.\textrm{end} \leq \textrm{due}_{k}
+\end{equation}
+
+\begin{equation}
+z_{k}.\textrm{start} \geq \textrm{release}_{k}
+\end{equation}
+
+\begin{equation}
+\textrm{endBeforeStart}(t_{i_1,j},t_{i_2,j})
+\end{equation}
+
+
+\begin{equation}
+\texttt{alternative}(z_{k},[y_{j,k}| \textrm{job}\ j\ \textrm{is based on an alternative process for the manufactured product of order}\ k])
+\end{equation}
+
+
+\begin{equation}
+\texttt{span}(y_{jk},[t_{ij}|\textrm{task}\ i\ \textrm{belongs to job} \ j])
+\end{equation}
+
+\begin{equation}
+\texttt{alternative}(t_{i,j},[t_{i'j} |t'\ \textrm{is a choice for alternative task}\ i])
+\end{equation}
+
+
+\subsection{Objective}
+\begin{equation}
+\min \sum y_{jk}.\textrm{pref}*y_{jk}.\textrm{present} + \sum x_{ij}.\textrm{pref}*x_{ij}.\textrm{present} + \sum v_{im}.\textrm{pref}*v_{im}.\textrm{present} 
+\end{equation}
+
+\end{document}
