@@ -1541,6 +1541,9 @@ public DurationDisplay getDurationDisplay(String attributeName,
                         id,
                         getString("name", attributes, "dummy"),
                         null,
+                        getInteger("durationFixed",attributes,0),
+                        getInteger("durationPerUnit",attributes,0),
+                        getInteger("preference",attributes,0),
                         null,
                         getInteger("value",attributes,0)
                         ));

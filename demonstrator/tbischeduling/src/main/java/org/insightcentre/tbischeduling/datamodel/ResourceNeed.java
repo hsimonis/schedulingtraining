@@ -96,6 +96,27 @@ public  class ResourceNeed extends ApplicationObject{
  *
 */
 
+    public Integer durationFixed;
+
+/**
+ *  
+ *
+*/
+
+    public Integer durationPerUnit;
+
+/**
+ *  
+ *
+*/
+
+    public Integer preference;
+
+/**
+ *  
+ *
+*/
+
     public ProcessStep processStep;
 
 /**
@@ -125,6 +146,9 @@ public  class ResourceNeed extends ApplicationObject{
     public ResourceNeed(ApplicationDataset applicationDataset){
         super(applicationDataset);
         setDisjunctiveResource(null);
+        setDurationFixed(0);
+        setDurationPerUnit(0);
+        setPreference(0);
         setProcessStep(null);
         setValue(1);
         applicationDataset.addResourceNeed(this);
@@ -141,12 +165,18 @@ public  class ResourceNeed extends ApplicationObject{
             Integer id,
             String name,
             DisjunctiveResource disjunctiveResource,
+            Integer durationFixed,
+            Integer durationPerUnit,
+            Integer preference,
             ProcessStep processStep,
             Integer value){
         super(applicationDataset,
             id,
             name);
         setDisjunctiveResource(disjunctiveResource);
+        setDurationFixed(durationFixed);
+        setDurationPerUnit(durationPerUnit);
+        setPreference(preference);
         setProcessStep(processStep);
         setValue(value);
         applicationDataset.addResourceNeed(this);
@@ -157,6 +187,9 @@ public  class ResourceNeed extends ApplicationObject{
             other.id,
             other.name,
             other.disjunctiveResource,
+            other.durationFixed,
+            other.durationPerUnit,
+            other.preference,
             other.processStep,
             other.value);
     }
@@ -180,6 +213,36 @@ public  class ResourceNeed extends ApplicationObject{
 
     public DisjunctiveResource getDisjunctiveResource(){
         return this.disjunctiveResource;
+    }
+
+/**
+ *  get attribute durationFixed
+ *
+ * @return Integer
+*/
+
+    public Integer getDurationFixed(){
+        return this.durationFixed;
+    }
+
+/**
+ *  get attribute durationPerUnit
+ *
+ * @return Integer
+*/
+
+    public Integer getDurationPerUnit(){
+        return this.durationPerUnit;
+    }
+
+/**
+ *  get attribute preference
+ *
+ * @return Integer
+*/
+
+    public Integer getPreference(){
+        return this.preference;
     }
 
 /**
@@ -215,6 +278,42 @@ public  class ResourceNeed extends ApplicationObject{
     }
 
 /**
+ *  set attribute durationFixed, mark dataset as dirty, mark dataset as not valid
+@param durationFixed Integer
+ *
+*/
+
+    public void setDurationFixed(Integer durationFixed){
+        this.durationFixed = durationFixed;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute durationPerUnit, mark dataset as dirty, mark dataset as not valid
+@param durationPerUnit Integer
+ *
+*/
+
+    public void setDurationPerUnit(Integer durationPerUnit){
+        this.durationPerUnit = durationPerUnit;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  set attribute preference, mark dataset as dirty, mark dataset as not valid
+@param preference Integer
+ *
+*/
+
+    public void setPreference(Integer preference){
+        this.preference = preference;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute processStep, mark dataset as dirty, mark dataset as not valid
 @param processStep ProcessStep
  *
@@ -234,6 +333,39 @@ public  class ResourceNeed extends ApplicationObject{
 
     public void setValue(Integer value){
         this.value = value;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute durationFixed, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incDurationFixed(){
+        this.durationFixed++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute durationPerUnit, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incDurationPerUnit(){
+        this.durationPerUnit++;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
+ *  inc attribute preference, mark dataset as dirty, mark dataset as not valid
+ *
+*/
+
+    public void incPreference(){
+        this.preference++;
         getApplicationDataset().setDirty(true);
         getApplicationDataset().setValid(false);
     }
@@ -266,7 +398,7 @@ public  class ResourceNeed extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getProcessStep().toColumnString()+ " " +getValue();
+        return ""+ " " +getId()+ " " +getName()+ " " +getDisjunctiveResource().toColumnString()+ " " +getDurationFixed()+ " " +getDurationPerUnit()+ " " +getPreference()+ " " +getProcessStep().toColumnString()+ " " +getValue();
     }
 
 /**
@@ -291,6 +423,9 @@ public  class ResourceNeed extends ApplicationObject{
             " id=\""+toXMLId()+"\""+
             " name=\""+toXMLName()+"\""+
             " disjunctiveResource=\""+toXMLDisjunctiveResource()+"\""+
+            " durationFixed=\""+toXMLDurationFixed()+"\""+
+            " durationPerUnit=\""+toXMLDurationPerUnit()+"\""+
+            " preference=\""+toXMLPreference()+"\""+
             " processStep=\""+toXMLProcessStep()+"\""+
             " value=\""+toXMLValue()+"\""+" />");
      }
@@ -303,6 +438,36 @@ public  class ResourceNeed extends ApplicationObject{
 
     String toXMLDisjunctiveResource(){
         return "ID_"+this.getDisjunctiveResource().getId().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLDurationFixed(){
+        return this.getDurationFixed().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLDurationPerUnit(){
+        return this.getDurationPerUnit().toString();
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
+    String toXMLPreference(){
+        return this.getPreference().toString();
     }
 
 /**
@@ -332,11 +497,11 @@ public  class ResourceNeed extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>ResourceNeed</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>ProcessStep</th>"+"<th>Value</th>"+"</tr>";
+        return "<tr><th>ResourceNeed</th>"+"<th>Name</th>"+"<th>DisjunctiveResource</th>"+"<th>ProcessStep</th>"+"<th>DurationFixed</th>"+"<th>DurationPerUnit</th>"+"<th>Preference</th>"+"<th>Value</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+ " " +"<td>"+getValue()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDisjunctiveResource().toColumnString()+"</td>"+ " " +"<td>"+getProcessStep().toColumnString()+"</td>"+ " " +"<td>"+getDurationFixed()+"</td>"+ " " +"<td>"+getDurationPerUnit()+"</td>"+ " " +"<td>"+getPreference()+"</td>"+ " " +"<td>"+getValue()+"</td>"+"</tr>";
     }
 
 /**
@@ -456,8 +621,17 @@ public  class ResourceNeed extends ApplicationObject{
       if(!this.getDisjunctiveResource().applicationSame(b.getDisjunctiveResource())){
          System.out.println("DisjunctiveResource");
         }
+      if(!this.getDurationFixed().equals(b.getDurationFixed())){
+         System.out.println("DurationFixed");
+        }
+      if(!this.getDurationPerUnit().equals(b.getDurationPerUnit())){
+         System.out.println("DurationPerUnit");
+        }
       if(!this.getName().equals(b.getName())){
          System.out.println("Name");
+        }
+      if(!this.getPreference().equals(b.getPreference())){
+         System.out.println("Preference");
         }
       if(!this.getProcessStep().applicationSame(b.getProcessStep())){
          System.out.println("ProcessStep");
@@ -466,7 +640,10 @@ public  class ResourceNeed extends ApplicationObject{
          System.out.println("Value");
         }
         return  this.getDisjunctiveResource().applicationSame(b.getDisjunctiveResource()) &&
+          this.getDurationFixed().equals(b.getDurationFixed()) &&
+          this.getDurationPerUnit().equals(b.getDurationPerUnit()) &&
           this.getName().equals(b.getName()) &&
+          this.getPreference().equals(b.getPreference()) &&
           this.getProcessStep().applicationSame(b.getProcessStep()) &&
           this.getValue().equals(b.getValue());
     }

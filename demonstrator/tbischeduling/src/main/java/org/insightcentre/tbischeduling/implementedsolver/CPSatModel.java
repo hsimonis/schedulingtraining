@@ -2,6 +2,7 @@ package org.insightcentre.tbischeduling.implementedsolver;
 
 import com.google.ortools.Loader;
 import com.google.ortools.sat.*;
+import com.google.ortools.util.Domain;
 import org.insightcentre.tbischeduling.datamodel.*;
 
 import java.util.*;
@@ -144,6 +145,12 @@ public class CPSatModel extends AbstractModel{
 //                info("seq "+t+" "+after+" "+ps.getSequenceType());
                 switch (modifiedSequenceType(run,ps.getSequenceType())) {
                     case EndBeforeStart -> model.addGreaterOrEqual(start[taskHash.get(after)], end[taskHash.get(t)]);
+                    case MaxWait -> {
+                        // also impose endBeforeStart
+                        model.addGreaterOrEqual(start[taskHash.get(after)], end[taskHash.get(t)]);
+                        // max wait expression created locally: after.start <= t.end+offset
+                        addLessOrEqual(model,start[taskHash.get(after)], end[taskHash.get(t)],ps.getOffset());
+                    }
                     case StartBeforeStart ->
                             model.addGreaterOrEqual(start[taskHash.get(after)], start[taskHash.get(t)]);
                     case NoWait -> model.addEquality(start[taskHash.get(after)], end[taskHash.get(t)]);
@@ -528,5 +535,14 @@ public class CPSatModel extends AbstractModel{
                 filter(x->x.getBefore()==before && x.getAfter()==after).
                 findAny().orElse(null);
     }
+
+    public Constraint addLessOrEqual(CpModel model,LinearArgument left, LinearArgument right,long offset) {
+        LinearExprBuilder difference = LinearExpr.newBuilder();
+        difference.addTerm(left, 1L);
+        difference.addTerm(right, -1L);
+        difference.add(-offset);
+        return model.addLinearExpressionInDomain(difference, new Domain(Long.MIN_VALUE, 0L));
+    }
+
 
 }

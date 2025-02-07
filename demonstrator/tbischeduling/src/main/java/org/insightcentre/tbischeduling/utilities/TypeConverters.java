@@ -28,6 +28,7 @@ public class TypeConverters {
             case "StartBeforeStart" -> StartBeforeStart;
             case "NoWait" -> NoWait;
             case "NoBuffer" -> Blocking;
+            case "MaxWait" -> MaxWait;
             default -> null;
 
         };

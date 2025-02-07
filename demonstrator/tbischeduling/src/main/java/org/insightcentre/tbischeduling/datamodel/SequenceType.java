@@ -107,7 +107,13 @@ NoWait,
  *
 */
 
-Blocking;
+Blocking,
+    /**
+ *  
+ *
+*/
+
+MaxWait;
 private static SequenceType[] cache = null;
 
 public static SequenceType[] cachedValues(){

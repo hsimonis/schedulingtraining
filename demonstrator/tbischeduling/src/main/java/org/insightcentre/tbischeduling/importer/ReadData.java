@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
 import static org.insightcentre.tbischeduling.datamodel.ObjectiveType.*;
+import static org.insightcentre.tbischeduling.datamodel.SequenceType.*;
 import static org.insightcentre.tbischeduling.datamodel.Severity.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverBackend.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
@@ -138,6 +139,7 @@ public class ReadData {
         processMustBeSingleton();
         processStepDurationNotZero();
         processSeqOffsetMustBeZero();
+        processStepDurationMustBeKnown();
         scheduleIfRequired();
     }
 
@@ -161,9 +163,19 @@ public class ReadData {
 
     }
 
+    private void processStepDurationMustBeKnown(){
+        for(ResourceNeed rn:base.getListResourceNeed()){
+            if (rn.getDurationFixed() == null && rn.getProcessStep().getDurationFixed()==null){
+                inputError("resourceNeed",rn.getName(),"durationFixed","null","Duration must be given for resource need or processStep",Fatal);
+            } else if (rn.getDurationFixed() != null && rn.getProcessStep().getDurationFixed()!=null){
+                inputError("resourceNeed",rn.getName(),"durationFixed",rn.getDurationFixed(),"Duration cannot be given for both resource need and processStep",Fatal);
+            }
+        }
+    }
+
     private void processStepDurationNotZero(){
         for(ProcessStep ps:base.getListProcessStep()){
-            if (ps.getDurationPerUnit() == 0 && ps.getDurationFixed() ==0){
+            if (ps.getDurationPerUnit() != null && ps.getDurationPerUnit() == 0 && ps.getDurationFixed() ==0){
                 inputError("processStep",ps.getName(),"durationPerUnit",ps.getDurationPerUnit(),"One of durationPerUnit and durationFixed must be positive",Fatal);
             }
         }
@@ -171,8 +183,8 @@ public class ReadData {
 
     private void processSeqOffsetMustBeZero(){
         for(ProcessSequence seq:base.getListProcessSequence()){
-            if (seq.getOffset() != 0){
-                inputError("processSequence",seq.getName(),"offset",seq.getOffset(),"Currently, offset must be zero",Fatal);
+            if ((seq.getSequenceType() == EndBeforeStart  ||seq.getSequenceType() == NoWait  ||seq.getSequenceType() == Blocking)  || seq.getOffset() != 0){
+                inputError("processSequence",seq.getName(),"offset",seq.getOffset(),"Offset must be zero for this sequence type "+seq.getSequenceType(),Fatal);
             }
         }
     }
@@ -382,27 +394,30 @@ public class ReadData {
             JSONArray arr = root.getJSONArray(key);
             for(int i=0;i<arr.length();i++){
                 JSONObject item = arr.getJSONObject(i);
-                if (requireFields(key,i,item,new String[]{"name","process","durationFixed","durationPerUnit"})) {
+                // duration data no longer mandatory
+                if (requireFields(key,i,item,new String[]{"name","process"/*,"durationFixed","durationPerUnit"*/})) {
                     String name = item.getString("name");
                     String pName = item.getString("process");
-                    int durationFixed = item.getInt("durationFixed");
-                    int durationPerUnit = item.getInt("durationPerUnit");
                     Process process = processHash.get(pName);
                     if (process == null) {
                         inputError(key, name, "process", pName, "The required object does not exist", Fatal);
-                    }
-                    if (durationFixed < 0){
-                        inputError(key,name,"durationFixed",durationFixed,"Value cannot be negative",Fatal);
-                    }
-                    if (durationPerUnit < 0){
-                        inputError(key,name,"durationPerUnit",durationPerUnit,"Value cannot be negative",Fatal);
                     }
                     ProcessStep ps = new ProcessStep(base);
                     ps.setName(name);
                     ps.setShortName(name);
                     ps.setProcess(process);
-                    ps.setDurationFixed(durationFixed);
-                    ps.setDurationPerUnit(durationPerUnit);
+                    if (item.has("durationFixed")) {
+                        int durationFixed = item.getInt("durationFixed");
+                        int durationPerUnit = item.getInt("durationPerUnit");
+                        if (durationFixed < 0){
+                            inputError(key,name,"durationFixed",durationFixed,"Value cannot be negative",Fatal);
+                        }
+                        if (durationPerUnit < 0){
+                            inputError(key,name,"durationPerUnit",durationPerUnit,"Value cannot be negative",Fatal);
+                        }
+                        ps.setDurationFixed(durationFixed);
+                        ps.setDurationPerUnit(durationPerUnit);
+                    }
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }
@@ -484,6 +499,27 @@ public class ReadData {
                     rn.setName(name);
                     rn.setProcessStep(ps);
                     rn.setDisjunctiveResource(r);
+                    if (item.has("durationFixed")) {
+                        int durationFixed = item.getInt("durationFixed");
+                        int durationPerUnit = item.getInt("durationPerUnit");
+                        if (durationFixed < 0){
+                            inputError(key,name,"durationFixed",durationFixed,"Value cannot be negative",Fatal);
+                        }
+                        if (durationPerUnit < 0){
+                            inputError(key,name,"durationPerUnit",durationPerUnit,"Value cannot be negative",Fatal);
+                        }
+                        rn.setDurationFixed(durationFixed);
+                        rn.setDurationPerUnit(durationPerUnit);
+                    }
+                    if (item.has("preference")){
+                        int preference = item.getInt("preference");
+                        if (preference < 0){
+                            inputError(key,name,"preference",preference,"Value cannot be negative",Fatal);
+                        }
+                        rn.setPreference(preference);
+
+                    }
+
                     if (res.get(name) != null) {
                         inputError(key, name, "name", name, "Duplicate name", Fatal);
                     }

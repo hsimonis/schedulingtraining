@@ -96,7 +96,7 @@ public class CheckSolutions {
                     ProcessSequence seq = sequenceHash.get(sequenceKey(ta,after));
                     switch(seq.getSequenceType()) {
                         case EndBeforeStart:
-
+                            //??? should handle offset for minWait
                             if (!run.getRelaxSequence() && after.getStart() < ta.getEnd()) {
                                 newError(sol, "Task", t.getName(), "precedes", a.getName(),
                                         "Precedence EndBeforeStart not respected", Fatal);
@@ -104,7 +104,6 @@ public class CheckSolutions {
                             break;
                         case NoWait:
                         case Blocking:
-
                             if (!run.getRelaxSequence() && after.getStart() != (int) ta.getEnd()) {
                                 newError(sol, "Task", t.getName(), "precedes", a.getName(),
                                         "Precedence NoWait/NoBuffer not respected", Fatal);
@@ -114,6 +113,12 @@ public class CheckSolutions {
                             if (!run.getRelaxSequence() && after.getStart() < ta.getStart()) {
                                 newError(sol, "Task", t.getName(), "precedes", a.getName(),
                                         "Precedence StartBeforeStart not respected", Fatal);
+                            }
+                            break;
+                        case MaxWait:
+                            if (!run.getRelaxSequence() && after.getStart() < ta.getEnd() || after.getStart() > ta.getEnd()+seq.getOffset()) {
+                                newError(sol, "Task", t.getName(), "precedes", a.getName(),
+                                        "Precedence MaxWait not respected", Fatal);
                             }
                             break;
                         default:

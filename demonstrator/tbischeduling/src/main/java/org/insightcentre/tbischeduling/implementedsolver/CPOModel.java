@@ -191,6 +191,11 @@ public class CPOModel extends AbstractModel{
                         cp.add(cp.endBeforeStart(x[beforeIndex], x[afterIndex]));
                     } else if (seq.getSequenceType()==SequenceType.StartBeforeStart) {
                         cp.add(cp.startBeforeStart(x[beforeIndex], x[afterIndex]));
+                    } else if (seq.getSequenceType()==SequenceType.MaxWait) {
+                        // impose endBeforeStart
+                        cp.add(cp.endBeforeStart(x[beforeIndex], x[afterIndex]));
+                        //??? impose maxWait
+
                     } else if (seq.getSequenceType()== Blocking) {
                         cp.add(cp.endAtStart(x[beforeIndex], x[afterIndex]));
                     } else if (seq.getSequenceType()==SequenceType.NoWait) {

@@ -22,7 +22,7 @@ import org.insightcentre.tbischeduling.datamodel.ProcessStep;
 import org.insightcentre.tbischeduling.datamodel.ResourceNeed;
 
 /**
- * Generated at 13:12:27 on 2024-12-12 */
+ * Generated at 10:43:45 on 2025-02-06 */
 public class ResourceNeedController extends Table3Controller {
 	@FXML
 	private TableView<ResourceNeed> table;
@@ -35,6 +35,15 @@ public class ResourceNeedController extends Table3Controller {
 
 	@FXML
 	private TableColumn<ResourceNeed, ProcessStep> processStep;
+
+	@FXML
+	private TableColumn<ResourceNeed, Integer> durationFixed;
+
+	@FXML
+	private TableColumn<ResourceNeed, Integer> durationPerUnit;
+
+	@FXML
+	private TableColumn<ResourceNeed, Integer> preference;
 
 	@FXML
 	private TableColumn<ResourceNeed, Integer> value;
@@ -68,6 +77,18 @@ public class ResourceNeedController extends Table3Controller {
 		disjunctiveResource.setCellValueFactory(new PropertyValueFactory<>("disjunctiveResource"));
 		choices.add("processStep");
 		processStep.setCellValueFactory(new PropertyValueFactory<>("processStep"));
+		choices.add("durationFixed");
+		durationFixed.setCellValueFactory(new PropertyValueFactory<>("durationFixed"));
+		durationFixed.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		durationFixed.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDurationFixed(event.getNewValue()); mainApp.reset();});
+		choices.add("durationPerUnit");
+		durationPerUnit.setCellValueFactory(new PropertyValueFactory<>("durationPerUnit"));
+		durationPerUnit.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		durationPerUnit.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDurationPerUnit(event.getNewValue()); mainApp.reset();});
+		choices.add("preference");
+		preference.setCellValueFactory(new PropertyValueFactory<>("preference"));
+		preference.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));
+		preference.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setPreference(event.getNewValue()); mainApp.reset();});
 		choices.add("value");
 		value.setCellValueFactory(new PropertyValueFactory<>("value"));
 		value.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));

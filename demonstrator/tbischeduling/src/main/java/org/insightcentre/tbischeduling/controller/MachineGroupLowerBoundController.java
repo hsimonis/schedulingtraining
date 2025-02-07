@@ -19,7 +19,7 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.MachineGroupLowerBound;
 
 /**
- * Generated at 13:12:28 on 2024-12-12 */
+ * Generated at 10:43:45 on 2025-02-06 */
 public class MachineGroupLowerBoundController extends Table3Controller {
 	@FXML
 	private TableView<MachineGroupLowerBound> table;

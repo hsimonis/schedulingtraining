@@ -395,6 +395,9 @@
 			<xs:attribute name="id" use="required" type="xs:ID"/>
 			<xs:attribute name="name" use="required" type="xs:string"/>
 			<xs:attribute name="disjunctiveResource" use="required" type="xs:IDREF"/>
+			<xs:attribute name="durationFixed" use="required" type="xs:integer"/>
+			<xs:attribute name="durationPerUnit" use="required" type="xs:integer"/>
+			<xs:attribute name="preference" use="required" type="xs:integer"/>
 			<xs:attribute name="processStep" use="required" type="xs:IDREF"/>
 			<xs:attribute name="value" use="required" type="xs:integer"/>
 		</xs:complexType>
