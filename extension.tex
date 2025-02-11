@@ -9,10 +9,12 @@ This document describes the constraints needed to deal with a generalized schedu
 \end{abstract}
 \section{Model}
 \subsection{Notation}
+We use the following sets in the model.
 \begin{enumerate}
 \item[$O$] set of orders, may contain a single order
 \item[$J$] set of of optional jobs to satisfy the orders
 \item[$T$] set of all optional tasks needed to perform the jobs
+\item[$T_{o}$] set of all tasks linked to order $o$
 \item[$DM$] set of disjunctive resources
 \item[$CM$] set of cumulative resources
 \item[$RM$] set of raw materials considered
@@ -20,10 +22,10 @@ This document describes the constraints needed to deal with a generalized schedu
 \end{enumerate}
 
 \subsection{Variables}
-The model is expressed with task variables, which represent the stature of a task starting at a time point, running until its end, with a variable duration. The task may of may not be present in the solution. We add a preference field which tells us what is our preference if that task is present in the solution.
+The model is expressed with \emph{task variables}, which represent the structure of a task starting at a time point, running until its end, with a variable duration. The task may of may not be present in the solution, which is expressed with a binary \texttt{present} variable. We add a preference field which tells us what is our preference if that task is present in the solution.
 \begin{description}
 \item[$z_{k}$] task variable for order $k$
-\item[$y_{jk}$] task variable for job $j$ of order $k$
+\item[$y_{jk}$] task variable for job $j$ of order $k$, there can be multiple, optional jobs for an order; only one will be selected.
 \item[$x_{ij}$] task variable for task $i$ of job $j$
 \item[$v_{im}$] task variable for machineTask of task $i$ on machine $m$
 \end{description}
@@ -38,26 +40,28 @@ All task variables have fields
 \end{description}
 
 \subsection{Constraints}
-Our constraint model consist of a number of difference types, each responsible for some aspect of the model. We discuss the different types in the following paragraphs.
+Our constraint model consist of a number of different types, each responsible for some aspect of the model. We discuss the available types in the following paragraphs.
+
+In this model we assume that orders must be satisfied, we have to produce the order with one of the possible processes for the product made.
 
 \subsubsection{Constraining Order Dates}
 
-In the scenario considered, orders define a release date and a due date. The release date states that no activity of the order processing can start before this date, and the due date states that no processing for the order can be performed after the due date.
+In the scenario considered, orders define a release date and a due date. The release date states that no activity of the order processing can start before this date, and the due date states that no processing for the order can be performed after the due date. The start and end of the order processing are expressed by the task variable of the order. This leads to the following inequalities.
 
 \begin{equation}
-z_{k}.\textrm{end} \leq \textrm{due}_{k}
+\forall_{k \in O}:\quad z_{k}.\textrm{end} \leq \textrm{due}_{k}
 \end{equation}
 
 \begin{equation}
-z_{k}.\textrm{start} \geq \textrm{release}_{k}
+\forall_{k \in O}:\quad z_{k}.\textrm{start} \geq \textrm{release}_{k}
 \end{equation}
 
 Often, it is not possible to satisfy both release and due dates at the same time, depending on the context we may be able to relax one or the other date (but rarely both dates). The \emph{tardiness} of an order is the amount of time that the order is late. In many cases the tardiness becomes part of the objective function.
 
-We often also have a constraint on the \emph{earliness} of the order. We do not want to fulfil the order too early, since the customer may not want to accept the order at this earlier date, and/or we have to carry the inventory cost of the product made for the earliness period. We constrain the earliness to be less than a maximal value $c$. Alternatively, the earliness cost may become part of the objective function.
+We often also have a constraint on the \emph{earliness} of the order. We do not want to complete the order too early, since the customer may not want to accept their order at this earlier date, and/or we have to carry the inventory cost of the product made for the earliness period. We constrain the earliness to be less than a maximal value $c$. Alternatively, the earliness cost may become part of the objective function.
 
 \begin{equation}
-z_{k}.\textrm{end} \geq \textrm{due}_{k}-c
+\forall_{k \in O}:\quad z_{k}.\textrm{end} \geq \textrm{due}_{k}-c
 \end{equation}
 
 This constraint can be relaxed by increasing the value of $c$, allowing an earlier completion time for the order.
@@ -65,7 +69,7 @@ This constraint can be relaxed by increasing the value of $c$, allowing an earli
 
 \subsubsection{Temporal Relations between Tasks}
 
-We now describe the different temporal relations between tasks that we model. 
+We now describe the different temporal relations between tasks that we model. We consider two tasks for the same job $j$, indexed with $i_{1}$ and $i_{2}$.
 
 \paragraph{End Before Start}
 
@@ -89,6 +93,8 @@ In some cases we have to wait for a specific time $c$ after the end of the first
 \begin{equation}
 \textrm{minWait}(t_{i_1,j},t_{i_2,j},c)
 \end{equation}
+
+A default hard limit for $c$ would be zero, the second task cannot start before the end of the first task.
 
 \begin{equation}
 t_{i_2,j}.\textrm{start} \geq t_{i_1,j}.\textrm{end} +c
@@ -136,11 +142,11 @@ In this case, the second task must start as soon as the first task finishes. Thi
 t_{i_2,j}.\textrm{start} = t_{i_1,j}.\textrm{end}
 \end{equation}
 
-Whether we can relax this constraint depend on the detail of the process. 
+Whether we can relax this constraint depend on the detail of the process, the relaxation would take the form of a \texttt{maxWait} constraint.
 
 \paragraph{Blocking}
 
-In this relation there is no buffer between the machines of the two tasks, but we allow the first task to stay on its machine until the machine for the second task becomes available. he end of the first task is equal to the start of the second task, but we can extend the duration of the first task to achieve this.
+In this relation there is no buffer between the machines of the two tasks, but we allow the first task to stay on its machine until the machine for the second task becomes available. The end of the first task is equal to the start of the second task, but we can extend the duration of the first task to achieve this.
 
 \begin{equation}
 \textrm{blocking}(t_{i_1,j},t_{i_2,j})
@@ -156,18 +162,18 @@ In the blocking case, the duration of the first task might extend beyond the dur
 
 \paragraph{Connecting orders to multiple, alternative processes}
 
-In our model we assume that each order must be satisfied within the scheduling horizon. That means that exactly one of the possible process for the product must be selected and must be scheduled. This is expressed with an \texttt{alternative} constraint.
+In our model we assume that each order must be satisfied within the scheduling horizon. That means that exactly one of the possible processes for the product must be selected and must be scheduled. This is expressed with an \texttt{alternative} constraint.
 
 \begin{equation}
 \texttt{alternative}(z_{k},[y_{j,k}| \textrm{job}\ j\ \textrm{is an alternative process for order}\ k])
 \end{equation}
 
 This constraint cannot be relaxed in the model, as long as we require that each order must be satisfied.
-We may have a preference value for each of the alternative processes, the cost of the order is the preference value of the selected process. 
+We may have a preference value for each of the alternative processes, the preference cost of the order is the preference value of the selected process. 
 
 \paragraph{Linking Jobs and their Tasks}
 
-For each process have have one optional job, consisting of the tasks that are defined as elements of that process. The duration of the job is defined by the  earliest and latest activities that are included. The tasks must be present if an only if  the job is present. This condition is expressed with a \texttt{span} constraint. It links the presence flags of the job to the presence flags of the tasks, and forces the start of the job task to be the minimum of the start dates of the tasks, and the end f the job to be the maximum of the end dates of the tasks.
+For each process have have one optional job, consisting of the tasks that are defined as elements of that process. The duration of the job is defined by the  earliest and latest activities that are included. The tasks must be present if and only if the job is present. This condition is expressed with a \texttt{span} constraint. It links the \texttt{present} flags of the job to the \texttt{present} flags of the tasks, and forces the start of the job task to be the minimum of the start dates of the tasks, and the end of the job to be the maximum of the end dates of the tasks.
 
 \begin{equation}
 \texttt{span}(y_{jk},[t_{ij}|\textrm{task}\ i\ \textrm{belongs to job} \ j])
@@ -177,7 +183,7 @@ This constraint typically cannot be relaxed, it is structural to the problem.
 
 \paragraph{Linking Alternative Tasks to their Choices}
 
-The process definition may provide alternative tasks which are defined by a number of choices. In the case the alternative task is selected if and only if exactly one of the choices is selected, the start and end of the alternative task are defined by the start and end of the selected choice.
+The process definition may provide alternative tasks which are defined by a number of choices. In these case the alternative task is selected if and only if exactly one of the choices is selected, the start and end of the alternative task are defined by the start and end of the selected choice.
 
 \begin{equation}
 \texttt{alternative}(t_{i,j},[t_{i'j} |t'\ \textrm{is a choice for alternative task}\ i])
@@ -197,13 +203,15 @@ As part of the basic process model we allow machines choices for specific proces
 
 \paragraph{Disjunctive Resources}
 
-A disjunctive resource can handle one task at a time, an each task is running without interruption from its start to its end, blocking the machine.
+A \emph{disjunctive} resource can handle only one task at a time, and each task is running without interruption from its start to its end, blocking the machine.
 
 \begin{equation}
 \forall_{m \in DM}:\quad \texttt{disjunctive}([t| \textrm{task}\ t\ \textrm{requires machine}\ m\ \textrm{and is present}])
 \end{equation}
 
 \paragraph{Cumulative Resources}
+
+A \emph{cumulative} resource can process more than one activity at a time, each task uses a certain amount of resource $u_{t}$ while it is running, while the overall amount of resource available at each timepoint is given by $\textrm{cap}_{m}$.
 
 \begin{equation}
 \forall_{m \in CM}:\quad \texttt{cumulative}([t|\ \textrm{task}\ t\ \textrm{uses capacity}\ u_{t}\ \textrm{of resource}\ m ],\textrm{cap}_{m})
@@ -213,7 +221,7 @@ There are many different ways to relax the cumulative constraint, for example to
 
 \subsubsection{Raw Material Constraints}
 
-The bill of material (\emph{BoM}) for a process defines which raw materials are required in which quantity at the start of a process step. The constraint is that for every time point $t$ the quantity in stock at the start plus all raw material deliveries up to that time minus all raw material used up to time $t$ must be greater or equal to the defined safet stock level, i.e. we cannot use more raw materials than we have received up to a given time point.  
+The bill of material (\emph{BoM}) for a process defines which raw materials are required in which quantity at the start of a process step. The constraint is that for every time point $t$ the quantity in stock at the start plus all raw material deliveries up to that time minus all raw material used up to time $t$ must be greater or equal to the defined safety stock level, i.e. we cannot use more raw materials than we have received up to a given time point.  
 
 \begin{equation}
 \forall_{r \in RM} \forall{t \in T}:\quad s_{r}+\sum_{t' \leq t}d_{rt'}-\sum_{\{x \in T | x.\textrm{start} \leq t\}}x.\textrm{present}*u_{rx} \geq \textrm{safety}_{r}
@@ -223,14 +231,25 @@ This condition will typically be expressed as a single \texttt{cumulative} const
 
 \subsubsection{Calendars}
 
-In many cases, the plant, or specific machines within a plant, do not run continuously 24/7. A typical example would be plant that runs for three shifts on each working day, starting with a morning shift on Monday 06:00, and ending the third, night shift of Friday on Saturday morning at 06:00. Some machines in the plant might be only running for two shifts, due to a lack of demand, or to save operations cost. These conditions are expressed with calendar constraints, which describe the working pattern for each resource for periods of time. The shift pattern may change over the year, e.g. extra shifts are run to deal with a demand peak before Christmas, or the factory is closed, or operates at a lower rate during holidays. A relaxation of the calendar constraint often is possible, but must be planned in advance, and/or may require a change for a longer period (a complete month or quarter of a year for example. Typically, only very specific relaxations are allowed. We may for example add a third shift, if a resource is running only two shifts, or we may add a Saturday day shift, but only if we are already running three shifts on weekdays.
+In many cases, the plant, or specific machines within a plant, do not run continuously 24/7. A typical example would be plant that runs for three shifts on each working day, starting with a morning shift on Monday 06:00, and ending the third, night shift of Friday on Saturday morning at 06:00. Some machines in the plant might be only running for two shifts, due to a lack of demand, or to save operations cost. These conditions are expressed with calendar constraints, which describe the working pattern for each resource for periods of time. The shift pattern may change over the year, e.g. extra shifts are run to deal with a demand peak before Christmas, or the factory is closed, or operates at a lower rate during holidays. A relaxation of the calendar constraint often is possible, but must be planned in advance, and/or may require a change for a longer period (a complete month or quarter of a year for example). Typically, only very specific relaxations are allowed. We may for example add a third shift, if a resource is running only two shifts, or we may add a Saturday day shift, but only if we are already running three shifts on weekdays.
 
 \subsubsection{Overall or Task Specific Preferences}
 
-The different preference values for jobs and tasks describe how satisfied we are with using one of these alternatives. As part of the user input constraints, we may ask for specific preference to be satisfied. This can either be a global condition, e.g. we only allow the first preference for all alternative, or task order/task specific, e.g. this specific order is important, and we should only use the best preference choices for its execution. We assume the preference values to be totally ordered, so that we can express our preference limit by inequalities
+The different preference values for jobs and tasks describe how satisfied we are with using one of these alternatives. As part of the user input constraints, we may ask for specific preferences to be satisfied. This can either be a global condition, e.g. we only allow the first preference for all alternatives, or order/task specific, e.g. this specific order is important, and we should only use the best preference choices for its execution. We assume the preference values to be totally ordered, so that we can express our preference limit by inequalities
 
+The overall constraint takes thee form: 
 \begin{equation}
-t.\textrm{present}*t.\textrm{preference} \leq limit
+\forall_{t \in T}:\quad t.\textrm{present}*t.\textrm{preference} \leq \textrm{limit}
+\end{equation}
+
+For a specific order $o$, we can impose a preference constraint on all tasks $T_{o}$ that belong to that order, and enforce an order specific preference value $\textrm{limit}_{o}$.
+\begin{equation}
+\forall_{t \in T(o)}:\quad t.\textrm{present}*t.\textrm{preference} \leq \textrm{limit}_{o}
+\end{equation}
+
+Finally we can specify a constraint for selected tasks $t$ only, enforcing a task specific preference $\textrm{limit}_{t}$. 
+\begin{equation}
+t.\textrm{present}*t.\textrm{preference} \leq \textrm{limit}_{t}
 \end{equation}
 
 These preference choices can be easily relaxed, if there is no solution with the preferred value.
@@ -238,7 +257,7 @@ These preference choices can be easily relaxed, if there is no solution with the
 
 \subsection{Objective}
 
-The typical objective of our model is a weighted sum of different cost term, typically defined by the preference values of the choices taken.
+The typical objective of our model is a weighted sum of different cost terms, typically defined by the preference values of the choices taken.
 
 \begin{equation}
 \begin{split}
