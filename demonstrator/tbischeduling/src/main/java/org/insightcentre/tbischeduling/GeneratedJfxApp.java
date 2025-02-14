@@ -86,7 +86,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 10:43:45 on 2025-02-06 */
+ * Generated at 11:56:31 on 2025-02-12 */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -438,6 +438,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		alert(Alert.AlertType.WARNING, "Action LoadTestFileAction is not yet implemented!");
 	}
 
+	public void LoadFJSPFileAction(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action LoadFJSPFileAction is not yet implemented!");
+	}
+
 	public void diagramViewer(Scenario base) {
 		alert(Alert.AlertType.WARNING, "Action diagramViewer is not yet implemented!");
 	}
@@ -535,6 +539,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		}
 		else if (id.equals("LoadTestFileAction")) {
 			LoadTestFileAction((Scenario) fs);
+		}
+		else if (id.equals("LoadFJSPFileAction")) {
+			LoadFJSPFileAction((Scenario) fs);
 		}
 		else if (id.equals("newOrderSolverRun")) {
 			newOrderSolverRun((Scenario) fs);
