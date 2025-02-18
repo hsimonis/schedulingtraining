@@ -1,6 +1,5 @@
 package org.insightcentre.tbischeduling.implementedsolver;
 
-<<<<<<< HEAD
 import com.google.ortools.Loader;
 import com.google.ortools.sat.*;
 import com.google.ortools.util.Domain;
@@ -8,8 +7,6 @@ import org.insightcentre.tbischeduling.datamodel.*;
 
 import java.util.*;
 
-=======
->>>>>>> d1fa0de4 (VarArraySolutionPrinterWithObjective.onSolutionCallback: update)
 import static com.google.ortools.sat.CpSolverStatus.FEASIBLE;
 import static com.google.ortools.sat.CpSolverStatus.OPTIMAL;
 import static java.util.stream.Collectors.groupingBy;
