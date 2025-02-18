@@ -1,5 +1,6 @@
 package org.insightcentre.tbischeduling.implementedsolver;
 
+<<<<<<< HEAD
 import com.google.ortools.Loader;
 import com.google.ortools.sat.*;
 import com.google.ortools.util.Domain;
@@ -7,15 +8,61 @@ import org.insightcentre.tbischeduling.datamodel.*;
 
 import java.util.*;
 
+=======
+>>>>>>> d1fa0de4 (VarArraySolutionPrinterWithObjective.onSolutionCallback: update)
 import static com.google.ortools.sat.CpSolverStatus.FEASIBLE;
 import static com.google.ortools.sat.CpSolverStatus.OPTIMAL;
 import static java.util.stream.Collectors.groupingBy;
 import static org.insightcentre.tbischeduling.datamodel.SequenceType.Blocking;
 import static org.insightcentre.tbischeduling.datamodel.SequenceType.NoWait;
-import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
+import static org.insightcentre.tbischeduling.datamodel.SolverStatus.Infeasible;
+import static org.insightcentre.tbischeduling.datamodel.SolverStatus.Optimal;
+import static org.insightcentre.tbischeduling.datamodel.SolverStatus.Solution;
+import static org.insightcentre.tbischeduling.datamodel.SolverStatus.Unknown;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 import static org.insightcentre.tbischeduling.utilities.TypeConverters.toDateTime;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+
+import org.insightcentre.tbischeduling.datamodel.CumulativeNeed;
+import org.insightcentre.tbischeduling.datamodel.CumulativeProfile;
+import org.insightcentre.tbischeduling.datamodel.CumulativeResource;
+import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
+import org.insightcentre.tbischeduling.datamodel.Downtime;
+import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
+import org.insightcentre.tbischeduling.datamodel.Job;
+import org.insightcentre.tbischeduling.datamodel.JobAssignment;
+import org.insightcentre.tbischeduling.datamodel.ProcessSequence;
+import org.insightcentre.tbischeduling.datamodel.ProcessStep;
+import org.insightcentre.tbischeduling.datamodel.Scenario;
+import org.insightcentre.tbischeduling.datamodel.SequenceType;
+import org.insightcentre.tbischeduling.datamodel.Solution;
+import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.SolverStatus;
+import org.insightcentre.tbischeduling.datamodel.Task;
+import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
+import org.insightcentre.tbischeduling.datamodel.WiP;
+
+import com.google.ortools.Loader;
+import com.google.ortools.sat.BoolVar;
+import com.google.ortools.sat.CpModel;
+import com.google.ortools.sat.CpSolver;
+import com.google.ortools.sat.CpSolverSolutionCallback;
+import com.google.ortools.sat.CpSolverStatus;
+import com.google.ortools.sat.CumulativeConstraint;
+import com.google.ortools.sat.IntVar;
+import com.google.ortools.sat.IntervalVar;
+import com.google.ortools.sat.LinearExpr;
+import com.google.ortools.sat.LinearExprBuilder;
+import com.google.ortools.sat.Literal;
+
+import framework.Consumers;
+import framework.solver.Snapshot;
 
 public class CPSatModel extends AbstractModel{
     int jaNr=0;
@@ -45,7 +92,7 @@ public class CPSatModel extends AbstractModel{
             sol.setGapPercent(100.0 * (sol.getCost()-bestObjectiveBound())/sol.getCost());
             sol.setTime(wallTime());
             info("Solution "+sol.getCost()+" bound "+sol.getBound()+" gap "+sol.getGapPercent()+" time "+sol.getTime());
-
+            Consumers.INSTANCE.getInstance().accept(new Snapshot(sol.getTime(), sol.getCost()));
         }
 
         public int getSolutionCount() {
