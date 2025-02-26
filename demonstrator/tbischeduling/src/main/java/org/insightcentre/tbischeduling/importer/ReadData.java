@@ -183,7 +183,7 @@ public class ReadData {
 
     private void processSeqOffsetMustBeZero(){
         for(ProcessSequence seq:base.getListProcessSequence()){
-            if ((seq.getSequenceType() == EndBeforeStart  ||seq.getSequenceType() == NoWait  ||seq.getSequenceType() == Blocking)  || seq.getOffset() != 0){
+            if ((seq.getSequenceType() == EndBeforeStart  ||seq.getSequenceType() == NoWait  ||seq.getSequenceType() == Blocking)  && seq.getOffset() != 0){
                 inputError("processSequence",seq.getName(),"offset",seq.getOffset(),"Offset must be zero for this sequence type "+seq.getSequenceType(),Fatal);
             }
         }

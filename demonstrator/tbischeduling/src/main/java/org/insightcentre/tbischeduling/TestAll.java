@@ -68,16 +68,16 @@ public class TestAll {
 ////        compareSummaries(base,"comparercpspj60",false,"CPO","CPSat",
 ////                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
 //
-////        testAll("imports/RCPSP/SingleMode/j90/","results/",CPO,4,30,overWrite);
-////        testAll("imports/RCPSP/SingleMode/j90/","resultsCPSat/",CPSat,8,30,overWrite);
-// //       base.resetListSolutionSummary();
+//        testAll("imports/RCPSP/SingleMode/j90/","results/",CPO,null,4,600,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j90/","resultsCPSat/",CPSat,null,8,600,overWrite);
+//       base.resetListSolutionSummary();
 //        analyzeAll(base,"imports/RCPSP/SingleMode/j90/results/","RCPSP J90 (CPO)","rcpspj90CPO","CPO");
 //        analyzeAll(base,"imports/RCPSP/SingleMode/j90/resultsCPSat/","RCPSP J90 (CPSat)","rcpspj90CPSat","CPSat");
-////        compareSummaries(base,"comparercpspj90",false,"CPO","CPSat",
-////                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
+//        compareSummaries(base,"comparercpspj90",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
 //
-//        testAll("imports/RCPSP/SingleMode/j120/","results/",CPO,4,60,overWrite);
-//        testAll("imports/RCPSP/SingleMode/j120/","resultsCPSat/",CPSat,8,60,overWrite);
+        testAll("imports/RCPSP/SingleMode/j120/","results/",CPO,null,4,600,overWrite);
+        testAll("imports/RCPSP/SingleMode/j120/","resultsCPSat/",CPSat,null,8,600,overWrite);
 //        //       base.resetListSolutionSummary();
 //        analyzeAll(base,"imports/RCPSP/SingleMode/j120/results/","RCPSP J120 (CPO)","rcpspj120CPO","CPO");
 //        analyzeAll(base,"imports/RCPSP/SingleMode/j120/resultsCPSat/","RCPSP J120 (CPSat)","rcpspj120CPSat","CPSat");
@@ -178,35 +178,35 @@ public class TestAll {
 //        tabularResults(base,"reports/salbpresultcompare.tex","reports/salbpresultsummary.tex",
 //        "SALBP",new String[]{"base","Laborie","CPO","CPSat","Cplex","Chuffed","MCPSat","CPOA","CPSatA","ChuffedA","CplexA"});
 
-        base.resetListSolutionSummary();
-        baseResults(base,"imports/Taillard/FSS/bounds.csv","base");
-        analyzeAll(base,"imports/Taillard/FSS/results/","Taillard Flowshop (CPO)","fss","CPO");
-        analyzeAll(base,"imports/Taillard/FSS/resultsCPSat/","Taillard Flowshop (CPSat)","fssCPSat","CPSat");
-        analyzeAll(base,"imports/Taillard/FSS/resultsCplex/","Taillard Flowshop (Cplex)","fssCplex","Cplex");
-        analyzeAll(base,"imports/Taillard/FSS/resultsChuffed/","Taillard Flowshop (Chuffed)","fssChuffed","Chuffed");
-        analyzeAll(base,"imports/Taillard/FSS/resultsMCPSat/","Taillard Flowshop (MiniZinc CPSat)","fssMCPSat","MCPSat");
-        tabularResults(base,"reports/fssresultcompare.tex","reports/fssresultsummary.tex",
-                "Taillard FSS",new String[]{"base","CPO","CPSat","Cplex","Chuffed","MCPSat"});
-
-        base.resetListSolutionSummary();
-        baseResults(base,"imports/Taillard/JSS/bounds.csv","base");
-        analyzeAll(base,"imports/Taillard/JSS/results/","Taillard Jobshop (CPO)","jss","CPO");
-        analyzeAll(base,"imports/Taillard/JSS/resultsCPSat/","Taillard Jobshop (CPSat)","jssCPSat","CPSat");
-        analyzeAll(base,"imports/Taillard/JSS/resultsCplex/","Taillard Jobshop (Cplex)","jssCplex","Cplex");
-        analyzeAll(base,"imports/Taillard/JSS/resultsChuffed/","Taillard Jobshop (Chuffed)","jssChuffed","Chuffed");
-        analyzeAll(base,"imports/Taillard/JSS/resultsMCPSat/","Taillard Jobshop (MiniZinc CPSat)","jssMCPSat","MCPSat");
-        tabularResults(base,"reports/jssresultcompare.tex","reports/jssresultsummary.tex",
-                "Taillard JSS",new String[]{"base","CPO","CPSat","Cplex","Chuffed","MCPSat"});
-
-        base.resetListSolutionSummary();
-        baseResults(base,"imports/Taillard/OSS/bounds.csv","base");
-        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard Openshop (CPO)","oss","CPO");
-        analyzeAll(base,"imports/Taillard/OSS/resultsCPSat/","Taillard Openshop (CPSat)","ossCPSat","CPSat");
-        analyzeAll(base,"imports/Taillard/OSS/resultsCplex/","Taillard Openshop (Cplex)","ossCplex","Cplex");
-        analyzeAll(base,"imports/Taillard/OSS/resultsChuffed/","Taillard Openshop (Chuffed)","ossChuffed","Chuffed");
-        analyzeAll(base,"imports/Taillard/OSS/resultsMCPSat/","Taillard Openshop (MiniZinc CPSat)","ossMCPSat","MCPSat");
-        tabularResults(base,"reports/ossresultcompare.tex","reports/ossresultsummary.tex",
-                "Taillard OSS",new String[]{"base","CPO","CPSat","Cplex","Chuffed","MCPSat"});
+//        base.resetListSolutionSummary();
+//        baseResults(base,"imports/Taillard/FSS/bounds.csv","base");
+//        analyzeAll(base,"imports/Taillard/FSS/results/","Taillard Flowshop (CPO)","fss","CPO");
+//        analyzeAll(base,"imports/Taillard/FSS/resultsCPSat/","Taillard Flowshop (CPSat)","fssCPSat","CPSat");
+//        analyzeAll(base,"imports/Taillard/FSS/resultsCplex/","Taillard Flowshop (Cplex)","fssCplex","Cplex");
+//        analyzeAll(base,"imports/Taillard/FSS/resultsChuffed/","Taillard Flowshop (Chuffed)","fssChuffed","Chuffed");
+//        analyzeAll(base,"imports/Taillard/FSS/resultsMCPSat/","Taillard Flowshop (MiniZinc CPSat)","fssMCPSat","MCPSat");
+//        tabularResults(base,"reports/fssresultcompare.tex","reports/fssresultsummary.tex",
+//                "Taillard FSS",new String[]{"base","CPO","CPSat","Cplex","Chuffed","MCPSat"});
+//
+//        base.resetListSolutionSummary();
+//        baseResults(base,"imports/Taillard/JSS/bounds.csv","base");
+//        analyzeAll(base,"imports/Taillard/JSS/results/","Taillard Jobshop (CPO)","jss","CPO");
+//        analyzeAll(base,"imports/Taillard/JSS/resultsCPSat/","Taillard Jobshop (CPSat)","jssCPSat","CPSat");
+//        analyzeAll(base,"imports/Taillard/JSS/resultsCplex/","Taillard Jobshop (Cplex)","jssCplex","Cplex");
+//        analyzeAll(base,"imports/Taillard/JSS/resultsChuffed/","Taillard Jobshop (Chuffed)","jssChuffed","Chuffed");
+//        analyzeAll(base,"imports/Taillard/JSS/resultsMCPSat/","Taillard Jobshop (MiniZinc CPSat)","jssMCPSat","MCPSat");
+//        tabularResults(base,"reports/jssresultcompare.tex","reports/jssresultsummary.tex",
+//                "Taillard JSS",new String[]{"base","CPO","CPSat","Cplex","Chuffed","MCPSat"});
+//
+//        base.resetListSolutionSummary();
+//        baseResults(base,"imports/Taillard/OSS/bounds.csv","base");
+//        analyzeAll(base,"imports/Taillard/OSS/results/","Taillard Openshop (CPO)","oss","CPO");
+//        analyzeAll(base,"imports/Taillard/OSS/resultsCPSat/","Taillard Openshop (CPSat)","ossCPSat","CPSat");
+//        analyzeAll(base,"imports/Taillard/OSS/resultsCplex/","Taillard Openshop (Cplex)","ossCplex","Cplex");
+//        analyzeAll(base,"imports/Taillard/OSS/resultsChuffed/","Taillard Openshop (Chuffed)","ossChuffed","Chuffed");
+//        analyzeAll(base,"imports/Taillard/OSS/resultsMCPSat/","Taillard Openshop (MiniZinc CPSat)","ossMCPSat","MCPSat");
+//        tabularResults(base,"reports/ossresultcompare.tex","reports/ossresultsummary.tex",
+//                "Taillard OSS",new String[]{"base","CPO","CPSat","Cplex","Chuffed","MCPSat"});
 
 
     }
