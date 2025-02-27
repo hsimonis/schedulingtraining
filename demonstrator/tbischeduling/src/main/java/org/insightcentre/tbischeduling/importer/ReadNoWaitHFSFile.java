@@ -7,9 +7,12 @@ import org.insightcentre.tbischeduling.implementedsolver.CheckSolutions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.Math.min;
 import static org.insightcentre.tbischeduling.importer.CreateData.summarizeProblem;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
@@ -20,7 +23,7 @@ public class ReadNoWaitHFSFile {
         DateTime startDate = new DateTime(2024,10,1,0,0);
         base.setStartDateTime(startDate);
         base.setTimeResolution(60);
-        base.setHorizon(2000);
+        base.setHorizon(20000);
         base.setDataFile(file.getName());
         base.setHasReleaseDate(false);
         base.setHasCumulative(false);
@@ -92,6 +95,7 @@ public class ReadNoWaitHFSFile {
                         pseq.setSequenceType(SequenceType.NoWait);
                     }
                     prev = ps;
+                    Integer minDuration = null;
                     for(int m=0;m<machinesPerStage[j];m++){
                         int jobId = scanner.nextInt();
                         int stageId = scanner.nextInt();
@@ -106,8 +110,11 @@ public class ReadNoWaitHFSFile {
                         rn.setProcessStep(ps);
                         rn.setDisjunctiveResource(mHash.get(key(j,m)));
                         rn.setDurationFixed(dur);
+                        minDuration = (minDuration==null?dur:min(minDuration,dur));
 
                     }
+                    ps.setDurationFixed(minDuration);
+                    task.setDuration(minDuration);
                 }
             }
             scanner.close();

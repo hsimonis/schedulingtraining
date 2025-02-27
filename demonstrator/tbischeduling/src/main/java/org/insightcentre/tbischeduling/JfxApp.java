@@ -379,7 +379,7 @@ public class JfxApp extends GeneratedJfxApp {
         public void LoadNoWaitHFSFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Load NoWaitHFS Datafile");
-                fileChooser.setInitialDirectory(new File("imports/nowaithfs/"));
+                fileChooser.setInitialDirectory(new File("nowaithfs/"));
                 fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("HFS Files", "*.txt"));
 //                fileChooser.setInitialFileName("t20m10r3-1.pl.json");
