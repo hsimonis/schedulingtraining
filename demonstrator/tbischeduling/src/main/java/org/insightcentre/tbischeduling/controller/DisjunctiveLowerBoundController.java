@@ -21,7 +21,7 @@ import org.insightcentre.tbischeduling.datamodel.DisjunctiveLowerBound;
 import org.insightcentre.tbischeduling.datamodel.DisjunctiveResource;
 
 /**
- * Generated at 11:56:32 on 2025-02-12 */
+ * Generated at 10:19:39 on 2025-02-26 */
 public class DisjunctiveLowerBoundController extends Table3Controller {
 	@FXML
 	private TableView<DisjunctiveLowerBound> table;

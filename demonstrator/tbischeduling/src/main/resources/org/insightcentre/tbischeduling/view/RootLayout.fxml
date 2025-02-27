@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!--Generated at 11:56:32 on 2025-02-12-->
+<!--Generated at 10:19:39 on 2025-02-26-->
 
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.RootController">
@@ -34,6 +34,7 @@
                   <MenuItem id="LoadSALBPAlternativeFileAction" onAction="#handle" text="Load SALBP Problem Alternative..." />
                   <MenuItem id="LoadTestFileAction" onAction="#handle" text="Load Test Scheduling Problem..." />
                   <MenuItem id="LoadFJSPFileAction" onAction="#handle" text="Load FJSP Problem..." />
+                  <MenuItem id="LoadNoWaitHFSFileAction" onAction="#handle" text="Load nowaithfs Problem..." />
                   <SeparatorMenuItem />
                   <MenuItem id="Print" accelerator="Shortcut+P" onAction="#handle" text="Print..." />
                   <SeparatorMenuItem />

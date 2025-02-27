@@ -19,7 +19,7 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.LowerBound;
 
 /**
- * Generated at 11:56:32 on 2025-02-12 */
+ * Generated at 10:19:39 on 2025-02-26 */
 public class LowerBoundController extends Table3Controller {
 	@FXML
 	private TableView<LowerBound> table;

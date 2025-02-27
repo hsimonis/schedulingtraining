@@ -20,7 +20,7 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Setup;
 
 /**
- * Generated at 11:56:31 on 2025-02-12 */
+ * Generated at 10:19:39 on 2025-02-26 */
 public class SetupController extends Table3Controller {
 	@FXML
 	private TableView<Setup> table;

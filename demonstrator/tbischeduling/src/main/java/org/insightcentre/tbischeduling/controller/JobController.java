@@ -34,7 +34,7 @@ import org.insightcentre.tbischeduling.datamodel.Process;
 import org.insightcentre.tbischeduling.datamodel.Product;
 
 /**
- * Generated at 11:56:31 on 2025-02-12 */
+ * Generated at 10:19:39 on 2025-02-26 */
 public class JobController extends Table3Controller {
 	@FXML
 	private TableView<Job> table;

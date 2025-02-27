@@ -21,7 +21,7 @@ import org.insightcentre.tbischeduling.datamodel.Job;
 import org.insightcentre.tbischeduling.datamodel.JobLowerBound;
 
 /**
- * Generated at 11:56:32 on 2025-02-12 */
+ * Generated at 10:19:39 on 2025-02-26 */
 public class JobLowerBoundController extends Table3Controller {
 	@FXML
 	private TableView<JobLowerBound> table;
