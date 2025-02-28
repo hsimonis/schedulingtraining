@@ -23,6 +23,8 @@ import static org.insightcentre.tbischeduling.utilities.TypeConverters.*;
 
 public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
     static int runNr=1;
+    
+    private AbstractModel model;
 
     public ScheduleJobsSolverImpl(Scenario base){
 
@@ -108,26 +110,29 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
                 getRemoveSolution(),getProduceReport(),getProducePDF());
         switch(toModelType(getModelType())){
             case CPO:
-                res = new CPOModel(base,run).solve();
+                model = new CPOModel(base,run);
                 break;
             case CPSat:
-                res = new CPSatModel(base,run).solve();
+                model = new CPSatModel(base,run);
                 break;
             case MiniZincDiffn:
-                res = new MiniZincDiffnModel(base,run).solve();
+                model = new MiniZincDiffnModel(base,run);
                 break;
             case MiniZincTask:
-                res = new MiniZincTaskModel(base,run).solve();
+                model = new MiniZincTaskModel(base,run);
                 break;
             case REST:
-                res = new RESTSolver(base,run).solve();
+                model = new RESTSolver(base,run);
                 break;
             case Batch:
-                res = new BatchSolver(base,run).solve();
+                model = new BatchSolver(base,run);
                 break;
             default:
                 severe("Unknown model type "+getModelType());
                 assert(false);
+        }
+        if (model != null) {
+        	res = model.solve();
         }
         if (res) {
             Solution sol = Solution.findLast(base);
@@ -146,7 +151,13 @@ public class ScheduleJobsSolverImpl extends ScheduleJobsSolver {
         base.setDirty(true);
         return res;
     }
-
+        
+    @Override
+	public void stop() {
+    	if (model != null) {
+    		model.stop();
+    	}
+	}
 
     private SolverRun createSolverRun(String label,String description,ModelType modelType,SolverBackend solverBackend,
                                       ObjectiveType objectiveType,boolean enforceReleaseDate,boolean enforceDueDate,

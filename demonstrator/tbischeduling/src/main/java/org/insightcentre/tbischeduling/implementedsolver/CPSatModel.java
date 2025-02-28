@@ -58,6 +58,9 @@ import framework.Consumers;
 import framework.solver.Snapshot;
 
 public class CPSatModel extends AbstractModel{
+	
+    CpSolver solver = new CpSolver();
+	
     int jaNr=0;
     public CPSatModel(Scenario base, SolverRun run){
         super(base,run);
@@ -384,8 +387,8 @@ public class CPSatModel extends AbstractModel{
             }
         }
 
-        // Creates a solver and solves the model.
-        CpSolver solver = new CpSolver();
+        // Solves the model.
+        solver = new CpSolver();
         VarArraySolutionPrinterWithObjective cb =
                 new VarArraySolutionPrinterWithObjective(base,run,null);
         solver.getParameters().setMaxTimeInSeconds(run.getTimeout());
@@ -464,6 +467,10 @@ public class CPSatModel extends AbstractModel{
 
     }
 
+    public void stop() {
+    	solver.stopSearch();
+    }
+    
     private SequenceType modifiedSequenceType(SolverRun run,SequenceType orig){
         if (run.getAddNoWait()) {
             return NoWait;

@@ -6,6 +6,9 @@ import org.insightcentre.tbischeduling.datamodel.IntermediateSolution;
 import org.insightcentre.tbischeduling.datamodel.Scenario;
 import org.insightcentre.tbischeduling.datamodel.SolverRun;
 
+import framework.Consumers;
+import framework.solver.Snapshot;
+
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
@@ -66,7 +69,9 @@ public class CPOCallbacks implements IloCP.Callback {
                         sol.setCost(ub);
                         sol.setGapPercent(100.0 * gap);
                         sol.setTime(cp.getInfo(IloCP.DoubleInfo.SolveTime));
-
+                        if (soln) {
+                        	Consumers.INSTANCE.getInstance().accept(new Snapshot(sol.getTime(), sol.getCost()));
+                        }
                     }
                 }
             }
@@ -87,4 +92,7 @@ public class CPOCallbacks implements IloCP.Callback {
         return res;
     }
 
+    static void stop(IloCP cp) {
+    	cp.abortSearch();
+    }
 }
