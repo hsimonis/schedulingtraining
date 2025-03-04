@@ -139,7 +139,7 @@ public class CPOModel extends AbstractModel{
                     for(DisjunctiveResource r:list){
                         int k = disjHash.get(r);
                         // the duration is not machine dependent
-                        z[i][k] = cp.intervalVar(durations[i],"Z"+i+","+k);
+                        z[i][k] = cp.intervalVar(durationOnMachine(durations[i],tasks[i],r),"Z"+i+","+k);
                         z[i][k].setOptional();
                     }
                 } else {
@@ -533,6 +533,20 @@ private boolean canBeUsedAsBuffer(Task t){
         return false;
 }
 
+private int durationOnMachine(int dur, Task t,DisjunctiveResource r){
+        ProcessStep ps = t.getProcessStep();
+        for(ResourceNeed rn:base.getListResourceNeed()){
+            if (rn.getProcessStep() == ps && rn.getDisjunctiveResource() == r){
+                int duration = rn.getDurationFixed()+rn.getDurationPerUnit()*t.getJob().getOrder().getQty();
+                if (duration != dur){
+                    info("Duration differ "+dur+" "+duration);
+                }
+                return duration;
+            }
+        }
+        return dur;
+
+}
 
     private WiP wipForResource(DisjunctiveResource r){
         for(WiP wip:base.getListWiP()){
