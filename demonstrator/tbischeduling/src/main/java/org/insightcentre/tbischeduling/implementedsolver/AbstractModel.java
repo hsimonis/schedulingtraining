@@ -19,6 +19,10 @@ public abstract class AbstractModel {
     }
 
     public abstract boolean solve();
+    
+    public void stop() {
+    	// Optionally implemented in subclass
+    }
 
     protected void updateSolution(Solution sol, Collection<JobAssignment> jaList, Collection<TaskAssignment> taList){
         int nrJobs = jaList.size();

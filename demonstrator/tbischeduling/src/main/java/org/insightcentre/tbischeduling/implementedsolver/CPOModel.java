@@ -13,6 +13,9 @@ import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 import static org.insightcentre.tbischeduling.utilities.TypeConverters.toDateTime;
 
 public class CPOModel extends AbstractModel{
+	
+	IloCP cp = new IloCP();
+	
     public CPOModel(Scenario base, SolverRun run){
         super(base,run);
         info("solver object created");
@@ -76,7 +79,6 @@ public class CPOModel extends AbstractModel{
         }
 
         try {
-            IloCP cp = new IloCP();
             /*
             create CPO objects
              */
@@ -523,6 +525,11 @@ public class CPOModel extends AbstractModel{
             return false;
         }
     }
+    
+    @Override
+	public void stop() {
+    	CPOCallbacks.stop(cp);
+	}
 
 private boolean canBeUsedAsBuffer(Task t){
         for(ProcessSequence ps:base.getListProcessSequence()){
