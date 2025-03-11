@@ -46,10 +46,22 @@ public class CPOModel extends AbstractModel{
         // tasks
         int nrTasks = base.getListTask().size();
         Task[] tasks = new Task[nrTasks];
+        // assumes that duration is fixed
         int[] durations = new int[nrTasks];
+        boolean[] hasVariableDuration = new boolean[nrTasks];
+        int[] minDurations = new int[nrTasks];
+        int[] maxDurations = new int[nrTasks];
         int ii=0;
         Hashtable<Task,Integer> taskHash = new Hashtable<>();
         for(Task t:base.getListTask()){
+            if (durationIsVariable(t)) {
+                hasVariableDuration[ii] = true;
+                minDurations[ii] = minDuration(t);
+                maxDurations[ii] = maxDuration(t);
+            } else {
+                hasVariableDuration[ii] = false;
+            }
+
             durations[ii] = t.getDuration();
             tasks[ii] = t;
             taskHash.put(t,ii);
@@ -100,7 +112,11 @@ public class CPOModel extends AbstractModel{
                 // assumes machine independent duration
                 if(canBeUsedAsBuffer(tasks[i])) {
                     x[i] = cp.intervalVar(durations[i], base.getHorizon());
+                } else if (hasVariableDuration[i]){
+                    info("durations variable "+i+" "+minDurations[i]+" "+maxDurations[i]);
+                    x[i] = cp.intervalVar(minDurations[i], maxDurations[i]);
                 } else {
+                    info("durations fixed "+i+" "+minDurations[i]+" "+maxDurations[i]);
                     x[i] = cp.intervalVar(durations[i], tasks[i].getName());
                 }
                 x[i].setPresent();
@@ -539,6 +555,29 @@ private boolean canBeUsedAsBuffer(Task t){
         }
         return false;
 }
+
+    private boolean durationIsVariable(Task t){
+        List<ResourceNeed> needs = base.getListResourceNeed().stream().filter(x->x.getProcessStep() == t.getProcessStep()).toList();
+        List<Integer> duration = needs.stream().map(x->computeDurationOnMachine(t,x)).distinct().sorted().toList();
+        return duration.size() > 1;
+    }
+    private int minDuration(Task t){
+        List<ResourceNeed> needs = base.getListResourceNeed().stream().filter(x->x.getProcessStep() == t.getProcessStep()).toList();
+        List<Integer> duration = needs.stream().map(x->computeDurationOnMachine(t,x)).distinct().sorted().toList();
+        assert(duration.size() > 1);
+        return duration.get(0);
+    }
+    private int maxDuration(Task t){
+        List<ResourceNeed> needs = base.getListResourceNeed().stream().filter(x->x.getProcessStep() == t.getProcessStep()).toList();
+        List<Integer> duration = needs.stream().map(x->computeDurationOnMachine(t,x)).distinct().sorted().toList();
+        assert(duration.size() > 1);
+        return duration.get(duration.size()-1);
+    }
+
+    private int computeDurationOnMachine(Task t, ResourceNeed rn){
+        return rn.getDurationFixed()+rn.getDurationPerUnit()*t.getJob().getOrder().getQty();
+
+    }
 
 private int durationOnMachine(int dur, Task t,DisjunctiveResource r){
         ProcessStep ps = t.getProcessStep();
