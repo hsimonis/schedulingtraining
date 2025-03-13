@@ -47,6 +47,13 @@ public class TestAll {
     public static void main(String[] args) {
         Scenario base = new Scenario();
         boolean overWrite = false;
+        testHfs("nowaithfs/benchmark_instances 1111/","results/",CPO,null,4,600,overWrite);
+        analyzeAll(base,"nowaithfs/benchmark_instances 1111/results/","noWaitHFS (CPO)","nowaithfs1111CPO","CPO");
+        testHfs("nowaithfs/benchmark_instances 2222/","results/",CPO,null,4,600,overWrite);
+        analyzeAll(base,"nowaithfs/benchmark_instances 2222/results/","noWaitHFS (CPO)","nowaithfs2222CPO","CPO");
+        testHfs("nowaithfs/benchmark_instances 3333/","results/",CPO,null,4,600,overWrite);
+        analyzeAll(base,"nowaithfs/benchmark_instances 3333/results/","noWaitHFS (CPO)","nowaithfs3333CPO","CPO");
+
 ////        testAll("imports/RCPSP/SingleMode/j30/","results/",CPO,4,600,overWrite);
 ////        testAll("imports/RCPSP/SingleMode/j30/","resultsCPSat/",CPSat,8,600,overWrite);
 //        testAll("imports/RCPSP/SingleMode/j30/","resultsChuffed/",MiniZincDiffn,Chuffed,1,600,overWrite);
@@ -76,8 +83,8 @@ public class TestAll {
 //        compareSummaries(base,"comparercpspj90",false,"CPO","CPSat",
 //                "Comparison of CPO and CPSat for Results of RCPSP",GroupType.RCPSP);
 //
-        testAll("imports/RCPSP/SingleMode/j120/","results/",CPO,null,4,600,overWrite);
-        testAll("imports/RCPSP/SingleMode/j120/","resultsCPSat/",CPSat,null,8,600,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j120/","results/",CPO,null,4,600,overWrite);
+//        testAll("imports/RCPSP/SingleMode/j120/","resultsCPSat/",CPSat,null,8,600,overWrite);
 //        //       base.resetListSolutionSummary();
 //        analyzeAll(base,"imports/RCPSP/SingleMode/j120/results/","RCPSP J120 (CPO)","rcpspj120CPO","CPO");
 //        analyzeAll(base,"imports/RCPSP/SingleMode/j120/resultsCPSat/","RCPSP J120 (CPSat)","rcpspj120CPSat","CPSat");
@@ -333,6 +340,62 @@ public class TestAll {
         }
 
     }
+    private static void testHfs(String importDir,String resultDir,ModelType solver,SolverBackend backEnd,int nrThreads,int timeout,boolean overWrite){
+        assert(importDir.endsWith("/"));
+        List<String> list =  listFilesUsingJavaIO(importDir,".txt");
+
+        for(String fileName:list.stream().sorted(Comparator.comparing(TestAll::hfsNr)).toList()) {
+            String outputFile = importDir+resultDir+ fileName.replaceAll(".txt",".json");
+            if (overWrite || (!new File(outputFile).exists() /*&& fileName.startsWith("instance_n=50_")*/)) {
+                info("trying file " + fileName);
+
+                Scenario base = new Scenario();
+                base.setDataFileVersionNumber(8.0);
+                base.setDataFile("");
+                // horizon set for each instance in the reader
+                base.setTimeResolution(5);
+                base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
+
+                // define the format version of the datafiles
+                new ReadNoWaitHFSFile(base, new File(importDir + fileName));
+                SolverRun test = new SolverRun(base);
+                test.setName(fileName);
+                test.setSolverStatus(ToRun);
+                test.setEnforceReleaseDate(false);
+                test.setEnforceDueDate(false);
+                test.setEnforceCumulative(true);
+                test.setEnforceWip(false);
+                test.setEnforceDowntime(false);
+                test.setEnforceSetup(false);
+                test.setEnforceTransportTime(false);
+                test.setRelaxSequence(false);
+                test.setAddSameOrder(false);
+                test.setTimeout(timeout);
+                test.setModelType(solver);
+                test.setSolverBackend(backEnd);
+                test.setObjectiveType(ObjectiveType.Makespan);
+                test.setNrThreads(nrThreads);
+
+//            info("Nr SolverRun " + base.getListSolverRun().size());
+                for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
+                    info("Running " + run.getName());
+                    switch (solver) {
+                        case CPO -> new CPOModel(base, run).solve();
+                        case CPSat -> new CPSatModel(base, run).solve();
+                        case MiniZincDiffn -> new MiniZincDiffnModel(base, run).solve();
+                        default -> {
+                            severe("solver not supported " + solver);
+                            assert (false);
+                        }
+                    }
+
+                }
+                new WriteData(base).toFile(new File(outputFile), 2);
+            }
+
+        }
+
+    }
     private static void testSALBPAlternative(String importDir,String resultDir,ModelType solver,SolverBackend backEnd,int nrThreads,int timeout,boolean overWrite){
         assert(importDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(importDir,".alb");
@@ -511,7 +574,7 @@ public class TestAll {
 
 
             for(String fileName:list) {
-//            info("analyzing file " + fileName);
+            info("analyzing file " + fileName);
                 try {
                     JSONObject root = new JSONObject(new String(Files.readAllBytes(Paths.get(resultDir + fileName))));
                     JSONObject problem = root.getJSONArray("problem").getJSONObject(0);
@@ -545,7 +608,7 @@ public class TestAll {
                     }
                     SolutionSummary s = new SolutionSummary(base);
                     s.setInstance(name);
-                    s.setInstanceNr(instanceNr(name));
+                    s.setInstanceNr(hfsNr(name));
                     s.setSolverStatus(status);
                     s.setNrJobs(nrJobs);
                     s.setNrMachines(nrMachines);
@@ -571,9 +634,9 @@ public class TestAll {
 
                 } catch (IOException e) {
                     severe("Cannot read file " + fileName + ", exception " + e.getMessage());
-                }catch (Exception e) {
-                    severe(resultDir+" Instance "+fileName+" Exception " + e.getMessage());
-//                    assert(false);
+//                }catch (Exception e) {
+//                    severe(resultDir+" Instance: "+fileName+" Exception " + e.getMessage());
+////                    assert(false);
                 }
             }
             out.printf("\\end{longtable}\n\n");
@@ -1156,6 +1219,12 @@ public class TestAll {
         String [] split = name.split("_");
         String[] parts = split[2].split("\\.");
         return Integer.parseInt(parts[0]);
+    }
+
+    public static int hfsNr(String name){
+        String [] split = name.split("_");
+//        String[] parts = split[2].split("\\.");
+        return Integer.parseInt(split[1]);
     }
 
     public static int readInteger(String entry){

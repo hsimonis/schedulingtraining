@@ -113,10 +113,10 @@ public class CPOModel extends AbstractModel{
                 if(canBeUsedAsBuffer(tasks[i])) {
                     x[i] = cp.intervalVar(durations[i], base.getHorizon());
                 } else if (hasVariableDuration[i]){
-                    info("durations variable "+i+" "+minDurations[i]+" "+maxDurations[i]);
+                    info("durations variable task "+i+" min "+minDurations[i]+" max "+maxDurations[i]);
                     x[i] = cp.intervalVar(minDurations[i], maxDurations[i]);
                 } else {
-                    info("durations fixed "+i+" "+minDurations[i]+" "+maxDurations[i]);
+//                    info("durations fixed task "+i+" "+durations[i]);
                     x[i] = cp.intervalVar(durations[i], tasks[i].getName());
                 }
                 x[i].setPresent();
@@ -584,9 +584,9 @@ private int durationOnMachine(int dur, Task t,DisjunctiveResource r){
         for(ResourceNeed rn:base.getListResourceNeed()){
             if (rn.getProcessStep() == ps && rn.getDisjunctiveResource() == r){
                 int duration = rn.getDurationFixed()+rn.getDurationPerUnit()*t.getJob().getOrder().getQty();
-                if (duration != dur){
-                    info("Duration differ "+dur+" "+duration);
-                }
+//                if (duration != dur){
+//                    info("Duration differ "+dur+" "+duration);
+//                }
                 return duration;
             }
         }
