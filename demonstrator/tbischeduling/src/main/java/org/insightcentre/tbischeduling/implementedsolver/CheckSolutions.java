@@ -136,11 +136,11 @@ public class CheckSolutions {
                     newError(sol, "TaskAssignment", ta.getName(), "duration", ta.getDuration(),
                             "Duration is wrong, should be " + (ta.getEnd() - ta.getStart()), Fatal);
                 }
-                if (ta.getDuration() > (int) t.getDuration()) {
+                if (ta.getDuration() > expectedDuration(ta)) {
                     newError(sol, "TaskAssignment", ta.getName(), "duration", ta.getDuration(),
                             "Assigned Task is longer than needed, should be " + (t.getDuration()), Minor);
                 }
-                if (ta.getDuration() < (int) t.getDuration()) {
+                if (ta.getDuration() < expectedDuration(ta)) {
                     newError(sol, "TaskAssignment", ta.getName(), "duration", ta.getDuration(),
                             "Assigned Task is too short, should be " + (t.getDuration()), Fatal);
                 }
@@ -326,5 +326,24 @@ public class CheckSolutions {
     }
     private String sequenceKey(ProcessSequence seq){
         return seq.getBefore().getName()+"/"+seq.getAfter().getName();
+    }
+
+    private int expectedDuration(TaskAssignment ta){
+        return durationOnMachine(ta.getTask().getDuration(),ta.getTask(),ta.getDisjunctiveResource());
+    }
+
+    private int durationOnMachine(int dur, Task t,DisjunctiveResource r){
+        ProcessStep ps = t.getProcessStep();
+        for(ResourceNeed rn:base.getListResourceNeed()){
+            if (rn.getProcessStep() == ps && rn.getDisjunctiveResource() == r){
+                int duration = rn.getDurationFixed()+rn.getDurationPerUnit()*t.getJob().getOrder().getQty();
+//                if (duration != dur){
+//                    info("Duration differ "+dur+" "+duration);
+//                }
+                return duration;
+            }
+        }
+        return dur;
+
     }
 }
