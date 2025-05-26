@@ -47,12 +47,14 @@ public class TestAll {
     public static void main(String[] args) {
         Scenario base = new Scenario();
         boolean overWrite = false;
-        testHfs("nowaithfs/benchmark_instances 1111/","results/",CPO,null,4,600,overWrite);
-        analyzeAll(base,"nowaithfs/benchmark_instances 1111/results/","noWaitHFS (CPO)","nowaithfs1111CPO","CPO");
-        testHfs("nowaithfs/benchmark_instances 2222/","results/",CPO,null,4,600,overWrite);
-        analyzeAll(base,"nowaithfs/benchmark_instances 2222/results/","noWaitHFS (CPO)","nowaithfs2222CPO","CPO");
-        testHfs("nowaithfs/benchmark_instances 3333/","results/",CPO,null,4,600,overWrite);
-        analyzeAll(base,"nowaithfs/benchmark_instances 3333/results/","noWaitHFS (CPO)","nowaithfs3333CPO","CPO");
+//        testHfs("nowaithfs/benchmark_instances 1111/","results/",CPO,null,4,600,overWrite);
+//        analyzeAll(base,"nowaithfs/benchmark_instances 1111/results/","noWaitHFS (CPO)","nowaithfs1111CPO","CPO");
+//        testHfs("nowaithfs/benchmark_instances 2222/","results/",CPO,null,4,600,overWrite);
+//        analyzeAll(base,"nowaithfs/benchmark_instances 2222/results/","noWaitHFS (CPO)","nowaithfs2222CPO","CPO");
+//        testHfs("nowaithfs/benchmark_instances 3333/","results/",CPO,null,4,600,overWrite);
+//        analyzeAll(base,"nowaithfs/benchmark_instances 3333/results/","noWaitHFS (CPO)","nowaithfs3333CPO","CPO");
+        testHfs("nowaithfs/benchmark_instances large/","results/",CPO,null,4,600,overWrite);
+        analyzeAll(base,"nowaithfs/benchmark_instances large/results/","noWaitHFS (CPO)","nowaithfslargeCPO","CPO");
 
 ////        testAll("imports/RCPSP/SingleMode/j30/","results/",CPO,4,600,overWrite);
 ////        testAll("imports/RCPSP/SingleMode/j30/","resultsCPSat/",CPSat,8,600,overWrite);
