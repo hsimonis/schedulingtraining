@@ -110,7 +110,7 @@ FontStyle italic
   "solution": [{
     "makespan": 163,
     "totalEarliness": 1832,
-    "endDate": "2/4/2025 00:06",
+    "endDate": "27/5/2025 20:28",
     "totalWaitBefore": 0,
     "nrEarly": 1,
     "percentEarly": 100,
@@ -134,7 +134,7 @@ FontStyle italic
     "name": "Sol1",
     "objectiveValue": 163,
     "flowtime": 163,
-    "startDate": "1/4/2025 14:06"
+    "startDate": "27/5/2025 10:28"
   }],
   "taskAssignment": [
     {
@@ -142,26 +142,26 @@ FontStyle italic
       "waitAfter": 0,
       "task": "T0PS0/0",
       "disjunctiveResource": "DR0",
-      "endDate": "1/4/2025 19:06",
+      "endDate": "27/5/2025 15:28",
       "name": "TA0",
       "start": 43,
       "end": 103,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/4/2025 14:06"
+      "startDate": "27/5/2025 10:28"
     },
     {
       "duration": 60,
       "waitAfter": 0,
       "task": "T0PS0/1",
       "disjunctiveResource": "DR0",
-      "endDate": "2/4/2025 00:06",
+      "endDate": "27/5/2025 20:28",
       "name": "TA1",
       "start": 103,
       "end": 163,
       "jobAssignment": "JA0",
       "waitBefore": 0,
-      "startDate": "1/4/2025 19:06"
+      "startDate": "27/5/2025 15:28"
     }
   ],
   "processSequence": [],
@@ -188,7 +188,7 @@ FontStyle italic
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "Run1",
-    "time": 0.0160208,
+    "time": 0.013184000000000001,
     "enforceDowntime": true,
     "removeSolution": false,
     "enforceReleaseDate": true,
@@ -198,13 +198,13 @@ FontStyle italic
     "duration": 120,
     "solution": "Sol1",
     "late": 0,
-    "endDate": "2/4/2025 00:06",
+    "endDate": "27/5/2025 20:28",
     "name": "JA0",
     "start": 43,
     "end": 163,
     "job": "J0",
     "early": 1832,
-    "startDate": "1/4/2025 14:06"
+    "startDate": "27/5/2025 10:28"
   }],
   "job": [],
   "order": [],
