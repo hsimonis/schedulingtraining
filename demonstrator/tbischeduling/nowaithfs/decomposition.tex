@@ -1,0 +1,47 @@
+\documentclass[a4paper]{article}
+\title{A Decomposition Model for the NoWaithHFS Problem}
+\author{Ahmed Missaoui and Helmut Simonis} 
+\begin{document}
+\maketitle
+\begin{abstract}
+\end{abstract}
+
+\section{Model}
+We describe a decomposition model for a NoWaitHFS with $n$ jobs $J$ and $m$ stages $S$, scheduled on a set of disjunctive machines $M$.
+Each job consists of $s$ tasks with start time $s_{ij}$ and duration $d_{ij}$ for stage $i$ of job $j$, assigned to machine $m_{ij}$. 
+Each stage has the same number of machines $m_{s}$.
+
+We define the schedule by giving an assigned machine $m_{ij}$ for each task, these values range from 1 to $m_{s}$. We also define the position $p_{ij}$ of a task on its assigned machine, these values range from 1 to $n$. Two tasks of the same stage $i$ only can have the same values $p_{ij}$ if they are scheduled on different machines.
+
+The following invariant must hold:
+\begin{equation}
+\forall_{j_{1},j_{2} \in J\ s.t.\ j_{1} \neq j_{2}}\forall_{i \in S}:\quad (m_{ij_{1}} \neq m_{ij_{2}} \vee p_{ij_{1}} \neq p_{ij_{2}})
+\end{equation}
+
+The positions of two jobs in two consecutive stages must be compatible
+\begin{equation}
+\forall_{j_{1},j_{2} \in J\ s.t.\ j_{1} \neq j_{2}}\forall_{1 \leq i < m}:\quad (m_{ij_{1}} = m_{ij_{2}} \land p_{i_{1}} < p_{ij_{2}}) \Rightarrow (m_{i+1,j_{1}} \neq m_{i+1,j_{2}} \vee p_{i+1,j_{1}} < p_{i+1,j_{2}})
+\end{equation}
+If two jobs are assigned on the same machine in stage $i$, then they must be eight assigned to different machines in stage $i+1$, or they must be in the same order in both stages.
+  
+
+
+The start times within a job are linked by equality constraints, as soon as one stage finished, the next stage must start, there is no wait between the tasks of the same job.
+
+\begin{equation}
+\forall_{j \in J}\forall_{1\leq i<m}:\quad s_{i+1,j} = s_{ij}+d_{ij}
+\end{equation}
+
+The total completion time $C_{\max}$ of the schedule is defined as
+\begin{equation}
+C_{\max} = \max_{j \in J} s_{mj}+d_{mj}
+\end{equation}
+The overall end of the schedule is the last of the ends of any job. The objective is to minimize the overall completion time.
+
+If two jobs $j_{1}$ and $j_{2}$ in stage $i$ are scheduled on the same machine, then their start times must be arranged in such a way that they do not overlap:
+
+\begin{equation}
+\forall_{j_{1},j_{2} \in J\ s.t.\ j_{1} \neq j_{2}}\forall_{i \in S}:\quad p_{ij_{1}} < p_{ij_{2}} \Rightarrow s_{ij_{2}} \geq s_{ij_{1}} + d_{ij_{1}}
+\end{equation}
+
+\end{document}
