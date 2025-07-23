@@ -16,7 +16,7 @@
 \section{Model}
 We describe a decomposition model for a NoWaitHFS problem with $n$ jobs $J$ and $s$ stages $S$, scheduled on a set of disjunctive machines $M$.
 Each job consists of $s$ tasks with start time $s_{ij}$ and duration $d_{ij}$ for stage $i$ of job $j$, assigned to machine $m_{ij}$. 
-Each stage has the same number of machines $m_{s}$.
+Each stage has the same number of identical machines $m_{s}$.
 
 We define the schedule by giving an assigned machine $m_{ij}$ for each task, these values range from 1 to $m_{s}$. 
 We also define the position $p_{ij}$ of a task on its assigned machine, these values range from 1 to a maximum of $n$. Two tasks of the same stage $i$ only 
@@ -26,6 +26,12 @@ Therefore the following invariant must hold:
 \begin{equation}
 \forall_{j_{1},j_{2} \in J\ s.t.\ j_{1} \neq j_{2}}\forall_{i \in S}:\quad (m_{ij_{1}} \neq m_{ij_{2}} \vee p_{ij_{1}} \neq p_{ij_{2}})
 \end{equation}
+
+Alternatively, we can state that all tasks of stage $i$ must satisfy a \texttt{diffn} constraint
+\begin{equation}
+\textrm{diffn}([s_{i1},s_{i2},...,s_{in}],[m_{i1}, m_{i2},...,m_{in}],[1,1,...,1],[1,1,...,1])
+\end{equation}
+The constraint states that the unit (length and height equal one) rectangles formed by the tasks do not overlap.
 
 The positions of two jobs in two consecutive stages must be compatible
 \begin{equation}
@@ -49,7 +55,7 @@ C_{\max} = \max_{j \in J} s_{sj}+d_{sj} \label{eq:temp2}
 \end{equation}
 The overall end of the schedule is the last of the ends of any job. The objective is to minimize the overall completion time.
 
-The following constraint links the ordering on the machines with the start times. If two jobs $j_{1}$ and $j_{2}$ in stage $i$ are scheduled on the same machine, then their start times must be follow the ordering of the jobs on the machine:
+The following constraint links the ordering on the machines with the start times. If two jobs $j_{1}$ and $j_{2}$ in stage $i$ are scheduled on the same machine, then their start times must follow the ordering of the jobs on the machine:
 
 \begin{equation}
 \forall_{j_{1},j_{2} \in J\ s.t.\ j_{1} \neq j_{2}}\forall_{i \in S}:\quad m_{ij_{1}} = m_{ij_{2}} \land p_{ij_{1}} < p_{ij_{2}} \Rightarrow s_{ij_{2}} \geq s_{ij_{1}} + d_{ij_{1}} \label{eq:temp3}
@@ -59,7 +65,7 @@ Note that once the ordering of the jobs on the machine is given, the best result
 
 \subsection{Reversing Job Order}
 
-We have stated in constraint~(\ref{eq:order}) that if one job follows another in some stage $i$, it must also follow that job in the next stage, unless it is assigned to another machine. 
+We have stated in constraint~(\ref{eq:order}) that if one job follows another in some stage $i$, then it must also follow that job in the next stage, unless it is assigned to another machine. 
 The example in Figure~\ref{fig:order2} shows that this is not necessarily true for later stages. We consider two jobs $j_{1}$ and $j_{2}$, which on the first and third stage are running 
 on the same machine $m_{11}$ and $m_{31}$, respectively. In stage two they run on different machines $m_{21}$ and $m_{22}$. While $j_{1}$ is before $j_{2}$ in stage 1, $j_{2}$ is before $j_{1}$ on stage 3, the order is reversed.
 \begin{figure}[htbp]
@@ -91,6 +97,8 @@ It seems rather unlikely that such a reversal sequence is possible, and we can c
 \subsection{Decomposition Scheme}
 
 Given an assignment $p_{ij}$ and $m_{ij}$ for the tasks of a set of jobs, we can create the resulting schedule  without search. This leads to the following decomposition scheme. We start with an ordering of the tasks for stage one, and obtain a lower bound on a cost of the complete schedule by using constraints~(\ref{eq:temp1}) to~(\ref{eq:temp3}). In the resulting schedule tasks for later stages may overlap, this may lead to an infeasibility of the solution for the complete problem. We can resolve these issues by either stating that two jobs in some stage must be scheduled on different machines, or by imposing an order on the jobs. If the resulting cost is higher than the best upper bound, we can prune the current assignment. Otherwise we continue with the assignment of the next stage.
+
+At any stage, we can create a feasible schedule by repeating the last job order obtained for stage $i$ for all remaining stages $i+1$ to $s$. This is always possible, but may required to extend the distances between jobs in the first stage to avoid overlap in one of the later stages. 
 
 \section{Optimal Solution to NoWaitFS}
 
@@ -138,7 +146,7 @@ C_{\max} = C_{\textrm{TSP}}
 \]
 \end{theorem}
 
-Consider the sequence of jobs traversed by the optimal solution of the TSP, we name it $[j_{1}, j_{2},...,j_{n-1},j_{n}]$. If we schedule these jobs in order, 
+Consider the sequence of jobs traversed by an optimal solution of the TSP, we name it $[j_{1}, j_{2},...,j_{n-1},j_{n}]$. If we schedule these jobs in order, 
 starting at time zero, and leaving the required distance $t_{ij}$ between consecutive jobs, then the resulting schedule is a feasible schedule, 
 shown in Figure~\ref{fig:proof}. The tasks of each job are scheduled without wait, two consecutive jobs never overlap for any stage, as the selected distances 
 $t_{ij}$ on the tasks of the first stage ensure this. The length of the schedule is 
@@ -187,9 +195,9 @@ another circuit in the graph which has the same cost $C^{'}$, which contradicts 
 For this noWait flow-shop variant we can therefore generate optimal solutions by solving TSP problems, either with a generic solver or a specialized TSP solver like Concorde (\url{https://www.math.uwaterloo.ca/tsp/index.html}). 
 
 \subsection{Use as Lower and Upper Bound?}
-We may be able to use the cost of the no-wait flow-shop to create a lower bound on the no-wait hybrid flow-shop problem with multiple, identical machines. If every stage has $p$ identical machines, we would expect that there is not solution better than $C_{\textrm{TSP}}/p$.
+We may be able to use the cost of the no-wait flow-shop to create a lower bound on the no-wait hybrid flow-shop problem with multiple, identical machines. If every stage has $p$ identical machines, we would expect that there is no solution better than $C_{\textrm{TSP}}/p$.
 
-We can partition the problem into $p$ independent sub-problems by partitioning the jobs into $p$ groups, and then solve each sub-problem to optimality. This would create an upper bound on the overall problem. We can also create a problem with $p$ auxiliary nodes and find $p$ cycles in the graph, forcing exactly one auxiliary node in each cycle. This would handle the best allocation of jobs to groups within the optimization routine. This probably cannot be expressed directly in Concorde, but would be possible using the cycle constraint in CHIP.
+We can aalso partition the problem into $p$ independent sub-problems by partitioning the jobs into $p$ groups, and then solve each sub-problem to optimality. This would create an upper bound on the overall problem. We can also create a problem with $p$ auxiliary nodes and find $p$ cycles in the graph, forcing exactly one auxiliary node in each cycle. This would handle the best allocation of jobs to groups within the optimization routine. This probably cannot be expressed directly in Concorde, but would be possible using the \texttt{cycle} constraint in CHIP.
 
 
 
