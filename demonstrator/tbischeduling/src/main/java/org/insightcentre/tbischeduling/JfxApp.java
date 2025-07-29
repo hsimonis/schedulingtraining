@@ -58,7 +58,7 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setGanttProperty(createGanttProperties(base));
                 base.setHasDisjunctive(true);
                 info("Create JSON doc");
-                new CreateJSONDoc(base,"site/jsonDoc/");
+                new CreateJSONDoc(base,"site/jsondoc/");
                 info("Creating default data");
                 new CreateData(base,q.getLabel(),q.getStartDateTime(),q.getResourceModel(),q.getNrProducts(),
                         q.getMinStages(),q.getMaxStages(),q.getNrDisjunctiveResources(),
