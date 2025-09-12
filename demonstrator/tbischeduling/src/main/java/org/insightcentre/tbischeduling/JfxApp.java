@@ -5,7 +5,9 @@ Generated once, should be extended by user
 */
 
 import framework.types.DateTime;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.insightcentre.tbischeduling.datamodel.*;
 import framework.ApplicationDatasetInterface;
 import framework.ApplicationObjectInterface;
@@ -57,8 +59,8 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setDataGeneratorProperty(q);
                 base.setGanttProperty(createGanttProperties(base));
                 base.setHasDisjunctive(true);
-                info("Create JSON doc");
-                new CreateJSONDoc(base,"site/jsondoc/");
+//                info("Create JSON doc");
+//                new CreateJSONDoc(base,"site/jsondoc/");
                 info("Creating default data");
                 new CreateData(base,q.getLabel(),q.getStartDateTime(),q.getResourceModel(),q.getNrProducts(),
                         q.getMinStages(),q.getMaxStages(),q.getNrDisjunctiveResources(),
@@ -115,7 +117,14 @@ public class JfxApp extends GeneratedJfxApp {
                 launch(args);
         }
 
-        @Override
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.getIcons().add(new Image(JfxApp.class.getResourceAsStream("/entire.png")));
+        super.start(primaryStage);
+    }
+
+
+    @Override
         public void LoadDataFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Load Datafile");
