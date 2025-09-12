@@ -134,8 +134,10 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         Separator sep3 = new Separator(Orientation.HORIZONTAL);
         pane.add(sep3,0,row++,2,1);
 
-        pane.add(new Label("Model Type:"), 0, row);
-        pane.add(modelTypeItem, 1, row++);
+        int second = 4;
+        row = 0;
+        pane.add(new Label("Model Type:"), second, row);
+        pane.add(modelTypeItem, second+1, row++);
         modelTypeItem.getItems().addAll(ModelType.getNames());
         modelTypeItem.setValue(((ScheduleJobsSolver)solver).getModelType());
         modelTypeItem.setOnAction( (evt) -> {
@@ -152,16 +154,16 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
             }
         });
 
-        pane.add(new Label("Solver Backend:"), 0, row);
-        pane.add(solverBackendItem, 1, row++);
+        pane.add(new Label("Solver Backend:"), second, row);
+        pane.add(solverBackendItem, second+1, row++);
         solverBackendItem.getItems().addAll(SolverBackend.getNames());
         solverBackendItem.setValue(((ScheduleJobsSolver)solver).getSolverBackend());
 
         Separator sep4 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep4,0,row++,2,1);
+        pane.add(sep4,second,row++,2,1);
 
-        pane.add(new Label("Objective Type:"), 0, row);
-        pane.add(objectiveTypeItem, 1, row++);
+        pane.add(new Label("Objective Type:"), second, row);
+        pane.add(objectiveTypeItem, second+1, row++);
         objectiveTypeItem.getItems().addAll(ObjectiveType.getNames());
         objectiveTypeItem.setValue(((ScheduleJobsSolver)solver).getObjectiveType());
         objectiveTypeItem.setOnAction( (evt) -> {
@@ -187,17 +189,17 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
             }
         });
 
-        pane.add(new Label("Weight Makespan:"), 0, row);
-        pane.add(weightMakespanItem, 1, row++);
+        pane.add(new Label("Weight Makespan:"), second, row);
+        pane.add(weightMakespanItem, second+1, row++);
         weightMakespanItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightMakespan()));
-        pane.add(new Label("Weight Flowtime:"), 0, row);
-        pane.add(weightFlowtimeItem, 1, row++);
+        pane.add(new Label("Weight Flowtime:"), second, row);
+        pane.add(weightFlowtimeItem, second+1, row++);
         weightFlowtimeItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightFlowtime()));
-        pane.add(new Label("Weight Lateness:"), 0, row);
-        pane.add(weightLatenessItem, 1, row++);
+        pane.add(new Label("Weight Lateness:"), second, row);
+        pane.add(weightLatenessItem, second+1, row++);
         weightLatenessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightLateness()));
-        pane.add(new Label("Weight Earliness:"), 0, row);
-        pane.add(weightEarlinessItem, 1, row++);
+        pane.add(new Label("Weight Earliness:"), second, row);
+        pane.add(weightEarlinessItem, second+1, row++);
         weightEarlinessItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getWeightEarliness()));
         //??? by default make them disabled, this might not match the default value of the objective
         weightMakespanItem.setDisable(true);
@@ -206,26 +208,26 @@ public class ScheduleJobsDialogBoxImpl extends GeneralDialogBox {
         weightLatenessItem.setDisable(true);
 
         Separator sep5 = new Separator(Orientation.HORIZONTAL);
-        pane.add(sep5,0,row++,2,1);
+        pane.add(sep5,second,row++,2,1);
 
-        pane.add(new Label("Timeout (s):"), 0, row);
-        pane.add(timeoutItem, 1, row++);
+        pane.add(new Label("Timeout (s):"), second, row);
+        pane.add(timeoutItem, second+1, row++);
         timeoutItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getTimeout()));
-        pane.add(new Label("Nr Threads:"), 0, row);
-        pane.add(nrThreadsItem, 1, row++);
+        pane.add(new Label("Nr Threads:"), second, row);
+        pane.add(nrThreadsItem, second+1, row++);
         nrThreadsItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getNrThreads()));
-        pane.add(new Label("Random Seed:"), 0, row);
-        pane.add(seedItem, 1, row++);
+        pane.add(new Label("Random Seed:"), second, row);
+        pane.add(seedItem, second+1, row++);
         seedItem.setText(String.format("%d",((ScheduleJobsSolver)solver).getSeed()));
-        pane.add(new Label("Remove Previous Solutions:"), 0, row);
-        pane.add(removeSolutionItem, 1, row++);
+        pane.add(new Label("Remove Previous Solutions:"), second, row);
+        pane.add(removeSolutionItem, second+1, row++);
         removeSolutionItem.setSelected(((ScheduleJobsSolver)solver).getRemoveSolution());
 
-        pane.add(new Label("Produce Report LaTeX:"), 0, row);
-        pane.add(produceReportItem, 1, row);
+        pane.add(new Label("Produce Report LaTeX:"), second, row);
+        pane.add(produceReportItem, second+1, row++);
         produceReportItem.setSelected(((ScheduleJobsSolver)solver).getProduceReport());
-        pane.add(new Label("PDF:"), 2, row);
-        pane.add(producePDFItem, 3, row++);
+        pane.add(new Label("PDF:"), second, row);
+        pane.add(producePDFItem, second+1, row++);
         producePDFItem.setSelected(((ScheduleJobsSolver)solver).getProducePDF());
 
 //        pane.setGridLinesVisible(true); //??? debug only
