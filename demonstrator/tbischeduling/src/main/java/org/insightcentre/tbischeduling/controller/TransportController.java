@@ -19,7 +19,8 @@ import org.insightcentre.tbischeduling.GeneratedJfxApp;
 import org.insightcentre.tbischeduling.datamodel.Transport;
 
 /**
- * Generated at 10:19:39 on 2025-02-26 */
+ * Generated code
+ */
 public class TransportController extends Table3Controller {
 	@FXML
 	private TableView<Transport> table;

@@ -21,7 +21,8 @@ import org.insightcentre.tbischeduling.datamodel.DatesDisplay;
 import org.insightcentre.tbischeduling.datamodel.LineChoice;
 
 /**
- * Generated at 10:19:39 on 2025-02-26 */
+ * Generated code
+ */
 public class AbstractGanttPropertyController extends Table3Controller {
 	@FXML
 	private TableView<AbstractGanttProperty> table;

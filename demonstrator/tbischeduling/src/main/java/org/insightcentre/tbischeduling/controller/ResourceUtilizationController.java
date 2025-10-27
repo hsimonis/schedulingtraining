@@ -23,7 +23,8 @@ import org.insightcentre.tbischeduling.datamodel.ResourceUtilization;
 import org.insightcentre.tbischeduling.datamodel.Solution;
 
 /**
- * Generated at 10:19:39 on 2025-02-26 */
+ * Generated code
+ */
 public class ResourceUtilizationController extends Table3Controller {
 	@FXML
 	private TableView<ResourceUtilization> table;

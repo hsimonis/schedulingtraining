@@ -22,7 +22,8 @@ import org.insightcentre.tbischeduling.datamodel.Setup;
 import org.insightcentre.tbischeduling.datamodel.SetupType;
 
 /**
- * Generated at 10:19:39 on 2025-02-26 */
+ * Generated code
+ */
 public class SetupTypeController extends Table3Controller {
 	@FXML
 	private TableView<SetupType> table;

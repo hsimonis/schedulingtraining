@@ -22,7 +22,8 @@ import org.insightcentre.tbischeduling.datamodel.SolutionSummary;
 import org.insightcentre.tbischeduling.datamodel.SolverStatus;
 
 /**
- * Generated at 10:19:39 on 2025-02-26 */
+ * Generated code
+ */
 public class SolutionSummaryController extends Table3Controller {
 	@FXML
 	private TableView<SolutionSummary> table;

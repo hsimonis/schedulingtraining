@@ -22,7 +22,8 @@ import org.insightcentre.tbischeduling.datamodel.PlacedRectangle;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 
 /**
- * Generated at 10:19:39 on 2025-02-26 */
+ * Generated code
+ */
 public class PlacedRectangleController extends Table3Controller {
 	@FXML
 	private TableView<PlacedRectangle> table;

@@ -25,7 +25,8 @@ import org.insightcentre.tbischeduling.datamodel.DurationModel;
 import org.insightcentre.tbischeduling.datamodel.ResourceModel;
 
 /**
- * Generated at 10:19:39 on 2025-02-26 */
+ * Generated code
+ */
 public class DataGeneratorPropertyController extends Table3Controller {
 	@FXML
 	private TableView<DataGeneratorProperty> table;

@@ -24,11 +24,11 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.insightcentre.tbischeduling.controller.CumulativeNeedsMatrixDraw;
-import org.insightcentre.tbischeduling.controller.DisjunctiveNeedsMatrixDraw;
+import org.insightcentre.tbischeduling.controller.CumulativeNeedsMatrixTab;
+import org.insightcentre.tbischeduling.controller.DisjunctiveNeedsMatrixTab;
 import org.insightcentre.tbischeduling.controller.RootController;
-import org.insightcentre.tbischeduling.controller.SetupDisplayMatrixDraw;
-import org.insightcentre.tbischeduling.controller.TransportDisplayMatrixDraw;
+import org.insightcentre.tbischeduling.controller.SetupDisplayMatrixTab;
+import org.insightcentre.tbischeduling.controller.TransportDisplayMatrixTab;
 import org.insightcentre.tbischeduling.datamodel.AbstractDataGeneratorProperty;
 import org.insightcentre.tbischeduling.datamodel.AbstractGanttProperty;
 import org.insightcentre.tbischeduling.datamodel.AbstractSolverProperty;
@@ -86,7 +86,8 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsDialogBox;
 import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
 
 /**
- * Generated at 10:19:39 on 2025-02-26 */
+ * Generated code
+ */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
 		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
@@ -499,23 +500,19 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	}
 
 	public void disjunctiveNeedsMatrixMatrixViewer(Scenario base) {
-		new DisjunctiveNeedsMatrixDraw(base,"maps/tree.html","Disjunctive Resource Needs Matrix");
-		showContent("Disjunctive Resource Needs Matrix",DisjunctiveNeedsMatrixDraw.createContent(base,"Disjunctive Resource Needs Matrix"));
+		showTab(new DisjunctiveNeedsMatrixTab(base));
 	}
 
 	public void cumulativeNeedsMatrixMatrixViewer(Scenario base) {
-		new CumulativeNeedsMatrixDraw(base,"maps/tree.html","Cumulative Resource Needs Matrix");
-		showContent("Cumulative Resource Needs Matrix",CumulativeNeedsMatrixDraw.createContent(base,"Cumulative Resource Needs Matrix"));
+		showTab(new CumulativeNeedsMatrixTab(base));
 	}
 
 	public void setupDisplayMatrixMatrixViewer(Scenario base) {
-		new SetupDisplayMatrixDraw(base,"maps/tree.html","Setup Display Matrix");
-		showContent("Setup Display Matrix",SetupDisplayMatrixDraw.createContent(base,"Setup Display Matrix"));
+		showTab(new SetupDisplayMatrixTab(base));
 	}
 
 	public void transportDisplayMatrixMatrixViewer(Scenario base) {
-		new TransportDisplayMatrixDraw(base,"maps/tree.html","Transport Display Matrix");
-		showContent("Transport Display Matrix",TransportDisplayMatrixDraw.createContent(base,"Transport Display Matrix"));
+		showTab(new TransportDisplayMatrixTab(base));
 	}
 
 	@Override

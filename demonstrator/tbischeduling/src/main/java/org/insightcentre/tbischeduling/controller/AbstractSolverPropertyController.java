@@ -32,7 +32,8 @@ import org.insightcentre.tbischeduling.datamodel.ObjectiveType;
 import org.insightcentre.tbischeduling.datamodel.SolverBackend;
 
 /**
- * Generated at 10:19:39 on 2025-02-26 */
+ * Generated code
+ */
 public class AbstractSolverPropertyController extends Table3Controller {
 	@FXML
 	private TableView<AbstractSolverProperty> table;
@@ -297,7 +298,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class EnforceReleaseDateCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().enforceReleaseDateWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -312,7 +314,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class EnforceDueDateCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().enforceDueDateWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -327,7 +330,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class EnforceCumulativeCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().enforceCumulativeWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -342,7 +346,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class EnforceWipCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().enforceWipWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -357,7 +362,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class EnforceDowntimeCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().enforceDowntimeWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -372,7 +378,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class EnforceSetupCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().enforceSetupWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -387,7 +394,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class EnforceTransportTimeCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().enforceTransportTimeWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -402,7 +410,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class RelaxSequenceCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().relaxSequenceWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -417,7 +426,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class AddSameOrderCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().addSameOrderWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -432,7 +442,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class AddNoWaitCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().addNoWaitWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -447,7 +458,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class AddBlockingCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().addBlockingWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -462,7 +474,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class RemoveSolutionCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().removeSolutionWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -477,7 +490,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class ProduceReportCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().produceReportWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
@@ -492,7 +506,8 @@ public class AbstractSolverPropertyController extends Table3Controller {
 
 	class ProducePDFCallback implements Callback<TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean>, ObservableValue<Boolean>> {
 		@Override
-		public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
+		public ObservableValue<Boolean> call(
+				TableColumn.CellDataFeatures<AbstractSolverProperty, Boolean> cellData) {
 			Property<Boolean> prop = cellData.getValue().producePDFWrapperProperty();
 			prop.addListener(new ChangeListener<Boolean>() {
 				@Override
