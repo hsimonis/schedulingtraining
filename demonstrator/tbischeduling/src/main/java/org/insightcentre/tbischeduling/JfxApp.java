@@ -91,7 +91,7 @@ public class JfxApp extends GeneratedJfxApp {
 //                new ReadTestSchedulingFile(base,new File("testscheduling/t20m10r3-1.pl.json"));
 //                new ReadTestSchedulingFile(base,new File("testscheduling/t500m20r10-1.pl.json"));
 //                new ReadJJFlatFile(base,"transport/instance400_1.txt");
-                new ReadNoWaitHFSFile(base,new File("nowaithfs/benchmark_instances 1111/instance_1_J10_S2.txt"));
+//                new ReadNoWaitHFSFile(base,new File("nowaithfs/benchmark_instances 1111/instance_1_J10_S2.txt"));
 //                SolverRun run = new SolverRun(base);
 //                run.setName("cpsat");
 //                run.setModelType(ModelType.CPSat);
