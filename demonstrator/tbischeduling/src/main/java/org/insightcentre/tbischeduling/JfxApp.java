@@ -31,6 +31,8 @@ import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
 public class JfxApp extends GeneratedJfxApp {
 
+    String workingDir;
+
 // callbacks to add for user interaction that is not generated
 // use stubs in GeneratedJFxApp as basis
 // callback for ctrl+selection in list
@@ -61,6 +63,15 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setDataGeneratorProperty(q);
                 base.setGanttProperty(createGanttProperties(base));
                 base.setHasDisjunctive(true);
+                workingDir = getProperty("user.dir");
+                if (!workingDir.endsWith("/")){
+                    workingDir = workingDir + "/";
+                }
+                if (!new File(workingDir).exists()){
+                    severe("WorkingDir "+workingDir+" does not exist");
+                } else{
+                    info("WorkingDir "+workingDir);
+                }
 //                info("Create JSON doc");
 //                new CreateJSONDoc(base,"site/jsondoc/");
                 info("Creating default data");
@@ -132,9 +143,17 @@ public class JfxApp extends GeneratedJfxApp {
         public void LoadDataFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Load Datafile");
-                fileChooser.setInitialDirectory(new File("imports/"));
+                File importDir = new File(workingDir+"imports/");
+                if (!importDir.exists()){
+                    severe("ImportDir "+ importDir.getAbsolutePath()+" does not exist");
+                    importDir = new File(workingDir);
+                } else {
+                    info("ImportDir "+importDir.getAbsolutePath());
+                }
+                fileChooser.setInitialDirectory(importDir);
                 fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+
                 fileChooser.setInitialFileName("demo.json");
                 // allow to enter new file
                 File selected = fileChooser.showOpenDialog(primaryStage);
@@ -169,7 +188,15 @@ public class JfxApp extends GeneratedJfxApp {
         public void SaveDataFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Save Datafile");
-                fileChooser.setInitialDirectory(new File("imports/"));
+            File importDir = new File(workingDir+"imports/");
+            if (!importDir.exists()){
+                severe("ImportDir "+ importDir.getAbsolutePath()+" does not exist");
+                importDir = new File(workingDir);
+            } else {
+                info("ImportDir "+importDir.getAbsolutePath());
+            }
+
+            fileChooser.setInitialDirectory(importDir);
                 fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("JSON Files", "*.json"));
                 fileChooser.setInitialFileName("result.json");
@@ -194,7 +221,7 @@ public class JfxApp extends GeneratedJfxApp {
 
         @Override
         public void GenerateReportAction(Scenario base) {
-                new SchedulingReport(base,"reports/").produce("schedulingreport",
+                new SchedulingReport(base,workingDir+"reports/").produce("schedulingreport",
                         "Scheduling Report","L. O'Toole and H. Simonis");
                 setStatus("Scheduling report generated");
                 reset();
@@ -205,7 +232,7 @@ public class JfxApp extends GeneratedJfxApp {
         public void LoadJJFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Load Datafile");
-                fileChooser.setInitialDirectory(new File("transport/"));
+                fileChooser.setInitialDirectory(new File(workingDir+"transport/"));
                 fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("Text Files", "*.txt"));
                 fileChooser.setInitialFileName("instance20_1.txt");
@@ -241,7 +268,7 @@ public class JfxApp extends GeneratedJfxApp {
         public void LoadSALBPFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Load Datafile");
-                fileChooser.setInitialDirectory(new File("salbp/"));
+                fileChooser.setInitialDirectory(new File(workingDir+"salbp/"));
                 fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("ALB Files", "*.alb"));
                 fileChooser.setInitialFileName("instance+n=20_1.alb");
@@ -278,7 +305,7 @@ public class JfxApp extends GeneratedJfxApp {
         public void LoadSALBPAlternativeFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Load Datafile");
-                fileChooser.setInitialDirectory(new File("salbp/"));
+                fileChooser.setInitialDirectory(new File(workingDir+"salbp/"));
                 fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("ALB Files", "*.alb"));
                 fileChooser.setInitialFileName("instance+n=20_1.alb");
@@ -316,7 +343,7 @@ public class JfxApp extends GeneratedJfxApp {
         public void LoadTestFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Load Test Scheduling Datafile");
-                fileChooser.setInitialDirectory(new File("testscheduling/"));
+                fileChooser.setInitialDirectory(new File(workingDir+"testscheduling/"));
                 fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("JSON Files", "*.json"));
                 fileChooser.setInitialFileName("t20m10r3-1.pl.json");
@@ -354,7 +381,7 @@ public class JfxApp extends GeneratedJfxApp {
         public void LoadFJSPFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Load FJSP Datafile");
-                fileChooser.setInitialDirectory(new File("imports/fjsp/"));
+                fileChooser.setInitialDirectory(new File(workingDir+"imports/fjsp/"));
                 fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("FJS Files", "*.fjs"));
 //                fileChooser.setInitialFileName("t20m10r3-1.pl.json");
@@ -392,7 +419,7 @@ public class JfxApp extends GeneratedJfxApp {
         public void LoadNoWaitHFSFileAction(Scenario base) {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Load NoWaitHFS Datafile");
-                fileChooser.setInitialDirectory(new File("nowaithfs/"));
+                fileChooser.setInitialDirectory(new File(workingDir+"nowaithfs/"));
                 fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("HFS Files", "*.txt"));
 //                fileChooser.setInitialFileName("t20m10r3-1.pl.json");
@@ -429,7 +456,10 @@ public class JfxApp extends GeneratedJfxApp {
 
         @Override
         public void generateDataSolverRun(Scenario base) {
-                Optional<Boolean> result = new GenerateDataDialogBoxImpl(this,base,new GenerateDataSolverImpl(base)).showAndWait();
+            GenerateDataDialogBoxImpl dialog = new GenerateDataDialogBoxImpl(this,base,
+                    new GenerateDataSolverImpl(base));
+            dialog.setShowLineChart(false);
+                Optional<Boolean> result = dialog.showAndWait();
                 setStatus("Data Generated");
                 setTitle(applicationTitle+" (Generated data)");
                 reset();
@@ -437,7 +467,8 @@ public class JfxApp extends GeneratedJfxApp {
 
         @Override
         public void scheduleJobsSolverRun(Scenario base) {
-                Optional<Boolean> result = new ScheduleJobsDialogBoxImpl(this,base,new ScheduleJobsSolverImpl(base)).showAndWait();
+                Optional<Boolean> result = new ScheduleJobsDialogBoxImpl(this,base,
+                        new ScheduleJobsSolverImpl(base)).showAndWait();
                 reset();
                 if (base.getListSolutionError().stream().anyMatch(x -> x.getSeverity() != Minor)) {
                         setStatus("Solver finished with errors");
@@ -475,8 +506,8 @@ public class JfxApp extends GeneratedJfxApp {
 //        @Override
 //        public void showSolutionReport(Scenario base) {
 //                try {
-//                        showUrl("Solution Report",new File("reports/html/schedulingreport.html").getAbsoluteFile().toURI().toURL());
-////                        showUrlInBrowser(new File("reports/html/schedulingreport.html").getAbsoluteFile().toURI().toURL());
+//                        showUrl("Solution Report",new File(workingDir+"reports/html/schedulingreport.html").getAbsoluteFile().toURI().toURL());
+////                        showUrlInBrowser(new File(workingDir+"reports/html/schedulingreport.html").getAbsoluteFile().toURI().toURL());
 //                } catch(Exception e){
 //                        severe("Cannot show report "+e.getMessage());
 //                }
