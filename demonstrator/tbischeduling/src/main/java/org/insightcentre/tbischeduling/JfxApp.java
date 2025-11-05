@@ -21,9 +21,11 @@ import org.insightcentre.tbischeduling.reports.SchedulingReport;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import static framework.reports.AbstractCommon.safe;
+import static java.lang.System.getProperty;
 import static org.insightcentre.tbischeduling.datamodel.Severity.Minor;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
@@ -76,6 +78,8 @@ public class JfxApp extends GeneratedJfxApp {
                 base.setHorizon(100000);
                 base.setDirty(false);
                 setTitle(applicationTitle+" (Generated)");
+                info("user.dir "+getProperty("user.dir")+" user home "+getProperty("user.home")+" cwd "+
+                        Paths.get("").toAbsolutePath().toString());
 //                new ReadData(base,new File("imports/RCPSP/SingleMode/j30/j301_1.json"));
 //                new ReadData(base,new File("imports/RCPSP/SingleMode/j30/j3013_2.json"));
 //                new ReadData(base,new File("imports/RCPSP/SingleMode/j120/j12013_2.json"));
