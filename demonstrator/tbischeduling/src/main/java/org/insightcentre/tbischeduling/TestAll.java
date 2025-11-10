@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 
 import static framework.reports.AbstractCommon.safe;
 import static java.util.stream.Collectors.groupingBy;
+import static org.insightcentre.tbischeduling.JfxApp.requiresDirectory;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverBackend.Chuffed;
 import static org.insightcentre.tbischeduling.datamodel.SolverBackend.Cplex;
@@ -53,8 +54,15 @@ public class TestAll {
 //        analyzeAll(base,"nowaithfs/benchmark_instances 2222/results/","noWaitHFS (CPO)","nowaithfs2222CPO","CPO");
 //        testHfs("nowaithfs/benchmark_instances 3333/","results/",CPO,null,4,600,overWrite);
 //        analyzeAll(base,"nowaithfs/benchmark_instances 3333/results/","noWaitHFS (CPO)","nowaithfs3333CPO","CPO");
-        testHfs("nowaithfs/benchmark_instances large/","results/",CPO,null,4,600,overWrite);
-        analyzeAll(base,"nowaithfs/benchmark_instances large/results/","noWaitHFS (CPO)","nowaithfslargeCPO","CPO");
+//        testHfs("nowaithfs/benchmark_instances large/","results/",CPO,null,4,600,overWrite);
+//       analyzeAll(base,"nowaithfs/benchmark_instances large/results/","noWaitHFS (CPO)","nowaithfslargeCPO","CPO");
+
+//        testCfs("cfsnowait/","results/",CPO,null,4,30,overWrite);
+        testCfs("cfsnowait/","resultsCPSat/",CPSat,null,8,300,overWrite);
+//        analyzeAll(base,"cfsnowait/results/","CFSnoWait (CPO)","cfsnowaitCPO","CPO");
+        analyzeAll(base,"cfsnowait/results/","CFSnoWait (CPSat)","cfsnowaitCPSat","CPSat");
+        compareSummaries(base,"comparecfs",false,"CPO","CPSat",
+                "Comparison of CPO and CPSat for Results of CFS",GroupType.CFS);
 
 ////        testAll("imports/RCPSP/SingleMode/j30/","results/",CPO,4,600,overWrite);
 ////        testAll("imports/RCPSP/SingleMode/j30/","resultsCPSat/",CPSat,8,600,overWrite);
@@ -227,6 +235,8 @@ public class TestAll {
      */
     private static void testAll(String importDir,String resultDir,ModelType solver,SolverBackend backEnd,int nrThreads,int timeout,boolean overWrite){
         assert(importDir.endsWith("/"));
+        assert(resultDir.endsWith("/"));
+        requiresDirectory(importDir+resultDir);
         List<String> list =  listFilesUsingJavaIO(importDir,".json");
 
         for(String fileName:list) {
@@ -288,6 +298,8 @@ public class TestAll {
      */
     private static void testSALBP(String importDir,String resultDir,ModelType solver,SolverBackend backEnd,int nrThreads,int timeout,boolean overWrite){
         assert(importDir.endsWith("/"));
+        assert(resultDir.endsWith("/"));
+        requiresDirectory(importDir+resultDir);
         List<String> list =  listFilesUsingJavaIO(importDir,".alb");
 
         for(String fileName:list.stream().sorted(Comparator.comparing(TestAll::instanceNr)).toList()) {
@@ -344,6 +356,8 @@ public class TestAll {
     }
     private static void testHfs(String importDir,String resultDir,ModelType solver,SolverBackend backEnd,int nrThreads,int timeout,boolean overWrite){
         assert(importDir.endsWith("/"));
+        assert(resultDir.endsWith("/"));
+        requiresDirectory(importDir+resultDir);
         List<String> list =  listFilesUsingJavaIO(importDir,".txt");
 
         for(String fileName:list.stream().sorted(Comparator.comparing(TestAll::hfsNr)).toList()) {
@@ -398,8 +412,68 @@ public class TestAll {
         }
 
     }
+    private static void testCfs(String importDir,String resultDir,ModelType solver,SolverBackend backEnd,int nrThreads,int timeout,boolean overWrite){
+        assert(importDir.endsWith("/"));
+        assert(resultDir.endsWith("/"));
+        requiresDirectory(importDir+resultDir);
+        List<String> list =  listFilesUsingJavaIO(importDir,".txt");
+
+        for(String fileName:list.stream().sorted(Comparator.comparing(TestAll::hfsNr)).toList()) {
+            String outputFile = importDir+resultDir+ fileName.replaceAll(".txt",".json");
+            if (overWrite || (!new File(outputFile).exists() /*&& fileName.startsWith("instance_n=50_")*/)) {
+                info("trying file " + fileName);
+
+                Scenario base = new Scenario();
+                base.setDataFileVersionNumber(8.0);
+                base.setDataFile("");
+                // horizon set for each instance in the reader
+                base.setTimeResolution(5);
+                base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
+
+                // define the format version of the datafiles
+                new ReadDFSNoWaitFile(base, new File(importDir + fileName));
+                SolverRun test = new SolverRun(base);
+                test.setName(fileName);
+                test.setSolverStatus(ToRun);
+                test.setEnforceReleaseDate(false);
+                test.setEnforceDueDate(false);
+                test.setEnforceCumulative(true);
+                test.setEnforceWip(false);
+                test.setEnforceDowntime(false);
+                test.setEnforceSetup(false);
+                test.setEnforceTransportTime(false);
+                test.setRelaxSequence(false);
+                test.setAddSameOrder(false);
+                test.setTimeout(timeout);
+                test.setModelType(solver);
+                test.setSolverBackend(backEnd);
+                test.setObjectiveType(ObjectiveType.Makespan);
+                test.setNrThreads(nrThreads);
+
+//            info("Nr SolverRun " + base.getListSolverRun().size());
+                for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
+                    info("Running " + run.getName());
+                    switch (solver) {
+                        case CPO -> new CPOModel(base, run).solve();
+                        case CPSat -> new CPSatModel(base, run).solve();
+                        case MiniZincDiffn -> new MiniZincDiffnModel(base, run).solve();
+                        default -> {
+                            severe("solver not supported " + solver);
+                            assert (false);
+                        }
+                    }
+
+                }
+                new WriteData(base).toFile(new File(outputFile), 2);
+            }
+
+        }
+
+    }
     private static void testSALBPAlternative(String importDir,String resultDir,ModelType solver,SolverBackend backEnd,int nrThreads,int timeout,boolean overWrite){
         assert(importDir.endsWith("/"));
+        assert(resultDir.endsWith("/"));
+        requiresDirectory(importDir+resultDir);
         List<String> list =  listFilesUsingJavaIO(importDir,".alb");
 
         for(String fileName:list.stream().sorted(Comparator.comparing(TestAll::instanceNr)).toList()) {
@@ -463,6 +537,7 @@ public class TestAll {
     private static void testTestScheduling(String importDir,String resultDir){
         assert(importDir.endsWith("/"));
         assert(resultDir.endsWith("/"));
+        requiresDirectory(importDir+resultDir);
         List<String> list =  listFilesUsingJavaIO(importDir,".json");
 
         for(String fileName:list) {
@@ -510,6 +585,7 @@ public class TestAll {
     private static void testTransport(String importDir,String resultDir){
         assert(importDir.endsWith("/"));
         assert(resultDir.endsWith("/"));
+        requiresDirectory(importDir+resultDir);
         List<String> list =  listFilesUsingJavaIO(importDir,".txt");
 
         for(String fileName:list) {
@@ -564,6 +640,7 @@ public class TestAll {
     private static void analyzeAll(Scenario base,String resultDir,String title,String suffix,String variant,boolean adjust){
         assert(resultDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(resultDir,".json");
+        requiresDirectory("reports/");
         String reportFile = "reports/results"+suffix+".tex";
         try{
             PrintWriter out = new PrintWriter(reportFile);
@@ -672,6 +749,7 @@ public class TestAll {
 
     private static void compareSummaries(Scenario base, String key, boolean relax, String variant1, String variant2, String label, GroupType grouper){
         String fileName = "reports/"+key+".tex";
+        requiresDirectory("reports/");
         try {
             PrintWriter out = new PrintWriter(fileName);
             out.printf("\\begin{table}[htbp]\n");
@@ -1235,8 +1313,6 @@ public class TestAll {
         }
         return Integer.parseInt(entry);
     }
-
-
 
 
 }

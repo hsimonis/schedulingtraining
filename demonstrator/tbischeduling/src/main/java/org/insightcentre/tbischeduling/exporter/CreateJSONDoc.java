@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 
+import static org.insightcentre.tbischeduling.JfxApp.requiresDirectory;
 import static org.insightcentre.tbischeduling.datamodel.ResourceModel.All;
 import static org.insightcentre.tbischeduling.datamodel.Severity.Fatal;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
@@ -175,6 +176,7 @@ public class CreateJSONDoc {
 
     private void enumTypes(String label,String[] names,String docDir,String file){
         String fullName = docDir+file;
+        requiresDirectory(docDir);
         try{
             PrintWriter out = new PrintWriter(fullName);
             out.printf("\\begin{table}[htbp]\n");
@@ -196,6 +198,7 @@ public class CreateJSONDoc {
     }
 
     private void printAsJSONDoc(JSONObject obj, String docDir, String file){
+        requiresDirectory(docDir);
         try{
             PrintWriter out = new PrintWriter(new File(docDir+file));
             out.println("@startjson");
@@ -209,6 +212,7 @@ public class CreateJSONDoc {
     }
 
     private void stylesTable(String docDir,String file){
+        requiresDirectory(docDir);
         String fullName = docDir+file;
         try{
             PrintWriter out = new PrintWriter(fullName);

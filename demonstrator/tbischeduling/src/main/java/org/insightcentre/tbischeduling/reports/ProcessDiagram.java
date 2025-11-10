@@ -15,6 +15,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.joining;
 import static net.sourceforge.plantuml.FileFormat.PNG;
+import static org.insightcentre.tbischeduling.JfxApp.requiresDirectory;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
@@ -42,8 +43,9 @@ public class ProcessDiagram {
         }
         String source = suffix(sb);
 
-        createImage(source,PNG,"maps/diagram.png");
-        image = imageFromFile("maps/diagram.png");
+        requiresDirectory(base.getHomeDir()+"maps/");
+        createImage(source,PNG,base.getHomeDir()+"maps/diagram.png");
+        image = imageFromFile(base.getHomeDir()+"maps/diagram.png");
     }
 
      /*
@@ -64,8 +66,9 @@ public class ProcessDiagram {
         }
         String source=suffix(sb);
 
-        createImage(source,PNG,"maps/diagram.png");
-        image = imageFromFile("maps/diagram.png");
+        requiresDirectory(base.getHomeDir()+"maps/");
+        createImage(source,PNG,base.getHomeDir()+"maps/diagram.png");
+        image = imageFromFile(base.getHomeDir()+"maps/diagram.png");
      }
 
  /*
@@ -97,8 +100,9 @@ public class ProcessDiagram {
 
         String source = suffix(sb);
 
-        createImage(source,PNG,"maps/pert.png");
-        image = imageFromFile("maps/pert.png");
+        requiresDirectory(base.getHomeDir()+"maps/");
+        createImage(source,PNG,base.getHomeDir()+"maps/pert.png");
+        image = imageFromFile(base.getHomeDir()+"maps/pert.png");
     }
     /*
     show the PERT chart for a complete schedule
@@ -145,8 +149,9 @@ public class ProcessDiagram {
         }
         String source = suffix(sb);
 
-        createImage(source,PNG,"maps/pert.png");
-        image = imageFromFile("maps/pert.png");
+        requiresDirectory(base.getHomeDir()+"maps/");
+        createImage(source,PNG,base.getHomeDir()+"maps/pert.png");
+        image = imageFromFile(base.getHomeDir()+"maps/pert.png");
     }
 
     private Image imageFromFile(String fileName){

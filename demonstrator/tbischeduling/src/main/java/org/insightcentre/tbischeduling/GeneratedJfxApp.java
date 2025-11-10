@@ -90,7 +90,7 @@ import org.insightcentre.tbischeduling.generatedsolver.ScheduleJobsSolver;
  */
 public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	static {
-		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling/site/web");
+		FREEMARKER_CFG.setClassForTemplateLoading(GeneratedJfxApp.class, "site/web/");
 	}
 
 	public Scenario basebase;
@@ -192,7 +192,7 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 	private ObservableList<PlacedRectangle> placedRectangleData = FXCollections.observableArrayList();
 
 	public GeneratedJfxApp() {
-		super("tbischeduling", "ENTIRE EDIH Test Before Invest - Scheduling - University College Cork", "*.data", "C:/Users/hsimonis/Documents/GitHub/schedulingtraining/demonstrator/tbischeduling");
+		super("tbischeduling", "ENTIRE EDIH Test Before Invest - Scheduling - University College Cork", "*.data", "data/");
 		fs = minimalDataset();
 		reset();
 		tableViews.put("SolutionSummary", "SolutionSummary");
@@ -447,6 +447,10 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		alert(Alert.AlertType.WARNING, "Action LoadNoWaitHFSFileAction is not yet implemented!");
 	}
 
+	public void LoadDFSNoWaitFileAction(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action LoadDFSNoWaitFileAction is not yet implemented!");
+	}
+
 	public void diagramViewer(Scenario base) {
 		alert(Alert.AlertType.WARNING, "Action diagramViewer is not yet implemented!");
 	}
@@ -546,6 +550,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		}
 		else if (id.equals("LoadNoWaitHFSFileAction")) {
 			LoadNoWaitHFSFileAction((Scenario) fs);
+		}
+		else if (id.equals("LoadDFSNoWaitFileAction")) {
+			LoadDFSNoWaitFileAction((Scenario) fs);
 		}
 		else if (id.equals("newOrderSolverRun")) {
 			newOrderSolverRun((Scenario) fs);

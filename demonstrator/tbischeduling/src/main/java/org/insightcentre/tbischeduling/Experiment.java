@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.insightcentre.tbischeduling.JfxApp.requiresDirectory;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.CPO;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.ToRun;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
@@ -133,6 +134,7 @@ public class Experiment {
     private static void analyzeAll(String resultDir,String title,String suffix){
         assert(resultDir.endsWith("/"));
         List<String> list =  listFilesUsingJavaIO(resultDir,".json");
+        requiresDirectory("reports/");
         String reportFile = "reports/experiments"+suffix+".tex";
         try{
             PrintWriter out = new PrintWriter(reportFile);
@@ -154,7 +156,7 @@ public class Experiment {
                     String name = fileName;
 //                    String name = solverRun.getString("name");
                     int nrJobs = problem.getInt("nrJobs");
-                    int nrMachines = problem.getInt("nrDisjunctiveResources");
+                    int nrMachines = problem.getInt("nrDisjunctiveResources")+problem.getInt("nrCumulativeResources");
                     String status = sol.getString("solverStatus");
                     double time = solverRun.getDouble("time");
                     double bound = sol.getDouble("bound");

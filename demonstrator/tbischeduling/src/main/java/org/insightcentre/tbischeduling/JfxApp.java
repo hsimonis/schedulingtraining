@@ -5,6 +5,7 @@ Generated once, should be extended by user
 */
 
 import framework.types.DateTime;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -72,8 +73,10 @@ public class JfxApp extends GeneratedJfxApp {
                 } else{
                     info("WorkingDir "+workingDir);
                 }
+                base.setHomeDir(workingDir);
 //                info("Create JSON doc");
-//                new CreateJSONDoc(base,"site/jsondoc/");
+//            requiresDirectory(workingDir+"site/");
+//                new CreateJSONDoc(base,workingDir+"site/jsondoc/");
                 info("Creating default data");
                 new CreateData(base,q.getLabel(),q.getStartDateTime(),q.getResourceModel(),q.getNrProducts(),
                         q.getMinStages(),q.getMaxStages(),q.getNrDisjunctiveResources(),
@@ -121,6 +124,7 @@ public class JfxApp extends GeneratedJfxApp {
 //                                ps.setSequenceType(Blocking);
 //                        }
 //                }
+//            requiresDirectory(workingDir+"reports/");
 //                new SchedulingReport(base, "reports/").produce("placementreport", "Scheduling Report for "+safe(base.getDataFile()), "L. O'Toole and H. Simonis");
                 info("file "+base.getDataFile());
                 return base;
@@ -453,8 +457,48 @@ public class JfxApp extends GeneratedJfxApp {
                 }
         }
 
-
         @Override
+    public void LoadDFSNoWaitFileAction(Scenario base) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load DFSNoWait Datafile");
+        fileChooser.setInitialDirectory(new File(workingDir+"dfsnowait/"));
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("DFS Files", "*.txt"));
+//                fileChooser.setInitialFileName("t20m10r3-1.pl.json");
+        // allow to enter new file
+        File selected = fileChooser.showOpenDialog(primaryStage);
+        if (selected != null){
+            try {
+                setStatus("Reading file "+selected.getName());
+                info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
+                base.setDataFile(selected.getName());
+                new ReadDFSNoWaitFile(base,selected);
+                setTitle(applicationTitle+" ("+selected.getName()+")");
+            } catch(IOException e){
+                severe("IOException "+e.getMessage());
+            }
+        } else {
+            warning("File null");
+        }
+        // re-adjust the user interface to reflect the modified data
+        reset();
+        // if any errors were found, show them in the GUI
+        if (base.getListInputError().size() > 0){
+            setStatus("File read with "+base.getListInputError().size()+" input data errors");
+            showView("InputError");
+        } else if (base.getListSolutionError().size() > 0){
+            setStatus("File read with "+base.getListSolutionError().size()+" solution errors");
+            showView("SolutionError");
+        } else {
+            showView("custom/DiagramViewer");
+            setStatus("File read");
+        }
+    }
+
+
+
+
+    @Override
         public void generateDataSolverRun(Scenario base) {
             GenerateDataDialogBoxImpl dialog = new GenerateDataDialogBoxImpl(this,base,
                     new GenerateDataSolverImpl(base));
@@ -562,5 +606,20 @@ public class JfxApp extends GeneratedJfxApp {
                 return res;
 
         }
+
+    public static void requiresDirectory(String name){
+        File dir = new File(name);
+        if (!dir.exists()){
+            boolean res = dir.mkdir();
+            if (!res){
+                severe("Cannot create directory "+name);
+            } else {
+                info("Directory "+name+" created");
+            }
+        } else {
+            info("Directory "+name+" exists");
+        }
+    }
+
 
 }

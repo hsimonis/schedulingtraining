@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import static org.insightcentre.tbischeduling.JfxApp.requiresDirectory;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
 import static org.insightcentre.tbischeduling.datamodel.ObjectiveType.*;
 import static org.insightcentre.tbischeduling.datamodel.SequenceType.*;
@@ -40,6 +41,7 @@ public class ReadData {
             String contents = new String(Files.readAllBytes(selected.toPath()));
             root = new JSONObject(contents);
             base.setDataFile(selected.getName());
+//            requiresDirectory("exports/");
 //            pretty(root,"exports/pretty.json");
         } catch(IOException e){
             severe("Cannot read file "+selected+", exception "+e.getMessage());

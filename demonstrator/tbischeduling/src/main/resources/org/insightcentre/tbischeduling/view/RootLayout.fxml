@@ -29,12 +29,17 @@
                   <MenuItem id="SaveDataFileAction" onAction="#handle" text="Save DataFile..." />
                   <MenuItem id="GenerateReportAction" onAction="#handle" text="Generate Report..." />
                   <SeparatorMenuItem />
-                  <MenuItem id="LoadJJFileAction" onAction="#handle" text="Load J&amp;J Problem..." />
-                  <MenuItem id="LoadSALBPFileAction" onAction="#handle" text="Load SALBP Problem..." />
-                  <MenuItem id="LoadSALBPAlternativeFileAction" onAction="#handle" text="Load SALBP Problem Alternative..." />
-                  <MenuItem id="LoadTestFileAction" onAction="#handle" text="Load Test Scheduling Problem..." />
-                  <MenuItem id="LoadFJSPFileAction" onAction="#handle" text="Load FJSP Problem..." />
-                  <MenuItem id="LoadNoWaitHFSFileAction" onAction="#handle" text="Load nowaithfs Problem..." />
+                  <Menu text="_MoreFormats">
+                     <items>
+                        <MenuItem id="LoadJJFileAction" onAction="#handle" text="Load J&amp;J Problem..." />
+                        <MenuItem id="LoadSALBPFileAction" onAction="#handle" text="Load SALBP Problem..." />
+                        <MenuItem id="LoadSALBPAlternativeFileAction" onAction="#handle" text="Load SALBP Problem Alternative..." />
+                        <MenuItem id="LoadTestFileAction" onAction="#handle" text="Load Test Scheduling Problem..." />
+                        <MenuItem id="LoadFJSPFileAction" onAction="#handle" text="Load FJSP Problem..." />
+                        <MenuItem id="LoadNoWaitHFSFileAction" onAction="#handle" text="Load nowaithfs Problem..." />
+                        <MenuItem id="LoadDFSNoWaitFileAction" onAction="#handle" text="Load dfsnowait Problem..." />
+                     </items>
+                  </Menu>
                   <SeparatorMenuItem />
                   <MenuItem id="Print" accelerator="Shortcut+P" onAction="#handle" text="Print..." />
                   <SeparatorMenuItem />

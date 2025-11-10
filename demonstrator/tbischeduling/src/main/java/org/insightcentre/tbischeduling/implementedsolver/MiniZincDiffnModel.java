@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.groupingBy;
+import static org.insightcentre.tbischeduling.JfxApp.requiresDirectory;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 
@@ -25,6 +26,7 @@ public class MiniZincDiffnModel extends AbstractModel{
 
     public boolean solve(){
         String minizincDir = "minizinc/";
+        requiresDirectory(minizincDir);
         String dataFile = "data.json";
         String resultFile = "res.json";
         String program="problem.mzn";
