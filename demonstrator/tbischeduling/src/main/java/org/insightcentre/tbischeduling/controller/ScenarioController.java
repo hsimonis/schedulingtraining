@@ -55,6 +55,9 @@ public class ScenarioController extends Table3Controller {
 	private TableColumn<Scenario, String> dataFile;
 
 	@FXML
+	private TableColumn<Scenario, String> homeDir;
+
+	@FXML
 	private TableColumn<Scenario, DateTime> startDateTime;
 
 	@FXML
@@ -146,6 +149,10 @@ public class ScenarioController extends Table3Controller {
 		dataFile.setCellValueFactory(new PropertyValueFactory<>("dataFile"));
 		dataFile.setCellFactory(TextFieldTableCell.forTableColumn());
 		dataFile.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDataFile(event.getNewValue()); mainApp.reset();});
+		choices.add("homeDir");
+		homeDir.setCellValueFactory(new PropertyValueFactory<>("homeDir"));
+		homeDir.setCellFactory(TextFieldTableCell.forTableColumn());
+		homeDir.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setHomeDir(event.getNewValue()); mainApp.reset();});
 		choices.add("startDateTime");
 		startDateTime.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
 		startDateTime.setCellFactory(DateTimePickerTableCell.forTableColumn(DATETIME_CONVERTER));

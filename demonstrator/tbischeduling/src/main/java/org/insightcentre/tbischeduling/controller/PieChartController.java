@@ -33,6 +33,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("valid");
 		attributeNames.add("dataFileVersionNumber");
 		attributeNames.add("dataFile");
+		attributeNames.add("homeDir");
 		attributeNames.add("startDateTime");
 		attributeNames.add("horizon");
 		attributeNames.add("timeResolution");

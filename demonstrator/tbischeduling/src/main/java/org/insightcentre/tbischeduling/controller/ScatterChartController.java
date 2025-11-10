@@ -30,6 +30,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		attributeNames.add("dataFileVersionNumber");
 		filterNames.add("dataFileVersionNumber");
 		filterNames.add("dataFile");
+		filterNames.add("homeDir");
 		filterNames.add("startDateTime");
 		attributeNames.add("horizon");
 		filterNames.add("horizon");

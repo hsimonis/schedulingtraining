@@ -57,10 +57,10 @@ public class TestAll {
 //        testHfs("nowaithfs/benchmark_instances large/","results/",CPO,null,4,600,overWrite);
 //       analyzeAll(base,"nowaithfs/benchmark_instances large/results/","noWaitHFS (CPO)","nowaithfslargeCPO","CPO");
 
-//        testCfs("cfsnowait/","results/",CPO,null,4,30,overWrite);
+        testCfs("cfsnowait/","results/",CPO,null,4,30,overWrite);
         testCfs("cfsnowait/","resultsCPSat/",CPSat,null,8,300,overWrite);
-//        analyzeAll(base,"cfsnowait/results/","CFSnoWait (CPO)","cfsnowaitCPO","CPO");
-        analyzeAll(base,"cfsnowait/results/","CFSnoWait (CPSat)","cfsnowaitCPSat","CPSat");
+        analyzeAll(base,"cfsnowait/results/","CFSnoWait (CPO)","cfsnowaitCPO","CPO");
+        analyzeAll(base,"cfsnowait/resultsCPSat/","CFSnoWait (CPSat)","cfsnowaitCPSat","CPSat");
         compareSummaries(base,"comparecfs",false,"CPO","CPSat",
                 "Comparison of CPO and CPSat for Results of CFS",GroupType.CFS);
 
@@ -900,6 +900,7 @@ public class TestAll {
             case Taillard: return lookupGroup(s.getNrJobs()+"/"+s.getNrMachines(),s.getNrJobs(),s.getNrMachines(),0);
             case Salbp: return lookupGroup(s.getNrTasks()+"",s.getNrTasks(),0,0);
             case TestScheduling: return lookupGroup(s.getNrJobs()+"/"+s.getNrMachines()+"/"+s.getNrCumulatives(),s.getNrJobs(),s.getNrMachines(),s.getNrCumulatives());
+            case CFS: return lookupGroup(s.getNrJobs()+"/"+s.getNrMachines()+"/"+s.getNrCumulatives(),s.getNrJobs(),s.getNrMachines(),s.getNrCumulatives());
             case Transport: return lookupGroup(s.getNrJobs()+"",s.getNrJobs(),0,0);
             default:
                 severe("Bad Group type: "+type);

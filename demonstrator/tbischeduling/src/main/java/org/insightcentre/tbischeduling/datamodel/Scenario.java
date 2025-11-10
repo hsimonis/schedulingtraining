@@ -210,6 +210,13 @@ public  class Scenario extends ApplicationDataset{
  *
 */
 
+    public String homeDir;
+
+/**
+ *  
+ *
+*/
+
     public Integer horizon;
 
 /**
@@ -267,6 +274,7 @@ public  class Scenario extends ApplicationDataset{
         setHasSetupTime(true);
         setHasTransportTime(true);
         setHasWiP(true);
+        setHomeDir("");
         setHorizon(0);
         setSolverProperty(null);
         setStartDateTime(new DateTime());
@@ -300,6 +308,7 @@ public  class Scenario extends ApplicationDataset{
             Boolean hasSetupTime,
             Boolean hasTransportTime,
             Boolean hasWiP,
+            String homeDir,
             Integer horizon,
             SolverProperty solverProperty,
             DateTime startDateTime,
@@ -323,6 +332,7 @@ public  class Scenario extends ApplicationDataset{
         setHasSetupTime(hasSetupTime);
         setHasTransportTime(hasTransportTime);
         setHasWiP(hasWiP);
+        setHomeDir(homeDir);
         setHorizon(horizon);
         setSolverProperty(solverProperty);
         setStartDateTime(startDateTime);
@@ -350,6 +360,7 @@ public  class Scenario extends ApplicationDataset{
             other.hasSetupTime,
             other.hasTransportTime,
             other.hasWiP,
+            other.homeDir,
             other.horizon,
             other.solverProperty,
             other.startDateTime,
@@ -576,6 +587,16 @@ public  class Scenario extends ApplicationDataset{
     }
 
 /**
+ *  get attribute homeDir
+ *
+ * @return String
+*/
+
+    public String getHomeDir(){
+        return this.homeDir;
+    }
+
+/**
  *  get attribute horizon
  *
  * @return Integer
@@ -796,6 +817,18 @@ public  class Scenario extends ApplicationDataset{
     }
 
 /**
+ *  set attribute homeDir, mark dataset as dirty, mark dataset as not valid
+@param homeDir String
+ *
+*/
+
+    public void setHomeDir(String homeDir){
+        this.homeDir = homeDir;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute horizon, mark dataset as dirty, mark dataset as not valid
 @param horizon Integer
  *
@@ -904,7 +937,7 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public String prettyString(){
-        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getDataGeneratorProperty().toColumnString()+ " " +getGanttLineHeight()+ " " +getGanttLinesPerPage()+ " " +getGanttProperty().toColumnString()+ " " +getGanttWidth()+ " " +getHasCumulative()+ " " +getHasDisjunctive()+ " " +getHasDowntime()+ " " +getHasDueDate()+ " " +getHasReleaseDate()+ " " +getHasSetupTime()+ " " +getHasTransportTime()+ " " +getHasWiP()+ " " +getHorizon()+ " " +getSolverProperty().toColumnString()+ " " +getStartDateTime()+ " " +getTimeResolution();
+        return getDirty()+ " " +getId()+ " " +getName()+ " " +getValid()+ " " +getDataFile()+ " " +getDataFileVersionNumber()+ " " +getDataGeneratorProperty().toColumnString()+ " " +getGanttLineHeight()+ " " +getGanttLinesPerPage()+ " " +getGanttProperty().toColumnString()+ " " +getGanttWidth()+ " " +getHasCumulative()+ " " +getHasDisjunctive()+ " " +getHasDowntime()+ " " +getHasDueDate()+ " " +getHasReleaseDate()+ " " +getHasSetupTime()+ " " +getHasTransportTime()+ " " +getHasWiP()+ " " +getHomeDir()+ " " +getHorizon()+ " " +getSolverProperty().toColumnString()+ " " +getStartDateTime()+ " " +getTimeResolution();
     }
 
 /**
@@ -944,6 +977,7 @@ public  class Scenario extends ApplicationDataset{
             " hasSetupTime=\""+toXMLHasSetupTime()+"\""+
             " hasTransportTime=\""+toXMLHasTransportTime()+"\""+
             " hasWiP=\""+toXMLHasWiP()+"\""+
+            " homeDir=\""+toXMLHomeDir()+"\""+
             " horizon=\""+toXMLHorizon()+"\""+
             " solverProperty=\""+toXMLSolverProperty()+"\""+
             " startDateTime=\""+toXMLStartDateTime()+"\""+
@@ -1106,6 +1140,16 @@ public  class Scenario extends ApplicationDataset{
  * @return String
 */
 
+    String toXMLHomeDir(){
+        return this.safeXML(getHomeDir());
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLHorizon(){
         return this.getHorizon().toString();
     }
@@ -1147,11 +1191,11 @@ public  class Scenario extends ApplicationDataset{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>StartDateTime</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"<th>GanttWidth</th>"+"<th>GanttLinesPerPage</th>"+"<th>GanttLineHeight</th>"+"<th>SolverProperty</th>"+"<th>DataGeneratorProperty</th>"+"<th>GanttProperty</th>"+"<th>HasReleaseDate</th>"+"<th>HasDueDate</th>"+"<th>HasDisjunctive</th>"+"<th>HasCumulative</th>"+"<th>HasWiP</th>"+"<th>HasDowntime</th>"+"<th>HasSetupTime</th>"+"<th>HasTransportTime</th>"+"</tr>";
+        return "<tr><th>Scenario</th>"+"<th>Name</th>"+"<th>Dirty</th>"+"<th>Valid</th>"+"<th>DataFileVersionNumber</th>"+"<th>DataFile</th>"+"<th>HomeDir</th>"+"<th>StartDateTime</th>"+"<th>Horizon</th>"+"<th>TimeResolution</th>"+"<th>GanttWidth</th>"+"<th>GanttLinesPerPage</th>"+"<th>GanttLineHeight</th>"+"<th>SolverProperty</th>"+"<th>DataGeneratorProperty</th>"+"<th>GanttProperty</th>"+"<th>HasReleaseDate</th>"+"<th>HasDueDate</th>"+"<th>HasDisjunctive</th>"+"<th>HasCumulative</th>"+"<th>HasWiP</th>"+"<th>HasDowntime</th>"+"<th>HasSetupTime</th>"+"<th>HasTransportTime</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+ " " +"<td>"+getGanttWidth()+"</td>"+ " " +"<td>"+getGanttLinesPerPage()+"</td>"+ " " +"<td>"+getGanttLineHeight()+"</td>"+ " " +"<td>"+getSolverProperty().toColumnString()+"</td>"+ " " +"<td>"+getDataGeneratorProperty().toColumnString()+"</td>"+ " " +"<td>"+getGanttProperty().toColumnString()+"</td>"+ " " +"<td>"+getHasReleaseDate()+"</td>"+ " " +"<td>"+getHasDueDate()+"</td>"+ " " +"<td>"+getHasDisjunctive()+"</td>"+ " " +"<td>"+getHasCumulative()+"</td>"+ " " +"<td>"+getHasWiP()+"</td>"+ " " +"<td>"+getHasDowntime()+"</td>"+ " " +"<td>"+getHasSetupTime()+"</td>"+ " " +"<td>"+getHasTransportTime()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getDirty()+"</td>"+ " " +"<td>"+getValid()+"</td>"+ " " +"<td>"+getDataFileVersionNumber()+"</td>"+ " " +"<td>"+getDataFile()+"</td>"+ " " +"<td>"+getHomeDir()+"</td>"+ " " +"<td>"+getStartDateTime()+"</td>"+ " " +"<td>"+getHorizon()+"</td>"+ " " +"<td>"+getTimeResolution()+"</td>"+ " " +"<td>"+getGanttWidth()+"</td>"+ " " +"<td>"+getGanttLinesPerPage()+"</td>"+ " " +"<td>"+getGanttLineHeight()+"</td>"+ " " +"<td>"+getSolverProperty().toColumnString()+"</td>"+ " " +"<td>"+getDataGeneratorProperty().toColumnString()+"</td>"+ " " +"<td>"+getGanttProperty().toColumnString()+"</td>"+ " " +"<td>"+getHasReleaseDate()+"</td>"+ " " +"<td>"+getHasDueDate()+"</td>"+ " " +"<td>"+getHasDisjunctive()+"</td>"+ " " +"<td>"+getHasCumulative()+"</td>"+ " " +"<td>"+getHasWiP()+"</td>"+ " " +"<td>"+getHasDowntime()+"</td>"+ " " +"<td>"+getHasSetupTime()+"</td>"+ " " +"<td>"+getHasTransportTime()+"</td>"+"</tr>";
     }
 
 /**
@@ -1235,6 +1279,9 @@ public  class Scenario extends ApplicationDataset{
       if(!this.getHasWiP().equals(b.getHasWiP())){
          System.out.println("HasWiP");
         }
+      if(!this.getHomeDir().equals(b.getHomeDir())){
+         System.out.println("HomeDir");
+        }
       if(!this.getHorizon().equals(b.getHorizon())){
          System.out.println("Horizon");
         }
@@ -1265,6 +1312,7 @@ public  class Scenario extends ApplicationDataset{
           this.getHasSetupTime().equals(b.getHasSetupTime()) &&
           this.getHasTransportTime().equals(b.getHasTransportTime()) &&
           this.getHasWiP().equals(b.getHasWiP()) &&
+          this.getHomeDir().equals(b.getHomeDir()) &&
           this.getHorizon().equals(b.getHorizon()) &&
           this.getName().equals(b.getName()) &&
           this.getSolverProperty().applicationSame(b.getSolverProperty()) &&
