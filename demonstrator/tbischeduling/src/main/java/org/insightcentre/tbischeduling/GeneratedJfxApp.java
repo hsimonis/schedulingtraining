@@ -447,8 +447,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		alert(Alert.AlertType.WARNING, "Action LoadNoWaitHFSFileAction is not yet implemented!");
 	}
 
-	public void LoadDFSNoWaitFileAction(Scenario base) {
-		alert(Alert.AlertType.WARNING, "Action LoadDFSNoWaitFileAction is not yet implemented!");
+	public void LoadCFSNoWaitFileAction(Scenario base) {
+		alert(Alert.AlertType.WARNING, "Action LoadCFSNoWaitFileAction is not yet implemented!");
 	}
 
 	public void diagramViewer(Scenario base) {
@@ -551,8 +551,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		else if (id.equals("LoadNoWaitHFSFileAction")) {
 			LoadNoWaitHFSFileAction((Scenario) fs);
 		}
-		else if (id.equals("LoadDFSNoWaitFileAction")) {
-			LoadDFSNoWaitFileAction((Scenario) fs);
+		else if (id.equals("LoadCFSNoWaitFileAction")) {
+			LoadCFSNoWaitFileAction((Scenario) fs);
 		}
 		else if (id.equals("newOrderSolverRun")) {
 			newOrderSolverRun((Scenario) fs);

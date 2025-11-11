@@ -892,10 +892,10 @@ public class GanttBorderContent {
 
 
     private boolean sameMachine(TaskAssignment task,ResourceActivity selected){
-        return selected != null && task.getDisjunctiveResource() == selected.getDisjunctiveResource();
+        return selected != null && selected.getDisjunctiveResource()!= null && task.getDisjunctiveResource() == selected.getDisjunctiveResource();
     }
     private boolean sameMachine(DisjunctiveResource m,ResourceActivity selected){
-        return selected != null && m == selected.getDisjunctiveResource();
+        return selected != null && selected.getDisjunctiveResource() != null && m == selected.getDisjunctiveResource();
     }
 
     private Color colorCategory(Job job, ColorBy colorBy){

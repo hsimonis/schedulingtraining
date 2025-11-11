@@ -458,12 +458,12 @@ public class JfxApp extends GeneratedJfxApp {
         }
 
         @Override
-    public void LoadDFSNoWaitFileAction(Scenario base) {
+    public void LoadCFSNoWaitFileAction(Scenario base) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Load DFSNoWait Datafile");
-        fileChooser.setInitialDirectory(new File(workingDir+"dfsnowait/"));
+        fileChooser.setTitle("Load CFSNoWait Datafile");
+        fileChooser.setInitialDirectory(new File(workingDir+"cfsnowait/"));
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("DFS Files", "*.txt"));
+                new FileChooser.ExtensionFilter("CFS Files", "*.txt"));
 //                fileChooser.setInitialFileName("t20m10r3-1.pl.json");
         // allow to enter new file
         File selected = fileChooser.showOpenDialog(primaryStage);

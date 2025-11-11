@@ -414,7 +414,9 @@ public class GanttBorderViewerController extends JJAbstractChartController {
 		start.setText(cp.internalExternalDate(ra.getStart()));
 		end.setText(cp.internalExternalDate(ra.getEnd()));
 		duration.setText(cp.internalExternalPeriod(ra.getDuration()));
-		machine.setText(ra.getDisjunctiveResource().getName());
+        if (ra.getDisjunctiveResource()!= null) {
+            machine.setText(ra.getDisjunctiveResource().getName());
+        }
 		if (ra instanceof TaskAssignment t) {
 			wait.setText(cp.internalExternalPeriod(t.getWaitBefore()));
 			job.setText(t.getJobAssignment().getJob().getName());
