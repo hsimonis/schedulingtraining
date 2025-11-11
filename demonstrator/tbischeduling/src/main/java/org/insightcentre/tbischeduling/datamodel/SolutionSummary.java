@@ -152,6 +152,13 @@ public  class SolutionSummary extends ApplicationObject{
  *
 */
 
+    public String parameter;
+
+/**
+ *  
+ *
+*/
+
     public SolverStatus solverStatus;
 
 /**
@@ -196,6 +203,7 @@ public  class SolutionSummary extends ApplicationObject{
         setNrJobs(0);
         setNrMachines(0);
         setNrTasks(0);
+        setParameter("");
         setSolverStatus(null);
         setTime(0.0);
         setVariant("");
@@ -221,6 +229,7 @@ public  class SolutionSummary extends ApplicationObject{
             Integer nrJobs,
             Integer nrMachines,
             Integer nrTasks,
+            String parameter,
             SolverStatus solverStatus,
             Double time,
             String variant){
@@ -236,6 +245,7 @@ public  class SolutionSummary extends ApplicationObject{
         setNrJobs(nrJobs);
         setNrMachines(nrMachines);
         setNrTasks(nrTasks);
+        setParameter(parameter);
         setSolverStatus(solverStatus);
         setTime(time);
         setVariant(variant);
@@ -255,6 +265,7 @@ public  class SolutionSummary extends ApplicationObject{
             other.nrJobs,
             other.nrMachines,
             other.nrTasks,
+            other.parameter,
             other.solverStatus,
             other.time,
             other.variant);
@@ -359,6 +370,16 @@ public  class SolutionSummary extends ApplicationObject{
 
     public Integer getNrTasks(){
         return this.nrTasks;
+    }
+
+/**
+ *  get attribute parameter
+ *
+ * @return String
+*/
+
+    public String getParameter(){
+        return this.parameter;
     }
 
 /**
@@ -500,6 +521,18 @@ public  class SolutionSummary extends ApplicationObject{
     }
 
 /**
+ *  set attribute parameter, mark dataset as dirty, mark dataset as not valid
+@param parameter String
+ *
+*/
+
+    public void setParameter(String parameter){
+        this.parameter = parameter;
+        getApplicationDataset().setDirty(true);
+        getApplicationDataset().setValid(false);
+    }
+
+/**
  *  set attribute solverStatus, mark dataset as dirty, mark dataset as not valid
 @param solverStatus SolverStatus
  *
@@ -618,7 +651,7 @@ public  class SolutionSummary extends ApplicationObject{
 */
 
     public String prettyString(){
-        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getGapPercent()+ " " +getInstance()+ " " +getInstanceNr()+ " " +getMakespan()+ " " +getNrCumulatives()+ " " +getNrJobs()+ " " +getNrMachines()+ " " +getNrTasks()+ " " +getSolverStatus()+ " " +getTime()+ " " +getVariant();
+        return ""+ " " +getId()+ " " +getName()+ " " +getBound()+ " " +getGapPercent()+ " " +getInstance()+ " " +getInstanceNr()+ " " +getMakespan()+ " " +getNrCumulatives()+ " " +getNrJobs()+ " " +getNrMachines()+ " " +getNrTasks()+ " " +getParameter()+ " " +getSolverStatus()+ " " +getTime()+ " " +getVariant();
     }
 
 /**
@@ -651,6 +684,7 @@ public  class SolutionSummary extends ApplicationObject{
             " nrJobs=\""+toXMLNrJobs()+"\""+
             " nrMachines=\""+toXMLNrMachines()+"\""+
             " nrTasks=\""+toXMLNrTasks()+"\""+
+            " parameter=\""+toXMLParameter()+"\""+
             " solverStatus=\""+toXMLSolverStatus()+"\""+
             " time=\""+toXMLTime()+"\""+
             " variant=\""+toXMLVariant()+"\""+" />");
@@ -752,6 +786,16 @@ public  class SolutionSummary extends ApplicationObject{
  * @return String
 */
 
+    String toXMLParameter(){
+        return this.safeXML(getParameter());
+    }
+
+/**
+ * helper method for toXML(), prcess one attribute
+ * probably useless on its own
+ * @return String
+*/
+
     String toXMLSolverStatus(){
         return this.getSolverStatus().toString();
     }
@@ -783,11 +827,11 @@ public  class SolutionSummary extends ApplicationObject{
 */
 
     public static String toHTMLLabels(){
-        return "<tr><th>SolutionSummary</th>"+"<th>Name</th>"+"<th>Variant</th>"+"<th>Instance</th>"+"<th>InstanceNr</th>"+"<th>NrJobs</th>"+"<th>NrTasks</th>"+"<th>NrMachines</th>"+"<th>NrCumulatives</th>"+"<th>SolverStatus</th>"+"<th>Time</th>"+"<th>Makespan</th>"+"<th>Bound</th>"+"<th>GapPercent</th>"+"</tr>";
+        return "<tr><th>SolutionSummary</th>"+"<th>Name</th>"+"<th>Variant</th>"+"<th>Instance</th>"+"<th>Parameter</th>"+"<th>InstanceNr</th>"+"<th>NrJobs</th>"+"<th>NrTasks</th>"+"<th>NrMachines</th>"+"<th>NrCumulatives</th>"+"<th>SolverStatus</th>"+"<th>Time</th>"+"<th>Makespan</th>"+"<th>Bound</th>"+"<th>GapPercent</th>"+"</tr>";
     }
 
     public String toHTML(){
-        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getVariant()+"</td>"+ " " +"<td>"+getInstance()+"</td>"+ " " +"<td>"+getInstanceNr()+"</td>"+ " " +"<td>"+getNrJobs()+"</td>"+ " " +"<td>"+getNrTasks()+"</td>"+ " " +"<td>"+getNrMachines()+"</td>"+ " " +"<td>"+getNrCumulatives()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getTime()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGapPercent()+"</td>"+"</tr>";
+        return "<tr><th>&nbsp;</th>"+"<td>"+getName()+"</td>"+ " " +"<td>"+getVariant()+"</td>"+ " " +"<td>"+getInstance()+"</td>"+ " " +"<td>"+getParameter()+"</td>"+ " " +"<td>"+getInstanceNr()+"</td>"+ " " +"<td>"+getNrJobs()+"</td>"+ " " +"<td>"+getNrTasks()+"</td>"+ " " +"<td>"+getNrMachines()+"</td>"+ " " +"<td>"+getNrCumulatives()+"</td>"+ " " +"<td>"+getSolverStatus()+"</td>"+ " " +"<td>"+getTime()+"</td>"+ " " +"<td>"+getMakespan()+"</td>"+ " " +"<td>"+getBound()+"</td>"+ " " +"<td>"+getGapPercent()+"</td>"+"</tr>";
     }
 
 /**
@@ -934,6 +978,9 @@ public  class SolutionSummary extends ApplicationObject{
       if(!this.getNrTasks().equals(b.getNrTasks())){
          System.out.println("NrTasks");
         }
+      if(!this.getParameter().equals(b.getParameter())){
+         System.out.println("Parameter");
+        }
       if(!this.getSolverStatus().equals(b.getSolverStatus())){
          System.out.println("SolverStatus");
         }
@@ -953,6 +1000,7 @@ public  class SolutionSummary extends ApplicationObject{
           this.getNrJobs().equals(b.getNrJobs()) &&
           this.getNrMachines().equals(b.getNrMachines()) &&
           this.getNrTasks().equals(b.getNrTasks()) &&
+          this.getParameter().equals(b.getParameter()) &&
           this.getSolverStatus().equals(b.getSolverStatus()) &&
           this.getTime().equals(b.getTime()) &&
           this.getVariant().equals(b.getVariant());

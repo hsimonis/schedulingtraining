@@ -644,9 +644,9 @@ public class TestAll {
         String reportFile = "reports/results"+suffix+".tex";
         try{
             PrintWriter out = new PrintWriter(reportFile);
-            out.printf("\\begin{longtable}{lrrlrrrr}\n");
+            out.printf("\\begin{longtable}{lrrllrrrr}\n");
             out.printf("\\caption{Results for %s (%d Instances)}\\\\\\toprule\n",title,list.size());
-            out.printf("Name & \\shortstack{Nr\\\\Jobs} & \\shortstack{Nr\\\\Machines} & Status & Time & Makespan & Bound & \\shortstack{Gap\\\\Percent}\\\\ \\midrule\n");
+            out.printf("Name & \\shortstack{Nr\\\\Jobs} & \\shortstack{Nr\\\\Machines} & Capa & Status  & Time & Makespan & Bound & \\shortstack{Gap\\\\Percent}\\\\ \\midrule\n");
             out.printf("\\endhead\n");
             out.printf("\\bottomrule\n");
             out.printf("\\endfoot\n");
@@ -665,6 +665,8 @@ public class TestAll {
                     int nrTasks = problem.getInt("nrTasks");
                     SolverStatus status = toSolverStatus(solverRun.getString("solverStatus"));
                     double time = solverRun.getDouble("time");
+                    String[] split = name.split("_");
+                    String parameter = split[3];
                     double bound;
                     double gapPercent;
                     int makespan;
@@ -698,16 +700,19 @@ public class TestAll {
                     s.setBound(bound);
                     s.setGapPercent(gapPercent);
                     s.setVariant(variant);
+                    s.setParameter(parameter);
                     if (adjust && status!=Unknown && status != Infeasible) {
                         adjustMakespan(s);
                     }
 
                     if (status == Optimal || status == Solution) {
-                        out.printf("%s & %d & %d & %s & %5.2f & %d & %5.2f & %5.2f\\\\\n",
-                                name.replaceAll("_", " "), nrJobs, nrMachines, status, time, s.getMakespan(), s.getBound(), s.getGapPercent());
+                        out.printf("%s & %d & %d & %s & %s & %5.2f & %d & %5.2f & %5.2f\\\\\n",
+                                name.replaceAll("_", " "), nrJobs, nrMachines+nrCumulatives, parameter,
+                                status, time, s.getMakespan(), s.getBound(), s.getGapPercent());
                     } else {
-                        out.printf("%s & %d & %d & %s & %5.2f & - & - & -\\\\\n",
-                                name.replaceAll("_", " "), nrJobs, nrMachines, status, time);
+                        out.printf("%s & %d & %d & %s & %s & %5.2f & - & - & -\\\\\n",
+                                name.replaceAll("_", " "), nrJobs, nrMachines+nrCumulatives, parameter,
+                                status, time);
 
                     }
 
@@ -742,9 +747,14 @@ public class TestAll {
                 .filter(file -> !file.isDirectory())
                 .map(File::getName)
                 .filter(x->x.endsWith(ext))
-                .sorted() //to get a standard order
+                .sorted(Comparator.comparing(TestAll::extractNr)) //to get a standard order
 //                .limit(2)
                 .collect(Collectors.toList());
+    }
+
+    private static Integer extractNr(String name){
+        String[] nr = name.split("_");
+        return Integer.parseInt(nr[0]);
     }
 
     private static void compareSummaries(Scenario base, String key, boolean relax, String variant1, String variant2, String label, GroupType grouper){
@@ -900,7 +910,8 @@ public class TestAll {
             case Taillard: return lookupGroup(s.getNrJobs()+"/"+s.getNrMachines(),s.getNrJobs(),s.getNrMachines(),0);
             case Salbp: return lookupGroup(s.getNrTasks()+"",s.getNrTasks(),0,0);
             case TestScheduling: return lookupGroup(s.getNrJobs()+"/"+s.getNrMachines()+"/"+s.getNrCumulatives(),s.getNrJobs(),s.getNrMachines(),s.getNrCumulatives());
-            case CFS: return lookupGroup(s.getNrJobs()+"/"+s.getNrMachines()+"/"+s.getNrCumulatives(),s.getNrJobs(),s.getNrMachines(),s.getNrCumulatives());
+            case CFS: return lookupGroup(s.getNrJobs()+"/"+s.getNrMachines()+"/"+s.getNrCumulatives()+"/"+s.getParameter(),
+                    s.getNrJobs(),s.getNrMachines(),s.getNrCumulatives(),Integer.parseInt(s.getParameter()));
             case Transport: return lookupGroup(s.getNrJobs()+"",s.getNrJobs(),0,0);
             default:
                 severe("Bad Group type: "+type);
@@ -913,6 +924,14 @@ public class TestAll {
         Group res = groupHash.get(name);
         if (res == null){
             res = new Group(name,key1,key2,key3);
+            groupHash.put(name,res);
+        }
+        return res;
+    }
+    private static Group lookupGroup(String name,int key1,int key2,int key3,int key4){
+        Group res = groupHash.get(name);
+        if (res == null){
+            res = new Group(name,key1,key2,key3,key4);
             groupHash.put(name,res);
         }
         return res;

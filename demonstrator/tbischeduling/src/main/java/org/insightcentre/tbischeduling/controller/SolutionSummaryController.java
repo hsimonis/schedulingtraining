@@ -38,6 +38,9 @@ public class SolutionSummaryController extends Table3Controller {
 	private TableColumn<SolutionSummary, String> instance;
 
 	@FXML
+	private TableColumn<SolutionSummary, String> parameter;
+
+	@FXML
 	private TableColumn<SolutionSummary, Integer> instanceNr;
 
 	@FXML
@@ -99,6 +102,10 @@ public class SolutionSummaryController extends Table3Controller {
 		instance.setCellValueFactory(new PropertyValueFactory<>("instance"));
 		instance.setCellFactory(TextFieldTableCell.forTableColumn());
 		instance.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setInstance(event.getNewValue()); mainApp.reset();});
+		choices.add("parameter");
+		parameter.setCellValueFactory(new PropertyValueFactory<>("parameter"));
+		parameter.setCellFactory(TextFieldTableCell.forTableColumn());
+		parameter.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setParameter(event.getNewValue()); mainApp.reset();});
 		choices.add("instanceNr");
 		instanceNr.setCellValueFactory(new PropertyValueFactory<>("instanceNr"));
 		instanceNr.setCellFactory(TextFieldTableCell.forTableColumn(INTEGER_CONVERTER));

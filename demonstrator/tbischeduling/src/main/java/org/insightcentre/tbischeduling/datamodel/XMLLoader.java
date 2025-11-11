@@ -1671,6 +1671,7 @@ public DurationDisplay getDurationDisplay(String attributeName,
                         getInteger("nrJobs",attributes,0),
                         getInteger("nrMachines",attributes,0),
                         getInteger("nrTasks",attributes,0),
+                        getString("parameter",attributes,""),
                         null,
                         getDouble("time",attributes,0.0),
                         getString("variant",attributes,"")

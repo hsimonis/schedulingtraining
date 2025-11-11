@@ -602,6 +602,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("name");
 		attributeNames.add("variant");
 		attributeNames.add("instance");
+		attributeNames.add("parameter");
 		attributeNames.add("instanceNr");
 		attributeNames.add("nrJobs");
 		attributeNames.add("nrTasks");

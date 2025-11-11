@@ -905,6 +905,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("name");
 		filterNames.add("variant");
 		filterNames.add("instance");
+		filterNames.add("parameter");
 		attributeNames.add("instanceNr");
 		filterNames.add("instanceNr");
 		attributeNames.add("nrJobs");
