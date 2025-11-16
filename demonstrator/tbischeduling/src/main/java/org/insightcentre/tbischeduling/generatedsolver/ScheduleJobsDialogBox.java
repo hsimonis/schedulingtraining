@@ -52,6 +52,9 @@ public class ScheduleJobsDialogBox extends GeneralDialogBox{
 
     public ScheduleJobsDialogBox(GeneratedJfxApp app, Scenario base,AbstractSolver solver){
         super(app, base, solver);
+        setShowLineChart(true);
+        setChartLabel("Cost");
+        setChartMaxDataPoints(50);
         GridPane pane = new GridPane();
         pane.setVgap(10.0);
         pane.setHgap(10.0);

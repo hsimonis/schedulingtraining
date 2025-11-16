@@ -30,6 +30,8 @@ public class NewOrderDialogBox extends GeneralDialogBox{
 
     public NewOrderDialogBox(GeneratedJfxApp app, Scenario base,AbstractSolver solver){
         super(app, base, solver);
+        setShowLineChart(true);
+        setChartLabel("Cost");
         GridPane pane = new GridPane();
         pane.setVgap(10.0);
         pane.setHgap(10.0);

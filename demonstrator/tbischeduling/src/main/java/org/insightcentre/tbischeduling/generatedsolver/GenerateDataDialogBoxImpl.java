@@ -64,6 +64,8 @@ public class GenerateDataDialogBoxImpl extends GeneralDialogBox {
 
     public GenerateDataDialogBoxImpl(GeneratedJfxApp app, Scenario base, AbstractSolver solver){
         super(app, base, solver);
+        setShowLineChart(false);
+        setChartLabel("Cost");
         GridPane pane = new GridPane();
         pane.setVgap(vGap);
         pane.setHgap(hGap);
