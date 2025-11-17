@@ -15,7 +15,6 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,8 +24,6 @@ import static framework.reports.AbstractCommon.safe;
 import static java.util.stream.Collectors.groupingBy;
 import static org.insightcentre.tbischeduling.JfxApp.requiresDirectory;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
-import static org.insightcentre.tbischeduling.datamodel.SolverBackend.Chuffed;
-import static org.insightcentre.tbischeduling.datamodel.SolverBackend.Cplex;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 import static org.insightcentre.tbischeduling.utilities.TypeConverters.toSolverStatus;
@@ -431,7 +428,7 @@ public class TestAll {
                 base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
 
                 // define the format version of the datafiles
-                new ReadDFSNoWaitFile(base, new File(importDir + fileName));
+                new ReadCFSNoWaitFile(base, new File(importDir + fileName));
                 SolverRun test = new SolverRun(base);
                 test.setName(fileName);
                 test.setSolverStatus(ToRun);

@@ -7,7 +7,6 @@ import org.insightcentre.tbischeduling.implementedsolver.CheckSolutions;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.Scanner;
 
 import static java.lang.Math.min;
@@ -15,8 +14,8 @@ import static org.insightcentre.tbischeduling.importer.CreateData.summarizeProbl
 import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
-public class ReadDFSNoWaitFile {
-    public ReadDFSNoWaitFile(Scenario base, File file){
+public class ReadCFSNoWaitFile {
+    public ReadCFSNoWaitFile(Scenario base, File file){
         Reset.resetData(base);
         DateTime startDate = new DateTime(2024,10,1,0,0);
         base.setStartDateTime(startDate);

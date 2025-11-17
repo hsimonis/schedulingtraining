@@ -5,7 +5,6 @@ Generated once, should be extended by user
 */
 
 import framework.types.DateTime;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -13,7 +12,6 @@ import org.insightcentre.tbischeduling.datamodel.*;
 import framework.ApplicationDatasetInterface;
 import framework.ApplicationObjectInterface;
 import framework.types.IrishCalendar;
-import org.insightcentre.tbischeduling.exporter.CreateJSONDoc;
 import org.insightcentre.tbischeduling.exporter.WriteData;
 import org.insightcentre.tbischeduling.generatedsolver.*;
 import org.insightcentre.tbischeduling.implementedsolver.*;
@@ -25,7 +23,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import static framework.reports.AbstractCommon.safe;
 import static java.lang.System.getProperty;
 import static org.insightcentre.tbischeduling.datamodel.Severity.Minor;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
@@ -472,7 +469,7 @@ public class JfxApp extends GeneratedJfxApp {
                 setStatus("Reading file "+selected.getName());
                 info("Opening File: " + selected.getCanonicalPath()+" name "+selected.getName());
                 base.setDataFile(selected.getName());
-                new ReadDFSNoWaitFile(base,selected);
+                new ReadCFSNoWaitFile(base,selected);
                 setTitle(applicationTitle+" ("+selected.getName()+")");
             } catch(IOException e){
                 severe("IOException "+e.getMessage());
