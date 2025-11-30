@@ -21,6 +21,7 @@ public class CumulativeNeedsMatrixTab extends MatrixTab {
 
 	public CumulativeNeedsMatrixTab(Scenario base) {
 		super("Cumulative Resource Needs Matrix", base);
+		table.setEditable(true);
 	}
 
 	@Override

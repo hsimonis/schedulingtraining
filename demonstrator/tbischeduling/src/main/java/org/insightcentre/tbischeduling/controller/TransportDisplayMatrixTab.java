@@ -21,6 +21,7 @@ public class TransportDisplayMatrixTab extends MatrixTab {
 
 	public TransportDisplayMatrixTab(Scenario base) {
 		super("Transport Display Matrix", base);
+		table.setEditable(true);
 	}
 
 	@Override

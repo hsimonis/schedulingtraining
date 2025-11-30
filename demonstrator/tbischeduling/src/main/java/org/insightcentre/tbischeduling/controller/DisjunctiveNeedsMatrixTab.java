@@ -21,6 +21,7 @@ public class DisjunctiveNeedsMatrixTab extends MatrixTab {
 
 	public DisjunctiveNeedsMatrixTab(Scenario base) {
 		super("Disjunctive Resource Needs Matrix", base);
+		table.setEditable(true);
 	}
 
 	@Override

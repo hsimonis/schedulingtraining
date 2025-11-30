@@ -21,6 +21,7 @@ public class SetupDisplayMatrixTab extends MatrixTab {
 
 	public SetupDisplayMatrixTab(Scenario base) {
 		super("Setup Display Matrix", base);
+		table.setEditable(true);
 	}
 
 	@Override

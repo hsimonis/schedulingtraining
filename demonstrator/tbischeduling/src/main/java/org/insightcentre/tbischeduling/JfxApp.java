@@ -135,7 +135,7 @@ public class JfxApp extends GeneratedJfxApp {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.getIcons().add(new Image(JfxApp.class.getResourceAsStream("/tbischeduling.png")));
+        primaryStage.getIcons().add(new Image(JfxApp.class.getResourceAsStream("/Green_Schedule-128.png")));
         super.start(primaryStage);
     }
 
