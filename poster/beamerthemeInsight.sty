@@ -1,0 +1,121 @@
+% Insight Beamer Poster Template Theme
+\ProvidesPackage{beamerthemeInsight}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{insightcolours}
+\selectcolormodel{cmyk}
+\mode<presentation>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamercolor{headline}{fg=white,bg=pantone_124_16}
+
+\setbeamercolor*{title in headline}{fg=white}
+\setbeamerfont*{title in headline}{size=\Huge,family=\fontUbuntuLight}
+
+\setbeamercolor*{author in headline}{fg=white}
+%\setbeamercolor*{author in headline}{fg=pantone_119_1}
+\setbeamerfont*{author in headline}{size=\Large,family=\fontUbuntuMedium}
+
+\setbeamercolor{institute in headline}{fg=white}
+%\setbeamercolor{institute in headline}{fg=pantone_174_6}
+\setbeamerfont*{institute in headline}{size=\normalsize,family=\fontUbuntuLight}
+
+\setbeamercolor*{block title}{fg=pantone_117_8}
+\setbeamerfont*{block title}{size=\Large,family=\fontUbuntu}
+
+\setbeamercolor*{block subtitle}{fg=pantone_117_8}
+\setbeamerfont*{block subtitle}{size=\normalsize,family=\fontUbuntu}
+
+\setbeamercolor*{normal text}{fg=black, bg=white}
+\setbeamerfont*{normal text}{size=\Large,family=\fontUbuntu}
+
+
+\setbeamertemplate{itemize item}{\color{pantone_117_8}\textbullet}
+\setbeamertemplate{itemize subitem}{\color{pantone_117_8}\textbullet}
+\setlength{\leftmargini}{0em} % TODO: Fix Indents
+
+\setbeamertemplate{navigation symbols}{}  % no navigation on a poster
+
+%\captionsetup[figure]{labelfont=\fontUbuntu,textfont=\fontUbuntu}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Header:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{headline}{
+\leavevmode
+\begin{overpic}[width=\paperwidth]{header}  %% debug: ,grid,tics=1
+
+
+% Title, Author
+\put(4.1,2){
+\begin{beamercolorbox}[rounded=false,shadow=false]{}%
+	\raggedright
+	{\usebeamerfont{title in headline}\usebeamercolor{title in headline}{\color{fg}\setlength\lineskip{0.9ex}\inserttitle\\[1ex]}}
+	\vskip2em
+	{\usebeamerfont{author in headline}\usebeamercolor{author in headline}{\color{fg}\insertauthor\\[1ex]}}
+	\vskip2em
+	{\usebeamerfont{institute in headline}\usebeamercolor{institute in headline}{\color{fg}\insertinstitute\\[1ex]}}
+\end{beamercolorbox}
+}
+\end{overpic}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Blocks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{block begin}{
+%\leftskip=6em
+\begin{beamercolorbox}{block title}%
+
+	{\usebeamerfont*{block title} \setlength\lineskip{2em} \insertblocktitle}
+\end{beamercolorbox}%
+
+{\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+
+\begin{beamercolorbox}[colsep*=.75ex]{block body}%
+%\usebeamerfont*{block body}
+\ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}
+}
+
+\setbeamertemplate{block end}{
+\end{beamercolorbox}
+\vskip1em
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sub Headings:
+\newcommand\blocksubtitle[1]{%
+\vskip1em
+\begin{beamercolorbox}{block subtitle}%
+	{\usebeamerfont*{block subtitle}#1}
+\end{beamercolorbox}%
+}
+
+\makeatletter
+\renewcommand{\section}{\@startsection
+{section}{1}{0mm}{-\baselineskip}{1mm}{\Large\color{pantone_117_8}\fontUbuntu}}
+\renewcommand{\subsection}{\@startsection
+{subsection}{2}{0mm}{-0.9\baselineskip}{1mm}{\normalsize\color{pantone_117_8}\fontUbuntu}}
+\renewcommand{\subsubsection}{\@startsection
+{subsubsection}{3}{0mm}{-0.7\baselineskip}{1mm}{\small\color{pantone_117_8}\fontUbuntu}}
+%\renewcommand{\paragraph}{\@startsection
+%{paragraph}{4}{0mm}{-0.7\baselineskip}{1mm}{\normalsize\fontUbuntuBold}}
+\makeatother
+
+\setlength{\evensidemargin}{1.5 cm}
+\setlength{\oddsidemargin}{1.5 cm}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Footer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{footline}{
+
+
+\begin{overpic}[width=\paperwidth]{footer} % debug w ,grid,tics=1
+\end{overpic}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Display a grid to help alignment
+%\beamertemplategridbackground[1em]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<all>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
