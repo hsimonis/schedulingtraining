@@ -48,6 +48,7 @@
     		int columnIndex = 0;
     		TableColumn<ObservableList<ObjectProperty<ApplicationObject>>, String> col = createColumn("Row", columnIndex);
     		col.setEditable(false);
+    		col.getStyleClass().add("row-header");
     		table.getColumns().add(col);
 
     		for (ApplicationObject obj : findColumns(base)) {

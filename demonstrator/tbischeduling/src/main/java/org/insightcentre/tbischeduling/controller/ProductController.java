@@ -37,6 +37,7 @@ public class ProductController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getProductData());
 		defaultProcess.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getProcessData()));
 		defaultProcess.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setDefaultProcess(event.getNewValue()); mainApp.reset();});

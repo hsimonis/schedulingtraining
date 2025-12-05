@@ -78,6 +78,7 @@ public class JobController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getJobData());
 		order.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getOrderData()));
 		order.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setOrder(event.getNewValue()); mainApp.reset();});

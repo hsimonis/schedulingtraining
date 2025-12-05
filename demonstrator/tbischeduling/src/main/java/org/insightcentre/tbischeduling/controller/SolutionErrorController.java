@@ -56,6 +56,7 @@ public class SolutionErrorController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getSolutionErrorData());
 		solution.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getSolutionData()));
 		solution.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSolution(event.getNewValue()); mainApp.reset();});

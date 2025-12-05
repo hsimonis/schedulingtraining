@@ -44,6 +44,7 @@ public class JobLowerBoundController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getJobLowerBoundData());
 		job.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getJobData()));
 		job.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setJob(event.getNewValue()); mainApp.reset();});

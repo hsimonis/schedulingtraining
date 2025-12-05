@@ -54,6 +54,7 @@ public class PlacedRectangleController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getPlacedRectangleData());
 		cumulativeResource.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getCumulativeResourceData()));
 		cumulativeResource.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setCumulativeResource(event.getNewValue()); mainApp.reset();});

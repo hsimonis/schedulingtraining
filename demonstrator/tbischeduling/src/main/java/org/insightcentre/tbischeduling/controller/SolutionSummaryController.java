@@ -75,6 +75,7 @@ public class SolutionSummaryController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getSolutionSummaryData());
 		ObservableList<SolverStatus> solverStatusValues = FXCollections.observableArrayList(SolverStatus.values());
 		solverStatus.setCellFactory(ComboBoxTableCell.forTableColumn(solverStatusValues));

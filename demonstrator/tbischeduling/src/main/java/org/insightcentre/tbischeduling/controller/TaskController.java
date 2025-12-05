@@ -85,6 +85,7 @@ public class TaskController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getTaskData());
 		job.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getJobData()));
 		job.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setJob(event.getNewValue()); mainApp.reset();});

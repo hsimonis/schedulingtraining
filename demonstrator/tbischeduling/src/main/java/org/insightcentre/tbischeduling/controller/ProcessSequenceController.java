@@ -48,6 +48,7 @@ public class ProcessSequenceController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getProcessSequenceData());
 		before.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getProcessStepData()));
 		before.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setBefore(event.getNewValue()); mainApp.reset();});

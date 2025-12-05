@@ -72,6 +72,7 @@ public class OrderController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getOrderData());
 		product.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getProductData()));
 		product.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setProduct(event.getNewValue()); mainApp.reset();});

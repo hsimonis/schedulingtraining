@@ -44,6 +44,7 @@ public class SetupMatrixController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getSetupMatrixData());
 		from.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getSetupTypeData()));
 		from.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setFrom(event.getNewValue()); mainApp.reset();});

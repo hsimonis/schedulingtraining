@@ -225,6 +225,7 @@ public class SolutionController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getSolutionData());
 		solverRun.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getSolverRunData()));
 		solverRun.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSolverRun(event.getNewValue()); mainApp.reset();});

@@ -40,6 +40,7 @@ public class ApplicationDifferenceController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getApplicationDifferenceData());
 		ObservableList<DifferenceType> typeValues = FXCollections.observableArrayList(DifferenceType.values());
 		type.setCellFactory(ComboBoxTableCell.forTableColumn(typeValues));

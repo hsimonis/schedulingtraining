@@ -127,6 +127,7 @@ public class SolverPropertyController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getSolverPropertyData());
 		ObservableList<ModelType> modelTypeValues = FXCollections.observableArrayList(ModelType.values());
 		modelType.setCellFactory(ComboBoxTableCell.forTableColumn(modelTypeValues));

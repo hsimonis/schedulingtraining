@@ -113,6 +113,7 @@ public class ScenarioController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getScenarioData());
 		solverProperty.setCellFactory(ComboBoxTableCell.forTableColumn(mainApp.getSolverPropertyData()));
 		solverProperty.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setSolverProperty(event.getNewValue()); mainApp.reset();});

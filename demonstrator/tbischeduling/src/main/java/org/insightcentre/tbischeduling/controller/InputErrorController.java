@@ -52,6 +52,7 @@ public class InputErrorController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getInputErrorData());
 		ObservableList<Severity> severityValues = FXCollections.observableArrayList(Severity.values());
 		severity.setCellFactory(ComboBoxTableCell.forTableColumn(severityValues));

@@ -132,6 +132,7 @@ public class DataGeneratorPropertyController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getDataGeneratorPropertyData());
 		ObservableList<ResourceModel> resourceModelValues = FXCollections.observableArrayList(ResourceModel.values());
 		resourceModel.setCellFactory(ComboBoxTableCell.forTableColumn(resourceModelValues));

@@ -56,6 +56,7 @@ public class GanttPropertyController extends Table3Controller {
 	@Override
 	public void setMainApp(AbstractJfxMainWindow app) {
 		mainApp = (GeneratedJfxApp) app;
+		table.setEditable(true);
 		table.setItems(mainApp.getGanttPropertyData());
 		ObservableList<LineChoice> showLateValues = FXCollections.observableArrayList(LineChoice.values());
 		showLate.setCellFactory(ComboBoxTableCell.forTableColumn(showLateValues));
