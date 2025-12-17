@@ -54,12 +54,18 @@ public class TestAll {
 //        testHfs("nowaithfs/benchmark_instances large/","results/",CPO,null,4,600,overWrite);
 //       analyzeAll(base,"nowaithfs/benchmark_instances large/results/","noWaitHFS (CPO)","nowaithfslargeCPO","CPO");
 
-        testCfs("cfsnowait/","results/",CPO,null,4,30,overWrite);
-        testCfs("cfsnowait/","resultsCPSat/",CPSat,null,8,300,overWrite);
-        analyzeAll(base,"cfsnowait/results/","CFSnoWait (CPO)","cfsnowaitCPO","CPO");
-        analyzeAll(base,"cfsnowait/resultsCPSat/","CFSnoWait (CPSat)","cfsnowaitCPSat","CPSat");
+        testCfs("cfsnowait/","resultsPrec/",CPO,null,4,30,overWrite);
+        testCfs("cfsnowait/","resultsPrecCPSat/",CPSat,null,8,300,overWrite);
+        analyzeAll(base,"cfsnowait/resultsPrec/","CFS (CPO)","cfsCPO","CPO");
+        analyzeAll(base,"cfsnowait/resultsPrecCPSat/","CFS (CPSat)","cfsCPSat","CPSat");
         compareSummaries(base,"comparecfs",false,"CPO","CPSat",
                 "Comparison of CPO and CPSat for Results of CFS",GroupType.CFS);
+//        testCfs("cfsnowait/","results/",CPO,null,4,30,overWrite);
+//        testCfs("cfsnowait/","resultsCPSat/",CPSat,null,8,300,overWrite);
+//        analyzeAll(base,"cfsnowait/results/","CFSnoWait (CPO)","cfsnowaitCPO","CPO");
+//        analyzeAll(base,"cfsnowait/resultsCPSat/","CFSnoWait (CPSat)","cfsnowaitCPSat","CPSat");
+//        compareSummaries(base,"comparecfs",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Results of CFS",GroupType.CFS);
 
 ////        testAll("imports/RCPSP/SingleMode/j30/","results/",CPO,4,600,overWrite);
 ////        testAll("imports/RCPSP/SingleMode/j30/","resultsCPSat/",CPSat,8,600,overWrite);

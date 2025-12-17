@@ -100,7 +100,9 @@ public class ReadCFSNoWaitFile {
                         pseq.setName("Pseq"+i+"_"+j);
                         pseq.setBefore(prev);
                         pseq.setAfter(ps);
-                        pseq.setSequenceType(SequenceType.NoWait);
+                        //??? temporary change to allow normal precedence constraints instead of nowait
+//                        pseq.setSequenceType(SequenceType.NoWait);
+                        pseq.setSequenceType(SequenceType.EndBeforeStart);
                     }
                     prev = ps;
                 }
