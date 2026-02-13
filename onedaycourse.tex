@@ -1,0 +1,168 @@
+\documentclass[a4paper]{article}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\title{ENTIRE EDIH One Day Training Course on AI Based Scheduling}
+\author{Helmut Simonis\\School of Computer Science and Information Technology\\University College Cork\\Cork, Ireland\\email:helmut.simonis@insight-centre.org}
+\begin{document}
+\maketitle
+\begin{abstract}
+This document describes the detailed structure of a one day training course on AI based scheduling for the ENTIRE EDIH project. This is a cut-down version of the existing two-day course to fit into a single day. The training course provides an overview of current Constraint-based techniques to model and solve scheduling problems arising in project scheduling and manufacturing industries. It provides some hands-on experience with available open-source tools, and gives examples of SME based scheduling solutions.
+\end{abstract}
+\section{Introduction}
+\label{sec:introduction}
+
+This document provides an outline of a one-day training program on AI based scheduling using Constraint Programming techniques. The document details the topics covered from the viewpoint of the course developer, it is not intended to be read by the potential audience. A separate description of the course focussing on business needs and benefits will be developed in parallel. 
+
+\section{Intended Audience}
+\label{sec:audience}
+
+The course is intended for decision makers and persons facing scheduling problems in their professional work. IT personnel or consultants charged with choice of tools, development of models, or integration into the existing infrastructure will also be interested.
+
+\section{Learning Outcomes}
+\label{sec:outcomes}
+
+After attending the course, the students should be able to
+
+\begin{itemize}
+\item Position Constraint Based Scheduling in the general AI field
+\item Understand the need and potential for automated scheduling
+\item Understand the basic ideas behind Constraint-Based Scheduling
+\item Identify and apply the basic constraint types occurring in scheduling
+\item Understand the strength and weaknesses of available tools
+\item Be aware of basic visualization methods for scheduling
+\end{itemize}
+
+
+\section{Timetable}
+\label{sec:timetable}
+
+Table~\ref{tab:timetable} shows the format of the course delivered in a two-day event, with ten hours total teaching time. The course consists of seven modules, which will be described in more detail in Section~\ref{sec:modules}. Alternatively, the course could be presented as ten one hour sessions (plus exercises) for self-study.
+
+\begin{table}[htbp]
+\caption{\label{tab:timetable}Proposed Two Day Course Structure}
+\centering
+\begin{tabular}{lp{6cm}}\toprule
+Time & Topic\\\midrule
+09:00-09:30 & Registration and Welcome \\
+09:30-10:30 & Introduction \& Motivation \\
+10:30-11:00 & Coffee  \\
+11:00-12:30 & Scheduling Concepts\\
+12:30-13:30 & Lunch\\
+13:30-15:00 & Case studies\\
+15:00-15:30 & Coffee \\
+15:30-16:30 & Hands-on Experiments\\
+\bottomrule
+\end{tabular}
+\end{table} 
+
+\section{Modules}
+\label{sec:modules}
+
+This section gives a brief bullet-point list of the key elements of each of the modules of the course. The course will be delivered as a mix of overview slides, some example problems and solutions using different solvers, and a hands-on session to explore programs and demonstrators. 
+
+The overall approach is morphology based, i.e. based on the structure of problems found in industry. This differs from a complexity/structural analysis often used in OR, or a technology based presentation used in Computer Science. 
+
+\subsection{Introduction \& Motivation}
+
+\begin{itemize}
+\item AI - More than Chat-GPT
+\begin{itemize}
+\item Deductive vs stochastic approaches
+\end{itemize}
+\item What is scheduling?
+\item What is Constraint-Based Scheduling?
+\item Solution approaches
+\item Motivating examples
+\begin{itemize}
+\item From CP and CPAIOR papers
+\item Taken up again in case studies section
+\end{itemize}
+\item Benefits of automated scheduling
+\item Why not just use a package?
+\item What is not covered?
+\begin{itemize}
+\item Setup and transport times
+\item Alterative process paths
+\item Stochastic variants
+\item Process and semi-process based manufacturing
+\item Internal operations of a constraint solver
+\end{itemize}
+\end{itemize}
+
+\subsection{Scheduling Concepts}
+\begin{itemize}
+\item Core concepts: Products, orders, jobs, tasks
+\item Temporal relations
+\begin{itemize}
+\item End-to-start precedence
+\item Precedence graph (linear, tree)
+\item Max waiting time
+\item Intra-job vs inter-job
+\end{itemize}
+\item Resource Constraints
+\begin{itemize}
+\item Disjunctive resources
+\item Cumulative resources
+\item Machine Choice
+\end{itemize}
+\item Release date and due date (hard, soft)
+\item Problem classification
+\begin{itemize}
+\item RCPSP
+\item Job-Shop, flow-shop, open-shop
+\end{itemize}
+\item Visualization methods
+\begin{itemize}
+\item Gantt chart (job/machine view)
+\item Precedence graphs
+\item Process diagrams
+\item Resource profiles
+\end{itemize}
+\end{itemize}
+
+
+\subsection{Case Studies}
+
+\begin{itemize}
+\item Industrial success stories from SMEs
+\item Show how they fit into the framework provided
+\item Test Scheduling (ABB)
+\item No-wait flowshop
+\begin{itemize}
+\item Difficult feasible solutions
+\item Difficult analysis of solution quality
+\end{itemize}
+\item Print-shop capacity planning (Kostwein)
+\begin{itemize}
+\item Fielded application from Austria
+\end{itemize}
+\item Yacht refit scheduling
+\item Radiation therapy patient scheduling
+\item Disaster Planning: Non-premptive Evacuation Scheduling
+\item Feedmill Scheduling (Dalgety)
+\begin{itemize}
+\item Short term production scheduling
+\item Storage capacity limits
+\item Ability to promise
+\end{itemize}
+\end{itemize}
+
+\subsection{Experiments}
+\begin{itemize}
+\item Hands-on experience with the Insight Scheduling Tool
+\begin{itemize}
+\item Open-access tool using different back-end solvers
+\item Interactive use
+\item Installed on our machines
+\item Packages available for installation of student's machines (Windows/Mac)
+\end{itemize}
+\item Based on provided examples
+\item Visualization of results
+\end{itemize}
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+\end{document}
