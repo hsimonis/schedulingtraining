@@ -1,0 +1,21 @@
+\begin{tikzpicture}[xscale=0.8,yscale=1.0]
+\draw[->] (0,0) -- node[below]{Time}(13,0);
+
+\draw[fill=blue!20] (3,2) rectangle (4,3);
+\draw[fill=blue!10] (4,2) rectangle (8,3);
+\draw[fill=blue!5] (8,2) rectangle (12,3);
+\node[above] at (0,6) {Start Planning};
+\node[above] at (1,5) {Release};
+\node[above] at (3,5) {Admission};
+\node[above] at (5,5) {Due};
+\node[above] at (8,6) {End Planning};
+\node[above] at (12,5) {Discharge};
+\draw[] (0,0) -- (0,6);
+\draw[dotted] (1,0) -- (1,5);
+\draw[dotted] (3,0) -- (3,5);
+\draw[dotted] (5,0) -- (5,5);
+\draw[] (8,0) -- (8,6);
+\draw[dotted] (12,0) -- (12,5);
+\draw[<->] (3,3.5) -- node[above] {Length of Stay} (12,3.5);
+\draw[<->] (1,4) -- node[above] {Lateness} (3,4);
+\end{tikzpicture}

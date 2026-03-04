@@ -1,0 +1,1158 @@
+\begin{frame}
+\frametitle{Key Points}
+\begin{itemize}
+\item I'm no longer involved in CP solver development
+\begin{itemize}
+\item User, not developer perspective
+\end{itemize}
+\item I want to use off-the-shelf components
+\begin{itemize}
+\item My project timelines typically are quite tight
+\end{itemize}
+\item Development of solutions, not technology
+\item We need more than just a scheduling engine
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview of Lecture}
+\begin{itemize}
+\item Insight Centre for Data Analytics and ENTIRE
+\item A Complex Scheduling Solution for Siemens Energy
+\item Integrated Hospital Resource Management Problem (IHTC 2024)
+\item A Generic Scheduling Tool
+\item Survey: Constraint Programming and Scheduling
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Background}
+\begin{columns}
+\begin{column}{0.65\textwidth}
+\begin{itemize}
+\item Mathematics @ TH Darmstadt
+\item 1986-1990 ECRC GmbH, Munich
+\item 1990-2000, Technical Director, Cosytec SA, Orsay
+\item 2000-2005, Imperial College London, Parc Technologies Ltd
+\item 2013-2014, President, Association for Constraint Programming
+\item Best Application Paper Awards, CP 2009, CP 2013
+\item Program Chair, CP 2020, CPAIOR 2014
+\item Distinguished Service Award, ACP, 2022
+\end{itemize}
+\end{column}
+\begin{column}{0.35\textwidth}
+\includegraphics[width=.85\textwidth]{../book/images/helmut}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Insight is one of the largest data research and innovation centres in Europe...}
+\includegraphics[width=\textwidth]{../assistantse/onepage}
+\end{frame}
+
+\begin{frame}
+\frametitle{European Digital Innovation Hubs Network}
+\includegraphics[width=\textwidth]{images/entireoverview}
+\url{https://entire-edih.ie/}
+\end{frame}
+
+\begin{frame}
+\frametitle{ENTIRE at UCC}
+\includegraphics[width=.8\textwidth]{images/skillsdevelopmenthub}
+\end{frame}
+
+\begin{frame}
+\frametitle{Constraint Programming - in a nutshell}
+\begin{itemize}
+\item Declarative description of problems with
+\begin{itemize}
+\item {\em Variables} which range over (finite) sets of values
+\item {\em Constraints} over subsets of variables which restrict possible value combinations
+\item A {\em solution} is a value assignment which satisfies all constraints
+\end{itemize}
+
+\item Constraint propagation/reasoning
+\begin{itemize}
+\item Removing inconsistent values for variables
+\item Detect failure if constraint can not be satisfied
+\item Interaction of constraints via shared variables
+\item Incomplete
+\end{itemize}
+
+\item Search
+\begin{itemize}
+\item User controlled assignment of values to variables
+\item Each step triggers constraint propagation 
+\end{itemize}
+\item Different domains require/allow different methods
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Constraint Programming is Different}
+  \begin{itemize}
+  \item Declarative Programming
+    \begin{itemize}
+    \item Concentrate on what you want
+      \item Not how to get there
+      \item Program != Algorithm
+      \item Program = Model
+    \end{itemize}
+    \item Applied to Combinatorial Problems
+      \begin{itemize}
+        \item No complete polynomial algorithms known (exist?)
+        \item CP less ad-hoc than heuristics
+        \item Models can evolve
+  \end{itemize}
+  \end{itemize}
+  \end{frame}
+    
+\begin{frame}
+  \frametitle{A Subtractive Process}
+  \begin{textblock}{4}(8,-3)
+    \includegraphics[width=4cm]{../01-introduction/images/stages}
+  \end{textblock}
+  \vfill
+  \begin{quote}
+    ``Oh, bosh, as Mr. Ruskin says. Sculpture, per se, is the simplest thing in the world. All you have to do is to take a big chunk of marble and a hammer and chisel, make up your mind what you are about to create and chip off all the marble you don't want.''-Paris Gaulois.
+  \end{quote}
+  
+  {\tiny Source: \url{https://quoteinvestigator.com/2014/06/22/chip-away/}}
+\end{frame}
+
+
+
+
+\section{Siemens Energy Case Study (ASSISTANT)}
+
+\begin{frame}
+\frametitle{ASSISTANT Project Overview}
+\includegraphics[width=.9\textwidth]{../assistantse/imagesse/assistantdigitaltwin}
+\end{frame}
+
+\begin{frame}
+\frametitle{Assistant Siemens Energy Use Case}
+\includegraphics[width=\textwidth]{../assistantse/imagesse/assistantgasturbine}
+\end{frame}
+
+\begin{frame}
+\frametitle{SE Product Routing}
+\includegraphics[width=\textwidth]{../assistantse/imagesse/assistantrouting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Datasets}
+\includegraphics[width=\textwidth]{../assistantse/imagesse/assistantfullscaledatasets}
+\end{frame}
+
+\begin{frame}
+\frametitle{Optimizer High Level Structure}
+\includegraphics[width=.9\textwidth]{../assistantse/imagesse/overview}
+\end{frame}
+
+\begin{frame}
+\frametitle{Raw Data - Manual Data Entry Causes Problems}
+\begin{columns}
+\begin{column}{0.65\textwidth}
+\begin{itemize}
+\item Raw data come from spreadsheet
+\begin{itemize}
+\item 20 tabs
+\end{itemize}
+\item Excel is a particularly bad input data format
+\item Realistic, not real data
+\item Created by hand/automatically from existing test scenarios
+\item Series of files Berlin01 - Berlin05 were too inconsistent to run
+\item Berlin06 still contains some errors
+\item Optimizer explains all issues that it finds
+\end{itemize}
+\end{column}
+\begin{column}{0.35\textwidth}
+\includegraphics[width=\textwidth]{../assistantse/imagesse/rawerror}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Domain Model - Knowledge Graph}
+\includegraphics[width=\textwidth]{../assistantse/imagesse/DomainModel}
+
+Developed with Siemens, Siemens Energy
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution for Berlin 08a - Shows Only\\20\% of Tasks in Model}
+\includegraphics[width=.95\textwidth]{../assistantse/imagesse/solution08apref2}
+\end{frame}
+
+\begin{frame}
+\frametitle{Implementation}
+\begin{itemize}
+\item Requirement capture done inside project
+\item Data checking/cleaning most time consuming aspect
+\item Some specified functionality was rejected by Betriebsrat
+\item Built in Java
+\item Uses IBM's CPOptimizer back-end
+\begin{itemize}
+\item Logical choice based on required features
+\item Choice created issues later in project
+\end{itemize}
+\item 120k LoC, 110k generated, 3k solver
+\item Outperforms both 
+\begin{itemize}
+\item Current in-house tool
+\item Simulation based tool based on commercial simulator 
+\end{itemize}
+\item System installed at SE site, but not in daily use
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Advanced Feature: Explaining Late Delivery}
+\begin{itemize}
+\item Explain why some orders are delivered late
+\item Find root-cause, show schedule in context
+\end{itemize}
+
+\includegraphics[width=\textwidth]{../assistantse/imagesse/explanation}
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluation - KPIs}
+\begin{tabular}{p{6cm}rrr}\toprule
+KPI & Baseline & Optimizer \\ \midrule
+OTD (On-time delivery)& > 80 \%  & 92 \%\\
+Bottleneck machine utilization & 99.5 \% & 100 \%\\
+Manufacturing defects & 10-15 \% & < 10 \%\\
+Scenarios in 8 hours & 15-20 & > 100,000 \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{CPO Keeps on Trucking}
+\includegraphics[width=.9\textwidth]{../assistantse/imagesse/improving}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusion by Siemens Energy}
+\includegraphics[width=\textwidth]{../assistantse/imagesse/quote}
+
+{\tiny from ASSISTANT final project review: Siemens Energy assessment}
+\end{frame}
+
+\section{IHTC 2024}
+
+\begin{frame}
+\frametitle{Hospital Capacity Management}
+\begin{itemize}
+\item Decide which patients to admit in planning period (2-4 weeks)
+\item Decide when to admit selected patients
+\item Surgery performed on day of admission by preassigned surgeon
+\item Respect capacity constraints of surgeons and theatres
+\item Assign bed to patient during their stay
+\item Respect constraints on room capacity and use
+\item Assign nurses to rooms in each shift to provide required care
+%\item Nurse roster given
+\item Minimise total, weighted cost
+\end{itemize}
+\end{frame}
+
+\subsection{IHTC 2024 Competition}
+
+\begin{frame}
+\frametitle{IHTC 2024}
+\begin{itemize}
+\item \url{https://ihtc2024.github.io/}
+\item Organized by Udine/Italy and KU Leuven/Belgium
+\item Under EURO umbrella (replaced Roadef 2024)
+\item Ran from September 2024 to March 2025
+\item 32 teams participating
+\item 70 problem instances
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{IHTC2024 Winners}
+\includegraphics[width=\textwidth]{../schedulingseminar/ihtc2024/ihtc2024winners}
+\end{frame}
+
+\begin{frame}
+\frametitle{Is this a good problem for CP?}
+\begin{itemize}
+\item There are good and bad points
+\item Good
+\begin{itemize}
+\item Not too messy
+\item Problem size not super large
+\item Decomposes into well-known sub problem types
+\end{itemize}
+\item Bad
+\begin{itemize}
+\item Some constraints are totally soft
+\item Overall cost is weighted sum of many factors
+\item Time resolution limited
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\subsection{Concepts}
+
+\begin{frame}
+\frametitle{Concepts}
+\begin{itemize}
+\item Time
+\item Patients/Occupants
+\item Surgeons
+\item Nurses
+\item Operating theatres
+\item Rooms/beds
+\end{itemize}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Data Samples}
+% \begin{itemize}
+% \item We will use two problem instances to show features of problems
+% \item test10, largest of the initial instance set
+% \item m29, largest of the final evaluation set
+% \item Demonstrate scalability of visualisation as well as of solvers
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Time Scale (Planning period 2-4 weeks)}
+% \input{../schedulingseminar/ihtc2024/timescale}
+% \begin{itemize}
+% \item Three different time scales in problem
+% \begin{itemize}
+% \item Days: patient admission, bed/room use, aligned with shifts
+% \item Shifts: Nurse assignment, workload, skills
+% \item Procedures: not scheduled, only total load per day
+% \end{itemize}
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Patients}
+% \begin{itemize}
+% \item Potential inpatients for surgery, assigned to a surgeon
+% \item Mandatory patients must be scheduled
+% \item Optional patients may be scheduled
+% \item Each patient has earliest admission day (release day)
+% \item Mandatory patients have a latest admission day (due date)
+% \item Procedure length and length of stay vary
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Patient Events and Intervals}
+% \scalebox{0.85}{
+% \input{../schedulingseminar/ihtc2024/patienttimescale}
+% }
+% \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Needed Patient Care on Day of Stay, Top 20 Patients in test10}
+\scalebox{0.5}{
+\input{../schedulingseminar/ihtc2024/test10careneeds}
+}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Occupants}
+% \begin{itemize}
+% \item Patients admitted in previous planning period
+% \item Surgery already done
+% \item Occupy bed from period start until discharge
+% \item Same care needs as patients, create nurse workload
+% \item "Work in progress"
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Occupants Beds Assigned - test10}
+% \scalebox{0.75}{
+% \input{../schedulingseminar/ihtc2024/test10occbedsprofile}
+% }
+% \end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Occupants Room Use - test10}
+% \scalebox{0.6}{
+% \input{../schedulingseminar/ihtc2024/test10occroomuse}
+% }
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Surgeons}
+% \begin{itemize}
+% \item Each surgeon has set list of assigned patients
+% \item In this problem: Only interact with patients by operating
+% \item Surgeon stands for whole team needed to perform procedures
+% \item Hard work limits for surgery only on each day
+% \item May be unavailable due to other duties 
+% \end{itemize}
+% \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Surgeon S5 Availability - test10}
+\scalebox{0.6}{
+\input{../schedulingseminar/ihtc2024/test10s5}
+}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Nurses}
+% \begin{itemize}
+% \item Provide care for patients during their stay
+% \item Nurses operate in three non-overlapping shifts
+% \item Roster given
+% \item Nurses are assigned rooms, responsible for patients in those rooms
+% \item Given skill, max workload per shift: soft constraints
+% \end{itemize}
+% \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Nurse Roster (Part I) - test10}
+\scalebox{0.6}{
+\input{../schedulingseminar/ihtc2024/test10nurseroster}
+}
+\end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Nurse Max Workload - test10}
+% \scalebox{0.6}{
+% \input{../schedulingseminar/ihtc2024/test10nursemaxload}
+% }
+% \end{frame}
+ 
+ 
+% \begin{frame}
+% \frametitle{Theatres}
+% \begin{itemize}
+% \item Used for procedures by surgeons
+% \item All procedures can be performed in all theatres
+% \item Limited total availability per day
+% \item Cost, when used, per day
+% \item Convenience cost if surgeon assigned to two or more theatres per day
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Theatre t06 Availability - test10}
+% \scalebox{0.6}{
+% \input{../schedulingseminar/ihtc2024/test10t06}
+% }
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Rooms/Beds}
+% \begin{itemize}
+% \item Each patient is assigned a bed in one room during their stay
+% \item Each room has a given bed capacity
+% \item Rooms/beds are assigned by day
+% \item Patients are not moved between rooms
+% \item Not all rooms are compatible with all patients
+% \item On any day, only patients with same gender can be assigned to the same room, hard constraint
+% \item Prefer to have same age-group in the same room, soft constraints
+% \end{itemize}
+% \end{frame}
+
+\begin{frame}
+\frametitle{Weight Factors}
+\begin{description}
+\item[$w_{u}$] cost of an unscheduled optional patient, i.e. the patient is not admitted in the planning period
+\item[$w_{l}$] cost of delay per day for admitting a patient after their release date
+\item[$w_{t}$] cost of opening a operating theatre for one day
+\item[$w_{s}$] cost of each additional theatre if a surgeon is allocated to more than one theatre per day
+\item[$w_{w}$] cost of a workload excess for a nurse in one shift per workload unit
+\item[$w_{k}$] cost of skill excess for a nurse in one shift per skill unit
+\item[$w_{a}$] cost of a age group conflict between two patients in the same room per day
+\item[$w_{c}$] cost of continuity of care excess if multiple nurses are responsible for a patient
+\end{description}
+\end{frame}
+
+
+
+
+\subsection{Some Data Analysis}
+
+\begin{frame}
+\frametitle{Instance Data}
+\scalebox{0.7}{
+\input{../schedulingseminar/ihtc2024/instancetable}
+}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Data KPIs (I)}
+% \scalebox{0.65}{
+% \input{../schedulingseminar/ihtc2024/kpitable1}
+% }
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Data KPIs (II)}
+% \scalebox{0.7}{
+% \input{../schedulingseminar/ihtc2024/kpitable2}
+% }
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Weight Factors per Instance}
+% \scalebox{0.7}{
+% \input{../schedulingseminar/ihtc2024/weighttable}
+% }
+% \end{frame}
+
+\begin{frame}
+\frametitle{Total Theatre and Surgeon Capacity - test10}
+\scalebox{0.6}{
+\input{../schedulingseminar/ihtc2024/test10totalts}
+}
+ \begin{textblock}{4}(11,5)
+  Theatre capacity not limiting
+ \end{textblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Total Theatre and Surgeon Capacity - m29}
+\scalebox{0.6}{
+\input{../schedulingseminar/ihtc2024/m29totalts}
+}
+ \begin{textblock}{4}(11,5)
+  Theatre capacity must be considered
+ \end{textblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Capacity and Demand for Surgeon s7 - test10}
+\scalebox{0.6}{
+\input{../schedulingseminar/ihtc2024/test10cds7}
+}
+ \begin{textblock}{4}(11,5)
+  Patients shown on release day
+ \end{textblock}
+ \begin{textblock}{4}(11,8)
+  Not much capacity left for optional patients
+ \end{textblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results of Analysis}
+\begin{itemize}
+\item Finding which patients to admit will be the most important choice. 
+\item To utilise the full surgeon capacity, we will have to delay admission of some patients to use the available time  slots.
+\item We do  not have to consider the detailed theatre assignment when making the initial admission selection.
+\item When admitting a patient, we must have a bed for their full stay available. Estimating full capacity is tough.
+\item We can initially ignore the nurse workload/skill limits, and age mix constraints as well.
+\end{itemize}
+\end{frame}
+
+\subsection{Decomposition}
+
+\begin{frame}[fragile]
+\frametitle{The Resulting Decomposition}
+\input{../schedulingseminar/ihtc2024/decomppic}
+\end{frame}
+
+\begin{frame}
+\frametitle{Stages}
+\begin{description}
+\item[Admission] decide which patients to admit when
+\item[Room] assign a room/bed to each selected
+\item[Theatre] assign a theatre to each patient
+\item[Nurse Assignment] assign a nurse to each (non-empty) room
+\end{description}
+\end{frame}
+
+
+
+\subsection{Results}
+
+\begin{frame}
+\frametitle{Sample solution test10, total surgeon utilisation}
+\scalebox{0.7}{
+\input{../schedulingseminar/ihtc2024/test10totalsp}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sample solution test10, total theatre utilisation}
+\scalebox{0.6}{
+\input{../schedulingseminar/ihtc2024/test10totaltp}
+}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Process}
+\begin{itemize}
+\item We used this problem in a tutorial on modelling at CP 2025 in Glasgow 
+\item Show different modelling and solution approaches
+\item Developed in two weeks
+\item Since then, further improved models for admission
+\item Split cost into A (admission) and B (nursing)
+\item Quite good results for cost A, not so good (yet) for cost B
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cost Comparison A/B}
+\includegraphics[width=\textwidth]{../schedulingseminar/ihtc2024/resultsab}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Cost Comparison for Different Cost Terms}
+% \includegraphics[width=.9\textwidth]{../schedulingseminar/ihtc2024/resultscostpercent}
+% \end{frame}
+
+\subsection{New Use Cases}
+
+\begin{frame}
+\frametitle{Which problem do we need to solve?}
+\begin{itemize}
+\item Competition is only concerned with generating initial solution
+\item But there are many more use cases to study
+\begin{itemize}
+\item What happens if a rejected patient needs the operation now
+\item What happens if a surgeon cancels a session
+\item What happens if the hospital closes for a disaster event
+\item What resources do we need to handle $k$ additional patients
+\end{itemize}
+\item This is linked to ongoing work on explanations in our lab
+\end{itemize}
+\end{frame}
+
+
+
+\section{A Generic Scheduling Tool}
+
+\begin{frame}
+\frametitle{A Generic Scheduling Tool}
+\begin{itemize}
+\item Intended for ENTIRE customers, SME and PSO
+\begin{itemize}
+\item Smaller problem scope, very limited tech resources
+\end{itemize}
+\item No programming, configured by JSON input data
+\item Compositional use of different constraint types
+\item Different commercial or open-source back-end solvers
+\item Developed in Java
+\item Interactive JavaFX front-end
+\item Can by used as back-end scheduling tool/server (REST)
+\item Instance generator included
+\item Readers for multiple benchmark types included
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Scheduling Tool GUI Examples}
+\begin{tabular}{cc}
+\includegraphics[width=.5\textwidth]{images/processchart}
+&\includegraphics[width=.5\textwidth]{images/gantt}
+\\
+\includegraphics[width=.5\textwidth]{images/pert}
+&
+\includegraphics[width=.5\textwidth]{images/productionplanning}
+\end{tabular}
+
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Key Points}
+% \begin{itemize}
+% \item This section describes the scheduling tool
+% \begin{itemize}
+% \item This is a \emph{preview} of the current state, not released yet!
+% \end{itemize}
+% \item How to load/create data
+% \begin{itemize}
+% \item From files
+% \item By instance generator
+% \item From benchmark problems
+% \end{itemize}
+% \item How to run the solvers
+% \begin{itemize}
+% \item Which solvers are supported
+% \item What to expect in terms of performance
+% \end{itemize}
+% \item Experiments to try
+% \begin{itemize}
+% \item Limited time
+% \item Possible "test before invest" continuation
+% \end{itemize}
+
+% \end{itemize}
+% \end{frame}
+
+
+
+\subsection{Under the hood}
+
+\begin{frame}
+\frametitle{Back-end solvers}
+\begin{itemize}
+\item Provide both open-source and commercial solver interfaces
+\item Allow experimentation without having to buy commercial tools straightaway
+\item Gives a level playing field to compare solvers and models
+\item Provides out-of-the-box, generic performance
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Google OR-Tools CPSat Solver}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Open-Source tool provided by Google
+\item Available at \url{https://developers.google.com/optimization/cp/cp_solver}
+\item Probably best open-source CP solver for scheduling
+\item This solver is packaged with scheduling tool
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/cpsat-example}
+
+{\tiny (from OR-Tools website)}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{CP Optimizer from IBM}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Commercial tool of IBM
+\item \url{https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-cp-optimizer}
+\item Part of optimization suite with Cplex, OPL
+\item We allow to interface with it
+\item Academic licenses available
+\item Well-known for capabilities for scheduling
+
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=.7\textwidth]{../04-experiments/images/cpoptimizer-example}
+
+{\tiny (from CPOptimizer website)}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{MiniZinc from Monash University}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Modelling language and backend tools from Monash University in Melbourne, Australia
+\item Available from \url{https://www.minizinc.org/}
+\item Widely used for teaching
+\item Allows different backend solver to run from same model
+\item Generic CP tool, not optimized for scheduling
+\item Requires separate installation, open-source
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/minizinc-example}
+
+{\tiny (from MiniZinc Website)}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Which Solver is Better?}
+\begin{itemize}
+\item We present results on a few benchmark types
+\item Fair comparison between solvers
+\begin{itemize}
+\item Same hardware, Windows 11 laptop
+\item CPU i7-10875H @ 2.3GHz, 64GB, four cores
+\item Same timeout (600 s)
+\end{itemize}
+\item Not a fair comparison to state-of-the-art
+\begin{itemize}
+\item Uses out-of-the-box model
+\item Significant improvements possible
+\item More specific models
+\item Parameter tuning
+\item Unlimited runtime
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Taillard Job-Shop Benchmarks}
+\scalebox{0.6}{
+\begin{tabular}{lr*{10}{r}} \toprule
+& &\multicolumn{4}{c}{All Instances} & \multicolumn{2}{c}{Optimal Only} & \multicolumn{4}{c}{Non Optimal Only}\\ 
+& &\multicolumn{4}{c}{Optimal (\% of All Instances)} & \multicolumn{2}{c}{Time (\% of VB)} & \multicolumn{2}{c}{Cost (\% of VB)} & \multicolumn{2}{c}{Bound (\% of VB)}\\ 
+Group & Nr & Both & CPO & CPSat & None & CPO & CPSat & CPO & CPSat & CPO & CPSat\\ \midrule
+15/15 & 10 & 90.00 &  0.00 &  0.00 & 10.00 & 105.19 & 141.18 & 100.00 & 100.00 & 97.17 & 100.00 \\ 
+20/15 & 10 & 20.00 &  0.00 &  0.00 & 80.00 & 267.27 & 263.20 & 100.99 & 100.05 & 98.50 & 99.93 \\ 
+20/20 & 10 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.74 & 100.06 & 97.96 & 100.00 \\ 
+30/15 & 10 & 10.00 &  0.00 & 10.00 & 80.00 & 174.32 & 100.00 & 100.18 & 100.49 & 99.87 & 100.00 \\ 
+30/20 & 10 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.30 & 101.30 & 99.40 & 100.00 \\ 
+50/15 & 10 & 100.00 &  0.00 &  0.00 &  0.00 & 100.00 & 685.09 & n/a & n/a & n/a & n/a \\ 
+50/20 & 10 & 10.00 & 60.00 &  0.00 & 30.00 & 100.00 & 381.38 & 100.00 & 101.60 & 100.00 & 100.00 \\ 
+100/20 & 10 & 10.00 & 90.00 &  0.00 &  0.00 & 100.00 & 416.13 & 100.00 & 101.73 & 100.00 & 66.81 \\ 
+\bottomrule
+\end{tabular}
+}
+
+\begin{itemize}
+\item Significant number of problems solved to optimality in 600s
+\item In terms of quality, solvers are quite similar
+\item CPO wins in terms of solution times for larger instances
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Results for Hybrid Flexible Flow-Shop}
+\scalebox{0.6}{
+\begin{tabular}{lr*{10}{r}} \toprule
+& &\multicolumn{4}{c}{All Instances} & \multicolumn{2}{c}{Optimal Only} & \multicolumn{4}{c}{Non Optimal Only}\\ 
+& &\multicolumn{4}{c}{Optimal (\% of All Instances)} & \multicolumn{2}{c}{Time (\% of VB)} & \multicolumn{2}{c}{Cost (\% of VB)} & \multicolumn{2}{c}{Bound (\% of VB)}\\ 
+Group & Nr & Both & CPO & CPSat & None & CPO & CPSat & CPO & CPSat & CPO & CPSat\\ \midrule
+20 & 25 & 76.00 &  0.00 & 20.00 &  4.00 & 100.00 & 580.71 & 100.00 & 100.00 & 96.52 & 100.00 \\ 
+25 & 25 & 80.00 &  0.00 &  8.00 & 12.00 & 101.65 & 238.02 & 100.00 & 100.37 & 97.67 & 100.00 \\ 
+30 & 25 & 60.00 &  0.00 &  4.00 & 36.00 & 100.35 & 264.69 & 100.18 & 101.05 & 100.00 & 100.00 \\ 
+40 & 25 &  4.00 & 16.00 &  0.00 & 80.00 & 100.00 & 2554.03 & 100.00 & 104.68 & 100.00 & 100.00 \\ 
+50 & 25 &  0.00 &  4.00 &  0.00 & 96.00 & n/a & n/a & 100.00 & 107.87 & 100.00 & 100.00 \\ 
+100 & 25 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.00 & 120.43 & 100.00 & 100.00 \\ 
+200 & 25 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.00 & 188.60 & 100.00 & 100.00 \\ 
+300 & 24 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.00 & 263.22 & 100.00 & 100.00 \\ 
+400 & 25 &  0.00 &  0.00 &  0.00 & 100.00 & n/a & n/a & 100.00 & 246.34 & 100.00 & 100.00 \\ 
+\bottomrule
+\end{tabular}
+}
+\begin{itemize}
+\item Only smaller/medium instances solved to optimality
+\item For those problems, both solvers perform well
+\item CPO significantly better on large instances
+\item But: Best CP only result with SICStus Prolog (Armstrong et al, CP 2021)
+\item Best overall result with NEH/CP hybrid (Garraffa et al, Comput. Oper. Res., 2025)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{General Recommendations}
+\begin{itemize}
+\item If you already have access to CPO, use it!
+\item For new problem types, do an evaluation with CPSat first
+\item Out of the box, CPO performs more consistently
+\item May be easier to extend CPSat with your own research
+\item Use multiple cores and memory to your advantage
+\item OptalCP (see last talk) gave superb results on Siemens Energy test case
+\end{itemize}
+\end{frame}
+
+
+
+\subsection{Input Data/ Result Output}
+
+\begin{frame}
+\frametitle{I/O: JSON Base Data}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Description of 
+\begin{itemize}
+\item Product
+\item Process
+\item DisjunctiveResource
+\item CumulativeNeed
+\item ProcessStep
+\item ResourceNeed
+\item CumulativeProfile
+\item Problem
+\item CumulativeResource
+\item ProcessSequence
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/basedata}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Schedule Input Data}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Description of
+\begin{itemize}
+\item Downtime
+\item Task (x2)
+\item Job
+\item Order
+\item WiP
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/schedule}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+% \subsection{Result Output}
+
+% \begin{frame}
+% \frametitle{Result Data}
+% \begin{itemize}
+% \item We use the same JSON format to describe the results of the schedule
+% \item Added field types for SolverRun, Solution, assigned Jobs and Tasks
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{JSON Format Results}
+% \begin{columns}
+% \begin{column}{0.6\textwidth}
+% \begin{itemize}
+% \item Description of
+% \begin{itemize}
+% \item Solution
+% \item SolverRun
+% \item Job Assignment
+% \item Task Assignment
+% \end{itemize}
+
+% \end{itemize}
+% \end{column}
+% \begin{column}{0.4\textwidth}
+% \includegraphics[width=.7\textwidth]{../04-experiments/images/samplerresult}
+% \end{column}
+% \end{columns}
+% \end{frame}
+
+
+
+\subsection{Instance Generator}
+
+\begin{frame}
+\frametitle{Instance Generator}
+\begin{itemize}
+\item Application allows to generate different types of test problems
+\item Different types of resource models
+\item Different numbers of orders, resources, WiP, downtime
+\item Useful to generate more life-like examples combining different constraint types
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Instance Generator Dialog}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Resource Model
+\begin{itemize}
+\item Select a resource model defining the overall structure of problem
+\end{itemize}
+\item Nr Disjunctive Resources
+\begin{itemize}
+\item Describe how many disjunctive resources are generated
+\end{itemize}
+\item Resource Probability
+\begin{itemize}
+\item The probability that a resource is compatible with a task
+\item Only for some resource models
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../04-experiments/images/instance-generator}
+\end{column}
+\end{columns}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Resource Models}
+% \begin{itemize}
+% \item Flow-Shop
+% \begin{itemize}
+% \item Multiple stages, all jobs use machines in same order
+% \end{itemize}
+
+% \item Job-Shop
+% \begin{itemize}
+% \item Multiple stages, jobs use machines in different order
+% \end{itemize}
+
+% \item Open-Shop
+% \begin{itemize}
+% \item Multiple stages, no predefined order of machines
+% \end{itemize}
+
+% \item Hybrid Flow-Shop (default)
+% \item Hybrid Job-Shop
+% \item Hybrid Open-Shop
+% \begin{itemize}
+% \item Like x-shop, but with multiple machines per stage
+% \end{itemize}
+
+% \item Random
+% \begin{itemize}
+% \item Multiple stages, each stage using a random subset of machines
+% \end{itemize}
+
+% \item All
+% \begin{itemize}
+% \item Multiple stages, each stage allowing all machines
+% \end{itemize}
+
+% \end{itemize}
+% \end{frame}
+
+
+
+\begin{frame}
+\frametitle{GUI: Example Job-Shop Solution}
+\includegraphics[width=\textwidth]{../02-concepts/images/job-shop-solution}
+
+\begin{itemize}
+\item One task is selected (in red), in both Machine and Job Gantt Chart
+\item Tasks are colored by machine, note coloring in jobs is different for each job
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{GUI: RCPSP Process Diagram}
+\includegraphics[width=.7\textwidth]{../02-concepts/images/rcpsp-process-diagram}
+\begin{itemize}
+\item Multiple sources, sinks
+\item Multiple cumulative resources
+\end{itemize}
+
+\end{frame}
+
+% \begin{frame}
+% \frametitle{RCPSP PERT Diagram}
+% \includegraphics[width=\textwidth]{../02-concepts/images/rcpsp-pert}
+% \begin{itemize}
+% \item Resource constraints influence schedule, no single critical path
+% \end{itemize}
+
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{RCPSP Cumulative Chart}
+% \includegraphics[width=\textwidth]{../02-concepts/images/rcpsp-cumulative-chart}
+% \begin{itemize}
+% \item Multiple cumulative resource, not busy all the time
+% \item Not all instances are very hard to solve
+% \end{itemize}
+
+% \end{frame}
+
+\begin{frame}
+\frametitle{More on Visualization}
+\begin{itemize}
+\item Tutorial at CP 2021 (\url{https://cp2021.a4cp.org/tutorials.html})
+\item By Helmut Simonis, Insight/UCC and Guido Tack, Monash University
+\item Video at \url{https://www.youtube.com/watch?v=AI-ZfQtMLAU}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Take-Away Message}
+\begin{itemize}
+\item Visualization can help at different stages of \\the development process
+\item Discover problems early
+\item Understand what is happening without drowning in details
+\item Easily communicate with stakeholders without CP experience 
+\item Decide how much integration with solver you need
+\item Complex use cases require visualization to be practical
+\item Generic vs. application specific visualization 
+\end{itemize}
+\end{frame}
+
+
+
+\section{Literature Survey}
+
+\begin{frame}
+\frametitle{Constraint Programming and Scheduling - A Survey}
+\begin{itemize}
+\item Joint work with Cemalettin Ozturk, MTU
+\item What is out there
+\item Where to start
+\item Where to publish
+\item I'm interested in some specific topic, what is relevant
+\item Results available at \url{https://hsimonis.github.io/pthg24/}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Overall Analysis (Based on 1278 Works)}
+\includegraphics[width=\textwidth]{../literaturesurvey/images/worksbyyear}
+\end{frame}
+
+\begin{frame}
+\frametitle{Origin of Papers}
+\includegraphics[width=\textwidth]{../literaturesurvey/images/conferences}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Origin of Articles}
+\includegraphics[width=\textwidth]{../literaturesurvey/images/journals}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Automatically Extracted Article Features}
+\includegraphics[width=\textwidth]{../literaturesurvey/images/extracted}
+\end{frame}
+
+\begin{frame}
+\frametitle{Extracted Features: Application Areas}
+\includegraphics[width=\textwidth]{../literaturesurvey/images/applicationareas}
+\end{frame}
+
+\begin{frame}
+\frametitle{Co-Author Graph}
+\includegraphics[width=.9\textwidth]{../schedulingseminar/images/fdp.pdf}
+\end{frame}
+
+
+\section{Conclusion}
+
+\begin{frame}
+\frametitle{Conclusions}
+\begin{itemize}
+\item Constraint Programming is a useful tool for scheduling
+\item Choice of back-end solver not trivial
+\begin{itemize}
+\item Feature set
+\item Solution quality
+\item Deployment options
+\item Integration with overall solution
+\end{itemize}
+\item Use of CP does not require deep understanding of technology
+\item Visualization key to interpreting results
+\item Increasing number of "CP inside" papers
+\end{itemize}
+\end{frame}
+
+
