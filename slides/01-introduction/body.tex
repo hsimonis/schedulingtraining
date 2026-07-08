@@ -182,11 +182,22 @@ David Poole, Alan Mackworth. Artificial Intelligence, Cambridge University Press
 \item Impossible to understand what is happening inside
 \item Hallucinations, making up convincing false statements
 \item Enormous resource requirements
+\begin{itemize}
+\item Electricity, space, water
+\end{itemize}
 \item Privacy/IP of training data
 \item Really limited to a few multi-nationals
+\item Increasingly: cost to end-user 
 \end{itemize}
 
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Datacentres in Ireland [Oireachtas 2024]}
+\includegraphics[width=.75\textwidth]{../01-introduction/images/datacentres}
+
+{\tiny \url{https://data.oireachtas.ie/ie/oireachtas/libraryResearch/2025/2025-03-20_the-future-of-data-centres-in-ireland_en.pdf}}
 \end{frame}
 
 
@@ -409,7 +420,7 @@ Michael Pinedo. Scheduling. Springer, 5th edition, 2016.
 \subsection{Timetable}
 
 \begin{frame}
-\frametitle{Course Structure}
+\frametitle{Course Structure (2 Day Course)}
 \begin{tabular}{lp{4cm}p{4cm}}\toprule
 Time & Day 1 & Day 2\\\midrule
 09:00-09:30 & Registration & - \\
@@ -420,6 +431,22 @@ Time & Day 1 & Day 2\\\midrule
 13:30-15:00 & Machine Constraints & Case Studies\\
 15:00-15:30 & Coffee & Coffee \& Close\\
 15:30-16:30 & Experiments & -\\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Course Structure (One Day Course)}
+\begin{tabular}{lp{9cm}}\toprule
+Time & Topic \\\midrule
+09:00-09:30 & Registration \& Welcome \\
+09:30-10:30 & Introduction \& Motivation\\
+10:30-11:00 & Coffee \\
+11:00-12:30 & Scheduling Concepts\\
+12:30-13:30 & Lunch\\
+13:30-15:00 & Case Studies\\
+15:00-15:30 & Coffee \\
+15:30-16:30 & Hands-on Experience\\
 \bottomrule
 \end{tabular}
 \end{frame}
@@ -437,7 +464,25 @@ Time & Day 1 & Day 2\\\midrule
 \end{itemize}
 \end{frame}
 
-
+\begin{frame}
+\frametitle{Are there LLM based scheduling approaches?}
+\begin{itemize}
+\item Direct creation of solutions by LLM
+\begin{itemize}
+\item Has been tried in multiple areas, does not seem to work well
+\item Can you trust the solution (Hallucinations)?
+\item Is it repeatable?
+\item Can you understand what it is doing?
+\end{itemize}
+\item Use LLM to create Constraint Program, then solve model
+\begin{itemize}
+\item You can validate the generated model
+\item Maintains performance gains by solver 
+\item Useful for prototypical data extraction from unstructured text
+\item Does not replace proper workflow for production
+\end{itemize}
+\end{itemize}
+\end{frame}
 
 \begin{frame}
 \frametitle{How does it all work?}

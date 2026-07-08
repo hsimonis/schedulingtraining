@@ -1,0 +1,10 @@
+\scalebox{0.8}{
+\begin{tikzpicture}
+\draw[left color=insight-blue] (0,0)  rectangle (10,1);
+\node[left] at (0,0.5) {Certain};
+\node[right] at (10,0.5) {Uncertain};
+\draw[thick,<->] (0,-0.2) -- node[below] {Lookahead horizon} (4,-0.2);
+\draw[thick,<->] (0,1.2) -- node[above] {Commit} (2,1.2);
+\draw[thick,<->,draw=black!20] (2,1.2) -- node[above] {Ignore} (4,1.2);
+\end{tikzpicture}
+}

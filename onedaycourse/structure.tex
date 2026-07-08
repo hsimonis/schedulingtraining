@@ -1,0 +1,57 @@
+\documentclass[a4paper]{article}
+\usepackage{booktabs}
+\usepackage{tikz}
+
+\title{Structure of the slides directory}
+\author{Helmut Simonis\\ENTIRE EDIH\\School of Computer Science and Information Technology\\University College Cork\\Cork, Ireland\\helmut.simonis@insight-centre.org}
+\begin{document}
+\maketitle
+\begin{abstract}
+This document describes the structure of the slides directory for the scheduling training course in the ENTIRE EDIH project. It describes where files should be placed, which directories need to be created, and how template files should be adjusted for a new slide set of project.
+\end{abstract}
+\section{Directory and File Structure}
+
+\subsection{Files inside Each Chapter}
+
+The following files define the different output formats for a chapter, only standalone.tex and body.tex need to be adapted when adding/defining content.
+
+\begin{table}[htbp]
+\caption{Files inside a Chapter}
+\begin{tabular}{rrp{7cm}}\toprule
+File & Result & Role\\ \midrule
+article.tex & article.pdf & Chapter as a standalone article of running text\\
+body.tex & - & content of chapter, mix of running text and slides as required\\
+chapter.tex & & Chapter as one chapter of a book \\
+handout.tex & handout.pdf & Chapter as pdf with multiple slides per page\\
+slides.tex & slides.pdf & Chapter as a pdf slide set for presentation\\
+standalone.tex & - & Auxiliary file containing title of chapter \\
+Makefile & - & to create all formats of presentations from sources\\
+\bottomrule
+\end{tabular}
+\end{table}
+ 
+The format of the different output files is determined by the template files, which are shared by all chapters.
+
+\section{Adjusting the template}
+
+\begin{table}[htbp]
+\caption{Relevant Template Files}
+\begin{tabular}{rp{7cm}}\toprule
+File & Role\\ \midrule
+topmatter.tex & This file defines the first slides in a presentation, the title page, and license and acknowledgment pages. The content of this file should be the same for all chapters of a project, and should be checked with the project admin before publication. \\
+packages.tex & This file describes which packages should be loaded, defines the settings used for parameters, and loads the correct style set to define the slide background, colors, and fixed elements. There are two variants, a normal (4:3 aspect ratio) and a wide variant (16:9 aspect ratio). Different default values might be required for these variants.\\
+entire-colors.tex & Named colors for the presentation slides; used to achieve a consistent color use for background and foreground materials \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Making pdf files}
+
+There is a top-level Makefile that can be used to recreate all presentations in the project. The Makefile contains a list of all chapters at the top, after adding or renaming chapters this list will need to be adjusted. 
+
+\begin{verbatim}
+make clean
+make
+\end{verbatim}
+
+\end{document}

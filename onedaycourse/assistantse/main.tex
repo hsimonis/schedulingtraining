@@ -1,0 +1,279 @@
+\documentclass[dvipsnames,aspectratio=169]{beamer}
+\usepackage{beamerthemeinsight/insight}
+% Insight branding requires Ubuntu fonts, not possible with overleaf 
+\usepackage[medium]{ubuntu}  % this defines ubuntu fonts for all elements of presentation
+
+
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+\usetikzlibrary{shadows}
+\usetikzlibrary{arrows.meta}
+\tikzset{modelling/.style={fill=insight-royalblue!20,draw=black!40}}
+\tikzset{stakeholder/.style={fill=insight-lime!20,draw=black!40}}
+\tikzset{technology/.style={fill=insight-maroon!20,draw=black!40}}
+\tikzset{papers/.style={fill=insight-yellow,opacity=0.1,draw=black!40}}
+
+\usepackage{pdfpages}
+
+\usepackage{pgfplots}
+\pgfplotsset{width=7cm,compat=1.15}
+\usepackage{booktabs}
+%\usepackage[absolute,overlay,showboxes]{textpos}
+\usepackage[absolute,overlay]{textpos}
+
+\usepackage{amssymb}
+\usepackage{pifont}
+
+\usepackage{adjustbox}
+\usepackage{array}
+
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{R{45}{1em}}}% no optional argument here, please!
+\usepackage{listings}
+\usepackage{colortbl}
+\usepackage{mdframed}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{pifont}
+\newcommand{\greentick}{{\color{insight-lime}\checkmark}}
+\newcommand{\orangetick}{{\color{orange}(\checkmark)}}
+\newcommand{\redx}{{\color{red}\ding{55}}}
+\usepackage{MnSymbol,wasysym}
+
+\renewcommand<>\cellcolor[1]{\only#2{\beameroriginal\cellcolor{#1}}}
+%\renewcommand<>\rowcolor[1]{\only#2{\beameroriginal\rowcolor{#1}}}
+
+
+\usepackage{adjustbox}
+\usepackage{array}
+
+\definecolor{eclipseStrings}{RGB}{42,0.0,255}
+\definecolor{eclipseKeywords}{RGB}{127,0,85}
+\colorlet{numb}{magenta!60!black}
+\newcommand{\best}{\cellcolor{green!10}}
+\newcommand{\ccg}{\cellcolor{green!10}}
+\newcommand{\ccr}{\cellcolor{red!10}}
+\newcommand{\ccb}{\cellcolor{blue!10}}
+\newcommand{\ccy}{\cellcolor{yellow!10}}
+\newcommand{\gray}{\cellcolor{black!10}}
+
+\usepackage{hyperref}
+
+\AtBeginSection[]{
+  \begin{frame}
+ \tableofcontents[sections=\value{section},currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]{
+  \begin{frame}
+\tableofcontents[sections=\value{section},currentsection,currentsubsection]
+  \end{frame}
+}
+  
+\author{Helmut Simonis}
+\institute{Insight SFI Centre for Data Analytics, UCC, Ireland}
+\title{Optimization for Real:\\\small Building a planning and scheduling tool for Siemens Energy} 
+\date{Munster Analytics}
+
+\begin{document}
+
+ %Title page
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Key Points}
+\begin{itemize}
+\item Scheduling/Planning tool for manufacturing industry
+\item Developed as part of European ASSISTANT project
+\item Focused on key make-or-buy decisions
+\item Complex manufacturing process with alternative process paths
+\item Outperforms both current in-house tool and commercial simulator
+\item Key Technology: Optimization and Constraint Programming
+\end{itemize}
+\end{frame}
+
+%\includepdf[pages={2},frame=true,pagecommand={\thispagestyle{empty}}]{InsightOneSlide}
+\begin{frame}
+\frametitle{Insight is one of the largest data research and innovation centres in Europe...}
+\includegraphics[width=\textwidth]{onepage}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Assistant Siemens Energy Use Case}
+\includegraphics[width=\textwidth]{imagesse/assistantgasturbine}
+\end{frame}
+
+\begin{frame}
+\frametitle{ASSISTANT Project Overview}
+\includegraphics[width=.9\textwidth]{imagesse/assistantdigitaltwin}
+\end{frame}
+
+\begin{frame}
+\frametitle{SE Product Routing}
+\includegraphics[width=\textwidth]{imagesse/assistantrouting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Datasets}
+\includegraphics[width=\textwidth]{imagesse/assistantfullscaledatasets}
+\end{frame}
+
+\begin{frame}
+\frametitle{Optimizer High Level Structure}
+\includegraphics[width=.9\textwidth]{imagesse/overview}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Raw Data - Manual Data Entry Causes Problems}
+% \begin{columns}
+% \begin{column}{0.5\textwidth}
+% \begin{itemize}
+% \item Raw data come from spreadsheet
+% \begin{itemize}
+% \item 20 tabs
+% \end{itemize}
+% \item Excel is a particularly bad input data format
+% \item Realistic, not real data
+% \item Created by hand/automatically from existing test scenarios
+% \item Series of files Berlin01 - Berlin05 were too inconsistent to run
+% \item Berlin06 still contains some errors
+% \item Optimizer explains all issues that it finds
+% \end{itemize}
+% \end{column}
+% \begin{column}{0.5\textwidth}
+% \includegraphics[width=.85\textwidth]{imagesse/rawerror}
+% \end{column}
+% \end{columns}
+% \end{frame}
+
+\begin{frame}
+\frametitle{Domain Model - Knowledge Graph}
+\includegraphics[width=.8\textwidth]{imagesse/DomainModel}
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution for Berlin 08a - Shows Only 20\% of Tasks in Model}
+\includegraphics[width=.75\textwidth]{imagesse/solution08apref2}
+\end{frame}
+
+\begin{frame}
+\frametitle{Implementation}
+\begin{itemize}
+\item Requirement capture done inside project
+\item Data checking/cleaning most time consuming aspect
+\item Some specified functionality was rejected by Betriebsrat
+\item Built in Java
+\item Uses IBM's CPOptimizer back-end
+\item 120k LoC, 110k generated, 3k solver
+\item Outperforms both 
+\begin{itemize}
+\item Current in-house tool
+\item Simulation based tool based on commercial simulator 
+\end{itemize}
+\item System installed at SE site, but not in daily use
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Explaining Late Delivery}
+\begin{itemize}
+\item Explain why some orders are delivered late
+\item Find root-cause, show schedule in context
+\end{itemize}
+
+\includegraphics[width=\textwidth]{imagesse/explanation}
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluation - KPIs}
+\begin{tabular}{p{5cm}rrr}\toprule
+KPI & Baseline & Optimizer \\ \midrule
+OTD & > 80 \%  & 92 \%\\
+Bottleneck machine utilization & 99.5 \% & 100 \%\\
+Manufacturing defects & 10-15 \% & < 10 \%\\
+Scenarios in 8 hours & 15-20 & > 100,000 \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+
+% \begin{frame}
+% \frametitle{CPO Keeps on Trucking}
+% \includegraphics[width=.65\textwidth]{imagesse/improving}
+% \end{frame}
+
+\begin{frame}
+\frametitle{Conclusion by Siemens Energy}
+\includegraphics[width=.9\textwidth]{imagesse/quote}
+
+{\tiny from ASSISTANT final project review: Siemens Energy assessment}
+\end{frame}
+
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item Scheduling/Planning tool for manufacturing industry
+\item Developed as part of European ASSISTANT project
+\item Focused on key make-or-buy decisions
+\item Complex manufacturing process with alternative process paths
+\item Outperforms both current in-house tool and commercial simulator
+\item Key Technology: Optimization and Constraint Programming
+\end{itemize}
+\end{frame}
+
+
+\end{document}
+
+\begin{frame}
+\frametitle{}
+\begin{itemize}
+\item
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Real-World Problem
+\begin{itemize}
+\item 
+\end{itemize}
+\item Status
+\begin{itemize}
+\item 
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Research Challenges
+\begin{itemize}
+\item 
+\end{itemize}
+\item Solution Approach
+\begin{itemize}
+\item 
+\end{itemize}
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+
