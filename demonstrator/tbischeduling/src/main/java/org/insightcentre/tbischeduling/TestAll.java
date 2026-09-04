@@ -54,12 +54,19 @@ public class TestAll {
 //        testHfs("nowaithfs/benchmark_instances large/","results/",CPO,null,4,600,overWrite);
 //       analyzeAll(base,"nowaithfs/benchmark_instances large/results/","noWaitHFS (CPO)","nowaithfslargeCPO","CPO");
 
+//       testCfs("cfssomewait/","results/",CPO,null,4,30,overWrite);
+//        testCfs("cfssomewait/","resultsCPSat/",CPSat,null,8,300,overWrite);
+        analyzeAll(base,"cfssomewait/results/","CFS (CPO)","cfsCPO","CPO");
+        analyzeAll(base,"cfssomewait/resultsCPSat/","CFS (CPSat)","cfsCPSat","CPSat");
+        compareSummaries(base,"comparecfs",false,"CPO","CPSat",
+                "Comparison of CPO and CPSat for Results of CFS",GroupType.CFS);
+
 //        testCfs("cfsnowait/","resultsPrec/",CPO,null,4,30,overWrite);
-        testCfs("cfsnowait/","resultsPrecCPSat/",CPSat,null,8,300,overWrite);
-        analyzeAll(base,"cfsnowait/resultsPrec/","CFS (CPO)","cfsCPO","CPO");
-        analyzeAll(base,"cfsnowait/resultsPrecCPSat/","CFS (CPSat)","cfsCPSat","CPSat");
-        compareSummaries(base,"comparecfsprec",false,"CPO","CPSat",
-                "Comparison of CPO and CPSat for Results of CFS prec",GroupType.CFS);
+//        testCfs("cfsnowait/","resultsPrecCPSat/",CPSat,null,8,300,overWrite);
+//        analyzeAll(base,"cfsnowait/resultsPrec/","CFS (CPO)","cfsCPO","CPO");
+//        analyzeAll(base,"cfsnowait/resultsPrecCPSat/","CFS (CPSat)","cfsCPSat","CPSat");
+//        compareSummaries(base,"comparecfsprec",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Results of CFS prec",GroupType.CFS);
 //        testCfs("cfsnowait/","results/",CPO,null,4,30,overWrite);
 //        testCfs("cfsnowait/","resultsCPSat/",CPSat,null,8,300,overWrite);
 //        analyzeAll(base,"cfsnowait/results/","CFSnoWait (CPO)","cfsnowaitCPO","CPO");
@@ -434,7 +441,7 @@ public class TestAll {
                 base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
 
                 // define the format version of the datafiles
-                new ReadCFSNoWaitFile(base, new File(importDir + fileName));
+                new ReadCFSSomeWaitFile(base, new File(importDir + fileName));
                 SolverRun test = new SolverRun(base);
                 test.setName(fileName);
                 test.setSolverStatus(ToRun);
