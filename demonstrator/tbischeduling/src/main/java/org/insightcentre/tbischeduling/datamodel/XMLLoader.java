@@ -114,6 +114,16 @@ public SolutionStatus getSolutionStatus(String attributeName,
             return SolutionStatus.valueOf(e);
         }
     }
+public NoWaitType getNoWaitType(String attributeName,
+                               Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        if (e == null) {
+            System.out.println("NoWaitType"+": "+attributeName);
+            return null;
+        } else {
+            return NoWaitType.valueOf(e);
+        }
+    }
 public ObjectiveType getObjectiveType(String attributeName,
                                Attributes attributes) {
         String e = attributes.getValue(attributeName);
@@ -1209,9 +1219,9 @@ public DurationDisplay getDurationDisplay(String attributeName,
                         id,
                         getString("name", attributes, "dummy"),
                         getString("attrString",attributes,""),
+                        getString("attrlimit",attributes,""),
                         getString("classString",attributes,""),
                         getString("item",attributes,""),
-                        getString("limit",attributes,""),
                         null
                         ));
             } else if (qname.equals("cumulativeLowerBound")) {

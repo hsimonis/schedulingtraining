@@ -19,7 +19,7 @@
 
     public abstract class MatrixTab extends Tab {
 
-    	protected static final String COLUMN_STYLE = "-fx-alignment: CENTER-RIGHT";
+    	protected static String COLUMN_STYLE = "-fx-alignment: CENTER-RIGHT";
 
     	protected Scenario base;
     	protected final TableView<ObservableList<ObjectProperty<ApplicationObject>>> table = new TableView<>();

@@ -24,6 +24,7 @@ import static framework.reports.AbstractCommon.safe;
 import static java.util.stream.Collectors.groupingBy;
 import static org.insightcentre.tbischeduling.JfxApp.requiresDirectory;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
+import static org.insightcentre.tbischeduling.datamodel.NoWaitType.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 import static org.insightcentre.tbischeduling.utilities.TypeConverters.toSolverStatus;
@@ -54,12 +55,16 @@ public class TestAll {
 //        testHfs("nowaithfs/benchmark_instances large/","results/",CPO,null,4,600,overWrite);
 //       analyzeAll(base,"nowaithfs/benchmark_instances large/results/","noWaitHFS (CPO)","nowaithfslargeCPO","CPO");
 
-//       testCfs("cfssomewait/","results/",CPO,null,4,30,overWrite);
-//        testCfs("cfssomewait/","resultsCPSat/",CPSat,null,8,300,overWrite);
-        analyzeAll(base,"cfssomewait/results/","CFS (CPO)","cfsCPO","CPO");
-        analyzeAll(base,"cfssomewait/resultsCPSat/","CFS (CPSat)","cfsCPSat","CPSat");
-        compareSummaries(base,"comparecfs",false,"CPO","CPSat",
-                "Comparison of CPO and CPSat for Results of CFS",GroupType.CFS);
+//        testCfs("cfssomewait/","resultsprec/",CPO,null,4,30,overWrite,Precedence);
+//        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,8,30,overWrite,Precedence);
+        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,30,overWrite,NoWait);
+        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,8,30,overWrite,NoWait);
+//        testCfs("cfssomewait/","resultssomewait/",CPO,null,4,30,overWrite,SomeWait);
+//        testCfs("cfssomewait/","resultssomewaitCPSat/",CPSat,null,8,30,overWrite,SomeWait);
+        analyzeAll(base,"cfssomewait/resultsnowait/","CFS nowait (CPO)","cfsnowaitCPO","CPO");
+        analyzeAll(base,"cfssomewait/resultsnowaitCPSat/","CFS nowait (CPSat)","cfsnowaitCPSat","CPSat");
+        compareSummaries(base,"comparecfsnowait",false,"CPO","CPSat",
+                "Comparison of CPO and CPSat for Results of CFS NoWait",GroupType.CFS);
 
 //        testCfs("cfsnowait/","resultsPrec/",CPO,null,4,30,overWrite);
 //        testCfs("cfsnowait/","resultsPrecCPSat/",CPSat,null,8,300,overWrite);
@@ -422,7 +427,9 @@ public class TestAll {
         }
 
     }
-    private static void testCfs(String importDir,String resultDir,ModelType solver,SolverBackend backEnd,int nrThreads,int timeout,boolean overWrite){
+    private static void testCfs(String importDir,String resultDir,ModelType solver,
+                                SolverBackend backEnd,int nrThreads,int timeout,
+                                boolean overWrite,NoWaitType noWaitChoice){
         assert(importDir.endsWith("/"));
         assert(resultDir.endsWith("/"));
         requiresDirectory(importDir+resultDir);
@@ -441,7 +448,7 @@ public class TestAll {
                 base.setStartDateTime(new DateTime(2024, 10, 1, 0, 0));
 
                 // define the format version of the datafiles
-                new ReadCFSSomeWaitFile(base, new File(importDir + fileName));
+                new ReadCFSSomeWaitFile(base, new File(importDir + fileName),noWaitChoice);
                 SolverRun test = new SolverRun(base);
                 test.setName(fileName);
                 test.setSolverStatus(ToRun);

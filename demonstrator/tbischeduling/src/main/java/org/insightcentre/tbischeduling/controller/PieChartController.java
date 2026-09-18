@@ -63,7 +63,7 @@ public class PieChartController extends ChartController {
 		attributeNames.add("attrString");
 		attributeNames.add("item");
 		attributeNames.add("type");
-		attributeNames.add("limit");
+		attributeNames.add("attrlimit");
 		choicesMap.put("ApplicationWarning", attributeNames);
 		attributeNames = FXCollections.observableArrayList();
 		attributeNames.add("name");

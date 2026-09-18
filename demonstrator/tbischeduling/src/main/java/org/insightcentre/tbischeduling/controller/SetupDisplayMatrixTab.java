@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.controller.MatrixTab;
+import framework.gui.table.StringMatrixCell;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,6 +23,7 @@ public class SetupDisplayMatrixTab extends MatrixTab {
 	public SetupDisplayMatrixTab(Scenario base) {
 		super("Setup Display Matrix", base);
 		table.setEditable(true);
+		COLUMN_STYLE = "-fx-alignment: CENTER-RIGHT";
 	}
 
 	@Override

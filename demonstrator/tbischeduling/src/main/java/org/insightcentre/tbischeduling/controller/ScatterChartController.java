@@ -66,7 +66,7 @@ public class ScatterChartController extends ChartXYFilterController {
 		filterNames.add("attrString");
 		filterNames.add("item");
 		filterNames.add("type");
-		filterNames.add("limit");
+		filterNames.add("attrlimit");
 		filterNames.add("name");
 		filterNames.add("label");
 		filterNames.add("description");

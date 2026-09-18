@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.insightcentre.tbischeduling.datamodel.*;
 import org.insightcentre.tbischeduling.controller.MatrixTab;
+import framework.gui.table.StringMatrixCell;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,6 +23,7 @@ public class CumulativeNeedsMatrixTab extends MatrixTab {
 	public CumulativeNeedsMatrixTab(Scenario base) {
 		super("Cumulative Resource Needs Matrix", base);
 		table.setEditable(true);
+		COLUMN_STYLE = "-fx-alignment: CENTER-RIGHT";
 	}
 
 	@Override

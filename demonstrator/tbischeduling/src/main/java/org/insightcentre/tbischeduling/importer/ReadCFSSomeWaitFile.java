@@ -15,7 +15,7 @@ import static org.insightcentre.tbischeduling.logging.LogShortcut.info;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.severe;
 
 public class ReadCFSSomeWaitFile {
-    public ReadCFSSomeWaitFile(Scenario base, File file){
+    public ReadCFSSomeWaitFile(Scenario base, File file,NoWaitType noWaitChoice){
         Reset.resetData(base);
         DateTime startDate = new DateTime(2024,10,1,0,0);
         base.setStartDateTime(startDate);
@@ -100,9 +100,11 @@ public class ReadCFSSomeWaitFile {
                         pseq.setName("Pseq"+i+"_"+j);
                         pseq.setBefore(prev);
                         pseq.setAfter(ps);
-                        //??? temporary change to allow normal precedence constraints instead of nowait
-//                        pseq.setSequenceType(SequenceType.NoWait);
-                        pseq.setSequenceType(SequenceType.EndBeforeStart);
+                        if (noWaitChoice == NoWaitType.NoWait) {
+                            pseq.setSequenceType(SequenceType.NoWait);
+                        } else {
+                            pseq.setSequenceType(SequenceType.EndBeforeStart);
+                        }
                     }
                     prev = ps;
                 }
@@ -128,7 +130,9 @@ public class ReadCFSSomeWaitFile {
                 info("stage "+stage);
                 for(ProcessSequence pseq:list){
                     info("+");
-                    pseq.setSequenceType(SequenceType.NoWait);
+                    if (noWaitChoice == NoWaitType.SomeWait) {
+                        pseq.setSequenceType(SequenceType.NoWait);
+                    }
 
                 }
             }

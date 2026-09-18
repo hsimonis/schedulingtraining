@@ -42,7 +42,7 @@ public class ApplicationWarningController extends Table3Controller {
 	private TableColumn<ApplicationWarning, WarningType> type;
 
 	@FXML
-	private TableColumn<ApplicationWarning, String> limit;
+	private TableColumn<ApplicationWarning, String> attrlimit;
 
 	private GeneratedJfxApp mainApp;
 
@@ -83,10 +83,10 @@ public class ApplicationWarningController extends Table3Controller {
 		item.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setItem(event.getNewValue()); mainApp.reset();});
 		choices.add("type");
 		type.setCellValueFactory(new PropertyValueFactory<>("type"));
-		choices.add("limit");
-		limit.setCellValueFactory(new PropertyValueFactory<>("limit"));
-		limit.setCellFactory(TextFieldTableCell.forTableColumn());
-		limit.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setLimit(event.getNewValue()); mainApp.reset();});
+		choices.add("attrlimit");
+		attrlimit.setCellValueFactory(new PropertyValueFactory<>("attrlimit"));
+		attrlimit.setCellFactory(TextFieldTableCell.forTableColumn());
+		attrlimit.setOnEditCommit(event -> {table.getSelectionModel().getSelectedItem().setAttrlimit(event.getNewValue()); mainApp.reset();});
 		initialize(choices);
 	}
 
