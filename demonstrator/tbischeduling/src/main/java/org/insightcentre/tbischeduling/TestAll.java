@@ -45,7 +45,7 @@ public class TestAll {
 
     public static void main(String[] args) {
         Scenario base = new Scenario();
-        boolean overWrite = true;
+        boolean overWrite = false;
         int timeout = 300;
 
 //        testHfs("nowaithfs/benchmark_instances 1111/","results/",CPO,null,4,600,overWrite);
@@ -63,7 +63,7 @@ public class TestAll {
 //        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,8,timeout,overWrite,Precedence);
 //        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,timeout,overWrite,NoWait);
 //        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,8,timeout,overWrite,NoWait);
-//        testCfs("cfssomewait/","resultssomewait/",CPO,null,4,timeout,overWrite,SomeWait);
+        testCfs("cfssomewait/","resultssomewait/",CPO,null,4,timeout,overWrite,SomeWait);
 //        testCfs("cfssomewait/","resultssomewaitCPSat/",CPSat,null,8,timeout,overWrite,SomeWait);
 //        analyzeAll(base,"cfssomewait/resultspreconly/","CFS prec only (CPO)","cfspreconlyCPO","CPO");
 //        analyzeAll(base,"cfssomewait/resultspreconlyCPSat/","CFS prec only (CPSat)","cfspreconlyCPSat","CPSat");
