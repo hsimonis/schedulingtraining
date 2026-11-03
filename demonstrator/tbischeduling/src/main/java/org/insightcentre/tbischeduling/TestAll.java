@@ -45,7 +45,9 @@ public class TestAll {
 
     public static void main(String[] args) {
         Scenario base = new Scenario();
-        boolean overWrite = false;
+        boolean overWrite = true;
+        int timeout = 300;
+
 //        testHfs("nowaithfs/benchmark_instances 1111/","results/",CPO,null,4,600,overWrite);
 //        analyzeAll(base,"nowaithfs/benchmark_instances 1111/results/","noWaitHFS (CPO)","nowaithfs1111CPO","CPO");
 //        testHfs("nowaithfs/benchmark_instances 2222/","results/",CPO,null,4,600,overWrite);
@@ -55,16 +57,24 @@ public class TestAll {
 //        testHfs("nowaithfs/benchmark_instances large/","results/",CPO,null,4,600,overWrite);
 //       analyzeAll(base,"nowaithfs/benchmark_instances large/results/","noWaitHFS (CPO)","nowaithfslargeCPO","CPO");
 
-//        testCfs("cfssomewait/","resultsprec/",CPO,null,4,30,overWrite,Precedence);
-//        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,8,30,overWrite,Precedence);
-        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,30,overWrite,NoWait);
-        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,8,30,overWrite,NoWait);
-//        testCfs("cfssomewait/","resultssomewait/",CPO,null,4,30,overWrite,SomeWait);
-//        testCfs("cfssomewait/","resultssomewaitCPSat/",CPSat,null,8,30,overWrite,SomeWait);
-        analyzeAll(base,"cfssomewait/resultsnowait/","CFS nowait (CPO)","cfsnowaitCPO","CPO");
-        analyzeAll(base,"cfssomewait/resultsnowaitCPSat/","CFS nowait (CPSat)","cfsnowaitCPSat","CPSat");
-        compareSummaries(base,"comparecfsnowait",false,"CPO","CPSat",
-                "Comparison of CPO and CPSat for Results of CFS NoWait",GroupType.CFS);
+//        testCfs("cfssomewait/","resultspreconly/",CPO,null,4,timeout,overWrite,PrecedenceOnly);
+//        testCfs("cfssomewait/","resultspreconlyCPSat/",CPSat,null,8,timeout,overWrite,PrecedenceOnly);
+//        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,overWrite,Precedence);
+//        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,8,timeout,overWrite,Precedence);
+//        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,timeout,overWrite,NoWait);
+//        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,8,timeout,overWrite,NoWait);
+//        testCfs("cfssomewait/","resultssomewait/",CPO,null,4,timeout,overWrite,SomeWait);
+//        testCfs("cfssomewait/","resultssomewaitCPSat/",CPSat,null,8,timeout,overWrite,SomeWait);
+//        analyzeAll(base,"cfssomewait/resultspreconly/","CFS prec only (CPO)","cfspreconlyCPO","CPO");
+//        analyzeAll(base,"cfssomewait/resultspreconlyCPSat/","CFS prec only (CPSat)","cfspreconlyCPSat","CPSat");
+//        analyzeAll(base,"cfssomewait/resultsnowait/","CFS nowait (CPO)","cfsnowaitCPO","CPO");
+//        analyzeAll(base,"cfssomewait/resultsnowaitCPSat/","CFS nowait (CPSat)","cfsnowaitCPSat","CPSat");
+//        analyzeAll(base,"cfssomewait/resultsprec/","CFS prec (CPO)","cfsprecCPO","CPO");
+//        analyzeAll(base,"cfssomewait/resultsprecCPSat/","CFS prec (CPSat)","cfsprecCPSat","CPSat");
+        analyzeAll(base,"cfssomewait/resultssomewait/","CFS (CPO)","cfsCPO","CPO");
+//        analyzeAll(base,"cfssomewait/resultsCPSat/","CFS (CPSat)","cfsCPSat","CPSat");
+//        compareSummaries(base,"comparecfsnowait",false,"CPO","CPSat",
+//                "Comparison of CPO and CPSat for Results of CFS NoWait",GroupType.CFS);
 
 //        testCfs("cfsnowait/","resultsPrec/",CPO,null,4,30,overWrite);
 //        testCfs("cfsnowait/","resultsPrecCPSat/",CPSat,null,8,300,overWrite);
@@ -659,14 +669,17 @@ public class TestAll {
         List<String> list =  listFilesUsingJavaIO(resultDir,".json");
         requiresDirectory("reports/");
         String reportFile = "reports/results"+suffix+".tex";
+        String csvFile = "reports/results"+suffix+".csv";
         try{
             PrintWriter out = new PrintWriter(reportFile);
+            PrintWriter csv = new PrintWriter(csvFile);
             out.printf("\\begin{longtable}{lrrllrrrr}\n");
             out.printf("\\caption{Results for %s (%d Instances)}\\\\\\toprule\n",title,list.size());
             out.printf("Name & \\shortstack{Nr\\\\Jobs} & \\shortstack{Nr\\\\Machines} & Capa & Status  & Time & Makespan & Bound & \\shortstack{Gap\\\\Percent}\\\\ \\midrule\n");
             out.printf("\\endhead\n");
             out.printf("\\bottomrule\n");
             out.printf("\\endfoot\n");
+            csv.printf("Name,Nr Jobs,Nr Machines,Capa,Status,Time,Makespan,Bound,Gap Percent\n");
 
 
             for(String fileName:list) {
@@ -726,8 +739,14 @@ public class TestAll {
                         out.printf("%s & %d & %d & %s & %s & %5.2f & %d & %5.2f & %5.2f\\\\\n",
                                 name.replaceAll("_", " "), nrJobs, nrMachines+nrCumulatives, parameter,
                                 status, time, s.getMakespan(), s.getBound(), s.getGapPercent());
+                        csv.printf("%s,%d,%d,%s,%s,%5.2f,%d,%5.2f,%5.2f\n",
+                                name.replaceAll("_", " "), nrJobs, nrMachines+nrCumulatives, parameter,
+                                status, time, s.getMakespan(), s.getBound(), s.getGapPercent());
                     } else {
                         out.printf("%s & %d & %d & %s & %s & %5.2f & - & - & -\\\\\n",
+                                name.replaceAll("_", " "), nrJobs, nrMachines+nrCumulatives, parameter,
+                                status, time);
+                        csv.printf("%s,%d,%d,%s,%s,%5.2f,-,-,-\n",
                                 name.replaceAll("_", " "), nrJobs, nrMachines+nrCumulatives, parameter,
                                 status, time);
 
@@ -742,6 +761,7 @@ public class TestAll {
             }
             out.printf("\\end{longtable}\n\n");
             out.close();
+            csv.close();
 
         } catch(IOException e){
             severe("Cannot write file "+reportFile+", exception "+e.getMessage());

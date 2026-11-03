@@ -2035,7 +2035,7 @@
     "makespan": 386,
     "totalEarliness": 0,
     "endDate": "17/10/2024 02:00",
-    "totalWaitBefore": 599,
+    "totalWaitBefore": 552,
     "nrEarly": 0,
     "percentEarly": 0,
     "duration": 386,
@@ -2045,19 +2045,19 @@
     "solverRun": "80_20_5_50_rep_10.txt",
     "end": 386,
     "weightedEarliness": 0,
-    "totalLateness": 6560,
+    "totalLateness": 6513,
     "maxWaitBefore": 88,
     "bound": 386,
     "solverStatus": "Optimal",
     "start": 0,
-    "totalWaitAfter": 599,
+    "totalWaitAfter": 552,
     "percentLate": 100,
-    "weightedLateness": 6560,
+    "weightedLateness": 6513,
     "maxEarliness": 0,
     "gapPercent": 0,
-    "name": "Sol317",
+    "name": "Sol560",
     "objectiveValue": 386,
-    "flowtime": 6560,
+    "flowtime": 6513,
     "startDate": "1/10/2024 00:00"
   }],
   "taskAssignment": [
@@ -2459,7 +2459,7 @@
     },
     {
       "duration": 9,
-      "waitAfter": 21,
+      "waitAfter": 36,
       "task": "T6_3",
       "endDate": "14/10/2024 01:00",
       "name": "TA33",
@@ -2473,13 +2473,13 @@
       "duration": 28,
       "waitAfter": 0,
       "task": "T6_4",
-      "endDate": "16/10/2024 02:00",
+      "endDate": "16/10/2024 17:00",
       "name": "TA34",
-      "start": 334,
-      "end": 362,
+      "start": 349,
+      "end": 377,
       "jobAssignment": "JA6",
-      "waitBefore": 21,
-      "startDate": "14/10/2024 22:00"
+      "waitBefore": 36,
+      "startDate": "15/10/2024 13:00"
     },
     {
       "duration": 92,
@@ -2639,7 +2639,7 @@
     },
     {
       "duration": 13,
-      "waitAfter": 0,
+      "waitAfter": 18,
       "task": "T9_3",
       "endDate": "12/10/2024 10:00",
       "name": "TA48",
@@ -2653,13 +2653,13 @@
       "duration": 59,
       "waitAfter": 0,
       "task": "T9_4",
-      "endDate": "14/10/2024 21:00",
+      "endDate": "15/10/2024 15:00",
       "name": "TA49",
-      "start": 274,
-      "end": 333,
+      "start": 292,
+      "end": 351,
       "jobAssignment": "JA9",
-      "waitBefore": 0,
-      "startDate": "12/10/2024 10:00"
+      "waitBefore": 18,
+      "startDate": "13/10/2024 04:00"
     },
     {
       "duration": 70,
@@ -2879,7 +2879,7 @@
     },
     {
       "duration": 92,
-      "waitAfter": 80,
+      "waitAfter": 0,
       "task": "T13_3",
       "endDate": "11/10/2024 05:00",
       "name": "TA68",
@@ -2893,13 +2893,13 @@
       "duration": 47,
       "waitAfter": 0,
       "task": "T13_4",
-      "endDate": "16/10/2024 12:00",
+      "endDate": "13/10/2024 04:00",
       "name": "TA69",
-      "start": 325,
-      "end": 372,
+      "start": 245,
+      "end": 292,
       "jobAssignment": "JA13",
-      "waitBefore": 80,
-      "startDate": "14/10/2024 13:00"
+      "waitBefore": 0,
+      "startDate": "11/10/2024 05:00"
     },
     {
       "duration": 42,
@@ -3832,7 +3832,7 @@
     "description": "",
     "enforceTransportTime": false,
     "enforceWip": false,
-    "timeout": 30,
+    "timeout": 300,
     "weightLateness": 1,
     "produceReport": false,
     "addSameOrder": false,
@@ -3846,7 +3846,7 @@
     "weightFlowtime": 1,
     "enforceCumulative": true,
     "name": "80_20_5_50_rep_10.txt",
-    "time": 0.027477900000000003,
+    "time": 0.0277615,
     "enforceDowntime": false,
     "removeSolution": false,
     "enforceReleaseDate": false,
@@ -3855,7 +3855,7 @@
   "jobAssignment": [
     {
       "duration": 319,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 319,
       "endDate": "14/10/2024 07:00",
       "name": "JA0",
@@ -3867,7 +3867,7 @@
     },
     {
       "duration": 266,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 266,
       "endDate": "12/10/2024 02:00",
       "name": "JA1",
@@ -3879,7 +3879,7 @@
     },
     {
       "duration": 282,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 362,
       "endDate": "16/10/2024 02:00",
       "name": "JA2",
@@ -3891,7 +3891,7 @@
     },
     {
       "duration": 381,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 381,
       "endDate": "16/10/2024 21:00",
       "name": "JA3",
@@ -3903,7 +3903,7 @@
     },
     {
       "duration": 273,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 319,
       "endDate": "14/10/2024 07:00",
       "name": "JA4",
@@ -3915,7 +3915,7 @@
     },
     {
       "duration": 329,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 366,
       "endDate": "16/10/2024 06:00",
       "name": "JA5",
@@ -3926,20 +3926,20 @@
       "startDate": "2/10/2024 13:00"
     },
     {
-      "duration": 276,
-      "solution": "Sol317",
-      "late": 362,
-      "endDate": "16/10/2024 02:00",
+      "duration": 291,
+      "solution": "Sol560",
+      "late": 377,
+      "endDate": "16/10/2024 17:00",
       "name": "JA6",
       "start": 86,
-      "end": 362,
+      "end": 377,
       "job": "J6",
       "early": 0,
       "startDate": "4/10/2024 14:00"
     },
     {
       "duration": 228,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 228,
       "endDate": "10/10/2024 12:00",
       "name": "JA7",
@@ -3951,7 +3951,7 @@
     },
     {
       "duration": 300,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 300,
       "endDate": "13/10/2024 12:00",
       "name": "JA8",
@@ -3962,20 +3962,20 @@
       "startDate": "1/10/2024 00:00"
     },
     {
-      "duration": 260,
-      "solution": "Sol317",
-      "late": 333,
-      "endDate": "14/10/2024 21:00",
+      "duration": 278,
+      "solution": "Sol560",
+      "late": 351,
+      "endDate": "15/10/2024 15:00",
       "name": "JA9",
       "start": 73,
-      "end": 333,
+      "end": 351,
       "job": "J9",
       "early": 0,
       "startDate": "4/10/2024 01:00"
     },
     {
       "duration": 314,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 365,
       "endDate": "16/10/2024 05:00",
       "name": "JA10",
@@ -3987,7 +3987,7 @@
     },
     {
       "duration": 325,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 325,
       "endDate": "14/10/2024 13:00",
       "name": "JA11",
@@ -3999,7 +3999,7 @@
     },
     {
       "duration": 262,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 313,
       "endDate": "14/10/2024 01:00",
       "name": "JA12",
@@ -4010,20 +4010,20 @@
       "startDate": "3/10/2024 03:00"
     },
     {
-      "duration": 372,
-      "solution": "Sol317",
-      "late": 372,
-      "endDate": "16/10/2024 12:00",
+      "duration": 292,
+      "solution": "Sol560",
+      "late": 292,
+      "endDate": "13/10/2024 04:00",
       "name": "JA13",
       "start": 0,
-      "end": 372,
+      "end": 292,
       "job": "J13",
       "early": 0,
       "startDate": "1/10/2024 00:00"
     },
     {
       "duration": 211,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 257,
       "endDate": "11/10/2024 17:00",
       "name": "JA14",
@@ -4035,7 +4035,7 @@
     },
     {
       "duration": 349,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 349,
       "endDate": "15/10/2024 13:00",
       "name": "JA15",
@@ -4047,7 +4047,7 @@
     },
     {
       "duration": 386,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 386,
       "endDate": "17/10/2024 02:00",
       "name": "JA16",
@@ -4059,7 +4059,7 @@
     },
     {
       "duration": 208,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 237,
       "endDate": "10/10/2024 21:00",
       "name": "JA17",
@@ -4071,7 +4071,7 @@
     },
     {
       "duration": 266,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 334,
       "endDate": "14/10/2024 22:00",
       "name": "JA18",
@@ -4083,7 +4083,7 @@
     },
     {
       "duration": 386,
-      "solution": "Sol317",
+      "solution": "Sol560",
       "late": 386,
       "endDate": "17/10/2024 02:00",
       "name": "JA19",

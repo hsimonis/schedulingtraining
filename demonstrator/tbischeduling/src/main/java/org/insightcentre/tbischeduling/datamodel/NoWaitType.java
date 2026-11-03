@@ -90,6 +90,12 @@ public enum NoWaitType{
  *
 */
 
+PrecedenceOnly,
+    /**
+ *  
+ *
+*/
+
 Precedence,
     /**
  *  

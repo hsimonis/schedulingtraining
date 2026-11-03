@@ -45,15 +45,17 @@ public class ReadCFSSomeWaitFile {
             String processing = scanner.next();
 
             CumulativeResource[] cumulativeResources = new CumulativeResource[nrStages];
-            for(int i=0;i<nrStages;i++){
-                CumulativeResource c = new CumulativeResource(base);
-                c.setName("C"+i);
-                CumulativeProfile cf = new CumulativeProfile(base);
-                cf.setName("CF"+i);
-                cf.setCumulativeResource(c);
-                cf.setFrom(0);
-                cf.setCapacity(capacity);
-                cumulativeResources[i] = c;
+            if (noWaitChoice != NoWaitType.PrecedenceOnly) {
+                for (int i = 0; i < nrStages; i++) {
+                    CumulativeResource c = new CumulativeResource(base);
+                    c.setName("C" + i);
+                    CumulativeProfile cf = new CumulativeProfile(base);
+                    cf.setName("CF" + i);
+                    cf.setCumulativeResource(c);
+                    cf.setFrom(0);
+                    cf.setCapacity(capacity);
+                    cumulativeResources[i] = c;
+                }
             }
             ProcessStep[][] processSteps = new ProcessStep[nrOrders][nrStages];
 
@@ -110,14 +112,16 @@ public class ReadCFSSomeWaitFile {
                 }
             }
             String size = scanner.next();
-            for(int i=0;i<nrOrders;i++){
-                for(int j=0;j<nrStages;j++){
-                    int demand = scanner.nextInt();
-                    CumulativeNeed cn = new CumulativeNeed(base);
-                    cn.setName("CN"+i+"_"+j);
-                    cn.setDemand(demand);
-                    cn.setProcessStep(processSteps[i][j]);
-                    cn.setCumulativeResource(cumulativeResources[j]);
+            if (noWaitChoice != NoWaitType.PrecedenceOnly) {
+                for (int i = 0; i < nrOrders; i++) {
+                    for (int j = 0; j < nrStages; j++) {
+                        int demand = scanner.nextInt();
+                        CumulativeNeed cn = new CumulativeNeed(base);
+                        cn.setName("CN" + i + "_" + j);
+                        cn.setDemand(demand);
+                        cn.setProcessStep(processSteps[i][j]);
+                        cn.setCumulativeResource(cumulativeResources[j]);
+                    }
                 }
             }
             String noWait = scanner.next();
