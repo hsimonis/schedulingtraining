@@ -62,7 +62,7 @@ public class TestAll {
 //        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,overWrite,Precedence);
 //        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,8,timeout,overWrite,Precedence);
 //        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,timeout,overWrite,NoWait);
-//        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,8,timeout,overWrite,NoWait);
+        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,8,timeout,overWrite,NoWait);
 //        testCfs("cfssomewait/","resultssomewait/",CPO,null,4,timeout,overWrite,SomeWait);
 //        testCfs("cfssomewait/","resultssomewaitCPSat/",CPSat,null,8,timeout,overWrite,SomeWait);
 //        analyzeAll(base,"cfssomewait/resultspreconly/","CFS prec only (CPO)","cfspreconlyCPO","CPO");
