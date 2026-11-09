@@ -46,8 +46,13 @@ public class TestAll {
     public static void main(String[] args) {
         Scenario base = new Scenario();
         boolean overWrite = false;
-        int timeout = 3600;
+        int timeout = 300;
         int seed=42;
+        int runs=10;
+
+        for(int i=1;i<runs;i++){
+            testCfs("cfssomewait/","resultsprec/",CPO,null,i,timeout,9,i,overWrite,Precedence);
+        }
 
 //        testHfs("nowaithfs/benchmark_instances 1111/","results/",CPO,null,4,600,overWrite);
 //        analyzeAll(base,"nowaithfs/benchmark_instances 1111/results/","noWaitHFS (CPO)","nowaithfs1111CPO","CPO");
@@ -60,7 +65,7 @@ public class TestAll {
 
 //        testCfs("cfssomewait/","resultspreconly/",CPO,null,4,timeout,seed,overWrite,PrecedenceOnly);
 //        testCfs("cfssomewait/","resultspreconlyCPSat/",CPSat,null,8,timeout,seed,overWrite,PrecedenceOnly);
-        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,seed,overWrite,Precedence);
+//        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,seed,overWrite,Precedence);
 //        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,8,timeout,seed,overWrite,Precedence);
 //        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,timeout,seed,overWrite,NoWait);
 //        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,8,timeout,seed,overWrite,NoWait);
@@ -70,7 +75,7 @@ public class TestAll {
 //        analyzeAll(base,"cfssomewait/resultspreconlyCPSat/","CFS prec only (CPSat)","cfspreconlyCPSat","CPSat");
 //        analyzeAll(base,"cfssomewait/resultsnowait/","CFS nowait (CPO)","cfsnowaitCPO","CPO");
 //        analyzeAll(base,"cfssomewait/resultsnowaitCPSat/","CFS nowait (CPSat)","cfsnowaitCPSat","CPSat");
-        analyzeAll(base,"cfssomewait/resultsprec/","CFS prec (CPO)","cfsprecCPO","CPO");
+//        analyzeAll(base,"cfssomewait/resultsprec/","CFS prec (CPO)","cfsprecCPO","CPO");
 //        analyzeAll(base,"cfssomewait/resultsprecCPSat/","CFS prec (CPSat)","cfsprecCPSat","CPSat");
 //        analyzeAll(base,"cfssomewait/resultssomewait/","CFS (CPO)","cfssomewaitCPO","CPO");
 //        analyzeAll(base,"cfssomewait/resultsCPSat/","CFS (CPSat)","cfssomwaitCPSat","CPSat");
@@ -439,7 +444,7 @@ public class TestAll {
 
     }
     private static void testCfs(String importDir,String resultDir,ModelType solver,
-                                SolverBackend backEnd,int nrThreads,int timeout,int seed,
+                                SolverBackend backEnd,int nrThreads,int timeout,int seed,int nr,
                                 boolean overWrite,NoWaitType noWaitChoice){
         assert(importDir.endsWith("/"));
         assert(resultDir.endsWith("/"));
@@ -447,8 +452,8 @@ public class TestAll {
         List<String> list =  listFilesUsingJavaIO(importDir,".txt");
 
         for(String fileName:list.stream().sorted(Comparator.comparing(TestAll::hfsNr)).toList()) {
-            String outputFile = importDir+resultDir+ fileName.replaceAll(".txt",".json");
-            if (overWrite || (!new File(outputFile).exists() /*&& fileName.startsWith("instance_n=50_")*/)) {
+            String outputFile = importDir+resultDir+ fileName.replaceAll(".txt","_"+seed+"_"+nrThreads+"_"+nr+".json");
+            if (overWrite || (!new File(outputFile).exists() && fileName.startsWith("445_"))) {
                 info("trying file " + fileName);
 
                 Scenario base = new Scenario();

@@ -350,12 +350,12 @@ public class CPOModel extends AbstractModel{
                         CumulativeProfile prev = null;
                         for (CumulativeProfile profile : profiles) {
                             if (prev != null) {
-                                info("Always in "+r.getName()+" from "+prev.getFrom()+" "+profile.getFrom()+" cap "+prev.getCapacity());
+//                                info("Always in "+r.getName()+" from "+prev.getFrom()+" "+profile.getFrom()+" cap "+prev.getCapacity());
                                 cp.add(cp.alwaysIn(expr, prev.getFrom(), profile.getFrom(), 0, prev.getCapacity()));
                             }
                             prev = profile;
                         }
-                        info("Always In "+r.getName()+" from "+prev.getFrom()+" "+base.getHorizon()+" cap "+prev.getCapacity());
+//                        info("Always In "+r.getName()+" from "+prev.getFrom()+" "+base.getHorizon()+" cap "+prev.getCapacity());
                         cp.add(cp.alwaysIn(expr, prev.getFrom(), base.getHorizon(), 0, prev.getCapacity()));
                     }
                 }

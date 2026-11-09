@@ -146,6 +146,8 @@ public class WriteData {
         root.put("jobAssignment",jobAssignments());
         root.put("taskAssignment",taskAssignments());
 
+        root.put("intermediate",intermediateSolutions());
+
 
 
         return root;
@@ -593,6 +595,25 @@ public class WriteData {
         tObj.put("waitAfter",ta.getWaitAfter());
         return tObj;
 
+    }
+
+    private JSONArray intermediateSolutions(){
+        JSONArray res = new JSONArray();
+        for(IntermediateSolution im:base.getListIntermediateSolution()){
+            JSONObject obj = intermediateSolution(im);
+            res.put(obj);
+        }
+        return res;
+    }
+
+    private JSONObject intermediateSolution(IntermediateSolution sol){
+        JSONObject obj = new JSONObject();
+        obj.put("cost",sol.getCost());
+        obj.put("time",sol.getTime());
+        obj.put("bound",sol.getBound());
+        obj.put("nr",sol.getNr());
+        obj.put("gapPercent",sol.getGapPercent());
+        return obj;
     }
 
  }

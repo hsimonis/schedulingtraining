@@ -131,9 +131,9 @@ public class ReadCFSSomeWaitFile {
             for(int i=0;i<timeCnt;i++){
                 int stage = scanner.nextInt();
                 List<ProcessSequence> list = base.getListProcessSequence().stream().filter(x->x.getBefore().getStage()==stage).toList();
-                info("stage "+stage);
+//               info("stage "+stage);
                 for(ProcessSequence pseq:list){
-                    info("+");
+//                    info("+");
                     if (noWaitChoice == NoWaitType.SomeWait) {
                         pseq.setSequenceType(SequenceType.NoWait);
                     }
