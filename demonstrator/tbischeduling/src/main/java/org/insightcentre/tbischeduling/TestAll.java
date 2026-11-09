@@ -46,7 +46,8 @@ public class TestAll {
     public static void main(String[] args) {
         Scenario base = new Scenario();
         boolean overWrite = false;
-        int timeout = 300;
+        int timeout = 3600;
+        int seed=42;
 
 //        testHfs("nowaithfs/benchmark_instances 1111/","results/",CPO,null,4,600,overWrite);
 //        analyzeAll(base,"nowaithfs/benchmark_instances 1111/results/","noWaitHFS (CPO)","nowaithfs1111CPO","CPO");
@@ -57,19 +58,19 @@ public class TestAll {
 //        testHfs("nowaithfs/benchmark_instances large/","results/",CPO,null,4,600,overWrite);
 //       analyzeAll(base,"nowaithfs/benchmark_instances large/results/","noWaitHFS (CPO)","nowaithfslargeCPO","CPO");
 
-//        testCfs("cfssomewait/","resultspreconly/",CPO,null,4,timeout,overWrite,PrecedenceOnly);
-//        testCfs("cfssomewait/","resultspreconlyCPSat/",CPSat,null,8,timeout,overWrite,PrecedenceOnly);
-//        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,overWrite,Precedence);
-//        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,8,timeout,overWrite,Precedence);
-//        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,timeout,overWrite,NoWait);
-        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,8,timeout,overWrite,NoWait);
-//        testCfs("cfssomewait/","resultssomewait/",CPO,null,4,timeout,overWrite,SomeWait);
-//        testCfs("cfssomewait/","resultssomewaitCPSat/",CPSat,null,8,timeout,overWrite,SomeWait);
+//        testCfs("cfssomewait/","resultspreconly/",CPO,null,4,timeout,seed,overWrite,PrecedenceOnly);
+//        testCfs("cfssomewait/","resultspreconlyCPSat/",CPSat,null,8,timeout,seed,overWrite,PrecedenceOnly);
+        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,seed,overWrite,Precedence);
+//        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,8,timeout,seed,overWrite,Precedence);
+//        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,timeout,seed,overWrite,NoWait);
+//        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,8,timeout,seed,overWrite,NoWait);
+//        testCfs("cfssomewait/","resultssomewait/",CPO,null,4,timeout,seed,overWrite,SomeWait);
+//        testCfs("cfssomewait/","resultssomewaitCPSat/",CPSat,null,8,timeout,seed,overWrite,SomeWait);
 //        analyzeAll(base,"cfssomewait/resultspreconly/","CFS prec only (CPO)","cfspreconlyCPO","CPO");
 //        analyzeAll(base,"cfssomewait/resultspreconlyCPSat/","CFS prec only (CPSat)","cfspreconlyCPSat","CPSat");
 //        analyzeAll(base,"cfssomewait/resultsnowait/","CFS nowait (CPO)","cfsnowaitCPO","CPO");
-        analyzeAll(base,"cfssomewait/resultsnowaitCPSat/","CFS nowait (CPSat)","cfsnowaitCPSat","CPSat");
-//        analyzeAll(base,"cfssomewait/resultsprec/","CFS prec (CPO)","cfsprecCPO","CPO");
+//        analyzeAll(base,"cfssomewait/resultsnowaitCPSat/","CFS nowait (CPSat)","cfsnowaitCPSat","CPSat");
+        analyzeAll(base,"cfssomewait/resultsprec/","CFS prec (CPO)","cfsprecCPO","CPO");
 //        analyzeAll(base,"cfssomewait/resultsprecCPSat/","CFS prec (CPSat)","cfsprecCPSat","CPSat");
 //        analyzeAll(base,"cfssomewait/resultssomewait/","CFS (CPO)","cfssomewaitCPO","CPO");
 //        analyzeAll(base,"cfssomewait/resultsCPSat/","CFS (CPSat)","cfssomwaitCPSat","CPSat");
@@ -438,7 +439,7 @@ public class TestAll {
 
     }
     private static void testCfs(String importDir,String resultDir,ModelType solver,
-                                SolverBackend backEnd,int nrThreads,int timeout,
+                                SolverBackend backEnd,int nrThreads,int timeout,int seed,
                                 boolean overWrite,NoWaitType noWaitChoice){
         assert(importDir.endsWith("/"));
         assert(resultDir.endsWith("/"));
@@ -476,6 +477,7 @@ public class TestAll {
                 test.setSolverBackend(backEnd);
                 test.setObjectiveType(ObjectiveType.Makespan);
                 test.setNrThreads(nrThreads);
+                test.setSeed(seed);
 
 //            info("Nr SolverRun " + base.getListSolverRun().size());
                 for (SolverRun run : base.getListSolverRun().stream().filter(x -> x.getSolverStatus() == ToRun).toList()) {
