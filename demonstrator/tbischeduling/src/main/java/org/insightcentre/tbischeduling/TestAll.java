@@ -11,6 +11,7 @@ import org.insightcentre.tbischeduling.implementedsolver.MiniZincDiffnModel;
 import org.insightcentre.tbischeduling.importer.*;
 import org.insightcentre.tbischeduling.utilities.Group;
 import org.insightcentre.tbischeduling.utilities.GroupType;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -26,6 +27,7 @@ import static org.insightcentre.tbischeduling.JfxApp.requiresDirectory;
 import static org.insightcentre.tbischeduling.datamodel.ModelType.*;
 import static org.insightcentre.tbischeduling.datamodel.NoWaitType.*;
 import static org.insightcentre.tbischeduling.datamodel.SolverStatus.*;
+import static org.insightcentre.tbischeduling.importer.Reset.resetAll;
 import static org.insightcentre.tbischeduling.logging.LogShortcut.*;
 import static org.insightcentre.tbischeduling.utilities.TypeConverters.toSolverStatus;
 
@@ -43,16 +45,18 @@ public class TestAll {
     }
 
 
+
     public static void main(String[] args) {
         Scenario base = new Scenario();
         boolean overWrite = false;
-        int timeout = 300;
+        int timeout = 3600;
         int seed=42;
-        int runs=10;
+        int runs=22;
+        int nrThreads = 20;
 
-        for(int i=1;i<runs;i++){
-            testCfs("cfssomewait/","resultsprec/",CPO,null,i,timeout,9,i,overWrite,Precedence);
-        }
+//        for(int i=1;i<runs;i++){
+//            testCfs("cfssomewait/","resultsnowait/",CPSat,null,i,timeout,42,i,overWrite,Precedence);
+//        }
 
 //        testHfs("nowaithfs/benchmark_instances 1111/","results/",CPO,null,4,600,overWrite);
 //        analyzeAll(base,"nowaithfs/benchmark_instances 1111/results/","noWaitHFS (CPO)","nowaithfs1111CPO","CPO");
@@ -65,16 +69,16 @@ public class TestAll {
 
 //        testCfs("cfssomewait/","resultspreconly/",CPO,null,4,timeout,seed,overWrite,PrecedenceOnly);
 //        testCfs("cfssomewait/","resultspreconlyCPSat/",CPSat,null,8,timeout,seed,overWrite,PrecedenceOnly);
-//        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,seed,overWrite,Precedence);
+//        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,seed,0,overWrite,Precedence);
 //        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,8,timeout,seed,overWrite,Precedence);
-//        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,timeout,seed,overWrite,NoWait);
-//        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,8,timeout,seed,overWrite,NoWait);
+        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,timeout,seed,0,overWrite,NoWait);
+        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,nrThreads,timeout,seed,0,overWrite,NoWait);
 //        testCfs("cfssomewait/","resultssomewait/",CPO,null,4,timeout,seed,overWrite,SomeWait);
 //        testCfs("cfssomewait/","resultssomewaitCPSat/",CPSat,null,8,timeout,seed,overWrite,SomeWait);
 //        analyzeAll(base,"cfssomewait/resultspreconly/","CFS prec only (CPO)","cfspreconlyCPO","CPO");
 //        analyzeAll(base,"cfssomewait/resultspreconlyCPSat/","CFS prec only (CPSat)","cfspreconlyCPSat","CPSat");
-//        analyzeAll(base,"cfssomewait/resultsnowait/","CFS nowait (CPO)","cfsnowaitCPO","CPO");
-//        analyzeAll(base,"cfssomewait/resultsnowaitCPSat/","CFS nowait (CPSat)","cfsnowaitCPSat","CPSat");
+        analyzeAll(base,"cfssomewait/resultsnowait/","CFS nowait (CPO)","cfsnowaitCPO","CPO");
+        analyzeAll(base,"cfssomewait/resultsnowaitCPSat/","CFS nowait (CPSat)","cfsnowaitCPSat","CPSat");
 //        analyzeAll(base,"cfssomewait/resultsprec/","CFS prec (CPO)","cfsprecCPO","CPO");
 //        analyzeAll(base,"cfssomewait/resultsprecCPSat/","CFS prec (CPSat)","cfsprecCPSat","CPSat");
 //        analyzeAll(base,"cfssomewait/resultssomewait/","CFS (CPO)","cfssomewaitCPO","CPO");
@@ -452,8 +456,9 @@ public class TestAll {
         List<String> list =  listFilesUsingJavaIO(importDir,".txt");
 
         for(String fileName:list.stream().sorted(Comparator.comparing(TestAll::hfsNr)).toList()) {
-            String outputFile = importDir+resultDir+ fileName.replaceAll(".txt","_"+seed+"_"+nrThreads+"_"+nr+".json");
-            if (overWrite || (!new File(outputFile).exists() && fileName.startsWith("445_"))) {
+            String outputFile = importDir+resultDir+ fileName.replaceAll(".txt",".json");
+//            String outputFile = importDir+resultDir+ fileName.replaceAll(".txt","_"+seed+"_"+nrThreads+"_"+nr+".json");
+            if (overWrite || (!new File(outputFile).exists()/* && fileName.startsWith("445_")*/)) {
                 info("trying file " + fileName);
 
                 Scenario base = new Scenario();
