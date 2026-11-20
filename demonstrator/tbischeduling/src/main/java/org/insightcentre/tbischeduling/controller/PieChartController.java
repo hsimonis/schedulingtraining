@@ -653,6 +653,31 @@ public class PieChartController extends ChartController {
 		attributeNames.add("w");
 		attributeNames.add("h");
 		choicesMap.put("PlacedRectangle", attributeNames);
+		attributeNames = FXCollections.observableArrayList();
+		attributeNames.add("name");
+		attributeNames.add("nr");
+		attributeNames.add("nrJobs");
+		attributeNames.add("nrStages");
+		attributeNames.add("capacity");
+		attributeNames.add("localFS");
+		attributeNames.add("localPNW");
+		attributeNames.add("localNW");
+		attributeNames.add("cpFS");
+		attributeNames.add("cpPNW");
+		attributeNames.add("cpNW");
+		attributeNames.add("boundFS");
+		attributeNames.add("boundPNW");
+		attributeNames.add("boundNW");
+		attributeNames.add("gapFS");
+		attributeNames.add("gapPNW");
+		attributeNames.add("gapNW");
+		attributeNames.add("fsCPOCost");
+		attributeNames.add("fsCPSatCost");
+		attributeNames.add("pnwCPOCost");
+		attributeNames.add("pnwCPSatCost");
+		attributeNames.add("nwCPOCost");
+		attributeNames.add("nwCPSatCost");
+		choicesMap.put("Summary", attributeNames);
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -805,6 +830,9 @@ public class PieChartController extends ChartController {
 			}
 			else if (className.equals("PlacedRectangle")) {
 				objectList = mainApp.getPlacedRectangleData();
+			}
+			else if (className.equals("Summary")) {
+				objectList = mainApp.getSummaryData();
 			}
 			if (objectList != null) {
 				Map<String, Integer> countMap = new HashMap<String, Integer>();

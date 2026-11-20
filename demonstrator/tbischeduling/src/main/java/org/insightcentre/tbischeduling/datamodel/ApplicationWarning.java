@@ -48,6 +48,7 @@ import org.insightcentre.tbischeduling.datamodel.DisjunctiveLowerBound;
 import org.insightcentre.tbischeduling.datamodel.CumulativeLowerBound;
 import org.insightcentre.tbischeduling.datamodel.MachineGroupLowerBound;
 import org.insightcentre.tbischeduling.datamodel.PlacedRectangle;
+import org.insightcentre.tbischeduling.datamodel.Summary;
 import org.insightcentre.tbischeduling.datamodel.DifferenceType;
 import org.insightcentre.tbischeduling.datamodel.WarningType;
 import org.insightcentre.tbischeduling.datamodel.SequenceType;

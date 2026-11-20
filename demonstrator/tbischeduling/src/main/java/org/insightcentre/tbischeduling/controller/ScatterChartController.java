@@ -998,6 +998,56 @@ public class ScatterChartController extends ChartXYFilterController {
 		attributeNames = FXCollections.observableArrayList();
 		filterNames = FXCollections.observableArrayList();
 		filterNames.add(filterNone);
+		filterNames.add("name");
+		attributeNames.add("nr");
+		filterNames.add("nr");
+		attributeNames.add("nrJobs");
+		filterNames.add("nrJobs");
+		attributeNames.add("nrStages");
+		filterNames.add("nrStages");
+		attributeNames.add("capacity");
+		filterNames.add("capacity");
+		attributeNames.add("localFS");
+		filterNames.add("localFS");
+		attributeNames.add("localPNW");
+		filterNames.add("localPNW");
+		attributeNames.add("localNW");
+		filterNames.add("localNW");
+		attributeNames.add("cpFS");
+		filterNames.add("cpFS");
+		attributeNames.add("cpPNW");
+		filterNames.add("cpPNW");
+		attributeNames.add("cpNW");
+		filterNames.add("cpNW");
+		attributeNames.add("boundFS");
+		filterNames.add("boundFS");
+		attributeNames.add("boundPNW");
+		filterNames.add("boundPNW");
+		attributeNames.add("boundNW");
+		filterNames.add("boundNW");
+		attributeNames.add("gapFS");
+		filterNames.add("gapFS");
+		attributeNames.add("gapPNW");
+		filterNames.add("gapPNW");
+		attributeNames.add("gapNW");
+		filterNames.add("gapNW");
+		attributeNames.add("fsCPOCost");
+		filterNames.add("fsCPOCost");
+		attributeNames.add("fsCPSatCost");
+		filterNames.add("fsCPSatCost");
+		attributeNames.add("pnwCPOCost");
+		filterNames.add("pnwCPOCost");
+		attributeNames.add("pnwCPSatCost");
+		filterNames.add("pnwCPSatCost");
+		attributeNames.add("nwCPOCost");
+		filterNames.add("nwCPOCost");
+		attributeNames.add("nwCPSatCost");
+		filterNames.add("nwCPSatCost");
+		choicesMap.put("Summary", attributeNames);
+		filterMap.put("Summary", filterNames);
+		attributeNames = FXCollections.observableArrayList();
+		filterNames = FXCollections.observableArrayList();
+		filterNames.add(filterNone);
 		ObservableList<String> classes = FXCollections.observableArrayList();
 		classes.addAll(choicesMap.keySet());
 		classChoiceBox.getItems().addAll(classes);
@@ -1158,6 +1208,9 @@ public class ScatterChartController extends ChartXYFilterController {
 			}
 			else if (className.equals("PlacedRectangle")) {
 				objectList = mainApp.getPlacedRectangleData();
+			}
+			else if (className.equals("Summary")) {
+				objectList = mainApp.getSummaryData();
 			}
 			if (objectList != null) {
 				XYChart.Series series = new XYChart.Series();

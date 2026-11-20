@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+
+<!--Generated code-->
+
+
+<Tab text="Summary" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.insightcentre.tbischeduling.controller.SummaryController">
+   <BorderPane>
+      <center>
+         <TableView fx:id="table" editable="true">
+            <columns>
+               <TableColumn fx:id="name" styleClass="right-aligned" text="Name" />
+               <TableColumn fx:id="nr" styleClass="right-aligned" text="Nr" />
+               <TableColumn fx:id="nrJobs" styleClass="right-aligned" text="NrJobs" />
+               <TableColumn fx:id="nrStages" styleClass="right-aligned" text="NrStages" />
+               <TableColumn fx:id="capacity" styleClass="right-aligned" text="Capacity" />
+               <TableColumn fx:id="localFS" styleClass="right-aligned" text="LocalFS" />
+               <TableColumn fx:id="localPNW" styleClass="right-aligned" text="LocalPNW" />
+               <TableColumn fx:id="localNW" styleClass="right-aligned" text="LocalNW" />
+               <TableColumn fx:id="cpFS" styleClass="right-aligned" text="CpFS" />
+               <TableColumn fx:id="cpPNW" styleClass="right-aligned" text="CpPNW" />
+               <TableColumn fx:id="cpNW" styleClass="right-aligned" text="CpNW" />
+               <TableColumn fx:id="boundFS" styleClass="right-aligned" text="BoundFS" />
+               <TableColumn fx:id="boundPNW" styleClass="right-aligned" text="BoundPNW" />
+               <TableColumn fx:id="boundNW" styleClass="right-aligned" text="BoundNW" />
+               <TableColumn fx:id="gapFS" styleClass="right-aligned" text="GapFS" />
+               <TableColumn fx:id="gapPNW" styleClass="right-aligned" text="GapPNW" />
+               <TableColumn fx:id="gapNW" styleClass="right-aligned" text="GapNW" />
+               <TableColumn fx:id="fsCPOCost" styleClass="right-aligned" text="FsCPOCost" />
+               <TableColumn fx:id="fsCPSatCost" styleClass="right-aligned" text="FsCPSatCost" />
+               <TableColumn fx:id="pnwCPOCost" styleClass="right-aligned" text="PnwCPOCost" />
+               <TableColumn fx:id="pnwCPSatCost" styleClass="right-aligned" text="PnwCPSatCost" />
+               <TableColumn fx:id="nwCPOCost" styleClass="right-aligned" text="NwCPOCost" />
+               <TableColumn fx:id="nwCPSatCost" styleClass="right-aligned" text="NwCPSatCost" />
+            </columns>
+         </TableView>
+      </center>
+      <bottom>
+         <TitledPane fx:id="filterPane" expanded="false" text="Filter">
+            <content>
+               <HBox alignment="center" spacing="5.0">
+                  <ChoiceBox fx:id="filterChoiceBox" />
+                  <ChoiceBox fx:id="filterComparisonBox" />
+                  <TextField fx:id="filterTextField" />
+               </HBox>
+            </content>
+         </TitledPane>
+      </bottom>
+   </BorderPane>
+</Tab>

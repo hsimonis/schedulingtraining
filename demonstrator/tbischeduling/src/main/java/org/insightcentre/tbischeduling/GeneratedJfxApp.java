@@ -70,6 +70,7 @@ import org.insightcentre.tbischeduling.datamodel.SolutionError;
 import org.insightcentre.tbischeduling.datamodel.SolutionSummary;
 import org.insightcentre.tbischeduling.datamodel.SolverProperty;
 import org.insightcentre.tbischeduling.datamodel.SolverRun;
+import org.insightcentre.tbischeduling.datamodel.Summary;
 import org.insightcentre.tbischeduling.datamodel.Task;
 import org.insightcentre.tbischeduling.datamodel.TaskAssignment;
 import org.insightcentre.tbischeduling.datamodel.Transport;
@@ -191,12 +192,15 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	private ObservableList<PlacedRectangle> placedRectangleData = FXCollections.observableArrayList();
 
+	private ObservableList<Summary> summaryData = FXCollections.observableArrayList();
+
 	public GeneratedJfxApp() {
 		super("tbischeduling", "ENTIRE EDIH Test Before Invest - Scheduling - University College Cork", "*.data", "data/");
 		fs = minimalDataset();
 		reset();
 		tableViews.put("SolutionSummary", "SolutionSummary");
 		tableViews.put("PlacedRectangle", "PlacedRectangle");
+		tableViews.put("Summary", "Summary");
 		tableViews.put("Scenario", "Scenario");
 		tableViews.put("Scenario Differences", "ApplicationDifference");
 		tableViews.put("Warnings", "ApplicationWarning");
@@ -406,6 +410,8 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 		machineGroupLowerBoundData.addAll(base.getListMachineGroupLowerBound());
 		placedRectangleData.clear();
 		placedRectangleData.addAll(base.getListPlacedRectangle());
+		summaryData.clear();
+		summaryData.addAll(base.getListSummary());
 		for (BaseController controller : controllers) {
 			controller.setMainApp(this);
 		}
@@ -789,5 +795,9 @@ public class GeneratedJfxApp extends AbstractJfxMainWindow {
 
 	public ObservableList<PlacedRectangle> getPlacedRectangleData() {
 		return placedRectangleData;
+	}
+
+	public ObservableList<Summary> getSummaryData() {
+		return summaryData;
 	}
 }

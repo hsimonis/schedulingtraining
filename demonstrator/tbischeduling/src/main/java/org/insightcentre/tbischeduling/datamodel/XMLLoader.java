@@ -1061,6 +1061,25 @@ public DurationDisplay getDurationDisplay(String attributeName,
         return res;
     }
 
+    public Summary getSummary(String attributeName,
+                               Attributes attributes) {
+        return (Summary) find(getId(attributeName,attributes));
+    }
+
+    public List<Summary> getSummaryCollectionFromIds(String attributeName,
+                                     Attributes attributes) {
+        String e = attributes.getValue(attributeName);
+        String[] words = e.split(" ");
+        List<Summary> res = new ArrayList<Summary>();
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                int id = Integer.parseInt(words[i].substring(3));
+                res.add((Summary) find(id));
+            }
+        }
+        return res;
+    }
+
     public Task getTask(String attributeName,
                                Attributes attributes) {
         return (Task) find(getId(attributeName,attributes));
@@ -1756,6 +1775,35 @@ public DurationDisplay getDurationDisplay(String attributeName,
                         null,
                         getDouble("time",attributes,0.0)
                         ));
+            } else if (qname.equals("summary")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                store(id, new Summary(base,
+                        id,
+                        getString("name", attributes, "dummy"),
+                        getInteger("boundFS",attributes,0),
+                        getInteger("boundNW",attributes,0),
+                        getInteger("boundPNW",attributes,0),
+                        getInteger("capacity",attributes,0),
+                        getInteger("cpFS",attributes,0),
+                        getInteger("cpNW",attributes,0),
+                        getInteger("cpPNW",attributes,0),
+                        getInteger("fsCPOCost",attributes,0),
+                        getInteger("fsCPSatCost",attributes,0),
+                        getDouble("gapFS",attributes,0.0),
+                        getDouble("gapNW",attributes,0.0),
+                        getDouble("gapPNW",attributes,0.0),
+                        getInteger("localFS",attributes,0),
+                        getInteger("localNW",attributes,0),
+                        getInteger("localPNW",attributes,0),
+                        getInteger("nr",attributes,0),
+                        getInteger("nrJobs",attributes,0),
+                        getInteger("nrStages",attributes,0),
+                        getInteger("nwCPOCost",attributes,0),
+                        getInteger("nwCPSatCost",attributes,0),
+                        getInteger("pnwCPOCost",attributes,0),
+                        getInteger("pnwCPSatCost",attributes,0)
+                        ));
             } else if (qname.equals("task")) {
                 assert (base != null);
                 int id = getId("id", attributes);
@@ -2056,6 +2104,10 @@ public DurationDisplay getDurationDisplay(String attributeName,
                  item.setObjectiveType(getObjectiveType("objectiveType",attributes));
                  item.setSolverBackend(getSolverBackend("solverBackend",attributes));
                  item.setSolverStatus(getSolverStatus("solverStatus",attributes));
+            } else if (qname.equals("summary")) {
+                assert (base != null);
+                int id = getId("id", attributes);
+                Summary item = (Summary) find(id);
             } else if (qname.equals("task")) {
                 assert (base != null);
                 int id = getId("id", attributes);
