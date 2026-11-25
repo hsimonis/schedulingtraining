@@ -33,7 +33,7 @@
 \section{Intermediate}
 
 \begin{tikzpicture}
-\begin{axis}[title=Intermediate Solutions for Instance 441 nowait,xlabel=Time (s),ylabel=Cost,,width=12cm,height=12cm]
+\begin{semilogxaxis}[title=Intermediate Solutions for Instance 441 nowait,xlabel=Time (s),ylabel=Cost,,width=23cm,height=12cm]
 \addplot+[] coordinates {
     (0.0480000,8978.00)
     (0.0490000,8531.00)
@@ -195,6 +195,11 @@
 };
 \addlegendentry{Cost CPSat}
 \addplot+[] coordinates {
+    (30.1600,6670.00)
+    (61.5000,6670.00)
+};
+\addlegendentry{Cost LS}
+\addplot+[] coordinates {
     (0.0480000,683.000)
     (0.0490000,683.000)
     (0.0620000,683.000)
@@ -354,7 +359,7 @@
     (3125.55,3477.00)
 };
 \addlegendentry{Bound CPSat}
-\end{axis}
+\end{semilogxaxis}
 \end{tikzpicture}
 
 \end{document}

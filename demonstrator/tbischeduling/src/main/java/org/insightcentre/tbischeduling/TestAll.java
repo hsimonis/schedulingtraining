@@ -69,8 +69,8 @@ public class TestAll {
 
 //        testCfs("cfssomewait/","resultspreconly/",CPO,null,4,timeout,seed,overWrite,PrecedenceOnly);
 //        testCfs("cfssomewait/","resultspreconlyCPSat/",CPSat,null,8,timeout,seed,overWrite,PrecedenceOnly);
-//        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,seed,0,overWrite,Precedence);
-        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,nrThreads,timeout,seed,0,overWrite,Precedence);
+        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,seed,0,overWrite,Precedence);
+//        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,nrThreads,timeout,seed,0,overWrite,Precedence);
 //        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,timeout,seed,0,overWrite,NoWait);
 //        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,nrThreads,timeout,seed,0,overWrite,NoWait);
 //        testCfs("cfssomewait/","resultssomewait/",CPO,null,4,timeout,seed,0,overWrite,SomeWait);
@@ -79,8 +79,8 @@ public class TestAll {
 //        analyzeAll(base,"cfssomewait/resultspreconlyCPSat/","CFS prec only (CPSat)","cfspreconlyCPSat","CPSat");
 //        analyzeAll(base,"cfssomewait/resultsnowait/","CFS nowait (CPO)","cfsnowaitCPO","CPO");
 //        analyzeAll(base,"cfssomewait/resultsnowaitCPSat/","CFS nowait (CPSat)","cfsnowaitCPSat","CPSat");
-//        analyzeAll(base,"cfssomewait/resultsprec/","CFS prec (CPO)","cfsprecCPO","CPO");
-        analyzeAll(base,"cfssomewait/resultsprecCPSat/","CFS prec (CPSat)","cfsprecCPSat","CPSat");
+        analyzeAll(base,"cfssomewait/resultsprec/","CFS prec (CPO)","cfsprecCPO","CPO");
+//        analyzeAll(base,"cfssomewait/resultsprecCPSat/","CFS prec (CPSat)","cfsprecCPSat","CPSat");
 //        analyzeAll(base,"cfssomewait/resultssomewait/","CFS (CPO)","cfssomewaitCPO","CPO");
 //        analyzeAll(base,"cfssomewait/resultssomewaitCPSat/","CFS (CPSat)","cfssomewaitCPSat","CPSat");
 //        compareSummaries(base,"comparecfsnowait",false,"CPO","CPSat",
