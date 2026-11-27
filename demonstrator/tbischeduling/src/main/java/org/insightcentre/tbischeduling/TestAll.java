@@ -49,7 +49,7 @@ public class TestAll {
     public static void main(String[] args) {
         Scenario base = new Scenario();
         boolean overWrite = false;
-        int timeout = 3600;
+        int timeout = 1800;
         int seed=42;
         int runs=22;
         int nrThreads = 20;
@@ -69,7 +69,7 @@ public class TestAll {
 
 //        testCfs("cfssomewait/","resultspreconly/",CPO,null,4,timeout,seed,overWrite,PrecedenceOnly);
 //        testCfs("cfssomewait/","resultspreconlyCPSat/",CPSat,null,8,timeout,seed,overWrite,PrecedenceOnly);
-        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,seed,0,overWrite,Precedence);
+///        testCfs("cfssomewait/","resultsprec/",CPO,null,4,timeout,seed,0,overWrite,Precedence);
 //        testCfs("cfssomewait/","resultsprecCPSat/",CPSat,null,nrThreads,timeout,seed,0,overWrite,Precedence);
 //        testCfs("cfssomewait/","resultsnowait/",CPO,null,4,timeout,seed,0,overWrite,NoWait);
 //        testCfs("cfssomewait/","resultsnowaitCPSat/",CPSat,null,nrThreads,timeout,seed,0,overWrite,NoWait);
